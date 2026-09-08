@@ -452,6 +452,32 @@ body.menu-open{
   font-size:16px;
 }
 
+
+/* ADMIN MENU */
+
+#adminMenuSection{
+  display:none;
+}
+
+.admin-menu-link{
+  color:#ffb05d;
+
+  border-color:
+    rgba(255,117,28,.22);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,90,0,.09),
+      rgba(0,160,220,.05)
+    );
+}
+
+.admin-menu-link .menu-icon{
+  color:#ff751c;
+}
+
+
 .menu-website{
   display:block;
 
@@ -1219,14 +1245,10 @@ TEAM WOLFPACK
 </header>
 
 
-
-<!-- MENU BACKDROP -->
-
 <div
   id="menuBackdrop"
   class="menu-backdrop"
 ></div>
-
 
 
 <!-- =========================================
@@ -1274,50 +1296,31 @@ MAIN
 
 <nav class="menu-nav">
 
-<a
-  class="menu-link"
-  href="index.html"
->
+<a class="menu-link" href="index.html">
 <span class="menu-icon">⌂</span>
 <span>HOME</span>
 <span class="menu-arrow">›</span>
 </a>
 
-
-<a
-  class="menu-link"
-  href="fights.html"
->
+<a class="menu-link" href="fights.html">
 <span class="menu-icon">♜</span>
 <span>FIGHTS</span>
 <span class="menu-arrow">›</span>
 </a>
 
-
-<a
-  class="menu-link active"
-  href="fighters.html"
->
+<a class="menu-link active" href="fighters.html">
 <span class="menu-icon">♟</span>
 <span>FIGHTERS</span>
 <span class="menu-arrow">›</span>
 </a>
 
-
-<a
-  class="menu-link"
-  href="pack.html"
->
+<a class="menu-link" href="pack.html">
 <span class="menu-icon">◆</span>
 <span>MEET THE PACK</span>
 <span class="menu-arrow">›</span>
 </a>
 
-
-<a
-  class="menu-link chat"
-  href="chat.html"
->
+<a class="menu-link chat" href="chat.html">
 <span class="menu-icon">●</span>
 <span>PACK CHAT</span>
 <span class="menu-arrow">›</span>
@@ -1333,76 +1336,67 @@ EXPLORE
 
 <nav class="menu-nav">
 
-<a
-  class="menu-link"
-  href="sponsors.html"
->
+<a class="menu-link" href="sponsors.html">
 <span class="menu-icon">★</span>
 <span>SPONSORS &amp; PARTNERS</span>
 <span class="menu-arrow">›</span>
 </a>
 
-
-<a
-  class="menu-link"
-  href="Gallery.html"
->
+<a class="menu-link" href="Gallery.html">
 <span class="menu-icon">▣</span>
 <span>GALLERY</span>
 <span class="menu-arrow">›</span>
 </a>
 
-
-<a
-  class="menu-link"
-  href="merch.html"
->
+<a class="menu-link" href="merch.html">
 <span class="menu-icon">◇</span>
 <span>MERCH</span>
 <span class="menu-arrow">›</span>
 </a>
 
-
-<a
-  class="menu-link"
-  href="contact.html"
->
+<a class="menu-link" href="contact.html">
 <span class="menu-icon">✉</span>
 <span>CONTACT</span>
 <span class="menu-arrow">›</span>
 </a>
 
-
-<a
-  class="menu-link"
-  href="socials.html"
->
+<a class="menu-link" href="socials.html">
 <span class="menu-icon">◎</span>
 <span>SOCIALS</span>
 <span class="menu-arrow">›</span>
 </a>
 
-
-<a
-  class="menu-link"
-  href="about.html"
->
+<a class="menu-link" href="about.html">
 <span class="menu-icon">ⓘ</span>
 <span>ABOUT</span>
 <span class="menu-arrow">›</span>
 </a>
 
+</nav>
+
+
+<!-- ADMIN ONLY -->
+
+<div id="adminMenuSection">
+
+<div class="menu-section-label">
+ADMIN
+</div>
+
+<nav class="menu-nav">
 
 <a
-  class="menu-link"
-  href="more.html"
+  class="menu-link admin-menu-link"
+  href="admin-dashboard.html"
 >
-<span class="menu-icon">•••</span>
-<span>MORE</span>
+<span class="menu-icon">⚙</span>
+<span>ADMIN DASHBOARD</span>
 <span class="menu-arrow">›</span>
 </a>
 
 </nav>
+
+</div>
 
 
 <a
@@ -1415,7 +1409,6 @@ VISIT OFFICIAL WEBSITE
 </a>
 
 </aside>
-
 
 
 <!-- =========================================
@@ -1453,15 +1446,12 @@ WOLFIE
 </section>
 
 
-
 <!-- =========================================
      MAIN PROFILE
      ========================================= -->
 
 <main class="content">
 
-
-<!-- PHOTO -->
 
 <div class="profile-photo-wrap">
 
@@ -1486,10 +1476,7 @@ ZOEY “MRS WOLFIE” JAMES
 </div>
 
 
-
-<!-- =========================================
-     PROFILE INFORMATION
-     ========================================= -->
+<!-- PROFILE INFORMATION -->
 
 <section class="section">
 
@@ -1498,82 +1485,38 @@ FIGHTER INFORMATION
 </div>
 
 <h2 class="section-title">
-
-<span class="ice">
-PROFILE
-</span>
-
-<span class="fire">
-DETAILS
-</span>
-
+<span class="ice">PROFILE</span>
+<span class="fire">DETAILS</span>
 </h2>
-
 
 <div class="profile-box">
 
-
 <div class="info-row">
-
-<span class="label">
-NAME
-</span>
-
-<span class="value">
-Zoey “Mrs Wolfie” James
-</span>
-
+<span class="label">NAME</span>
+<span class="value">Zoey “Mrs Wolfie” James</span>
 </div>
 
-
 <div class="info-row">
-
-<span class="label">
-TEAM
-</span>
-
-<span class="value">
-Team Wolfie
-</span>
-
+<span class="label">TEAM</span>
+<span class="value">Team Wolfie</span>
 </div>
 
-
 <div class="info-row">
-
-<span class="label">
-ROLE
-</span>
-
-<span class="value">
-Boxer
-</span>
-
+<span class="label">ROLE</span>
+<span class="value">Boxer</span>
 </div>
 
-
 <div class="info-row">
-
-<span class="label">
-REPRESENTING
-</span>
-
-<span class="value">
-Team Wolfpack
-</span>
-
+<span class="label">REPRESENTING</span>
+<span class="value">Team Wolfpack</span>
 </div>
-
 
 </div>
 
 </section>
 
 
-
-<!-- =========================================
-     ABOUT
-     ========================================= -->
+<!-- ABOUT -->
 
 <section class="section">
 
@@ -1582,17 +1525,9 @@ THE STORY
 </div>
 
 <h2 class="section-title">
-
-<span class="ice">
-ABOUT
-</span>
-
-<span class="fire">
-MRS WOLFIE
-</span>
-
+<span class="ice">ABOUT</span>
+<span class="fire">MRS WOLFIE</span>
 </h2>
-
 
 <div class="about-card">
 
@@ -1641,10 +1576,7 @@ strength, unity and purpose.
 </section>
 
 
-
-<!-- =========================================
-     BOXING STATISTICS
-     ========================================= -->
+<!-- BOXING STATISTICS -->
 
 <section class="section">
 
@@ -1653,69 +1585,33 @@ FIGHT RECORD
 </div>
 
 <h2 class="section-title">
-
-<span class="ice">
-BOXING
-</span>
-
-<span class="fire">
-STATISTICS
-</span>
-
+<span class="ice">BOXING</span>
+<span class="fire">STATISTICS</span>
 </h2>
-
 
 <div class="stats">
 
+<div class="stat">
+<div class="stat-letter">WINS</div>
+<div class="stat-number">1</div>
+</div>
 
 <div class="stat">
-
-<div class="stat-letter">
-WINS
+<div class="stat-letter">LOSSES</div>
+<div class="stat-number">2</div>
 </div>
-
-<div class="stat-number">
-1
-</div>
-
-</div>
-
 
 <div class="stat">
-
-<div class="stat-letter">
-LOSSES
+<div class="stat-letter">DRAWS</div>
+<div class="stat-number">0</div>
 </div>
-
-<div class="stat-number">
-2
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<div class="stat-letter">
-DRAWS
-</div>
-
-<div class="stat-number">
-0
-</div>
-
-</div>
-
 
 </div>
 
 </section>
 
 
-
-<!-- =========================================
-     PAST EVENTS
-     ========================================= -->
+<!-- PAST EVENTS -->
 
 <section class="section">
 
@@ -1724,20 +1620,10 @@ FIGHT HISTORY
 </div>
 
 <h2 class="section-title">
-
-<span class="ice">
-PAST
-</span>
-
-<span class="fire">
-EVENTS
-</span>
-
+<span class="ice">PAST</span>
+<span class="fire">EVENTS</span>
 </h2>
 
-
-
-<!-- EVENT 1 -->
 
 <div class="event">
 
@@ -1764,9 +1650,6 @@ L
 </div>
 
 
-
-<!-- EVENT 2 -->
-
 <div class="event">
 
 <div class="event-name">
@@ -1791,9 +1674,6 @@ L
 
 </div>
 
-
-
-<!-- EVENT 3 -->
 
 <div class="event">
 
@@ -1820,9 +1700,6 @@ W
 </div>
 
 
-
-<!-- EVENT 4 -->
-
 <div class="event">
 
 <div class="event-name">
@@ -1847,14 +1724,10 @@ THE VENUE
 
 </div>
 
-
 </section>
 
 
-
-<!-- =========================================
-     UPCOMING FIGHTS
-     ========================================= -->
+<!-- UPCOMING FIGHTS -->
 
 <section class="section">
 
@@ -1863,29 +1736,16 @@ WHAT'S NEXT
 </div>
 
 <h2 class="section-title">
-
-<span class="ice">
-UPCOMING
-</span>
-
-<span class="fire">
-FIGHTS
-</span>
-
+<span class="ice">UPCOMING</span>
+<span class="fire">FIGHTS</span>
 </h2>
 
-
-
-<!-- AYRSHIRE -->
 
 <div class="upcoming">
 
 <div class="upcoming-badge">
-
 <span class="upcoming-dot"></span>
-
 UPCOMING
-
 </div>
 
 <div class="event-name">
@@ -1907,17 +1767,11 @@ AYR RACECOURSE • FIGHT TYPE: DEBUT
 </div>
 
 
-
-<!-- EASTHOUSES -->
-
 <div class="upcoming">
 
 <div class="upcoming-badge">
-
 <span class="upcoming-dot"></span>
-
 UPCOMING
-
 </div>
 
 <div class="event-name">
@@ -1938,12 +1792,8 @@ EASTHOUSES MINERS CLUB • SUPER MIDDLEWEIGHT TITLE
 
 </div>
 
-
 </section>
 
-
-
-<!-- BACK TO FIGHTERS -->
 
 <a
   class="back"
@@ -1959,14 +1809,11 @@ EASTHOUSES MINERS CLUB • SUPER MIDDLEWEIGHT TITLE
 </a>
 
 
-
 <footer class="app-footer">
 TEAM WOLFPACK • STRENGTH IN UNITY
 </footer>
 
-
 </main>
-
 
 
 <!-- =========================================
@@ -1976,39 +1823,25 @@ TEAM WOLFPACK • STRENGTH IN UNITY
 <script>
 
 const menuButton =
-  document.getElementById(
-    "menuButton"
-  );
+  document.getElementById("menuButton");
 
 const closeMenuButton =
-  document.getElementById(
-    "closeMenuButton"
-  );
+  document.getElementById("closeMenuButton");
 
 const sideMenu =
-  document.getElementById(
-    "sideMenu"
-  );
+  document.getElementById("sideMenu");
 
 const menuBackdrop =
-  document.getElementById(
-    "menuBackdrop"
-  );
+  document.getElementById("menuBackdrop");
 
 
 function openMenu(){
 
-  sideMenu.classList.add(
-    "show"
-  );
+  sideMenu.classList.add("show");
 
-  menuBackdrop.classList.add(
-    "show"
-  );
+  menuBackdrop.classList.add("show");
 
-  document.body.classList.add(
-    "menu-open"
-  );
+  document.body.classList.add("menu-open");
 
   menuButton.setAttribute(
     "aria-expanded",
@@ -2020,17 +1853,11 @@ function openMenu(){
 
 function closeMenu(){
 
-  sideMenu.classList.remove(
-    "show"
-  );
+  sideMenu.classList.remove("show");
 
-  menuBackdrop.classList.remove(
-    "show"
-  );
+  menuBackdrop.classList.remove("show");
 
-  document.body.classList.remove(
-    "menu-open"
-  );
+  document.body.classList.remove("menu-open");
 
   menuButton.setAttribute(
     "aria-expanded",
@@ -2045,26 +1872,21 @@ menuButton.addEventListener(
   openMenu
 );
 
-
 closeMenuButton.addEventListener(
   "click",
   closeMenu
 );
-
 
 menuBackdrop.addEventListener(
   "click",
   closeMenu
 );
 
-
 document.addEventListener(
   "keydown",
   function(event){
 
-    if(
-      event.key === "Escape"
-    ){
+    if(event.key === "Escape"){
       closeMenu();
     }
 
@@ -2073,22 +1895,90 @@ document.addEventListener(
 
 
 document
-  .querySelectorAll(
-    ".menu-link"
-  )
-  .forEach(
-    function(link){
+  .querySelectorAll(".menu-link")
+  .forEach(function(link){
 
-      link.addEventListener(
-        "click",
-        closeMenu
-      );
+    link.addEventListener(
+      "click",
+      closeMenu
+    );
 
-    }
-  );
+  });
 
 </script>
 
+
+<!-- =========================================
+     ADMIN DASHBOARD VISIBILITY
+     ========================================= -->
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+  authDomain: "team-wolfpack-app.firebaseapp.com",
+  databaseURL: "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "team-wolfpack-app",
+  storageBucket: "team-wolfpack-app.firebasestorage.app",
+  messagingSenderId: "1070414578856",
+  appId: "1:1070414578856:web:df14e7d387e658eeae2e9d",
+  measurementId: "G-6JTCE2N9LZ"
+};
+
+
+const firebaseApp =
+  initializeApp(firebaseConfig);
+
+const auth =
+  getAuth(firebaseApp);
+
+
+const ADMIN_UIDS =
+  new Set([
+    "PRGa9TsCW0QDn1QtoUXyYjEi7YB3",
+    "SlpEQYl94DaH6j42QUyl8Kv2ujJ3"
+  ]);
+
+
+const adminMenuSection =
+  document.getElementById(
+    "adminMenuSection"
+  );
+
+
+onAuthStateChanged(
+  auth,
+  function(user){
+
+    if(
+      user &&
+      ADMIN_UIDS.has(user.uid)
+    ){
+
+      adminMenuSection.style.display =
+        "block";
+
+    }else{
+
+      adminMenuSection.style.display =
+        "none";
+
+    }
+
+  }
+);
+
+</script>
 
 
 <!-- =========================================
@@ -2097,9 +1987,7 @@ document
 
 <script>
 
-if(
-  "serviceWorker" in navigator
-){
+if("serviceWorker" in navigator){
 
   window.addEventListener(
     "load",
@@ -2118,7 +2006,5 @@ if(
 
 </script>
 
-
 </body>
-
 </html>
