@@ -58,9 +58,19 @@ body{
   min-height:100vh;
   min-height:100dvh;
 
-  font-family:Arial, Helvetica, sans-serif;
+  padding-top:
+    calc(
+      66px +
+      env(safe-area-inset-top)
+    );
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
 
   color:#fff;
+
   overflow-x:hidden;
 
   background:
@@ -92,11 +102,19 @@ body.menu-open{
    ========================================= */
 
 .app-bar{
-  position:sticky;
+  position:fixed;
+
   top:0;
+  left:0;
+  right:0;
+
   z-index:500;
 
-  height:calc(66px + env(safe-area-inset-top));
+  height:
+    calc(
+      66px +
+      env(safe-area-inset-top)
+    );
 
   padding:
     env(safe-area-inset-top)
@@ -104,20 +122,30 @@ body.menu-open{
     0;
 
   display:grid;
-  grid-template-columns:46px 1fr 46px;
+
+  grid-template-columns:
+    46px
+    1fr
+    46px;
 
   align-items:center;
 
-  background:rgba(4,4,4,.94);
+  background:
+    rgba(4,4,4,.96);
 
   border-bottom:
-    1px solid rgba(255,255,255,.10);
+    1px solid
+    rgba(255,255,255,.10);
 
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
+  backdrop-filter:
+    blur(18px);
+
+  -webkit-backdrop-filter:
+    blur(18px);
 
   box-shadow:
-    0 8px 30px rgba(0,0,0,.28);
+    0 8px 30px
+    rgba(0,0,0,.38);
 }
 
 .menu-button{
@@ -131,7 +159,8 @@ body.menu-open{
   border-radius:12px;
 
   border:
-    1px solid rgba(103,220,255,.22);
+    1px solid
+    rgba(103,220,255,.22);
 
   background:
     rgba(0,150,210,.07);
@@ -139,11 +168,13 @@ body.menu-open{
   color:#67dcff;
 
   cursor:pointer;
+
   font-size:24px;
 }
 
 .app-bar-brand{
   display:flex;
+
   align-items:center;
   justify-content:center;
 
@@ -189,6 +220,7 @@ body.menu-open{
   height:42px;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 }
@@ -202,7 +234,8 @@ body.menu-open{
   background:#43f27b;
 
   box-shadow:
-    0 0 9px rgba(67,242,123,.75);
+    0 0 9px
+    rgba(67,242,123,.75);
 }
 
 
@@ -212,17 +245,23 @@ body.menu-open{
 
 .menu-backdrop{
   position:fixed;
+
   inset:0;
 
   z-index:800;
 
   visibility:hidden;
+
   opacity:0;
 
-  background:rgba(0,0,0,.72);
+  background:
+    rgba(0,0,0,.72);
 
-  backdrop-filter:blur(3px);
-  -webkit-backdrop-filter:blur(3px);
+  backdrop-filter:
+    blur(3px);
+
+  -webkit-backdrop-filter:
+    blur(3px);
 
   transition:
     opacity .25s ease,
@@ -250,16 +289,26 @@ body.menu-open{
 
   width:min(84vw,340px);
 
-  transform:translateX(-105%);
+  transform:
+    translateX(-105%);
 
-  transition:transform .28s ease;
+  transition:
+    transform .28s ease;
 
   overflow-y:auto;
 
+  overscroll-behavior:contain;
+
   padding:
-    calc(18px + env(safe-area-inset-top))
+    calc(
+      18px +
+      env(safe-area-inset-top)
+    )
     15px
-    calc(25px + env(safe-area-inset-bottom));
+    calc(
+      25px +
+      env(safe-area-inset-bottom)
+    );
 
   background:
     radial-gradient(
@@ -275,14 +324,17 @@ body.menu-open{
     #080808;
 
   border-right:
-    1px solid rgba(103,220,255,.20);
+    1px solid
+    rgba(103,220,255,.20);
 
   box-shadow:
-    20px 0 50px rgba(0,0,0,.55);
+    20px 0 50px
+    rgba(0,0,0,.55);
 }
 
 .side-menu.show{
-  transform:translateX(0);
+  transform:
+    translateX(0);
 }
 
 .menu-header{
@@ -295,7 +347,8 @@ body.menu-open{
     5px;
 
   border-bottom:
-    1px solid rgba(255,255,255,.09);
+    1px solid
+    rgba(255,255,255,.09);
 }
 
 .menu-logo{
@@ -350,7 +403,8 @@ body.menu-open{
   border-radius:10px;
 
   border:
-    1px solid rgba(255,117,28,.25);
+    1px solid
+    rgba(255,117,28,.25);
 
   background:
     rgba(255,90,0,.07);
@@ -363,7 +417,10 @@ body.menu-open{
 }
 
 .menu-section-label{
-  margin:20px 8px 8px;
+  margin:
+    20px
+    8px
+    8px;
 
   color:#666;
 
@@ -375,6 +432,7 @@ body.menu-open{
 
 .menu-nav{
   display:flex;
+
   flex-direction:column;
 
   gap:4px;
@@ -382,11 +440,14 @@ body.menu-open{
 
 .menu-link{
   display:flex;
+
   align-items:center;
 
   min-height:48px;
 
-  padding:9px 11px;
+  padding:
+    9px
+    11px;
 
   border-radius:10px;
 
@@ -395,7 +456,8 @@ body.menu-open{
   color:#d7d7d7;
 
   border:
-    1px solid transparent;
+    1px solid
+    transparent;
 
   font-size:10px;
   font-weight:900;
@@ -404,7 +466,8 @@ body.menu-open{
 }
 
 .menu-link:active{
-  transform:scale(.985);
+  transform:
+    scale(.985);
 }
 
 .menu-link.active{
@@ -438,13 +501,18 @@ body.menu-open{
 .menu-icon{
   width:34px;
 
-  flex:0 0 34px;
+  flex:
+    0 0 34px;
 
   text-align:center;
 
   color:#67dcff;
 
   font-size:17px;
+}
+
+.menu-link.active .menu-icon{
+  color:#67dcff;
 }
 
 .menu-arrow{
@@ -469,7 +537,8 @@ body.menu-open{
   border-radius:10px;
 
   border:
-    1px solid rgba(103,220,255,.28);
+    1px solid
+    rgba(103,220,255,.28);
 
   background:
     linear-gradient(
@@ -534,10 +603,12 @@ body.menu-open{
 
   filter:
     drop-shadow(
-      0 0 13px rgba(51,201,255,.23)
+      0 0 13px
+      rgba(51,201,255,.23)
     )
     drop-shadow(
-      0 0 13px rgba(255,92,0,.20)
+      0 0 13px
+      rgba(255,92,0,.20)
     );
 }
 
@@ -598,7 +669,10 @@ body.menu-open{
   padding:
     28px
     16px
-    calc(45px + env(safe-area-inset-bottom));
+    calc(
+      45px +
+      env(safe-area-inset-bottom)
+    );
 }
 
 .content-heading{
@@ -639,7 +713,8 @@ body.menu-open{
 .pack-grid{
   display:grid;
 
-  grid-template-columns:1fr;
+  grid-template-columns:
+    1fr;
 
   gap:15px;
 }
@@ -669,7 +744,8 @@ body.menu-open{
   border-radius:17px;
 
   border:
-    1px solid rgba(255,255,255,.12);
+    1px solid
+    rgba(255,255,255,.12);
 
   text-decoration:none;
 
@@ -684,7 +760,8 @@ body.menu-open{
     );
 
   box-shadow:
-    0 12px 32px rgba(0,0,0,.32);
+    0 12px 32px
+    rgba(0,0,0,.32);
 }
 
 .member-card::before{
@@ -701,7 +778,8 @@ body.menu-open{
   background:#4bd8ff;
 
   box-shadow:
-    0 0 12px rgba(75,216,255,.50);
+    0 0 12px
+    rgba(75,216,255,.50);
 
   z-index:4;
 }
@@ -720,13 +798,21 @@ body.menu-open{
   background:#ff6500;
 
   box-shadow:
-    0 0 12px rgba(255,101,0,.45);
+    0 0 12px
+    rgba(255,101,0,.45);
 
   z-index:4;
 }
 
+a.member-card{
+  transition:
+    transform .15s ease,
+    border-color .15s ease;
+}
+
 a.member-card:active{
-  transform:scale(.985);
+  transform:
+    scale(.985);
 }
 
 
@@ -746,7 +832,9 @@ a.member-card:active{
   display:block;
 
   object-fit:cover;
-  object-position:center top;
+
+  object-position:
+    center top;
 
   z-index:1;
 
@@ -778,6 +866,7 @@ a.member-card:active{
 .member-role,
 .view{
   position:relative;
+
   z-index:3;
 }
 
@@ -797,7 +886,8 @@ a.member-card:active{
   border-radius:20px;
 
   border:
-    1px solid rgba(103,220,255,.20);
+    1px solid
+    rgba(103,220,255,.20);
 
   background:
     rgba(103,220,255,.06);
@@ -819,18 +909,19 @@ a.member-card:active{
   background:#43f27b;
 
   box-shadow:
-    0 0 6px rgba(67,242,123,.65);
+    0 0 6px
+    rgba(67,242,123,.65);
 }
 
 .member-team{
+  margin-bottom:7px;
+
+  color:#67dcff;
+
   font-size:8px;
   font-weight:900;
 
   letter-spacing:2px;
-
-  color:#67dcff;
-
-  margin-bottom:7px;
 }
 
 .member-name{
@@ -877,61 +968,17 @@ a.member-card:active{
 
 
 /* =========================================
-   BACK BUTTON
-   ========================================= */
-
-.back{
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  width:100%;
-
-  margin-top:22px;
-
-  padding:14px;
-
-  text-align:center;
-
-  text-decoration:none;
-
-  color:#fff;
-
-  border:
-    1px solid rgba(91,217,255,.45);
-
-  border-radius:10px;
-
-  font-size:9px;
-  font-weight:900;
-
-  letter-spacing:1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(0,160,220,.10),
-      rgba(255,90,0,.10)
-    );
-}
-
-.back:active{
-  transform:scale(.985);
-}
-
-
-/* =========================================
    FOOTER
    ========================================= */
 
 .app-footer{
-  margin-top:28px;
+  margin-top:30px;
 
   padding-top:20px;
 
   border-top:
-    1px solid rgba(255,255,255,.07);
+    1px solid
+    rgba(255,255,255,.07);
 
   text-align:center;
 
@@ -1078,14 +1125,14 @@ TEAM WOLFPACK
 </header>
 
 
-
-<!-- MENU BACKDROP -->
+<!-- =========================================
+     MENU BACKDROP
+     ========================================= -->
 
 <div
   id="menuBackdrop"
   class="menu-backdrop"
 ></div>
-
 
 
 <!-- =========================================
@@ -1276,7 +1323,6 @@ VISIT OFFICIAL WEBSITE
 </aside>
 
 
-
 <!-- =========================================
      PAGE HERO
      ========================================= -->
@@ -1312,7 +1358,6 @@ The people behind Team Wolfpack.
 </section>
 
 
-
 <!-- =========================================
      CONTENT
      ========================================= -->
@@ -1337,7 +1382,6 @@ Meet the people who make up Team Wolfpack.
 </div>
 
 
-
 <div class="pack-grid">
 
 
@@ -1353,25 +1397,18 @@ Meet the people who make up Team Wolfpack.
   alt="Chris Mr Wolfie"
 >
 
-
 <div class="member-status">
-
 <span class="status-dot"></span>
-
 CO-FOUNDER
-
 </div>
-
 
 <div class="member-team">
 TEAM WOLFPACK • TEAM WOLFIE
 </div>
 
-
 <div class="member-name">
 MR WOLFIE
 </div>
-
 
 <div class="member-role">
 Co-Founder &amp; Joint Owner of Team Wolfpack
@@ -1380,7 +1417,6 @@ Manager to Team Wolfie
 </div>
 
 </div>
-
 
 
 <!-- =========================================
@@ -1405,25 +1441,18 @@ Manager to Team Wolfie
   alt="Zoey Mrs Wolfie James"
 >
 
-
 <div class="member-status">
-
 <span class="status-dot"></span>
-
 CO-FOUNDER • FIGHTER
-
 </div>
-
 
 <div class="member-team">
 TEAM WOLFIE
 </div>
 
-
 <div class="member-name">
 ZOEY “MRS WOLFIE” JAMES
 </div>
-
 
 <div class="member-role">
 Co-Founder &amp; Joint Owner of Team Wolfpack
@@ -1431,19 +1460,12 @@ Co-Founder &amp; Joint Owner of Team Wolfpack
 Boxer • Team Wolfie
 </div>
 
-
 <div class="view">
-
 VIEW FIGHTER PROFILE
-
-<span class="profile-arrow">
-›
-</span>
-
+<span class="profile-arrow">›</span>
 </div>
 
 </a>
-
 
 
 <!-- =========================================
@@ -1468,43 +1490,29 @@ VIEW FIGHTER PROFILE
   alt="Greig Sloan"
 >
 
-
 <div class="member-status">
-
 <span class="status-dot"></span>
-
 FIGHTER
-
 </div>
-
 
 <div class="member-team">
 TEAM SLOAN
 </div>
 
-
 <div class="member-name">
 GREIG SLOAN
 </div>
-
 
 <div class="member-role">
 Boxer • Team Sloan
 </div>
 
-
 <div class="view">
-
 VIEW FIGHTER PROFILE
-
-<span class="profile-arrow">
-›
-</span>
-
+<span class="profile-arrow">›</span>
 </div>
 
 </a>
-
 
 
 <!-- =========================================
@@ -1519,32 +1527,24 @@ VIEW FIGHTER PROFILE
   alt="Bry Kelly"
 >
 
-
 <div class="member-status">
-
 <span class="status-dot"></span>
-
 CORNER TEAM
-
 </div>
-
 
 <div class="member-team">
 TEAM WOLFIE
 </div>
 
-
 <div class="member-name">
 BRY KELLY
 </div>
-
 
 <div class="member-role">
 Corner Team
 </div>
 
 </div>
-
 
 
 <!-- =========================================
@@ -1559,25 +1559,18 @@ Corner Team
   alt="Billy Bossman Burton"
 >
 
-
 <div class="member-status">
-
 <span class="status-dot"></span>
-
 CORNER TEAM
-
 </div>
-
 
 <div class="member-team">
 TEAM WOLFIE
 </div>
 
-
 <div class="member-name">
 BILLY “BOSSMAN” BURTON
 </div>
-
 
 <div class="member-role">
 Corner Team
@@ -1589,31 +1582,12 @@ Corner Team
 </div>
 
 
-
-<!-- BACK -->
-
-<a
-  class="back"
-  href="more.html"
-  aria-label="Back to More"
-  onclick="gtag('event','navigation_click',{
-    source:'Meet The Pack',
-    destination:'More',
-    navigation_type:'Back Button'
-  });"
->
-‹ &nbsp; BACK TO MORE
-</a>
-
-
-
 <footer class="app-footer">
 TEAM WOLFPACK • STRENGTH IN UNITY
 </footer>
 
 
 </main>
-
 
 
 <!-- =========================================
@@ -1623,39 +1597,25 @@ TEAM WOLFPACK • STRENGTH IN UNITY
 <script>
 
 const menuButton =
-  document.getElementById(
-    "menuButton"
-  );
+  document.getElementById("menuButton");
 
 const closeMenuButton =
-  document.getElementById(
-    "closeMenuButton"
-  );
+  document.getElementById("closeMenuButton");
 
 const sideMenu =
-  document.getElementById(
-    "sideMenu"
-  );
+  document.getElementById("sideMenu");
 
 const menuBackdrop =
-  document.getElementById(
-    "menuBackdrop"
-  );
+  document.getElementById("menuBackdrop");
 
 
 function openMenu(){
 
-  sideMenu.classList.add(
-    "show"
-  );
+  sideMenu.classList.add("show");
 
-  menuBackdrop.classList.add(
-    "show"
-  );
+  menuBackdrop.classList.add("show");
 
-  document.body.classList.add(
-    "menu-open"
-  );
+  document.body.classList.add("menu-open");
 
   menuButton.setAttribute(
     "aria-expanded",
@@ -1667,17 +1627,11 @@ function openMenu(){
 
 function closeMenu(){
 
-  sideMenu.classList.remove(
-    "show"
-  );
+  sideMenu.classList.remove("show");
 
-  menuBackdrop.classList.remove(
-    "show"
-  );
+  menuBackdrop.classList.remove("show");
 
-  document.body.classList.remove(
-    "menu-open"
-  );
+  document.body.classList.remove("menu-open");
 
   menuButton.setAttribute(
     "aria-expanded",
@@ -1709,9 +1663,7 @@ document.addEventListener(
   "keydown",
   function(event){
 
-    if(
-      event.key === "Escape"
-    ){
+    if(event.key === "Escape"){
       closeMenu();
     }
 
@@ -1720,22 +1672,17 @@ document.addEventListener(
 
 
 document
-  .querySelectorAll(
-    ".menu-link"
-  )
-  .forEach(
-    function(link){
+  .querySelectorAll(".menu-link")
+  .forEach(function(link){
 
-      link.addEventListener(
-        "click",
-        closeMenu
-      );
+    link.addEventListener(
+      "click",
+      closeMenu
+    );
 
-    }
-  );
+  });
 
 </script>
-
 
 
 <!-- =========================================
@@ -1744,9 +1691,7 @@ document
 
 <script>
 
-if(
-  "serviceWorker" in navigator
-){
+if("serviceWorker" in navigator){
 
   window.addEventListener(
     "load",
@@ -1754,9 +1699,7 @@ if(
 
       navigator
         .serviceWorker
-        .register(
-          "service-worker.js"
-        );
+        .register("service-worker.js");
 
     }
   );
@@ -1765,7 +1708,5 @@ if(
 
 </script>
 
-
 </body>
-
 </html>
