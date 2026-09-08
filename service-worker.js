@@ -1,39 +1,33 @@
-const CACHE_NAME = "team-wolfpack-v10";
+const CACHE_NAME = "team-wolfpack-v11";
 
 const APP_FILES = [
   "./",
   "./index.html",
-
   "./fighters.html",
   "./mrs-wolfie.html",
   "./greig-sloan.html",
-
   "./fights.html",
   "./pack.html",
-
   "./sponsors.html",
-  "./Gallery.html",
+  "./gallery.html",
   "./merch.html",
   "./contact.html",
   "./socials.html",
   "./about.html",
-
   "./chat-rules.html",
-
   "./admin-dashboard.html",
   "./admin-reports.html",
   "./admin-members.html",
   "./admin-history.html",
-
   "./icon-192.png",
   "./icon-512.png",
   "./manifest.json"
 ];
 
 
-/* ========================================
+/* =========================================
    INSTALL
-======================================== */
+========================================= */
 
 self.addEventListener("install", event => {
 
@@ -82,9 +76,9 @@ self.addEventListener("install", event => {
 });
 
 
-/* ========================================
+/* =========================================
    ACTIVATE
-======================================== */
+========================================= */
 
 self.addEventListener("activate", event => {
 
@@ -97,20 +91,24 @@ self.addEventListener("activate", event => {
 
       await Promise.all(
 
-        cacheNames.map(cacheName => {
+        cacheNames.map(
+          cacheName => {
 
-          if (
-            cacheName.startsWith("team-wolfpack-") &&
-            cacheName !== CACHE_NAME
-          ) {
+            if (
+              cacheName.startsWith(
+                "team-wolfpack-"
+              ) &&
+              cacheName !== CACHE_NAME
+            ) {
 
-            return caches.delete(
-              cacheName
-            );
+              return caches.delete(
+                cacheName
+              );
+
+            }
 
           }
-
-        })
+        )
 
       );
 
@@ -123,24 +121,29 @@ self.addEventListener("activate", event => {
 });
 
 
-/* ========================================
+/* =========================================
    FETCH
-======================================== */
+========================================= */
 
 self.addEventListener("fetch", event => {
 
-  if (event.request.method !== "GET") {
+  if (
+    event.request.method !== "GET"
+  ) {
     return;
   }
 
+
   const requestURL =
-    new URL(event.request.url);
+    new URL(
+      event.request.url
+    );
 
 
-  /* ======================================
-     EXTERNAL REQUESTS
-     FIREBASE / GOOGLE ETC.
-  ====================================== */
+  /*
+     Only handle files from
+     Team Wolfpack itself.
+  */
 
   if (
     requestURL.origin !==
@@ -150,11 +153,10 @@ self.addEventListener("fetch", event => {
   }
 
 
-  /* ======================================
+  /* =======================================
      PACK CHAT
-
-     NEVER CACHE CHAT.HTML
-  ====================================== */
+     Always load latest version.
+  ======================================= */
 
   if (
     requestURL.pathname.endsWith(
@@ -174,14 +176,14 @@ self.addEventListener("fetch", event => {
     );
 
     return;
+
   }
 
 
-  /* ======================================
+  /* =======================================
      SERVICE WORKER
-
-     ALWAYS FETCH LATEST COPY
-  ====================================== */
+     Never serve cached worker.
+  ======================================= */
 
   if (
     requestURL.pathname.endsWith(
@@ -201,14 +203,13 @@ self.addEventListener("fetch", event => {
     );
 
     return;
+
   }
 
 
-  /* ======================================
+  /* =======================================
      MANIFEST
-
-     ALWAYS FETCH LATEST COPY
-  ====================================== */
+  ======================================= */
 
   if (
     requestURL.pathname.endsWith(
@@ -228,19 +229,21 @@ self.addEventListener("fetch", event => {
     );
 
     return;
+
   }
 
 
-  /* ======================================
-     HTML / PAGE NAVIGATION
-
-     NETWORK FIRST
-     CACHE ONLY USED IF OFFLINE
-  ====================================== */
+  /* =======================================
+     HTML PAGES
+     Network first.
+  ======================================= */
 
   if (
-    event.request.mode === "navigate" ||
-    requestURL.pathname.endsWith(".html")
+    event.request.mode ===
+      "navigate" ||
+    requestURL.pathname.endsWith(
+      ".html"
+    )
   ) {
 
     event.respondWith(
@@ -256,6 +259,7 @@ self.addEventListener("fetch", event => {
                 cache: "no-store"
               }
             );
+
 
           if (
             response &&
@@ -274,17 +278,23 @@ self.addEventListener("fetch", event => {
 
           }
 
+
           return response;
 
+
         } catch (error) {
+
 
           const cached =
             await caches.match(
               event.request
             );
 
+
           if (cached) {
+
             return cached;
+
           }
 
 
@@ -293,8 +303,11 @@ self.addEventListener("fetch", event => {
               "./index.html"
             );
 
+
           if (home) {
+
             return home;
+
           }
 
 
@@ -316,14 +329,13 @@ self.addEventListener("fetch", event => {
     );
 
     return;
+
   }
 
 
-  /* ======================================
-     STATIC FILES
-
-     NETWORK FIRST
-  ====================================== */
+  /* =======================================
+     IMAGES / STATIC FILES
+  ======================================= */
 
   event.respondWith(
 
@@ -338,6 +350,7 @@ self.addEventListener("fetch", event => {
               cache: "no-cache"
             }
           );
+
 
         if (
           response &&
@@ -356,18 +369,25 @@ self.addEventListener("fetch", event => {
 
         }
 
+
         return response;
 
+
       } catch (error) {
+
 
         const cached =
           await caches.match(
             event.request
           );
 
+
         if (cached) {
+
           return cached;
+
         }
+
 
         throw error;
 
