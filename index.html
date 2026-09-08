@@ -91,7 +91,9 @@ body.menu-open{
 
 .app-bar{
   position:sticky;
+
   top:0;
+
   z-index:500;
 
   height:
@@ -155,6 +157,7 @@ body.menu-open{
   cursor:pointer;
 
   font-size:24px;
+
   line-height:1;
 }
 
@@ -457,8 +460,7 @@ body.menu-open{
 }
 
 .menu-link:active{
-  transform:
-    scale(.985);
+  transform:scale(.985);
 }
 
 .menu-link.active{
@@ -519,18 +521,20 @@ body.menu-open{
    ADMIN MENU
    ========================================= */
 
-.admin-menu-link{
+#adminMenuSection{
   display:none;
+}
 
+.admin-menu-link{
   color:#ffb05d;
 
   border-color:
-    rgba(255,117,28,.20);
+    rgba(255,117,28,.22);
 
   background:
     linear-gradient(
       90deg,
-      rgba(255,90,0,.08),
+      rgba(255,90,0,.09),
       rgba(0,160,220,.05)
     );
 }
@@ -850,8 +854,7 @@ body.menu-open{
 }
 
 .card:active{
-  transform:
-    scale(.985);
+  transform:scale(.985);
 }
 
 .card-top{
@@ -1312,15 +1315,10 @@ EXPLORE
 
 
 <!-- =========================================
-     ADMIN
-     Hidden by default.
-     Firebase visibility will be connected next.
+     ADMIN - HIDDEN FOR NORMAL MEMBERS
      ========================================= -->
 
-<div
-  id="adminMenuSection"
-  style="display:none;"
->
+<div id="adminMenuSection">
 
 <div class="menu-section-label">
 ADMIN
@@ -1329,7 +1327,6 @@ ADMIN
 <nav class="menu-nav">
 
 <a
-  id="adminDashboardMenuLink"
   class="menu-link admin-menu-link"
   href="admin-dashboard.html"
 >
@@ -1690,6 +1687,86 @@ document
 
     }
   );
+
+</script>
+
+
+<!-- =========================================
+     ADMIN DASHBOARD VISIBILITY
+     ========================================= -->
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+  authDomain: "team-wolfpack-app.firebaseapp.com",
+  databaseURL: "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "team-wolfpack-app",
+  storageBucket: "team-wolfpack-app.firebasestorage.app",
+  messagingSenderId: "1070414578856",
+  appId: "1:1070414578856:web:df14e7d387e658eeae2e9d",
+  measurementId: "G-6JTCE2N9LZ"
+};
+
+
+const firebaseApp =
+  initializeApp(
+    firebaseConfig
+  );
+
+
+const auth =
+  getAuth(
+    firebaseApp
+  );
+
+
+const ADMIN_UIDS =
+  new Set([
+    "PRGa9TsCW0QDn1QtoUXyYjEi7YB3",
+    "SlpEQYl94DaH6j42QUyl8Kv2ujJ3"
+  ]);
+
+
+const adminMenuSection =
+  document.getElementById(
+    "adminMenuSection"
+  );
+
+
+onAuthStateChanged(
+  auth,
+  function(user){
+
+    if(
+      user &&
+      ADMIN_UIDS.has(
+        user.uid
+      )
+    ){
+
+      adminMenuSection.style.display =
+        "block";
+
+    }else{
+
+      adminMenuSection.style.display =
+        "none";
+
+    }
+
+  }
+);
 
 </script>
 
