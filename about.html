@@ -13,12 +13,12 @@ function gtag(){
   dataLayer.push(arguments);
 }
 
-gtag('js', new Date());
-gtag('config', 'G-M973P0B4F0');
+gtag("js", new Date());
+gtag("config", "G-M973P0B4F0");
 
-window.addEventListener('load', function(){
-  gtag('event', 'about_page_view', {
-    section: 'About Team Wolfpack'
+window.addEventListener("load", function(){
+  gtag("event", "about_page_view", {
+    section:"About Team Wolfpack"
   });
 });
 </script>
@@ -32,7 +32,6 @@ window.addEventListener('load', function(){
 
 <meta name="theme-color" content="#050505">
 
-<!-- PWA / MOBILE -->
 <meta name="apple-mobile-web-app-title" content="TEAM WOLFPACK">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -57,32 +56,23 @@ html{
 
 body{
   min-height:100vh;
+  min-height:100dvh;
 
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
+  font-family:Arial, Helvetica, sans-serif;
 
   color:#fff;
-
-  /*
-    Extra space for the fixed navigation.
-    This prevents the bottom of the page
-    from disappearing behind the nav.
-  */
-  padding-bottom:
-    calc(100px + env(safe-area-inset-bottom));
+  overflow-x:hidden;
 
   background:
     radial-gradient(
-      circle at 0% 12%,
-      rgba(0,190,255,.24),
-      transparent 30%
+      circle at 0% 15%,
+      rgba(0,190,255,.22),
+      transparent 31%
     ),
     radial-gradient(
-      circle at 100% 30%,
-      rgba(255,85,0,.23),
-      transparent 30%
+      circle at 100% 60%,
+      rgba(255,85,0,.22),
+      transparent 34%
     ),
     linear-gradient(
       115deg,
@@ -92,39 +82,487 @@ body{
     );
 }
 
-
-/* HEADER */
-
-.header{
-  text-align:center;
-  padding:28px 18px 20px;
+body.menu-open{
+  overflow:hidden;
 }
 
-.logo{
-  width:120px;
-  height:120px;
+
+/* =========================================
+   APP BAR
+   ========================================= */
+
+.app-bar{
+  position:sticky;
+  top:0;
+  z-index:500;
+
+  height:calc(66px + env(safe-area-inset-top));
+
+  padding:
+    env(safe-area-inset-top)
+    15px
+    0;
+
+  display:grid;
+  grid-template-columns:46px 1fr 46px;
+
+  align-items:center;
+
+  background:rgba(4,4,4,.94);
+
+  border-bottom:
+    1px solid rgba(255,255,255,.10);
+
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+
+  box-shadow:
+    0 8px 30px rgba(0,0,0,.28);
+}
+
+.menu-button{
+  width:42px;
+  height:42px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:12px;
+
+  border:
+    1px solid rgba(103,220,255,.22);
+
+  background:rgba(0,150,210,.07);
+
+  color:#67dcff;
+
+  cursor:pointer;
+
+  font-size:24px;
+}
+
+.app-bar-brand{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  gap:9px;
+
+  min-width:0;
+}
+
+.app-bar-logo{
+  width:34px;
+  height:34px;
+
   object-fit:contain;
 }
 
-.brand{
-  margin-top:5px;
+.app-bar-title{
+  overflow:hidden;
 
-  font-size:12px;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+
+  font-size:11px;
   font-weight:900;
 
-  letter-spacing:4px;
+  letter-spacing:1.8px;
 
-  color:#67dcff;
+  background:
+    linear-gradient(
+      90deg,
+      #67dcff,
+      #eafaff 48%,
+      #ff751c
+    );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  background-clip:text;
 }
 
-.title{
-  margin-top:18px;
+.app-status{
+  width:42px;
+  height:42px;
 
-  font-size:32px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.app-status-dot{
+  width:8px;
+  height:8px;
+
+  border-radius:50%;
+
+  background:#43f27b;
+
+  box-shadow:
+    0 0 9px rgba(67,242,123,.75);
+}
+
+
+/* =========================================
+   MENU BACKDROP
+   ========================================= */
+
+.menu-backdrop{
+  position:fixed;
+  inset:0;
+
+  z-index:800;
+
+  visibility:hidden;
+  opacity:0;
+
+  background:rgba(0,0,0,.72);
+
+  backdrop-filter:blur(3px);
+  -webkit-backdrop-filter:blur(3px);
+
+  transition:
+    opacity .25s ease,
+    visibility .25s ease;
+}
+
+.menu-backdrop.show{
+  visibility:visible;
+  opacity:1;
+}
+
+
+/* =========================================
+   SIDE MENU
+   ========================================= */
+
+.side-menu{
+  position:fixed;
+
+  left:0;
+  top:0;
+  bottom:0;
+
+  z-index:900;
+
+  width:min(84vw,340px);
+
+  transform:translateX(-105%);
+
+  transition:transform .28s ease;
+
+  overflow-y:auto;
+
+  padding:
+    calc(18px + env(safe-area-inset-top))
+    15px
+    calc(25px + env(safe-area-inset-bottom));
+
+  background:
+    radial-gradient(
+      circle at 0% 10%,
+      rgba(0,190,255,.16),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 100% 80%,
+      rgba(255,90,0,.16),
+      transparent 34%
+    ),
+    #080808;
+
+  border-right:
+    1px solid rgba(103,220,255,.20);
+
+  box-shadow:
+    20px 0 50px rgba(0,0,0,.55);
+}
+
+.side-menu.show{
+  transform:translateX(0);
+}
+
+.menu-header{
+  position:relative;
+
+  padding:
+    10px
+    45px
+    21px
+    5px;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.09);
+}
+
+.menu-logo{
+  width:72px;
+  height:72px;
+
+  object-fit:contain;
+
+  margin-bottom:10px;
+}
+
+.menu-brand{
+  font-size:18px;
+  font-weight:900;
+
+  letter-spacing:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #67dcff,
+      #fff 50%,
+      #ff751c
+    );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  background-clip:text;
+}
+
+.menu-tagline{
+  margin-top:5px;
+
+  color:#999;
+
+  font-size:8px;
+  font-weight:900;
+
+  letter-spacing:2px;
+}
+
+.close-menu{
+  position:absolute;
+
+  right:0;
+  top:5px;
+
+  width:38px;
+  height:38px;
+
+  border-radius:10px;
+
+  border:
+    1px solid rgba(255,117,28,.25);
+
+  background:rgba(255,90,0,.07);
+
+  color:#ff751c;
+
+  cursor:pointer;
+
+  font-size:21px;
+}
+
+.menu-section-label{
+  margin:20px 8px 8px;
+
+  color:#666;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:2px;
+}
+
+.menu-nav{
+  display:flex;
+  flex-direction:column;
+
+  gap:4px;
+}
+
+.menu-link{
+  display:flex;
+  align-items:center;
+
+  min-height:48px;
+
+  padding:9px 11px;
+
+  border-radius:10px;
+
+  text-decoration:none;
+
+  color:#d7d7d7;
+
+  border:1px solid transparent;
+
+  font-size:10px;
+  font-weight:900;
+
+  letter-spacing:.5px;
+}
+
+.menu-link:active{
+  transform:scale(.985);
+}
+
+.menu-link.active{
+  color:#67dcff;
+
+  border-color:
+    rgba(103,220,255,.22);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,160,220,.12),
+      rgba(0,160,220,.03)
+    );
+}
+
+.menu-link.chat{
+  color:#fff;
+
+  border-color:
+    rgba(103,220,255,.15);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,160,220,.08),
+      rgba(255,90,0,.08)
+    );
+}
+
+.menu-icon{
+  width:34px;
+
+  flex:0 0 34px;
+
+  text-align:center;
+
+  color:#67dcff;
+
+  font-size:17px;
+}
+
+.menu-arrow{
+  margin-left:auto;
+
+  color:#666;
+
+  font-size:16px;
+}
+
+.menu-website{
+  display:block;
+
+  margin-top:19px;
+
+  padding:14px;
+
+  text-align:center;
+
+  text-decoration:none;
+
+  border-radius:10px;
+
+  border:
+    1px solid rgba(103,220,255,.28);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,160,220,.09),
+      rgba(255,90,0,.09)
+    );
+
+  color:#fff;
+
+  font-size:8px;
+  font-weight:900;
+
+  letter-spacing:1px;
+}
+
+
+/* =========================================
+   PAGE HERO
+   ========================================= */
+
+.page-hero{
+  position:relative;
+
+  overflow:hidden;
+
+  text-align:center;
+
+  padding:
+    34px
+    18px
+    28px;
+}
+
+.page-hero::after{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  right:0;
+  bottom:0;
+
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #4bd8ff,
+      rgba(255,255,255,.15),
+      #ff6200,
+      transparent
+    );
+}
+
+.hero-logo{
+  width:100px;
+  height:100px;
+
+  object-fit:contain;
+
+  filter:
+    drop-shadow(
+      0 0 13px rgba(51,201,255,.23)
+    )
+    drop-shadow(
+      0 0 13px rgba(255,92,0,.20)
+    );
+}
+
+.hero-brand{
+  margin-top:8px;
+
+  color:#777;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:3px;
+}
+
+.page-title{
+  margin-top:15px;
+
+  font-size:
+    clamp(
+      27px,
+      8vw,
+      36px
+    );
 
   font-weight:900;
 
-  line-height:1.05;
+  letter-spacing:1px;
 }
 
 .ice{
@@ -136,59 +574,48 @@ body{
 }
 
 .subtitle{
-  margin-top:10px;
+  margin-top:8px;
 
-  color:#aaa;
+  color:#999;
 
-  font-size:13px;
-}
+  font-size:11px;
 
-.line{
-  width:100%;
-
-  max-width:430px;
-
-  height:2px;
-
-  margin:22px auto 0;
-
-  background:
-    linear-gradient(
-      90deg,
-      #4bd8ff,
-      transparent,
-      #ff6200
-    );
+  line-height:1.5;
 }
 
 
-/* CONTENT */
+/* =========================================
+   CONTENT
+   ========================================= */
 
 .content{
   width:100%;
-  max-width:540px;
 
-  margin:0 auto;
+  max-width:780px;
+
+  margin:auto;
 
   padding:
-    10px
-    18px
-    40px;
+    28px
+    16px
+    calc(45px + env(safe-area-inset-bottom));
 }
 
 
-/* CARDS */
+/* =========================================
+   CARDS
+   ========================================= */
 
 .card{
   position:relative;
 
   overflow:hidden;
 
-  padding:22px;
+  padding:23px;
 
   margin-bottom:18px;
 
-  border-radius:16px;
+  border-radius:17px;
 
   border:
     1px solid rgba(255,255,255,.12);
@@ -202,7 +629,7 @@ body{
     );
 
   box-shadow:
-    0 8px 25px rgba(0,0,0,.25);
+    0 12px 32px rgba(0,0,0,.28);
 }
 
 .card::before{
@@ -214,9 +641,12 @@ body{
   top:0;
   bottom:0;
 
-  width:4px;
+  width:3px;
 
   background:#4bd8ff;
+
+  box-shadow:
+    0 0 12px rgba(75,216,255,.48);
 }
 
 .card::after{
@@ -228,28 +658,47 @@ body{
   top:0;
   bottom:0;
 
-  width:4px;
+  width:3px;
 
   background:#ff6500;
+
+  box-shadow:
+    0 0 12px rgba(255,101,0,.42);
 }
 
+.card-label{
+  position:relative;
+  z-index:2;
 
-/* TEXT */
+  color:#67dcff;
 
-.section-title{
-  font-size:20px;
-
+  font-size:7px;
   font-weight:900;
 
-  margin-bottom:12px;
+  letter-spacing:2px;
+
+  margin-bottom:7px;
+}
+
+.section-title{
+  position:relative;
+  z-index:2;
+
+  font-size:20px;
+  font-weight:900;
+
+  margin-bottom:13px;
 }
 
 .text{
+  position:relative;
+  z-index:2;
+
   color:#d0d0d0;
 
-  font-size:14px;
+  font-size:12px;
 
-  line-height:1.7;
+  line-height:1.75;
 }
 
 .highlight{
@@ -265,17 +714,26 @@ body{
 }
 
 
-/* VALUES */
+/* =========================================
+   VALUES
+   ========================================= */
 
 .values{
+  position:relative;
+  z-index:2;
+
   display:grid;
 
   grid-template-columns:1fr;
 
-  gap:12px;
+  gap:11px;
 }
 
 .value-card{
+  position:relative;
+
+  overflow:hidden;
+
   padding:17px;
 
   border-radius:13px;
@@ -287,51 +745,121 @@ body{
     rgba(8,8,8,.78);
 }
 
-.value-title{
-  font-size:15px;
+.value-number{
+  position:absolute;
 
+  right:13px;
+  top:10px;
+
+  color:rgba(255,255,255,.06);
+
+  font-size:28px;
+  font-weight:900;
+}
+
+.value-title{
+  position:relative;
+
+  z-index:2;
+
+  font-size:14px;
   font-weight:900;
 
   color:#67dcff;
 }
 
 .value-text{
-  margin-top:5px;
+  position:relative;
+
+  z-index:2;
+
+  margin-top:6px;
 
   color:#aaa;
 
-  font-size:12px;
+  font-size:10px;
 
-  line-height:1.5;
+  line-height:1.55;
 }
 
 
-/* QUOTE */
+/* =========================================
+   MOTTO
+   ========================================= */
 
-.quote{
+.motto-card{
   text-align:center;
 
-  padding:22px 18px;
+  padding:
+    30px
+    20px;
+}
 
-  font-size:18px;
+.motto-small{
+  position:relative;
+  z-index:2;
+
+  color:#777;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:2px;
+
+  margin-bottom:10px;
+}
+
+.quote{
+  position:relative;
+  z-index:2;
+
+  font-size:
+    clamp(
+      21px,
+      6vw,
+      28px
+    );
 
   font-weight:900;
 
   letter-spacing:1px;
 
-  line-height:1.4;
+  line-height:1.35;
+}
+
+.motto-line{
+  width:90px;
+  height:2px;
+
+  margin:
+    16px
+    auto
+    0;
+
+  background:
+    linear-gradient(
+      90deg,
+      #4bd8ff,
+      #ff6500
+    );
 }
 
 
-/* BACK BUTTON */
+/* =========================================
+   BACK
+   ========================================= */
 
 .back{
-  display:block;
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  width:100%;
 
   margin-top:6px;
-  margin-bottom:30px;
 
-  padding:16px;
+  padding:14px;
 
   text-align:center;
 
@@ -339,153 +867,75 @@ body{
 
   color:#fff;
 
-  font-size:12px;
+  border:
+    1px solid rgba(91,217,255,.45);
 
+  border-radius:10px;
+
+  font-size:9px;
   font-weight:900;
 
   letter-spacing:1px;
 
-  border:
-    1px solid #59d9ff;
-
-  border-radius:12px;
-
   background:
     linear-gradient(
       90deg,
-      rgba(0,160,220,.12),
-      rgba(255,90,0,.12)
+      rgba(0,160,220,.10),
+      rgba(255,90,0,.10)
     );
 }
 
 .back:active{
-  transform:scale(.98);
+  transform:scale(.985);
 }
 
 
-/* BOTTOM NAV */
+/* =========================================
+   FOOTER
+   ========================================= */
 
-.bottom-nav{
-  position:fixed;
+.app-footer{
+  margin-top:28px;
 
-  left:0;
-  right:0;
-  bottom:0;
-
-  /*
-    74px navigation plus the iPhone
-    safe-area when required.
-  */
-  height:
-    calc(74px + env(safe-area-inset-bottom));
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(4,1fr);
-
-  padding-bottom:
-    env(safe-area-inset-bottom);
-
-  background:
-    rgba(4,4,4,.97);
+  padding-top:20px;
 
   border-top:
-    1px solid rgba(255,255,255,.12);
+    1px solid rgba(255,255,255,.07);
 
-  -webkit-backdrop-filter:
-    blur(12px);
+  text-align:center;
 
-  backdrop-filter:
-    blur(12px);
+  color:#555;
 
-  z-index:1000;
-}
+  font-size:7px;
+  font-weight:900;
 
-.nav-item{
-  text-decoration:none;
-
-  color:#888;
-
-  display:flex;
-
-  flex-direction:column;
-
-  align-items:center;
-
-  justify-content:center;
-
-  gap:5px;
-
-  min-width:0;
-
-  font-size:9px;
-
-  font-weight:bold;
-}
-
-.nav-icon{
-  font-size:20px;
-}
-
-.fire-nav{
-  color:#ff751c;
-}
-
-.nav-item.active{
-  color:#67dcff;
+  letter-spacing:1.3px;
 }
 
 
-/* SMALL PHONES */
+/* =========================================
+   TABLET / DESKTOP
+   ========================================= */
 
-@media(max-width:400px){
+@media(min-width:720px){
 
-  .header{
-    padding-top:22px;
-  }
-
-  .logo{
-    width:100px;
-    height:100px;
-  }
-
-  .title{
-    font-size:28px;
-  }
-
-  .content{
-    padding-left:15px;
-    padding-right:15px;
-  }
-
-  .card{
-    padding:19px;
-  }
-
-  .text{
-    font-size:13px;
+  .values{
+    grid-template-columns:
+      repeat(2,1fr);
   }
 
 }
 
 
-/* DESKTOP / LARGE SCREENS */
+/* =========================================
+   REDUCED MOTION
+   ========================================= */
 
-@media(min-width:900px){
+@media(prefers-reduced-motion:reduce){
 
-  /*
-    On desktop the page can scroll normally,
-    while still leaving clearance above the
-    fixed navigation.
-  */
-
-  body{
-    padding-bottom:120px;
-  }
-
-  .content{
-    padding-bottom:60px;
+  .side-menu,
+  .menu-backdrop{
+    transition:none;
   }
 
 }
@@ -498,35 +948,215 @@ body{
 <body>
 
 
-<!-- HEADER -->
+<!-- =========================================
+     APP BAR
+     ========================================= -->
 
-<header class="header">
+<header class="app-bar">
 
-<a
-  href="index.html"
-  aria-label="Team Wolfpack Home"
-  onclick="gtag('event','navigation_click',{
-    source:'About Page',
-    destination:'Home',
-    navigation_type:'Logo'
-  });"
+<button
+  id="menuButton"
+  class="menu-button"
+  type="button"
+  aria-label="Open navigation menu"
+  aria-expanded="false"
 >
+☰
+</button>
+
+
+<div class="app-bar-brand">
 
 <img
-  src="icon-512.png"
-  class="logo"
-  alt="Team Wolfpack"
+  src="icon-192.png"
+  class="app-bar-logo"
+  alt=""
 >
 
-</a>
-
-
-<div class="brand">
+<div class="app-bar-title">
 TEAM WOLFPACK
 </div>
 
+</div>
 
-<h1 class="title">
+
+<div
+  class="app-status"
+  aria-label="App online"
+>
+<span class="app-status-dot"></span>
+</div>
+
+</header>
+
+
+<!-- MENU BACKDROP -->
+
+<div
+  id="menuBackdrop"
+  class="menu-backdrop"
+></div>
+
+
+<!-- =========================================
+     SIDE MENU
+     ========================================= -->
+
+<aside
+  id="sideMenu"
+  class="side-menu"
+  aria-label="Team Wolfpack navigation"
+>
+
+<div class="menu-header">
+
+<img
+  src="icon-192.png"
+  class="menu-logo"
+  alt="Team Wolfpack"
+>
+
+<div class="menu-brand">
+TEAM WOLFPACK
+</div>
+
+<div class="menu-tagline">
+ONE PACK • ONE PURPOSE
+</div>
+
+<button
+  id="closeMenuButton"
+  class="close-menu"
+  type="button"
+  aria-label="Close navigation menu"
+>
+×
+</button>
+
+</div>
+
+
+<div class="menu-section-label">
+MAIN
+</div>
+
+
+<nav class="menu-nav">
+
+<a class="menu-link" href="index.html">
+<span class="menu-icon">⌂</span>
+<span>HOME</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="fights.html">
+<span class="menu-icon">♜</span>
+<span>FIGHTS</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="fighters.html">
+<span class="menu-icon">♟</span>
+<span>FIGHTERS</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="pack.html">
+<span class="menu-icon">◆</span>
+<span>MEET THE PACK</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link chat" href="chat.html">
+<span class="menu-icon">●</span>
+<span>PACK CHAT</span>
+<span class="menu-arrow">›</span>
+</a>
+
+</nav>
+
+
+<div class="menu-section-label">
+EXPLORE
+</div>
+
+
+<nav class="menu-nav">
+
+<a class="menu-link" href="sponsors.html">
+<span class="menu-icon">★</span>
+<span>SPONSORS &amp; PARTNERS</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="Gallery.html">
+<span class="menu-icon">▣</span>
+<span>GALLERY</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="merch.html">
+<span class="menu-icon">◇</span>
+<span>MERCH</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="contact.html">
+<span class="menu-icon">✉</span>
+<span>CONTACT</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="socials.html">
+<span class="menu-icon">◎</span>
+<span>SOCIALS</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link active" href="about.html">
+<span class="menu-icon">ⓘ</span>
+<span>ABOUT</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="more.html">
+<span class="menu-icon">•••</span>
+<span>MORE</span>
+<span class="menu-arrow">›</span>
+</a>
+
+</nav>
+
+
+<a
+  class="menu-website"
+  href="https://officialteamwolfpack.com/boxing"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+VISIT OFFICIAL WEBSITE
+</a>
+
+</aside>
+
+
+<!-- =========================================
+     PAGE HERO
+     ========================================= -->
+
+<section class="page-hero">
+
+<img
+  src="icon-512.png"
+  class="hero-logo"
+  alt="Team Wolfpack"
+>
+
+<div class="hero-brand">
+TEAM WOLFPACK
+</div>
+
+<h1 class="page-title">
 
 <span class="ice">
 ABOUT
@@ -538,19 +1168,16 @@ THE PACK
 
 </h1>
 
-
 <p class="subtitle">
 Strength. Loyalty. Unity. Purpose.
 </p>
 
-
-<div class="line"></div>
-
-</header>
+</section>
 
 
-
-<!-- MAIN CONTENT -->
+<!-- =========================================
+     MAIN CONTENT
+     ========================================= -->
 
 <main class="content">
 
@@ -558,6 +1185,10 @@ Strength. Loyalty. Unity. Purpose.
 <!-- WHO WE ARE -->
 
 <section class="card">
+
+<div class="card-label">
+TEAM WOLFPACK
+</div>
 
 <h2 class="section-title">
 
@@ -570,7 +1201,6 @@ WE ARE
 </span>
 
 </h2>
-
 
 <p class="text">
 
@@ -605,10 +1235,13 @@ where they can grow in confidence, discipline and strength.
 </section>
 
 
-
 <!-- WHAT WE STAND FOR -->
 
 <section class="card">
+
+<div class="card-label">
+OUR VALUES
+</div>
 
 <h2 class="section-title">
 
@@ -628,6 +1261,10 @@ WE STAND FOR
 
 <div class="value-card">
 
+<div class="value-number">
+01
+</div>
+
 <div class="value-title">
 STRENGTH
 </div>
@@ -640,6 +1277,10 @@ Finding the strength to keep moving forward, inside and outside the ring.
 
 
 <div class="value-card">
+
+<div class="value-number">
+02
+</div>
 
 <div class="value-title">
 LOYALTY
@@ -654,6 +1295,10 @@ Standing beside the people who represent and support the pack.
 
 <div class="value-card">
 
+<div class="value-number">
+03
+</div>
+
 <div class="value-title">
 UNITY
 </div>
@@ -666,6 +1311,10 @@ Different fighters and teams, brought together as one Team Wolfpack.
 
 
 <div class="value-card">
+
+<div class="value-number">
+04
+</div>
 
 <div class="value-title">
 PURPOSE
@@ -683,10 +1332,13 @@ Using boxing to build confidence, discipline and something worth fighting for.
 </section>
 
 
+<!-- MOTTO -->
 
-<!-- QUOTE -->
+<section class="card motto-card">
 
-<section class="card">
+<div class="motto-small">
+OUR PACK • OUR PURPOSE
+</div>
 
 <div class="quote">
 
@@ -702,8 +1354,9 @@ ONE PURPOSE.
 
 </div>
 
-</section>
+<div class="motto-line"></div>
 
+</section>
 
 
 <!-- BACK -->
@@ -718,115 +1371,158 @@ ONE PURPOSE.
     navigation_type:'Back Button'
   });"
 >
-
-‹ BACK TO MORE
-
+‹ &nbsp; BACK TO MORE
 </a>
+
+
+<footer class="app-footer">
+TEAM WOLFPACK • STRENGTH IN UNITY
+</footer>
 
 
 </main>
 
 
-
-<!-- BOTTOM NAVIGATION -->
-
-<nav class="bottom-nav">
-
-
-<a
-  class="nav-item"
-  href="index.html"
-  aria-label="Home"
-  onclick="gtag('event','bottom_navigation_click',{
-    source:'About Page',
-    destination:'Home'
-  });"
->
-
-<span class="nav-icon">
-⌂
-</span>
-
-HOME
-
-</a>
-
-
-<a
-  class="nav-item"
-  href="fighters.html"
-  aria-label="Fighters"
-  onclick="gtag('event','bottom_navigation_click',{
-    source:'About Page',
-    destination:'Fighters'
-  });"
->
-
-<span class="nav-icon">
-♟
-</span>
-
-FIGHTERS
-
-</a>
-
-
-<a
-  class="nav-item fire-nav"
-  href="fights.html"
-  aria-label="Fights"
-  onclick="gtag('event','bottom_navigation_click',{
-    source:'About Page',
-    destination:'Fights'
-  });"
->
-
-<span class="nav-icon">
-♜
-</span>
-
-FIGHTS
-
-</a>
-
-
-<a
-  class="nav-item active"
-  href="more.html"
-  aria-label="More"
-  aria-current="page"
-  onclick="gtag('event','bottom_navigation_click',{
-    source:'About Page',
-    destination:'More'
-  });"
->
-
-<span class="nav-icon">
-☰
-</span>
-
-MORE
-
-</a>
-
-
-</nav>
-
-
-
-<!-- SERVICE WORKER -->
+<!-- =========================================
+     SIDE MENU JAVASCRIPT
+     ========================================= -->
 
 <script>
 
-if ("serviceWorker" in navigator){
+const menuButton =
+  document.getElementById(
+    "menuButton"
+  );
+
+const closeMenuButton =
+  document.getElementById(
+    "closeMenuButton"
+  );
+
+const sideMenu =
+  document.getElementById(
+    "sideMenu"
+  );
+
+const menuBackdrop =
+  document.getElementById(
+    "menuBackdrop"
+  );
+
+
+function openMenu(){
+
+  sideMenu.classList.add(
+    "show"
+  );
+
+  menuBackdrop.classList.add(
+    "show"
+  );
+
+  document.body.classList.add(
+    "menu-open"
+  );
+
+  menuButton.setAttribute(
+    "aria-expanded",
+    "true"
+  );
+
+}
+
+
+function closeMenu(){
+
+  sideMenu.classList.remove(
+    "show"
+  );
+
+  menuBackdrop.classList.remove(
+    "show"
+  );
+
+  document.body.classList.remove(
+    "menu-open"
+  );
+
+  menuButton.setAttribute(
+    "aria-expanded",
+    "false"
+  );
+
+}
+
+
+menuButton.addEventListener(
+  "click",
+  openMenu
+);
+
+
+closeMenuButton.addEventListener(
+  "click",
+  closeMenu
+);
+
+
+menuBackdrop.addEventListener(
+  "click",
+  closeMenu
+);
+
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(
+      event.key === "Escape"
+    ){
+      closeMenu();
+    }
+
+  }
+);
+
+
+document
+  .querySelectorAll(
+    ".menu-link"
+  )
+  .forEach(
+    function(link){
+
+      link.addEventListener(
+        "click",
+        closeMenu
+      );
+
+    }
+  );
+
+</script>
+
+
+<!-- =========================================
+     SERVICE WORKER
+     ========================================= -->
+
+<script>
+
+if(
+  "serviceWorker" in navigator
+){
 
   window.addEventListener(
     "load",
     function(){
 
-      navigator.serviceWorker.register(
-        "service-worker.js"
-      );
+      navigator
+        .serviceWorker
+        .register(
+          "service-worker.js"
+        );
 
     }
   );
