@@ -7,15 +7,14 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-M973P0B4F0"></script>
 
 <script>
-  window.dataLayer = window.dataLayer || [];
+window.dataLayer = window.dataLayer || [];
 
-  function gtag(){
-    dataLayer.push(arguments);
-  }
+function gtag(){
+  dataLayer.push(arguments);
+}
 
-  gtag('js', new Date());
-
-  gtag('config', 'G-M973P0B4F0');
+gtag("js", new Date());
+gtag("config", "G-M973P0B4F0");
 </script>
 
 <meta charset="UTF-8">
@@ -27,7 +26,6 @@
 
 <meta name="theme-color" content="#050505">
 
-<!-- iPhone / PWA -->
 <meta name="apple-mobile-web-app-title" content="TEAM WOLFPACK">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -52,19 +50,25 @@ html{
 
 body{
   min-height:100vh;
+  min-height:100dvh;
 
   background:
     radial-gradient(
-      circle at 0% 20%,
-      rgba(0,191,255,.20),
+      circle at 0% 18%,
+      rgba(0,191,255,.19),
       transparent 32%
     ),
     radial-gradient(
-      circle at 100% 75%,
-      rgba(255,85,0,.22),
-      transparent 32%
+      circle at 100% 68%,
+      rgba(255,85,0,.20),
+      transparent 34%
     ),
-    #050505;
+    linear-gradient(
+      135deg,
+      #02090d 0%,
+      #050505 48%,
+      #140702 100%
+    );
 
   color:#fff;
 
@@ -73,113 +77,674 @@ body{
     Helvetica,
     sans-serif;
 
-  padding-bottom:95px;
+  overflow-x:hidden;
+}
+
+body.menu-open{
+  overflow:hidden;
 }
 
 
-/* HEADER */
+/* =========================================
+   APP BAR
+   ========================================= */
 
-.header{
-  text-align:center;
-  padding:34px 20px 20px;
+.app-bar{
+  position:sticky;
+
+  top:0;
+
+  z-index:500;
+
+  height:
+    calc(
+      66px +
+      env(safe-area-inset-top)
+    );
+
+  padding:
+    env(safe-area-inset-top)
+    15px
+    0;
+
+  display:grid;
+
+  grid-template-columns:
+    46px
+    1fr
+    46px;
+
+  align-items:center;
+
+  background:
+    rgba(4,4,4,.94);
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.10);
+
+  backdrop-filter:
+    blur(18px);
+
+  -webkit-backdrop-filter:
+    blur(18px);
+
+  box-shadow:
+    0 8px 30px
+    rgba(0,0,0,.28);
 }
 
-.logo{
-  width:145px;
-  height:145px;
+.menu-button{
+  width:42px;
+  height:42px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  border-radius:12px;
+
+  border:
+    1px solid
+    rgba(103,220,255,.22);
+
+  background:
+    rgba(0,150,210,.07);
+
+  color:#67dcff;
+
+  cursor:pointer;
+
+  font-size:24px;
+
+  line-height:1;
+}
+
+.app-bar-brand{
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  gap:9px;
+
+  min-width:0;
+}
+
+.app-bar-logo{
+  width:34px;
+  height:34px;
 
   object-fit:contain;
 
-  margin-bottom:12px;
-
   filter:
-    drop-shadow(0 0 12px rgba(51,201,255,.35))
-    drop-shadow(0 0 12px rgba(255,92,0,.30));
+    drop-shadow(
+      0 0 6px
+      rgba(103,220,255,.25)
+    );
 }
 
-.title{
-  font-size:32px;
+.app-bar-title{
+  overflow:hidden;
+
+  white-space:nowrap;
+
+  text-overflow:ellipsis;
+
+  font-size:11px;
   font-weight:900;
+
+  letter-spacing:1.8px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #67dcff,
+      #eafaff 48%,
+      #ff751c
+    );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  background-clip:text;
+}
+
+.app-status{
+  width:42px;
+  height:42px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+}
+
+.app-status-dot{
+  width:8px;
+  height:8px;
+
+  border-radius:50%;
+
+  background:#43f27b;
+
+  box-shadow:
+    0 0 9px
+    rgba(67,242,123,.75);
+}
+
+
+/* =========================================
+   SIDE MENU BACKDROP
+   ========================================= */
+
+.menu-backdrop{
+  position:fixed;
+
+  inset:0;
+
+  z-index:800;
+
+  visibility:hidden;
+
+  opacity:0;
+
+  background:
+    rgba(0,0,0,.72);
+
+  backdrop-filter:
+    blur(3px);
+
+  -webkit-backdrop-filter:
+    blur(3px);
+
+  transition:
+    opacity .25s ease,
+    visibility .25s ease;
+}
+
+.menu-backdrop.show{
+  visibility:visible;
+  opacity:1;
+}
+
+
+/* =========================================
+   SIDE MENU
+   ========================================= */
+
+.side-menu{
+  position:fixed;
+
+  left:0;
+  top:0;
+  bottom:0;
+
+  z-index:900;
+
+  width:min(84vw,340px);
+
+  transform:
+    translateX(-105%);
+
+  transition:
+    transform .28s ease;
+
+  overflow-y:auto;
+
+  padding:
+    calc(
+      18px +
+      env(safe-area-inset-top)
+    )
+    15px
+    calc(
+      25px +
+      env(safe-area-inset-bottom)
+    );
+
+  background:
+    radial-gradient(
+      circle at 0% 10%,
+      rgba(0,190,255,.16),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 100% 80%,
+      rgba(255,90,0,.16),
+      transparent 34%
+    ),
+    #080808;
+
+  border-right:
+    1px solid
+    rgba(103,220,255,.20);
+
+  box-shadow:
+    20px 0 50px
+    rgba(0,0,0,.55);
+}
+
+.side-menu.show{
+  transform:
+    translateX(0);
+}
+
+.menu-header{
+  position:relative;
+
+  padding:
+    10px
+    45px
+    21px
+    5px;
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.09);
+}
+
+.menu-logo{
+  width:72px;
+  height:72px;
+
+  object-fit:contain;
+
+  margin-bottom:10px;
+}
+
+.menu-brand{
+  font-size:18px;
+  font-weight:900;
+
+  letter-spacing:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #67dcff,
+      #ffffff 50%,
+      #ff751c
+    );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  background-clip:text;
+}
+
+.menu-tagline{
+  margin-top:5px;
+
+  color:#999;
+
+  font-size:8px;
+  font-weight:900;
+
   letter-spacing:2px;
+}
+
+.close-menu{
+  position:absolute;
+
+  right:0;
+  top:5px;
+
+  width:38px;
+  height:38px;
+
+  border-radius:10px;
+
+  border:
+    1px solid
+    rgba(255,117,28,.25);
+
+  background:
+    rgba(255,90,0,.07);
+
+  color:#ff751c;
+
+  cursor:pointer;
+
+  font-size:21px;
+}
+
+.menu-section-label{
+  margin:
+    20px
+    8px
+    8px;
+
+  color:#666;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:2px;
+}
+
+.menu-nav{
+  display:flex;
+
+  flex-direction:column;
+
+  gap:4px;
+}
+
+.menu-link{
+  display:flex;
+
+  align-items:center;
+
+  min-height:48px;
+
+  padding:
+    9px
+    11px;
+
+  border-radius:10px;
+
+  text-decoration:none;
+
+  color:#d7d7d7;
+
+  border:
+    1px solid
+    transparent;
+
+  font-size:10px;
+  font-weight:900;
+
+  letter-spacing:.5px;
+}
+
+.menu-link:active{
+  transform:
+    scale(.985);
+}
+
+.menu-link.active{
+  color:#67dcff;
+
+  border-color:
+    rgba(103,220,255,.22);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,160,220,.12),
+      rgba(0,160,220,.03)
+    );
+}
+
+.menu-link.chat{
+  color:#fff;
+
+  border-color:
+    rgba(103,220,255,.15);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,160,220,.08),
+      rgba(255,90,0,.08)
+    );
+}
+
+.menu-icon{
+  width:34px;
+
+  flex:
+    0 0 34px;
+
+  text-align:center;
+
+  color:#67dcff;
+
+  font-size:17px;
+}
+
+.menu-link.fire-link
+.menu-icon{
+  color:#ff751c;
+}
+
+.menu-arrow{
+  margin-left:auto;
+
+  color:#666;
+
+  font-size:16px;
+}
+
+.menu-website{
+  display:block;
+
+  margin-top:19px;
+
+  padding:14px;
+
+  text-align:center;
+
+  text-decoration:none;
+
+  border-radius:10px;
+
+  border:
+    1px solid
+    rgba(103,220,255,.28);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,160,220,.09),
+      rgba(255,90,0,.09)
+    );
+
+  color:#fff;
+
+  font-size:8px;
+  font-weight:900;
+
+  letter-spacing:1px;
+}
+
+
+/* =========================================
+   HERO
+   ========================================= */
+
+.hero{
+  position:relative;
+
+  overflow:hidden;
+
+  text-align:center;
+
+  padding:
+    38px
+    20px
+    28px;
+}
+
+.hero::before{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  right:0;
+  bottom:0;
+
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #4bd8ff,
+      rgba(255,255,255,.15),
+      #ff6200,
+      transparent
+    );
+}
+
+.hero-logo{
+  width:142px;
+  height:142px;
+
+  object-fit:contain;
+
+  filter:
+    drop-shadow(
+      0 0 16px
+      rgba(51,201,255,.25)
+    )
+    drop-shadow(
+      0 0 16px
+      rgba(255,92,0,.22)
+    );
+}
+
+.hero-eyebrow{
+  margin-top:14px;
+
+  color:#777;
+
+  font-size:8px;
+  font-weight:900;
+
+  letter-spacing:3px;
+}
+
+.hero-title{
+  margin-top:7px;
+
+  font-size:
+    clamp(
+      28px,
+      8vw,
+      38px
+    );
+
+  font-weight:900;
+
+  letter-spacing:1.5px;
 
   background:
     linear-gradient(
       90deg,
       #e9fbff 0%,
-      #63d8ff 47%,
-      #ff6414 53%,
+      #63d8ff 46%,
+      #ff6414 54%,
       #ffad3b 100%
     );
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
+
   background-clip:text;
 }
 
-.tagline{
-  margin-top:8px;
+.hero-tagline{
+  margin-top:9px;
 
-  font-size:11px;
-  letter-spacing:4px;
+  color:#d3d3d3;
 
-  color:#d5d5d5;
-}
+  font-size:9px;
+  font-weight:900;
 
-.line{
-  width:100%;
-  max-width:430px;
-
-  height:2px;
-
-  margin:25px auto 0;
-
-  background:
-    linear-gradient(
-      90deg,
-      #4bd8ff,
-      transparent,
-      #ff6200
-    );
+  letter-spacing:3px;
 }
 
 
-/* MAIN */
+/* =========================================
+   MAIN HOME
+   ========================================= */
 
 .main{
-  max-width:520px;
+  width:100%;
+  max-width:620px;
 
   margin:auto;
 
   padding:
-    10px
-    18px
-    110px;
+    26px
+    16px
+    calc(
+      45px +
+      env(safe-area-inset-bottom)
+    );
 }
 
 .welcome{
-  text-align:center;
+  margin-bottom:21px;
+}
 
-  margin-bottom:28px;
+.welcome-label{
+  color:#67dcff;
+
+  font-size:8px;
+  font-weight:900;
+
+  letter-spacing:2px;
 }
 
 .welcome h2{
-  font-size:23px;
+  margin-top:7px;
 
-  letter-spacing:1px;
+  font-size:22px;
+  font-weight:900;
 
-  margin-bottom:8px;
+  letter-spacing:.5px;
 }
 
 .welcome p{
-  color:#bdbdbd;
+  max-width:470px;
 
-  font-size:14px;
+  margin-top:8px;
 
-  line-height:1.5;
+  color:#999;
+
+  font-size:12px;
+  line-height:1.6;
 }
 
 
-/* CARDS */
+/* =========================================
+   QUICK ACCESS
+   ========================================= */
+
+.section-heading{
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  margin:
+    25px
+    2px
+    11px;
+}
+
+.section-heading h3{
+  font-size:10px;
+  font-weight:900;
+
+  letter-spacing:1.4px;
+}
+
+.section-heading span{
+  color:#666;
+
+  font-size:8px;
+}
+
+
+/* =========================================
+   FEATURE CARDS
+   ========================================= */
 
 .card{
   display:block;
@@ -188,31 +753,43 @@ body{
 
   width:100%;
 
-  padding:21px 19px;
+  min-height:94px;
 
-  margin-bottom:14px;
+  padding:
+    19px
+    52px
+    19px
+    18px;
 
-  border-radius:14px;
+  margin-bottom:12px;
+
+  overflow:hidden;
+
+  border-radius:15px;
 
   text-decoration:none;
 
   color:#fff;
 
-  overflow:hidden;
-
   background:
     linear-gradient(
       105deg,
-      rgba(20,145,195,.18),
-      rgba(12,12,12,.86) 48%,
-      rgba(210,68,0,.18)
+      rgba(20,145,195,.15),
+      rgba(10,10,10,.93) 48%,
+      rgba(210,68,0,.15)
     );
 
   border:
-    1px solid rgba(255,255,255,.13);
+    1px solid
+    rgba(255,255,255,.11);
 
   box-shadow:
-    0 8px 25px rgba(0,0,0,.30);
+    0 10px 28px
+    rgba(0,0,0,.26);
+
+  transition:
+    transform .15s ease,
+    border-color .15s ease;
 }
 
 .card::before{
@@ -227,6 +804,10 @@ body{
   width:3px;
 
   background:#4bd7ff;
+
+  box-shadow:
+    0 0 12px
+    rgba(75,215,255,.55);
 }
 
 .card::after{
@@ -241,184 +822,248 @@ body{
   width:3px;
 
   background:#ff6200;
+
+  box-shadow:
+    0 0 12px
+    rgba(255,98,0,.48);
 }
 
 .card:active{
-  transform:scale(.985);
+  transform:
+    scale(.985);
+}
+
+.card-top{
+  display:flex;
+
+  align-items:center;
+
+  gap:8px;
+
+  margin-bottom:7px;
+}
+
+.card-icon{
+  width:28px;
+  height:28px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  border-radius:8px;
+
+  background:
+    rgba(103,220,255,.08);
+
+  color:#67dcff;
+
+  font-size:15px;
+}
+
+.card.fire-card
+.card-icon{
+  background:
+    rgba(255,117,28,.08);
+
+  color:#ff751c;
 }
 
 .card-title{
-  font-size:18px;
-
+  font-size:15px;
   font-weight:900;
 
-  letter-spacing:1px;
-
-  margin-bottom:5px;
+  letter-spacing:.7px;
 }
 
 .card-subtitle{
-  font-size:12px;
+  color:#999;
 
-  color:#bdbdbd;
-
-  line-height:1.4;
-
-  padding-right:28px;
+  font-size:10px;
+  line-height:1.5;
 }
 
-.arrow{
+.card-arrow{
   position:absolute;
 
-  right:18px;
+  right:20px;
   top:50%;
 
-  transform:translateY(-50%);
+  transform:
+    translateY(-50%);
 
-  font-size:22px;
+  color:#ff751c;
 
-  color:#ff7b20;
+  font-size:24px;
 }
 
 
-/* WEBSITE BUTTON */
+/* =========================================
+   WEBSITE CARD
+   ========================================= */
+
+.website-card{
+  position:relative;
+
+  overflow:hidden;
+
+  margin-top:24px;
+
+  padding:19px;
+
+  border-radius:15px;
+
+  border:
+    1px solid
+    rgba(103,220,255,.20);
+
+  background:
+    linear-gradient(
+      110deg,
+      rgba(0,160,220,.10),
+      rgba(8,8,8,.94) 50%,
+      rgba(255,90,0,.10)
+    );
+}
+
+.website-label{
+  color:#67dcff;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:2px;
+}
+
+.website-title{
+  margin-top:7px;
+
+  font-size:15px;
+  font-weight:900;
+}
+
+.website-text{
+  margin-top:6px;
+
+  color:#888;
+
+  font-size:9px;
+  line-height:1.5;
+}
 
 .website-button{
   display:block;
 
-  margin-top:25px;
+  margin-top:14px;
 
-  padding:17px;
+  padding:13px;
+
+  border-radius:9px;
 
   text-align:center;
-
-  border-radius:10px;
-
-  border:
-    1px solid #53d8ff;
 
   text-decoration:none;
 
   color:#fff;
 
-  font-weight:bold;
-
-  letter-spacing:1px;
+  border:
+    1px solid
+    rgba(103,220,255,.35);
 
   background:
     linear-gradient(
       90deg,
-      rgba(27,156,210,.20),
-      rgba(255,90,0,.20)
+      rgba(0,160,220,.14),
+      rgba(255,90,0,.14)
     );
-}
 
-.website-button:active{
-  transform:scale(.985);
+  font-size:8px;
+  font-weight:900;
+
+  letter-spacing:1px;
 }
 
 .website-address{
+  margin-top:10px;
+
   text-align:center;
 
-  margin-top:12px;
+  color:#666;
 
-  font-size:9px;
+  font-size:7px;
 
-  letter-spacing:1.3px;
-
-  color:#777;
+  letter-spacing:1px;
 }
 
 .ice{
-  color:#5bd8ff;
+  color:#67dcff;
 }
 
 .fire{
-  color:#ff7019;
+  color:#ff751c;
 }
 
 
-/* BOTTOM NAV */
+/* =========================================
+   FOOTER
+   ========================================= */
 
-.bottom-nav{
-  position:fixed;
+.app-footer{
+  margin-top:32px;
 
-  left:0;
-  right:0;
-  bottom:0;
-
-  height:74px;
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(4,1fr);
-
-  padding-bottom:
-    env(safe-area-inset-bottom);
-
-  background:
-    rgba(4,4,4,.96);
+  padding-top:18px;
 
   border-top:
-    1px solid rgba(255,255,255,.12);
+    1px solid
+    rgba(255,255,255,.07);
 
-  backdrop-filter:
-    blur(12px);
+  text-align:center;
 
-  z-index:100;
-}
+  color:#555;
 
-.nav-item{
-  text-decoration:none;
+  font-size:7px;
+  font-weight:900;
 
-  color:#929292;
-
-  display:flex;
-
-  flex-direction:column;
-
-  align-items:center;
-
-  justify-content:center;
-
-  gap:5px;
-
-  font-size:9px;
-
-  font-weight:bold;
-
-  letter-spacing:.4px;
-}
-
-.nav-icon{
-  font-size:20px;
-}
-
-.nav-item.active{
-  color:#66d9ff;
-}
-
-.nav-item.fire-nav{
-  color:#ff7620;
+  letter-spacing:1.3px;
 }
 
 
-/* LARGE PHONES */
+/* =========================================
+   LARGER SCREENS
+   ========================================= */
 
-@media(min-width:500px){
+@media(min-width:600px){
 
-  .header{
+  .hero{
     padding-top:45px;
   }
 
-  .logo{
-    width:170px;
-    height:170px;
+  .hero-logo{
+    width:165px;
+    height:165px;
   }
 
-  .title{
-    font-size:37px;
+  .main{
+    padding-left:22px;
+    padding-right:22px;
+  }
+
+}
+
+
+/* =========================================
+   REDUCED MOTION
+   ========================================= */
+
+@media(
+  prefers-reduced-motion:
+  reduce
+){
+
+  .side-menu,
+  .menu-backdrop{
+    transition:none;
   }
 
 }
@@ -431,48 +1076,317 @@ body{
 <body>
 
 
-<!-- HEADER -->
+<!-- =========================================
+     APP BAR
+     ========================================= -->
 
-<header class="header">
+<header class="app-bar">
+
+<button
+  id="menuButton"
+  class="menu-button"
+  type="button"
+  aria-label="Open navigation menu"
+  aria-expanded="false"
+>
+☰
+</button>
+
+
+<div class="app-bar-brand">
 
 <img
-  src="icon-512.png"
-  alt="Team Wolfpack"
-  class="logo"
+  src="icon-192.png"
+  class="app-bar-logo"
+  alt=""
 >
 
-<h1 class="title">
+<div class="app-bar-title">
 TEAM WOLFPACK
-</h1>
+</div>
 
-<p class="tagline">
-ONE PACK • ONE PURPOSE
-</p>
+</div>
 
-<div class="line"></div>
+
+<div
+  class="app-status"
+  aria-label="App online"
+>
+
+<span class="app-status-dot"></span>
+
+</div>
 
 </header>
 
 
 
-<!-- HOME -->
+<!-- =========================================
+     MENU BACKDROP
+     ========================================= -->
+
+<div
+  id="menuBackdrop"
+  class="menu-backdrop"
+></div>
+
+
+
+<!-- =========================================
+     SIDE NAVIGATION
+     ========================================= -->
+
+<aside
+  id="sideMenu"
+  class="side-menu"
+  aria-label="Team Wolfpack navigation"
+>
+
+<div class="menu-header">
+
+<img
+  src="icon-192.png"
+  class="menu-logo"
+  alt="Team Wolfpack"
+>
+
+<div class="menu-brand">
+TEAM WOLFPACK
+</div>
+
+<div class="menu-tagline">
+ONE PACK • ONE PURPOSE
+</div>
+
+<button
+  id="closeMenuButton"
+  class="close-menu"
+  type="button"
+  aria-label="Close navigation menu"
+>
+×
+</button>
+
+</div>
+
+
+<div class="menu-section-label">
+MAIN
+</div>
+
+
+<nav class="menu-nav">
+
+<a
+  class="menu-link active"
+  href="index.html"
+>
+<span class="menu-icon">⌂</span>
+<span>HOME</span>
+<span class="menu-arrow">›</span>
+</a>
+
+
+<a
+  class="menu-link fire-link"
+  href="fights.html"
+>
+<span class="menu-icon">♜</span>
+<span>FIGHTS</span>
+<span class="menu-arrow">›</span>
+</a>
+
+
+<a
+  class="menu-link"
+  href="fighters.html"
+>
+<span class="menu-icon">♟</span>
+<span>FIGHTERS</span>
+<span class="menu-arrow">›</span>
+</a>
+
+
+<a
+  class="menu-link"
+  href="pack.html"
+>
+<span class="menu-icon">◆</span>
+<span>MEET THE PACK</span>
+<span class="menu-arrow">›</span>
+</a>
+
+
+<a
+  class="menu-link chat"
+  href="chat.html"
+>
+<span class="menu-icon">●</span>
+<span>PACK CHAT</span>
+<span class="menu-arrow">›</span>
+</a>
+
+</nav>
+
+
+<div class="menu-section-label">
+EXPLORE
+</div>
+
+
+<nav class="menu-nav">
+
+<a
+  class="menu-link"
+  href="sponsors.html"
+>
+<span class="menu-icon">★</span>
+<span>SPONSORS &amp; PARTNERS</span>
+<span class="menu-arrow">›</span>
+</a>
+
+
+<a
+  class="menu-link"
+  href="Gallery.html"
+>
+<span class="menu-icon">▣</span>
+<span>GALLERY</span>
+<span class="menu-arrow">›</span>
+</a>
+
+
+<a
+  class="menu-link"
+  href="merch.html"
+>
+<span class="menu-icon">◇</span>
+<span>MERCH</span>
+<span class="menu-arrow">›</span>
+</a>
+
+
+<a
+  class="menu-link"
+  href="contact.html"
+>
+<span class="menu-icon">✉</span>
+<span>CONTACT</span>
+<span class="menu-arrow">›</span>
+</a>
+
+
+<a
+  class="menu-link"
+  href="socials.html"
+>
+<span class="menu-icon">◎</span>
+<span>SOCIALS</span>
+<span class="menu-arrow">›</span>
+</a>
+
+
+<a
+  class="menu-link"
+  href="about.html"
+>
+<span class="menu-icon">ⓘ</span>
+<span>ABOUT</span>
+<span class="menu-arrow">›</span>
+</a>
+
+
+<a
+  class="menu-link"
+  href="more.html"
+>
+<span class="menu-icon">•••</span>
+<span>MORE</span>
+<span class="menu-arrow">›</span>
+</a>
+
+</nav>
+
+
+<a
+  class="menu-website"
+  href="https://officialteamwolfpack.com/boxing"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+VISIT OFFICIAL WEBSITE
+</a>
+
+</aside>
+
+
+
+<!-- =========================================
+     HERO
+     ========================================= -->
+
+<section class="hero">
+
+<img
+  src="icon-512.png"
+  class="hero-logo"
+  alt="Team Wolfpack"
+>
+
+<div class="hero-eyebrow">
+OFFICIAL MOBILE APP
+</div>
+
+<h1 class="hero-title">
+TEAM WOLFPACK
+</h1>
+
+<div class="hero-tagline">
+ONE PACK • ONE PURPOSE
+</div>
+
+</section>
+
+
+
+<!-- =========================================
+     HOME
+     ========================================= -->
 
 <main class="main">
 
 
 <section class="welcome">
 
+<div class="welcome-label">
+WELCOME
+</div>
+
 <h2>
 WELCOME TO THE PACK
 </h2>
 
 <p>
-Official Team Wolfpack mobile app.
-Fighters, fights, merchandise,
-sponsors and more.
+The official Team Wolfpack app.
+Follow our fighters, upcoming fights,
+Team Wolfpack news, sponsors and more.
 </p>
 
 </section>
+
+
+
+<div class="section-heading">
+
+<h3>
+QUICK ACCESS
+</h3>
+
+<span>
+TEAM WOLFPACK
+</span>
+
+</div>
 
 
 
@@ -486,15 +1400,23 @@ sponsors and more.
   });"
 >
 
+<div class="card-top">
+
+<div class="card-icon">
+♟
+</div>
+
 <div class="card-title">
 FIGHTERS
+</div>
+
 </div>
 
 <div class="card-subtitle">
 Mrs Wolfie • Greig Sloan
 </div>
 
-<span class="arrow">
+<span class="card-arrow">
 ›
 </span>
 
@@ -505,22 +1427,30 @@ Mrs Wolfie • Greig Sloan
 <!-- UPCOMING FIGHTS -->
 
 <a
-  class="card"
+  class="card fire-card"
   href="fights.html"
   onclick="gtag('event','home_card_click',{
     section:'Upcoming Fights'
   });"
 >
 
+<div class="card-top">
+
+<div class="card-icon">
+♜
+</div>
+
 <div class="card-title">
 UPCOMING FIGHTS
+</div>
+
 </div>
 
 <div class="card-subtitle">
 Fight cards • opponents • dates • venues
 </div>
 
-<span class="arrow">
+<span class="card-arrow">
 ›
 </span>
 
@@ -538,15 +1468,24 @@ Fight cards • opponents • dates • venues
   });"
 >
 
+<div class="card-top">
+
+<div class="card-icon">
+★
+</div>
+
 <div class="card-title">
 SPONSORS &amp; PARTNERS
 </div>
 
-<div class="card-subtitle">
-Meet the sponsors supporting Team Wolfpack and Team Sloan
 </div>
 
-<span class="arrow">
+<div class="card-subtitle">
+Meet the sponsors supporting
+Team Wolfpack and Team Sloan.
+</div>
+
+<span class="card-arrow">
 ›
 </span>
 
@@ -557,22 +1496,30 @@ Meet the sponsors supporting Team Wolfpack and Team Sloan
 <!-- MORE -->
 
 <a
-  class="card"
+  class="card fire-card"
   href="more.html"
   onclick="gtag('event','home_card_click',{
     section:'More'
   });"
 >
 
+<div class="card-top">
+
+<div class="card-icon">
+•••
+</div>
+
 <div class="card-title">
 MORE
 </div>
 
-<div class="card-subtitle">
-Merch • meet the pack • about • contact • socials
 </div>
 
-<span class="arrow">
+<div class="card-subtitle">
+Merch • Meet the Pack • About • Contact • Socials
+</div>
+
+<span class="card-arrow">
 ›
 </span>
 
@@ -581,6 +1528,21 @@ Merch • meet the pack • about • contact • socials
 
 
 <!-- OFFICIAL WEBSITE -->
+
+<section class="website-card">
+
+<div class="website-label">
+OFFICIAL TEAM WOLFPACK
+</div>
+
+<div class="website-title">
+VISIT OUR OFFICIAL WEBSITE
+</div>
+
+<div class="website-text">
+Visit the full Team Wolfpack boxing website
+for more information about the Pack.
+</div>
 
 <a
   class="website-button"
@@ -591,11 +1553,8 @@ Merch • meet the pack • about • contact • socials
     source:'App Home'
   });"
 >
-
-VISIT OFFICIAL WEBSITE
-
+OPEN OFFICIAL WEBSITE
 </a>
-
 
 <div class="website-address">
 
@@ -609,89 +1568,162 @@ OFFICIALTEAMWOLFPACK.COM
 
 </div>
 
+</section>
+
+
+
+<footer class="app-footer">
+TEAM WOLFPACK • STRENGTH IN UNITY
+</footer>
+
 
 </main>
 
 
 
-<!-- BOTTOM NAVIGATION -->
-
-<nav class="bottom-nav">
-
-
-<a
-  class="nav-item active"
-  href="index.html"
->
-
-<span class="nav-icon">
-⌂
-</span>
-
-HOME
-
-</a>
-
-
-<a
-  class="nav-item"
-  href="fighters.html"
->
-
-<span class="nav-icon">
-♟
-</span>
-
-FIGHTERS
-
-</a>
-
-
-<a
-  class="nav-item fire-nav"
-  href="fights.html"
->
-
-<span class="nav-icon">
-♜
-</span>
-
-FIGHTS
-
-</a>
-
-
-<a
-  class="nav-item"
-  href="more.html"
->
-
-<span class="nav-icon">
-☰
-</span>
-
-MORE
-
-</a>
-
-
-</nav>
-
-
-
-<!-- SERVICE WORKER -->
+<!-- =========================================
+     SIDE MENU JAVASCRIPT
+     ========================================= -->
 
 <script>
 
-if ("serviceWorker" in navigator) {
+const menuButton =
+  document.getElementById(
+    "menuButton"
+  );
+
+const closeMenuButton =
+  document.getElementById(
+    "closeMenuButton"
+  );
+
+const sideMenu =
+  document.getElementById(
+    "sideMenu"
+  );
+
+const menuBackdrop =
+  document.getElementById(
+    "menuBackdrop"
+  );
+
+
+function openMenu(){
+
+  sideMenu.classList.add(
+    "show"
+  );
+
+  menuBackdrop.classList.add(
+    "show"
+  );
+
+  document.body.classList.add(
+    "menu-open"
+  );
+
+  menuButton.setAttribute(
+    "aria-expanded",
+    "true"
+  );
+
+}
+
+
+function closeMenu(){
+
+  sideMenu.classList.remove(
+    "show"
+  );
+
+  menuBackdrop.classList.remove(
+    "show"
+  );
+
+  document.body.classList.remove(
+    "menu-open"
+  );
+
+  menuButton.setAttribute(
+    "aria-expanded",
+    "false"
+  );
+
+}
+
+
+menuButton.addEventListener(
+  "click",
+  openMenu
+);
+
+
+closeMenuButton.addEventListener(
+  "click",
+  closeMenu
+);
+
+
+menuBackdrop.addEventListener(
+  "click",
+  closeMenu
+);
+
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(
+      event.key === "Escape"
+    ){
+
+      closeMenu();
+
+    }
+
+  }
+);
+
+
+document
+  .querySelectorAll(
+    ".menu-link"
+  )
+  .forEach(
+    function(link){
+
+      link.addEventListener(
+        "click",
+        closeMenu
+      );
+
+    }
+  );
+
+</script>
+
+
+
+<!-- =========================================
+     SERVICE WORKER
+     ========================================= -->
+
+<script>
+
+if(
+  "serviceWorker" in navigator
+){
 
   window.addEventListener(
     "load",
     function(){
 
-      navigator.serviceWorker.register(
-        "service-worker.js"
-      );
+      navigator
+        .serviceWorker
+        .register(
+          "service-worker.js"
+        );
 
     }
   );
