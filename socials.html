@@ -58,6 +58,8 @@ body{
   min-height:100vh;
   min-height:100dvh;
 
+  padding-top:calc(66px + env(safe-area-inset-top));
+
   font-family:Arial, Helvetica, sans-serif;
 
   color:#fff;
@@ -92,8 +94,12 @@ body.menu-open{
    ========================================= */
 
 .app-bar{
-  position:sticky;
+  position:fixed;
+
   top:0;
+  left:0;
+  right:0;
+
   z-index:500;
 
   height:calc(66px + env(safe-area-inset-top));
@@ -108,7 +114,7 @@ body.menu-open{
 
   align-items:center;
 
-  background:rgba(4,4,4,.94);
+  background:rgba(4,4,4,.96);
 
   border-bottom:
     1px solid rgba(255,255,255,.10);
@@ -117,7 +123,7 @@ body.menu-open{
   -webkit-backdrop-filter:blur(18px);
 
   box-shadow:
-    0 8px 30px rgba(0,0,0,.28);
+    0 8px 30px rgba(0,0,0,.38);
 }
 
 .menu-button{
@@ -179,7 +185,6 @@ body.menu-open{
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-
   background-clip:text;
 }
 
@@ -254,6 +259,7 @@ body.menu-open{
   transition:transform .28s ease;
 
   overflow-y:auto;
+  overscroll-behavior:contain;
 
   padding:
     calc(18px + env(safe-area-inset-top))
@@ -322,7 +328,6 @@ body.menu-open{
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-
   background-clip:text;
 }
 
@@ -444,6 +449,10 @@ body.menu-open{
   font-size:17px;
 }
 
+.menu-link.active .menu-icon{
+  color:#ff751c;
+}
+
 .menu-arrow{
   margin-left:auto;
 
@@ -451,6 +460,34 @@ body.menu-open{
 
   font-size:16px;
 }
+
+
+/* =========================================
+   ADMIN MENU
+   ========================================= */
+
+#adminMenuSection{
+  display:none;
+}
+
+.admin-menu-link{
+  color:#ffb05d;
+
+  border-color:
+    rgba(255,117,28,.22);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,90,0,.09),
+      rgba(0,160,220,.05)
+    );
+}
+
+.admin-menu-link .menu-icon{
+  color:#ff751c;
+}
+
 
 .menu-website{
   display:block;
@@ -862,51 +899,6 @@ body.menu-open{
 
 
 /* =========================================
-   BACK
-   ========================================= */
-
-.back{
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  width:100%;
-
-  margin-top:22px;
-
-  padding:14px;
-
-  text-align:center;
-
-  text-decoration:none;
-
-  color:#fff;
-
-  border:
-    1px solid rgba(91,217,255,.45);
-
-  border-radius:10px;
-
-  font-size:9px;
-  font-weight:900;
-
-  letter-spacing:1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(0,160,220,.10),
-      rgba(255,90,0,.10)
-    );
-}
-
-.back:active{
-  transform:scale(.985);
-}
-
-
-/* =========================================
    FOOTER
    ========================================= */
 
@@ -1149,13 +1141,31 @@ EXPLORE
 <span class="menu-arrow">›</span>
 </a>
 
-<a class="menu-link" href="more.html">
-<span class="menu-icon">•••</span>
-<span>MORE</span>
+</nav>
+
+
+<!-- ADMIN -->
+
+<div id="adminMenuSection">
+
+<div class="menu-section-label">
+ADMIN
+</div>
+
+<nav class="menu-nav">
+
+<a
+  class="menu-link admin-menu-link"
+  href="admin-dashboard.html"
+>
+<span class="menu-icon">⚙</span>
+<span>ADMIN DASHBOARD</span>
 <span class="menu-arrow">›</span>
 </a>
 
 </nav>
+
+</div>
 
 
 <a
@@ -1249,7 +1259,7 @@ Follow Team Wolfpack, Mr Wolfie and Mrs Wolfie across our official social channe
 <div class="platform-row">
 
 <div class="platform-icon">
-♪ 
+♪
 </div>
 
 <div class="platform">
@@ -1366,7 +1376,6 @@ VIEW PROFILE
 
 </a>
 
-
 </div>
 
 
@@ -1386,24 +1395,9 @@ content, announcements and life inside the pack.
 </div>
 
 
-<!-- BACK -->
-
-<a
-  class="back"
-  href="more.html"
-  onclick="gtag('event','navigation_click',{
-    source:'Follow The Pack Page',
-    destination:'More'
-  });"
->
-‹ &nbsp; BACK TO MORE
-</a>
-
-
 <footer class="app-footer">
 TEAM WOLFPACK • STRENGTH IN UNITY
 </footer>
-
 
 </main>
 
@@ -1415,39 +1409,25 @@ TEAM WOLFPACK • STRENGTH IN UNITY
 <script>
 
 const menuButton =
-  document.getElementById(
-    "menuButton"
-  );
+  document.getElementById("menuButton");
 
 const closeMenuButton =
-  document.getElementById(
-    "closeMenuButton"
-  );
+  document.getElementById("closeMenuButton");
 
 const sideMenu =
-  document.getElementById(
-    "sideMenu"
-  );
+  document.getElementById("sideMenu");
 
 const menuBackdrop =
-  document.getElementById(
-    "menuBackdrop"
-  );
+  document.getElementById("menuBackdrop");
 
 
 function openMenu(){
 
-  sideMenu.classList.add(
-    "show"
-  );
+  sideMenu.classList.add("show");
 
-  menuBackdrop.classList.add(
-    "show"
-  );
+  menuBackdrop.classList.add("show");
 
-  document.body.classList.add(
-    "menu-open"
-  );
+  document.body.classList.add("menu-open");
 
   menuButton.setAttribute(
     "aria-expanded",
@@ -1459,17 +1439,11 @@ function openMenu(){
 
 function closeMenu(){
 
-  sideMenu.classList.remove(
-    "show"
-  );
+  sideMenu.classList.remove("show");
 
-  menuBackdrop.classList.remove(
-    "show"
-  );
+  menuBackdrop.classList.remove("show");
 
-  document.body.classList.remove(
-    "menu-open"
-  );
+  document.body.classList.remove("menu-open");
 
   menuButton.setAttribute(
     "aria-expanded",
@@ -1501,9 +1475,7 @@ document.addEventListener(
   "keydown",
   function(event){
 
-    if(
-      event.key === "Escape"
-    ){
+    if(event.key === "Escape"){
       closeMenu();
     }
 
@@ -1512,19 +1484,88 @@ document.addEventListener(
 
 
 document
-  .querySelectorAll(
-    ".menu-link"
-  )
-  .forEach(
-    function(link){
+  .querySelectorAll(".menu-link")
+  .forEach(function(link){
 
-      link.addEventListener(
-        "click",
-        closeMenu
-      );
+    link.addEventListener(
+      "click",
+      closeMenu
+    );
+
+  });
+
+</script>
+
+
+<!-- =========================================
+     ADMIN DASHBOARD VISIBILITY
+     ========================================= -->
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+  authDomain: "team-wolfpack-app.firebaseapp.com",
+  databaseURL: "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "team-wolfpack-app",
+  storageBucket: "team-wolfpack-app.firebasestorage.app",
+  messagingSenderId: "1070414578856",
+  appId: "1:1070414578856:web:df14e7d387e658eeae2e9d",
+  measurementId: "G-6JTCE2N9LZ"
+};
+
+
+const firebaseApp =
+  initializeApp(firebaseConfig);
+
+const auth =
+  getAuth(firebaseApp);
+
+
+const ADMIN_UIDS =
+  new Set([
+    "PRGa9TsCW0QDn1QtoUXyYjEi7YB3",
+    "SlpEQYl94DaH6j42QUyl8Kv2ujJ3"
+  ]);
+
+
+const adminMenuSection =
+  document.getElementById(
+    "adminMenuSection"
+  );
+
+
+onAuthStateChanged(
+  auth,
+  function(user){
+
+    if(
+      user &&
+      ADMIN_UIDS.has(user.uid)
+    ){
+
+      adminMenuSection.style.display =
+        "block";
+
+    }else{
+
+      adminMenuSection.style.display =
+        "none";
 
     }
-  );
+
+  }
+);
 
 </script>
 
@@ -1543,10 +1584,19 @@ if(
     "load",
     function(){
 
-      navigator
-        .serviceWorker
+      navigator.serviceWorker
         .register(
           "service-worker.js"
+        )
+        .catch(
+          function(error){
+
+            console.error(
+              "Service worker error:",
+              error
+            );
+
+          }
         );
 
     }
@@ -1556,7 +1606,5 @@ if(
 
 </script>
 
-
 </body>
-
 </html>
