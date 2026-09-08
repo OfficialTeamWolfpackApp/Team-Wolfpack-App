@@ -95,6 +95,7 @@ body.menu-open{
 
 .app-bar{
   position:fixed;
+
   top:0;
   left:0;
   right:0;
@@ -122,7 +123,7 @@ body.menu-open{
   -webkit-backdrop-filter:blur(18px);
 
   box-shadow:
-    0 8px 30px rgba(0,0,0,.28);
+    0 8px 30px rgba(0,0,0,.38);
 }
 
 .menu-button{
@@ -260,6 +261,7 @@ body.menu-open{
   transition:transform .28s ease;
 
   overflow-y:auto;
+  overscroll-behavior:contain;
 
   padding:
     calc(18px + env(safe-area-inset-top))
@@ -450,12 +452,43 @@ body.menu-open{
   font-size:17px;
 }
 
+.menu-link.active .menu-icon{
+  color:#ff751c;
+}
+
 .menu-arrow{
   margin-left:auto;
 
   color:#666;
 
   font-size:16px;
+}
+
+
+/* =========================================
+   ADMIN MENU
+   ========================================= */
+
+#adminMenuSection{
+  display:none;
+}
+
+.admin-menu-link{
+  color:#ffb05d;
+
+  border-color:
+    rgba(255,117,28,.22);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,90,0,.09),
+      rgba(0,160,220,.05)
+    );
+}
+
+.admin-menu-link .menu-icon{
+  color:#ff751c;
 }
 
 .menu-website{
@@ -1049,7 +1082,7 @@ EXPLORE
 <span class="menu-arrow">›</span>
 </a>
 
-<a class="menu-link" href="Gallery.html">
+<a class="menu-link" href="gallery.html">
 <span class="menu-icon">▣</span>
 <span>GALLERY</span>
 <span class="menu-arrow">›</span>
@@ -1080,6 +1113,30 @@ EXPLORE
 </a>
 
 </nav>
+
+
+<!-- ADMIN -->
+
+<div id="adminMenuSection">
+
+<div class="menu-section-label">
+ADMIN
+</div>
+
+<nav class="menu-nav">
+
+<a
+  class="menu-link admin-menu-link"
+  href="admin-dashboard.html"
+>
+<span class="menu-icon">⚙</span>
+<span>ADMIN DASHBOARD</span>
+<span class="menu-arrow">›</span>
+</a>
+
+</nav>
+
+</div>
 
 
 <a
@@ -1317,7 +1374,6 @@ ONE PURPOSE.
 TEAM WOLFPACK • STRENGTH IN UNITY
 </footer>
 
-
 </main>
 
 
@@ -1328,39 +1384,25 @@ TEAM WOLFPACK • STRENGTH IN UNITY
 <script>
 
 const menuButton =
-  document.getElementById(
-    "menuButton"
-  );
+  document.getElementById("menuButton");
 
 const closeMenuButton =
-  document.getElementById(
-    "closeMenuButton"
-  );
+  document.getElementById("closeMenuButton");
 
 const sideMenu =
-  document.getElementById(
-    "sideMenu"
-  );
+  document.getElementById("sideMenu");
 
 const menuBackdrop =
-  document.getElementById(
-    "menuBackdrop"
-  );
+  document.getElementById("menuBackdrop");
 
 
 function openMenu(){
 
-  sideMenu.classList.add(
-    "show"
-  );
+  sideMenu.classList.add("show");
 
-  menuBackdrop.classList.add(
-    "show"
-  );
+  menuBackdrop.classList.add("show");
 
-  document.body.classList.add(
-    "menu-open"
-  );
+  document.body.classList.add("menu-open");
 
   menuButton.setAttribute(
     "aria-expanded",
@@ -1372,17 +1414,11 @@ function openMenu(){
 
 function closeMenu(){
 
-  sideMenu.classList.remove(
-    "show"
-  );
+  sideMenu.classList.remove("show");
 
-  menuBackdrop.classList.remove(
-    "show"
-  );
+  menuBackdrop.classList.remove("show");
 
-  document.body.classList.remove(
-    "menu-open"
-  );
+  document.body.classList.remove("menu-open");
 
   menuButton.setAttribute(
     "aria-expanded",
@@ -1414,9 +1450,7 @@ document.addEventListener(
   "keydown",
   function(event){
 
-    if(
-      event.key === "Escape"
-    ){
+    if(event.key === "Escape"){
       closeMenu();
     }
 
@@ -1425,19 +1459,88 @@ document.addEventListener(
 
 
 document
-  .querySelectorAll(
-    ".menu-link"
-  )
-  .forEach(
-    function(link){
+  .querySelectorAll(".menu-link")
+  .forEach(function(link){
 
-      link.addEventListener(
-        "click",
-        closeMenu
-      );
+    link.addEventListener(
+      "click",
+      closeMenu
+    );
+
+  });
+
+</script>
+
+
+<!-- =========================================
+     ADMIN DASHBOARD VISIBILITY
+     ========================================= -->
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+  authDomain: "team-wolfpack-app.firebaseapp.com",
+  databaseURL: "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "team-wolfpack-app",
+  storageBucket: "team-wolfpack-app.firebasestorage.app",
+  messagingSenderId: "1070414578856",
+  appId: "1:1070414578856:web:df14e7d387e658eeae2e9d",
+  measurementId: "G-6JTCE2N9LZ"
+};
+
+
+const firebaseApp =
+  initializeApp(firebaseConfig);
+
+const auth =
+  getAuth(firebaseApp);
+
+
+const ADMIN_UIDS =
+  new Set([
+    "PRGa9TsCW0QDn1QtoUXyYjEi7YB3",
+    "SlpEQYl94DaH6j42QUyl8Kv2ujJ3"
+  ]);
+
+
+const adminMenuSection =
+  document.getElementById(
+    "adminMenuSection"
+  );
+
+
+onAuthStateChanged(
+  auth,
+  function(user){
+
+    if(
+      user &&
+      ADMIN_UIDS.has(user.uid)
+    ){
+
+      adminMenuSection.style.display =
+        "block";
+
+    }else{
+
+      adminMenuSection.style.display =
+        "none";
 
     }
-  );
+
+  }
+);
 
 </script>
 
@@ -1448,19 +1551,22 @@ document
 
 <script>
 
-if(
-  "serviceWorker" in navigator
-){
+if("serviceWorker" in navigator){
 
   window.addEventListener(
     "load",
     function(){
 
-      navigator
-        .serviceWorker
-        .register(
-          "service-worker.js"
-        );
+      navigator.serviceWorker
+        .register("service-worker.js")
+        .catch(function(error){
+
+          console.error(
+            "Service worker error:",
+            error
+          );
+
+        });
 
     }
   );
@@ -1470,5 +1576,4 @@ if(
 </script>
 
 </body>
-
 </html>
