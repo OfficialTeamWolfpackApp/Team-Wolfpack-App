@@ -58,6 +58,8 @@ body{
   min-height:100vh;
   min-height:100dvh;
 
+  padding-top:calc(66px + env(safe-area-inset-top));
+
   font-family:Arial, Helvetica, sans-serif;
 
   color:#fff;
@@ -92,8 +94,11 @@ body.menu-open{
    ========================================= */
 
 .app-bar{
-  position:sticky;
+  position:fixed;
   top:0;
+  left:0;
+  right:0;
+
   z-index:500;
 
   height:calc(66px + env(safe-area-inset-top));
@@ -108,7 +113,7 @@ body.menu-open{
 
   align-items:center;
 
-  background:rgba(4,4,4,.94);
+  background:rgba(4,4,4,.96);
 
   border-bottom:
     1px solid rgba(255,255,255,.10);
@@ -846,51 +851,6 @@ body.menu-open{
 
 
 /* =========================================
-   BACK
-   ========================================= */
-
-.back{
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  width:100%;
-
-  margin-top:6px;
-
-  padding:14px;
-
-  text-align:center;
-
-  text-decoration:none;
-
-  color:#fff;
-
-  border:
-    1px solid rgba(91,217,255,.45);
-
-  border-radius:10px;
-
-  font-size:9px;
-  font-weight:900;
-
-  letter-spacing:1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(0,160,220,.10),
-      rgba(255,90,0,.10)
-    );
-}
-
-.back:active{
-  transform:scale(.985);
-}
-
-
-/* =========================================
    FOOTER
    ========================================= */
 
@@ -1116,12 +1076,6 @@ EXPLORE
 <a class="menu-link active" href="about.html">
 <span class="menu-icon">ⓘ</span>
 <span>ABOUT</span>
-<span class="menu-arrow">›</span>
-</a>
-
-<a class="menu-link" href="more.html">
-<span class="menu-icon">•••</span>
-<span>MORE</span>
 <span class="menu-arrow">›</span>
 </a>
 
@@ -1359,22 +1313,6 @@ ONE PURPOSE.
 </section>
 
 
-<!-- BACK -->
-
-<a
-  class="back"
-  href="more.html"
-  aria-label="Back to More"
-  onclick="gtag('event','navigation_click',{
-    source:'About Page',
-    destination:'More',
-    navigation_type:'Back Button'
-  });"
->
-‹ &nbsp; BACK TO MORE
-</a>
-
-
 <footer class="app-footer">
 TEAM WOLFPACK • STRENGTH IN UNITY
 </footer>
@@ -1530,7 +1468,6 @@ if(
 }
 
 </script>
-
 
 </body>
 
