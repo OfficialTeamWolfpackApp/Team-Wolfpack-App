@@ -15,6 +15,12 @@ function gtag(){
 
 gtag("js", new Date());
 gtag("config", "G-M973P0B4F0");
+
+window.addEventListener("load", function(){
+  gtag("event", "home_page_view", {
+    section: "Home"
+  });
+});
 </script>
 
 <meta charset="UTF-8">
@@ -51,6 +57,8 @@ html{
 body{
   min-height:100vh;
   min-height:100dvh;
+
+  padding-top:calc(66px + env(safe-area-inset-top));
 
   background:
     radial-gradient(
@@ -90,17 +98,15 @@ body.menu-open{
    ========================================= */
 
 .app-bar{
-  position:sticky;
+  position:fixed;
 
   top:0;
+  left:0;
+  right:0;
 
   z-index:500;
 
-  height:
-    calc(
-      66px +
-      env(safe-area-inset-top)
-    );
+  height:calc(66px + env(safe-area-inset-top));
 
   padding:
     env(safe-area-inset-top)
@@ -116,22 +122,16 @@ body.menu-open{
 
   align-items:center;
 
-  background:
-    rgba(4,4,4,.94);
+  background:rgba(4,4,4,.96);
 
   border-bottom:
-    1px solid
-    rgba(255,255,255,.10);
+    1px solid rgba(255,255,255,.10);
 
-  backdrop-filter:
-    blur(18px);
-
-  -webkit-backdrop-filter:
-    blur(18px);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
 
   box-shadow:
-    0 8px 30px
-    rgba(0,0,0,.28);
+    0 8px 30px rgba(0,0,0,.38);
 }
 
 .menu-button{
@@ -139,31 +139,26 @@ body.menu-open{
   height:42px;
 
   display:flex;
-
   align-items:center;
   justify-content:center;
 
   border-radius:12px;
 
   border:
-    1px solid
-    rgba(103,220,255,.22);
+    1px solid rgba(103,220,255,.22);
 
-  background:
-    rgba(0,150,210,.07);
+  background:rgba(0,150,210,.07);
 
   color:#67dcff;
 
   cursor:pointer;
 
   font-size:24px;
-
   line-height:1;
 }
 
 .app-bar-brand{
   display:flex;
-
   align-items:center;
   justify-content:center;
 
@@ -180,8 +175,7 @@ body.menu-open{
 
   filter:
     drop-shadow(
-      0 0 6px
-      rgba(103,220,255,.25)
+      0 0 6px rgba(103,220,255,.25)
     );
 }
 
@@ -189,7 +183,6 @@ body.menu-open{
   overflow:hidden;
 
   white-space:nowrap;
-
   text-overflow:ellipsis;
 
   font-size:11px;
@@ -207,7 +200,6 @@ body.menu-open{
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-
   background-clip:text;
 }
 
@@ -216,7 +208,6 @@ body.menu-open{
   height:42px;
 
   display:flex;
-
   align-items:center;
   justify-content:center;
 }
@@ -230,8 +221,7 @@ body.menu-open{
   background:#43f27b;
 
   box-shadow:
-    0 0 9px
-    rgba(67,242,123,.75);
+    0 0 9px rgba(67,242,123,.75);
 }
 
 
@@ -247,17 +237,12 @@ body.menu-open{
   z-index:800;
 
   visibility:hidden;
-
   opacity:0;
 
-  background:
-    rgba(0,0,0,.72);
+  background:rgba(0,0,0,.72);
 
-  backdrop-filter:
-    blur(3px);
-
-  -webkit-backdrop-filter:
-    blur(3px);
+  backdrop-filter:blur(3px);
+  -webkit-backdrop-filter:blur(3px);
 
   transition:
     opacity .25s ease,
@@ -285,24 +270,17 @@ body.menu-open{
 
   width:min(84vw,340px);
 
-  transform:
-    translateX(-105%);
+  transform:translateX(-105%);
 
-  transition:
-    transform .28s ease;
+  transition:transform .28s ease;
 
   overflow-y:auto;
+  overscroll-behavior:contain;
 
   padding:
-    calc(
-      18px +
-      env(safe-area-inset-top)
-    )
+    calc(18px + env(safe-area-inset-top))
     15px
-    calc(
-      25px +
-      env(safe-area-inset-bottom)
-    );
+    calc(25px + env(safe-area-inset-bottom));
 
   background:
     radial-gradient(
@@ -318,17 +296,14 @@ body.menu-open{
     #080808;
 
   border-right:
-    1px solid
-    rgba(103,220,255,.20);
+    1px solid rgba(103,220,255,.20);
 
   box-shadow:
-    20px 0 50px
-    rgba(0,0,0,.55);
+    20px 0 50px rgba(0,0,0,.55);
 }
 
 .side-menu.show{
-  transform:
-    translateX(0);
+  transform:translateX(0);
 }
 
 .menu-header{
@@ -341,8 +316,7 @@ body.menu-open{
     5px;
 
   border-bottom:
-    1px solid
-    rgba(255,255,255,.09);
+    1px solid rgba(255,255,255,.09);
 }
 
 .menu-logo{
@@ -370,7 +344,6 @@ body.menu-open{
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-
   background-clip:text;
 }
 
@@ -397,11 +370,9 @@ body.menu-open{
   border-radius:10px;
 
   border:
-    1px solid
-    rgba(255,117,28,.25);
+    1px solid rgba(255,117,28,.25);
 
-  background:
-    rgba(255,90,0,.07);
+  background:rgba(255,90,0,.07);
 
   color:#ff751c;
 
@@ -411,10 +382,7 @@ body.menu-open{
 }
 
 .menu-section-label{
-  margin:
-    20px
-    8px
-    8px;
+  margin:20px 8px 8px;
 
   color:#666;
 
@@ -434,14 +402,11 @@ body.menu-open{
 
 .menu-link{
   display:flex;
-
   align-items:center;
 
   min-height:48px;
 
-  padding:
-    9px
-    11px;
+  padding:9px 11px;
 
   border-radius:10px;
 
@@ -449,9 +414,7 @@ body.menu-open{
 
   color:#d7d7d7;
 
-  border:
-    1px solid
-    transparent;
+  border:1px solid transparent;
 
   font-size:10px;
   font-weight:900;
@@ -466,8 +429,7 @@ body.menu-open{
 .menu-link.active{
   color:#67dcff;
 
-  border-color:
-    rgba(103,220,255,.22);
+  border-color:rgba(103,220,255,.22);
 
   background:
     linear-gradient(
@@ -480,8 +442,7 @@ body.menu-open{
 .menu-link.chat{
   color:#fff;
 
-  border-color:
-    rgba(103,220,255,.15);
+  border-color:rgba(103,220,255,.15);
 
   background:
     linear-gradient(
@@ -494,14 +455,17 @@ body.menu-open{
 .menu-icon{
   width:34px;
 
-  flex:
-    0 0 34px;
+  flex:0 0 34px;
 
   text-align:center;
 
   color:#67dcff;
 
   font-size:17px;
+}
+
+.menu-link.active .menu-icon{
+  color:#ff751c;
 }
 
 .menu-link.fire-link .menu-icon{
@@ -528,8 +492,7 @@ body.menu-open{
 .admin-menu-link{
   color:#ffb05d;
 
-  border-color:
-    rgba(255,117,28,.22);
+  border-color:rgba(255,117,28,.22);
 
   background:
     linear-gradient(
@@ -557,8 +520,7 @@ body.menu-open{
   border-radius:10px;
 
   border:
-    1px solid
-    rgba(103,220,255,.28);
+    1px solid rgba(103,220,255,.28);
 
   background:
     linear-gradient(
@@ -623,12 +585,10 @@ body.menu-open{
 
   filter:
     drop-shadow(
-      0 0 16px
-      rgba(51,201,255,.25)
+      0 0 16px rgba(51,201,255,.25)
     )
     drop-shadow(
-      0 0 16px
-      rgba(255,92,0,.22)
+      0 0 16px rgba(255,92,0,.22)
     );
 }
 
@@ -646,12 +606,7 @@ body.menu-open{
 .hero-title{
   margin-top:7px;
 
-  font-size:
-    clamp(
-      28px,
-      8vw,
-      38px
-    );
+  font-size:clamp(28px,8vw,38px);
 
   font-weight:900;
 
@@ -668,7 +623,6 @@ body.menu-open{
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-
   background-clip:text;
 }
 
@@ -697,10 +651,7 @@ body.menu-open{
   padding:
     26px
     16px
-    calc(
-      45px +
-      env(safe-area-inset-bottom)
-    );
+    calc(45px + env(safe-area-inset-bottom));
 }
 
 .welcome{
@@ -747,10 +698,7 @@ body.menu-open{
   align-items:center;
   justify-content:space-between;
 
-  margin:
-    25px
-    2px
-    11px;
+  margin:25px 2px 11px;
 }
 
 .section-heading h3{
@@ -805,12 +753,10 @@ body.menu-open{
     );
 
   border:
-    1px solid
-    rgba(255,255,255,.11);
+    1px solid rgba(255,255,255,.11);
 
   box-shadow:
-    0 10px 28px
-    rgba(0,0,0,.26);
+    0 10px 28px rgba(0,0,0,.26);
 
   transition:
     transform .15s ease,
@@ -831,8 +777,7 @@ body.menu-open{
   background:#4bd7ff;
 
   box-shadow:
-    0 0 12px
-    rgba(75,215,255,.55);
+    0 0 12px rgba(75,215,255,.55);
 }
 
 .card::after{
@@ -849,8 +794,7 @@ body.menu-open{
   background:#ff6200;
 
   box-shadow:
-    0 0 12px
-    rgba(255,98,0,.48);
+    0 0 12px rgba(255,98,0,.48);
 }
 
 .card:active{
@@ -878,8 +822,7 @@ body.menu-open{
 
   border-radius:8px;
 
-  background:
-    rgba(103,220,255,.08);
+  background:rgba(103,220,255,.08);
 
   color:#67dcff;
 
@@ -887,8 +830,7 @@ body.menu-open{
 }
 
 .card.fire-card .card-icon{
-  background:
-    rgba(255,117,28,.08);
+  background:rgba(255,117,28,.08);
 
   color:#ff751c;
 }
@@ -913,8 +855,7 @@ body.menu-open{
   right:20px;
   top:50%;
 
-  transform:
-    translateY(-50%);
+  transform:translateY(-50%);
 
   color:#ff751c;
 
@@ -938,8 +879,7 @@ body.menu-open{
   border-radius:15px;
 
   border:
-    1px solid
-    rgba(103,220,255,.20);
+    1px solid rgba(103,220,255,.20);
 
   background:
     linear-gradient(
@@ -991,8 +931,7 @@ body.menu-open{
   color:#fff;
 
   border:
-    1px solid
-    rgba(103,220,255,.35);
+    1px solid rgba(103,220,255,.35);
 
   background:
     linear-gradient(
@@ -1038,8 +977,7 @@ body.menu-open{
   padding-top:18px;
 
   border-top:
-    1px solid
-    rgba(255,255,255,.07);
+    1px solid rgba(255,255,255,.07);
 
   text-align:center;
 
@@ -1092,7 +1030,6 @@ body.menu-open{
 
 </head>
 
-
 <body>
 
 
@@ -1112,7 +1049,6 @@ body.menu-open{
 ☰
 </button>
 
-
 <div class="app-bar-brand">
 
 <img
@@ -1126,7 +1062,6 @@ TEAM WOLFPACK
 </div>
 
 </div>
-
 
 <div
   class="app-status"
@@ -1190,7 +1125,6 @@ ONE PACK • ONE PURPOSE
 MAIN
 </div>
 
-
 <nav class="menu-nav">
 
 <a
@@ -1202,7 +1136,6 @@ MAIN
 <span class="menu-arrow">›</span>
 </a>
 
-
 <a
   class="menu-link fire-link"
   href="fights.html"
@@ -1211,7 +1144,6 @@ MAIN
 <span>FIGHTS</span>
 <span class="menu-arrow">›</span>
 </a>
-
 
 <a
   class="menu-link"
@@ -1222,7 +1154,6 @@ MAIN
 <span class="menu-arrow">›</span>
 </a>
 
-
 <a
   class="menu-link"
   href="pack.html"
@@ -1231,7 +1162,6 @@ MAIN
 <span>MEET THE PACK</span>
 <span class="menu-arrow">›</span>
 </a>
-
 
 <a
   class="menu-link chat"
@@ -1249,7 +1179,6 @@ MAIN
 EXPLORE
 </div>
 
-
 <nav class="menu-nav">
 
 <a
@@ -1261,7 +1190,6 @@ EXPLORE
 <span class="menu-arrow">›</span>
 </a>
 
-
 <a
   class="menu-link"
   href="gallery.html"
@@ -1270,7 +1198,6 @@ EXPLORE
 <span>GALLERY</span>
 <span class="menu-arrow">›</span>
 </a>
-
 
 <a
   class="menu-link"
@@ -1281,7 +1208,6 @@ EXPLORE
 <span class="menu-arrow">›</span>
 </a>
 
-
 <a
   class="menu-link"
   href="contact.html"
@@ -1291,7 +1217,6 @@ EXPLORE
 <span class="menu-arrow">›</span>
 </a>
 
-
 <a
   class="menu-link"
   href="socials.html"
@@ -1300,7 +1225,6 @@ EXPLORE
 <span>SOCIALS</span>
 <span class="menu-arrow">›</span>
 </a>
-
 
 <a
   class="menu-link"
@@ -1314,9 +1238,7 @@ EXPLORE
 </nav>
 
 
-<!-- =========================================
-     ADMIN - HIDDEN FOR NORMAL MEMBERS
-     ========================================= -->
+<!-- ADMIN - HIDDEN FOR NORMAL MEMBERS -->
 
 <div id="adminMenuSection">
 
@@ -1384,7 +1306,6 @@ ONE PACK • ONE PURPOSE
      ========================================= -->
 
 <main class="main">
-
 
 <section class="welcome">
 
@@ -1566,7 +1487,6 @@ OFFICIALTEAMWOLFPACK.COM
 TEAM WOLFPACK • STRENGTH IN UNITY
 </footer>
 
-
 </main>
 
 
@@ -1577,39 +1497,25 @@ TEAM WOLFPACK • STRENGTH IN UNITY
 <script>
 
 const menuButton =
-  document.getElementById(
-    "menuButton"
-  );
+  document.getElementById("menuButton");
 
 const closeMenuButton =
-  document.getElementById(
-    "closeMenuButton"
-  );
+  document.getElementById("closeMenuButton");
 
 const sideMenu =
-  document.getElementById(
-    "sideMenu"
-  );
+  document.getElementById("sideMenu");
 
 const menuBackdrop =
-  document.getElementById(
-    "menuBackdrop"
-  );
+  document.getElementById("menuBackdrop");
 
 
 function openMenu(){
 
-  sideMenu.classList.add(
-    "show"
-  );
+  sideMenu.classList.add("show");
 
-  menuBackdrop.classList.add(
-    "show"
-  );
+  menuBackdrop.classList.add("show");
 
-  document.body.classList.add(
-    "menu-open"
-  );
+  document.body.classList.add("menu-open");
 
   menuButton.setAttribute(
     "aria-expanded",
@@ -1621,17 +1527,11 @@ function openMenu(){
 
 function closeMenu(){
 
-  sideMenu.classList.remove(
-    "show"
-  );
+  sideMenu.classList.remove("show");
 
-  menuBackdrop.classList.remove(
-    "show"
-  );
+  menuBackdrop.classList.remove("show");
 
-  document.body.classList.remove(
-    "menu-open"
-  );
+  document.body.classList.remove("menu-open");
 
   menuButton.setAttribute(
     "aria-expanded",
@@ -1646,47 +1546,37 @@ menuButton.addEventListener(
   openMenu
 );
 
-
 closeMenuButton.addEventListener(
   "click",
   closeMenu
 );
-
 
 menuBackdrop.addEventListener(
   "click",
   closeMenu
 );
 
-
 document.addEventListener(
   "keydown",
   function(event){
 
-    if(
-      event.key === "Escape"
-    ){
+    if(event.key === "Escape"){
       closeMenu();
     }
 
   }
 );
 
-
 document
-  .querySelectorAll(
-    ".menu-link"
-  )
-  .forEach(
-    function(link){
+  .querySelectorAll(".menu-link")
+  .forEach(function(link){
 
-      link.addEventListener(
-        "click",
-        closeMenu
-      );
+    link.addEventListener(
+      "click",
+      closeMenu
+    );
 
-    }
-  );
+  });
 
 </script>
 
@@ -1720,15 +1610,10 @@ const firebaseConfig = {
 
 
 const firebaseApp =
-  initializeApp(
-    firebaseConfig
-  );
-
+  initializeApp(firebaseConfig);
 
 const auth =
-  getAuth(
-    firebaseApp
-  );
+  getAuth(firebaseApp);
 
 
 const ADMIN_UIDS =
@@ -1750,9 +1635,7 @@ onAuthStateChanged(
 
     if(
       user &&
-      ADMIN_UIDS.has(
-        user.uid
-      )
+      ADMIN_UIDS.has(user.uid)
     ){
 
       adminMenuSection.style.display =
@@ -1777,19 +1660,22 @@ onAuthStateChanged(
 
 <script>
 
-if(
-  "serviceWorker" in navigator
-){
+if("serviceWorker" in navigator){
 
   window.addEventListener(
     "load",
     function(){
 
-      navigator
-        .serviceWorker
-        .register(
-          "service-worker.js"
-        );
+      navigator.serviceWorker
+        .register("service-worker.js")
+        .catch(function(error){
+
+          console.error(
+            "Service worker error:",
+            error
+          );
+
+        });
 
     }
   );
@@ -1798,7 +1684,5 @@ if(
 
 </script>
 
-
 </body>
-
 </html>
