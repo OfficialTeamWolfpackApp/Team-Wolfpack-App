@@ -1,24 +1,33 @@
-const CACHE_NAME = "team-wolfpack-v9";
+const CACHE_NAME = "team-wolfpack-v10";
 
 const APP_FILES = [
   "./",
   "./index.html",
+
   "./fighters.html",
   "./mrs-wolfie.html",
   "./greig-sloan.html",
+
   "./fights.html",
-  "./more.html",
-  "./about.html",
   "./pack.html",
+
   "./sponsors.html",
+  "./Gallery.html",
+  "./merch.html",
   "./contact.html",
   "./socials.html",
-  "./merch.html",
+  "./about.html",
+
   "./chat-rules.html",
+
+  "./admin-dashboard.html",
   "./admin-reports.html",
   "./admin-members.html",
+  "./admin-history.html",
+
   "./icon-192.png",
-  "./icon-512.png"
+  "./icon-512.png",
+  "./manifest.json"
 ];
 
 
@@ -142,10 +151,9 @@ self.addEventListener("fetch", event => {
 
 
   /* ======================================
-     CHAT.HTML
+     PACK CHAT
 
-     IMPORTANT:
-     NEVER USE CACHE FOR PACK CHAT
+     NEVER CACHE CHAT.HTML
   ====================================== */
 
   if (
@@ -171,6 +179,8 @@ self.addEventListener("fetch", event => {
 
   /* ======================================
      SERVICE WORKER
+
+     ALWAYS FETCH LATEST COPY
   ====================================== */
 
   if (
@@ -196,6 +206,8 @@ self.addEventListener("fetch", event => {
 
   /* ======================================
      MANIFEST
+
+     ALWAYS FETCH LATEST COPY
   ====================================== */
 
   if (
@@ -220,8 +232,10 @@ self.addEventListener("fetch", event => {
 
 
   /* ======================================
-     OTHER HTML PAGES
+     HTML / PAGE NAVIGATION
+
      NETWORK FIRST
+     CACHE ONLY USED IF OFFLINE
   ====================================== */
 
   if (
@@ -273,6 +287,7 @@ self.addEventListener("fetch", event => {
             return cached;
           }
 
+
           const home =
             await caches.match(
               "./index.html"
@@ -281,6 +296,7 @@ self.addEventListener("fetch", event => {
           if (home) {
             return home;
           }
+
 
           return new Response(
             "Team Wolfpack is currently offline.",
@@ -305,6 +321,7 @@ self.addEventListener("fetch", event => {
 
   /* ======================================
      STATIC FILES
+
      NETWORK FIRST
   ====================================== */
 
