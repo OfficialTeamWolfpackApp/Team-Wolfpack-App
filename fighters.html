@@ -52,6 +52,8 @@ body{
   min-height:100vh;
   min-height:100dvh;
 
+  padding-top:calc(66px + env(safe-area-inset-top));
+
   font-family:
     Arial,
     Helvetica,
@@ -87,18 +89,18 @@ body.menu-open{
 
 /* =========================================
    APP BAR
-   ========================================= */
+========================================= */
 
 .app-bar{
-  position:sticky;
+  position:fixed;
+
   top:0;
+  left:0;
+  right:0;
+
   z-index:500;
 
-  height:
-    calc(
-      66px +
-      env(safe-area-inset-top)
-    );
+  height:calc(66px + env(safe-area-inset-top));
 
   padding:
     env(safe-area-inset-top)
@@ -216,7 +218,7 @@ body.menu-open{
 
 /* =========================================
    BACKDROP
-   ========================================= */
+========================================= */
 
 .menu-backdrop{
   position:fixed;
@@ -246,7 +248,7 @@ body.menu-open{
 
 /* =========================================
    SIDE MENU
-   ========================================= */
+========================================= */
 
 .side-menu{
   position:fixed;
@@ -477,7 +479,7 @@ body.menu-open{
 
 /* =========================================
    ADMIN MENU
-   ========================================= */
+========================================= */
 
 #adminMenuSection{
   display:none;
@@ -500,7 +502,6 @@ body.menu-open{
 .admin-menu-link .menu-icon{
   color:#ff751c;
 }
-
 
 .menu-website{
   display:block;
@@ -536,7 +537,7 @@ body.menu-open{
 
 /* =========================================
    PAGE HERO
-   ========================================= */
+========================================= */
 
 .page-hero{
   position:relative;
@@ -633,7 +634,7 @@ body.menu-open{
 
 /* =========================================
    CONTENT
-   ========================================= */
+========================================= */
 
 .content{
   width:100%;
@@ -684,7 +685,7 @@ body.menu-open{
 
 /* =========================================
    FIGHTER GRID
-   ========================================= */
+========================================= */
 
 .fighter-grid{
   display:grid;
@@ -697,7 +698,7 @@ body.menu-open{
 
 /* =========================================
    FIGHTER CARD
-   ========================================= */
+========================================= */
 
 .fighter{
   display:block;
@@ -786,7 +787,7 @@ body.menu-open{
 
 /* =========================================
    FIGHTER PHOTO
-   ========================================= */
+========================================= */
 
 .fighter-photo{
   position:absolute;
@@ -824,7 +825,7 @@ body.menu-open{
 
 /* =========================================
    FIGHTER TEXT
-   ========================================= */
+========================================= */
 
 .team,
 .name,
@@ -935,7 +936,7 @@ body.menu-open{
 
 /* =========================================
    FOOTER
-   ========================================= */
+========================================= */
 
 .app-footer{
   margin-top:30px;
@@ -958,7 +959,7 @@ body.menu-open{
 
 /* =========================================
    SMALL PHONES
-   ========================================= */
+========================================= */
 
 @media(max-width:430px){
 
@@ -993,7 +994,7 @@ body.menu-open{
 
 /* =========================================
    TABLET / DESKTOP
-   ========================================= */
+========================================= */
 
 @media(min-width:720px){
 
@@ -1025,7 +1026,7 @@ body.menu-open{
 
 /* =========================================
    REDUCED MOTION
-   ========================================= */
+========================================= */
 
 @media(prefers-reduced-motion:reduce){
 
@@ -1046,7 +1047,7 @@ body.menu-open{
 
 <!-- =========================================
      APP BAR
-     ========================================= -->
+========================================= -->
 
 <header class="app-bar">
 
@@ -1059,7 +1060,6 @@ body.menu-open{
 >
 ☰
 </button>
-
 
 <div class="app-bar-brand">
 
@@ -1074,7 +1074,6 @@ TEAM WOLFPACK
 </div>
 
 </div>
-
 
 <div
   class="app-status"
@@ -1096,7 +1095,7 @@ TEAM WOLFPACK
 
 <!-- =========================================
      SIDE MENU
-     ========================================= -->
+========================================= -->
 
 <aside
   id="sideMenu"
@@ -1136,7 +1135,6 @@ ONE PACK • ONE PURPOSE
 MAIN
 </div>
 
-
 <nav class="menu-nav">
 
 <a
@@ -1148,7 +1146,6 @@ MAIN
 <span class="menu-arrow">›</span>
 </a>
 
-
 <a
   class="menu-link"
   href="fights.html"
@@ -1157,7 +1154,6 @@ MAIN
 <span>FIGHTS</span>
 <span class="menu-arrow">›</span>
 </a>
-
 
 <a
   class="menu-link active"
@@ -1168,7 +1164,6 @@ MAIN
 <span class="menu-arrow">›</span>
 </a>
 
-
 <a
   class="menu-link"
   href="pack.html"
@@ -1177,7 +1172,6 @@ MAIN
 <span>MEET THE PACK</span>
 <span class="menu-arrow">›</span>
 </a>
-
 
 <a
   class="menu-link chat"
@@ -1195,7 +1189,6 @@ MAIN
 EXPLORE
 </div>
 
-
 <nav class="menu-nav">
 
 <a
@@ -1207,16 +1200,14 @@ EXPLORE
 <span class="menu-arrow">›</span>
 </a>
 
-
 <a
   class="menu-link"
-  href="Gallery.html"
+  href="gallery.html"
 >
 <span class="menu-icon">▣</span>
 <span>GALLERY</span>
 <span class="menu-arrow">›</span>
 </a>
-
 
 <a
   class="menu-link"
@@ -1227,7 +1218,6 @@ EXPLORE
 <span class="menu-arrow">›</span>
 </a>
 
-
 <a
   class="menu-link"
   href="contact.html"
@@ -1237,7 +1227,6 @@ EXPLORE
 <span class="menu-arrow">›</span>
 </a>
 
-
 <a
   class="menu-link"
   href="socials.html"
@@ -1246,7 +1235,6 @@ EXPLORE
 <span>SOCIALS</span>
 <span class="menu-arrow">›</span>
 </a>
-
 
 <a
   class="menu-link"
@@ -1262,7 +1250,7 @@ EXPLORE
 
 <!-- =========================================
      ADMIN - HIDDEN FOR NORMAL MEMBERS
-     ========================================= -->
+========================================= -->
 
 <div id="adminMenuSection">
 
@@ -1300,7 +1288,7 @@ VISIT OFFICIAL WEBSITE
 
 <!-- =========================================
      PAGE HERO
-     ========================================= -->
+========================================= -->
 
 <section class="page-hero">
 
@@ -1335,10 +1323,9 @@ Meet the fighters representing the Pack.
 
 <!-- =========================================
      CONTENT
-     ========================================= -->
+========================================= -->
 
 <main class="content">
-
 
 <div class="content-heading">
 
@@ -1362,7 +1349,7 @@ Select a fighter to view their full Team Wolfpack profile.
 
 <!-- =========================================
      MRS WOLFIE
-     ========================================= -->
+========================================= -->
 
 <a
   class="fighter"
@@ -1380,7 +1367,6 @@ Select a fighter to view their full Team Wolfpack profile.
   alt="Zoey Mrs Wolfie James"
 >
 
-
 <div class="fighter-status">
 
 <span class="status-dot"></span>
@@ -1389,21 +1375,17 @@ ACTIVE FIGHTER
 
 </div>
 
-
 <div class="team">
 TEAM WOLFIE
 </div>
-
 
 <div class="name">
 ZOEY “MRS WOLFIE” JAMES
 </div>
 
-
 <div class="role">
 Boxer • Team Wolfpack
 </div>
-
 
 <div class="profile-action">
 
@@ -1420,7 +1402,7 @@ VIEW FIGHTER PROFILE
 
 <!-- =========================================
      GREIG SLOAN
-     ========================================= -->
+========================================= -->
 
 <a
   class="fighter"
@@ -1438,7 +1420,6 @@ VIEW FIGHTER PROFILE
   alt="Greig Sloan"
 >
 
-
 <div class="fighter-status">
 
 <span class="status-dot"></span>
@@ -1447,21 +1428,17 @@ ACTIVE FIGHTER
 
 </div>
 
-
 <div class="team">
 TEAM SLOAN
 </div>
-
 
 <div class="name">
 GREIG SLOAN
 </div>
 
-
 <div class="role">
 Boxer • Team Wolfpack
 </div>
-
 
 <div class="profile-action">
 
@@ -1475,7 +1452,6 @@ VIEW FIGHTER PROFILE
 
 </a>
 
-
 </div>
 
 
@@ -1483,13 +1459,12 @@ VIEW FIGHTER PROFILE
 TEAM WOLFPACK • STRENGTH IN UNITY
 </footer>
 
-
 </main>
 
 
 <!-- =========================================
      SIDE MENU JAVASCRIPT
-     ========================================= -->
+========================================= -->
 
 <script>
 
@@ -1563,18 +1538,15 @@ menuButton.addEventListener(
   openMenu
 );
 
-
 closeMenuButton.addEventListener(
   "click",
   closeMenu
 );
 
-
 menuBackdrop.addEventListener(
   "click",
   closeMenu
 );
-
 
 document.addEventListener(
   "keydown",
@@ -1588,7 +1560,6 @@ document.addEventListener(
 
   }
 );
-
 
 document
   .querySelectorAll(
@@ -1610,7 +1581,7 @@ document
 
 <!-- =========================================
      ADMIN DASHBOARD VISIBILITY
-     ========================================= -->
+========================================= -->
 
 <script type="module">
 
@@ -1690,7 +1661,7 @@ onAuthStateChanged(
 
 <!-- =========================================
      SERVICE WORKER
-     ========================================= -->
+========================================= -->
 
 <script>
 
@@ -1715,7 +1686,5 @@ if(
 
 </script>
 
-
 </body>
-
 </html>
