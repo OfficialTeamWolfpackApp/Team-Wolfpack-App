@@ -474,6 +474,34 @@ body.menu-open{
   font-size:16px;
 }
 
+
+/* =========================================
+   ADMIN MENU
+   ========================================= */
+
+#adminMenuSection{
+  display:none;
+}
+
+.admin-menu-link{
+  color:#ffb05d;
+
+  border-color:
+    rgba(255,117,28,.22);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,90,0,.09),
+      rgba(0,160,220,.05)
+    );
+}
+
+.admin-menu-link .menu-icon{
+  color:#ff751c;
+}
+
+
 .menu-website{
   display:block;
 
@@ -999,10 +1027,7 @@ body.menu-open{
    REDUCED MOTION
    ========================================= */
 
-@media(
-  prefers-reduced-motion:
-  reduce
-){
+@media(prefers-reduced-motion:reduce){
 
   .side-menu,
   .menu-backdrop{
@@ -1061,14 +1086,12 @@ TEAM WOLFPACK
 </header>
 
 
-
 <!-- MENU BACKDROP -->
 
 <div
   id="menuBackdrop"
   class="menu-backdrop"
 ></div>
-
 
 
 <!-- =========================================
@@ -1234,17 +1257,33 @@ EXPLORE
 <span class="menu-arrow">›</span>
 </a>
 
+</nav>
+
+
+<!-- =========================================
+     ADMIN - HIDDEN FOR NORMAL MEMBERS
+     ========================================= -->
+
+<div id="adminMenuSection">
+
+<div class="menu-section-label">
+ADMIN
+</div>
+
+<nav class="menu-nav">
 
 <a
-  class="menu-link"
-  href="more.html"
+  class="menu-link admin-menu-link"
+  href="admin-dashboard.html"
 >
-<span class="menu-icon">•••</span>
-<span>MORE</span>
+<span class="menu-icon">⚙</span>
+<span>ADMIN DASHBOARD</span>
 <span class="menu-arrow">›</span>
 </a>
 
 </nav>
+
+</div>
 
 
 <a
@@ -1257,7 +1296,6 @@ VISIT OFFICIAL WEBSITE
 </a>
 
 </aside>
-
 
 
 <!-- =========================================
@@ -1295,7 +1333,6 @@ Meet the fighters representing the Pack.
 </section>
 
 
-
 <!-- =========================================
      CONTENT
      ========================================= -->
@@ -1318,7 +1355,6 @@ Select a fighter to view their full Team Wolfpack profile.
 </p>
 
 </div>
-
 
 
 <div class="fighter-grid">
@@ -1382,7 +1418,6 @@ VIEW FIGHTER PROFILE
 </a>
 
 
-
 <!-- =========================================
      GREIG SLOAN
      ========================================= -->
@@ -1444,14 +1479,12 @@ VIEW FIGHTER PROFILE
 </div>
 
 
-
 <footer class="app-footer">
 TEAM WOLFPACK • STRENGTH IN UNITY
 </footer>
 
 
 </main>
-
 
 
 <!-- =========================================
@@ -1574,6 +1607,85 @@ document
 
 </script>
 
+
+<!-- =========================================
+     ADMIN DASHBOARD VISIBILITY
+     ========================================= -->
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+  authDomain: "team-wolfpack-app.firebaseapp.com",
+  databaseURL: "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "team-wolfpack-app",
+  storageBucket: "team-wolfpack-app.firebasestorage.app",
+  messagingSenderId: "1070414578856",
+  appId: "1:1070414578856:web:df14e7d387e658eeae2e9d",
+  measurementId: "G-6JTCE2N9LZ"
+};
+
+
+const firebaseApp =
+  initializeApp(
+    firebaseConfig
+  );
+
+
+const auth =
+  getAuth(
+    firebaseApp
+  );
+
+
+const ADMIN_UIDS =
+  new Set([
+    "PRGa9TsCW0QDn1QtoUXyYjEi7YB3",
+    "SlpEQYl94DaH6j42QUyl8Kv2ujJ3"
+  ]);
+
+
+const adminMenuSection =
+  document.getElementById(
+    "adminMenuSection"
+  );
+
+
+onAuthStateChanged(
+  auth,
+  function(user){
+
+    if(
+      user &&
+      ADMIN_UIDS.has(
+        user.uid
+      )
+    ){
+
+      adminMenuSection.style.display =
+        "block";
+
+    }else{
+
+      adminMenuSection.style.display =
+        "none";
+
+    }
+
+  }
+);
+
+</script>
 
 
 <!-- =========================================
