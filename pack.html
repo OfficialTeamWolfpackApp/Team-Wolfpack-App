@@ -58,19 +58,11 @@ body{
   min-height:100vh;
   min-height:100dvh;
 
-  padding-top:
-    calc(
-      66px +
-      env(safe-area-inset-top)
-    );
+  padding-top:calc(66px + env(safe-area-inset-top));
 
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
+  font-family:Arial, Helvetica, sans-serif;
 
   color:#fff;
-
   overflow-x:hidden;
 
   background:
@@ -110,11 +102,7 @@ body.menu-open{
 
   z-index:500;
 
-  height:
-    calc(
-      66px +
-      env(safe-area-inset-top)
-    );
+  height:calc(66px + env(safe-area-inset-top));
 
   padding:
     env(safe-area-inset-top)
@@ -122,30 +110,20 @@ body.menu-open{
     0;
 
   display:grid;
-
-  grid-template-columns:
-    46px
-    1fr
-    46px;
+  grid-template-columns:46px 1fr 46px;
 
   align-items:center;
 
-  background:
-    rgba(4,4,4,.96);
+  background:rgba(4,4,4,.96);
 
   border-bottom:
-    1px solid
-    rgba(255,255,255,.10);
+    1px solid rgba(255,255,255,.10);
 
-  backdrop-filter:
-    blur(18px);
-
-  -webkit-backdrop-filter:
-    blur(18px);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
 
   box-shadow:
-    0 8px 30px
-    rgba(0,0,0,.38);
+    0 8px 30px rgba(0,0,0,.38);
 }
 
 .menu-button{
@@ -159,8 +137,7 @@ body.menu-open{
   border-radius:12px;
 
   border:
-    1px solid
-    rgba(103,220,255,.22);
+    1px solid rgba(103,220,255,.22);
 
   background:
     rgba(0,150,210,.07);
@@ -174,7 +151,6 @@ body.menu-open{
 
 .app-bar-brand{
   display:flex;
-
   align-items:center;
   justify-content:center;
 
@@ -220,7 +196,6 @@ body.menu-open{
   height:42px;
 
   display:flex;
-
   align-items:center;
   justify-content:center;
 }
@@ -234,8 +209,7 @@ body.menu-open{
   background:#43f27b;
 
   box-shadow:
-    0 0 9px
-    rgba(67,242,123,.75);
+    0 0 9px rgba(67,242,123,.75);
 }
 
 
@@ -245,23 +219,18 @@ body.menu-open{
 
 .menu-backdrop{
   position:fixed;
-
   inset:0;
 
   z-index:800;
 
   visibility:hidden;
-
   opacity:0;
 
   background:
     rgba(0,0,0,.72);
 
-  backdrop-filter:
-    blur(3px);
-
-  -webkit-backdrop-filter:
-    blur(3px);
+  backdrop-filter:blur(3px);
+  -webkit-backdrop-filter:blur(3px);
 
   transition:
     opacity .25s ease,
@@ -289,26 +258,18 @@ body.menu-open{
 
   width:min(84vw,340px);
 
-  transform:
-    translateX(-105%);
+  transform:translateX(-105%);
 
   transition:
     transform .28s ease;
 
   overflow-y:auto;
-
   overscroll-behavior:contain;
 
   padding:
-    calc(
-      18px +
-      env(safe-area-inset-top)
-    )
+    calc(18px + env(safe-area-inset-top))
     15px
-    calc(
-      25px +
-      env(safe-area-inset-bottom)
-    );
+    calc(25px + env(safe-area-inset-bottom));
 
   background:
     radial-gradient(
@@ -324,17 +285,14 @@ body.menu-open{
     #080808;
 
   border-right:
-    1px solid
-    rgba(103,220,255,.20);
+    1px solid rgba(103,220,255,.20);
 
   box-shadow:
-    20px 0 50px
-    rgba(0,0,0,.55);
+    20px 0 50px rgba(0,0,0,.55);
 }
 
 .side-menu.show{
-  transform:
-    translateX(0);
+  transform:translateX(0);
 }
 
 .menu-header{
@@ -347,8 +305,7 @@ body.menu-open{
     5px;
 
   border-bottom:
-    1px solid
-    rgba(255,255,255,.09);
+    1px solid rgba(255,255,255,.09);
 }
 
 .menu-logo{
@@ -403,8 +360,7 @@ body.menu-open{
   border-radius:10px;
 
   border:
-    1px solid
-    rgba(255,117,28,.25);
+    1px solid rgba(255,117,28,.25);
 
   background:
     rgba(255,90,0,.07);
@@ -432,7 +388,6 @@ body.menu-open{
 
 .menu-nav{
   display:flex;
-
   flex-direction:column;
 
   gap:4px;
@@ -440,7 +395,6 @@ body.menu-open{
 
 .menu-link{
   display:flex;
-
   align-items:center;
 
   min-height:48px;
@@ -456,8 +410,7 @@ body.menu-open{
   color:#d7d7d7;
 
   border:
-    1px solid
-    transparent;
+    1px solid transparent;
 
   font-size:10px;
   font-weight:900;
@@ -466,8 +419,7 @@ body.menu-open{
 }
 
 .menu-link:active{
-  transform:
-    scale(.985);
+  transform:scale(.985);
 }
 
 .menu-link.active{
@@ -501,8 +453,7 @@ body.menu-open{
 .menu-icon{
   width:34px;
 
-  flex:
-    0 0 34px;
+  flex:0 0 34px;
 
   text-align:center;
 
@@ -523,6 +474,34 @@ body.menu-open{
   font-size:16px;
 }
 
+
+/* =========================================
+   ADMIN MENU
+   ========================================= */
+
+#adminMenuSection{
+  display:none;
+}
+
+.admin-menu-link{
+  color:#ffb05d;
+
+  border-color:
+    rgba(255,117,28,.22);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,90,0,.09),
+      rgba(0,160,220,.05)
+    );
+}
+
+.admin-menu-link .menu-icon{
+  color:#ff751c;
+}
+
+
 .menu-website{
   display:block;
 
@@ -537,8 +516,7 @@ body.menu-open{
   border-radius:10px;
 
   border:
-    1px solid
-    rgba(103,220,255,.28);
+    1px solid rgba(103,220,255,.28);
 
   background:
     linear-gradient(
@@ -603,12 +581,10 @@ body.menu-open{
 
   filter:
     drop-shadow(
-      0 0 13px
-      rgba(51,201,255,.23)
+      0 0 13px rgba(51,201,255,.23)
     )
     drop-shadow(
-      0 0 13px
-      rgba(255,92,0,.20)
+      0 0 13px rgba(255,92,0,.20)
     );
 }
 
@@ -669,10 +645,7 @@ body.menu-open{
   padding:
     28px
     16px
-    calc(
-      45px +
-      env(safe-area-inset-bottom)
-    );
+    calc(45px + env(safe-area-inset-bottom));
 }
 
 .content-heading{
@@ -713,8 +686,7 @@ body.menu-open{
 .pack-grid{
   display:grid;
 
-  grid-template-columns:
-    1fr;
+  grid-template-columns:1fr;
 
   gap:15px;
 }
@@ -744,8 +716,7 @@ body.menu-open{
   border-radius:17px;
 
   border:
-    1px solid
-    rgba(255,255,255,.12);
+    1px solid rgba(255,255,255,.12);
 
   text-decoration:none;
 
@@ -760,8 +731,7 @@ body.menu-open{
     );
 
   box-shadow:
-    0 12px 32px
-    rgba(0,0,0,.32);
+    0 12px 32px rgba(0,0,0,.32);
 }
 
 .member-card::before{
@@ -778,8 +748,7 @@ body.menu-open{
   background:#4bd8ff;
 
   box-shadow:
-    0 0 12px
-    rgba(75,216,255,.50);
+    0 0 12px rgba(75,216,255,.50);
 
   z-index:4;
 }
@@ -798,8 +767,7 @@ body.menu-open{
   background:#ff6500;
 
   box-shadow:
-    0 0 12px
-    rgba(255,101,0,.45);
+    0 0 12px rgba(255,101,0,.45);
 
   z-index:4;
 }
@@ -811,8 +779,7 @@ a.member-card{
 }
 
 a.member-card:active{
-  transform:
-    scale(.985);
+  transform:scale(.985);
 }
 
 
@@ -832,9 +799,7 @@ a.member-card:active{
   display:block;
 
   object-fit:cover;
-
-  object-position:
-    center top;
+  object-position:center top;
 
   z-index:1;
 
@@ -886,8 +851,7 @@ a.member-card:active{
   border-radius:20px;
 
   border:
-    1px solid
-    rgba(103,220,255,.20);
+    1px solid rgba(103,220,255,.20);
 
   background:
     rgba(103,220,255,.06);
@@ -909,8 +873,7 @@ a.member-card:active{
   background:#43f27b;
 
   box-shadow:
-    0 0 6px
-    rgba(67,242,123,.65);
+    0 0 6px rgba(67,242,123,.65);
 }
 
 .member-team{
@@ -977,8 +940,7 @@ a.member-card:active{
   padding-top:20px;
 
   border-top:
-    1px solid
-    rgba(255,255,255,.07);
+    1px solid rgba(255,255,255,.07);
 
   text-align:center;
 
@@ -1099,7 +1061,6 @@ a.member-card:active{
 ☰
 </button>
 
-
 <div class="app-bar-brand">
 
 <img
@@ -1114,7 +1075,6 @@ TEAM WOLFPACK
 
 </div>
 
-
 <div
   class="app-status"
   aria-label="App online"
@@ -1125,9 +1085,7 @@ TEAM WOLFPACK
 </header>
 
 
-<!-- =========================================
-     MENU BACKDROP
-     ========================================= -->
+<!-- MENU BACKDROP -->
 
 <div
   id="menuBackdrop"
@@ -1189,7 +1147,6 @@ MAIN
 <span class="menu-arrow">›</span>
 </a>
 
-
 <a
   class="menu-link"
   href="fights.html"
@@ -1198,7 +1155,6 @@ MAIN
 <span>FIGHTS</span>
 <span class="menu-arrow">›</span>
 </a>
-
 
 <a
   class="menu-link"
@@ -1209,7 +1165,6 @@ MAIN
 <span class="menu-arrow">›</span>
 </a>
 
-
 <a
   class="menu-link active"
   href="pack.html"
@@ -1218,7 +1173,6 @@ MAIN
 <span>MEET THE PACK</span>
 <span class="menu-arrow">›</span>
 </a>
-
 
 <a
   class="menu-link chat"
@@ -1248,16 +1202,14 @@ EXPLORE
 <span class="menu-arrow">›</span>
 </a>
 
-
 <a
   class="menu-link"
-  href="Gallery.html"
+  href="gallery.html"
 >
 <span class="menu-icon">▣</span>
 <span>GALLERY</span>
 <span class="menu-arrow">›</span>
 </a>
-
 
 <a
   class="menu-link"
@@ -1268,7 +1220,6 @@ EXPLORE
 <span class="menu-arrow">›</span>
 </a>
 
-
 <a
   class="menu-link"
   href="contact.html"
@@ -1277,7 +1228,6 @@ EXPLORE
 <span>CONTACT</span>
 <span class="menu-arrow">›</span>
 </a>
-
 
 <a
   class="menu-link"
@@ -1288,7 +1238,6 @@ EXPLORE
 <span class="menu-arrow">›</span>
 </a>
 
-
 <a
   class="menu-link"
   href="about.html"
@@ -1298,17 +1247,33 @@ EXPLORE
 <span class="menu-arrow">›</span>
 </a>
 
+</nav>
+
+
+<!-- =========================================
+     ADMIN - HIDDEN FOR NORMAL MEMBERS
+     ========================================= -->
+
+<div id="adminMenuSection">
+
+<div class="menu-section-label">
+ADMIN
+</div>
+
+<nav class="menu-nav">
 
 <a
-  class="menu-link"
-  href="more.html"
+  class="menu-link admin-menu-link"
+  href="admin-dashboard.html"
 >
-<span class="menu-icon">•••</span>
-<span>MORE</span>
+<span class="menu-icon">⚙</span>
+<span>ADMIN DASHBOARD</span>
 <span class="menu-arrow">›</span>
 </a>
 
 </nav>
+
+</div>
 
 
 <a
@@ -1363,7 +1328,6 @@ The people behind Team Wolfpack.
      ========================================= -->
 
 <main class="content">
-
 
 <div class="content-heading">
 
@@ -1586,7 +1550,6 @@ Corner Team
 TEAM WOLFPACK • STRENGTH IN UNITY
 </footer>
 
-
 </main>
 
 
@@ -1646,18 +1609,15 @@ menuButton.addEventListener(
   openMenu
 );
 
-
 closeMenuButton.addEventListener(
   "click",
   closeMenu
 );
 
-
 menuBackdrop.addEventListener(
   "click",
   closeMenu
 );
-
 
 document.addEventListener(
   "keydown",
@@ -1681,6 +1641,79 @@ document
     );
 
   });
+
+</script>
+
+
+<!-- =========================================
+     ADMIN DASHBOARD VISIBILITY
+     ========================================= -->
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+  authDomain: "team-wolfpack-app.firebaseapp.com",
+  databaseURL: "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "team-wolfpack-app",
+  storageBucket: "team-wolfpack-app.firebasestorage.app",
+  messagingSenderId: "1070414578856",
+  appId: "1:1070414578856:web:df14e7d387e658eeae2e9d",
+  measurementId: "G-6JTCE2N9LZ"
+};
+
+
+const firebaseApp =
+  initializeApp(firebaseConfig);
+
+const auth =
+  getAuth(firebaseApp);
+
+
+const ADMIN_UIDS =
+  new Set([
+    "PRGa9TsCW0QDn1QtoUXyYjEi7YB3",
+    "SlpEQYl94DaH6j42QUyl8Kv2ujJ3"
+  ]);
+
+
+const adminMenuSection =
+  document.getElementById(
+    "adminMenuSection"
+  );
+
+
+onAuthStateChanged(
+  auth,
+  function(user){
+
+    if(
+      user &&
+      ADMIN_UIDS.has(user.uid)
+    ){
+
+      adminMenuSection.style.display =
+        "block";
+
+    }else{
+
+      adminMenuSection.style.display =
+        "none";
+
+    }
+
+  }
+);
 
 </script>
 
