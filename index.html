@@ -91,9 +91,7 @@ body.menu-open{
 
 .app-bar{
   position:sticky;
-
   top:0;
-
   z-index:500;
 
   height:
@@ -157,7 +155,6 @@ body.menu-open{
   cursor:pointer;
 
   font-size:24px;
-
   line-height:1;
 }
 
@@ -505,8 +502,7 @@ body.menu-open{
   font-size:17px;
 }
 
-.menu-link.fire-link
-.menu-icon{
+.menu-link.fire-link .menu-icon{
   color:#ff751c;
 }
 
@@ -516,6 +512,31 @@ body.menu-open{
   color:#666;
 
   font-size:16px;
+}
+
+
+/* =========================================
+   ADMIN MENU
+   ========================================= */
+
+.admin-menu-link{
+  display:none;
+
+  color:#ffb05d;
+
+  border-color:
+    rgba(255,117,28,.20);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,90,0,.08),
+      rgba(0,160,220,.05)
+    );
+}
+
+.admin-menu-link .menu-icon{
+  color:#ff751c;
 }
 
 .menu-website{
@@ -862,8 +883,7 @@ body.menu-open{
   font-size:15px;
 }
 
-.card.fire-card
-.card-icon{
+.card.fire-card .card-icon{
   background:
     rgba(255,117,28,.08);
 
@@ -1056,10 +1076,7 @@ body.menu-open{
    REDUCED MOTION
    ========================================= */
 
-@media(
-  prefers-reduced-motion:
-  reduce
-){
+@media(prefers-reduced-motion:reduce){
 
   .side-menu,
   .menu-backdrop{
@@ -1112,13 +1129,10 @@ TEAM WOLFPACK
   class="app-status"
   aria-label="App online"
 >
-
 <span class="app-status-dot"></span>
-
 </div>
 
 </header>
-
 
 
 <!-- =========================================
@@ -1129,7 +1143,6 @@ TEAM WOLFPACK
   id="menuBackdrop"
   class="menu-backdrop"
 ></div>
-
 
 
 <!-- =========================================
@@ -1295,17 +1308,39 @@ EXPLORE
 <span class="menu-arrow">›</span>
 </a>
 
+</nav>
+
+
+<!-- =========================================
+     ADMIN
+     Hidden by default.
+     Firebase visibility will be connected next.
+     ========================================= -->
+
+<div
+  id="adminMenuSection"
+  style="display:none;"
+>
+
+<div class="menu-section-label">
+ADMIN
+</div>
+
+<nav class="menu-nav">
 
 <a
-  class="menu-link"
-  href="more.html"
+  id="adminDashboardMenuLink"
+  class="menu-link admin-menu-link"
+  href="admin-dashboard.html"
 >
-<span class="menu-icon">•••</span>
-<span>MORE</span>
+<span class="menu-icon">⚙</span>
+<span>ADMIN DASHBOARD</span>
 <span class="menu-arrow">›</span>
 </a>
 
 </nav>
+
+</div>
 
 
 <a
@@ -1318,7 +1353,6 @@ VISIT OFFICIAL WEBSITE
 </a>
 
 </aside>
-
 
 
 <!-- =========================================
@@ -1348,7 +1382,6 @@ ONE PACK • ONE PURPOSE
 </section>
 
 
-
 <!-- =========================================
      HOME
      ========================================= -->
@@ -1375,7 +1408,6 @@ Team Wolfpack news, sponsors and more.
 </section>
 
 
-
 <div class="section-heading">
 
 <h3>
@@ -1387,7 +1419,6 @@ TEAM WOLFPACK
 </span>
 
 </div>
-
 
 
 <!-- FIGHTERS -->
@@ -1423,7 +1454,6 @@ Mrs Wolfie • Greig Sloan
 </a>
 
 
-
 <!-- UPCOMING FIGHTS -->
 
 <a
@@ -1455,7 +1485,6 @@ Fight cards • opponents • dates • venues
 </span>
 
 </a>
-
 
 
 <!-- SPONSORS -->
@@ -1490,41 +1519,6 @@ Team Wolfpack and Team Sloan.
 </span>
 
 </a>
-
-
-
-<!-- MORE -->
-
-<a
-  class="card fire-card"
-  href="more.html"
-  onclick="gtag('event','home_card_click',{
-    section:'More'
-  });"
->
-
-<div class="card-top">
-
-<div class="card-icon">
-•••
-</div>
-
-<div class="card-title">
-MORE
-</div>
-
-</div>
-
-<div class="card-subtitle">
-Merch • Meet the Pack • About • Contact • Socials
-</div>
-
-<span class="card-arrow">
-›
-</span>
-
-</a>
-
 
 
 <!-- OFFICIAL WEBSITE -->
@@ -1571,14 +1565,12 @@ OFFICIALTEAMWOLFPACK.COM
 </section>
 
 
-
 <footer class="app-footer">
 TEAM WOLFPACK • STRENGTH IN UNITY
 </footer>
 
 
 </main>
-
 
 
 <!-- =========================================
@@ -1677,9 +1669,7 @@ document.addEventListener(
     if(
       event.key === "Escape"
     ){
-
       closeMenu();
-
     }
 
   }
@@ -1702,7 +1692,6 @@ document
   );
 
 </script>
-
 
 
 <!-- =========================================
