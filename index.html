@@ -607,23 +607,14 @@ body.menu-open{
   background:
     linear-gradient(
       90deg,
-
       rgba(0,180,245,.18) 0%,
-
       rgba(0,0,0,.12) 23%,
-
       rgba(0,0,0,.45) 37%,
-
       rgba(0,0,0,.88) 46%,
-
       rgba(0,0,0,.94) 50%,
-
       rgba(0,0,0,.88) 54%,
-
       rgba(0,0,0,.45) 63%,
-
       rgba(0,0,0,.12) 77%,
-
       rgba(255,90,0,.20) 100%
     );
 
@@ -793,12 +784,7 @@ body.menu-open{
 .promotion{
   margin-top:10px;
 
-  font-size:
-    clamp(
-      17px,
-      5vw,
-      27px
-    );
+  font-size:clamp(17px,5vw,27px);
 
   font-weight:900;
 
@@ -828,12 +814,7 @@ body.menu-open{
 .vs{
   margin-top:14px;
 
-  font-size:
-    clamp(
-      38px,
-      12vw,
-      62px
-    );
+  font-size:clamp(38px,12vw,62px);
 
   font-weight:900;
 
@@ -957,12 +938,7 @@ body.menu-open{
 .fighter-name strong{
   display:block;
 
-  font-size:
-    clamp(
-      19px,
-      5vw,
-      30px
-    );
+  font-size:clamp(19px,5vw,30px);
 
   font-weight:900;
 }
@@ -1027,7 +1003,7 @@ body.menu-open{
 
 
 /* =========================================
-   FIGHTERS
+   THE PACK - FIGHTER CARDS
    ========================================= */
 
 .fighter-grid{
@@ -1053,20 +1029,48 @@ body.menu-open{
   color:#fff;
 
   border:
-    1px solid rgba(255,255,255,.12);
+    1px solid rgba(255,255,255,.14);
 
   background:#080808;
+
+  box-shadow:
+    0 10px 28px rgba(0,0,0,.32);
+
+  transition:
+    transform .18s ease,
+    border-color .18s ease;
 }
+
+.home-fighter-card:active{
+  transform:scale(.98);
+}
+
+
+/* MRS WOLFIE */
 
 .home-fighter-card:first-child{
   border-left:
     3px solid #45d8ff;
+
+  box-shadow:
+    inset 3px 0 14px rgba(0,190,255,.12),
+    0 10px 28px rgba(0,0,0,.32);
 }
+
+
+/* GREIG SLOAN */
 
 .home-fighter-card:last-child{
   border-right:
     3px solid #ff701c;
+
+  box-shadow:
+    inset -3px 0 14px rgba(255,90,0,.12),
+    0 10px 28px rgba(0,0,0,.32);
 }
+
+
+/* FIGHTER PHOTOS */
 
 .home-fighter-image{
   position:absolute;
@@ -1076,9 +1080,11 @@ body.menu-open{
   width:100%;
   height:100%;
 
+  display:block;
+
   object-fit:cover;
 
-  opacity:.82;
+  opacity:.90;
 }
 
 .home-fighter-card:first-child .home-fighter-image{
@@ -1089,6 +1095,9 @@ body.menu-open{
   object-position:center 32%;
 }
 
+
+/* STRONGER BOTTOM FADE */
+
 .home-fighter-card::after{
   content:"";
 
@@ -1096,13 +1105,64 @@ body.menu-open{
 
   inset:0;
 
+  z-index:1;
+
   background:
     linear-gradient(
       0deg,
-      rgba(0,0,0,.90),
-      rgba(0,0,0,.04) 68%
+      rgba(0,0,0,.98) 0%,
+      rgba(0,0,0,.90) 20%,
+      rgba(0,0,0,.60) 39%,
+      rgba(0,0,0,.16) 64%,
+      transparent 82%
     );
+
+  pointer-events:none;
 }
+
+
+/* TEAM COLOUR OVERLAYS */
+
+.home-fighter-card:first-child::before{
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  z-index:1;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,180,245,.13),
+      transparent 48%
+    );
+
+  pointer-events:none;
+}
+
+.home-fighter-card:last-child::before{
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  z-index:1;
+
+  background:
+    linear-gradient(
+      270deg,
+      rgba(255,90,0,.13),
+      transparent 48%
+    );
+
+  pointer-events:none;
+}
+
+
+/* FIGHTER INFORMATION */
 
 .home-fighter-info{
   position:absolute;
@@ -1111,23 +1171,67 @@ body.menu-open{
 
   left:14px;
   right:14px;
-  bottom:13px;
+  bottom:14px;
 }
 
 .home-fighter-name{
-  font-size:13px;
+  color:#fff;
+
+  font-size:16px;
   font-weight:900;
+
+  line-height:1.05;
+
+  letter-spacing:.3px;
+
+  text-shadow:
+    0 2px 6px #000,
+    0 0 12px rgba(0,0,0,.9);
 }
 
+
+/* TEAM BADGES */
+
 .home-fighter-team{
-  margin-top:4px;
+  display:inline-flex;
 
-  color:#8cdfff;
+  align-items:center;
 
-  font-size:7px;
+  margin-top:7px;
+
+  padding:
+    4px
+    8px;
+
+  border-radius:5px;
+
+  font-size:8px;
   font-weight:900;
 
-  letter-spacing:1px;
+  letter-spacing:1.2px;
+
+  text-shadow:
+    0 1px 4px #000;
+}
+
+.home-fighter-card:first-child .home-fighter-team{
+  color:#7ce4ff;
+
+  border:
+    1px solid rgba(69,216,255,.28);
+
+  background:
+    rgba(0,145,205,.18);
+}
+
+.home-fighter-card:last-child .home-fighter-team{
+  color:#ff9b59;
+
+  border:
+    1px solid rgba(255,112,28,.30);
+
+  background:
+    rgba(190,55,0,.18);
 }
 
 
@@ -1557,6 +1661,14 @@ body.menu-open{
 
   .home-fighter-card:last-child .home-fighter-image{
     object-position:center 34%;
+  }
+
+  .home-fighter-name{
+    font-size:15px;
+  }
+
+  .home-fighter-team{
+    font-size:7px;
   }
 
 }
