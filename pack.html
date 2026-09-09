@@ -67,13 +67,13 @@ body{
 
   background:
     radial-gradient(
-      circle at 0% 15%,
-      rgba(0,190,255,.22),
+      circle at 0% 18%,
+      rgba(0,190,255,.20),
       transparent 31%
     ),
     radial-gradient(
-      circle at 100% 60%,
-      rgba(255,85,0,.22),
+      circle at 100% 65%,
+      rgba(255,85,0,.20),
       transparent 34%
     ),
     linear-gradient(
@@ -91,11 +91,10 @@ body.menu-open{
 
 /* =========================================
    APP BAR
-   ========================================= */
+========================================= */
 
 .app-bar{
   position:fixed;
-
   top:0;
   left:0;
   right:0;
@@ -114,7 +113,7 @@ body.menu-open{
 
   align-items:center;
 
-  background:rgba(4,4,4,.96);
+  background:rgba(4,4,4,.97);
 
   border-bottom:
     1px solid rgba(255,255,255,.10);
@@ -145,7 +144,6 @@ body.menu-open{
   color:#67dcff;
 
   cursor:pointer;
-
   font-size:24px;
 }
 
@@ -155,7 +153,6 @@ body.menu-open{
   justify-content:center;
 
   gap:9px;
-
   min-width:0;
 }
 
@@ -187,7 +184,6 @@ body.menu-open{
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-
   background-clip:text;
 }
 
@@ -215,7 +211,7 @@ body.menu-open{
 
 /* =========================================
    MENU BACKDROP
-   ========================================= */
+========================================= */
 
 .menu-backdrop{
   position:fixed;
@@ -226,8 +222,7 @@ body.menu-open{
   visibility:hidden;
   opacity:0;
 
-  background:
-    rgba(0,0,0,.72);
+  background:rgba(0,0,0,.72);
 
   backdrop-filter:blur(3px);
   -webkit-backdrop-filter:blur(3px);
@@ -245,7 +240,7 @@ body.menu-open{
 
 /* =========================================
    SIDE MENU
-   ========================================= */
+========================================= */
 
 .side-menu{
   position:fixed;
@@ -260,8 +255,7 @@ body.menu-open{
 
   transform:translateX(-105%);
 
-  transition:
-    transform .28s ease;
+  transition:transform .28s ease;
 
   overflow-y:auto;
   overscroll-behavior:contain;
@@ -333,7 +327,6 @@ body.menu-open{
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-
   background-clip:text;
 }
 
@@ -399,9 +392,7 @@ body.menu-open{
 
   min-height:48px;
 
-  padding:
-    9px
-    11px;
+  padding:9px 11px;
 
   border-radius:10px;
 
@@ -452,7 +443,6 @@ body.menu-open{
 
 .menu-icon{
   width:34px;
-
   flex:0 0 34px;
 
   text-align:center;
@@ -460,10 +450,6 @@ body.menu-open{
   color:#67dcff;
 
   font-size:17px;
-}
-
-.menu-link.active .menu-icon{
-  color:#67dcff;
 }
 
 .menu-arrow{
@@ -477,7 +463,7 @@ body.menu-open{
 
 /* =========================================
    ADMIN MENU
-   ========================================= */
+========================================= */
 
 #adminMenuSection{
   display:none;
@@ -501,7 +487,6 @@ body.menu-open{
   color:#ff751c;
 }
 
-
 .menu-website{
   display:block;
 
@@ -510,7 +495,6 @@ body.menu-open{
   padding:14px;
 
   text-align:center;
-
   text-decoration:none;
 
   border-radius:10px;
@@ -535,110 +519,48 @@ body.menu-open{
 
 
 /* =========================================
-   PAGE HERO
-   ========================================= */
+   PACK BANNER
+========================================= */
 
-.page-hero{
+.pack-banner{
   position:relative;
+
+  width:100%;
 
   overflow:hidden;
 
-  text-align:center;
+  background:#020202;
 
-  padding:
-    34px
-    18px
-    28px;
+  border-bottom:
+    1px solid rgba(255,255,255,.10);
+
+  box-shadow:
+    0 12px 35px rgba(0,0,0,.38);
 }
 
-.page-hero::after{
-  content:"";
+.pack-banner-image{
+  display:block;
 
-  position:absolute;
+  width:100%;
+  height:auto;
 
-  left:0;
-  right:0;
-  bottom:0;
+  max-height:430px;
 
-  height:1px;
+  margin:0 auto;
 
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      #4bd8ff,
-      rgba(255,255,255,.15),
-      #ff6200,
-      transparent
-    );
-}
-
-.hero-logo{
-  width:100px;
-  height:100px;
-
-  object-fit:contain;
-
-  filter:
-    drop-shadow(
-      0 0 13px rgba(51,201,255,.23)
-    )
-    drop-shadow(
-      0 0 13px rgba(255,92,0,.20)
-    );
-}
-
-.hero-brand{
-  margin-top:8px;
-
-  color:#777;
-
-  font-size:7px;
-  font-weight:900;
-
-  letter-spacing:3px;
-}
-
-.page-title{
-  margin-top:15px;
-
-  font-size:
-    clamp(
-      27px,
-      8vw,
-      36px
-    );
-
-  font-weight:900;
-
-  letter-spacing:1px;
-}
-
-.ice{
-  color:#67dcff;
-}
-
-.fire{
-  color:#ff751c;
-}
-
-.subtitle{
-  margin-top:8px;
-
-  color:#999;
-
-  font-size:11px;
+  object-fit:cover;
+  object-position:center;
 }
 
 
 /* =========================================
    CONTENT
-   ========================================= */
+========================================= */
 
 .content{
   width:100%;
 
-  max-width:780px;
+  max-width:920px;
 
   margin:auto;
 
@@ -649,7 +571,34 @@ body.menu-open{
 }
 
 .content-heading{
-  margin-bottom:17px;
+  position:relative;
+
+  margin-bottom:22px;
+
+  padding-bottom:17px;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.08);
+}
+
+.content-heading::after{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  right:0;
+  bottom:-1px;
+
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #4bd8ff,
+      rgba(255,255,255,.08) 50%,
+      #ff6200
+    );
 }
 
 .content-label{
@@ -661,27 +610,29 @@ body.menu-open{
   letter-spacing:2px;
 }
 
-.content-heading h2{
+.content-heading h1{
   margin-top:6px;
 
-  font-size:18px;
+  font-size:20px;
   font-weight:900;
+
+  letter-spacing:.4px;
 }
 
 .content-heading p{
-  margin-top:6px;
+  margin-top:7px;
 
   color:#888;
 
   font-size:10px;
 
-  line-height:1.5;
+  line-height:1.6;
 }
 
 
 /* =========================================
    PACK GRID
-   ========================================= */
+========================================= */
 
 .pack-grid{
   display:grid;
@@ -694,7 +645,7 @@ body.menu-open{
 
 /* =========================================
    MEMBER CARDS
-   ========================================= */
+========================================= */
 
 .member-card{
   display:block;
@@ -705,11 +656,11 @@ body.menu-open{
 
   width:100%;
 
-  min-height:205px;
+  min-height:220px;
 
   padding:
     25px
-    165px
+    170px
     24px
     21px;
 
@@ -726,7 +677,7 @@ body.menu-open{
     linear-gradient(
       110deg,
       rgba(20,150,205,.17),
-      rgba(8,8,8,.95) 50%,
+      rgba(8,8,8,.96) 50%,
       rgba(220,70,0,.18)
     );
 
@@ -775,7 +726,8 @@ body.menu-open{
 a.member-card{
   transition:
     transform .15s ease,
-    border-color .15s ease;
+    border-color .15s ease,
+    box-shadow .15s ease;
 }
 
 a.member-card:active{
@@ -784,8 +736,52 @@ a.member-card:active{
 
 
 /* =========================================
+   TEAM ACCENTS
+========================================= */
+
+.member-card.wolfie{
+  background:
+    linear-gradient(
+      110deg,
+      rgba(0,175,240,.20),
+      rgba(8,8,8,.96) 52%,
+      rgba(0,105,160,.10)
+    );
+}
+
+.member-card.wolfie::after{
+  background:#67dcff;
+
+  box-shadow:
+    0 0 12px rgba(103,220,255,.45);
+}
+
+.member-card.sloan{
+  background:
+    linear-gradient(
+      110deg,
+      rgba(255,95,0,.15),
+      rgba(8,8,8,.96) 52%,
+      rgba(255,95,0,.22)
+    );
+}
+
+.member-card.sloan::before,
+.member-card.sloan::after{
+  background:#ff751c;
+
+  box-shadow:
+    0 0 12px rgba(255,117,28,.45);
+}
+
+.member-card.sloan .member-team{
+  color:#ff8b3d;
+}
+
+
+/* =========================================
    MEMBER PHOTO
-   ========================================= */
+========================================= */
 
 .member-photo{
   position:absolute;
@@ -793,7 +789,7 @@ a.member-card:active{
   right:0;
   top:0;
 
-  width:155px;
+  width:165px;
   height:100%;
 
   display:block;
@@ -823,7 +819,7 @@ a.member-card:active{
 
 /* =========================================
    MEMBER TEXT
-   ========================================= */
+========================================= */
 
 .member-status,
 .member-team,
@@ -844,9 +840,7 @@ a.member-card:active{
 
   margin-bottom:11px;
 
-  padding:
-    5px
-    8px;
+  padding:5px 8px;
 
   border-radius:20px;
 
@@ -884,7 +878,7 @@ a.member-card:active{
   font-size:8px;
   font-weight:900;
 
-  letter-spacing:2px;
+  letter-spacing:1.7px;
 }
 
 .member-name{
@@ -925,6 +919,14 @@ a.member-card:active{
   letter-spacing:1px;
 }
 
+.wolfie .view{
+  color:#67dcff;
+}
+
+.sloan .view{
+  color:#ff751c;
+}
+
 .profile-arrow{
   font-size:16px;
 }
@@ -932,7 +934,7 @@ a.member-card:active{
 
 /* =========================================
    FOOTER
-   ========================================= */
+========================================= */
 
 .app-footer{
   margin-top:30px;
@@ -955,12 +957,24 @@ a.member-card:active{
 
 /* =========================================
    SMALL PHONES
-   ========================================= */
+========================================= */
 
 @media(max-width:430px){
 
+  .pack-banner-image{
+    min-height:155px;
+    max-height:205px;
+
+    object-fit:cover;
+    object-position:center;
+  }
+
+  .content{
+    padding-top:22px;
+  }
+
   .member-card{
-    min-height:190px;
+    min-height:200px;
 
     padding:
       22px
@@ -994,7 +1008,7 @@ a.member-card:active{
 
 /* =========================================
    TABLET / DESKTOP
-   ========================================= */
+========================================= */
 
 @media(min-width:720px){
 
@@ -1026,7 +1040,7 @@ a.member-card:active{
 
 /* =========================================
    REDUCED MOTION
-   ========================================= */
+========================================= */
 
 @media(prefers-reduced-motion:reduce){
 
@@ -1047,7 +1061,7 @@ a.member-card:active{
 
 <!-- =========================================
      APP BAR
-     ========================================= -->
+========================================= -->
 
 <header class="app-bar">
 
@@ -1095,7 +1109,7 @@ TEAM WOLFPACK
 
 <!-- =========================================
      SIDE MENU
-     ========================================= -->
+========================================= -->
 
 <aside
   id="sideMenu"
@@ -1135,49 +1149,33 @@ ONE PACK • ONE PURPOSE
 MAIN
 </div>
 
-
 <nav class="menu-nav">
 
-<a
-  class="menu-link"
-  href="index.html"
->
+<a class="menu-link" href="index.html">
 <span class="menu-icon">⌂</span>
 <span>HOME</span>
 <span class="menu-arrow">›</span>
 </a>
 
-<a
-  class="menu-link"
-  href="fights.html"
->
+<a class="menu-link" href="fights.html">
 <span class="menu-icon">♜</span>
 <span>FIGHTS</span>
 <span class="menu-arrow">›</span>
 </a>
 
-<a
-  class="menu-link"
-  href="fighters.html"
->
+<a class="menu-link" href="fighters.html">
 <span class="menu-icon">♟</span>
 <span>FIGHTERS</span>
 <span class="menu-arrow">›</span>
 </a>
 
-<a
-  class="menu-link active"
-  href="pack.html"
->
+<a class="menu-link active" href="pack.html">
 <span class="menu-icon">◆</span>
 <span>MEET THE PACK</span>
 <span class="menu-arrow">›</span>
 </a>
 
-<a
-  class="menu-link chat"
-  href="chat.html"
->
+<a class="menu-link chat" href="chat.html">
 <span class="menu-icon">●</span>
 <span>PACK CHAT</span>
 <span class="menu-arrow">›</span>
@@ -1190,58 +1188,39 @@ MAIN
 EXPLORE
 </div>
 
-
 <nav class="menu-nav">
 
-<a
-  class="menu-link"
-  href="sponsors.html"
->
+<a class="menu-link" href="sponsors.html">
 <span class="menu-icon">★</span>
 <span>SPONSORS &amp; PARTNERS</span>
 <span class="menu-arrow">›</span>
 </a>
 
-<a
-  class="menu-link"
-  href="gallery.html"
->
+<a class="menu-link" href="gallery.html">
 <span class="menu-icon">▣</span>
 <span>GALLERY</span>
 <span class="menu-arrow">›</span>
 </a>
 
-<a
-  class="menu-link"
-  href="merch.html"
->
+<a class="menu-link" href="merch.html">
 <span class="menu-icon">◇</span>
 <span>MERCH</span>
 <span class="menu-arrow">›</span>
 </a>
 
-<a
-  class="menu-link"
-  href="contact.html"
->
+<a class="menu-link" href="contact.html">
 <span class="menu-icon">✉</span>
 <span>CONTACT</span>
 <span class="menu-arrow">›</span>
 </a>
 
-<a
-  class="menu-link"
-  href="socials.html"
->
+<a class="menu-link" href="socials.html">
 <span class="menu-icon">◎</span>
 <span>SOCIALS</span>
 <span class="menu-arrow">›</span>
 </a>
 
-<a
-  class="menu-link"
-  href="about.html"
->
+<a class="menu-link" href="about.html">
 <span class="menu-icon">ⓘ</span>
 <span>ABOUT</span>
 <span class="menu-arrow">›</span>
@@ -1251,8 +1230,8 @@ EXPLORE
 
 
 <!-- =========================================
-     ADMIN - HIDDEN FOR NORMAL MEMBERS
-     ========================================= -->
+     ADMIN
+========================================= -->
 
 <div id="adminMenuSection">
 
@@ -1289,43 +1268,23 @@ VISIT OFFICIAL WEBSITE
 
 
 <!-- =========================================
-     PAGE HERO
-     ========================================= -->
+     MEET THE PACK BANNER
+========================================= -->
 
-<section class="page-hero">
+<section class="pack-banner">
 
 <img
-  src="icon-512.png"
-  class="hero-logo"
-  alt="Team Wolfpack"
+  src="pack-banner.png"
+  class="pack-banner-image"
+  alt="Team Wolfpack - Meet The Pack"
 >
-
-<div class="hero-brand">
-TEAM WOLFPACK
-</div>
-
-<h1 class="page-title">
-
-<span class="ice">
-MEET
-</span>
-
-<span class="fire">
-THE PACK
-</span>
-
-</h1>
-
-<p class="subtitle">
-The people behind Team Wolfpack.
-</p>
 
 </section>
 
 
 <!-- =========================================
      CONTENT
-     ========================================= -->
+========================================= -->
 
 <main class="content">
 
@@ -1335,12 +1294,12 @@ The people behind Team Wolfpack.
 OUR PACK
 </div>
 
-<h2>
-TEAM WOLFPACK
-</h2>
+<h1>
+MEET THE TEAM
+</h1>
 
 <p>
-Meet the people who make up Team Wolfpack.
+The people behind Team Wolfpack — united by strength, loyalty and purpose.
 </p>
 
 </div>
@@ -1351,7 +1310,7 @@ Meet the people who make up Team Wolfpack.
 
 <!-- =========================================
      MR WOLFIE
-     ========================================= -->
+========================================= -->
 
 <div class="member-card">
 
@@ -1385,10 +1344,10 @@ Manager to Team Wolfie
 
 <!-- =========================================
      MRS WOLFIE
-     ========================================= -->
+========================================= -->
 
 <a
-  class="member-card"
+  class="member-card wolfie"
   href="mrs-wolfie.html"
   aria-label="View Mrs Wolfie fighter profile"
   onclick="gtag('event','pack_member_click',{
@@ -1434,10 +1393,10 @@ VIEW FIGHTER PROFILE
 
 <!-- =========================================
      GREIG SLOAN
-     ========================================= -->
+========================================= -->
 
 <a
-  class="member-card"
+  class="member-card sloan"
   href="greig-sloan.html"
   aria-label="View Greig Sloan fighter profile"
   onclick="gtag('event','pack_member_click',{
@@ -1481,9 +1440,9 @@ VIEW FIGHTER PROFILE
 
 <!-- =========================================
      BRY KELLY
-     ========================================= -->
+========================================= -->
 
-<div class="member-card">
+<div class="member-card wolfie">
 
 <img
   class="member-photo"
@@ -1513,9 +1472,9 @@ Corner Team
 
 <!-- =========================================
      BILLY BOSSMAN BURTON
-     ========================================= -->
+========================================= -->
 
-<div class="member-card">
+<div class="member-card wolfie">
 
 <img
   class="member-photo"
@@ -1555,7 +1514,7 @@ TEAM WOLFPACK • STRENGTH IN UNITY
 
 <!-- =========================================
      SIDE MENU JAVASCRIPT
-     ========================================= -->
+========================================= -->
 
 <script>
 
@@ -1630,7 +1589,6 @@ document.addEventListener(
   }
 );
 
-
 document
   .querySelectorAll(".menu-link")
   .forEach(function(link){
@@ -1647,7 +1605,7 @@ document
 
 <!-- =========================================
      ADMIN DASHBOARD VISIBILITY
-     ========================================= -->
+========================================= -->
 
 <script type="module">
 
@@ -1720,7 +1678,7 @@ onAuthStateChanged(
 
 <!-- =========================================
      SERVICE WORKER
-     ========================================= -->
+========================================= -->
 
 <script>
 
@@ -1732,7 +1690,15 @@ if("serviceWorker" in navigator){
 
       navigator
         .serviceWorker
-        .register("service-worker.js");
+        .register("service-worker.js")
+        .catch(function(error){
+
+          console.error(
+            "Service worker error:",
+            error
+          );
+
+        });
 
     }
   );
