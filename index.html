@@ -56,9 +56,13 @@ html{
 body{
   min-height:100vh;
   min-height:100dvh;
+
   padding-top:calc(66px + env(safe-area-inset-top));
+
   color:#fff;
+
   font-family:Arial,Helvetica,sans-serif;
+
   overflow-x:hidden;
 
   background:
@@ -87,13 +91,15 @@ body.menu-open{
 
 /* =========================================
    APP BAR
-   ========================================= */
+========================================= */
 
 .app-bar{
   position:fixed;
+
   top:0;
   left:0;
   right:0;
+
   z-index:500;
 
   height:calc(66px + env(safe-area-inset-top));
@@ -104,7 +110,9 @@ body.menu-open{
     0;
 
   display:grid;
+
   grid-template-columns:46px 1fr 46px;
+
   align-items:center;
 
   background:rgba(4,4,4,.97);
@@ -124,6 +132,7 @@ body.menu-open{
   height:42px;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
@@ -137,30 +146,39 @@ body.menu-open{
   color:#67dcff;
 
   cursor:pointer;
+
   font-size:24px;
 }
 
 .app-bar-brand{
   display:flex;
+
   align-items:center;
   justify-content:center;
+
   gap:9px;
+
   min-width:0;
 }
 
 .app-bar-logo{
   width:34px;
   height:34px;
+
   object-fit:contain;
 }
 
 .app-bar-title{
   overflow:hidden;
+
   white-space:nowrap;
+
   text-overflow:ellipsis;
 
   font-size:11px;
+
   font-weight:900;
+
   letter-spacing:1.8px;
 
   background:
@@ -173,6 +191,7 @@ body.menu-open{
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
+
   background-clip:text;
 }
 
@@ -181,6 +200,7 @@ body.menu-open{
   height:42px;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 }
@@ -188,7 +208,9 @@ body.menu-open{
 .app-status-dot{
   width:8px;
   height:8px;
+
   border-radius:50%;
+
   background:#43f27b;
 
   box-shadow:
@@ -198,14 +220,17 @@ body.menu-open{
 
 /* =========================================
    MENU BACKDROP
-   ========================================= */
+========================================= */
 
 .menu-backdrop{
   position:fixed;
+
   inset:0;
+
   z-index:800;
 
   visibility:hidden;
+
   opacity:0;
 
   background:rgba(0,0,0,.72);
@@ -226,10 +251,11 @@ body.menu-open{
 
 /* =========================================
    SIDE MENU
-   ========================================= */
+========================================= */
 
 .side-menu{
   position:fixed;
+
   left:0;
   top:0;
   bottom:0;
@@ -239,9 +265,11 @@ body.menu-open{
   width:min(84vw,340px);
 
   transform:translateX(-105%);
+
   transition:transform .28s ease;
 
   overflow-y:auto;
+
   overscroll-behavior:contain;
 
   padding:
@@ -289,13 +317,17 @@ body.menu-open{
 .menu-logo{
   width:72px;
   height:72px;
+
   object-fit:contain;
+
   margin-bottom:10px;
 }
 
 .menu-brand{
   font-size:18px;
+
   font-weight:900;
+
   letter-spacing:1px;
 
   background:
@@ -308,19 +340,25 @@ body.menu-open{
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
+
   background-clip:text;
 }
 
 .menu-tagline{
   margin-top:5px;
+
   color:#999;
+
   font-size:8px;
+
   font-weight:900;
+
   letter-spacing:2px;
 }
 
 .close-menu{
   position:absolute;
+
   right:0;
   top:5px;
 
@@ -333,28 +371,37 @@ body.menu-open{
     1px solid rgba(255,117,28,.25);
 
   background:rgba(255,90,0,.07);
+
   color:#ff751c;
 
   cursor:pointer;
+
   font-size:21px;
 }
 
 .menu-section-label{
   margin:20px 8px 8px;
+
   color:#666;
+
   font-size:7px;
+
   font-weight:900;
+
   letter-spacing:2px;
 }
 
 .menu-nav{
   display:flex;
+
   flex-direction:column;
+
   gap:4px;
 }
 
 .menu-link{
   display:flex;
+
   align-items:center;
 
   min-height:48px;
@@ -364,12 +411,15 @@ body.menu-open{
   border-radius:10px;
 
   text-decoration:none;
+
   color:#d7d7d7;
 
   border:1px solid transparent;
 
   font-size:10px;
+
   font-weight:900;
+
   letter-spacing:.5px;
 }
 
@@ -407,9 +457,13 @@ body.menu-open{
 
 .menu-icon{
   width:34px;
+
   flex:0 0 34px;
+
   text-align:center;
+
   color:#67dcff;
+
   font-size:17px;
 }
 
@@ -419,14 +473,16 @@ body.menu-open{
 
 .menu-arrow{
   margin-left:auto;
+
   color:#666;
+
   font-size:16px;
 }
 
 
 /* =========================================
    ADMIN MENU
-   ========================================= */
+========================================= */
 
 #adminMenuSection{
   display:none;
@@ -454,9 +510,11 @@ body.menu-open{
   display:block;
 
   margin-top:19px;
+
   padding:14px;
 
   text-align:center;
+
   text-decoration:none;
 
   border-radius:10px;
@@ -474,18 +532,22 @@ body.menu-open{
   color:#fff;
 
   font-size:8px;
+
   font-weight:900;
+
   letter-spacing:1px;
 }
 
 
 /* =========================================
    TEAM WOLFPACK HOME BANNER
-   ========================================= */
+========================================= */
 
 .home-banner{
   position:relative;
+
   width:100%;
+
   overflow:hidden;
 
   background:#020202;
@@ -514,10 +576,11 @@ body.menu-open{
 
 /* =========================================
    HOME CONTENT
-   ========================================= */
+========================================= */
 
 .main{
   width:100%;
+
   max-width:920px;
 
   margin:auto;
@@ -531,10 +594,11 @@ body.menu-open{
 
 /* =========================================
    NEXT FIGHT
-   ========================================= */
+========================================= */
 
 .next-fight{
   position:relative;
+
   overflow:hidden;
 
   min-height:430px;
@@ -552,7 +616,9 @@ body.menu-open{
 
 .next-fight::before{
   content:"";
+
   position:absolute;
+
   inset:0;
 
   background:
@@ -570,12 +636,15 @@ body.menu-open{
     );
 
   z-index:2;
+
   pointer-events:none;
 }
 
 .next-fight::after{
   content:"";
+
   position:absolute;
+
   inset:0;
 
   border-radius:20px;
@@ -586,15 +655,20 @@ body.menu-open{
     inset 0 0 28px rgba(0,0,0,.42);
 
   z-index:7;
+
   pointer-events:none;
 }
 
 .fighter-side{
   position:absolute;
+
   top:0;
   bottom:0;
+
   width:50%;
+
   overflow:hidden;
+
   background:#050505;
 }
 
@@ -609,7 +683,9 @@ body.menu-open{
 .fighter-photo{
   width:100%;
   height:100%;
+
   display:block;
+
   object-fit:cover;
 
   filter:
@@ -627,7 +703,9 @@ body.menu-open{
 
 .fighter-side.left::after{
   content:"";
+
   position:absolute;
+
   inset:0;
 
   background:
@@ -641,7 +719,9 @@ body.menu-open{
 
 .fighter-side.right::after{
   content:"";
+
   position:absolute;
+
   inset:0;
 
   background:
@@ -655,12 +735,15 @@ body.menu-open{
 
 .fight-centre{
   position:relative;
+
   z-index:6;
 
   min-height:430px;
 
   display:flex;
+
   flex-direction:column;
+
   align-items:center;
   justify-content:center;
 
@@ -683,6 +766,7 @@ body.menu-open{
   left:50%;
 
   width:min(360px,48vw);
+
   height:295px;
 
   transform:translate(-50%,-54%);
@@ -699,7 +783,9 @@ body.menu-open{
     );
 
   filter:blur(6px);
+
   pointer-events:none;
+
   z-index:-1;
 }
 
@@ -707,7 +793,9 @@ body.menu-open{
   color:#63dcff;
 
   font-size:9px;
+
   font-weight:900;
+
   letter-spacing:4px;
 
   text-shadow:
@@ -718,7 +806,9 @@ body.menu-open{
   margin-top:10px;
 
   font-size:clamp(17px,5vw,27px);
+
   font-weight:900;
+
   line-height:1.05;
 
   text-shadow:
@@ -734,7 +824,9 @@ body.menu-open{
   color:#eee;
 
   font-size:11px;
+
   font-style:italic;
+
   letter-spacing:1px;
 
   text-shadow:
@@ -745,8 +837,11 @@ body.menu-open{
   margin-top:14px;
 
   font-size:clamp(38px,12vw,62px);
+
   font-weight:900;
+
   font-style:italic;
+
   line-height:1;
 
   background:
@@ -759,6 +854,7 @@ body.menu-open{
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
+
   background-clip:text;
 
   filter:
@@ -770,7 +866,9 @@ body.menu-open{
   margin-top:16px;
 
   display:flex;
+
   flex-direction:column;
+
   align-items:center;
 
   gap:7px;
@@ -780,7 +878,9 @@ body.menu-open{
   color:#f7f7f7;
 
   font-size:10px;
+
   font-weight:900;
+
   letter-spacing:.8px;
 
   text-shadow:
@@ -792,6 +892,7 @@ body.menu-open{
   margin-top:16px;
 
   display:inline-flex;
+
   align-items:center;
   justify-content:center;
 
@@ -813,10 +914,13 @@ body.menu-open{
     );
 
   color:#fff;
+
   text-decoration:none;
 
   font-size:8px;
+
   font-weight:900;
+
   letter-spacing:1.2px;
 
   backdrop-filter:blur(10px);
@@ -830,8 +934,11 @@ body.menu-open{
 
 .fighter-name{
   position:absolute;
+
   bottom:23px;
+
   z-index:8;
+
   width:46%;
 
   text-align:center;
@@ -852,6 +959,7 @@ body.menu-open{
   display:block;
 
   font-size:clamp(19px,5vw,30px);
+
   font-weight:900;
 }
 
@@ -871,17 +979,20 @@ body.menu-open{
   color:#ccc;
 
   font-size:7px;
+
   font-weight:900;
+
   letter-spacing:2px;
 }
 
 
 /* =========================================
    SECTION TITLES
-   ========================================= */
+========================================= */
 
 .section-heading{
   display:flex;
+
   align-items:center;
   justify-content:space-between;
 
@@ -895,7 +1006,9 @@ body.menu-open{
   color:#fff;
 
   font-size:11px;
+
   font-weight:900;
+
   letter-spacing:2px;
 }
 
@@ -903,7 +1016,9 @@ body.menu-open{
   color:#ff751c;
 
   font-size:7px;
+
   font-weight:900;
+
   letter-spacing:1px;
 
   text-decoration:none;
@@ -912,16 +1027,19 @@ body.menu-open{
 
 /* =========================================
    THE PACK - FIGHTER CARDS
-   ========================================= */
+========================================= */
 
 .fighter-grid{
   display:grid;
+
   grid-template-columns:repeat(2,1fr);
+
   gap:11px;
 }
 
 .home-fighter-card{
   position:relative;
+
   overflow:hidden;
 
   min-height:190px;
@@ -929,6 +1047,7 @@ body.menu-open{
   border-radius:16px;
 
   text-decoration:none;
+
   color:#fff;
 
   border:
@@ -968,6 +1087,7 @@ body.menu-open{
 
 .home-fighter-image{
   position:absolute;
+
   inset:0;
 
   width:100%;
@@ -976,6 +1096,7 @@ body.menu-open{
   display:block;
 
   object-fit:cover;
+
   opacity:.90;
 }
 
@@ -991,6 +1112,7 @@ body.menu-open{
   content:"";
 
   position:absolute;
+
   inset:0;
 
   z-index:1;
@@ -1012,6 +1134,7 @@ body.menu-open{
   content:"";
 
   position:absolute;
+
   inset:0;
 
   z-index:1;
@@ -1030,6 +1153,7 @@ body.menu-open{
   content:"";
 
   position:absolute;
+
   inset:0;
 
   z-index:1;
@@ -1058,9 +1182,11 @@ body.menu-open{
   color:#fff;
 
   font-size:16px;
+
   font-weight:900;
 
   line-height:1.05;
+
   letter-spacing:.3px;
 
   text-shadow:
@@ -1070,6 +1196,7 @@ body.menu-open{
 
 .home-fighter-team{
   display:inline-flex;
+
   align-items:center;
 
   margin-top:7px;
@@ -1079,7 +1206,9 @@ body.menu-open{
   border-radius:5px;
 
   font-size:8px;
+
   font-weight:900;
+
   letter-spacing:1.2px;
 
   text-shadow:
@@ -1109,11 +1238,13 @@ body.menu-open{
 
 /* =========================================
    NEXT UP - FIGHT EVENT CARDS
-   ========================================= */
+========================================= */
 
 .next-list{
   display:flex;
+
   flex-direction:column;
+
   gap:11px;
 }
 
@@ -1148,6 +1279,7 @@ body.menu-open{
     );
 
   text-decoration:none;
+
   color:#fff;
 
   box-shadow:
@@ -1203,7 +1335,9 @@ body.menu-open{
   height:100%;
 
   display:flex;
+
   flex-direction:column;
+
   align-items:center;
   justify-content:center;
 
@@ -1224,6 +1358,7 @@ body.menu-open{
   color:#fff;
 
   font-size:24px;
+
   font-weight:900;
 
   line-height:1;
@@ -1238,6 +1373,7 @@ body.menu-open{
   color:#67dcff;
 
   font-size:8px;
+
   font-weight:900;
 
   letter-spacing:1.4px;
@@ -1247,7 +1383,9 @@ body.menu-open{
   min-width:0;
 
   display:flex;
+
   flex-direction:column;
+
   justify-content:center;
 
   padding:
@@ -1261,6 +1399,7 @@ body.menu-open{
   color:#67dcff;
 
   font-size:6px;
+
   font-weight:900;
 
   letter-spacing:1.6px;
@@ -1270,6 +1409,7 @@ body.menu-open{
   color:#fff;
 
   font-size:12px;
+
   font-weight:900;
 
   line-height:1.2;
@@ -1306,6 +1446,7 @@ body.menu-open{
   color:#ff9b59;
 
   font-size:7px;
+
   font-weight:900;
 
   letter-spacing:.7px;
@@ -1315,12 +1456,14 @@ body.menu-open{
   position:relative;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
   color:#ff751c;
 
   font-size:24px;
+
   font-weight:400;
 
   border-left:
@@ -1329,8 +1472,8 @@ body.menu-open{
 
 
 /* =========================================
-   LATEST FROM THE PACK - TEAM NEWS
-   ========================================= */
+   LATEST FROM THE PACK
+========================================= */
 
 .latest-card{
   position:relative;
@@ -1405,6 +1548,7 @@ body.menu-open{
   position:relative;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
@@ -1467,7 +1611,9 @@ body.menu-open{
   z-index:2;
 
   display:flex;
+
   flex-direction:column;
+
   justify-content:center;
 
   min-width:0;
@@ -1481,9 +1627,7 @@ body.menu-open{
 .latest-label{
   align-self:flex-start;
 
-  padding:
-    5px
-    8px;
+  padding:5px 8px;
 
   border-radius:5px;
 
@@ -1496,6 +1640,7 @@ body.menu-open{
     rgba(0,145,205,.13);
 
   font-size:6px;
+
   font-weight:900;
 
   letter-spacing:1.7px;
@@ -1507,6 +1652,7 @@ body.menu-open{
   color:#fff;
 
   font-size:17px;
+
   font-weight:900;
 
   line-height:1.05;
@@ -1519,6 +1665,7 @@ body.menu-open{
 
 .latest-details{
   display:flex;
+
   flex-wrap:wrap;
 
   gap:
@@ -1532,6 +1679,7 @@ body.menu-open{
   color:#ddd;
 
   font-size:7px;
+
   font-weight:900;
 
   letter-spacing:.7px;
@@ -1561,6 +1709,7 @@ body.menu-open{
   align-self:flex-start;
 
   display:inline-flex;
+
   align-items:center;
   justify-content:center;
 
@@ -1589,6 +1738,7 @@ body.menu-open{
     );
 
   font-size:7px;
+
   font-weight:900;
 
   letter-spacing:1px;
@@ -1605,7 +1755,7 @@ body.menu-open{
 
 /* =========================================
    WEBSITE
-   ========================================= */
+========================================= */
 
 .website-card{
   position:relative;
@@ -1634,6 +1784,7 @@ body.menu-open{
   color:#67dcff;
 
   font-size:7px;
+
   font-weight:900;
 
   letter-spacing:2px;
@@ -1643,6 +1794,7 @@ body.menu-open{
   margin-top:7px;
 
   font-size:15px;
+
   font-weight:900;
 }
 
@@ -1658,6 +1810,7 @@ body.menu-open{
 
 .website-button{
   display:flex;
+
   align-items:center;
   justify-content:center;
 
@@ -1670,6 +1823,7 @@ body.menu-open{
   border-radius:9px;
 
   text-align:center;
+
   text-decoration:none;
 
   color:#fff;
@@ -1685,6 +1839,7 @@ body.menu-open{
     );
 
   font-size:8px;
+
   font-weight:900;
 
   letter-spacing:1px;
@@ -1713,7 +1868,7 @@ body.menu-open{
 
 /* =========================================
    FOOTER
-   ========================================= */
+========================================= */
 
 .app-footer{
   margin-top:30px;
@@ -1725,9 +1880,10 @@ body.menu-open{
 
   text-align:center;
 
-  color:#555;
+  color:#777;
 
   font-size:7px;
+
   font-weight:900;
 
   letter-spacing:1.3px;
@@ -1735,8 +1891,101 @@ body.menu-open{
 
 
 /* =========================================
+   TEAM WOLFPACK COPYRIGHT
+========================================= */
+
+.copyright{
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  gap:12px;
+
+  width:100%;
+
+  margin-top:17px;
+
+  padding:
+    17px
+    2px
+    calc(6px + env(safe-area-inset-bottom));
+
+  color:#f1fbff;
+
+  font-size:8px;
+
+  font-weight:900;
+
+  letter-spacing:1.2px;
+
+  line-height:1.5;
+
+  text-align:center;
+
+  text-shadow:
+    0 0 5px rgba(255,255,255,.35),
+    0 0 12px rgba(103,220,255,.15);
+}
+
+.copyright span{
+  flex:0 1 auto;
+
+  white-space:nowrap;
+}
+
+.copyright::before,
+.copyright::after{
+  content:"";
+
+  flex:1;
+
+  height:2px;
+
+  max-width:130px;
+  min-width:20px;
+
+  border-radius:20px;
+}
+
+.copyright::before{
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      #003b80 15%,
+      #008cff 45%,
+      #00bfff 72%,
+      #8cecff 100%
+    );
+
+  box-shadow:
+    0 0 5px #00bfff,
+    0 0 12px rgba(0,191,255,.70),
+    0 0 20px rgba(0,140,255,.30);
+}
+
+.copyright::after{
+  background:
+    linear-gradient(
+      90deg,
+      #ffb000 0%,
+      #ff7a00 28%,
+      #ff5a00 55%,
+      #b51a00 85%,
+      transparent 100%
+    );
+
+  box-shadow:
+    0 0 5px #ff5a00,
+    0 0 12px rgba(255,90,0,.70),
+    0 0 20px rgba(255,90,0,.30);
+}
+
+
+/* =========================================
    TABLET / DESKTOP
-   ========================================= */
+========================================= */
 
 @media(min-width:650px){
 
@@ -1801,7 +2050,7 @@ body.menu-open{
 
 /* =========================================
    MOBILE BANNER
-   ========================================= */
+========================================= */
 
 @media(max-width:600px){
 
@@ -1820,7 +2069,7 @@ body.menu-open{
 
 /* =========================================
    SMALL PHONES
-   ========================================= */
+========================================= */
 
 @media(max-width:430px){
 
@@ -1966,12 +2215,29 @@ body.menu-open{
       10px;
   }
 
+  .copyright{
+    gap:7px;
+
+    font-size:6px;
+
+    letter-spacing:.45px;
+  }
+
+  .copyright span{
+    white-space:normal;
+  }
+
+  .copyright::before,
+  .copyright::after{
+    min-width:16px;
+  }
+
 }
 
 
 /* =========================================
    REDUCED MOTION
-   ========================================= */
+========================================= */
 
 @media(prefers-reduced-motion:reduce){
 
@@ -1989,13 +2255,12 @@ body.menu-open{
 
 </head>
 
-
 <body>
 
 
 <!-- =========================================
      APP BAR
-     ========================================= -->
+========================================= -->
 
 <header class="app-bar">
 
@@ -2041,7 +2306,7 @@ TEAM WOLFPACK
 
 <!-- =========================================
      SIDE MENU
-     ========================================= -->
+========================================= -->
 
 <aside
   id="sideMenu"
@@ -2197,7 +2462,7 @@ VISIT OFFICIAL WEBSITE
 
 <!-- =========================================
      HOME BANNER
-     ========================================= -->
+========================================= -->
 
 <section class="home-banner">
 
@@ -2215,7 +2480,7 @@ VISIT OFFICIAL WEBSITE
 
 <!-- =========================================
      NEXT FIGHT
-     ========================================= -->
+========================================= -->
 
 <section class="next-fight">
 
@@ -2317,7 +2582,7 @@ OPPONENT
 
 <!-- =========================================
      THE PACK
-     ========================================= -->
+========================================= -->
 
 <div class="section-heading">
 
@@ -2399,7 +2664,7 @@ TEAM SLOAN
 
 <!-- =========================================
      NEXT UP
-     ========================================= -->
+========================================= -->
 
 <div class="section-heading">
 
@@ -2583,7 +2848,7 @@ UNFINISHED BUSINESS
 
 <!-- =========================================
      LATEST FROM THE PACK
-     ========================================= -->
+========================================= -->
 
 <div class="section-heading">
 
@@ -2650,7 +2915,7 @@ VIEW FIGHT DETAILS →
 
 <!-- =========================================
      WEBSITE
-     ========================================= -->
+========================================= -->
 
 <section class="website-card">
 
@@ -2694,16 +2959,30 @@ OFFICIALTEAMWOLFPACK.COM
 </section>
 
 
+<!-- =========================================
+     FOOTER
+========================================= -->
+
 <footer class="app-footer">
 TEAM WOLFPACK • STRENGTH IN UNITY
 </footer>
+
+
+<!-- =========================================
+     COPYRIGHT
+========================================= -->
+
+<div class="copyright">
+<span>© 2026 TEAM WOLFPACK • ALL RIGHTS RESERVED</span>
+</div>
+
 
 </main>
 
 
 <!-- =========================================
      MENU JAVASCRIPT
-     ========================================= -->
+========================================= -->
 
 <script>
 
@@ -2794,7 +3073,7 @@ document
 
 <!-- =========================================
      ADMIN
-     ========================================= -->
+========================================= -->
 
 <script type="module">
 
@@ -2867,7 +3146,7 @@ onAuthStateChanged(
 
 <!-- =========================================
      SERVICE WORKER
-     ========================================= -->
+========================================= -->
 
 <script>
 
