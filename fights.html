@@ -17,11 +17,9 @@ gtag("js", new Date());
 gtag("config", "G-M973P0B4F0");
 
 window.addEventListener("load", function(){
-
   gtag("event", "fights_page_view", {
     section:"Upcoming Fights"
   });
-
 });
 </script>
 
@@ -33,7 +31,6 @@ window.addEventListener("load", function(){
 >
 
 <meta name="theme-color" content="#050505">
-
 <meta name="apple-mobile-web-app-title" content="TEAM WOLFPACK">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -43,7 +40,6 @@ window.addEventListener("load", function(){
 
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
-
 
 <style>
 
@@ -63,25 +59,21 @@ body{
 
   padding-top:calc(66px + env(safe-area-inset-top));
 
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
+  font-family:Arial,Helvetica,sans-serif;
 
   color:#fff;
-
   overflow-x:hidden;
 
   background:
     radial-gradient(
-      circle at 0% 22%,
-      rgba(0,190,255,.19),
-      transparent 31%
+      circle at 0% 20%,
+      rgba(0,190,255,.18),
+      transparent 32%
     ),
     radial-gradient(
       circle at 100% 58%,
       rgba(255,85,0,.20),
-      transparent 34%
+      transparent 35%
     ),
     linear-gradient(
       115deg,
@@ -102,18 +94,13 @@ body.menu-open{
 
 .app-bar{
   position:fixed;
-
   top:0;
   left:0;
   right:0;
 
   z-index:500;
 
-  height:
-    calc(
-      66px +
-      env(safe-area-inset-top)
-    );
+  height:calc(66px + env(safe-area-inset-top));
 
   padding:
     env(safe-area-inset-top)
@@ -121,30 +108,19 @@ body.menu-open{
     0;
 
   display:grid;
-
-  grid-template-columns:
-    46px
-    1fr
-    46px;
-
+  grid-template-columns:46px 1fr 46px;
   align-items:center;
 
-  background:
-    rgba(4,4,4,.97);
+  background:rgba(4,4,4,.97);
 
   border-bottom:
-    1px solid
-    rgba(255,255,255,.10);
+    1px solid rgba(255,255,255,.10);
 
-  backdrop-filter:
-    blur(18px);
-
-  -webkit-backdrop-filter:
-    blur(18px);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
 
   box-shadow:
-    0 8px 30px
-    rgba(0,0,0,.38);
+    0 8px 30px rgba(0,0,0,.38);
 }
 
 .menu-button{
@@ -158,16 +134,13 @@ body.menu-open{
   border-radius:12px;
 
   border:
-    1px solid
-    rgba(103,220,255,.22);
+    1px solid rgba(103,220,255,.22);
 
-  background:
-    rgba(0,150,210,.07);
+  background:rgba(0,150,210,.07);
 
   color:#67dcff;
 
   cursor:pointer;
-
   font-size:24px;
 }
 
@@ -177,26 +150,22 @@ body.menu-open{
   justify-content:center;
 
   gap:9px;
-
   min-width:0;
 }
 
 .app-bar-logo{
   width:34px;
   height:34px;
-
   object-fit:contain;
 }
 
 .app-bar-title{
   overflow:hidden;
-
   white-space:nowrap;
   text-overflow:ellipsis;
 
   font-size:11px;
   font-weight:900;
-
   letter-spacing:1.8px;
 
   background:
@@ -209,7 +178,6 @@ body.menu-open{
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-
   background-clip:text;
 }
 
@@ -231,8 +199,7 @@ body.menu-open{
   background:#43f27b;
 
   box-shadow:
-    0 0 9px
-    rgba(67,242,123,.75);
+    0 0 9px rgba(67,242,123,.75);
 }
 
 
@@ -242,7 +209,6 @@ body.menu-open{
 
 .menu-backdrop{
   position:fixed;
-
   inset:0;
 
   z-index:800;
@@ -250,14 +216,10 @@ body.menu-open{
   visibility:hidden;
   opacity:0;
 
-  background:
-    rgba(0,0,0,.72);
+  background:rgba(0,0,0,.72);
 
-  backdrop-filter:
-    blur(3px);
-
-  -webkit-backdrop-filter:
-    blur(3px);
+  backdrop-filter:blur(3px);
+  -webkit-backdrop-filter:blur(3px);
 
   transition:
     opacity .25s ease,
@@ -285,25 +247,16 @@ body.menu-open{
 
   width:min(84vw,340px);
 
-  transform:
-    translateX(-105%);
-
-  transition:
-    transform .28s ease;
+  transform:translateX(-105%);
+  transition:transform .28s ease;
 
   overflow-y:auto;
   overscroll-behavior:contain;
 
   padding:
-    calc(
-      18px +
-      env(safe-area-inset-top)
-    )
+    calc(18px + env(safe-area-inset-top))
     15px
-    calc(
-      25px +
-      env(safe-area-inset-bottom)
-    );
+    calc(25px + env(safe-area-inset-bottom));
 
   background:
     radial-gradient(
@@ -319,17 +272,14 @@ body.menu-open{
     #080808;
 
   border-right:
-    1px solid
-    rgba(103,220,255,.20);
+    1px solid rgba(103,220,255,.20);
 
   box-shadow:
-    20px 0 50px
-    rgba(0,0,0,.55);
+    20px 0 50px rgba(0,0,0,.55);
 }
 
 .side-menu.show{
-  transform:
-    translateX(0);
+  transform:translateX(0);
 }
 
 .menu-header{
@@ -342,8 +292,7 @@ body.menu-open{
     5px;
 
   border-bottom:
-    1px solid
-    rgba(255,255,255,.09);
+    1px solid rgba(255,255,255,.09);
 }
 
 .menu-logo{
@@ -351,27 +300,24 @@ body.menu-open{
   height:72px;
 
   object-fit:contain;
-
   margin-bottom:10px;
 }
 
 .menu-brand{
   font-size:18px;
   font-weight:900;
-
   letter-spacing:1px;
 
   background:
     linear-gradient(
       90deg,
       #67dcff,
-      #ffffff 50%,
+      #fff 50%,
       #ff751c
     );
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-
   background-clip:text;
 }
 
@@ -382,7 +328,6 @@ body.menu-open{
 
   font-size:8px;
   font-weight:900;
-
   letter-spacing:2px;
 }
 
@@ -398,38 +343,29 @@ body.menu-open{
   border-radius:10px;
 
   border:
-    1px solid
-    rgba(255,117,28,.25);
+    1px solid rgba(255,117,28,.25);
 
-  background:
-    rgba(255,90,0,.07);
+  background:rgba(255,90,0,.07);
 
   color:#ff751c;
 
   cursor:pointer;
-
   font-size:21px;
 }
 
 .menu-section-label{
-  margin:
-    20px
-    8px
-    8px;
+  margin:20px 8px 8px;
 
   color:#666;
 
   font-size:7px;
   font-weight:900;
-
   letter-spacing:2px;
 }
 
 .menu-nav{
   display:flex;
-
   flex-direction:column;
-
   gap:4px;
 }
 
@@ -439,22 +375,17 @@ body.menu-open{
 
   min-height:48px;
 
-  padding:
-    9px
-    11px;
+  padding:9px 11px;
 
   border-radius:10px;
 
   text-decoration:none;
-
   color:#d7d7d7;
 
-  border:
-    1px solid transparent;
+  border:1px solid transparent;
 
   font-size:10px;
   font-weight:900;
-
   letter-spacing:.5px;
 }
 
@@ -492,14 +423,11 @@ body.menu-open{
 
 .menu-icon{
   width:34px;
-
-  flex:
-    0 0 34px;
+  flex:0 0 34px;
 
   text-align:center;
 
   color:#67dcff;
-
   font-size:17px;
 }
 
@@ -511,13 +439,12 @@ body.menu-open{
   margin-left:auto;
 
   color:#666;
-
   font-size:16px;
 }
 
 
 /* =========================================
-   ADMIN
+   ADMIN MENU
 ========================================= */
 
 #adminMenuSection{
@@ -546,18 +473,15 @@ body.menu-open{
   display:block;
 
   margin-top:19px;
-
   padding:14px;
 
   text-align:center;
-
   text-decoration:none;
 
   border-radius:10px;
 
   border:
-    1px solid
-    rgba(103,220,255,.28);
+    1px solid rgba(103,220,255,.28);
 
   background:
     linear-gradient(
@@ -570,7 +494,6 @@ body.menu-open{
 
   font-size:8px;
   font-weight:900;
-
   letter-spacing:1px;
 }
 
@@ -583,38 +506,15 @@ body.menu-open{
   position:relative;
 
   width:100%;
-
   overflow:hidden;
 
   background:#020202;
 
   border-bottom:
-    1px solid
-    rgba(255,255,255,.10);
+    1px solid rgba(255,255,255,.10);
 
   box-shadow:
-    0 12px 35px
-    rgba(0,0,0,.40);
-}
-
-.fights-banner::after{
-  content:"";
-
-  position:absolute;
-
-  left:0;
-  right:0;
-  bottom:0;
-
-  height:2px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #38d5ff,
-      rgba(255,255,255,.25) 50%,
-      #ff6a14
-    );
+    0 12px 35px rgba(0,0,0,.40);
 }
 
 .fights-banner-image{
@@ -623,7 +523,7 @@ body.menu-open{
   width:100%;
   height:auto;
 
-  max-height:430px;
+  max-height:390px;
 
   object-fit:cover;
   object-position:center;
@@ -633,52 +533,149 @@ body.menu-open{
 
 
 /* =========================================
+   UPCOMING FIGHTS INTRO
+========================================= */
+
+.fights-intro{
+  position:relative;
+
+  width:100%;
+  max-width:760px;
+
+  margin:0 auto;
+
+  padding:
+    24px
+    16px
+    20px;
+
+  text-align:center;
+}
+
+.fights-intro::after{
+  content:"";
+
+  position:absolute;
+
+  left:16px;
+  right:16px;
+  bottom:0;
+
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(69,216,255,.75),
+      rgba(255,255,255,.15),
+      rgba(255,112,28,.75),
+      transparent
+    );
+}
+
+.fights-intro-label{
+  margin-bottom:7px;
+
+  color:#777;
+
+  font-size:6px;
+  font-weight:900;
+  letter-spacing:3px;
+}
+
+.fights-intro-title{
+  font-size:24px;
+  font-weight:900;
+  line-height:1;
+  letter-spacing:1px;
+}
+
+.fights-intro-title span{
+  color:#67dcff;
+}
+
+.fights-intro-title strong{
+  color:#ff751c;
+}
+
+.fights-intro p{
+  margin-top:8px;
+
+  color:#777;
+
+  font-size:7px;
+  font-weight:700;
+  letter-spacing:1px;
+}
+
+
+/* =========================================
    CONTENT
 ========================================= */
 
 .content{
   width:100%;
-
-  max-width:920px;
+  max-width:760px;
 
   margin:auto;
 
   padding:
-    29px
-    14px
-    calc(
-      45px +
-      env(safe-area-inset-bottom)
-    );
+    22px
+    16px
+    calc(45px + env(safe-area-inset-bottom));
 }
 
-.fighter-section{
-  margin-bottom:42px;
+.section{
+  margin-bottom:38px;
 }
 
 .section-header{
-  display:grid;
-
-  grid-template-columns:
-    auto
-    1fr
-    auto;
+  display:flex;
 
   align-items:center;
+  justify-content:space-between;
 
-  gap:13px;
+  gap:15px;
 
-  margin:
-    0
-    3px
-    14px;
+  margin-bottom:13px;
+
+  padding:0 2px;
 }
 
 .section-title{
-  font-size:20px;
-  font-weight:900;
+  display:flex;
+  align-items:center;
 
-  letter-spacing:.6px;
+  flex:1;
+
+  gap:12px;
+
+  font-size:18px;
+  font-weight:900;
+  letter-spacing:.5px;
+}
+
+.section-title::after{
+  content:"";
+
+  flex:1;
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.18),
+      transparent
+    );
+}
+
+.section-team{
+  color:#666;
+
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:1.5px;
 }
 
 .ice{
@@ -689,29 +686,9 @@ body.menu-open{
   color:#ff751c;
 }
 
-.section-line{
-  height:1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(255,255,255,.28),
-      rgba(255,255,255,.05)
-    );
-}
-
-.section-team{
-  color:#777;
-
-  font-size:7px;
-  font-weight:900;
-
-  letter-spacing:2px;
-}
-
 
 /* =========================================
-   FIGHT CARD
+   FIGHT CARDS
 ========================================= */
 
 .fight-card{
@@ -719,21 +696,19 @@ body.menu-open{
 
   overflow:hidden;
 
-  min-height:330px;
+  min-height:270px;
 
-  margin-bottom:15px;
+  margin-bottom:13px;
 
-  border-radius:18px;
+  border-radius:17px;
 
   border:
-    1px solid
-    rgba(255,255,255,.14);
+    1px solid rgba(255,255,255,.12);
 
-  background:#050505;
+  background:#060606;
 
   box-shadow:
-    0 14px 38px
-    rgba(0,0,0,.42);
+    0 13px 34px rgba(0,0,0,.35);
 }
 
 .fight-card::before{
@@ -741,23 +716,18 @@ body.menu-open{
 
   position:absolute;
 
-  inset:0;
+  left:0;
+  top:0;
+  bottom:0;
 
-  background:
-    linear-gradient(
-      90deg,
-      rgba(0,180,245,.18) 0%,
-      rgba(0,0,0,.12) 26%,
-      rgba(0,0,0,.78) 43%,
-      rgba(0,0,0,.92) 50%,
-      rgba(0,0,0,.78) 57%,
-      rgba(0,0,0,.12) 74%,
-      rgba(255,90,0,.20) 100%
-    );
+  width:3px;
 
-  z-index:2;
+  background:#45d8ff;
 
-  pointer-events:none;
+  z-index:10;
+
+  box-shadow:
+    0 0 12px rgba(69,216,255,.45);
 }
 
 .fight-card::after{
@@ -765,49 +735,49 @@ body.menu-open{
 
   position:absolute;
 
-  inset:0;
-
-  border-radius:18px;
-
-  box-shadow:
-    inset 3px 0 0 #45d8ff,
-    inset -3px 0 0 #ff701c;
-
-  z-index:7;
-
-  pointer-events:none;
-}
-
-
-/* =========================================
-   FIGHTER PHOTOS
-========================================= */
-
-.card-fighter{
-  position:absolute;
-
+  right:0;
   top:0;
   bottom:0;
 
-  width:45%;
+  width:3px;
+
+  background:#ff701c;
+
+  z-index:10;
+
+  box-shadow:
+    0 0 12px rgba(255,112,28,.45);
+}
+
+.fight-layout{
+  position:relative;
+
+  min-height:270px;
+
+  display:grid;
+
+  grid-template-columns:
+    34%
+    32%
+    34%;
 
   overflow:hidden;
+}
 
-  z-index:1;
+.fight-person{
+  position:relative;
+
+  min-width:0;
+
+  overflow:hidden;
 
   background:#050505;
 }
 
-.card-fighter.left{
-  left:0;
-}
+.fight-person img{
+  position:absolute;
 
-.card-fighter.right{
-  right:0;
-}
-
-.card-fighter img{
-  display:block;
+  inset:0;
 
   width:100%;
   height:100%;
@@ -815,256 +785,192 @@ body.menu-open{
   object-fit:cover;
 }
 
-.card-fighter.left img{
-  object-position:center 22%;
+.fight-person.left img{
+  object-position:center 24%;
 }
 
-.card-fighter.right img{
-  object-position:center 22%;
+.fight-person.right img{
+  object-position:center 25%;
 }
 
-.card-fighter.left::after{
+.fight-person.left::after{
   content:"";
 
   position:absolute;
-
   inset:0;
 
   background:
     linear-gradient(
       90deg,
-      rgba(0,150,220,.06),
-      rgba(0,0,0,.05) 45%,
-      rgba(0,0,0,.93) 100%
+      rgba(0,175,235,.13),
+      transparent 50%,
+      rgba(0,0,0,.80) 100%
     );
 }
 
-.card-fighter.right::after{
+.fight-person.right::after{
   content:"";
 
   position:absolute;
-
   inset:0;
 
   background:
     linear-gradient(
       270deg,
-      rgba(255,90,0,.07),
-      rgba(0,0,0,.05) 45%,
-      rgba(0,0,0,.93) 100%
+      rgba(255,90,0,.16),
+      transparent 50%,
+      rgba(0,0,0,.80) 100%
     );
 }
 
-
-/* =========================================
-   UNKNOWN FIGHTERS
-========================================= */
-
-.card-fighter.unknown img{
-  filter:
-    contrast(1.08)
-    saturate(.88)
-    brightness(.78);
-}
-
-.card-fighter.unknown::before{
-  content:"";
-
-  position:absolute;
-
-  inset:0;
-
-  z-index:2;
-
-  background:
-    radial-gradient(
-      circle at 55% 35%,
-      transparent 0%,
-      rgba(0,0,0,.03) 31%,
-      rgba(0,0,0,.30) 100%
-    );
-
-  pointer-events:none;
-}
-
-.card-fighter.unknown-female img{
-  object-position:center 18%;
-}
-
-.card-fighter.unknown-male img{
-  object-position:center 18%;
-}
-
-
-/* =========================================
-   CARD CONTENT
-========================================= */
-
-.card-content{
+.fight-centre{
   position:relative;
 
-  z-index:6;
-
-  min-height:330px;
+  z-index:5;
 
   display:flex;
-
   flex-direction:column;
-
   align-items:center;
   justify-content:center;
 
   text-align:center;
 
   padding:
-    48px
-    22%
-    62px;
-}
-
-.status{
-  position:absolute;
-
-  top:16px;
-  left:18px;
-
-  display:inline-flex;
-
-  align-items:center;
-
-  gap:6px;
-
-  padding:
-    6px
-    10px;
-
-  border-radius:20px;
-
-  border:
-    1px solid
-    rgba(70,255,125,.25);
+    20px
+    6px;
 
   background:
-    rgba(30,180,80,.08);
-
-  color:#62ff8b;
-
-  font-size:7px;
-  font-weight:900;
-
-  letter-spacing:1.2px;
+    radial-gradient(
+      ellipse at center,
+      rgba(0,0,0,.98) 0%,
+      rgba(0,0,0,.94) 55%,
+      rgba(0,0,0,.70) 80%,
+      rgba(0,0,0,.30) 100%
+    );
 }
 
-.status-dot{
-  width:6px;
-  height:6px;
+.upcoming-badge{
+  position:absolute;
+
+  top:13px;
+  left:13px;
+
+  z-index:8;
+
+  display:inline-flex;
+  align-items:center;
+
+  gap:5px;
+
+  padding:
+    5px
+    8px;
+
+  border-radius:15px;
+
+  border:
+    1px solid rgba(67,242,123,.25);
+
+  background:
+    rgba(0,80,35,.32);
+
+  color:#43f27b;
+
+  font-size:6px;
+  font-weight:900;
+
+  letter-spacing:1px;
+}
+
+.upcoming-dot{
+  width:5px;
+  height:5px;
 
   border-radius:50%;
 
-  background:#55ff7f;
+  background:#43f27b;
 
   box-shadow:
-    0 0 8px
-    rgba(85,255,127,.8);
+    0 0 7px rgba(67,242,123,.80);
 }
 
-.team-tag{
+.team-label{
   position:absolute;
 
-  top:19px;
-  right:20px;
+  top:15px;
+  right:14px;
+
+  z-index:8;
 
   color:#67dcff;
 
-  font-size:7px;
+  font-size:6px;
   font-weight:900;
 
-  letter-spacing:1.6px;
+  letter-spacing:1.4px;
 }
-
-.event{
-  font-size:
-    clamp(
-      13px,
-      3vw,
-      18px
-    );
-
-  font-weight:900;
-
-  letter-spacing:2px;
-
-  text-shadow:
-    0 3px 12px
-    #000;
-}
-
-.event-sub{
-  margin-top:4px;
-
-  color:#bbb;
-
-  font-size:8px;
-  font-weight:900;
-
-  letter-spacing:3px;
-}
-
-
-/* =========================================
-   TITLE FIGHT
-========================================= */
 
 .title-badge{
   display:inline-flex;
-
   align-items:center;
-  justify-content:center;
 
   margin-bottom:12px;
 
   padding:
-    7px
-    12px;
+    5px
+    8px;
 
-  border-radius:7px;
+  border-radius:6px;
 
   border:
-    1px solid
-    rgba(255,130,35,.55);
+    1px solid rgba(255,117,28,.30);
 
   background:
-    linear-gradient(
-      90deg,
-      rgba(0,160,220,.12),
-      rgba(255,90,0,.14)
-    );
+    rgba(255,90,0,.08);
 
   color:#fff;
 
-  font-size:8px;
+  font-size:6px;
   font-weight:900;
 
-  letter-spacing:1.4px;
-
-  box-shadow:
-    0 0 16px
-    rgba(255,95,0,.10);
+  letter-spacing:1px;
 }
 
-.title-star{
-  margin-right:7px;
+.event-name{
+  font-size:
+    clamp(
+      11px,
+      2.5vw,
+      17px
+    );
 
-  color:#ff9a43;
+  font-weight:900;
+
+  line-height:1.15;
+
+  letter-spacing:.8px;
+
+  text-shadow:
+    0 2px 10px #000;
 }
 
+.event-small{
+  display:block;
 
-/* =========================================
-   MATCHUP
-========================================= */
+  margin-top:4px;
 
-.matchup{
+  color:#ddd;
+
+  font-size:6px;
+  font-weight:900;
+
+  letter-spacing:2px;
+}
+
+.matchup-row{
   width:100%;
+
+  margin-top:14px;
 
   display:grid;
 
@@ -1075,17 +981,17 @@ body.menu-open{
 
   align-items:center;
 
-  gap:13px;
-
-  margin-top:19px;
+  gap:7px;
 }
 
-.match-name{
+.card-fighter-name{
+  color:#fff;
+
   font-size:
     clamp(
-      16px,
-      4vw,
-      25px
+      11px,
+      2.6vw,
+      17px
     );
 
   font-weight:900;
@@ -1093,170 +999,131 @@ body.menu-open{
   line-height:.95;
 
   text-shadow:
-    0 3px 13px
-    #000;
+    0 2px 8px #000;
 }
 
-.match-name.left{
-  color:#eafaff;
+.card-fighter-name.tba{
+  color:#ff9a55;
 }
 
-.match-name.right{
-  color:#fff1e8;
-}
-
-.match-name.tba{
-  color:#ff9b59;
-}
-
-.vs{
+.card-vs{
   font-size:
     clamp(
-      32px,
-      7vw,
-      48px
+      27px,
+      6vw,
+      40px
     );
 
   font-weight:900;
-
   font-style:italic;
-
-  line-height:1;
 
   background:
     linear-gradient(
       90deg,
-      #5fdcff,
-      #ffffff 48%,
-      #ff6d19
+      #67dcff,
+      #fff 48%,
+      #ff751c
     );
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-
   background-clip:text;
 
   filter:
-    drop-shadow(
-      0 2px 8px
-      rgba(0,0,0,.95)
-    );
+    drop-shadow(0 3px 7px #000);
 }
 
+.card-date{
+  margin-top:15px;
 
-/* =========================================
-   DATE / VENUE
-========================================= */
-
-.fight-date{
-  margin-top:16px;
-
-  color:#f5f5f5;
-
-  font-size:10px;
-  font-weight:900;
-
-  letter-spacing:2px;
-
-  text-shadow:
-    0 2px 8px
-    #000;
-}
-
-.venue{
-  margin-top:5px;
-
-  color:#8ddfff;
-
-  font-size:8px;
-  font-weight:900;
-
-  letter-spacing:1px;
-
-  text-shadow:
-    0 2px 7px
-    #000;
-}
-
-.fight-type{
-  display:inline-flex;
-
-  margin-top:8px;
-
-  padding:
-    5px
-    9px;
-
-  border-radius:5px;
-
-  background:
-    rgba(0,170,225,.12);
-
-  border:
-    1px solid
-    rgba(103,220,255,.15);
-
-  color:#67dcff;
+  color:#fff;
 
   font-size:7px;
   font-weight:900;
 
+  letter-spacing:1.5px;
+}
+
+.card-venue{
+  margin-top:5px;
+
+  color:#67dcff;
+
+  font-size:6px;
+  font-weight:900;
+
   letter-spacing:1px;
 }
 
+.fight-detail-badge{
+  display:inline-flex;
 
-/* =========================================
-   FIGHT DETAILS BUTTON
-========================================= */
+  margin-top:9px;
 
-.fight-details-button{
-  position:absolute;
+  padding:
+    5px
+    8px;
 
-  left:50%;
-  bottom:17px;
+  border-radius:5px;
 
-  transform:
-    translateX(-50%);
+  background:
+    rgba(0,160,220,.10);
 
-  min-width:180px;
+  border:
+    1px solid rgba(103,220,255,.14);
 
+  color:#67dcff;
+
+  font-size:6px;
+  font-weight:900;
+
+  letter-spacing:.8px;
+}
+
+.fight-detail-badge.title{
+  color:#ffb27c;
+
+  border-color:
+    rgba(255,117,28,.24);
+
+  background:
+    rgba(255,90,0,.08);
+}
+
+.details-button{
   display:inline-flex;
 
   align-items:center;
   justify-content:center;
 
-  min-height:38px;
+  min-height:34px;
+
+  margin-top:13px;
 
   padding:
-    9px
-    16px;
+    8px
+    17px;
 
   border-radius:7px;
 
   border:
-    1px solid
-    rgba(103,220,255,.55);
+    1px solid rgba(103,220,255,.30);
 
   background:
     linear-gradient(
       90deg,
-      rgba(0,160,220,.18),
-      rgba(8,8,8,.86),
-      rgba(255,90,0,.18)
+      rgba(0,160,220,.10),
+      rgba(255,90,0,.10)
     );
 
   color:#fff;
 
   text-decoration:none;
 
-  font-size:7px;
+  font-size:6px;
   font-weight:900;
 
-  letter-spacing:1.2px;
-
-  box-shadow:
-    0 5px 16px
-    rgba(0,0,0,.35);
+  letter-spacing:.8px;
 }
 
 
@@ -1272,10 +1139,9 @@ body.menu-open{
 
   width:100%;
 
-  min-height:40px;
+  min-height:38px;
 
-  margin-top:-3px;
-  margin-bottom:19px;
+  margin-top:10px;
 
   padding:
     10px
@@ -1284,32 +1150,33 @@ body.menu-open{
   border-radius:8px;
 
   border:
-    1px solid
-    rgba(103,220,255,.28);
+    1px solid rgba(103,220,255,.18);
 
   background:
     linear-gradient(
       90deg,
-      rgba(0,150,210,.07),
-      rgba(8,8,8,.90),
-      rgba(255,90,0,.06)
+      rgba(0,160,220,.07),
+      rgba(8,8,8,.92) 50%,
+      rgba(255,90,0,.07)
     );
 
   text-decoration:none;
 
   color:#67dcff;
 
-  font-size:7px;
+  font-size:6px;
   font-weight:900;
 
-  letter-spacing:1.1px;
+  letter-spacing:.8px;
 }
 
-.profile-link.greig{
-  color:#ff8a3c;
+.profile-link.fire-link{
+  color:#ff751c;
+}
 
-  border-color:
-    rgba(255,117,28,.30);
+.profile-link:active,
+.details-button:active{
+  transform:scale(.985);
 }
 
 
@@ -1318,13 +1185,12 @@ body.menu-open{
 ========================================= */
 
 .app-footer{
-  margin-top:10px;
+  margin-top:12px;
 
-  padding-top:21px;
+  padding-top:20px;
 
   border-top:
-    1px solid
-    rgba(255,255,255,.07);
+    1px solid rgba(255,255,255,.07);
 
   text-align:center;
 
@@ -1338,45 +1204,45 @@ body.menu-open{
 
 
 /* =========================================
-   DESKTOP
-========================================= */
-
-@media(min-width:700px){
-
-  .fight-card{
-    min-height:355px;
-  }
-
-  .card-content{
-    min-height:355px;
-  }
-
-  .card-fighter{
-    width:39%;
-  }
-
-  .card-content{
-    padding-left:25%;
-    padding-right:25%;
-  }
-
-}
-
-
-/* =========================================
-   MOBILE BANNER
+   MOBILE
 ========================================= */
 
 @media(max-width:600px){
 
   .fights-banner-image{
-    width:100%;
-
-    min-height:155px;
-    max-height:220px;
+    min-height:190px;
+    max-height:260px;
 
     object-fit:cover;
     object-position:center;
+  }
+
+  .fights-intro{
+    padding:
+      21px
+      14px
+      18px;
+  }
+
+  .fights-intro-title{
+    font-size:22px;
+  }
+
+  .content{
+    padding-top:20px;
+  }
+
+  .fight-layout{
+    grid-template-columns:
+      34%
+      32%
+      34%;
+
+    min-height:255px;
+  }
+
+  .fight-card{
+    min-height:255px;
   }
 
 }
@@ -1386,115 +1252,67 @@ body.menu-open{
    SMALL PHONES
 ========================================= */
 
-@media(max-width:500px){
+@media(max-width:430px){
 
   .content{
-    padding-left:10px;
-    padding-right:10px;
-
-    padding-top:23px;
-  }
-
-  .section-header{
-    gap:8px;
+    padding-left:11px;
+    padding-right:11px;
   }
 
   .section-title{
-    font-size:17px;
+    font-size:16px;
   }
 
   .section-team{
     font-size:6px;
   }
 
+  .fight-layout{
+    min-height:245px;
+
+    grid-template-columns:
+      33%
+      34%
+      33%;
+  }
+
   .fight-card{
-    min-height:335px;
+    min-height:245px;
   }
 
-  .card-content{
-    min-height:335px;
-
+  .fight-centre{
     padding:
-      50px
-      17%
-      62px;
+      18px
+      3px;
   }
 
-  .card-fighter{
-    width:46%;
+  .event-name{
+    font-size:10px;
   }
 
-  .status{
-    top:13px;
-    left:13px;
+  .card-fighter-name{
+    font-size:10px;
+  }
 
+  .card-vs{
+    font-size:27px;
+  }
+
+  .card-date{
+    font-size:6px;
+    letter-spacing:1px;
+  }
+
+  .card-venue{
+    font-size:5px;
+  }
+
+  .details-button{
     padding:
-      5px
-      8px;
-
-    font-size:6px;
-  }
-
-  .team-tag{
-    top:16px;
-    right:14px;
-
-    font-size:6px;
-  }
-
-  .event{
-    font-size:12px;
-
-    letter-spacing:1.2px;
-  }
-
-  .event-sub{
-    font-size:7px;
-
-    letter-spacing:2px;
-  }
-
-  .matchup{
-    gap:6px;
-
-    margin-top:17px;
-  }
-
-  .match-name{
-    font-size:14px;
-  }
-
-  .vs{
-    font-size:31px;
-  }
-
-  .fight-date{
-    font-size:8px;
-
-    letter-spacing:1.3px;
-  }
-
-  .venue{
-    font-size:7px;
-  }
-
-  .fight-details-button{
-    min-width:158px;
-
-    font-size:6px;
-  }
-
-  .title-badge{
-    font-size:7px;
-
-    padding:
-      6px
+      7px
       9px;
-  }
 
-  .card-fighter.unknown-female img,
-  .card-fighter.unknown-male img{
-    object-position:center 16%;
+    font-size:5px;
   }
 
 }
@@ -1537,7 +1355,6 @@ body.menu-open{
 ☰
 </button>
 
-
 <div class="app-bar-brand">
 
 <img
@@ -1551,7 +1368,6 @@ TEAM WOLFPACK
 </div>
 
 </div>
-
 
 <div
   class="app-status"
@@ -1611,53 +1427,33 @@ ONE PACK • ONE PURPOSE
 MAIN
 </div>
 
-
 <nav class="menu-nav">
 
-<a
-  class="menu-link"
-  href="index.html"
->
+<a class="menu-link" href="index.html">
 <span class="menu-icon">⌂</span>
 <span>HOME</span>
 <span class="menu-arrow">›</span>
 </a>
 
-
-<a
-  class="menu-link active"
-  href="fights.html"
->
+<a class="menu-link active" href="fights.html">
 <span class="menu-icon">♜</span>
 <span>FIGHTS</span>
 <span class="menu-arrow">›</span>
 </a>
 
-
-<a
-  class="menu-link"
-  href="fighters.html"
->
+<a class="menu-link" href="fighters.html">
 <span class="menu-icon">♟</span>
 <span>FIGHTERS</span>
 <span class="menu-arrow">›</span>
 </a>
 
-
-<a
-  class="menu-link"
-  href="pack.html"
->
+<a class="menu-link" href="pack.html">
 <span class="menu-icon">◆</span>
 <span>MEET THE PACK</span>
 <span class="menu-arrow">›</span>
 </a>
 
-
-<a
-  class="menu-link chat"
-  href="chat.html"
->
+<a class="menu-link chat" href="chat.html">
 <span class="menu-icon">●</span>
 <span>PACK CHAT</span>
 <span class="menu-arrow">›</span>
@@ -1670,63 +1466,39 @@ MAIN
 EXPLORE
 </div>
 
-
 <nav class="menu-nav">
 
-<a
-  class="menu-link"
-  href="sponsors.html"
->
+<a class="menu-link" href="sponsors.html">
 <span class="menu-icon">★</span>
 <span>SPONSORS &amp; PARTNERS</span>
 <span class="menu-arrow">›</span>
 </a>
 
-
-<a
-  class="menu-link"
-  href="gallery.html"
->
+<a class="menu-link" href="gallery.html">
 <span class="menu-icon">▣</span>
 <span>GALLERY</span>
 <span class="menu-arrow">›</span>
 </a>
 
-
-<a
-  class="menu-link"
-  href="merch.html"
->
+<a class="menu-link" href="merch.html">
 <span class="menu-icon">◇</span>
 <span>MERCH</span>
 <span class="menu-arrow">›</span>
 </a>
 
-
-<a
-  class="menu-link"
-  href="contact.html"
->
+<a class="menu-link" href="contact.html">
 <span class="menu-icon">✉</span>
 <span>CONTACT</span>
 <span class="menu-arrow">›</span>
 </a>
 
-
-<a
-  class="menu-link"
-  href="socials.html"
->
+<a class="menu-link" href="socials.html">
 <span class="menu-icon">◎</span>
 <span>SOCIALS</span>
 <span class="menu-arrow">›</span>
 </a>
 
-
-<a
-  class="menu-link"
-  href="about.html"
->
+<a class="menu-link" href="about.html">
 <span class="menu-icon">ⓘ</span>
 <span>ABOUT</span>
 <span class="menu-arrow">›</span>
@@ -1734,10 +1506,6 @@ EXPLORE
 
 </nav>
 
-
-<!-- =========================================
-     ADMIN
-========================================= -->
 
 <div id="adminMenuSection">
 
@@ -1782,8 +1550,30 @@ VISIT OFFICIAL WEBSITE
 <img
   src="fights-banner.png"
   class="fights-banner-image"
-  alt="Team Wolfpack Fight Night"
+  alt="Team Wolfpack Fight Night - One Pack One Purpose"
 >
+
+</section>
+
+
+<!-- =========================================
+     UPCOMING FIGHTS INTRO
+========================================= -->
+
+<section class="fights-intro">
+
+<div class="fights-intro-label">
+TEAM WOLFPACK
+</div>
+
+<h1 class="fights-intro-title">
+<span>UPCOMING</span>
+<strong>FIGHTS</strong>
+</h1>
+
+<p>
+THE NEXT FIGHTS FOR TEAM WOLFPACK
+</p>
 
 </section>
 
@@ -1799,16 +1589,13 @@ VISIT OFFICIAL WEBSITE
      MRS WOLFIE
 ========================================= -->
 
-<section class="fighter-section">
-
+<section class="section">
 
 <div class="section-header">
 
-<h2 class="section-title ice">
-MRS WOLFIE
+<h2 class="section-title">
+<span class="ice">MRS WOLFIE</span>
 </h2>
-
-<div class="section-line"></div>
 
 <div class="section-team">
 TEAM WOLFIE
@@ -1823,8 +1610,19 @@ TEAM WOLFIE
 
 <article class="fight-card">
 
+<div class="upcoming-badge">
+<span class="upcoming-dot"></span>
+UPCOMING
+</div>
 
-<div class="card-fighter left">
+<div class="team-label">
+TEAM WOLFIE
+</div>
+
+<div class="fight-layout">
+
+
+<div class="fight-person left">
 
 <img
   src="zoey-james.jpg"
@@ -1834,81 +1632,45 @@ TEAM WOLFIE
 </div>
 
 
-<div class="card-fighter right">
+<div class="fight-centre">
 
-<img
-  src="colleen-leyden.jpg"
-  alt="Colleen Leyden"
->
-
-</div>
-
-
-<div class="card-content">
-
-
-<div class="status">
-
-<span class="status-dot"></span>
-
-UPCOMING
-
-</div>
-
-
-<div class="team-tag">
-TEAM WOLFIE
-</div>
-
-
-<div class="event">
+<div class="event-name">
 AYRSHIRE BOXING
-</div>
-
-
-<div class="event-sub">
+<span class="event-small">
 THE LAUNCH
+</span>
 </div>
 
+<div class="matchup-row">
 
-<div class="matchup">
-
-
-<div class="match-name left">
+<div class="card-fighter-name">
 MRS<br>WOLFIE
 </div>
 
-
-<div class="vs">
+<div class="card-vs">
 VS
 </div>
 
-
-<div class="match-name right">
+<div class="card-fighter-name">
 COLLEEN<br>LEYDEN
 </div>
 
-
 </div>
 
-
-<div class="fight-date">
+<div class="card-date">
 17 OCTOBER 2026
 </div>
 
-
-<div class="venue">
+<div class="card-venue">
 AYR RACECOURSE
 </div>
 
-
-<div class="fight-type">
+<div class="fight-detail-badge">
 DEBUT
 </div>
 
-
 <a
-  class="fight-details-button"
+  class="details-button"
   href="mrs-wolfie.html"
   onclick="gtag('event','fight_profile_click',{
     fighter:'Mrs Wolfie',
@@ -1921,6 +1683,18 @@ DEBUT
 >
 VIEW FIGHT DETAILS →
 </a>
+
+</div>
+
+
+<div class="fight-person right">
+
+<img
+  src="colleen-leyden.jpg"
+  alt="Colleen Leyden"
+>
+
+</div>
 
 
 </div>
@@ -1945,10 +1719,24 @@ VIEW MRS WOLFIE PROFILE →
      MRS WOLFIE VS UNKNOWN FEMALE
 ========================================= -->
 
-<article class="fight-card">
+<article
+  class="fight-card"
+  style="margin-top:16px;"
+>
+
+<div class="upcoming-badge">
+<span class="upcoming-dot"></span>
+UPCOMING
+</div>
+
+<div class="team-label">
+TEAM WOLFIE
+</div>
+
+<div class="fight-layout">
 
 
-<div class="card-fighter left">
+<div class="fight-person left">
 
 <img
   src="zoey-james.jpg"
@@ -1958,82 +1746,42 @@ VIEW MRS WOLFIE PROFILE →
 </div>
 
 
-<div class="card-fighter right unknown unknown-female">
-
-<img
-  src="unknown-female-fighter.png"
-  alt="Unknown female opponent"
->
-
-</div>
-
-
-<div class="card-content">
-
-
-<div class="status">
-
-<span class="status-dot"></span>
-
-UPCOMING
-
-</div>
-
-
-<div class="team-tag">
-TEAM WOLFIE
-</div>
-
+<div class="fight-centre">
 
 <div class="title-badge">
-
-<span class="title-star">
-★
-</span>
-
-SUPER MIDDLEWEIGHT TITLE
-
+★ &nbsp; SUPER MIDDLEWEIGHT TITLE
 </div>
 
-
-<div class="event">
+<div class="event-name">
 EASTHOUSES BOXING CLUB
 </div>
 
+<div class="matchup-row">
 
-<div class="matchup">
-
-
-<div class="match-name left">
+<div class="card-fighter-name">
 MRS<br>WOLFIE
 </div>
 
-
-<div class="vs">
+<div class="card-vs">
 VS
 </div>
 
-
-<div class="match-name right tba">
+<div class="card-fighter-name tba">
 TBA
 </div>
 
-
 </div>
 
-
-<div class="fight-date">
+<div class="card-date">
 NOVEMBER 2026
 </div>
 
-
-<div class="venue">
+<div class="card-venue">
 EASTHOUSES MINERS CLUB
 </div>
 
-
 <a
-  class="fight-details-button"
+  class="details-button"
   href="mrs-wolfie.html"
   onclick="gtag('event','fight_profile_click',{
     fighter:'Mrs Wolfie',
@@ -2046,6 +1794,18 @@ EASTHOUSES MINERS CLUB
 >
 VIEW FIGHT DETAILS →
 </a>
+
+</div>
+
+
+<div class="fight-person right">
+
+<img
+  src="unknown-female-fighter.png"
+  alt="Unknown female opponent"
+>
+
+</div>
 
 
 </div>
@@ -2065,7 +1825,6 @@ VIEW FIGHT DETAILS →
 VIEW MRS WOLFIE PROFILE →
 </a>
 
-
 </section>
 
 
@@ -2073,16 +1832,13 @@ VIEW MRS WOLFIE PROFILE →
      GREIG SLOAN
 ========================================= -->
 
-<section class="fighter-section">
-
+<section class="section">
 
 <div class="section-header">
 
-<h2 class="section-title fire">
-GREIG SLOAN
+<h2 class="section-title">
+<span class="fire">GREIG SLOAN</span>
 </h2>
-
-<div class="section-line"></div>
 
 <div class="section-team">
 TEAM SLOAN
@@ -2097,8 +1853,19 @@ TEAM SLOAN
 
 <article class="fight-card">
 
+<div class="upcoming-badge">
+<span class="upcoming-dot"></span>
+UPCOMING
+</div>
 
-<div class="card-fighter left">
+<div class="team-label">
+TEAM SLOAN
+</div>
+
+<div class="fight-layout">
+
+
+<div class="fight-person left">
 
 <img
   src="greig-sloan.jpg"
@@ -2108,71 +1875,38 @@ TEAM SLOAN
 </div>
 
 
-<div class="card-fighter right unknown unknown-male">
+<div class="fight-centre">
 
-<img
-  src="unknown-male-fighter.png"
-  alt="Unknown male opponent"
->
-
-</div>
-
-
-<div class="card-content">
-
-
-<div class="status">
-
-<span class="status-dot"></span>
-
-UPCOMING
-
-</div>
-
-
-<div class="team-tag">
-TEAM SLOAN
-</div>
-
-
-<div class="event">
+<div class="event-name">
 UNFINISHED BUSINESS
 </div>
 
+<div class="matchup-row">
 
-<div class="matchup">
-
-
-<div class="match-name left">
+<div class="card-fighter-name">
 GREIG<br>SLOAN
 </div>
 
-
-<div class="vs">
+<div class="card-vs">
 VS
 </div>
 
-
-<div class="match-name right tba">
+<div class="card-fighter-name tba">
 TBA
 </div>
 
-
 </div>
 
-
-<div class="fight-date">
+<div class="card-date">
 19 SEPTEMBER 2026
 </div>
 
-
-<div class="venue">
+<div class="card-venue">
 HAMPDEN PARK
 </div>
 
-
 <a
-  class="fight-details-button"
+  class="details-button"
   href="greig-sloan.html"
   onclick="gtag('event','fight_profile_click',{
     fighter:'Greig Sloan',
@@ -2186,6 +1920,18 @@ HAMPDEN PARK
 VIEW FIGHT DETAILS →
 </a>
 
+</div>
+
+
+<div class="fight-person right">
+
+<img
+  src="unknown-male-fighter.png"
+  alt="Unknown male opponent"
+>
+
+</div>
+
 
 </div>
 
@@ -2193,7 +1939,7 @@ VIEW FIGHT DETAILS →
 
 
 <a
-  class="profile-link greig"
+  class="profile-link fire-link"
   href="greig-sloan.html"
   onclick="gtag('event','fight_profile_click',{
     fighter:'Greig Sloan',
@@ -2204,7 +1950,6 @@ VIEW FIGHT DETAILS →
 VIEW GREIG SLOAN PROFILE →
 </a>
 
-
 </section>
 
 
@@ -2212,12 +1957,11 @@ VIEW GREIG SLOAN PROFILE →
 TEAM WOLFPACK • STRENGTH IN UNITY
 </footer>
 
-
 </main>
 
 
 <!-- =========================================
-     MENU JAVASCRIPT
+     SIDE MENU JAVASCRIPT
 ========================================= -->
 
 <script>
@@ -2238,9 +1982,7 @@ const menuBackdrop =
 function openMenu(){
 
   sideMenu.classList.add("show");
-
   menuBackdrop.classList.add("show");
-
   document.body.classList.add("menu-open");
 
   menuButton.setAttribute(
@@ -2254,9 +1996,7 @@ function openMenu(){
 function closeMenu(){
 
   sideMenu.classList.remove("show");
-
   menuBackdrop.classList.remove("show");
-
   document.body.classList.remove("menu-open");
 
   menuButton.setAttribute(
@@ -2272,18 +2012,15 @@ menuButton.addEventListener(
   openMenu
 );
 
-
 closeMenuButton.addEventListener(
   "click",
   closeMenu
 );
 
-
 menuBackdrop.addEventListener(
   "click",
   closeMenu
 );
-
 
 document.addEventListener(
   "keydown",
@@ -2295,7 +2032,6 @@ document.addEventListener(
 
   }
 );
-
 
 document
   .querySelectorAll(".menu-link")
@@ -2321,7 +2057,6 @@ import {
   initializeApp
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 
-
 import {
   getAuth,
   onAuthStateChanged
@@ -2329,37 +2064,19 @@ import {
 
 
 const firebaseConfig = {
-
-  apiKey:
-    "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
-
-  authDomain:
-    "team-wolfpack-app.firebaseapp.com",
-
-  databaseURL:
-    "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
-
-  projectId:
-    "team-wolfpack-app",
-
-  storageBucket:
-    "team-wolfpack-app.firebasestorage.app",
-
-  messagingSenderId:
-    "1070414578856",
-
-  appId:
-    "1:1070414578856:web:df14e7d387e658eeae2e9d",
-
-  measurementId:
-    "G-6JTCE2N9LZ"
-
+  apiKey: "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+  authDomain: "team-wolfpack-app.firebaseapp.com",
+  databaseURL: "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "team-wolfpack-app",
+  storageBucket: "team-wolfpack-app.firebasestorage.app",
+  messagingSenderId: "1070414578856",
+  appId: "1:1070414578856:web:df14e7d387e658eeae2e9d",
+  measurementId: "G-6JTCE2N9LZ"
 };
 
 
 const firebaseApp =
   initializeApp(firebaseConfig);
-
 
 const auth =
   getAuth(firebaseApp);
@@ -2415,21 +2132,16 @@ if("serviceWorker" in navigator){
     "load",
     function(){
 
-      navigator
-        .serviceWorker
-        .register(
-          "service-worker.js"
-        )
-        .catch(
-          function(error){
+      navigator.serviceWorker
+        .register("service-worker.js")
+        .catch(function(error){
 
-            console.error(
-              "Service worker error:",
-              error
-            );
+          console.error(
+            "Service worker error:",
+            error
+          );
 
-          }
-        );
+        });
 
     }
   );
@@ -2438,7 +2150,5 @@ if("serviceWorker" in navigator){
 
 </script>
 
-
 </body>
-
 </html>
