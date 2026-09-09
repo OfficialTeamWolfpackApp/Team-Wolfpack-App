@@ -917,12 +917,111 @@ body.menu-open{
 
   text-align:center;
 
-  color:#555;
+  color:#777;
 
   font-size:7px;
   font-weight:900;
 
   letter-spacing:1.3px;
+}
+
+.copyright{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  gap:12px;
+
+  width:100%;
+  max-width:560px;
+
+  margin:
+    17px
+    auto
+    0;
+
+  padding-top:15px;
+
+  border-top:
+    1px solid rgba(255,255,255,.04);
+}
+
+.copyright::before,
+.copyright::after{
+  content:"";
+
+  flex:1;
+
+  max-width:110px;
+  min-width:20px;
+
+  height:2px;
+
+  border-radius:10px;
+}
+
+.copyright::before{
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #00bfff,
+      #67dcff
+    );
+
+  box-shadow:
+    0 0 8px rgba(0,191,255,.65);
+}
+
+.copyright::after{
+  background:
+    linear-gradient(
+      90deg,
+      #ff751c,
+      #ff5a00,
+      transparent
+    );
+
+  box-shadow:
+    0 0 8px rgba(255,90,0,.65);
+}
+
+.copyright-text{
+  flex:0 1 auto;
+
+  color:#d8d8d8;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:1.2px;
+
+  white-space:nowrap;
+
+  text-shadow:
+    0 0 7px rgba(255,255,255,.12);
+}
+
+.copyright-year{
+  color:#fff;
+}
+
+.copyright-team{
+  background:
+    linear-gradient(
+      90deg,
+      #67dcff,
+      #eafaff 48%,
+      #ff751c
+    );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  background-clip:text;
+
+  filter:
+    drop-shadow(0 0 5px rgba(103,220,255,.18));
 }
 
 
@@ -968,6 +1067,21 @@ body.menu-open{
 
   .profile-action{
     font-size:7px;
+  }
+
+  .copyright{
+    gap:7px;
+  }
+
+  .copyright::before,
+  .copyright::after{
+    max-width:42px;
+    min-width:15px;
+  }
+
+  .copyright-text{
+    font-size:6px;
+    letter-spacing:.7px;
   }
 
 }
@@ -1400,8 +1514,26 @@ VIEW FIGHTER PROFILE
 </div>
 
 
+<!-- =========================================
+     FOOTER
+========================================= -->
+
 <footer class="app-footer">
+
+<div>
 TEAM WOLFPACK • STRENGTH IN UNITY
+</div>
+
+<div class="copyright">
+
+<span class="copyright-text">
+© <span class="copyright-year">2026</span>
+<span class="copyright-team">TEAM WOLFPACK</span>
+• ALL RIGHTS RESERVED
+</span>
+
+</div>
+
 </footer>
 
 </main>
