@@ -1190,7 +1190,7 @@ body.menu-open{
 
 
 /* =========================================
-   TEAM WOLFPACK COPYRIGHT
+   COPYRIGHT
 ========================================= */
 
 .copyright{
@@ -1202,35 +1202,14 @@ body.menu-open{
   gap:12px;
 
   width:100%;
+  max-width:560px;
 
-  margin-top:17px;
+  margin:17px auto 0;
 
-  padding:
-    17px
-    2px
-    calc(6px + env(safe-area-inset-bottom));
+  padding-top:15px;
 
-  color:#f1fbff;
-
-  font-size:8px;
-
-  font-weight:900;
-
-  letter-spacing:1.2px;
-
-  line-height:1.5;
-
-  text-align:center;
-
-  text-shadow:
-    0 0 5px rgba(255,255,255,.35),
-    0 0 12px rgba(103,220,255,.15);
-}
-
-.copyright span{
-  flex:0 1 auto;
-
-  white-space:nowrap;
+  border-top:
+    1px solid rgba(255,255,255,.04);
 }
 
 .copyright::before,
@@ -1239,12 +1218,12 @@ body.menu-open{
 
   flex:1;
 
-  height:2px;
-
-  max-width:130px;
+  max-width:110px;
   min-width:20px;
 
-  border-radius:20px;
+  height:2px;
+
+  border-radius:10px;
 }
 
 .copyright::before{
@@ -1252,33 +1231,69 @@ body.menu-open{
     linear-gradient(
       90deg,
       transparent 0%,
-      #003b80 15%,
-      #008cff 45%,
-      #00bfff 72%,
-      #8cecff 100%
+      #008cff 35%,
+      #00bfff 70%,
+      #67dcff 100%
     );
 
   box-shadow:
-    0 0 5px #00bfff,
-    0 0 12px rgba(0,191,255,.70),
-    0 0 20px rgba(0,140,255,.30);
+    0 0 6px rgba(0,191,255,.95),
+    0 0 14px rgba(0,191,255,.55);
 }
 
 .copyright::after{
   background:
     linear-gradient(
       90deg,
-      #ffb000 0%,
-      #ff7a00 28%,
-      #ff5a00 55%,
-      #b51a00 85%,
+      #ff751c 0%,
+      #ff5a00 35%,
+      #ff3d00 70%,
       transparent 100%
     );
 
   box-shadow:
-    0 0 5px #ff5a00,
-    0 0 12px rgba(255,90,0,.70),
-    0 0 20px rgba(255,90,0,.30);
+    0 0 6px rgba(255,90,0,.95),
+    0 0 14px rgba(255,90,0,.55);
+}
+
+.copyright-text{
+  flex:0 1 auto;
+
+  color:#d8d8d8;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:1.2px;
+
+  white-space:nowrap;
+
+  text-shadow:
+    0 0 7px rgba(255,255,255,.12);
+}
+
+.copyright-year{
+  color:#fff;
+}
+
+.copyright-team{
+  background:
+    linear-gradient(
+      90deg,
+      #67dcff,
+      #eafaff 48%,
+      #ff751c
+    );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  background-clip:text;
+
+  filter:
+    drop-shadow(
+      0 0 5px rgba(103,220,255,.18)
+    );
 }
 
 
@@ -1350,19 +1365,17 @@ body.menu-open{
 
   .copyright{
     gap:7px;
-
-    font-size:6px;
-
-    letter-spacing:.45px;
-  }
-
-  .copyright span{
-    white-space:normal;
   }
 
   .copyright::before,
   .copyright::after{
-    min-width:16px;
+    min-width:14px;
+  }
+
+  .copyright-text{
+    font-size:6px;
+    letter-spacing:.45px;
+    white-space:normal;
   }
 
 }
@@ -1932,17 +1945,22 @@ SPONSOR TEAM WOLFIE
 ========================================= -->
 
 <footer class="app-footer">
+
+<div>
 TEAM WOLFPACK • STRENGTH IN UNITY
-</footer>
-
-
-<!-- =========================================
-     COPYRIGHT
-========================================= -->
+</div>
 
 <div class="copyright">
-<span>© 2026 TEAM WOLFPACK • ALL RIGHTS RESERVED</span>
+
+<span class="copyright-text">
+© <span class="copyright-year">2026</span>
+<span class="copyright-team">TEAM WOLFPACK</span>
+• ALL RIGHTS RESERVED
+</span>
+
 </div>
+
+</footer>
 
 
 </main>
