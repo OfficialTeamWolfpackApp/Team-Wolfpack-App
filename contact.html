@@ -1,59 +1,1538 @@
-<!-- FOLLOW THE PACK -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<!-- Google Analytics - Team Wolfpack App -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M973P0B4F0"></script>
+
+<script>
+window.dataLayer = window.dataLayer || [];
+
+function gtag(){
+  dataLayer.push(arguments);
+}
+
+gtag("js", new Date());
+gtag("config", "G-M973P0B4F0");
+
+window.addEventListener("load", function(){
+  gtag("event", "contact_page_view", {
+    section:"Contact Us"
+  });
+});
+</script>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
+
+<meta name="theme-color" content="#050505">
+
+<meta name="apple-mobile-web-app-title" content="TEAM WOLFPACK">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<title>Contact Us | Team Wolfpack</title>
+
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  min-height:100vh;
+  min-height:100dvh;
+
+  padding-top:calc(66px + env(safe-area-inset-top));
+
+  font-family:Arial, Helvetica, sans-serif;
+
+  color:#fff;
+  overflow-x:hidden;
+
+  background:
+    radial-gradient(
+      circle at 0% 15%,
+      rgba(0,190,255,.22),
+      transparent 31%
+    ),
+    radial-gradient(
+      circle at 100% 60%,
+      rgba(255,85,0,.22),
+      transparent 34%
+    ),
+    linear-gradient(
+      115deg,
+      #02090d 0%,
+      #050505 50%,
+      #150802 100%
+    );
+}
+
+body.menu-open{
+  overflow:hidden;
+}
+
+
+/* =========================================
+   APP BAR
+========================================= */
+
+.app-bar{
+  position:fixed;
+
+  top:0;
+  left:0;
+  right:0;
+
+  z-index:500;
+
+  height:calc(66px + env(safe-area-inset-top));
+
+  padding:
+    env(safe-area-inset-top)
+    15px
+    0;
+
+  display:grid;
+  grid-template-columns:46px 1fr 46px;
+
+  align-items:center;
+
+  background:rgba(4,4,4,.96);
+
+  border-bottom:
+    1px solid rgba(255,255,255,.10);
+
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+
+  box-shadow:
+    0 8px 30px rgba(0,0,0,.38);
+}
+
+.menu-button{
+  width:42px;
+  height:42px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:12px;
+
+  border:
+    1px solid rgba(103,220,255,.22);
+
+  background:rgba(0,150,210,.07);
+
+  color:#67dcff;
+
+  cursor:pointer;
+  font-size:24px;
+}
+
+.app-bar-brand{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  gap:9px;
+
+  min-width:0;
+}
+
+.app-bar-logo{
+  width:34px;
+  height:34px;
+
+  object-fit:contain;
+}
+
+.app-bar-title{
+  overflow:hidden;
+
+  white-space:nowrap;
+  text-overflow:ellipsis;
+
+  font-size:11px;
+  font-weight:900;
+
+  letter-spacing:1.8px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #67dcff,
+      #eafaff 48%,
+      #ff751c
+    );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+.app-status{
+  width:42px;
+  height:42px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.app-status-dot{
+  width:8px;
+  height:8px;
+
+  border-radius:50%;
+
+  background:#43f27b;
+
+  box-shadow:
+    0 0 9px rgba(67,242,123,.75);
+}
+
+
+/* =========================================
+   MENU BACKDROP
+========================================= */
+
+.menu-backdrop{
+  position:fixed;
+  inset:0;
+
+  z-index:800;
+
+  visibility:hidden;
+  opacity:0;
+
+  background:rgba(0,0,0,.72);
+
+  backdrop-filter:blur(3px);
+  -webkit-backdrop-filter:blur(3px);
+
+  transition:
+    opacity .25s ease,
+    visibility .25s ease;
+}
+
+.menu-backdrop.show{
+  visibility:visible;
+  opacity:1;
+}
+
+
+/* =========================================
+   SIDE MENU
+========================================= */
+
+.side-menu{
+  position:fixed;
+
+  left:0;
+  top:0;
+  bottom:0;
+
+  z-index:900;
+
+  width:min(84vw,340px);
+
+  transform:translateX(-105%);
+
+  transition:transform .28s ease;
+
+  overflow-y:auto;
+  overscroll-behavior:contain;
+
+  padding:
+    calc(18px + env(safe-area-inset-top))
+    15px
+    calc(25px + env(safe-area-inset-bottom));
+
+  background:
+    radial-gradient(
+      circle at 0% 10%,
+      rgba(0,190,255,.16),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 100% 80%,
+      rgba(255,90,0,.16),
+      transparent 34%
+    ),
+    #080808;
+
+  border-right:
+    1px solid rgba(103,220,255,.20);
+
+  box-shadow:
+    20px 0 50px rgba(0,0,0,.55);
+}
+
+.side-menu.show{
+  transform:translateX(0);
+}
+
+.menu-header{
+  position:relative;
+
+  padding:
+    10px
+    45px
+    21px
+    5px;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.09);
+}
+
+.menu-logo{
+  width:72px;
+  height:72px;
+
+  object-fit:contain;
+
+  margin-bottom:10px;
+}
+
+.menu-brand{
+  font-size:18px;
+  font-weight:900;
+
+  letter-spacing:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #67dcff,
+      #fff 50%,
+      #ff751c
+    );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+.menu-tagline{
+  margin-top:5px;
+
+  color:#999;
+
+  font-size:8px;
+  font-weight:900;
+
+  letter-spacing:2px;
+}
+
+.close-menu{
+  position:absolute;
+
+  right:0;
+  top:5px;
+
+  width:38px;
+  height:38px;
+
+  border-radius:10px;
+
+  border:
+    1px solid rgba(255,117,28,.25);
+
+  background:rgba(255,90,0,.07);
+
+  color:#ff751c;
+
+  cursor:pointer;
+
+  font-size:21px;
+}
+
+.menu-section-label{
+  margin:20px 8px 8px;
+
+  color:#666;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:2px;
+}
+
+.menu-nav{
+  display:flex;
+  flex-direction:column;
+
+  gap:4px;
+}
+
+.menu-link{
+  display:flex;
+  align-items:center;
+
+  min-height:48px;
+
+  padding:9px 11px;
+
+  border-radius:10px;
+
+  text-decoration:none;
+
+  color:#d7d7d7;
+
+  border:1px solid transparent;
+
+  font-size:10px;
+  font-weight:900;
+
+  letter-spacing:.5px;
+}
+
+.menu-link:active{
+  transform:scale(.985);
+}
+
+.menu-link.active{
+  color:#67dcff;
+
+  border-color:rgba(103,220,255,.22);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,160,220,.12),
+      rgba(0,160,220,.03)
+    );
+}
+
+.menu-link.chat{
+  color:#fff;
+
+  border-color:rgba(103,220,255,.15);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,160,220,.08),
+      rgba(255,90,0,.08)
+    );
+}
+
+.menu-icon{
+  width:34px;
+  flex:0 0 34px;
+
+  text-align:center;
+
+  color:#67dcff;
+
+  font-size:17px;
+}
+
+.menu-link.active .menu-icon{
+  color:#ff751c;
+}
+
+.menu-arrow{
+  margin-left:auto;
+
+  color:#666;
+
+  font-size:16px;
+}
+
+
+/* =========================================
+   ADMIN MENU
+========================================= */
+
+#adminMenuSection{
+  display:none;
+}
+
+.admin-menu-link{
+  color:#ffb05d;
+
+  border-color:rgba(255,117,28,.22);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,90,0,.09),
+      rgba(0,160,220,.05)
+    );
+}
+
+.admin-menu-link .menu-icon{
+  color:#ff751c;
+}
+
+.menu-website{
+  display:block;
+
+  margin-top:19px;
+
+  padding:14px;
+
+  text-align:center;
+
+  text-decoration:none;
+
+  border-radius:10px;
+
+  border:
+    1px solid rgba(103,220,255,.28);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,160,220,.09),
+      rgba(255,90,0,.09)
+    );
+
+  color:#fff;
+
+  font-size:8px;
+  font-weight:900;
+
+  letter-spacing:1px;
+}
+
+
+/* =========================================
+   PAGE HERO
+========================================= */
+
+.page-hero{
+  position:relative;
+
+  overflow:hidden;
+
+  text-align:center;
+
+  padding:
+    34px
+    18px
+    28px;
+}
+
+.page-hero::after{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  right:0;
+  bottom:0;
+
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #4bd8ff,
+      rgba(255,255,255,.15),
+      #ff6200,
+      transparent
+    );
+}
+
+.hero-logo{
+  width:100px;
+  height:100px;
+
+  object-fit:contain;
+
+  filter:
+    drop-shadow(
+      0 0 13px rgba(51,201,255,.23)
+    )
+    drop-shadow(
+      0 0 13px rgba(255,92,0,.20)
+    );
+}
+
+.hero-brand{
+  margin-top:8px;
+
+  color:#777;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:3px;
+}
+
+.page-title{
+  margin-top:15px;
+
+  font-size:clamp(27px,8vw,36px);
+
+  font-weight:900;
+
+  letter-spacing:1px;
+}
+
+.ice{
+  color:#67dcff;
+}
+
+.fire{
+  color:#ff751c;
+}
+
+.subtitle{
+  max-width:500px;
+
+  margin:
+    8px
+    auto
+    0;
+
+  color:#999;
+
+  font-size:11px;
+
+  line-height:1.5;
+}
+
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.content{
+  width:100%;
+  max-width:780px;
+
+  margin:auto;
+
+  padding:
+    28px
+    16px
+    calc(45px + env(safe-area-inset-bottom));
+}
+
+.content-heading{
+  margin-bottom:17px;
+}
+
+.content-label{
+  color:#67dcff;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:2px;
+}
+
+.content-heading h2{
+  margin-top:6px;
+
+  font-size:19px;
+  font-weight:900;
+}
+
+.content-heading p{
+  margin-top:6px;
+
+  color:#888;
+
+  font-size:10px;
+
+  line-height:1.5;
+}
+
+
+/* =========================================
+   CONTACT GRID
+========================================= */
+
+.contact-grid{
+  display:grid;
+
+  grid-template-columns:1fr;
+
+  gap:15px;
+}
+
+
+/* =========================================
+   CONTACT CARDS
+========================================= */
+
+.contact-card{
+  position:relative;
+
+  overflow:hidden;
+
+  padding:22px 20px;
+
+  border-radius:17px;
+
+  border:
+    1px solid rgba(255,255,255,.12);
+
+  background:
+    linear-gradient(
+      110deg,
+      rgba(20,150,205,.16),
+      rgba(8,8,8,.94) 50%,
+      rgba(220,70,0,.17)
+    );
+
+  box-shadow:
+    0 12px 32px rgba(0,0,0,.30);
+
+  scroll-margin-top:
+    calc(
+      82px +
+      env(safe-area-inset-top)
+    );
+}
+
+.contact-card::before{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  top:0;
+  bottom:0;
+
+  width:3px;
+
+  background:#4bd8ff;
+
+  box-shadow:
+    0 0 12px rgba(75,216,255,.50);
+}
+
+.contact-card::after{
+  content:"";
+
+  position:absolute;
+
+  right:0;
+  top:0;
+  bottom:0;
+
+  width:3px;
+
+  background:#ff6500;
+
+  box-shadow:
+    0 0 12px rgba(255,101,0,.45);
+}
+
+.contact-icon{
+  position:relative;
+  z-index:2;
+
+  width:42px;
+  height:42px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  margin-bottom:13px;
+
+  border-radius:12px;
+
+  border:
+    1px solid rgba(103,220,255,.18);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0,160,220,.09),
+      rgba(255,90,0,.09)
+    );
+
+  color:#67dcff;
+
+  font-size:20px;
+}
+
+.contact-title{
+  position:relative;
+  z-index:2;
+
+  font-size:17px;
+  font-weight:900;
+}
+
+.contact-text{
+  position:relative;
+  z-index:2;
+
+  margin-top:7px;
+
+  color:#aaa;
+
+  font-size:10px;
+
+  line-height:1.6;
+}
+
+
+/* =========================================
+   CONTACT BUTTONS
+========================================= */
+
+.contact-button{
+  position:relative;
+  z-index:2;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  min-height:47px;
+
+  margin-top:15px;
+
+  padding:12px;
+
+  border-radius:10px;
+
+  border:
+    1px solid rgba(103,220,255,.45);
+
+  text-decoration:none;
+
+  text-align:center;
+
+  color:#fff;
+
+  font-size:9px;
+  font-weight:900;
+
+  letter-spacing:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,170,230,.10),
+      rgba(255,90,0,.10)
+    );
+}
+
+.contact-button:active{
+  transform:scale(.985);
+}
+
+
+/* =========================================
+   EMAIL PANEL
+========================================= */
+
+.email-box{
+  margin-top:24px;
+
+  padding:20px;
+
+  text-align:center;
+
+  border-radius:15px;
+
+  border:
+    1px solid rgba(103,220,255,.16);
+
+  background:rgba(8,8,8,.72);
+}
+
+.email-label{
+  color:#777;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:2px;
+}
+
+.email-address{
+  display:block;
+
+  margin-top:8px;
+
+  color:#67dcff;
+
+  font-size:12px;
+  font-weight:900;
+
+  text-decoration:none;
+
+  overflow-wrap:anywhere;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.app-footer{
+  margin-top:28px;
+
+  padding-top:20px;
+
+  border-top:
+    1px solid rgba(255,255,255,.07);
+
+  text-align:center;
+
+  color:#555;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:1.3px;
+}
+
+
+/* =========================================
+   TABLET / DESKTOP
+========================================= */
+
+@media(min-width:720px){
+
+  .contact-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+  .side-menu,
+  .menu-backdrop{
+    transition:none;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     APP BAR
+========================================= -->
+
+<header class="app-bar">
+
+<button
+  id="menuButton"
+  class="menu-button"
+  type="button"
+  aria-label="Open navigation menu"
+  aria-expanded="false"
+>
+☰
+</button>
+
+<div class="app-bar-brand">
+
+<img
+  src="icon-192.png"
+  class="app-bar-logo"
+  alt=""
+>
+
+<div class="app-bar-title">
+TEAM WOLFPACK
+</div>
+
+</div>
+
+<div
+  class="app-status"
+  aria-label="App online"
+>
+<span class="app-status-dot"></span>
+</div>
+
+</header>
+
+
+<!-- MENU BACKDROP -->
+
+<div
+  id="menuBackdrop"
+  class="menu-backdrop"
+></div>
+
+
+<!-- =========================================
+     SIDE MENU
+========================================= -->
+
+<aside
+  id="sideMenu"
+  class="side-menu"
+  aria-label="Team Wolfpack navigation"
+>
+
+<div class="menu-header">
+
+<img
+  src="icon-192.png"
+  class="menu-logo"
+  alt="Team Wolfpack"
+>
+
+<div class="menu-brand">
+TEAM WOLFPACK
+</div>
+
+<div class="menu-tagline">
+ONE PACK • ONE PURPOSE
+</div>
+
+<button
+  id="closeMenuButton"
+  class="close-menu"
+  type="button"
+  aria-label="Close navigation menu"
+>
+×
+</button>
+
+</div>
+
+
+<div class="menu-section-label">
+MAIN
+</div>
+
+<nav class="menu-nav">
+
+<a class="menu-link" href="index.html">
+<span class="menu-icon">⌂</span>
+<span>HOME</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="fights.html">
+<span class="menu-icon">♜</span>
+<span>FIGHTS</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="fighters.html">
+<span class="menu-icon">♟</span>
+<span>FIGHTERS</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="pack.html">
+<span class="menu-icon">◆</span>
+<span>MEET THE PACK</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link chat" href="chat.html">
+<span class="menu-icon">●</span>
+<span>PACK CHAT</span>
+<span class="menu-arrow">›</span>
+</a>
+
+</nav>
+
+
+<div class="menu-section-label">
+EXPLORE
+</div>
+
+<nav class="menu-nav">
+
+<a class="menu-link" href="sponsors.html">
+<span class="menu-icon">★</span>
+<span>SPONSORS &amp; PARTNERS</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="gallery.html">
+<span class="menu-icon">▣</span>
+<span>GALLERY</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="merch.html">
+<span class="menu-icon">◇</span>
+<span>MERCH</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link active" href="contact.html">
+<span class="menu-icon">✉</span>
+<span>CONTACT</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="socials.html">
+<span class="menu-icon">◎</span>
+<span>SOCIALS</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="about.html">
+<span class="menu-icon">ⓘ</span>
+<span>ABOUT</span>
+<span class="menu-arrow">›</span>
+</a>
+
+</nav>
+
+
+<!-- ADMIN -->
+
+<div id="adminMenuSection">
+
+<div class="menu-section-label">
+ADMIN
+</div>
+
+<nav class="menu-nav">
+
+<a
+  class="menu-link admin-menu-link"
+  href="admin-dashboard.html"
+>
+<span class="menu-icon">⚙</span>
+<span>ADMIN DASHBOARD</span>
+<span class="menu-arrow">›</span>
+</a>
+
+</nav>
+
+</div>
+
+
+<a
+  class="menu-website"
+  href="https://officialteamwolfpack.com/boxing"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+VISIT OFFICIAL WEBSITE
+</a>
+
+</aside>
+
+
+<!-- =========================================
+     PAGE HERO
+========================================= -->
+
+<section class="page-hero">
+
+<img
+  src="icon-512.png"
+  class="hero-logo"
+  alt="Team Wolfpack"
+>
+
+<div class="hero-brand">
+TEAM WOLFPACK
+</div>
+
+<h1 class="page-title">
+
+<span class="ice">
+CONTACT
+</span>
+
+<span class="fire">
+US
+</span>
+
+</h1>
+
+<p class="subtitle">
+Questions, sponsorship enquiries, fight opportunities and Team Wolfpack contact.
+</p>
+
+</section>
+
+
+<!-- =========================================
+     CONTENT
+========================================= -->
+
+<main class="content">
+
+<div class="content-heading">
+
+<div class="content-label">
+GET IN TOUCH
+</div>
+
+<h2>
+CONTACT TEAM WOLFPACK
+</h2>
+
+<p>
+Choose the type of enquiry below and contact the pack directly.
+</p>
+
+</div>
+
+
+<div class="contact-grid">
+
+
+<!-- GENERAL ENQUIRIES -->
 
 <div class="contact-card">
 
 <div class="contact-icon">
-◎
+✉
 </div>
 
 <div class="contact-title">
-FOLLOW THE PACK
+GENERAL ENQUIRIES
 </div>
 
 <div class="contact-text">
-Follow Team Wolfpack, Mr Wolfie and Mrs Wolfie on social media.
+Contact Team Wolfpack for general questions and information.
 </div>
 
 <a
-  class="social-button"
-  href="https://www.tiktok.com/@mrwolfie2410"
-  target="_blank"
-  rel="noopener noreferrer"
-  onclick="gtag('event','social_click',{
-    platform:'TikTok',
-    account:'Mr Wolfie',
-    source:'Contact Page'
+  class="contact-button"
+  href="mailto:Teamwolfpack2026@hotmail.com?subject=Team%20Wolfpack%20General%20Enquiry"
+  onclick="gtag('event','general_enquiry_click',{
+    event_category:'contact',
+    event_label:'General Enquiry'
   });"
 >
-<span>TIKTOK • MR WOLFIE</span>
-</a>
-
-<a
-  class="social-button"
-  href="https://www.tiktok.com/@mrswolfie2410"
-  target="_blank"
-  rel="noopener noreferrer"
-  onclick="gtag('event','social_click',{
-    platform:'TikTok',
-    account:'Mrs Wolfie',
-    source:'Contact Page'
-  });"
->
-<span>TIKTOK • MRS WOLFIE</span>
-</a>
-
-<a
-  class="social-button"
-  href="https://www.instagram.com/teamwolfpack2410/"
-  target="_blank"
-  rel="noopener noreferrer"
-  onclick="gtag('event','social_click',{
-    platform:'Instagram',
-    account:'Team Wolfpack',
-    source:'Contact Page'
-  });"
->
-<span>INSTAGRAM • TEAM WOLFPACK</span>
+CONTACT TEAM WOLFPACK
 </a>
 
 </div>
+
+
+<!-- SPONSORSHIP -->
+
+<div
+  class="contact-card"
+  id="sponsorship"
+>
+
+<div class="contact-icon">
+★
+</div>
+
+<div class="contact-title">
+SPONSORSHIP
+</div>
+
+<div class="contact-text">
+Interested in sponsoring Team Wolfpack, a fighter or an upcoming event?
+</div>
+
+<a
+  class="contact-button"
+  href="mailto:Teamwolfpack2026@hotmail.com?subject=Team%20Wolfpack%20Sponsorship%20Enquiry"
+  onclick="gtag('event','sponsorship_enquiry_click',{
+    event_category:'contact',
+    event_label:'Sponsorship Enquiry'
+  });"
+>
+SPONSORSHIP ENQUIRY
+</a>
+
+</div>
+
+
+<!-- FIGHT / EVENT ENQUIRIES -->
+
+<div class="contact-card">
+
+<div class="contact-icon">
+♜
+</div>
+
+<div class="contact-title">
+FIGHT / EVENT ENQUIRIES
+</div>
+
+<div class="contact-text">
+For boxing opportunities, event enquiries and fighter-related contact.
+</div>
+
+<a
+  class="contact-button"
+  href="mailto:Teamwolfpack2026@hotmail.com?subject=Team%20Wolfpack%20Fight%20%2F%20Event%20Enquiry"
+  onclick="gtag('event','fight_enquiry_click',{
+    event_category:'contact',
+    event_label:'Fight Event Enquiry'
+  });"
+>
+FIGHT ENQUIRY
+</a>
+
+</div>
+
+
+</div>
+
+
+<!-- =========================================
+     EMAIL PANEL
+========================================= -->
+
+<div class="email-box">
+
+<div class="email-label">
+EMAIL TEAM WOLFPACK
+</div>
+
+<a
+  class="email-address"
+  href="mailto:Teamwolfpack2026@hotmail.com"
+>
+Teamwolfpack2026@hotmail.com
+</a>
+
+</div>
+
+
+<footer class="app-footer">
+TEAM WOLFPACK • STRENGTH IN UNITY
+</footer>
+
+</main>
+
+
+<!-- =========================================
+     SIDE MENU JAVASCRIPT
+========================================= -->
+
+<script>
+
+const menuButton =
+  document.getElementById("menuButton");
+
+const closeMenuButton =
+  document.getElementById("closeMenuButton");
+
+const sideMenu =
+  document.getElementById("sideMenu");
+
+const menuBackdrop =
+  document.getElementById("menuBackdrop");
+
+
+function openMenu(){
+
+  sideMenu.classList.add("show");
+
+  menuBackdrop.classList.add("show");
+
+  document.body.classList.add("menu-open");
+
+  menuButton.setAttribute(
+    "aria-expanded",
+    "true"
+  );
+
+}
+
+
+function closeMenu(){
+
+  sideMenu.classList.remove("show");
+
+  menuBackdrop.classList.remove("show");
+
+  document.body.classList.remove("menu-open");
+
+  menuButton.setAttribute(
+    "aria-expanded",
+    "false"
+  );
+
+}
+
+
+menuButton.addEventListener(
+  "click",
+  openMenu
+);
+
+closeMenuButton.addEventListener(
+  "click",
+  closeMenu
+);
+
+menuBackdrop.addEventListener(
+  "click",
+  closeMenu
+);
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(event.key === "Escape"){
+      closeMenu();
+    }
+
+  }
+);
+
+document
+  .querySelectorAll(".menu-link")
+  .forEach(function(link){
+
+    link.addEventListener(
+      "click",
+      closeMenu
+    );
+
+  });
+
+</script>
+
+
+<!-- =========================================
+     ADMIN DASHBOARD VISIBILITY
+========================================= -->
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+  authDomain: "team-wolfpack-app.firebaseapp.com",
+  databaseURL: "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "team-wolfpack-app",
+  storageBucket: "team-wolfpack-app.firebasestorage.app",
+  messagingSenderId: "1070414578856",
+  appId: "1:1070414578856:web:df14e7d387e658eeae2e9d",
+  measurementId: "G-6JTCE2N9LZ"
+};
+
+
+const firebaseApp =
+  initializeApp(firebaseConfig);
+
+const auth =
+  getAuth(firebaseApp);
+
+
+const ADMIN_UIDS =
+  new Set([
+    "PRGa9TsCW0QDn1QtoUXyYjEi7YB3",
+    "SlpEQYl94DaH6j42QUyl8Kv2ujJ3"
+  ]);
+
+
+const adminMenuSection =
+  document.getElementById(
+    "adminMenuSection"
+  );
+
+
+onAuthStateChanged(
+  auth,
+  function(user){
+
+    if(
+      user &&
+      ADMIN_UIDS.has(user.uid)
+    ){
+
+      adminMenuSection.style.display =
+        "block";
+
+    }else{
+
+      adminMenuSection.style.display =
+        "none";
+
+    }
+
+  }
+);
+
+</script>
+
+
+<!-- =========================================
+     SERVICE WORKER
+========================================= -->
+
+<script>
+
+if(
+  "serviceWorker" in navigator
+){
+
+  window.addEventListener(
+    "load",
+    function(){
+
+      navigator.serviceWorker
+        .register(
+          "service-worker.js"
+        )
+        .catch(
+          function(error){
+
+            console.error(
+              "Service worker error:",
+              error
+            );
+
+          }
+        );
+
+    }
+  );
+
+}
+
+</script>
+
+</body>
+</html>
