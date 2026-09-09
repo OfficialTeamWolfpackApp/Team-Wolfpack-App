@@ -91,7 +91,7 @@ body.menu-open{
 
 /* =========================================
    APP BAR
-   ========================================= */
+========================================= */
 
 .app-bar{
   position:fixed;
@@ -114,7 +114,7 @@ body.menu-open{
 
   align-items:center;
 
-  background:rgba(4,4,4,.96);
+  background:rgba(4,4,4,.97);
 
   border-bottom:
     1px solid rgba(255,255,255,.10);
@@ -214,7 +214,7 @@ body.menu-open{
 
 /* =========================================
    MENU BACKDROP
-   ========================================= */
+========================================= */
 
 .menu-backdrop{
   position:fixed;
@@ -243,7 +243,7 @@ body.menu-open{
 
 /* =========================================
    SIDE MENU
-   ========================================= */
+========================================= */
 
 .side-menu{
   position:fixed;
@@ -422,7 +422,7 @@ body.menu-open{
     linear-gradient(
       90deg,
       rgba(0,160,220,.12),
-      rgba(0,160,220,.03)
+      rgba(255,90,0,.05)
     );
 }
 
@@ -466,8 +466,8 @@ body.menu-open{
 
 
 /* =========================================
-   ADMIN MENU
-   ========================================= */
+   ADMIN
+========================================= */
 
 #adminMenuSection{
   display:none;
@@ -524,83 +524,110 @@ body.menu-open{
 
 
 /* =========================================
-   PAGE HERO
-   ========================================= */
+   ABOUT BANNER
+========================================= */
 
-.page-hero{
+.about-banner{
   position:relative;
+
+  width:100%;
 
   overflow:hidden;
 
-  text-align:center;
+  background:#020202;
 
-  padding:
-    34px
-    18px
-    28px;
+  border-bottom:
+    1px solid rgba(255,255,255,.10);
+
+  box-shadow:
+    0 12px 35px rgba(0,0,0,.38);
 }
 
-.page-hero::after{
+.about-banner img{
+  display:block;
+
+  width:100%;
+  height:auto;
+
+  max-height:430px;
+
+  object-fit:cover;
+  object-position:center;
+}
+
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.content{
+  width:100%;
+
+  max-width:900px;
+
+  margin:auto;
+
+  padding:
+    26px
+    16px
+    calc(45px + env(safe-area-inset-bottom));
+}
+
+.content-intro{
+  position:relative;
+
+  margin-bottom:20px;
+
+  padding-bottom:17px;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.08);
+}
+
+.content-intro::after{
   content:"";
 
   position:absolute;
 
   left:0;
   right:0;
-  bottom:0;
+  bottom:-1px;
 
   height:1px;
 
   background:
     linear-gradient(
       90deg,
-      transparent,
       #4bd8ff,
-      rgba(255,255,255,.15),
-      #ff6200,
-      transparent
+      rgba(255,255,255,.08) 50%,
+      #ff6200
     );
 }
 
-.hero-logo{
-  width:100px;
-  height:100px;
-
-  object-fit:contain;
-
-  filter:
-    drop-shadow(
-      0 0 13px rgba(51,201,255,.23)
-    )
-    drop-shadow(
-      0 0 13px rgba(255,92,0,.20)
-    );
-}
-
-.hero-brand{
-  margin-top:8px;
-
-  color:#777;
+.content-label{
+  color:#67dcff;
 
   font-size:7px;
   font-weight:900;
 
-  letter-spacing:3px;
+  letter-spacing:2px;
 }
 
-.page-title{
-  margin-top:15px;
+.content-intro h1{
+  margin-top:6px;
 
-  font-size:
-    clamp(
-      27px,
-      8vw,
-      36px
-    );
-
+  font-size:21px;
   font-weight:900;
+}
 
-  letter-spacing:1px;
+.content-intro p{
+  margin-top:7px;
+
+  color:#999;
+
+  font-size:10px;
+
+  line-height:1.6;
 }
 
 .ice{
@@ -611,38 +638,10 @@ body.menu-open{
   color:#ff751c;
 }
 
-.subtitle{
-  margin-top:8px;
-
-  color:#999;
-
-  font-size:11px;
-
-  line-height:1.5;
-}
-
-
-/* =========================================
-   CONTENT
-   ========================================= */
-
-.content{
-  width:100%;
-
-  max-width:780px;
-
-  margin:auto;
-
-  padding:
-    28px
-    16px
-    calc(45px + env(safe-area-inset-bottom));
-}
-
 
 /* =========================================
    CARDS
-   ========================================= */
+========================================= */
 
 .card{
   position:relative;
@@ -659,15 +658,25 @@ body.menu-open{
     1px solid rgba(255,255,255,.12);
 
   background:
+    radial-gradient(
+      circle at 0% 0%,
+      rgba(0,190,255,.08),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 100% 100%,
+      rgba(255,90,0,.08),
+      transparent 32%
+    ),
     linear-gradient(
       110deg,
-      rgba(20,150,205,.14),
-      rgba(8,8,8,.94) 50%,
-      rgba(220,70,0,.15)
+      rgba(10,25,32,.94),
+      rgba(6,6,6,.97) 50%,
+      rgba(30,13,7,.94)
     );
 
   box-shadow:
-    0 12px 32px rgba(0,0,0,.28);
+    0 14px 35px rgba(0,0,0,.34);
 }
 
 .card::before{
@@ -684,7 +693,7 @@ body.menu-open{
   background:#4bd8ff;
 
   box-shadow:
-    0 0 12px rgba(75,216,255,.48);
+    0 0 15px rgba(75,216,255,.55);
 }
 
 .card::after{
@@ -701,11 +710,12 @@ body.menu-open{
   background:#ff6500;
 
   box-shadow:
-    0 0 12px rgba(255,101,0,.42);
+    0 0 15px rgba(255,101,0,.48);
 }
 
 .card-label{
   position:relative;
+
   z-index:2;
 
   color:#67dcff;
@@ -720,16 +730,18 @@ body.menu-open{
 
 .section-title{
   position:relative;
+
   z-index:2;
 
-  font-size:20px;
+  font-size:21px;
   font-weight:900;
 
-  margin-bottom:13px;
+  margin-bottom:14px;
 }
 
 .text{
   position:relative;
+
   z-index:2;
 
   color:#d0d0d0;
@@ -741,23 +753,22 @@ body.menu-open{
 
 .highlight{
   color:#67dcff;
-
   font-weight:bold;
 }
 
 .highlight-fire{
   color:#ff751c;
-
   font-weight:bold;
 }
 
 
 /* =========================================
    VALUES
-   ========================================= */
+========================================= */
 
 .values{
   position:relative;
+
   z-index:2;
 
   display:grid;
@@ -772,27 +783,78 @@ body.menu-open{
 
   overflow:hidden;
 
-  padding:17px;
+  min-height:120px;
+
+  padding:
+    18px
+    52px
+    18px
+    18px;
 
   border-radius:13px;
 
   border:
-    1px solid rgba(255,255,255,.10);
+    1px solid rgba(103,220,255,.20);
 
   background:
-    rgba(8,8,8,.78);
+    linear-gradient(
+      120deg,
+      rgba(0,160,220,.07),
+      rgba(7,7,7,.88) 52%,
+      rgba(255,90,0,.05)
+    );
+}
+
+.value-card:nth-child(even){
+  border-color:
+    rgba(255,117,28,.20);
 }
 
 .value-number{
   position:absolute;
 
   right:13px;
-  top:10px;
+  top:11px;
 
-  color:rgba(255,255,255,.06);
+  color:rgba(255,255,255,.10);
 
-  font-size:28px;
+  font-size:29px;
   font-weight:900;
+}
+
+.value-icon{
+  width:40px;
+  height:40px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  margin-bottom:12px;
+
+  border-radius:11px;
+
+  border:
+    1px solid rgba(103,220,255,.18);
+
+  color:#67dcff;
+
+  background:
+    rgba(0,160,220,.07);
+
+  font-size:19px;
+  font-weight:900;
+}
+
+.value-card:nth-child(even) .value-icon{
+  color:#ff751c;
+
+  border-color:
+    rgba(255,117,28,.18);
+
+  background:
+    rgba(255,90,0,.07);
 }
 
 .value-title{
@@ -804,6 +866,10 @@ body.menu-open{
   font-weight:900;
 
   color:#67dcff;
+}
+
+.value-card:nth-child(even) .value-title{
+  color:#ff751c;
 }
 
 .value-text{
@@ -823,54 +889,56 @@ body.menu-open{
 
 /* =========================================
    MOTTO
-   ========================================= */
+========================================= */
 
 .motto-card{
   text-align:center;
 
   padding:
-    30px
+    31px
     20px;
 }
 
 .motto-small{
   position:relative;
+
   z-index:2;
 
-  color:#777;
+  color:#888;
 
   font-size:7px;
   font-weight:900;
 
   letter-spacing:2px;
 
-  margin-bottom:10px;
+  margin-bottom:11px;
 }
 
 .quote{
   position:relative;
+
   z-index:2;
 
   font-size:
     clamp(
-      21px,
+      23px,
       6vw,
-      28px
+      32px
     );
 
   font-weight:900;
 
   letter-spacing:1px;
 
-  line-height:1.35;
+  line-height:1.28;
 }
 
 .motto-line{
-  width:90px;
+  width:110px;
   height:2px;
 
   margin:
-    16px
+    18px
     auto
     0;
 
@@ -880,12 +948,16 @@ body.menu-open{
       #4bd8ff,
       #ff6500
     );
+
+  box-shadow:
+    0 0 10px rgba(75,216,255,.25),
+    0 0 10px rgba(255,101,0,.22);
 }
 
 
 /* =========================================
    FOOTER
-   ========================================= */
+========================================= */
 
 .app-footer{
   margin-top:28px;
@@ -907,8 +979,36 @@ body.menu-open{
 
 
 /* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:430px){
+
+  .about-banner img{
+    min-height:155px;
+    max-height:205px;
+
+    object-fit:cover;
+    object-position:center;
+  }
+
+  .content{
+    padding:
+      22px
+      12px
+      calc(42px + env(safe-area-inset-bottom));
+  }
+
+  .card{
+    padding:20px;
+  }
+
+}
+
+
+/* =========================================
    TABLET / DESKTOP
-   ========================================= */
+========================================= */
 
 @media(min-width:720px){
 
@@ -922,7 +1022,7 @@ body.menu-open{
 
 /* =========================================
    REDUCED MOTION
-   ========================================= */
+========================================= */
 
 @media(prefers-reduced-motion:reduce){
 
@@ -943,7 +1043,7 @@ body.menu-open{
 
 <!-- =========================================
      APP BAR
-     ========================================= -->
+========================================= -->
 
 <header class="app-bar">
 
@@ -956,7 +1056,6 @@ body.menu-open{
 >
 ☰
 </button>
-
 
 <div class="app-bar-brand">
 
@@ -971,7 +1070,6 @@ TEAM WOLFPACK
 </div>
 
 </div>
-
 
 <div
   class="app-status"
@@ -993,7 +1091,7 @@ TEAM WOLFPACK
 
 <!-- =========================================
      SIDE MENU
-     ========================================= -->
+========================================= -->
 
 <aside
   id="sideMenu"
@@ -1033,7 +1131,6 @@ ONE PACK • ONE PURPOSE
 MAIN
 </div>
 
-
 <nav class="menu-nav">
 
 <a class="menu-link" href="index.html">
@@ -1072,7 +1169,6 @@ MAIN
 <div class="menu-section-label">
 EXPLORE
 </div>
-
 
 <nav class="menu-nav">
 
@@ -1152,45 +1248,44 @@ VISIT OFFICIAL WEBSITE
 
 
 <!-- =========================================
-     PAGE HERO
-     ========================================= -->
+     ABOUT BANNER
+========================================= -->
 
-<section class="page-hero">
+<section class="about-banner">
 
 <img
-  src="icon-512.png"
-  class="hero-logo"
-  alt="Team Wolfpack"
+  src="about-banner.png"
+  alt="About Team Wolfpack"
 >
-
-<div class="hero-brand">
-TEAM WOLFPACK
-</div>
-
-<h1 class="page-title">
-
-<span class="ice">
-ABOUT
-</span>
-
-<span class="fire">
-THE PACK
-</span>
-
-</h1>
-
-<p class="subtitle">
-Strength. Loyalty. Unity. Purpose.
-</p>
 
 </section>
 
 
 <!-- =========================================
      MAIN CONTENT
-     ========================================= -->
+========================================= -->
 
 <main class="content">
+
+
+<!-- INTRO -->
+
+<section class="content-intro">
+
+<div class="content-label">
+ABOUT TEAM WOLFPACK
+</div>
+
+<h1>
+<span class="ice">MORE THAN</span>
+<span class="fire">BOXING</span>
+</h1>
+
+<p>
+Strength. Loyalty. Unity. Purpose.
+</p>
+
+</section>
 
 
 <!-- WHO WE ARE -->
@@ -1276,6 +1371,10 @@ WE STAND FOR
 01
 </div>
 
+<div class="value-icon">
+◆
+</div>
+
 <div class="value-title">
 STRENGTH
 </div>
@@ -1291,6 +1390,10 @@ Finding the strength to keep moving forward, inside and outside the ring.
 
 <div class="value-number">
 02
+</div>
+
+<div class="value-icon">
+∞
 </div>
 
 <div class="value-title">
@@ -1310,6 +1413,10 @@ Standing beside the people who represent and support the pack.
 03
 </div>
 
+<div class="value-icon">
+●
+</div>
+
 <div class="value-title">
 UNITY
 </div>
@@ -1325,6 +1432,10 @@ Different fighters and teams, brought together as one Team Wolfpack.
 
 <div class="value-number">
 04
+</div>
+
+<div class="value-icon">
+◎
 </div>
 
 <div class="value-title">
@@ -1374,12 +1485,13 @@ ONE PURPOSE.
 TEAM WOLFPACK • STRENGTH IN UNITY
 </footer>
 
+
 </main>
 
 
 <!-- =========================================
      SIDE MENU JAVASCRIPT
-     ========================================= -->
+========================================= -->
 
 <script>
 
@@ -1433,18 +1545,15 @@ menuButton.addEventListener(
   openMenu
 );
 
-
 closeMenuButton.addEventListener(
   "click",
   closeMenu
 );
 
-
 menuBackdrop.addEventListener(
   "click",
   closeMenu
 );
-
 
 document.addEventListener(
   "keydown",
@@ -1456,7 +1565,6 @@ document.addEventListener(
 
   }
 );
-
 
 document
   .querySelectorAll(".menu-link")
@@ -1474,7 +1582,7 @@ document
 
 <!-- =========================================
      ADMIN DASHBOARD VISIBILITY
-     ========================================= -->
+========================================= -->
 
 <script type="module">
 
@@ -1547,7 +1655,7 @@ onAuthStateChanged(
 
 <!-- =========================================
      SERVICE WORKER
-     ========================================= -->
+========================================= -->
 
 <script>
 
