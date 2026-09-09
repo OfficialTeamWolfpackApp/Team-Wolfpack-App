@@ -57,31 +57,15 @@ html{
 body{
   min-height:100vh;
   min-height:100dvh;
-
   padding-top:calc(66px + env(safe-area-inset-top));
-
   font-family:Arial, Helvetica, sans-serif;
-
   color:#fff;
   overflow-x:hidden;
 
   background:
-    radial-gradient(
-      circle at 0% 15%,
-      rgba(0,190,255,.22),
-      transparent 31%
-    ),
-    radial-gradient(
-      circle at 100% 60%,
-      rgba(255,85,0,.22),
-      transparent 34%
-    ),
-    linear-gradient(
-      115deg,
-      #02090d 0%,
-      #050505 50%,
-      #150802 100%
-    );
+    radial-gradient(circle at 0% 15%, rgba(0,190,255,.22), transparent 31%),
+    radial-gradient(circle at 100% 60%, rgba(255,85,0,.22), transparent 34%),
+    linear-gradient(115deg, #02090d 0%, #050505 50%, #150802 100%);
 }
 
 body.menu-open{
@@ -89,17 +73,13 @@ body.menu-open{
 }
 
 
-/* =========================================
-   APP BAR
-========================================= */
+/* APP BAR */
 
 .app-bar{
   position:fixed;
-
   top:0;
   left:0;
   right:0;
-
   z-index:500;
 
   height:calc(66px + env(safe-area-inset-top));
@@ -111,19 +91,16 @@ body.menu-open{
 
   display:grid;
   grid-template-columns:46px 1fr 46px;
-
   align-items:center;
 
   background:rgba(4,4,4,.97);
 
-  border-bottom:
-    1px solid rgba(255,255,255,.10);
+  border-bottom:1px solid rgba(255,255,255,.10);
 
   backdrop-filter:blur(18px);
   -webkit-backdrop-filter:blur(18px);
 
-  box-shadow:
-    0 8px 30px rgba(0,0,0,.38);
+  box-shadow:0 8px 30px rgba(0,0,0,.38);
 }
 
 .menu-button{
@@ -135,12 +112,9 @@ body.menu-open{
   justify-content:center;
 
   border-radius:12px;
-
-  border:
-    1px solid rgba(103,220,255,.22);
+  border:1px solid rgba(103,220,255,.22);
 
   background:rgba(0,150,210,.07);
-
   color:#67dcff;
 
   cursor:pointer;
@@ -151,28 +125,23 @@ body.menu-open{
   display:flex;
   align-items:center;
   justify-content:center;
-
   gap:9px;
-
   min-width:0;
 }
 
 .app-bar-logo{
   width:34px;
   height:34px;
-
   object-fit:contain;
 }
 
 .app-bar-title{
   overflow:hidden;
-
   white-space:nowrap;
   text-overflow:ellipsis;
 
   font-size:11px;
   font-weight:900;
-
   letter-spacing:1.8px;
 
   background:
@@ -200,24 +169,18 @@ body.menu-open{
 .app-status-dot{
   width:8px;
   height:8px;
-
   border-radius:50%;
-
   background:#43f27b;
 
-  box-shadow:
-    0 0 9px rgba(67,242,123,.75);
+  box-shadow:0 0 9px rgba(67,242,123,.75);
 }
 
 
-/* =========================================
-   MENU BACKDROP
-========================================= */
+/* MENU BACKDROP */
 
 .menu-backdrop{
   position:fixed;
   inset:0;
-
   z-index:800;
 
   visibility:hidden;
@@ -239,13 +202,10 @@ body.menu-open{
 }
 
 
-/* =========================================
-   SIDE MENU
-========================================= */
+/* SIDE MENU */
 
 .side-menu{
   position:fixed;
-
   left:0;
   top:0;
   bottom:0;
@@ -255,7 +215,6 @@ body.menu-open{
   width:min(84vw,340px);
 
   transform:translateX(-105%);
-
   transition:transform .28s ease;
 
   overflow-y:auto;
@@ -267,23 +226,13 @@ body.menu-open{
     calc(25px + env(safe-area-inset-bottom));
 
   background:
-    radial-gradient(
-      circle at 0% 10%,
-      rgba(0,190,255,.16),
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 100% 80%,
-      rgba(255,90,0,.16),
-      transparent 34%
-    ),
+    radial-gradient(circle at 0% 10%, rgba(0,190,255,.16), transparent 30%),
+    radial-gradient(circle at 100% 80%, rgba(255,90,0,.16), transparent 34%),
     #080808;
 
-  border-right:
-    1px solid rgba(103,220,255,.20);
+  border-right:1px solid rgba(103,220,255,.20);
 
-  box-shadow:
-    20px 0 50px rgba(0,0,0,.55);
+  box-shadow:20px 0 50px rgba(0,0,0,.55);
 }
 
 .side-menu.show{
@@ -299,23 +248,19 @@ body.menu-open{
     21px
     5px;
 
-  border-bottom:
-    1px solid rgba(255,255,255,.09);
+  border-bottom:1px solid rgba(255,255,255,.09);
 }
 
 .menu-logo{
   width:72px;
   height:72px;
-
   object-fit:contain;
-
   margin-bottom:10px;
 }
 
 .menu-brand{
   font-size:18px;
   font-weight:900;
-
   letter-spacing:1px;
 
   background:
@@ -333,18 +278,14 @@ body.menu-open{
 
 .menu-tagline{
   margin-top:5px;
-
   color:#999;
-
   font-size:8px;
   font-weight:900;
-
   letter-spacing:2px;
 }
 
 .close-menu{
   position:absolute;
-
   right:0;
   top:5px;
 
@@ -352,16 +293,12 @@ body.menu-open{
   height:38px;
 
   border-radius:10px;
-
-  border:
-    1px solid rgba(255,117,28,.25);
+  border:1px solid rgba(255,117,28,.25);
 
   background:rgba(255,90,0,.07);
-
   color:#ff751c;
 
   cursor:pointer;
-
   font-size:21px;
 }
 
@@ -372,14 +309,12 @@ body.menu-open{
 
   font-size:7px;
   font-weight:900;
-
   letter-spacing:2px;
 }
 
 .menu-nav{
   display:flex;
   flex-direction:column;
-
   gap:4px;
 }
 
@@ -388,7 +323,6 @@ body.menu-open{
   align-items:center;
 
   min-height:48px;
-
   padding:9px 11px;
 
   border-radius:10px;
@@ -401,7 +335,6 @@ body.menu-open{
 
   font-size:10px;
   font-weight:900;
-
   letter-spacing:.5px;
 }
 
@@ -412,8 +345,7 @@ body.menu-open{
 .menu-link.active{
   color:#67dcff;
 
-  border-color:
-    rgba(103,220,255,.22);
+  border-color:rgba(103,220,255,.22);
 
   background:
     linear-gradient(
@@ -426,8 +358,7 @@ body.menu-open{
 .menu-link.chat{
   color:#fff;
 
-  border-color:
-    rgba(103,220,255,.15);
+  border-color:rgba(103,220,255,.15);
 
   background:
     linear-gradient(
@@ -439,7 +370,6 @@ body.menu-open{
 
 .menu-icon{
   width:34px;
-
   flex:0 0 34px;
 
   text-align:center;
@@ -455,16 +385,12 @@ body.menu-open{
 
 .menu-arrow{
   margin-left:auto;
-
   color:#666;
-
   font-size:16px;
 }
 
 
-/* =========================================
-   ADMIN MENU
-========================================= */
+/* ADMIN */
 
 #adminMenuSection{
   display:none;
@@ -473,8 +399,7 @@ body.menu-open{
 .admin-menu-link{
   color:#ffb05d;
 
-  border-color:
-    rgba(255,117,28,.22);
+  border-color:rgba(255,117,28,.22);
 
   background:
     linear-gradient(
@@ -492,17 +417,14 @@ body.menu-open{
   display:block;
 
   margin-top:19px;
-
   padding:14px;
 
   text-align:center;
-
   text-decoration:none;
 
   border-radius:10px;
 
-  border:
-    1px solid rgba(103,220,255,.28);
+  border:1px solid rgba(103,220,255,.28);
 
   background:
     linear-gradient(
@@ -515,29 +437,23 @@ body.menu-open{
 
   font-size:8px;
   font-weight:900;
-
   letter-spacing:1px;
 }
 
 
-/* =========================================
-   SOCIALS BANNER
-========================================= */
+/* SOCIALS BANNER */
 
 .socials-banner{
   position:relative;
 
   width:100%;
-
   overflow:hidden;
 
   background:#020202;
 
-  border-bottom:
-    1px solid rgba(255,255,255,.10);
+  border-bottom:1px solid rgba(255,255,255,.10);
 
-  box-shadow:
-    0 12px 35px rgba(0,0,0,.38);
+  box-shadow:0 12px 35px rgba(0,0,0,.38);
 }
 
 .socials-banner img{
@@ -553,13 +469,10 @@ body.menu-open{
 }
 
 
-/* =========================================
-   CONTENT
-========================================= */
+/* CONTENT */
 
 .content{
   width:100%;
-
   max-width:920px;
 
   margin:auto;
@@ -574,11 +487,9 @@ body.menu-open{
   position:relative;
 
   margin-bottom:21px;
-
   padding-bottom:17px;
 
-  border-bottom:
-    1px solid rgba(255,255,255,.08);
+  border-bottom:1px solid rgba(255,255,255,.08);
 }
 
 .content-heading::after{
@@ -606,7 +517,6 @@ body.menu-open{
 
   font-size:7px;
   font-weight:900;
-
   letter-spacing:2px;
 }
 
@@ -615,8 +525,6 @@ body.menu-open{
 
   font-size:21px;
   font-weight:900;
-
-  letter-spacing:.3px;
 }
 
 .ice{
@@ -633,33 +541,25 @@ body.menu-open{
   color:#999;
 
   font-size:10px;
-
   line-height:1.6;
 }
 
 
-/* =========================================
-   SOCIAL GRID
-========================================= */
+/* SOCIAL GRID */
 
 .social-grid{
   display:grid;
-
   grid-template-columns:1fr;
-
   gap:15px;
 }
 
 
-/* =========================================
-   SOCIAL CARDS
-========================================= */
+/* SOCIAL CARDS */
 
 .social-card{
   display:block;
 
   position:relative;
-
   overflow:hidden;
 
   min-height:175px;
@@ -672,11 +572,9 @@ body.menu-open{
 
   border-radius:17px;
 
-  border:
-    1px solid rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.12);
 
   text-decoration:none;
-
   color:#fff;
 
   background:
@@ -687,8 +585,7 @@ body.menu-open{
       rgba(220,70,0,.17)
     );
 
-  box-shadow:
-    0 12px 32px rgba(0,0,0,.30);
+  box-shadow:0 12px 32px rgba(0,0,0,.30);
 }
 
 .social-card::before{
@@ -704,8 +601,7 @@ body.menu-open{
 
   background:#4bd8ff;
 
-  box-shadow:
-    0 0 12px rgba(75,216,255,.50);
+  box-shadow:0 0 12px rgba(75,216,255,.50);
 }
 
 .social-card::after{
@@ -721,8 +617,7 @@ body.menu-open{
 
   background:#ff6500;
 
-  box-shadow:
-    0 0 12px rgba(255,101,0,.45);
+  box-shadow:0 0 12px rgba(255,101,0,.45);
 }
 
 .social-card:active{
@@ -731,9 +626,7 @@ body.menu-open{
 
 .platform-row{
   display:flex;
-
   align-items:center;
-
   gap:10px;
 }
 
@@ -742,7 +635,6 @@ body.menu-open{
   height:42px;
 
   display:flex;
-
   align-items:center;
   justify-content:center;
 
@@ -750,8 +642,7 @@ body.menu-open{
 
   border-radius:12px;
 
-  border:
-    1px solid rgba(103,220,255,.20);
+  border:1px solid rgba(103,220,255,.20);
 
   background:
     linear-gradient(
@@ -766,12 +657,17 @@ body.menu-open{
   font-weight:900;
 }
 
+.platform-icon.facebook{
+  font-family:Arial, Helvetica, sans-serif;
+  font-size:22px;
+  font-weight:900;
+}
+
 .platform{
   color:#67dcff;
 
   font-size:8px;
   font-weight:900;
-
   letter-spacing:2px;
 }
 
@@ -780,7 +676,6 @@ body.menu-open{
 
   font-size:18px;
   font-weight:900;
-
   line-height:1.2;
 }
 
@@ -790,15 +685,12 @@ body.menu-open{
   color:#aaa;
 
   font-size:10px;
-
   line-height:1.5;
 }
 
 .follow-label{
   display:inline-flex;
-
   align-items:center;
-
   gap:6px;
 
   margin-top:16px;
@@ -807,7 +699,6 @@ body.menu-open{
 
   font-size:7px;
   font-weight:900;
-
   letter-spacing:1px;
 }
 
@@ -825,25 +716,20 @@ body.menu-open{
 }
 
 
-/* =========================================
-   SOCIAL INFO
-========================================= */
+/* SOCIAL INFO */
 
 .social-info{
   position:relative;
-
   overflow:hidden;
 
   margin-top:24px;
-
   padding:22px;
 
   text-align:center;
 
   border-radius:15px;
 
-  border:
-    1px solid rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.10);
 
   background:
     linear-gradient(
@@ -852,9 +738,6 @@ body.menu-open{
       rgba(8,8,8,.88) 50%,
       rgba(255,90,0,.08)
     );
-
-  box-shadow:
-    0 10px 28px rgba(0,0,0,.20);
 }
 
 .social-info-label{
@@ -862,7 +745,6 @@ body.menu-open{
 
   font-size:7px;
   font-weight:900;
-
   letter-spacing:2px;
 }
 
@@ -884,22 +766,17 @@ body.menu-open{
   color:#999;
 
   font-size:10px;
-
   line-height:1.6;
 }
 
 
-/* =========================================
-   FOOTER
-========================================= */
+/* FOOTER */
 
 .app-footer{
   margin-top:28px;
-
   padding-top:20px;
 
-  border-top:
-    1px solid rgba(255,255,255,.07);
+  border-top:1px solid rgba(255,255,255,.07);
 
   text-align:center;
 
@@ -907,14 +784,11 @@ body.menu-open{
 
   font-size:7px;
   font-weight:900;
-
   letter-spacing:1.3px;
 }
 
 
-/* =========================================
-   MOBILE BANNER
-========================================= */
+/* MOBILE */
 
 @media(max-width:430px){
 
@@ -936,37 +810,30 @@ body.menu-open{
 }
 
 
-/* =========================================
-   TABLET / DESKTOP
-========================================= */
+/* TABLET / DESKTOP */
 
 @media(min-width:720px){
 
   .social-grid{
-    grid-template-columns:
-      repeat(3,1fr);
+    grid-template-columns:repeat(2,1fr);
   }
 
   .social-card{
-    min-height:225px;
-
-    padding:
-      24px
-      45px
-      24px
-      21px;
+    min-height:210px;
   }
 
-  .username{
-    font-size:16px;
+}
+
+@media(min-width:1000px){
+
+  .social-grid{
+    grid-template-columns:repeat(3,1fr);
   }
 
 }
 
 
-/* =========================================
-   REDUCED MOTION
-========================================= */
+/* REDUCED MOTION */
 
 @media(prefers-reduced-motion:reduce){
 
@@ -985,9 +852,7 @@ body.menu-open{
 <body>
 
 
-<!-- =========================================
-     APP BAR
-========================================= -->
+<!-- APP BAR -->
 
 <header class="app-bar">
 
@@ -1033,9 +898,7 @@ TEAM WOLFPACK
 ></div>
 
 
-<!-- =========================================
-     SIDE MENU
-========================================= -->
+<!-- SIDE MENU -->
 
 <aside
   id="sideMenu"
@@ -1191,9 +1054,7 @@ VISIT OFFICIAL WEBSITE
 </aside>
 
 
-<!-- =========================================
-     FOLLOW THE PACK BANNER
-========================================= -->
+<!-- SOCIALS BANNER -->
 
 <section class="socials-banner">
 
@@ -1205,12 +1066,9 @@ VISIT OFFICIAL WEBSITE
 </section>
 
 
-<!-- =========================================
-     CONTENT
-========================================= -->
+<!-- CONTENT -->
 
 <main class="content">
-
 
 <div class="content-heading">
 
@@ -1248,15 +1106,8 @@ Follow Team Wolfpack, Mr Wolfie and Mrs Wolfie across our official social channe
 >
 
 <div class="platform-row">
-
-<div class="platform-icon">
-♪
-</div>
-
-<div class="platform">
-TIKTOK
-</div>
-
+<div class="platform-icon">♪</div>
+<div class="platform">TIKTOK</div>
 </div>
 
 <div class="username">
@@ -1271,9 +1122,7 @@ Follow Mr Wolfie on TikTok
 VIEW PROFILE
 </div>
 
-<span class="arrow">
-›
-</span>
+<span class="arrow">›</span>
 
 </a>
 
@@ -1293,15 +1142,8 @@ VIEW PROFILE
 >
 
 <div class="platform-row">
-
-<div class="platform-icon">
-♪
-</div>
-
-<div class="platform">
-TIKTOK
-</div>
-
+<div class="platform-icon">♪</div>
+<div class="platform">TIKTOK</div>
 </div>
 
 <div class="username">
@@ -1316,9 +1158,7 @@ Follow Mrs Wolfie on TikTok
 VIEW PROFILE
 </div>
 
-<span class="arrow">
-›
-</span>
+<span class="arrow">›</span>
 
 </a>
 
@@ -1338,15 +1178,8 @@ VIEW PROFILE
 >
 
 <div class="platform-row">
-
-<div class="platform-icon">
-◎
-</div>
-
-<div class="platform">
-INSTAGRAM
-</div>
-
+<div class="platform-icon">◎</div>
+<div class="platform">INSTAGRAM</div>
 </div>
 
 <div class="username">
@@ -1361,9 +1194,79 @@ Follow Official Team Wolfpack on Instagram
 VIEW PROFILE
 </div>
 
-<span class="arrow">
-›
-</span>
+<span class="arrow">›</span>
+
+</a>
+
+
+<!-- MR WOLFIE FACEBOOK -->
+
+<a
+  class="social-card"
+  href="https://www.facebook.com/Mrwolfie2410/"
+  target="_blank"
+  rel="noopener noreferrer"
+  onclick="gtag('event','social_click',{
+    platform:'Facebook',
+    account:'Mr Wolfie',
+    source:'Follow The Pack Page'
+  });"
+>
+
+<div class="platform-row">
+<div class="platform-icon facebook">f</div>
+<div class="platform">FACEBOOK</div>
+</div>
+
+<div class="username">
+MR WOLFIE
+</div>
+
+<div class="description">
+Follow Mr Wolfie on Facebook
+</div>
+
+<div class="follow-label">
+VIEW PROFILE
+</div>
+
+<span class="arrow">›</span>
+
+</a>
+
+
+<!-- MRS WOLFIE FACEBOOK -->
+
+<a
+  class="social-card"
+  href="https://www.facebook.com/mrswolfie2410"
+  target="_blank"
+  rel="noopener noreferrer"
+  onclick="gtag('event','social_click',{
+    platform:'Facebook',
+    account:'Mrs Wolfie',
+    source:'Follow The Pack Page'
+  });"
+>
+
+<div class="platform-row">
+<div class="platform-icon facebook">f</div>
+<div class="platform">FACEBOOK</div>
+</div>
+
+<div class="username">
+MRS WOLFIE
+</div>
+
+<div class="description">
+Follow Mrs Wolfie on Facebook
+</div>
+
+<div class="follow-label">
+VIEW PROFILE
+</div>
+
+<span class="arrow">›</span>
 
 </a>
 
@@ -1371,9 +1274,7 @@ VIEW PROFILE
 </div>
 
 
-<!-- =========================================
-     SOCIAL INFO
-========================================= -->
+<!-- SOCIAL INFO -->
 
 <div class="social-info">
 
@@ -1398,13 +1299,10 @@ content, announcements and life inside the pack.
 TEAM WOLFPACK • STRENGTH IN UNITY
 </footer>
 
-
 </main>
 
 
-<!-- =========================================
-     SIDE MENU JAVASCRIPT
-========================================= -->
+<!-- SIDE MENU JAVASCRIPT -->
 
 <script>
 
@@ -1424,9 +1322,7 @@ const menuBackdrop =
 function openMenu(){
 
   sideMenu.classList.add("show");
-
   menuBackdrop.classList.add("show");
-
   document.body.classList.add("menu-open");
 
   menuButton.setAttribute(
@@ -1440,9 +1336,7 @@ function openMenu(){
 function closeMenu(){
 
   sideMenu.classList.remove("show");
-
   menuBackdrop.classList.remove("show");
-
   document.body.classList.remove("menu-open");
 
   menuButton.setAttribute(
@@ -1493,9 +1387,7 @@ document
 </script>
 
 
-<!-- =========================================
-     ADMIN DASHBOARD VISIBILITY
-========================================= -->
+<!-- ADMIN DASHBOARD VISIBILITY -->
 
 <script type="module">
 
@@ -1566,9 +1458,7 @@ onAuthStateChanged(
 </script>
 
 
-<!-- =========================================
-     SERVICE WORKER
-========================================= -->
+<!-- SERVICE WORKER -->
 
 <script>
 
