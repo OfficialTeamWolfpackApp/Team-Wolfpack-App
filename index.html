@@ -762,12 +762,8 @@ body.menu-open{
   background-clip:text;
 
   filter:
-    drop-shadow(
-      0 3px 8px rgba(0,0,0,.95)
-    )
-    drop-shadow(
-      0 0 13px rgba(0,170,255,.25)
-    );
+    drop-shadow(0 3px 8px rgba(0,0,0,.95))
+    drop-shadow(0 0 13px rgba(0,170,255,.25));
 }
 
 .fight-details{
@@ -834,11 +830,8 @@ body.menu-open{
 
 .fighter-name{
   position:absolute;
-
   bottom:23px;
-
   z-index:8;
-
   width:46%;
 
   text-align:center;
@@ -1336,74 +1329,277 @@ body.menu-open{
 
 
 /* =========================================
-   LATEST
+   LATEST FROM THE PACK - TEAM NEWS
    ========================================= */
 
 .latest-card{
+  position:relative;
+
+  overflow:hidden;
+
   display:grid;
 
   grid-template-columns:
-    72px
-    1fr;
+    105px
+    minmax(0,1fr);
 
-  gap:13px;
+  min-height:175px;
 
-  align-items:center;
-
-  padding:14px;
-
-  border-radius:15px;
+  border-radius:18px;
 
   border:
-    1px solid rgba(255,255,255,.11);
+    1px solid rgba(255,255,255,.14);
 
   background:
     linear-gradient(
-      100deg,
-      rgba(0,160,220,.10),
-      rgba(8,8,8,.94) 50%,
-      rgba(255,90,0,.10)
+      110deg,
+      rgba(0,155,220,.14) 0%,
+      rgba(6,6,6,.98) 36%,
+      rgba(6,6,6,.98) 68%,
+      rgba(255,90,0,.13) 100%
+    );
+
+  box-shadow:
+    0 13px 32px rgba(0,0,0,.34);
+}
+
+.latest-card::before{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  top:0;
+  bottom:0;
+
+  width:3px;
+
+  z-index:5;
+
+  background:#45d8ff;
+
+  box-shadow:
+    0 0 14px rgba(69,216,255,.50);
+}
+
+.latest-card::after{
+  content:"";
+
+  position:absolute;
+
+  right:0;
+  top:0;
+  bottom:0;
+
+  width:3px;
+
+  z-index:5;
+
+  background:#ff701c;
+
+  box-shadow:
+    0 0 14px rgba(255,112,28,.50);
+}
+
+.latest-visual{
+  position:relative;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  overflow:hidden;
+
+  padding:15px 10px;
+
+  border-right:
+    1px solid rgba(103,220,255,.13);
+
+  background:
+    radial-gradient(
+      circle at 40% 45%,
+      rgba(0,190,255,.18),
+      transparent 58%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(0,125,185,.12),
+      rgba(0,0,0,.16)
     );
 }
 
+.latest-visual::after{
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent 45%,
+      rgba(0,0,0,.38) 100%
+    );
+
+  pointer-events:none;
+}
+
 .latest-image{
-  width:72px;
-  height:72px;
+  position:relative;
+
+  z-index:2;
+
+  width:82px;
+  height:82px;
+
+  display:block;
 
   object-fit:contain;
 
-  border-radius:11px;
+  filter:
+    drop-shadow(0 7px 12px rgba(0,0,0,.55));
+}
 
-  background:#050505;
+.latest-content{
+  position:relative;
 
-  border:
-    1px solid rgba(103,220,255,.15);
+  z-index:2;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+
+  min-width:0;
+
+  padding:
+    18px
+    17px
+    17px;
 }
 
 .latest-label{
-  color:#67dcff;
+  align-self:flex-start;
+
+  padding:
+    5px
+    8px;
+
+  border-radius:5px;
+
+  color:#79e4ff;
+
+  border:
+    1px solid rgba(103,220,255,.28);
+
+  background:
+    rgba(0,145,205,.13);
+
+  font-size:6px;
+  font-weight:900;
+
+  letter-spacing:1.7px;
+}
+
+.latest-title{
+  margin-top:10px;
+
+  color:#fff;
+
+  font-size:17px;
+  font-weight:900;
+
+  line-height:1.05;
+
+  letter-spacing:.2px;
+
+  text-shadow:
+    0 2px 9px rgba(0,0,0,.75);
+}
+
+.latest-details{
+  display:flex;
+  flex-wrap:wrap;
+
+  gap:
+    5px
+    12px;
+
+  margin-top:9px;
+}
+
+.latest-detail{
+  color:#ddd;
 
   font-size:7px;
   font-weight:900;
 
-  letter-spacing:2px;
+  letter-spacing:.7px;
 }
 
-.latest-title{
-  margin-top:5px;
+.latest-detail:first-child{
+  color:#7ce4ff;
+}
 
-  font-size:13px;
-  font-weight:900;
+.latest-detail:last-child{
+  color:#ff9b59;
 }
 
 .latest-text{
-  margin-top:5px;
+  margin-top:9px;
+
+  max-width:520px;
 
   color:#999;
 
   font-size:9px;
 
   line-height:1.5;
+}
+
+.latest-button{
+  align-self:flex-start;
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  min-height:34px;
+
+  margin-top:12px;
+
+  padding:
+    9px
+    14px;
+
+  border-radius:7px;
+
+  text-decoration:none;
+
+  color:#fff;
+
+  border:
+    1px solid rgba(103,220,255,.32);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,160,220,.13),
+      rgba(255,90,0,.13)
+    );
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:1px;
+
+  transition:
+    transform .18s ease,
+    border-color .18s ease;
+}
+
+.latest-button:active{
+  transform:scale(.98);
 }
 
 
@@ -1577,6 +1773,29 @@ body.menu-open{
     font-size:14px;
   }
 
+  .latest-card{
+    grid-template-columns:
+      150px
+      minmax(0,1fr);
+
+    min-height:195px;
+  }
+
+  .latest-image{
+    width:112px;
+    height:112px;
+  }
+
+  .latest-content{
+    padding:
+      22px
+      24px;
+  }
+
+  .latest-title{
+    font-size:21px;
+  }
+
 }
 
 
@@ -1706,6 +1925,47 @@ body.menu-open{
     font-size:6px;
   }
 
+  .latest-card{
+    grid-template-columns:
+      90px
+      minmax(0,1fr);
+
+    min-height:175px;
+  }
+
+  .latest-visual{
+    padding:
+      12px
+      7px;
+  }
+
+  .latest-image{
+    width:70px;
+    height:70px;
+  }
+
+  .latest-content{
+    padding:
+      15px
+      12px;
+  }
+
+  .latest-title{
+    font-size:14px;
+  }
+
+  .latest-text{
+    font-size:8px;
+  }
+
+  .latest-button{
+    font-size:6px;
+
+    padding:
+      8px
+      10px;
+  }
+
 }
 
 
@@ -1718,7 +1978,8 @@ body.menu-open{
   .side-menu,
   .menu-backdrop,
   .home-fighter-card,
-  .next-item{
+  .next-item,
+  .latest-button{
     transition:none;
   }
 
@@ -2321,7 +2582,7 @@ UNFINISHED BUSINESS
 
 
 <!-- =========================================
-     LATEST
+     LATEST FROM THE PACK
      ========================================= -->
 
 <div class="section-heading">
@@ -2333,15 +2594,20 @@ LATEST FROM THE PACK
 </div>
 
 
-<div class="latest-card">
+<article class="latest-card">
+
+<div class="latest-visual">
 
 <img
   src="icon-512.png"
   class="latest-image"
-  alt=""
+  alt="Team Wolfpack"
 >
 
-<div>
+</div>
+
+
+<div class="latest-content">
 
 <div class="latest-label">
 TEAM NEWS
@@ -2351,14 +2617,35 @@ TEAM NEWS
 THE LAUNCH IS COMING
 </div>
 
+<div class="latest-details">
+
+<div class="latest-detail">
+17 OCTOBER 2026
+</div>
+
+<div class="latest-detail">
+AYR RACECOURSE
+</div>
+
+</div>
+
 <div class="latest-text">
-Mrs Wolfie returns to the ring on 17 October 2026 at Ayr Racecourse.
-More Team Wolfpack updates coming soon.
+Mrs Wolfie returns to the ring at The Launch as Team Wolfpack heads to Ayr Racecourse.
 </div>
+
+<a
+  class="latest-button"
+  href="fights.html"
+  onclick="gtag('event','home_news_click',{
+    story:'The Launch Is Coming'
+  });"
+>
+VIEW FIGHT DETAILS →
+</a>
 
 </div>
 
-</div>
+</article>
 
 
 <!-- =========================================
