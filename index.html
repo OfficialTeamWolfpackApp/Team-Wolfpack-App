@@ -18,7 +18,7 @@ gtag("config", "G-M973P0B4F0");
 
 window.addEventListener("load", function(){
   gtag("event", "home_page_view", {
-    section: "Home"
+    section:"Home"
   });
 });
 </script>
@@ -60,24 +60,6 @@ body{
 
   padding-top:calc(66px + env(safe-area-inset-top));
 
-  background:
-    radial-gradient(
-      circle at 0% 18%,
-      rgba(0,191,255,.19),
-      transparent 32%
-    ),
-    radial-gradient(
-      circle at 100% 68%,
-      rgba(255,85,0,.20),
-      transparent 34%
-    ),
-    linear-gradient(
-      135deg,
-      #02090d 0%,
-      #050505 48%,
-      #140702 100%
-    );
-
   color:#fff;
 
   font-family:
@@ -86,6 +68,24 @@ body{
     sans-serif;
 
   overflow-x:hidden;
+
+  background:
+    radial-gradient(
+      circle at 0% 20%,
+      rgba(0,190,255,.17),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 100% 55%,
+      rgba(255,85,0,.18),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #02090d 0%,
+      #050505 48%,
+      #140702 100%
+    );
 }
 
 body.menu-open{
@@ -154,7 +154,6 @@ body.menu-open{
   cursor:pointer;
 
   font-size:24px;
-  line-height:1;
 }
 
 .app-bar-brand{
@@ -172,11 +171,6 @@ body.menu-open{
   height:34px;
 
   object-fit:contain;
-
-  filter:
-    drop-shadow(
-      0 0 6px rgba(103,220,255,.25)
-    );
 }
 
 .app-bar-title{
@@ -200,6 +194,7 @@ body.menu-open{
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
+
   background-clip:text;
 }
 
@@ -226,12 +221,11 @@ body.menu-open{
 
 
 /* =========================================
-   SIDE MENU BACKDROP
+   MENU BACKDROP
    ========================================= */
 
 .menu-backdrop{
   position:fixed;
-
   inset:0;
 
   z-index:800;
@@ -338,12 +332,13 @@ body.menu-open{
     linear-gradient(
       90deg,
       #67dcff,
-      #ffffff 50%,
+      #fff 50%,
       #ff751c
     );
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
+
   background-clip:text;
 }
 
@@ -394,7 +389,6 @@ body.menu-open{
 
 .menu-nav{
   display:flex;
-
   flex-direction:column;
 
   gap:4px;
@@ -429,7 +423,8 @@ body.menu-open{
 .menu-link.active{
   color:#67dcff;
 
-  border-color:rgba(103,220,255,.22);
+  border-color:
+    rgba(103,220,255,.22);
 
   background:
     linear-gradient(
@@ -442,7 +437,8 @@ body.menu-open{
 .menu-link.chat{
   color:#fff;
 
-  border-color:rgba(103,220,255,.15);
+  border-color:
+    rgba(103,220,255,.15);
 
   background:
     linear-gradient(
@@ -468,10 +464,6 @@ body.menu-open{
   color:#ff751c;
 }
 
-.menu-link.fire-link .menu-icon{
-  color:#ff751c;
-}
-
 .menu-arrow{
   margin-left:auto;
 
@@ -492,7 +484,8 @@ body.menu-open{
 .admin-menu-link{
   color:#ffb05d;
 
-  border-color:rgba(255,117,28,.22);
+  border-color:
+    rgba(255,117,28,.22);
 
   background:
     linear-gradient(
@@ -550,9 +543,9 @@ body.menu-open{
   text-align:center;
 
   padding:
-    38px
-    20px
-    28px;
+    28px
+    18px
+    25px;
 }
 
 .hero::before{
@@ -561,52 +554,86 @@ body.menu-open{
   position:absolute;
 
   left:0;
-  right:0;
+  top:0;
   bottom:0;
 
-  height:1px;
+  width:45%;
 
   background:
-    linear-gradient(
-      90deg,
-      transparent,
-      #4bd8ff,
-      rgba(255,255,255,.15),
-      #ff6200,
-      transparent
+    radial-gradient(
+      circle at left center,
+      rgba(0,190,255,.16),
+      transparent 70%
     );
+
+  pointer-events:none;
+}
+
+.hero::after{
+  content:"";
+
+  position:absolute;
+
+  right:0;
+  top:0;
+  bottom:0;
+
+  width:45%;
+
+  background:
+    radial-gradient(
+      circle at right center,
+      rgba(255,90,0,.16),
+      transparent 70%
+    );
+
+  pointer-events:none;
 }
 
 .hero-logo{
-  width:142px;
-  height:142px;
+  position:relative;
+  z-index:2;
+
+  width:112px;
+  height:112px;
 
   object-fit:contain;
 
   filter:
     drop-shadow(
-      0 0 16px rgba(51,201,255,.25)
+      0 0 15px rgba(51,201,255,.22)
     )
     drop-shadow(
-      0 0 16px rgba(255,92,0,.22)
+      0 0 15px rgba(255,92,0,.20)
     );
 }
 
 .hero-eyebrow{
-  margin-top:14px;
+  position:relative;
+  z-index:2;
+
+  margin-top:8px;
 
   color:#777;
 
-  font-size:8px;
+  font-size:7px;
   font-weight:900;
 
   letter-spacing:3px;
 }
 
 .hero-title{
+  position:relative;
+  z-index:2;
+
   margin-top:7px;
 
-  font-size:clamp(28px,8vw,38px);
+  font-size:
+    clamp(
+      28px,
+      8vw,
+      40px
+    );
 
   font-weight:900;
 
@@ -615,23 +642,27 @@ body.menu-open{
   background:
     linear-gradient(
       90deg,
-      #e9fbff 0%,
-      #63d8ff 46%,
+      #61d9ff 0%,
+      #eafaff 46%,
       #ff6414 54%,
-      #ffad3b 100%
+      #ff9b35 100%
     );
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
+
   background-clip:text;
 }
 
 .hero-tagline{
-  margin-top:9px;
+  position:relative;
+  z-index:2;
 
-  color:#d3d3d3;
+  margin-top:7px;
 
-  font-size:9px;
+  color:#ddd;
+
+  font-size:8px;
   font-weight:900;
 
   letter-spacing:3px;
@@ -639,57 +670,371 @@ body.menu-open{
 
 
 /* =========================================
-   MAIN HOME
+   HOME CONTENT
    ========================================= */
 
 .main{
   width:100%;
-  max-width:620px;
+
+  max-width:920px;
 
   margin:auto;
 
   padding:
-    26px
-    16px
+    14px
+    14px
     calc(45px + env(safe-area-inset-bottom));
 }
 
-.welcome{
-  margin-bottom:21px;
+
+/* =========================================
+   NEXT FIGHT
+   ========================================= */
+
+.next-fight{
+  position:relative;
+
+  overflow:hidden;
+
+  min-height:430px;
+
+  border-radius:20px;
+
+  border:
+    1px solid rgba(255,255,255,.14);
+
+  background:#050505;
+
+  box-shadow:
+    0 18px 45px rgba(0,0,0,.50);
 }
 
-.welcome-label{
-  color:#67dcff;
+.next-fight::before{
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,180,245,.28),
+      rgba(0,0,0,.20) 43%,
+      rgba(0,0,0,.20) 57%,
+      rgba(255,90,0,.30)
+    );
+
+  z-index:2;
+
+  pointer-events:none;
+}
+
+.next-fight::after{
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  border-radius:20px;
+
+  box-shadow:
+    inset 4px 0 0 #38d5ff,
+    inset -4px 0 0 #ff6a14,
+    inset 0 0 28px rgba(0,0,0,.45);
+
+  z-index:7;
+
+  pointer-events:none;
+}
+
+.fighter-side{
+  position:absolute;
+
+  top:0;
+  bottom:0;
+
+  width:55%;
+
+  overflow:hidden;
+}
+
+.fighter-side.left{
+  left:0;
+}
+
+.fighter-side.right{
+  right:0;
+}
+
+.fighter-photo{
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  filter:
+    contrast(1.04)
+    saturate(.95);
+}
+
+.fighter-side.left .fighter-photo{
+  object-position:center 18%;
+}
+
+.fighter-side.right .fighter-photo{
+  object-position:center 20%;
+}
+
+.fighter-side.left::after{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,125,190,.12),
+      rgba(0,0,0,.22) 55%,
+      #050505 100%
+    );
+}
+
+.fighter-side.right::after{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  background:
+    linear-gradient(
+      270deg,
+      rgba(210,60,0,.14),
+      rgba(0,0,0,.22) 55%,
+      #050505 100%
+    );
+}
+
+.fight-centre{
+  position:relative;
+
+  z-index:6;
+
+  min-height:430px;
+
+  display:flex;
+  flex-direction:column;
+
+  align-items:center;
+  justify-content:center;
+
+  text-align:center;
+
+  padding:
+    28px
+    20px
+    102px;
+}
+
+.next-label{
+  color:#63dcff;
+
+  font-size:9px;
+  font-weight:900;
+
+  letter-spacing:4px;
+}
+
+.promotion{
+  margin-top:10px;
+
+  font-size:
+    clamp(
+      17px,
+      5vw,
+      27px
+    );
+
+  font-weight:900;
+
+  line-height:1.05;
+
+  text-shadow:
+    0 3px 15px rgba(0,0,0,.95);
+}
+
+.promotion-small{
+  display:block;
+
+  margin-top:3px;
+
+  color:#eee;
+
+  font-size:11px;
+  font-style:italic;
+
+  letter-spacing:1px;
+}
+
+.vs{
+  margin-top:14px;
+
+  font-size:
+    clamp(
+      38px,
+      12vw,
+      62px
+    );
+
+  font-weight:900;
+
+  font-style:italic;
+
+  line-height:1;
+
+  background:
+    linear-gradient(
+      90deg,
+      #5fdcff,
+      #fff 48%,
+      #ff6d19
+    );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  background-clip:text;
+
+  filter:
+    drop-shadow(
+      0 0 13px rgba(0,170,255,.30)
+    );
+}
+
+.fight-details{
+  margin-top:16px;
+
+  display:flex;
+  flex-direction:column;
+
+  align-items:center;
+
+  gap:7px;
+}
+
+.fight-detail{
+  color:#f1f1f1;
+
+  font-size:10px;
+  font-weight:900;
+
+  letter-spacing:.8px;
+
+  text-shadow:
+    0 2px 8px #000;
+}
+
+.fight-button{
+  margin-top:16px;
+
+  display:inline-flex;
+
+  align-items:center;
+  justify-content:center;
+
+  min-height:40px;
+
+  padding:
+    10px
+    24px;
+
+  border-radius:8px;
+
+  border:
+    1px solid rgba(103,220,255,.55);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,165,225,.13),
+      rgba(255,95,0,.13)
+    );
+
+  color:#fff;
+
+  text-decoration:none;
 
   font-size:8px;
+  font-weight:900;
+
+  letter-spacing:1.2px;
+
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+
+.fighter-name{
+  position:absolute;
+
+  bottom:23px;
+
+  z-index:8;
+
+  width:46%;
+
+  text-align:center;
+
+  text-shadow:
+    0 3px 13px #000;
+}
+
+.fighter-name.left{
+  left:2%;
+}
+
+.fighter-name.right{
+  right:2%;
+}
+
+.fighter-name strong{
+  display:block;
+
+  font-size:
+    clamp(
+      19px,
+      5vw,
+      30px
+    );
+
+  font-weight:900;
+}
+
+.fighter-name.left strong{
+  color:#86e7ff;
+}
+
+.fighter-name.right strong{
+  color:#ffad70;
+}
+
+.fighter-name span{
+  display:block;
+
+  margin-top:4px;
+
+  color:#ccc;
+
+  font-size:7px;
   font-weight:900;
 
   letter-spacing:2px;
 }
 
-.welcome h2{
-  margin-top:7px;
-
-  font-size:22px;
-  font-weight:900;
-
-  letter-spacing:.5px;
-}
-
-.welcome p{
-  max-width:470px;
-
-  margin-top:8px;
-
-  color:#999;
-
-  font-size:12px;
-  line-height:1.6;
-}
-
 
 /* =========================================
-   QUICK ACCESS
+   SECTION TITLES
    ========================================= */
 
 .section-heading{
@@ -698,173 +1043,311 @@ body.menu-open{
   align-items:center;
   justify-content:space-between;
 
-  margin:25px 2px 11px;
+  margin:
+    27px
+    3px
+    12px;
 }
 
-.section-heading h3{
-  font-size:10px;
+.section-title{
+  color:#fff;
+
+  font-size:11px;
   font-weight:900;
 
-  letter-spacing:1.4px;
+  letter-spacing:2px;
 }
 
-.section-heading span{
-  color:#666;
+.section-link{
+  color:#ff751c;
 
-  font-size:8px;
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:1px;
+
+  text-decoration:none;
 }
 
 
 /* =========================================
-   FEATURE CARDS
+   FIGHTERS
    ========================================= */
 
-.card{
-  display:block;
+.fighter-grid{
+  display:grid;
 
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:11px;
+}
+
+.home-fighter-card{
   position:relative;
-
-  width:100%;
-
-  min-height:94px;
-
-  padding:
-    19px
-    52px
-    19px
-    18px;
-
-  margin-bottom:12px;
 
   overflow:hidden;
 
-  border-radius:15px;
+  min-height:170px;
+
+  border-radius:16px;
 
   text-decoration:none;
 
   color:#fff;
 
+  border:
+    1px solid rgba(255,255,255,.12);
+
+  background:#080808;
+}
+
+.home-fighter-card:first-child{
+  border-left:
+    3px solid #45d8ff;
+}
+
+.home-fighter-card:last-child{
+  border-right:
+    3px solid #ff701c;
+}
+
+.home-fighter-image{
+  position:absolute;
+
+  inset:0;
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  object-position:center top;
+
+  opacity:.72;
+}
+
+.home-fighter-card::after{
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
   background:
     linear-gradient(
-      105deg,
-      rgba(20,145,195,.15),
-      rgba(10,10,10,.93) 48%,
-      rgba(210,68,0,.15)
+      0deg,
+      rgba(0,0,0,.96),
+      rgba(0,0,0,.05) 75%
     );
-
-  border:
-    1px solid rgba(255,255,255,.11);
-
-  box-shadow:
-    0 10px 28px rgba(0,0,0,.26);
-
-  transition:
-    transform .15s ease,
-    border-color .15s ease;
 }
 
-.card::before{
-  content:"";
-
+.home-fighter-info{
   position:absolute;
 
-  left:0;
-  top:0;
-  bottom:0;
+  z-index:3;
 
-  width:3px;
-
-  background:#4bd7ff;
-
-  box-shadow:
-    0 0 12px rgba(75,215,255,.55);
+  left:14px;
+  right:14px;
+  bottom:13px;
 }
 
-.card::after{
-  content:"";
-
-  position:absolute;
-
-  right:0;
-  top:0;
-  bottom:0;
-
-  width:3px;
-
-  background:#ff6200;
-
-  box-shadow:
-    0 0 12px rgba(255,98,0,.48);
+.home-fighter-name{
+  font-size:13px;
+  font-weight:900;
 }
 
-.card:active{
-  transform:scale(.985);
-}
+.home-fighter-team{
+  margin-top:4px;
 
-.card-top{
-  display:flex;
+  color:#8cdfff;
 
-  align-items:center;
-
-  gap:8px;
-
-  margin-bottom:7px;
-}
-
-.card-icon{
-  width:28px;
-  height:28px;
-
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  border-radius:8px;
-
-  background:rgba(103,220,255,.08);
-
-  color:#67dcff;
-
-  font-size:15px;
-}
-
-.card.fire-card .card-icon{
-  background:rgba(255,117,28,.08);
-
-  color:#ff751c;
-}
-
-.card-title{
-  font-size:15px;
+  font-size:7px;
   font-weight:900;
 
-  letter-spacing:.7px;
-}
-
-.card-subtitle{
-  color:#999;
-
-  font-size:10px;
-  line-height:1.5;
-}
-
-.card-arrow{
-  position:absolute;
-
-  right:20px;
-  top:50%;
-
-  transform:translateY(-50%);
-
-  color:#ff751c;
-
-  font-size:24px;
+  letter-spacing:1px;
 }
 
 
 /* =========================================
-   WEBSITE CARD
+   NEXT UP
+   ========================================= */
+
+.next-list{
+  display:flex;
+
+  flex-direction:column;
+
+  gap:9px;
+}
+
+.next-item{
+  display:grid;
+
+  grid-template-columns:
+    58px
+    1fr
+    22px;
+
+  align-items:center;
+
+  min-height:70px;
+
+  overflow:hidden;
+
+  border-radius:13px;
+
+  border:
+    1px solid rgba(255,255,255,.10);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,150,210,.10),
+      rgba(8,8,8,.92) 47%,
+      rgba(255,90,0,.09)
+    );
+
+  text-decoration:none;
+
+  color:#fff;
+}
+
+.date-box{
+  height:100%;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+  justify-content:center;
+
+  border-right:
+    1px solid rgba(103,220,255,.14);
+
+  background:
+    rgba(0,145,205,.09);
+}
+
+.date-number{
+  font-size:18px;
+  font-weight:900;
+}
+
+.date-month{
+  margin-top:1px;
+
+  color:#67dcff;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:1px;
+}
+
+.next-info{
+  padding:
+    12px
+    10px;
+}
+
+.next-name{
+  font-size:10px;
+  font-weight:900;
+}
+
+.next-meta{
+  margin-top:4px;
+
+  color:#888;
+
+  font-size:8px;
+
+  line-height:1.4;
+}
+
+.next-arrow{
+  color:#ff751c;
+
+  font-size:19px;
+}
+
+
+/* =========================================
+   LATEST
+   ========================================= */
+
+.latest-card{
+  display:grid;
+
+  grid-template-columns:
+    72px
+    1fr;
+
+  gap:13px;
+
+  align-items:center;
+
+  padding:14px;
+
+  border-radius:15px;
+
+  border:
+    1px solid rgba(255,255,255,.11);
+
+  background:
+    linear-gradient(
+      100deg,
+      rgba(0,160,220,.10),
+      rgba(8,8,8,.94) 50%,
+      rgba(255,90,0,.10)
+    );
+}
+
+.latest-image{
+  width:72px;
+  height:72px;
+
+  object-fit:contain;
+
+  border-radius:11px;
+
+  background:#050505;
+
+  border:
+    1px solid rgba(103,220,255,.15);
+}
+
+.latest-label{
+  color:#67dcff;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:2px;
+}
+
+.latest-title{
+  margin-top:5px;
+
+  font-size:13px;
+  font-weight:900;
+}
+
+.latest-text{
+  margin-top:5px;
+
+  color:#999;
+
+  font-size:9px;
+
+  line-height:1.5;
+}
+
+
+/* =========================================
+   WEBSITE
    ========================================= */
 
 .website-card{
@@ -872,7 +1355,7 @@ body.menu-open{
 
   overflow:hidden;
 
-  margin-top:24px;
+  margin-top:26px;
 
   padding:19px;
 
@@ -886,7 +1369,7 @@ body.menu-open{
       110deg,
       rgba(0,160,220,.10),
       rgba(8,8,8,.94) 50%,
-      rgba(255,90,0,.10)
+      rgba(255,90,0,.13)
     );
 }
 
@@ -912,15 +1395,21 @@ body.menu-open{
   color:#888;
 
   font-size:9px;
+
   line-height:1.5;
 }
 
 .website-button{
-  display:block;
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  min-height:44px;
 
   margin-top:14px;
 
-  padding:13px;
+  padding:12px;
 
   border-radius:9px;
 
@@ -972,9 +1461,9 @@ body.menu-open{
    ========================================= */
 
 .app-footer{
-  margin-top:32px;
+  margin-top:30px;
 
-  padding-top:18px;
+  padding-top:20px;
 
   border-top:
     1px solid rgba(255,255,255,.07);
@@ -991,23 +1480,78 @@ body.menu-open{
 
 
 /* =========================================
-   LARGER SCREENS
+   TABLET / DESKTOP
    ========================================= */
 
-@media(min-width:600px){
-
-  .hero{
-    padding-top:45px;
-  }
+@media(min-width:650px){
 
   .hero-logo{
-    width:165px;
-    height:165px;
+    width:130px;
+    height:130px;
   }
 
-  .main{
-    padding-left:22px;
-    padding-right:22px;
+  .next-fight{
+    min-height:500px;
+  }
+
+  .fight-centre{
+    min-height:500px;
+  }
+
+  .fighter-side{
+    width:52%;
+  }
+
+  .fighter-name{
+    bottom:27px;
+  }
+
+  .home-fighter-card{
+    min-height:240px;
+  }
+
+}
+
+
+/* =========================================
+   SMALL PHONES
+   ========================================= */
+
+@media(max-width:430px){
+
+  .next-fight{
+    min-height:410px;
+  }
+
+  .fight-centre{
+    min-height:410px;
+
+    padding-left:10px;
+    padding-right:10px;
+  }
+
+  .fighter-side{
+    width:63%;
+  }
+
+  .fighter-side.left .fighter-photo{
+    object-position:38% 20%;
+  }
+
+  .fighter-side.right .fighter-photo{
+    object-position:58% 18%;
+  }
+
+  .fighter-name strong{
+    font-size:17px;
+  }
+
+  .fighter-name span{
+    font-size:6px;
+  }
+
+  .fight-detail{
+    font-size:9px;
   }
 
 }
@@ -1030,6 +1574,7 @@ body.menu-open{
 
 </head>
 
+
 <body>
 
 
@@ -1049,6 +1594,7 @@ body.menu-open{
 ☰
 </button>
 
+
 <div class="app-bar-brand">
 
 <img
@@ -1062,6 +1608,7 @@ TEAM WOLFPACK
 </div>
 
 </div>
+
 
 <div
   class="app-status"
@@ -1084,7 +1631,7 @@ TEAM WOLFPACK
 
 
 <!-- =========================================
-     SIDE NAVIGATION
+     SIDE MENU
      ========================================= -->
 
 <aside
@@ -1125,48 +1672,34 @@ ONE PACK • ONE PURPOSE
 MAIN
 </div>
 
+
 <nav class="menu-nav">
 
-<a
-  class="menu-link active"
-  href="index.html"
->
+<a class="menu-link active" href="index.html">
 <span class="menu-icon">⌂</span>
 <span>HOME</span>
 <span class="menu-arrow">›</span>
 </a>
 
-<a
-  class="menu-link fire-link"
-  href="fights.html"
->
+<a class="menu-link" href="fights.html">
 <span class="menu-icon">♜</span>
 <span>FIGHTS</span>
 <span class="menu-arrow">›</span>
 </a>
 
-<a
-  class="menu-link"
-  href="fighters.html"
->
+<a class="menu-link" href="fighters.html">
 <span class="menu-icon">♟</span>
 <span>FIGHTERS</span>
 <span class="menu-arrow">›</span>
 </a>
 
-<a
-  class="menu-link"
-  href="pack.html"
->
+<a class="menu-link" href="pack.html">
 <span class="menu-icon">◆</span>
 <span>MEET THE PACK</span>
 <span class="menu-arrow">›</span>
 </a>
 
-<a
-  class="menu-link chat"
-  href="chat.html"
->
+<a class="menu-link chat" href="chat.html">
 <span class="menu-icon">●</span>
 <span>PACK CHAT</span>
 <span class="menu-arrow">›</span>
@@ -1179,57 +1712,40 @@ MAIN
 EXPLORE
 </div>
 
+
 <nav class="menu-nav">
 
-<a
-  class="menu-link"
-  href="sponsors.html"
->
+<a class="menu-link" href="sponsors.html">
 <span class="menu-icon">★</span>
 <span>SPONSORS &amp; PARTNERS</span>
 <span class="menu-arrow">›</span>
 </a>
 
-<a
-  class="menu-link"
-  href="gallery.html"
->
+<a class="menu-link" href="gallery.html">
 <span class="menu-icon">▣</span>
 <span>GALLERY</span>
 <span class="menu-arrow">›</span>
 </a>
 
-<a
-  class="menu-link"
-  href="merch.html"
->
+<a class="menu-link" href="merch.html">
 <span class="menu-icon">◇</span>
 <span>MERCH</span>
 <span class="menu-arrow">›</span>
 </a>
 
-<a
-  class="menu-link"
-  href="contact.html"
->
+<a class="menu-link" href="contact.html">
 <span class="menu-icon">✉</span>
 <span>CONTACT</span>
 <span class="menu-arrow">›</span>
 </a>
 
-<a
-  class="menu-link"
-  href="socials.html"
->
+<a class="menu-link" href="socials.html">
 <span class="menu-icon">◎</span>
 <span>SOCIALS</span>
 <span class="menu-arrow">›</span>
 </a>
 
-<a
-  class="menu-link"
-  href="about.html"
->
+<a class="menu-link" href="about.html">
 <span class="menu-icon">ⓘ</span>
 <span>ABOUT</span>
 <span class="menu-arrow">›</span>
@@ -1238,7 +1754,7 @@ EXPLORE
 </nav>
 
 
-<!-- ADMIN - HIDDEN FOR NORMAL MEMBERS -->
+<!-- ADMIN -->
 
 <div id="adminMenuSection">
 
@@ -1307,139 +1823,371 @@ ONE PACK • ONE PURPOSE
 
 <main class="main">
 
-<section class="welcome">
 
-<div class="welcome-label">
-WELCOME
+<!-- =========================================
+     NEXT FIGHT
+     ========================================= -->
+
+<section class="next-fight">
+
+<div class="fighter-side left">
+
+<img
+  src="zoey-james.jpg"
+  class="fighter-photo"
+  alt="Mrs Wolfie"
+>
+
 </div>
 
-<h2>
-WELCOME TO THE PACK
-</h2>
 
-<p>
-The official Team Wolfpack app.
-Follow our fighters, upcoming fights,
-Team Wolfpack news, sponsors and more.
-</p>
+<div class="fighter-side right">
+
+<img
+  src="colleen-leyden.jpg"
+  class="fighter-photo"
+  alt="Colleen Leyden"
+>
+
+</div>
+
+
+<div class="fight-centre">
+
+<div class="next-label">
+NEXT FIGHT
+</div>
+
+<div class="promotion">
+AYRSHIRE BOXING
+
+<span class="promotion-small">
+THE LAUNCH
+</span>
+
+</div>
+
+<div class="vs">
+VS
+</div>
+
+<div class="fight-details">
+
+<div class="fight-detail">
+17 OCTOBER 2026
+</div>
+
+<div class="fight-detail">
+AYR RACECOURSE
+</div>
+
+</div>
+
+<a
+  class="fight-button"
+  href="fights.html"
+  onclick="gtag('event','home_next_fight_click',{
+    fighter:'Mrs Wolfie',
+    opponent:'Colleen Leyden',
+    event:'The Launch'
+  });"
+>
+VIEW FIGHT DETAILS →
+</a>
+
+</div>
+
+
+<div class="fighter-name left">
+
+<strong>
+MRS WOLFIE
+</strong>
+
+<span>
+TEAM WOLFIE
+</span>
+
+</div>
+
+
+<div class="fighter-name right">
+
+<strong>
+COLLEEN LEYDEN
+</strong>
+
+<span>
+OPPONENT
+</span>
+
+</div>
 
 </section>
 
 
+<!-- =========================================
+     THE PACK
+     ========================================= -->
+
 <div class="section-heading">
 
-<h3>
-QUICK ACCESS
-</h3>
-
-<span>
-TEAM WOLFPACK
-</span>
-
+<div class="section-title">
+THE PACK
 </div>
 
-
-<!-- FIGHTERS -->
-
 <a
-  class="card"
+  class="section-link"
   href="fighters.html"
-  onclick="gtag('event','home_card_click',{
-    section:'Fighters'
+>
+VIEW FIGHTERS →
+</a>
+
+</div>
+
+
+<div class="fighter-grid">
+
+
+<a
+  class="home-fighter-card"
+  href="mrs-wolfie.html"
+  onclick="gtag('event','home_fighter_click',{
+    fighter:'Mrs Wolfie'
   });"
 >
 
-<div class="card-top">
+<img
+  src="zoey-james.jpg"
+  class="home-fighter-image"
+  alt="Mrs Wolfie"
+>
 
-<div class="card-icon">
-♟
+<div class="home-fighter-info">
+
+<div class="home-fighter-name">
+MRS WOLFIE
 </div>
 
-<div class="card-title">
-FIGHTERS
+<div class="home-fighter-team">
+TEAM WOLFIE
 </div>
 
 </div>
-
-<div class="card-subtitle">
-Mrs Wolfie • Greig Sloan
-</div>
-
-<span class="card-arrow">
-›
-</span>
 
 </a>
 
 
-<!-- UPCOMING FIGHTS -->
+<a
+  class="home-fighter-card"
+  href="greig-sloan.html"
+  onclick="gtag('event','home_fighter_click',{
+    fighter:'Greig Sloan'
+  });"
+>
+
+<img
+  src="greig-sloan.jpg"
+  class="home-fighter-image"
+  alt="Greig Sloan"
+>
+
+<div class="home-fighter-info">
+
+<div class="home-fighter-name">
+GREIG SLOAN
+</div>
+
+<div class="home-fighter-team">
+TEAM SLOAN
+</div>
+
+</div>
+
+</a>
+
+
+</div>
+
+
+<!-- =========================================
+     NEXT UP
+     ========================================= -->
+
+<div class="section-heading">
+
+<div class="section-title">
+NEXT UP
+</div>
 
 <a
-  class="card fire-card"
+  class="section-link"
   href="fights.html"
-  onclick="gtag('event','home_card_click',{
-    section:'Upcoming Fights'
-  });"
 >
-
-<div class="card-top">
-
-<div class="card-icon">
-♜
-</div>
-
-<div class="card-title">
-UPCOMING FIGHTS
-</div>
-
-</div>
-
-<div class="card-subtitle">
-Fight cards • opponents • dates • venues
-</div>
-
-<span class="card-arrow">
-›
-</span>
-
+VIEW ALL FIGHTS →
 </a>
 
+</div>
 
-<!-- SPONSORS -->
+
+<div class="next-list">
+
 
 <a
-  class="card"
-  href="sponsors.html"
-  onclick="gtag('event','home_card_click',{
-    section:'Sponsors and Partners'
-  });"
+  class="next-item"
+  href="fights.html"
 >
 
-<div class="card-top">
+<div class="date-box">
 
-<div class="card-icon">
-★
+<div class="date-number">
+17
 </div>
 
-<div class="card-title">
-SPONSORS &amp; PARTNERS
+<div class="date-month">
+OCT
 </div>
 
 </div>
 
-<div class="card-subtitle">
-Meet the sponsors supporting
-Team Wolfpack and Team Sloan.
+<div class="next-info">
+
+<div class="next-name">
+MRS WOLFIE vs COLLEEN LEYDEN
 </div>
 
-<span class="card-arrow">
+<div class="next-meta">
+Ayr Racecourse • The Launch
+</div>
+
+</div>
+
+<div class="next-arrow">
 ›
-</span>
+</div>
 
 </a>
 
 
-<!-- OFFICIAL WEBSITE -->
+<a
+  class="next-item"
+  href="fights.html"
+>
+
+<div class="date-box">
+
+<div class="date-number">
+NOV
+</div>
+
+<div class="date-month">
+2026
+</div>
+
+</div>
+
+<div class="next-info">
+
+<div class="next-name">
+MRS WOLFIE vs TBA
+</div>
+
+<div class="next-meta">
+Easthouses Miners Club • Super Middleweight Title
+</div>
+
+</div>
+
+<div class="next-arrow">
+›
+</div>
+
+</a>
+
+
+<a
+  class="next-item"
+  href="fights.html"
+>
+
+<div class="date-box">
+
+<div class="date-number">
+19
+</div>
+
+<div class="date-month">
+SEPT
+</div>
+
+</div>
+
+<div class="next-info">
+
+<div class="next-name">
+GREIG SLOAN vs TBA
+</div>
+
+<div class="next-meta">
+Hampden Park • Unfinished Business
+</div>
+
+</div>
+
+<div class="next-arrow">
+›
+</div>
+
+</a>
+
+
+</div>
+
+
+<!-- =========================================
+     LATEST FROM THE PACK
+     ========================================= -->
+
+<div class="section-heading">
+
+<div class="section-title">
+LATEST FROM THE PACK
+</div>
+
+</div>
+
+
+<div class="latest-card">
+
+<img
+  src="icon-512.png"
+  class="latest-image"
+  alt=""
+>
+
+<div>
+
+<div class="latest-label">
+TEAM NEWS
+</div>
+
+<div class="latest-title">
+THE LAUNCH IS COMING
+</div>
+
+<div class="latest-text">
+Mrs Wolfie returns to the ring on 17 October 2026 at Ayr Racecourse.
+More Team Wolfpack updates coming soon.
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =========================================
+     OFFICIAL WEBSITE
+     ========================================= -->
 
 <section class="website-card">
 
@@ -1486,6 +2234,7 @@ OFFICIALTEAMWOLFPACK.COM
 <footer class="app-footer">
 TEAM WOLFPACK • STRENGTH IN UNITY
 </footer>
+
 
 </main>
 
@@ -1546,15 +2295,18 @@ menuButton.addEventListener(
   openMenu
 );
 
+
 closeMenuButton.addEventListener(
   "click",
   closeMenu
 );
 
+
 menuBackdrop.addEventListener(
   "click",
   closeMenu
 );
+
 
 document.addEventListener(
   "keydown",
@@ -1566,6 +2318,7 @@ document.addEventListener(
 
   }
 );
+
 
 document
   .querySelectorAll(".menu-link")
