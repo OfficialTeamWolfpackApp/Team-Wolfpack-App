@@ -63,17 +63,18 @@ body{
   font-family:Arial, Helvetica, sans-serif;
 
   color:#fff;
+
   overflow-x:hidden;
 
   background:
     radial-gradient(
-      circle at 0% 15%,
-      rgba(0,190,255,.22),
+      circle at 0% 18%,
+      rgba(0,190,255,.20),
       transparent 31%
     ),
     radial-gradient(
-      circle at 100% 55%,
-      rgba(255,85,0,.22),
+      circle at 100% 65%,
+      rgba(255,85,0,.20),
       transparent 34%
     ),
     linear-gradient(
@@ -110,11 +111,15 @@ body.menu-open{
     0;
 
   display:grid;
-  grid-template-columns:46px 1fr 46px;
+
+  grid-template-columns:
+    46px
+    1fr
+    46px;
 
   align-items:center;
 
-  background:rgba(4,4,4,.96);
+  background:rgba(4,4,4,.97);
 
   border-bottom:
     1px solid rgba(255,255,255,.10);
@@ -131,6 +136,7 @@ body.menu-open{
   height:42px;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
@@ -151,6 +157,7 @@ body.menu-open{
 
 .app-bar-brand{
   display:flex;
+
   align-items:center;
   justify-content:center;
 
@@ -196,6 +203,7 @@ body.menu-open{
   height:42px;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 }
@@ -219,11 +227,13 @@ body.menu-open{
 
 .menu-backdrop{
   position:fixed;
+
   inset:0;
 
   z-index:800;
 
   visibility:hidden;
+
   opacity:0;
 
   background:rgba(0,0,0,.72);
@@ -262,6 +272,7 @@ body.menu-open{
   transition:transform .28s ease;
 
   overflow-y:auto;
+
   overscroll-behavior:contain;
 
   padding:
@@ -371,7 +382,10 @@ body.menu-open{
 }
 
 .menu-section-label{
-  margin:20px 8px 8px;
+  margin:
+    20px
+    8px
+    8px;
 
   color:#666;
 
@@ -383,6 +397,7 @@ body.menu-open{
 
 .menu-nav{
   display:flex;
+
   flex-direction:column;
 
   gap:4px;
@@ -390,6 +405,7 @@ body.menu-open{
 
 .menu-link{
   display:flex;
+
   align-items:center;
 
   min-height:48px;
@@ -425,7 +441,7 @@ body.menu-open{
     linear-gradient(
       90deg,
       rgba(0,160,220,.12),
-      rgba(0,160,220,.03)
+      rgba(255,90,0,.06)
     );
 }
 
@@ -494,7 +510,6 @@ body.menu-open{
   color:#ff751c;
 }
 
-
 .menu-website{
   display:block;
 
@@ -528,101 +543,35 @@ body.menu-open{
 
 
 /* =========================================
-   PAGE HERO
+   MAIN PAGE BANNER
 ========================================= */
 
-.page-hero{
+.main-banner{
   position:relative;
+
+  width:100%;
 
   overflow:hidden;
 
-  text-align:center;
+  background:#020202;
 
-  padding:
-    34px
-    18px
-    28px;
+  border-bottom:
+    1px solid rgba(255,255,255,.10);
+
+  box-shadow:
+    0 12px 35px rgba(0,0,0,.38);
 }
 
-.page-hero::after{
-  content:"";
+.main-banner img{
+  display:block;
 
-  position:absolute;
+  width:100%;
+  height:auto;
 
-  left:0;
-  right:0;
-  bottom:0;
+  max-height:430px;
 
-  height:1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      #4bd8ff,
-      rgba(255,255,255,.15),
-      #ff6200,
-      transparent
-    );
-}
-
-.hero-logo{
-  width:100px;
-  height:100px;
-
-  object-fit:contain;
-
-  filter:
-    drop-shadow(
-      0 0 13px rgba(51,201,255,.23)
-    )
-    drop-shadow(
-      0 0 13px rgba(255,92,0,.20)
-    );
-}
-
-.hero-brand{
-  margin-top:8px;
-
-  color:#777;
-
-  font-size:7px;
-  font-weight:900;
-
-  letter-spacing:3px;
-}
-
-.page-title{
-  margin-top:15px;
-
-  font-size:
-    clamp(
-      25px,
-      7vw,
-      35px
-    );
-
-  font-weight:900;
-
-  letter-spacing:.5px;
-}
-
-.ice{
-  color:#67dcff;
-}
-
-.fire{
-  color:#ff751c;
-}
-
-.subtitle{
-  margin-top:9px;
-
-  color:#999;
-
-  font-size:11px;
-
-  line-height:1.5;
+  object-fit:cover;
+  object-position:center;
 }
 
 
@@ -632,20 +581,90 @@ body.menu-open{
 
 .content{
   width:100%;
-  max-width:780px;
+
+  max-width:920px;
 
   margin:auto;
 
   padding:
-    28px
+    27px
     16px
     calc(45px + env(safe-area-inset-bottom));
 }
 
+
+/* =========================================
+   INTRO HEADING
+========================================= */
+
+.content-heading{
+  position:relative;
+
+  margin-bottom:23px;
+
+  padding-bottom:17px;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.08);
+}
+
+.content-heading::after{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  right:0;
+  bottom:-1px;
+
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #4bd8ff,
+      rgba(255,255,255,.08) 50%,
+      #ff6200
+    );
+}
+
+.content-label{
+  color:#67dcff;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:2px;
+}
+
+.content-heading h1{
+  margin-top:6px;
+
+  font-size:20px;
+  font-weight:900;
+
+  letter-spacing:.4px;
+}
+
+.content-heading p{
+  margin-top:7px;
+
+  color:#999;
+
+  font-size:10px;
+
+  line-height:1.65;
+}
+
+
+/* =========================================
+   INTRO CARD
+========================================= */
+
 .intro{
   padding:20px;
 
-  margin-bottom:28px;
+  margin-bottom:31px;
 
   border-radius:16px;
 
@@ -667,25 +686,72 @@ body.menu-open{
 .intro p{
   color:#d0d0d0;
 
-  font-size:12px;
+  font-size:11px;
 
-  line-height:1.7;
+  line-height:1.75;
 }
 
 
 /* =========================================
-   SECTION HEADING
+   TEAM SPONSOR SECTIONS
 ========================================= */
 
-.section-heading{
+.team-section{
+  margin-top:32px;
+}
+
+.team-banner{
+  position:relative;
+
+  overflow:hidden;
+
+  margin-bottom:17px;
+
+  border-radius:17px;
+
+  border:
+    1px solid rgba(255,255,255,.12);
+
+  background:#050505;
+
+  box-shadow:
+    0 13px 34px rgba(0,0,0,.35);
+}
+
+.team-banner img{
+  display:block;
+
+  width:100%;
+
+  height:auto;
+
+  min-height:145px;
+  max-height:330px;
+
+  object-fit:cover;
+  object-position:center;
+}
+
+.team-section-heading{
+  display:flex;
+
+  align-items:flex-end;
+  justify-content:space-between;
+
+  gap:12px;
+
   margin:
-    30px
     0
+    2px
     15px;
 }
 
-.section-label{
-  color:#67dcff;
+.team-heading-left{
+  min-width:0;
+}
+
+.team-section-label{
+  color:#888;
 
   font-size:7px;
   font-weight:900;
@@ -693,12 +759,42 @@ body.menu-open{
   letter-spacing:2px;
 }
 
-.section-title{
+.team-section-title{
   margin-top:5px;
 
-  font-size:20px;
-
+  font-size:19px;
   font-weight:900;
+}
+
+.team-wolfie-title{
+  color:#67dcff;
+}
+
+.team-sloan-title{
+  color:#ff751c;
+}
+
+.team-count{
+  flex:0 0 auto;
+
+  padding:
+    6px
+    9px;
+
+  border-radius:20px;
+
+  border:
+    1px solid rgba(255,255,255,.12);
+
+  color:#aaa;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:1px;
+
+  background:
+    rgba(255,255,255,.03);
 }
 
 
@@ -716,7 +812,7 @@ body.menu-open{
 
 
 /* =========================================
-   SPONSOR CARDS
+   SPONSOR CARD
 ========================================= */
 
 .sponsor-card{
@@ -735,7 +831,7 @@ body.menu-open{
     linear-gradient(
       110deg,
       rgba(0,170,230,.12),
-      rgba(8,8,8,.94) 50%,
+      rgba(8,8,8,.96) 50%,
       rgba(255,90,0,.12)
     );
 
@@ -777,15 +873,50 @@ body.menu-open{
     0 0 12px rgba(255,101,0,.45);
 }
 
+.sponsor-card.wolfie{
+  background:
+    linear-gradient(
+      110deg,
+      rgba(0,175,240,.16),
+      rgba(8,8,8,.96) 56%,
+      rgba(0,80,130,.10)
+    );
+}
+
+.sponsor-card.wolfie::after{
+  background:#67dcff;
+
+  box-shadow:
+    0 0 12px rgba(103,220,255,.45);
+}
+
+.sponsor-card.sloan{
+  background:
+    linear-gradient(
+      110deg,
+      rgba(255,95,0,.10),
+      rgba(8,8,8,.96) 52%,
+      rgba(255,95,0,.18)
+    );
+}
+
+.sponsor-card.sloan::before,
+.sponsor-card.sloan::after{
+  background:#ff751c;
+
+  box-shadow:
+    0 0 12px rgba(255,117,28,.45);
+}
+
 
 /* =========================================
-   SPONSOR LOGOS
+   LOGO BOX
 ========================================= */
 
 .sponsor-logo-box{
   width:100%;
 
-  height:220px;
+  height:215px;
 
   display:flex;
 
@@ -799,6 +930,9 @@ body.menu-open{
   background:#fff;
 
   overflow:hidden;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(0,0,0,.07);
 }
 
 .sponsor-logo-box img{
@@ -812,9 +946,16 @@ body.menu-open{
   padding:12px;
 }
 
+
+/* =========================================
+   SPONSOR INFO
+========================================= */
+
 .sponsor-name{
-  font-size:19px;
+  font-size:18px;
   font-weight:900;
+
+  line-height:1.2;
 }
 
 .sponsor-type{
@@ -822,10 +963,14 @@ body.menu-open{
 
   color:#67dcff;
 
-  font-size:9px;
+  font-size:8px;
   font-weight:900;
 
-  letter-spacing:1.3px;
+  letter-spacing:1.2px;
+}
+
+.sloan .sponsor-type{
+  color:#ff751c;
 }
 
 .sponsor-info{
@@ -833,9 +978,9 @@ body.menu-open{
 
   color:#aaa;
 
-  font-size:11px;
+  font-size:10px;
 
-  line-height:1.6;
+  line-height:1.65;
 }
 
 .representing{
@@ -845,11 +990,14 @@ body.menu-open{
 
   color:#67dcff;
 
-  font-size:8px;
-
+  font-size:7px;
   font-weight:900;
 
   letter-spacing:.6px;
+}
+
+.sloan .representing{
+  color:#ff8d42;
 }
 
 
@@ -880,8 +1028,7 @@ body.menu-open{
 
   color:#fff;
 
-  font-size:9px;
-
+  font-size:8px;
   font-weight:900;
 
   letter-spacing:1px;
@@ -892,6 +1039,11 @@ body.menu-open{
       rgba(0,160,220,.10),
       rgba(255,90,0,.10)
     );
+}
+
+.sloan .social-button{
+  border-color:
+    rgba(255,117,28,.42);
 }
 
 .social-button:active{
@@ -904,27 +1056,36 @@ body.menu-open{
 ========================================= */
 
 .cta{
-  margin-top:30px;
+  position:relative;
 
-  padding:23px;
+  overflow:hidden;
+
+  margin-top:34px;
+
+  padding:25px 21px;
 
   text-align:center;
 
   border-radius:17px;
 
   border:
-    1px solid rgba(255,117,28,.35);
+    1px solid rgba(103,220,255,.28);
 
   background:
-    linear-gradient(
-      110deg,
-      rgba(0,170,230,.10),
-      rgba(8,8,8,.94) 50%,
-      rgba(255,90,0,.15)
-    );
+    radial-gradient(
+      circle at 0% 40%,
+      rgba(0,190,255,.14),
+      transparent 38%
+    ),
+    radial-gradient(
+      circle at 100% 60%,
+      rgba(255,90,0,.14),
+      transparent 38%
+    ),
+    rgba(8,8,8,.95);
 
   box-shadow:
-    0 12px 32px rgba(0,0,0,.28);
+    0 12px 32px rgba(0,0,0,.30);
 }
 
 .cta-label{
@@ -937,21 +1098,33 @@ body.menu-open{
 }
 
 .cta h2{
-  margin-top:6px;
+  margin-top:7px;
 
   font-size:22px;
-
   font-weight:900;
 }
 
+.ice{
+  color:#67dcff;
+}
+
+.fire{
+  color:#ff751c;
+}
+
 .cta p{
-  margin-top:10px;
+  max-width:520px;
+
+  margin:
+    10px
+    auto
+    0;
 
   color:#aaa;
 
-  font-size:11px;
+  font-size:10px;
 
-  line-height:1.6;
+  line-height:1.65;
 }
 
 .cta-button{
@@ -960,9 +1133,9 @@ body.menu-open{
   align-items:center;
   justify-content:center;
 
-  min-height:48px;
+  min-height:49px;
 
-  margin-top:17px;
+  margin-top:18px;
 
   padding:13px;
 
@@ -975,8 +1148,7 @@ body.menu-open{
 
   color:#fff;
 
-  font-size:9px;
-
+  font-size:8px;
   font-weight:900;
 
   letter-spacing:1px;
@@ -984,8 +1156,8 @@ body.menu-open{
   background:
     linear-gradient(
       90deg,
-      rgba(0,160,220,.10),
-      rgba(255,90,0,.10)
+      rgba(0,160,220,.14),
+      rgba(255,90,0,.13)
     );
 }
 
@@ -999,7 +1171,7 @@ body.menu-open{
 ========================================= */
 
 .app-footer{
-  margin-top:28px;
+  margin-top:30px;
 
   padding-top:20px;
 
@@ -1011,7 +1183,6 @@ body.menu-open{
   color:#555;
 
   font-size:7px;
-
   font-weight:900;
 
   letter-spacing:1.3px;
@@ -1033,6 +1204,17 @@ body.menu-open{
     height:230px;
   }
 
+  .team-section.wolfie-section .sponsor-grid{
+    grid-template-columns:minmax(0,1fr);
+  }
+
+  .team-section.wolfie-section .sponsor-card{
+    max-width:540px;
+
+    margin-left:auto;
+    margin-right:auto;
+  }
+
 }
 
 
@@ -1042,9 +1224,27 @@ body.menu-open{
 
 @media(max-width:430px){
 
+  .main-banner img{
+    min-height:155px;
+    max-height:205px;
+
+    object-fit:cover;
+  }
+
   .content{
-    padding-left:12px;
-    padding-right:12px;
+    padding:
+      22px
+      12px
+      calc(42px + env(safe-area-inset-bottom));
+  }
+
+  .team-banner{
+    border-radius:13px;
+  }
+
+  .team-banner img{
+    min-height:125px;
+    max-height:180px;
   }
 
   .sponsor-logo-box{
@@ -1169,7 +1369,6 @@ ONE PACK • ONE PURPOSE
 MAIN
 </div>
 
-
 <nav class="menu-nav">
 
 <a class="menu-link" href="index.html">
@@ -1208,7 +1407,6 @@ MAIN
 <div class="menu-section-label">
 EXPLORE
 </div>
-
 
 <nav class="menu-nav">
 
@@ -1251,9 +1449,7 @@ EXPLORE
 </nav>
 
 
-<!-- =========================================
-     ADMIN - HIDDEN FOR NORMAL MEMBERS
-========================================= -->
+<!-- ADMIN -->
 
 <div id="adminMenuSection">
 
@@ -1290,36 +1486,15 @@ VISIT OFFICIAL WEBSITE
 
 
 <!-- =========================================
-     PAGE HERO
+     MAIN SPONSORS BANNER
 ========================================= -->
 
-<section class="page-hero">
+<section class="main-banner">
 
 <img
-  src="icon-512.png"
-  class="hero-logo"
-  alt="Team Wolfpack"
+  src="sponsors-banner.png"
+  alt="Team Wolfpack Sponsors and Partners"
 >
-
-<div class="hero-brand">
-TEAM WOLFPACK
-</div>
-
-<h1 class="page-title">
-
-<span class="ice">
-SPONSORS
-</span>
-
-<span class="fire">
-&amp; PARTNERS
-</span>
-
-</h1>
-
-<p class="subtitle">
-Supporting the people, fighters and future of Team Wolfpack.
-</p>
 
 </section>
 
@@ -1331,45 +1506,74 @@ Supporting the people, fighters and future of Team Wolfpack.
 <main class="content">
 
 
-<!-- INTRO -->
+<div class="content-heading">
+
+<div class="content-label">
+OUR PARTNERS
+</div>
+
+<h1>
+SPONSORS &amp; PARTNERS
+</h1>
+
+<p>
+Supporting our fighters, building opportunities and helping the pack move forward.
+</p>
+
+</div>
+
 
 <div class="intro">
 
 <p>
 Team Wolfpack is proud to work alongside businesses,
-organisations and individuals who believe in what the pack
-stands for.
+organisations and individuals who believe in the people
+behind our teams.
 
 <br><br>
 
-Our sponsors and partners help support our fighters,
-events, equipment and continued growth.
+Our sponsors help support fighters, training, equipment,
+events and continued development. Each sponsor is connected
+to the team and fighter they proudly support.
 </p>
 
 </div>
 
 
 <!-- =========================================
-     TEAM WOLFPACK SPONSORS
+     TEAM WOLFIE
 ========================================= -->
 
-<div class="section-heading">
+<section class="team-section wolfie-section">
 
-<div class="section-label">
+
+<div class="team-banner">
+
+<img
+  src="team-wolfie-sponsors-banner.png"
+  alt="Team Wolfie Sponsors and Partners"
+>
+
+</div>
+
+
+<div class="team-section-heading">
+
+<div class="team-heading-left">
+
+<div class="team-section-label">
 OFFICIAL PARTNERS
 </div>
 
-<h2 class="section-title">
-
-<span class="ice">
-TEAM WOLFPACK
-</span>
-
-<span class="fire">
-SPONSORS
-</span>
-
+<h2 class="team-section-title team-wolfie-title">
+TEAM WOLFIE SPONSORS
 </h2>
+
+</div>
+
+<div class="team-count">
+1 SPONSOR
+</div>
 
 </div>
 
@@ -1379,7 +1583,7 @@ SPONSORS
 
 <!-- LUKE MORGAN ELECTRICAL -->
 
-<div class="sponsor-card">
+<div class="sponsor-card wolfie">
 
 <div class="sponsor-logo-box">
 
@@ -1395,11 +1599,11 @@ LUKE MORGAN ELECTRICAL
 </div>
 
 <div class="sponsor-type">
-OFFICIAL TEAM WOLFPACK SPONSOR
+OFFICIAL TEAM WOLFIE SPONSOR
 </div>
 
 <div class="sponsor-info">
-Proud sponsor of Team Wolfpack.
+Proud sponsor of Team Wolfie.
 </div>
 
 <a
@@ -1409,7 +1613,7 @@ Proud sponsor of Team Wolfpack.
   rel="noopener noreferrer"
   onclick="gtag('event','sponsor_click',{
     sponsor:'Luke Morgan Electrical',
-    team:'Team Wolfpack',
+    team:'Team Wolfie',
     platform:'Facebook',
     source:'Sponsors Page'
   });"
@@ -1419,30 +1623,46 @@ VISIT FACEBOOK ›
 
 </div>
 
+
 </div>
+
+</section>
 
 
 <!-- =========================================
-     TEAM SLOAN SPONSORS
+     TEAM SLOAN
 ========================================= -->
 
-<div class="section-heading">
+<section class="team-section">
 
-<div class="section-label">
+
+<div class="team-banner">
+
+<img
+  src="team-sloan-sponsors-banner.png"
+  alt="Team Sloan Sponsors and Partners"
+>
+
+</div>
+
+
+<div class="team-section-heading">
+
+<div class="team-heading-left">
+
+<div class="team-section-label">
 OFFICIAL PARTNERS
 </div>
 
-<h2 class="section-title">
-
-<span class="ice">
-TEAM SLOAN
-</span>
-
-<span class="fire">
-SPONSORS
-</span>
-
+<h2 class="team-section-title team-sloan-title">
+TEAM SLOAN SPONSORS
 </h2>
+
+</div>
+
+<div class="team-count">
+2 SPONSORS
+</div>
 
 </div>
 
@@ -1452,7 +1672,7 @@ SPONSORS
 
 <!-- RHW ELECTRICAL -->
 
-<div class="sponsor-card">
+<div class="sponsor-card sloan">
 
 <div class="sponsor-logo-box">
 
@@ -1501,7 +1721,7 @@ VISIT INSTAGRAM ›
 
 <!-- RUBY MURRY'S -->
 
-<div class="sponsor-card">
+<div class="sponsor-card sloan">
 
 <div class="sponsor-logo-box">
 
@@ -1547,11 +1767,14 @@ VISIT FACEBOOK ›
 
 </div>
 
+
 </div>
+
+</section>
 
 
 <!-- =========================================
-     SPONSORSHIP CTA
+     SPONSOR TEAM WOLFIE CTA
 ========================================= -->
 
 <div class="cta">
@@ -1563,30 +1786,32 @@ SPONSORSHIP OPPORTUNITIES
 <h2>
 
 <span class="ice">
-JOIN
+SUPPORT
 </span>
 
 <span class="fire">
-THE PACK
+TEAM WOLFIE
 </span>
 
 </h2>
 
 <p>
-Interested in sponsoring Team Wolfpack or supporting one of
-our fighters? Get in touch to discuss sponsorship and
-partnership opportunities.
+Interested in sponsoring Team Wolfie and supporting the
+journey of our fighter, training, equipment and upcoming
+events? Get in touch to discuss sponsorship and partnership
+opportunities.
 </p>
 
 <a
   class="cta-button"
   href="contact.html#sponsorship"
   onclick="gtag('event','become_sponsor_click',{
+    team:'Team Wolfie',
     source:'Sponsors Page',
     destination:'Sponsorship Enquiry'
   });"
 >
-SPONSOR TEAM WOLFPACK
+SPONSOR TEAM WOLFIE
 </a>
 
 </div>
@@ -1595,6 +1820,7 @@ SPONSOR TEAM WOLFPACK
 <footer class="app-footer">
 TEAM WOLFPACK • STRENGTH IN UNITY
 </footer>
+
 
 </main>
 
@@ -1776,7 +2002,8 @@ if("serviceWorker" in navigator){
     "load",
     function(){
 
-      navigator.serviceWorker
+      navigator
+        .serviceWorker
         .register("service-worker.js")
         .catch(function(error){
 
