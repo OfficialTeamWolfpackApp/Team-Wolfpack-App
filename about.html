@@ -67,13 +67,13 @@ body{
 
   background:
     radial-gradient(
-      circle at 0% 15%,
-      rgba(0,190,255,.22),
-      transparent 31%
+      circle at 0% 18%,
+      rgba(0,190,255,.18),
+      transparent 32%
     ),
     radial-gradient(
-      circle at 100% 60%,
-      rgba(255,85,0,.22),
+      circle at 100% 62%,
+      rgba(255,85,0,.18),
       transparent 34%
     ),
     linear-gradient(
@@ -466,7 +466,7 @@ body.menu-open{
 
 
 /* =========================================
-   ADMIN
+   ADMIN MENU
 ========================================= */
 
 #adminMenuSection{
@@ -541,6 +541,30 @@ body.menu-open{
 
   box-shadow:
     0 12px 35px rgba(0,0,0,.38);
+}
+
+.about-banner::after{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  right:0;
+  bottom:0;
+
+  height:2px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #00bfff,
+      rgba(255,255,255,.35) 50%,
+      #ff5a00
+    );
+
+  box-shadow:
+    0 0 15px rgba(0,191,255,.30),
+    0 0 15px rgba(255,90,0,.28);
 }
 
 .about-banner img{
@@ -640,7 +664,7 @@ body.menu-open{
 
 
 /* =========================================
-   CARDS
+   MAIN CARDS
 ========================================= */
 
 .card{
@@ -660,19 +684,19 @@ body.menu-open{
   background:
     radial-gradient(
       circle at 0% 0%,
-      rgba(0,190,255,.08),
-      transparent 30%
+      rgba(0,190,255,.09),
+      transparent 32%
     ),
     radial-gradient(
       circle at 100% 100%,
-      rgba(255,90,0,.08),
-      transparent 32%
+      rgba(255,90,0,.09),
+      transparent 34%
     ),
     linear-gradient(
       110deg,
-      rgba(10,25,32,.94),
+      rgba(10,25,32,.95),
       rgba(6,6,6,.97) 50%,
-      rgba(30,13,7,.94)
+      rgba(30,13,7,.95)
     );
 
   box-shadow:
@@ -715,7 +739,6 @@ body.menu-open{
 
 .card-label{
   position:relative;
-
   z-index:2;
 
   color:#67dcff;
@@ -730,7 +753,6 @@ body.menu-open{
 
 .section-title{
   position:relative;
-
   z-index:2;
 
   font-size:21px;
@@ -741,7 +763,6 @@ body.menu-open{
 
 .text{
   position:relative;
-
   z-index:2;
 
   color:#d0d0d0;
@@ -753,11 +774,13 @@ body.menu-open{
 
 .highlight{
   color:#67dcff;
+
   font-weight:bold;
 }
 
 .highlight-fire{
   color:#ff751c;
+
   font-weight:bold;
 }
 
@@ -768,7 +791,6 @@ body.menu-open{
 
 .values{
   position:relative;
-
   z-index:2;
 
   display:grid;
@@ -783,7 +805,7 @@ body.menu-open{
 
   overflow:hidden;
 
-  min-height:120px;
+  min-height:122px;
 
   padding:
     18px
@@ -859,7 +881,6 @@ body.menu-open{
 
 .value-title{
   position:relative;
-
   z-index:2;
 
   font-size:14px;
@@ -874,7 +895,6 @@ body.menu-open{
 
 .value-text{
   position:relative;
-
   z-index:2;
 
   margin-top:6px;
@@ -895,13 +915,12 @@ body.menu-open{
   text-align:center;
 
   padding:
-    31px
+    32px
     20px;
 }
 
 .motto-small{
   position:relative;
-
   z-index:2;
 
   color:#888;
@@ -916,7 +935,6 @@ body.menu-open{
 
 .quote{
   position:relative;
-
   z-index:2;
 
   font-size:
@@ -1001,6 +1019,10 @@ body.menu-open{
 
   .card{
     padding:20px;
+  }
+
+  .text{
+    font-size:11px;
   }
 
 }
@@ -1248,14 +1270,14 @@ VISIT OFFICIAL WEBSITE
 
 
 <!-- =========================================
-     ABOUT BANNER
+     ABOUT TEAM WOLFPACK BANNER
 ========================================= -->
 
 <section class="about-banner">
 
 <img
   src="about-banner.png"
-  alt="About Team Wolfpack"
+  alt="About Team Wolfpack - One Pack One Purpose"
 >
 
 </section>
@@ -1341,7 +1363,9 @@ where they can grow in confidence, discipline and strength.
 </section>
 
 
-<!-- WHAT WE STAND FOR -->
+<!-- =========================================
+     OUR VALUES
+========================================= -->
 
 <section class="card">
 
@@ -1365,6 +1389,8 @@ WE STAND FOR
 <div class="values">
 
 
+<!-- STRENGTH -->
+
 <div class="value-card">
 
 <div class="value-number">
@@ -1385,6 +1411,8 @@ Finding the strength to keep moving forward, inside and outside the ring.
 
 </div>
 
+
+<!-- LOYALTY -->
 
 <div class="value-card">
 
@@ -1407,6 +1435,8 @@ Standing beside the people who represent and support the pack.
 </div>
 
 
+<!-- UNITY -->
+
 <div class="value-card">
 
 <div class="value-number">
@@ -1427,6 +1457,8 @@ Different fighters and teams, brought together as one Team Wolfpack.
 
 </div>
 
+
+<!-- PURPOSE -->
 
 <div class="value-card">
 
@@ -1454,7 +1486,9 @@ Using boxing to build confidence, discipline and something worth fighting for.
 </section>
 
 
-<!-- MOTTO -->
+<!-- =========================================
+     MOTTO
+========================================= -->
 
 <section class="card motto-card">
 
