@@ -524,139 +524,37 @@ body.menu-open{
 
 
 /* =========================================
-   HERO
+   TEAM WOLFPACK HOME BANNER
    ========================================= */
 
-.hero{
+.home-banner{
   position:relative;
+
+  width:100%;
 
   overflow:hidden;
 
-  text-align:center;
+  background:#020202;
 
-  padding:
-    28px
-    18px
-    25px;
+  border-bottom:
+    1px solid rgba(255,255,255,.10);
+
+  box-shadow:
+    0 12px 35px rgba(0,0,0,.35);
 }
 
-.hero::before{
-  content:"";
+.home-banner-image{
+  display:block;
 
-  position:absolute;
+  width:100%;
+  height:auto;
 
-  left:0;
-  top:0;
-  bottom:0;
+  max-height:360px;
 
-  width:45%;
+  object-fit:cover;
+  object-position:center;
 
-  background:
-    radial-gradient(
-      circle at left center,
-      rgba(0,190,255,.16),
-      transparent 70%
-    );
-
-  pointer-events:none;
-}
-
-.hero::after{
-  content:"";
-
-  position:absolute;
-
-  right:0;
-  top:0;
-  bottom:0;
-
-  width:45%;
-
-  background:
-    radial-gradient(
-      circle at right center,
-      rgba(255,90,0,.16),
-      transparent 70%
-    );
-
-  pointer-events:none;
-}
-
-.hero-logo{
-  position:relative;
-  z-index:2;
-
-  width:112px;
-  height:112px;
-
-  object-fit:contain;
-
-  filter:
-    drop-shadow(
-      0 0 15px rgba(51,201,255,.22)
-    )
-    drop-shadow(
-      0 0 15px rgba(255,92,0,.20)
-    );
-}
-
-.hero-eyebrow{
-  position:relative;
-  z-index:2;
-
-  margin-top:8px;
-
-  color:#777;
-
-  font-size:7px;
-  font-weight:900;
-
-  letter-spacing:3px;
-}
-
-.hero-title{
-  position:relative;
-  z-index:2;
-
-  margin-top:7px;
-
-  font-size:
-    clamp(
-      28px,
-      8vw,
-      40px
-    );
-
-  font-weight:900;
-
-  letter-spacing:1.5px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #61d9ff 0%,
-      #eafaff 46%,
-      #ff6414 54%,
-      #ff9b35 100%
-    );
-
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
-}
-
-.hero-tagline{
-  position:relative;
-  z-index:2;
-
-  margin-top:7px;
-
-  color:#ddd;
-
-  font-size:8px;
-  font-weight:900;
-
-  letter-spacing:3px;
+  margin:0 auto;
 }
 
 
@@ -776,14 +674,12 @@ body.menu-open{
     saturate(.98);
 }
 
-/* Mrs Wolfie */
 .fighter-side.left .fighter-photo{
   object-position:42% 18%;
 }
 
-/* Colleen Leyden */
 .fighter-side.right .fighter-photo{
-  object-position:50% 20%;
+  object-position:50% 28%;
 }
 
 .fighter-side.left::after{
@@ -1093,7 +989,7 @@ body.menu-open{
 
   overflow:hidden;
 
-  min-height:170px;
+  min-height:190px;
 
   border-radius:16px;
 
@@ -1126,9 +1022,16 @@ body.menu-open{
   height:100%;
 
   object-fit:cover;
-  object-position:center top;
 
-  opacity:.72;
+  opacity:.82;
+}
+
+.home-fighter-card:first-child .home-fighter-image{
+  object-position:center 28%;
+}
+
+.home-fighter-card:last-child .home-fighter-image{
+  object-position:center 32%;
 }
 
 .home-fighter-card::after{
@@ -1141,8 +1044,8 @@ body.menu-open{
   background:
     linear-gradient(
       0deg,
-      rgba(0,0,0,.96),
-      rgba(0,0,0,.05) 75%
+      rgba(0,0,0,.90),
+      rgba(0,0,0,.04) 68%
     );
 }
 
@@ -1489,11 +1392,6 @@ body.menu-open{
 
 @media(min-width:650px){
 
-  .hero-logo{
-    width:130px;
-    height:130px;
-  }
-
   .next-fight{
     min-height:500px;
   }
@@ -1508,6 +1406,25 @@ body.menu-open{
 
   .home-fighter-card{
     min-height:240px;
+  }
+
+}
+
+
+/* =========================================
+   MOBILE BANNER
+   ========================================= */
+
+@media(max-width:600px){
+
+  .home-banner-image{
+    width:100%;
+
+    min-height:150px;
+    max-height:210px;
+
+    object-fit:cover;
+    object-position:center;
   }
 
 }
@@ -1539,7 +1456,7 @@ body.menu-open{
   }
 
   .fighter-side.right .fighter-photo{
-    object-position:50% 18%;
+    object-position:50% 30%;
   }
 
   .fighter-name{
@@ -1568,6 +1485,18 @@ body.menu-open{
 
   .promotion{
     font-size:17px;
+  }
+
+  .home-fighter-card{
+    min-height:170px;
+  }
+
+  .home-fighter-card:first-child .home-fighter-image{
+    object-position:center 30%;
+  }
+
+  .home-fighter-card:last-child .home-fighter-image{
+    object-position:center 34%;
   }
 
 }
@@ -1633,6 +1562,8 @@ TEAM WOLFPACK
 
 </header>
 
+
+<!-- MENU BACKDROP -->
 
 <div
   id="menuBackdrop"
@@ -1799,28 +1730,16 @@ VISIT OFFICIAL WEBSITE
 
 
 <!-- =========================================
-     HERO
+     TEAM WOLFPACK BANNER
      ========================================= -->
 
-<section class="hero">
+<section class="home-banner">
 
 <img
-  src="icon-512.png"
-  class="hero-logo"
-  alt="Team Wolfpack"
+  src="team-wolfpack-banner.png"
+  class="home-banner-image"
+  alt="Team Wolfpack - One Pack One Purpose"
 >
-
-<div class="hero-eyebrow">
-OFFICIAL MOBILE APP
-</div>
-
-<h1 class="hero-title">
-TEAM WOLFPACK
-</h1>
-
-<div class="hero-tagline">
-ONE PACK • ONE PURPOSE
-</div>
 
 </section>
 
