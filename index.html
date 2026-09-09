@@ -99,7 +99,6 @@ body.menu-open{
 
 .app-bar{
   position:fixed;
-
   top:0;
   left:0;
   right:0;
@@ -114,12 +113,7 @@ body.menu-open{
     0;
 
   display:grid;
-
-  grid-template-columns:
-    46px
-    1fr
-    46px;
-
+  grid-template-columns:46px 1fr 46px;
   align-items:center;
 
   background:rgba(4,4,4,.96);
@@ -194,7 +188,6 @@ body.menu-open{
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-
   background-clip:text;
 }
 
@@ -338,7 +331,6 @@ body.menu-open{
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-
   background-clip:text;
 }
 
@@ -650,7 +642,6 @@ body.menu-open{
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-
   background-clip:text;
 }
 
@@ -719,10 +710,12 @@ body.menu-open{
   background:
     linear-gradient(
       90deg,
-      rgba(0,180,245,.28),
-      rgba(0,0,0,.20) 43%,
-      rgba(0,0,0,.20) 57%,
-      rgba(255,90,0,.30)
+      rgba(0,180,245,.22),
+      rgba(0,0,0,.12) 35%,
+      rgba(0,0,0,.70) 48%,
+      rgba(0,0,0,.70) 52%,
+      rgba(0,0,0,.12) 65%,
+      rgba(255,90,0,.25)
     );
 
   z-index:2;
@@ -742,7 +735,7 @@ body.menu-open{
   box-shadow:
     inset 4px 0 0 #38d5ff,
     inset -4px 0 0 #ff6a14,
-    inset 0 0 28px rgba(0,0,0,.45);
+    inset 0 0 28px rgba(0,0,0,.40);
 
   z-index:7;
 
@@ -755,9 +748,11 @@ body.menu-open{
   top:0;
   bottom:0;
 
-  width:55%;
+  width:50%;
 
   overflow:hidden;
+
+  background:#050505;
 }
 
 .fighter-side.left{
@@ -772,19 +767,23 @@ body.menu-open{
   width:100%;
   height:100%;
 
+  display:block;
+
   object-fit:cover;
 
   filter:
     contrast(1.04)
-    saturate(.95);
+    saturate(.98);
 }
 
+/* Mrs Wolfie */
 .fighter-side.left .fighter-photo{
-  object-position:center 18%;
+  object-position:42% 18%;
 }
 
+/* Colleen Leyden */
 .fighter-side.right .fighter-photo{
-  object-position:center 20%;
+  object-position:50% 20%;
 }
 
 .fighter-side.left::after{
@@ -796,9 +795,9 @@ body.menu-open{
   background:
     linear-gradient(
       90deg,
-      rgba(0,125,190,.12),
-      rgba(0,0,0,.22) 55%,
-      #050505 100%
+      rgba(0,125,190,.10),
+      rgba(0,0,0,.08) 52%,
+      rgba(5,5,5,.88) 100%
     );
 }
 
@@ -811,9 +810,9 @@ body.menu-open{
   background:
     linear-gradient(
       270deg,
-      rgba(210,60,0,.14),
-      rgba(0,0,0,.22) 55%,
-      #050505 100%
+      rgba(210,60,0,.10),
+      rgba(0,0,0,.08) 52%,
+      rgba(5,5,5,.88) 100%
     );
 }
 
@@ -836,6 +835,8 @@ body.menu-open{
     28px
     20px
     102px;
+
+  pointer-events:none;
 }
 
 .next-label{
@@ -845,6 +846,9 @@ body.menu-open{
   font-weight:900;
 
   letter-spacing:4px;
+
+  text-shadow:
+    0 2px 8px #000;
 }
 
 .promotion{
@@ -904,7 +908,6 @@ body.menu-open{
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-
   background-clip:text;
 
   filter:
@@ -973,6 +976,8 @@ body.menu-open{
 
   backdrop-filter:blur(8px);
   -webkit-backdrop-filter:blur(8px);
+
+  pointer-events:auto;
 }
 
 .fighter-name{
@@ -1121,7 +1126,6 @@ body.menu-open{
   height:100%;
 
   object-fit:cover;
-
   object-position:center top;
 
   opacity:.72;
@@ -1498,10 +1502,6 @@ body.menu-open{
     min-height:500px;
   }
 
-  .fighter-side{
-    width:52%;
-  }
-
   .fighter-name{
     bottom:27px;
   }
@@ -1526,24 +1526,36 @@ body.menu-open{
   .fight-centre{
     min-height:410px;
 
-    padding-left:10px;
-    padding-right:10px;
+    padding-left:8px;
+    padding-right:8px;
   }
 
   .fighter-side{
-    width:63%;
+    width:50%;
   }
 
   .fighter-side.left .fighter-photo{
-    object-position:38% 20%;
+    object-position:40% 20%;
   }
 
   .fighter-side.right .fighter-photo{
-    object-position:58% 18%;
+    object-position:50% 18%;
+  }
+
+  .fighter-name{
+    width:47%;
+  }
+
+  .fighter-name.left{
+    left:1.5%;
+  }
+
+  .fighter-name.right{
+    right:1.5%;
   }
 
   .fighter-name strong{
-    font-size:17px;
+    font-size:16px;
   }
 
   .fighter-name span{
@@ -1552,6 +1564,10 @@ body.menu-open{
 
   .fight-detail{
     font-size:9px;
+  }
+
+  .promotion{
+    font-size:17px;
   }
 
 }
@@ -1594,7 +1610,6 @@ body.menu-open{
 ☰
 </button>
 
-
 <div class="app-bar-brand">
 
 <img
@@ -1609,7 +1624,6 @@ TEAM WOLFPACK
 
 </div>
 
-
 <div
   class="app-status"
   aria-label="App online"
@@ -1619,10 +1633,6 @@ TEAM WOLFPACK
 
 </header>
 
-
-<!-- =========================================
-     MENU BACKDROP
-     ========================================= -->
 
 <div
   id="menuBackdrop"
@@ -1672,7 +1682,6 @@ ONE PACK • ONE PURPOSE
 MAIN
 </div>
 
-
 <nav class="menu-nav">
 
 <a class="menu-link active" href="index.html">
@@ -1711,7 +1720,6 @@ MAIN
 <div class="menu-section-label">
 EXPLORE
 </div>
-
 
 <nav class="menu-nav">
 
@@ -1948,7 +1956,6 @@ VIEW FIGHTERS →
 
 <div class="fighter-grid">
 
-
 <a
   class="home-fighter-card"
   href="mrs-wolfie.html"
@@ -2006,7 +2013,6 @@ TEAM SLOAN
 
 </a>
 
-
 </div>
 
 
@@ -2031,7 +2037,6 @@ VIEW ALL FIGHTS →
 
 
 <div class="next-list">
-
 
 <a
   class="next-item"
@@ -2140,7 +2145,6 @@ Hampden Park • Unfinished Business
 
 </a>
 
-
 </div>
 
 
@@ -2235,7 +2239,6 @@ OFFICIALTEAMWOLFPACK.COM
 TEAM WOLFPACK • STRENGTH IN UNITY
 </footer>
 
-
 </main>
 
 
@@ -2295,18 +2298,15 @@ menuButton.addEventListener(
   openMenu
 );
 
-
 closeMenuButton.addEventListener(
   "click",
   closeMenu
 );
 
-
 menuBackdrop.addEventListener(
   "click",
   closeMenu
 );
-
 
 document.addEventListener(
   "keydown",
@@ -2318,7 +2318,6 @@ document.addEventListener(
 
   }
 );
-
 
 document
   .querySelectorAll(".menu-link")
