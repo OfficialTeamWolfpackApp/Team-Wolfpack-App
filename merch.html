@@ -63,17 +63,18 @@ body{
   font-family:Arial, Helvetica, sans-serif;
 
   color:#fff;
+
   overflow-x:hidden;
 
   background:
     radial-gradient(
-      circle at 0% 15%,
-      rgba(0,190,255,.22),
+      circle at 0% 18%,
+      rgba(0,190,255,.20),
       transparent 31%
     ),
     radial-gradient(
-      circle at 100% 60%,
-      rgba(255,85,0,.22),
+      circle at 100% 65%,
+      rgba(255,85,0,.20),
       transparent 34%
     ),
     linear-gradient(
@@ -91,7 +92,7 @@ body.menu-open{
 
 /* =========================================
    APP BAR
-   ========================================= */
+========================================= */
 
 .app-bar{
   position:fixed;
@@ -110,11 +111,15 @@ body.menu-open{
     0;
 
   display:grid;
-  grid-template-columns:46px 1fr 46px;
+
+  grid-template-columns:
+    46px
+    1fr
+    46px;
 
   align-items:center;
 
-  background:rgba(4,4,4,.96);
+  background:rgba(4,4,4,.97);
 
   border-bottom:
     1px solid rgba(255,255,255,.10);
@@ -131,6 +136,7 @@ body.menu-open{
   height:42px;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
@@ -139,16 +145,19 @@ body.menu-open{
   border:
     1px solid rgba(103,220,255,.22);
 
-  background:rgba(0,150,210,.07);
+  background:
+    rgba(0,150,210,.07);
 
   color:#67dcff;
 
   cursor:pointer;
+
   font-size:24px;
 }
 
 .app-bar-brand{
   display:flex;
+
   align-items:center;
   justify-content:center;
 
@@ -185,6 +194,7 @@ body.menu-open{
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
+
   background-clip:text;
 }
 
@@ -193,6 +203,7 @@ body.menu-open{
   height:42px;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 }
@@ -212,15 +223,17 @@ body.menu-open{
 
 /* =========================================
    MENU BACKDROP
-   ========================================= */
+========================================= */
 
 .menu-backdrop{
   position:fixed;
+
   inset:0;
 
   z-index:800;
 
   visibility:hidden;
+
   opacity:0;
 
   background:rgba(0,0,0,.72);
@@ -241,7 +254,7 @@ body.menu-open{
 
 /* =========================================
    SIDE MENU
-   ========================================= */
+========================================= */
 
 .side-menu{
   position:fixed;
@@ -259,6 +272,7 @@ body.menu-open{
   transition:transform .28s ease;
 
   overflow-y:auto;
+
   overscroll-behavior:contain;
 
   padding:
@@ -328,6 +342,7 @@ body.menu-open{
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
+
   background-clip:text;
 }
 
@@ -356,7 +371,8 @@ body.menu-open{
   border:
     1px solid rgba(255,117,28,.25);
 
-  background:rgba(255,90,0,.07);
+  background:
+    rgba(255,90,0,.07);
 
   color:#ff751c;
 
@@ -366,7 +382,10 @@ body.menu-open{
 }
 
 .menu-section-label{
-  margin:20px 8px 8px;
+  margin:
+    20px
+    8px
+    8px;
 
   color:#666;
 
@@ -378,6 +397,7 @@ body.menu-open{
 
 .menu-nav{
   display:flex;
+
   flex-direction:column;
 
   gap:4px;
@@ -385,6 +405,7 @@ body.menu-open{
 
 .menu-link{
   display:flex;
+
   align-items:center;
 
   min-height:48px;
@@ -397,7 +418,8 @@ body.menu-open{
 
   color:#d7d7d7;
 
-  border:1px solid transparent;
+  border:
+    1px solid transparent;
 
   font-size:10px;
   font-weight:900;
@@ -412,20 +434,22 @@ body.menu-open{
 .menu-link.active{
   color:#67dcff;
 
-  border-color:rgba(103,220,255,.22);
+  border-color:
+    rgba(103,220,255,.22);
 
   background:
     linear-gradient(
       90deg,
       rgba(0,160,220,.12),
-      rgba(0,160,220,.03)
+      rgba(255,90,0,.06)
     );
 }
 
 .menu-link.chat{
   color:#fff;
 
-  border-color:rgba(103,220,255,.15);
+  border-color:
+    rgba(103,220,255,.15);
 
   background:
     linear-gradient(
@@ -437,6 +461,7 @@ body.menu-open{
 
 .menu-icon{
   width:34px;
+
   flex:0 0 34px;
 
   text-align:center;
@@ -461,7 +486,7 @@ body.menu-open{
 
 /* =========================================
    ADMIN MENU
-   ========================================= */
+========================================= */
 
 #adminMenuSection{
   display:none;
@@ -470,7 +495,8 @@ body.menu-open{
 .admin-menu-link{
   color:#ffb05d;
 
-  border-color:rgba(255,117,28,.22);
+  border-color:
+    rgba(255,117,28,.22);
 
   background:
     linear-gradient(
@@ -517,78 +543,107 @@ body.menu-open{
 
 
 /* =========================================
-   PAGE HERO
-   ========================================= */
+   MERCH BANNER
+========================================= */
 
-.page-hero{
+.merch-banner{
   position:relative;
+
+  width:100%;
 
   overflow:hidden;
 
-  text-align:center;
+  background:#020202;
 
-  padding:
-    34px
-    18px
-    28px;
+  border-bottom:
+    1px solid rgba(255,255,255,.10);
+
+  box-shadow:
+    0 12px 35px rgba(0,0,0,.38);
 }
 
-.page-hero::after{
+.merch-banner img{
+  display:block;
+
+  width:100%;
+  height:auto;
+
+  max-height:430px;
+
+  object-fit:cover;
+  object-position:center;
+}
+
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.content{
+  width:100%;
+
+  max-width:920px;
+
+  margin:auto;
+
+  padding:
+    27px
+    16px
+    calc(45px + env(safe-area-inset-bottom));
+}
+
+
+/* =========================================
+   CONTENT HEADING
+========================================= */
+
+.content-heading{
+  position:relative;
+
+  margin-bottom:22px;
+
+  padding-bottom:17px;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.08);
+}
+
+.content-heading::after{
   content:"";
 
   position:absolute;
 
   left:0;
   right:0;
-  bottom:0;
+  bottom:-1px;
 
   height:1px;
 
   background:
     linear-gradient(
       90deg,
-      transparent,
       #4bd8ff,
-      rgba(255,255,255,.15),
-      #ff6200,
-      transparent
+      rgba(255,255,255,.08) 50%,
+      #ff6200
     );
 }
 
-.hero-logo{
-  width:100px;
-  height:100px;
-
-  object-fit:contain;
-
-  filter:
-    drop-shadow(
-      0 0 13px rgba(51,201,255,.23)
-    )
-    drop-shadow(
-      0 0 13px rgba(255,92,0,.20)
-    );
-}
-
-.hero-brand{
-  margin-top:8px;
-
-  color:#777;
+.content-label{
+  color:#67dcff;
 
   font-size:7px;
   font-weight:900;
 
-  letter-spacing:3px;
+  letter-spacing:2px;
 }
 
-.page-title{
-  margin-top:15px;
+.content-heading h1{
+  margin-top:6px;
 
-  font-size:clamp(27px,8vw,36px);
-
+  font-size:21px;
   font-weight:900;
 
-  letter-spacing:1px;
+  letter-spacing:.4px;
 }
 
 .ice{
@@ -599,37 +654,25 @@ body.menu-open{
   color:#ff751c;
 }
 
-.subtitle{
-  margin-top:8px;
+.content-heading p{
+  margin-top:7px;
 
   color:#999;
 
-  font-size:11px;
+  font-size:10px;
 
-  line-height:1.5;
+  line-height:1.6;
 }
 
 
 /* =========================================
-   CONTENT
-   ========================================= */
-
-.content{
-  width:100%;
-  max-width:780px;
-
-  margin:auto;
-
-  padding:
-    28px
-    16px
-    calc(45px + env(safe-area-inset-bottom));
-}
+   INTRO
+========================================= */
 
 .intro{
   padding:20px;
 
-  margin-bottom:28px;
+  margin-bottom:30px;
 
   border-radius:16px;
 
@@ -651,22 +694,33 @@ body.menu-open{
 .intro p{
   color:#d0d0d0;
 
-  font-size:12px;
+  font-size:11px;
 
-  line-height:1.7;
+  line-height:1.75;
 }
 
 
 /* =========================================
-   COLLECTION HEADING
-   ========================================= */
+   COLLECTION HEADER
+========================================= */
 
-.content-heading{
+.collection-header{
+  display:flex;
+
+  align-items:flex-end;
+  justify-content:space-between;
+
+  gap:15px;
+
   margin-bottom:17px;
 }
 
-.content-label{
-  color:#67dcff;
+.collection-title{
+  min-width:0;
+}
+
+.collection-label{
+  color:#888;
 
   font-size:7px;
   font-weight:900;
@@ -674,40 +728,54 @@ body.menu-open{
   letter-spacing:2px;
 }
 
-.content-heading h2{
-  margin-top:6px;
+.collection-title h2{
+  margin-top:5px;
 
   font-size:19px;
   font-weight:900;
 }
 
-.content-heading p{
-  margin-top:6px;
+.collection-count{
+  flex:0 0 auto;
 
-  color:#888;
+  padding:
+    6px
+    9px;
 
-  font-size:10px;
+  border-radius:20px;
 
-  line-height:1.5;
+  border:
+    1px solid rgba(255,255,255,.12);
+
+  background:
+    rgba(255,255,255,.03);
+
+  color:#aaa;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:1px;
 }
 
 
 /* =========================================
    MERCH GRID
-   ========================================= */
+========================================= */
 
 .merch-grid{
   display:grid;
 
-  grid-template-columns:repeat(2,1fr);
+  grid-template-columns:
+    repeat(2,1fr);
 
-  gap:12px;
+  gap:13px;
 }
 
 
 /* =========================================
    MERCH CARD
-   ========================================= */
+========================================= */
 
 .merch-card{
   display:block;
@@ -716,7 +784,7 @@ body.menu-open{
 
   overflow:hidden;
 
-  border-radius:16px;
+  border-radius:17px;
 
   border:
     1px solid rgba(255,255,255,.12);
@@ -729,12 +797,12 @@ body.menu-open{
     linear-gradient(
       135deg,
       rgba(0,170,230,.12),
-      rgba(8,8,8,.94) 50%,
+      rgba(8,8,8,.96) 50%,
       rgba(255,90,0,.12)
     );
 
   box-shadow:
-    0 10px 28px rgba(0,0,0,.28);
+    0 12px 30px rgba(0,0,0,.30);
 }
 
 .merch-card::before{
@@ -748,12 +816,12 @@ body.menu-open{
 
   width:3px;
 
+  z-index:4;
+
   background:#4bd8ff;
 
   box-shadow:
-    0 0 10px rgba(75,216,255,.45);
-
-  z-index:3;
+    0 0 11px rgba(75,216,255,.45);
 }
 
 .merch-card::after{
@@ -767,12 +835,12 @@ body.menu-open{
 
   width:3px;
 
+  z-index:4;
+
   background:#ff6500;
 
   box-shadow:
-    0 0 10px rgba(255,101,0,.40);
-
-  z-index:3;
+    0 0 11px rgba(255,101,0,.40);
 }
 
 .merch-card:active{
@@ -781,8 +849,8 @@ body.menu-open{
 
 
 /* =========================================
-   PRODUCT IMAGE
-   ========================================= */
+   PRODUCT DISPLAY
+========================================= */
 
 .product-image{
   position:relative;
@@ -790,54 +858,84 @@ body.menu-open{
   aspect-ratio:1 / 1;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
-  text-align:center;
+  overflow:hidden;
 
   border-bottom:
     1px solid rgba(255,255,255,.08);
 
   background:
     radial-gradient(
-      circle at 25% 25%,
-      rgba(0,190,255,.15),
-      transparent 35%
+      circle at 20% 25%,
+      rgba(0,190,255,.20),
+      transparent 37%
     ),
     radial-gradient(
-      circle at 75% 75%,
-      rgba(255,85,0,.15),
-      transparent 35%
+      circle at 80% 75%,
+      rgba(255,85,0,.20),
+      transparent 37%
     ),
-    #090909;
+    linear-gradient(
+      135deg,
+      #071219,
+      #080808 50%,
+      #170a04
+    );
+}
+
+.product-image::before{
+  content:"";
+
+  position:absolute;
+
+  width:65%;
+  height:65%;
+
+  border-radius:50%;
+
+  border:
+    1px solid rgba(255,255,255,.06);
+
+  box-shadow:
+    0 0 40px rgba(0,190,255,.05);
 }
 
 .product-symbol{
-  width:62px;
-  height:62px;
+  position:relative;
+
+  z-index:2;
+
+  width:76px;
+  height:76px;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
-  border-radius:18px;
+  border-radius:21px;
 
   border:
-    1px solid rgba(103,220,255,.18);
+    1px solid rgba(103,220,255,.20);
 
   background:
     linear-gradient(
       135deg,
-      rgba(0,160,220,.09),
-      rgba(255,90,0,.09)
+      rgba(0,160,220,.13),
+      rgba(5,5,5,.78) 50%,
+      rgba(255,90,0,.13)
     );
 
-  color:#67dcff;
+  color:#fff;
 
-  font-size:29px;
+  font-size:34px;
 
   box-shadow:
-    0 0 24px rgba(0,190,255,.08);
+    0 10px 30px rgba(0,0,0,.28),
+    0 0 25px rgba(0,190,255,.08);
 }
 
 .product-badge{
@@ -846,16 +944,52 @@ body.menu-open{
   top:10px;
   right:10px;
 
-  padding:5px 7px;
+  z-index:3;
+
+  padding:
+    5px
+    8px;
 
   border-radius:20px;
 
   border:
-    1px solid rgba(255,117,28,.24);
+    1px solid rgba(255,117,28,.30);
 
-  background:rgba(255,90,0,.08);
+  background:
+    rgba(5,5,5,.82);
 
-  color:#ff751c;
+  color:#ff8a3d;
+
+  font-size:6px;
+  font-weight:900;
+
+  letter-spacing:.8px;
+
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+
+.product-category{
+  position:absolute;
+
+  left:10px;
+  bottom:10px;
+
+  z-index:3;
+
+  padding:
+    5px
+    8px;
+
+  border-radius:20px;
+
+  background:
+    rgba(0,0,0,.68);
+
+  border:
+    1px solid rgba(103,220,255,.18);
+
+  color:#67dcff;
 
   font-size:6px;
   font-weight:900;
@@ -866,13 +1000,15 @@ body.menu-open{
 
 /* =========================================
    PRODUCT INFO
-   ========================================= */
+========================================= */
 
 .product-info{
   padding:15px;
 }
 
 .product-name{
+  min-height:34px;
+
   font-size:13px;
   font-weight:900;
 
@@ -880,7 +1016,7 @@ body.menu-open{
 }
 
 .product-type{
-  min-height:30px;
+  min-height:31px;
 
   margin-top:6px;
 
@@ -925,30 +1061,41 @@ body.menu-open{
 
 /* =========================================
    CTA
-   ========================================= */
+========================================= */
 
 .cta{
-  margin-top:28px;
+  position:relative;
 
-  padding:23px;
+  overflow:hidden;
+
+  margin-top:31px;
+
+  padding:
+    25px
+    21px;
 
   text-align:center;
 
   border-radius:17px;
 
   border:
-    1px solid rgba(255,117,28,.35);
+    1px solid rgba(103,220,255,.28);
 
   background:
-    linear-gradient(
-      110deg,
-      rgba(0,170,230,.10),
-      rgba(8,8,8,.94) 50%,
-      rgba(255,90,0,.15)
-    );
+    radial-gradient(
+      circle at 0% 40%,
+      rgba(0,190,255,.14),
+      transparent 38%
+    ),
+    radial-gradient(
+      circle at 100% 60%,
+      rgba(255,90,0,.14),
+      transparent 38%
+    ),
+    rgba(8,8,8,.95);
 
   box-shadow:
-    0 12px 32px rgba(0,0,0,.28);
+    0 12px 32px rgba(0,0,0,.30);
 }
 
 .cta-label{
@@ -961,20 +1108,25 @@ body.menu-open{
 }
 
 .cta h2{
-  margin-top:6px;
+  margin-top:7px;
 
-  font-size:20px;
+  font-size:21px;
   font-weight:900;
 }
 
 .cta p{
-  margin-top:9px;
+  max-width:520px;
+
+  margin:
+    10px
+    auto
+    0;
 
   color:#aaa;
 
-  font-size:11px;
+  font-size:10px;
 
-  line-height:1.6;
+  line-height:1.65;
 }
 
 .cta-button{
@@ -983,9 +1135,9 @@ body.menu-open{
   align-items:center;
   justify-content:center;
 
-  min-height:48px;
+  min-height:49px;
 
-  margin-top:17px;
+  margin-top:18px;
 
   padding:13px;
 
@@ -998,7 +1150,7 @@ body.menu-open{
 
   color:#fff;
 
-  font-size:9px;
+  font-size:8px;
   font-weight:900;
 
   letter-spacing:1px;
@@ -1006,8 +1158,8 @@ body.menu-open{
   background:
     linear-gradient(
       90deg,
-      rgba(0,160,220,.10),
-      rgba(255,90,0,.10)
+      rgba(0,160,220,.14),
+      rgba(255,90,0,.13)
     );
 }
 
@@ -1018,10 +1170,10 @@ body.menu-open{
 
 /* =========================================
    FOOTER
-   ========================================= */
+========================================= */
 
 .app-footer{
-  margin-top:28px;
+  margin-top:30px;
 
   padding-top:20px;
 
@@ -1041,7 +1193,7 @@ body.menu-open{
 
 /* =========================================
    SMALL PHONES
-   ========================================= */
+========================================= */
 
 @media(max-width:380px){
 
@@ -1053,15 +1205,46 @@ body.menu-open{
 
 
 /* =========================================
+   MOBILE BANNER
+========================================= */
+
+@media(max-width:430px){
+
+  .merch-banner img{
+    min-height:155px;
+    max-height:205px;
+
+    object-fit:cover;
+  }
+
+  .content{
+    padding:
+      22px
+      12px
+      calc(42px + env(safe-area-inset-bottom));
+  }
+
+}
+
+
+/* =========================================
    TABLET / DESKTOP
-   ========================================= */
+========================================= */
 
 @media(min-width:720px){
 
   .merch-grid{
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:
+      repeat(4,1fr);
 
     gap:15px;
+  }
+
+  .product-symbol{
+    width:82px;
+    height:82px;
+
+    font-size:37px;
   }
 
 }
@@ -1069,7 +1252,7 @@ body.menu-open{
 
 /* =========================================
    REDUCED MOTION
-   ========================================= */
+========================================= */
 
 @media(prefers-reduced-motion:reduce){
 
@@ -1090,7 +1273,7 @@ body.menu-open{
 
 <!-- =========================================
      APP BAR
-     ========================================= -->
+========================================= -->
 
 <header class="app-bar">
 
@@ -1103,7 +1286,6 @@ body.menu-open{
 >
 ☰
 </button>
-
 
 <div class="app-bar-brand">
 
@@ -1118,7 +1300,6 @@ TEAM WOLFPACK
 </div>
 
 </div>
-
 
 <div
   class="app-status"
@@ -1140,7 +1321,7 @@ TEAM WOLFPACK
 
 <!-- =========================================
      SIDE MENU
-     ========================================= -->
+========================================= -->
 
 <aside
   id="sideMenu"
@@ -1180,7 +1361,6 @@ ONE PACK • ONE PURPOSE
 MAIN
 </div>
 
-
 <nav class="menu-nav">
 
 <a class="menu-link" href="index.html">
@@ -1219,7 +1399,6 @@ MAIN
 <div class="menu-section-label">
 EXPLORE
 </div>
-
 
 <nav class="menu-nav">
 
@@ -1299,65 +1478,27 @@ VISIT OFFICIAL WEBSITE
 
 
 <!-- =========================================
-     PAGE HERO
-     ========================================= -->
+     OFFICIAL MERCH BANNER
+========================================= -->
 
-<section class="page-hero">
+<section class="merch-banner">
 
 <img
-  src="icon-512.png"
-  class="hero-logo"
-  alt="Team Wolfpack"
+  src="merch-banner.png"
+  alt="Team Wolfpack Official Merch"
 >
-
-<div class="hero-brand">
-TEAM WOLFPACK
-</div>
-
-<h1 class="page-title">
-
-<span class="ice">
-OFFICIAL
-</span>
-
-<span class="fire">
-MERCH
-</span>
-
-</h1>
-
-<p class="subtitle">
-Official Team Wolfpack clothing and merchandise.
-</p>
 
 </section>
 
 
 <!-- =========================================
      CONTENT
-     ========================================= -->
+========================================= -->
 
 <main class="content">
 
 
-<!-- INTRO -->
-
-<div class="intro">
-
-<p>
-The Team Wolfpack merch section is being built to bring together
-official clothing, fight wear and supporter gear in one place.
-
-<br><br>
-
-Product images, prices, sizes and ordering links can all be added
-directly into the app when they are ready.
-</p>
-
-</div>
-
-
-<!-- COLLECTION HEADING -->
+<!-- INTRO HEADING -->
 
 <div class="content-heading">
 
@@ -1365,28 +1506,62 @@ directly into the app when they are ready.
 OFFICIAL TEAM WOLFPACK
 </div>
 
-<h2>
-
-<span class="ice">
-WOLFPACK
-</span>
-
-<span class="fire">
-COLLECTION
-</span>
-
-</h2>
+<h1>
+<span class="ice">WOLFPACK</span>
+<span class="fire">MERCH</span>
+</h1>
 
 <p>
-Official clothing, fight wear and supporter gear.
+Wear the pack. Represent the pack.
 </p>
+
+</div>
+
+
+<!-- INTRO -->
+
+<div class="intro">
+
+<p>
+The Team Wolfpack merch collection brings together official
+clothing, fight wear and supporter gear under one identity.
+
+<br><br>
+
+Product images, prices, sizes and ordering options will be
+added directly into the app as each item becomes available.
+</p>
+
+</div>
+
+
+<!-- COLLECTION HEADER -->
+
+<div class="collection-header">
+
+<div class="collection-title">
+
+<div class="collection-label">
+THE COLLECTION
+</div>
+
+<h2>
+<span class="ice">OFFICIAL</span>
+<span class="fire">MERCH</span>
+</h2>
+
+</div>
+
+<div class="collection-count">
+4 ITEMS
+</div>
 
 </div>
 
 
 <!-- =========================================
      MERCH GRID
-     ========================================= -->
+========================================= -->
 
 <div class="merch-grid">
 
@@ -1409,8 +1584,12 @@ Official clothing, fight wear and supporter gear.
 COMING SOON
 </div>
 
+<div class="product-category">
+CLOTHING
+</div>
+
 <div class="product-symbol">
-✦
+♛
 </div>
 
 </div>
@@ -1452,8 +1631,12 @@ COMING SOON
 COMING SOON
 </div>
 
+<div class="product-category">
+FIGHT WEAR
+</div>
+
 <div class="product-symbol">
-✦
+⚡
 </div>
 
 </div>
@@ -1495,8 +1678,12 @@ COMING SOON
 COMING SOON
 </div>
 
+<div class="product-category">
+BOXING WEAR
+</div>
+
 <div class="product-symbol">
-✦
+◆
 </div>
 
 </div>
@@ -1538,8 +1725,12 @@ COMING SOON
 COMING SOON
 </div>
 
+<div class="product-category">
+SUPPORTER GEAR
+</div>
+
 <div class="product-symbol">
-✦
+★
 </div>
 
 </div>
@@ -1562,12 +1753,13 @@ COMING SOON
 
 </a>
 
+
 </div>
 
 
 <!-- =========================================
      CTA
-     ========================================= -->
+========================================= -->
 
 <div class="cta">
 
@@ -1576,20 +1768,14 @@ MERCH ENQUIRIES
 </div>
 
 <h2>
-
-<span class="ice">
-WANT
-</span>
-
-<span class="fire">
-TEAM WOLFPACK MERCH?
-</span>
-
+<span class="ice">REPRESENT</span>
+<span class="fire">THE PACK</span>
 </h2>
 
 <p>
-Contact Team Wolfpack for current merchandise availability,
-sizes and ordering information.
+Interested in Team Wolfpack clothing, Team Wolfie fight wear,
+boxing shorts or supporter merchandise? Contact Team Wolfpack
+for current availability, sizing and ordering information.
 </p>
 
 <a
@@ -1609,12 +1795,13 @@ CONTACT TEAM WOLFPACK
 TEAM WOLFPACK • STRENGTH IN UNITY
 </footer>
 
+
 </main>
 
 
 <!-- =========================================
      SIDE MENU JAVASCRIPT
-     ========================================= -->
+========================================= -->
 
 <script>
 
@@ -1668,18 +1855,15 @@ menuButton.addEventListener(
   openMenu
 );
 
-
 closeMenuButton.addEventListener(
   "click",
   closeMenu
 );
 
-
 menuBackdrop.addEventListener(
   "click",
   closeMenu
 );
-
 
 document.addEventListener(
   "keydown",
@@ -1709,7 +1893,7 @@ document
 
 <!-- =========================================
      ADMIN DASHBOARD VISIBILITY
-     ========================================= -->
+========================================= -->
 
 <script type="module">
 
@@ -1782,32 +1966,27 @@ onAuthStateChanged(
 
 <!-- =========================================
      SERVICE WORKER
-     ========================================= -->
+========================================= -->
 
 <script>
 
-if(
-  "serviceWorker" in navigator
-){
+if("serviceWorker" in navigator){
 
   window.addEventListener(
     "load",
     function(){
 
-      navigator.serviceWorker
-        .register(
-          "service-worker.js"
-        )
-        .catch(
-          function(error){
+      navigator
+        .serviceWorker
+        .register("service-worker.js")
+        .catch(function(error){
 
-            console.error(
-              "Service worker error:",
-              error
-            );
+          console.error(
+            "Service worker error:",
+            error
+          );
 
-          }
-        );
+        });
 
     }
   );
