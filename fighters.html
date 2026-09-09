@@ -15,6 +15,12 @@ function gtag(){
 
 gtag("js", new Date());
 gtag("config", "G-M973P0B4F0");
+
+window.addEventListener("load", function(){
+  gtag("event", "fighters_page_view", {
+    section: "Our Fighters"
+  });
+});
 </script>
 
 <meta charset="UTF-8">
@@ -117,7 +123,7 @@ body.menu-open{
   align-items:center;
 
   background:
-    rgba(4,4,4,.94);
+    rgba(4,4,4,.97);
 
   border-bottom:
     1px solid rgba(255,255,255,.10);
@@ -126,7 +132,7 @@ body.menu-open{
   -webkit-backdrop-filter:blur(18px);
 
   box-shadow:
-    0 8px 30px rgba(0,0,0,.28);
+    0 8px 30px rgba(0,0,0,.38);
 }
 
 .menu-button{
@@ -261,8 +267,7 @@ body.menu-open{
 
   width:min(84vw,340px);
 
-  transform:
-    translateX(-105%);
+  transform:translateX(-105%);
 
   transition:
     transform .28s ease;
@@ -536,99 +541,37 @@ body.menu-open{
 
 
 /* =========================================
-   PAGE HERO
+   FIGHTERS BANNER
 ========================================= */
 
-.page-hero{
+.fighters-banner{
   position:relative;
+
+  width:100%;
 
   overflow:hidden;
 
-  text-align:center;
+  background:#020202;
 
-  padding:
-    34px
-    18px
-    28px;
+  border-bottom:
+    1px solid rgba(255,255,255,.10);
+
+  box-shadow:
+    0 12px 35px rgba(0,0,0,.38);
 }
 
-.page-hero::after{
-  content:"";
+.fighters-banner-image{
+  display:block;
 
-  position:absolute;
+  width:100%;
+  height:auto;
 
-  left:0;
-  right:0;
-  bottom:0;
+  max-height:430px;
 
-  height:1px;
+  margin:0 auto;
 
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      #4bd8ff,
-      rgba(255,255,255,.15),
-      #ff6200,
-      transparent
-    );
-}
-
-.hero-logo{
-  width:100px;
-  height:100px;
-
-  object-fit:contain;
-
-  filter:
-    drop-shadow(
-      0 0 13px rgba(51,201,255,.23)
-    )
-    drop-shadow(
-      0 0 13px rgba(255,92,0,.20)
-    );
-}
-
-.hero-brand{
-  margin-top:8px;
-
-  color:#777;
-
-  font-size:7px;
-  font-weight:900;
-
-  letter-spacing:3px;
-}
-
-.page-title{
-  margin-top:15px;
-
-  font-size:
-    clamp(
-      27px,
-      8vw,
-      36px
-    );
-
-  font-weight:900;
-
-  letter-spacing:1px;
-}
-
-.ice{
-  color:#67dcff;
-}
-
-.fire{
-  color:#ff751c;
-}
-
-.subtitle{
-  margin-top:8px;
-
-  color:#999;
-
-  font-size:11px;
+  object-fit:cover;
+  object-position:center;
 }
 
 
@@ -639,21 +582,45 @@ body.menu-open{
 .content{
   width:100%;
 
-  max-width:780px;
+  max-width:920px;
 
   margin:auto;
 
   padding:
     28px
     16px
-    calc(
-      45px +
-      env(safe-area-inset-bottom)
-    );
+    calc(45px + env(safe-area-inset-bottom));
 }
 
 .content-heading{
-  margin-bottom:17px;
+  position:relative;
+
+  margin-bottom:22px;
+
+  padding-bottom:17px;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.08);
+}
+
+.content-heading::after{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  right:0;
+  bottom:-1px;
+
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #4bd8ff,
+      rgba(255,255,255,.08) 50%,
+      #ff6200
+    );
 }
 
 .content-label{
@@ -668,12 +635,14 @@ body.menu-open{
 .content-heading h2{
   margin-top:6px;
 
-  font-size:18px;
+  font-size:20px;
   font-weight:900;
+
+  letter-spacing:.4px;
 }
 
 .content-heading p{
-  margin-top:6px;
+  margin-top:7px;
 
   color:#888;
 
@@ -707,7 +676,7 @@ body.menu-open{
 
   width:100%;
 
-  min-height:205px;
+  min-height:220px;
 
   overflow:hidden;
 
@@ -730,7 +699,7 @@ body.menu-open{
     linear-gradient(
       110deg,
       rgba(22,155,210,.18),
-      rgba(10,10,10,.95) 48%,
+      rgba(10,10,10,.96) 48%,
       rgba(225,73,0,.18)
     );
 
@@ -795,7 +764,7 @@ body.menu-open{
   right:0;
   top:0;
 
-  width:155px;
+  width:165px;
   height:100%;
 
   display:block;
@@ -963,8 +932,20 @@ body.menu-open{
 
 @media(max-width:430px){
 
+  .fighters-banner-image{
+    min-height:155px;
+    max-height:205px;
+
+    object-fit:cover;
+    object-position:center;
+  }
+
+  .content{
+    padding-top:22px;
+  }
+
   .fighter{
-    min-height:190px;
+    min-height:195px;
 
     padding:
       22px
@@ -1287,36 +1268,16 @@ VISIT OFFICIAL WEBSITE
 
 
 <!-- =========================================
-     PAGE HERO
+     FIGHTERS BANNER
 ========================================= -->
 
-<section class="page-hero">
+<section class="fighters-banner">
 
 <img
-  src="icon-512.png"
-  class="hero-logo"
-  alt="Team Wolfpack"
+  src="fighters-banner.png"
+  class="fighters-banner-image"
+  alt="Team Wolfpack Fighters"
 >
-
-<div class="hero-brand">
-TEAM WOLFPACK
-</div>
-
-<h1 class="page-title">
-
-<span class="ice">
-OUR
-</span>
-
-<span class="fire">
-FIGHTERS
-</span>
-
-</h1>
-
-<p class="subtitle">
-Meet the fighters representing the Pack.
-</p>
 
 </section>
 
@@ -1368,11 +1329,8 @@ Select a fighter to view their full Team Wolfpack profile.
 >
 
 <div class="fighter-status">
-
 <span class="status-dot"></span>
-
 ACTIVE FIGHTER
-
 </div>
 
 <div class="team">
@@ -1388,13 +1346,8 @@ Boxer • Team Wolfpack
 </div>
 
 <div class="profile-action">
-
 VIEW FIGHTER PROFILE
-
-<span class="profile-arrow">
-›
-</span>
-
+<span class="profile-arrow">›</span>
 </div>
 
 </a>
@@ -1421,11 +1374,8 @@ VIEW FIGHTER PROFILE
 >
 
 <div class="fighter-status">
-
 <span class="status-dot"></span>
-
 ACTIVE FIGHTER
-
 </div>
 
 <div class="team">
@@ -1441,13 +1391,8 @@ Boxer • Team Wolfpack
 </div>
 
 <div class="profile-action">
-
 VIEW FIGHTER PROFILE
-
-<span class="profile-arrow">
-›
-</span>
-
+<span class="profile-arrow">›</span>
 </div>
 
 </a>
@@ -1469,39 +1414,25 @@ TEAM WOLFPACK • STRENGTH IN UNITY
 <script>
 
 const menuButton =
-  document.getElementById(
-    "menuButton"
-  );
+  document.getElementById("menuButton");
 
 const closeMenuButton =
-  document.getElementById(
-    "closeMenuButton"
-  );
+  document.getElementById("closeMenuButton");
 
 const sideMenu =
-  document.getElementById(
-    "sideMenu"
-  );
+  document.getElementById("sideMenu");
 
 const menuBackdrop =
-  document.getElementById(
-    "menuBackdrop"
-  );
+  document.getElementById("menuBackdrop");
 
 
 function openMenu(){
 
-  sideMenu.classList.add(
-    "show"
-  );
+  sideMenu.classList.add("show");
 
-  menuBackdrop.classList.add(
-    "show"
-  );
+  menuBackdrop.classList.add("show");
 
-  document.body.classList.add(
-    "menu-open"
-  );
+  document.body.classList.add("menu-open");
 
   menuButton.setAttribute(
     "aria-expanded",
@@ -1513,17 +1444,11 @@ function openMenu(){
 
 function closeMenu(){
 
-  sideMenu.classList.remove(
-    "show"
-  );
+  sideMenu.classList.remove("show");
 
-  menuBackdrop.classList.remove(
-    "show"
-  );
+  menuBackdrop.classList.remove("show");
 
-  document.body.classList.remove(
-    "menu-open"
-  );
+  document.body.classList.remove("menu-open");
 
   menuButton.setAttribute(
     "aria-expanded",
@@ -1552,9 +1477,7 @@ document.addEventListener(
   "keydown",
   function(event){
 
-    if(
-      event.key === "Escape"
-    ){
+    if(event.key === "Escape"){
       closeMenu();
     }
 
@@ -1562,19 +1485,15 @@ document.addEventListener(
 );
 
 document
-  .querySelectorAll(
-    ".menu-link"
-  )
-  .forEach(
-    function(link){
+  .querySelectorAll(".menu-link")
+  .forEach(function(link){
 
-      link.addEventListener(
-        "click",
-        closeMenu
-      );
+    link.addEventListener(
+      "click",
+      closeMenu
+    );
 
-    }
-  );
+  });
 
 </script>
 
@@ -1608,15 +1527,10 @@ const firebaseConfig = {
 
 
 const firebaseApp =
-  initializeApp(
-    firebaseConfig
-  );
-
+  initializeApp(firebaseConfig);
 
 const auth =
-  getAuth(
-    firebaseApp
-  );
+  getAuth(firebaseApp);
 
 
 const ADMIN_UIDS =
@@ -1638,9 +1552,7 @@ onAuthStateChanged(
 
     if(
       user &&
-      ADMIN_UIDS.has(
-        user.uid
-      )
+      ADMIN_UIDS.has(user.uid)
     ){
 
       adminMenuSection.style.display =
@@ -1665,9 +1577,7 @@ onAuthStateChanged(
 
 <script>
 
-if(
-  "serviceWorker" in navigator
-){
+if("serviceWorker" in navigator){
 
   window.addEventListener(
     "load",
@@ -1675,9 +1585,13 @@ if(
 
       navigator
         .serviceWorker
-        .register(
-          "service-worker.js"
-        );
+        .register("service-worker.js")
+        .catch(function(error){
+          console.error(
+            "Service worker error:",
+            error
+          );
+        });
 
     }
   );
