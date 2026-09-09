@@ -114,7 +114,7 @@ body.menu-open{
 
   align-items:center;
 
-  background:rgba(4,4,4,.96);
+  background:rgba(4,4,4,.97);
 
   border-bottom:
     1px solid rgba(255,255,255,.10);
@@ -418,7 +418,7 @@ body.menu-open{
     linear-gradient(
       90deg,
       rgba(0,160,220,.12),
-      rgba(0,160,220,.03)
+      rgba(255,90,0,.05)
     );
 }
 
@@ -517,101 +517,35 @@ body.menu-open{
 
 
 /* =========================================
-   PAGE HERO
+   CONTACT BANNER
 ========================================= */
 
-.page-hero{
+.contact-banner{
   position:relative;
+
+  width:100%;
 
   overflow:hidden;
 
-  text-align:center;
+  background:#020202;
 
-  padding:
-    34px
-    18px
-    28px;
+  border-bottom:
+    1px solid rgba(255,255,255,.10);
+
+  box-shadow:
+    0 12px 35px rgba(0,0,0,.38);
 }
 
-.page-hero::after{
-  content:"";
+.contact-banner img{
+  display:block;
 
-  position:absolute;
+  width:100%;
+  height:auto;
 
-  left:0;
-  right:0;
-  bottom:0;
+  max-height:430px;
 
-  height:1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      #4bd8ff,
-      rgba(255,255,255,.15),
-      #ff6200,
-      transparent
-    );
-}
-
-.hero-logo{
-  width:100px;
-  height:100px;
-
-  object-fit:contain;
-
-  filter:
-    drop-shadow(
-      0 0 13px rgba(51,201,255,.23)
-    )
-    drop-shadow(
-      0 0 13px rgba(255,92,0,.20)
-    );
-}
-
-.hero-brand{
-  margin-top:8px;
-
-  color:#777;
-
-  font-size:7px;
-  font-weight:900;
-
-  letter-spacing:3px;
-}
-
-.page-title{
-  margin-top:15px;
-
-  font-size:clamp(27px,8vw,36px);
-
-  font-weight:900;
-
-  letter-spacing:1px;
-}
-
-.ice{
-  color:#67dcff;
-}
-
-.fire{
-  color:#ff751c;
-}
-
-.subtitle{
-  max-width:500px;
-
-  margin:
-    8px
-    auto
-    0;
-
-  color:#999;
-
-  font-size:11px;
-
-  line-height:1.5;
+  object-fit:cover;
+  object-position:center;
 }
 
 
@@ -626,13 +560,40 @@ body.menu-open{
   margin:auto;
 
   padding:
-    28px
+    27px
     16px
     calc(45px + env(safe-area-inset-bottom));
 }
 
 .content-heading{
-  margin-bottom:17px;
+  position:relative;
+
+  margin-bottom:21px;
+
+  padding-bottom:17px;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.08);
+}
+
+.content-heading::after{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  right:0;
+  bottom:-1px;
+
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #4bd8ff,
+      rgba(255,255,255,.08) 50%,
+      #ff6200
+    );
 }
 
 .content-label{
@@ -644,21 +605,31 @@ body.menu-open{
   letter-spacing:2px;
 }
 
-.content-heading h2{
+.content-heading h1{
   margin-top:6px;
 
-  font-size:19px;
+  font-size:21px;
   font-weight:900;
+
+  letter-spacing:.3px;
+}
+
+.ice{
+  color:#67dcff;
+}
+
+.fire{
+  color:#ff751c;
 }
 
 .content-heading p{
-  margin-top:6px;
+  margin-top:7px;
 
-  color:#888;
+  color:#999;
 
   font-size:10px;
 
-  line-height:1.5;
+  line-height:1.6;
 }
 
 
@@ -747,8 +718,8 @@ body.menu-open{
   position:relative;
   z-index:2;
 
-  width:42px;
-  height:42px;
+  width:44px;
+  height:44px;
 
   display:flex;
   align-items:center;
@@ -764,7 +735,7 @@ body.menu-open{
   background:
     linear-gradient(
       135deg,
-      rgba(0,160,220,.09),
+      rgba(0,160,220,.11),
       rgba(255,90,0,.09)
     );
 
@@ -848,9 +819,13 @@ body.menu-open{
 ========================================= */
 
 .email-box{
+  position:relative;
+
+  overflow:hidden;
+
   margin-top:24px;
 
-  padding:20px;
+  padding:21px;
 
   text-align:center;
 
@@ -859,7 +834,13 @@ body.menu-open{
   border:
     1px solid rgba(103,220,255,.16);
 
-  background:rgba(8,8,8,.72);
+  background:
+    linear-gradient(
+      110deg,
+      rgba(0,160,220,.07),
+      rgba(8,8,8,.82) 50%,
+      rgba(255,90,0,.07)
+    );
 }
 
 .email-label{
@@ -907,6 +888,30 @@ body.menu-open{
   font-weight:900;
 
   letter-spacing:1.3px;
+}
+
+
+/* =========================================
+   MOBILE BANNER
+========================================= */
+
+@media(max-width:430px){
+
+  .contact-banner img{
+    min-height:155px;
+    max-height:205px;
+
+    object-fit:cover;
+    object-position:center;
+  }
+
+  .content{
+    padding:
+      22px
+      12px
+      calc(42px + env(safe-area-inset-bottom));
+  }
+
 }
 
 
@@ -1151,36 +1156,15 @@ VISIT OFFICIAL WEBSITE
 
 
 <!-- =========================================
-     PAGE HERO
+     CONTACT BANNER
 ========================================= -->
 
-<section class="page-hero">
+<section class="contact-banner">
 
 <img
-  src="icon-512.png"
-  class="hero-logo"
-  alt="Team Wolfpack"
+  src="contact-banner.png"
+  alt="Team Wolfpack Contact Us"
 >
-
-<div class="hero-brand">
-TEAM WOLFPACK
-</div>
-
-<h1 class="page-title">
-
-<span class="ice">
-CONTACT
-</span>
-
-<span class="fire">
-US
-</span>
-
-</h1>
-
-<p class="subtitle">
-Questions, sponsorship enquiries, fight opportunities and Team Wolfpack contact.
-</p>
 
 </section>
 
@@ -1191,18 +1175,20 @@ Questions, sponsorship enquiries, fight opportunities and Team Wolfpack contact.
 
 <main class="content">
 
+
 <div class="content-heading">
 
 <div class="content-label">
 GET IN TOUCH
 </div>
 
-<h2>
-CONTACT TEAM WOLFPACK
-</h2>
+<h1>
+<span class="ice">CONTACT</span>
+<span class="fire">THE PACK</span>
+</h1>
 
 <p>
-Choose the type of enquiry below and contact the pack directly.
+Choose the type of enquiry below and contact Team Wolfpack directly.
 </p>
 
 </div>
@@ -1330,6 +1316,7 @@ Teamwolfpack2026@hotmail.com
 <footer class="app-footer">
 TEAM WOLFPACK • STRENGTH IN UNITY
 </footer>
+
 
 </main>
 
@@ -1504,28 +1491,22 @@ onAuthStateChanged(
 
 <script>
 
-if(
-  "serviceWorker" in navigator
-){
+if("serviceWorker" in navigator){
 
   window.addEventListener(
     "load",
     function(){
 
       navigator.serviceWorker
-        .register(
-          "service-worker.js"
-        )
-        .catch(
-          function(error){
+        .register("service-worker.js")
+        .catch(function(error){
 
-            console.error(
-              "Service worker error:",
-              error
-            );
+          console.error(
+            "Service worker error:",
+            error
+          );
 
-          }
-        );
+        });
 
     }
   );
