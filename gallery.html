@@ -902,6 +902,98 @@ body.menu-open{
 
 
 /* =========================================
+   TEAM WOLFPACK COPYRIGHT
+========================================= */
+
+.copyright{
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  gap:12px;
+
+  width:100%;
+
+  margin-top:17px;
+
+  padding:
+    17px
+    2px
+    calc(6px + env(safe-area-inset-bottom));
+
+  color:#f1fbff;
+
+  font-size:8px;
+  font-weight:900;
+
+  letter-spacing:1.2px;
+
+  line-height:1.5;
+
+  text-align:center;
+
+  text-shadow:
+    0 0 5px rgba(255,255,255,.35),
+    0 0 12px rgba(103,220,255,.15);
+}
+
+.copyright span{
+  flex:0 1 auto;
+
+  white-space:nowrap;
+}
+
+.copyright::before,
+.copyright::after{
+  content:"";
+
+  flex:1;
+
+  height:2px;
+
+  max-width:130px;
+  min-width:20px;
+
+  border-radius:20px;
+}
+
+.copyright::before{
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      #003b80 15%,
+      #008cff 45%,
+      #00bfff 72%,
+      #8cecff 100%
+    );
+
+  box-shadow:
+    0 0 5px #00bfff,
+    0 0 12px rgba(0,191,255,.70),
+    0 0 20px rgba(0,140,255,.30);
+}
+
+.copyright::after{
+  background:
+    linear-gradient(
+      90deg,
+      #ffb000 0%,
+      #ff7a00 28%,
+      #ff5a00 55%,
+      #b51a00 85%,
+      transparent 100%
+    );
+
+  box-shadow:
+    0 0 5px #ff5a00,
+    0 0 12px rgba(255,90,0,.70),
+    0 0 20px rgba(255,90,0,.30);
+}
+
+
+/* =========================================
    TABLET / DESKTOP
 ========================================= */
 
@@ -920,6 +1012,27 @@ body.menu-open{
 /* =========================================
    SMALL PHONES
 ========================================= */
+
+@media(max-width:430px){
+
+  .copyright{
+    gap:7px;
+
+    font-size:6px;
+
+    letter-spacing:.45px;
+  }
+
+  .copyright span{
+    white-space:normal;
+  }
+
+  .copyright::before,
+  .copyright::after{
+    min-width:16px;
+  }
+
+}
 
 @media(max-width:380px){
 
@@ -1351,9 +1464,22 @@ GALLERY READY FOR PHOTOS
 </div>
 
 
+<!-- =========================================
+     FOOTER
+========================================= -->
+
 <footer class="app-footer">
 TEAM WOLFPACK • STRENGTH IN UNITY
 </footer>
+
+
+<!-- =========================================
+     COPYRIGHT
+========================================= -->
+
+<div class="copyright">
+<span>© 2026 TEAM WOLFPACK • ALL RIGHTS RESERVED</span>
+</div>
 
 
 </main>
@@ -1507,7 +1633,5 @@ if(
 
 </script>
 
-
 </body>
-
 </html>
