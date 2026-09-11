@@ -96,7 +96,6 @@ body.lightbox-open{
 
 .app-bar{
   position:fixed;
-
   top:0;
   left:0;
   right:0;
@@ -1398,7 +1397,6 @@ body.lightbox-open{
 
 </head>
 
-
 <body>
 
 
@@ -2105,7 +2103,7 @@ const GITHUB_REPO =
   "Team-Wolfpack-App";
 
 const TEAM_WOLFIE_BASE =
-  "gallery/photos/team-wolfie";
+  "gallery/photos/fight-nights";
 
 
 const photoPanel =
@@ -2155,17 +2153,23 @@ async function openFightGallery(
   photoStatus.textContent =
     "Loading Team Wolfie photos...";
 
+  currentImages = [];
+
   photoPanel.scrollIntoView({
     behavior:"smooth",
     block:"start"
   });
 
 
-  gtag("event", "gallery_event_open", {
-    team:"Team Wolfie",
-    event:title,
-    folder:folder
-  });
+  if(typeof gtag === "function"){
+
+    gtag("event", "gallery_event_open", {
+      team:"Team Wolfie",
+      event:title,
+      folder:folder
+    });
+
+  }
 
 
   const apiUrl =
@@ -2182,10 +2186,24 @@ async function openFightGallery(
   try{
 
     const response =
-      await fetch(apiUrl);
+      await fetch(
+        apiUrl,
+        {
+          headers:{
+            "Accept":"application/vnd.github+json"
+          }
+        }
+      );
 
 
     if(!response.ok){
+
+      console.error(
+        "GitHub API error:",
+        response.status,
+        response.statusText,
+        apiUrl
+      );
 
       throw new Error(
         "Gallery folder could not be loaded."
@@ -2196,6 +2214,15 @@ async function openFightGallery(
 
     const files =
       await response.json();
+
+
+    if(!Array.isArray(files)){
+
+      throw new Error(
+        "Unexpected GitHub response."
+      );
+
+    }
 
 
     currentImages =
@@ -2266,6 +2293,9 @@ async function openFightGallery(
 
         image.loading =
           "lazy";
+
+        image.decoding =
+          "async";
 
 
         button.appendChild(
@@ -2339,6 +2369,12 @@ closeGalleryButton.addEventListener(
 
     photoGrid.innerHTML =
       "";
+
+    photoStatus.style.display =
+      "block";
+
+    photoStatus.textContent =
+      "Select a fight gallery above.";
 
     currentImages =
       [];
