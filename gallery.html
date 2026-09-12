@@ -3,10 +3,7 @@
 
 <head>
 
-<!-- =========================================
-     GOOGLE ANALYTICS
-========================================= -->
-
+<!-- Google Analytics - Team Wolfpack App -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-M973P0B4F0"></script>
 
 <script>
@@ -20,14 +17,11 @@ gtag("js", new Date());
 gtag("config", "G-M973P0B4F0");
 
 window.addEventListener("load", function(){
-
   gtag("event", "gallery_page_view", {
     section:"Gallery"
   });
-
 });
 </script>
-
 
 <meta charset="UTF-8">
 
@@ -38,49 +32,16 @@ window.addEventListener("load", function(){
 
 <meta name="theme-color" content="#050505">
 
-<meta
-  name="apple-mobile-web-app-title"
-  content="TEAM WOLFPACK"
->
+<meta name="apple-mobile-web-app-title" content="TEAM WOLFPACK">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-<meta
-  name="apple-mobile-web-app-capable"
-  content="yes"
->
-
-<meta
-  name="mobile-web-app-capable"
-  content="yes"
->
-
-<meta
-  name="apple-mobile-web-app-status-bar-style"
-  content="black"
->
-
-<title>Gallery | Team Wolfpack</title>
-
-<link
-  rel="manifest"
-  href="manifest.json"
->
-
-<link
-  rel="apple-touch-icon"
-  href="icon-192.png"
->
-
+<title>Team Wolfpack Gallery</title>
 
 <style>
 
-/* =========================================
-   RESET
-========================================= */
-
 *{
   box-sizing:border-box;
-  margin:0;
-  padding:0;
 }
 
 html{
@@ -88,1664 +49,423 @@ html{
 }
 
 body{
+  margin:0;
   min-height:100vh;
-  min-height:100dvh;
-
-  padding-top:
-    calc(66px + env(safe-area-inset-top));
-
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
-
+  background:
+    radial-gradient(circle at top left, rgba(0,191,255,.17), transparent 32%),
+    radial-gradient(circle at bottom right, rgba(255,90,0,.15), transparent 34%),
+    #050505;
   color:#fff;
-
-  overflow-x:hidden;
-
-  background:
-    radial-gradient(
-      circle at 0% 15%,
-      rgba(0,190,255,.22),
-      transparent 31%
-    ),
-    radial-gradient(
-      circle at 100% 60%,
-      rgba(255,85,0,.22),
-      transparent 34%
-    ),
-    linear-gradient(
-      115deg,
-      #02090d 0%,
-      #050505 50%,
-      #150802 100%
-    );
+  font-family:Arial, Helvetica, sans-serif;
+  padding-bottom:95px;
 }
 
-body.menu-open,
-body.lightbox-open{
-  overflow:hidden;
+button{
+  font:inherit;
 }
 
+/* HEADER */
 
-/* =========================================
-   APP BAR
-========================================= */
-
-.app-bar{
-  position:fixed;
-
-  top:0;
-  left:0;
-  right:0;
-
-  z-index:500;
-
-  height:
-    calc(66px + env(safe-area-inset-top));
-
-  padding:
-    env(safe-area-inset-top)
-    15px
-    0;
-
-  display:grid;
-
-  grid-template-columns:
-    46px 1fr 46px;
-
-  align-items:center;
-
-  background:
-    rgba(4,4,4,.96);
-
-  border-bottom:
-    1px solid rgba(255,255,255,.10);
-
-  backdrop-filter:
-    blur(18px);
-
-  -webkit-backdrop-filter:
-    blur(18px);
-
-  box-shadow:
-    0 8px 30px rgba(0,0,0,.28);
-}
-
-
-.menu-button{
-  width:42px;
-  height:42px;
-
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  border-radius:12px;
-
-  border:
-    1px solid rgba(103,220,255,.22);
-
-  background:
-    rgba(0,150,210,.07);
-
-  color:#67dcff;
-
-  cursor:pointer;
-
-  font-size:24px;
-}
-
-
-.app-bar-brand{
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  gap:9px;
-
-  min-width:0;
-}
-
-
-.app-bar-logo{
-  width:34px;
-  height:34px;
-
-  object-fit:contain;
-}
-
-
-.app-bar-title{
-  overflow:hidden;
-
-  white-space:nowrap;
-
-  text-overflow:ellipsis;
-
-  font-size:11px;
-  font-weight:900;
-
-  letter-spacing:1.8px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #67dcff,
-      #eafaff 48%,
-      #ff751c
-    );
-
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-
-  background-clip:text;
-}
-
-
-.app-status{
-  width:42px;
-  height:42px;
-
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-}
-
-
-.app-status-dot{
-  width:8px;
-  height:8px;
-
-  border-radius:50%;
-
-  background:#43f27b;
-
-  box-shadow:
-    0 0 9px rgba(67,242,123,.75);
-}
-
-
-/* =========================================
-   SIDE MENU
-========================================= */
-
-.menu-backdrop{
-  position:fixed;
-
-  inset:0;
-
-  z-index:800;
-
-  visibility:hidden;
-  opacity:0;
-
-  background:
-    rgba(0,0,0,.72);
-
-  backdrop-filter:
-    blur(3px);
-
-  -webkit-backdrop-filter:
-    blur(3px);
-
-  transition:
-    opacity .25s ease,
-    visibility .25s ease;
-}
-
-
-.menu-backdrop.show{
-  visibility:visible;
-  opacity:1;
-}
-
-
-.side-menu{
-  position:fixed;
-
-  left:0;
-  top:0;
-  bottom:0;
-
-  z-index:900;
-
-  width:min(84vw,340px);
-
-  transform:
-    translateX(-105%);
-
-  transition:
-    transform .28s ease;
-
-  overflow-y:auto;
-
-  padding:
-    calc(18px + env(safe-area-inset-top))
-    15px
-    calc(25px + env(safe-area-inset-bottom));
-
-  background:
-    radial-gradient(
-      circle at 0% 10%,
-      rgba(0,190,255,.16),
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 100% 80%,
-      rgba(255,90,0,.16),
-      transparent 34%
-    ),
-    #080808;
-
-  border-right:
-    1px solid rgba(103,220,255,.20);
-
-  box-shadow:
-    20px 0 50px rgba(0,0,0,.55);
-}
-
-
-.side-menu.show{
-  transform:
-    translateX(0);
-}
-
-
-.menu-header{
-  position:relative;
-
-  padding:
-    10px
-    45px
-    21px
-    5px;
-
-  border-bottom:
-    1px solid rgba(255,255,255,.09);
-}
-
-
-.menu-logo{
-  width:72px;
-  height:72px;
-
-  object-fit:contain;
-
-  margin-bottom:10px;
-}
-
-
-.menu-brand{
-  font-size:18px;
-  font-weight:900;
-
-  letter-spacing:1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #67dcff,
-      #fff 50%,
-      #ff751c
-    );
-
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-
-  background-clip:text;
-}
-
-
-.menu-tagline{
-  margin-top:5px;
-
-  color:#999;
-
-  font-size:8px;
-  font-weight:900;
-
-  letter-spacing:2px;
-}
-
-
-.close-menu{
-  position:absolute;
-
-  right:0;
-  top:5px;
-
-  width:38px;
-  height:38px;
-
-  border-radius:10px;
-
-  border:
-    1px solid rgba(255,117,28,.25);
-
-  background:
-    rgba(255,90,0,.07);
-
-  color:#ff751c;
-
-  cursor:pointer;
-
-  font-size:21px;
-}
-
-
-.menu-section-label{
-  margin:
-    20px
-    8px
-    8px;
-
-  color:#666;
-
-  font-size:7px;
-  font-weight:900;
-
-  letter-spacing:2px;
-}
-
-
-.menu-nav{
-  display:flex;
-
-  flex-direction:column;
-
-  gap:4px;
-}
-
-
-.menu-link{
-  display:flex;
-
-  align-items:center;
-
-  min-height:48px;
-
-  padding:
-    9px
-    11px;
-
-  border-radius:10px;
-
-  text-decoration:none;
-
-  color:#d7d7d7;
-
-  border:
-    1px solid transparent;
-
-  font-size:10px;
-  font-weight:900;
-
-  letter-spacing:.5px;
-}
-
-
-.menu-link:active{
-  transform:
-    scale(.985);
-}
-
-
-.menu-link.active{
-  color:#67dcff;
-
-  border-color:
-    rgba(103,220,255,.22);
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(0,160,220,.12),
-      rgba(0,160,220,.03)
-    );
-}
-
-
-.menu-link.chat{
-  color:#fff;
-
-  border-color:
-    rgba(103,220,255,.15);
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(0,160,220,.08),
-      rgba(255,90,0,.08)
-    );
-}
-
-
-.menu-icon{
-  width:34px;
-
-  flex:
-    0 0 34px;
-
+.hero{
   text-align:center;
-
-  color:#67dcff;
-
-  font-size:17px;
+  padding:44px 18px 24px;
 }
 
-
-.menu-arrow{
-  margin-left:auto;
-
-  color:#666;
-
-  font-size:16px;
-}
-
-
-.menu-website{
-  display:block;
-
-  margin-top:19px;
-
-  padding:14px;
-
-  text-align:center;
-
-  text-decoration:none;
-
-  border-radius:10px;
-
-  border:
-    1px solid rgba(103,220,255,.28);
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(0,160,220,.09),
-      rgba(255,90,0,.09)
-    );
-
-  color:#fff;
-
-  font-size:8px;
-  font-weight:900;
-
-  letter-spacing:1px;
-}
-
-
-/* =========================================
-   PAGE HERO
-========================================= */
-
-.page-hero{
-  position:relative;
-
-  overflow:hidden;
-
-  text-align:center;
-
-  padding:
-    34px
-    18px
-    28px;
-}
-
-
-.page-hero::after{
-  content:"";
-
-  position:absolute;
-
-  left:0;
-  right:0;
-  bottom:0;
-
-  height:1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      #4bd8ff,
-      rgba(255,255,255,.15),
-      #ff6200,
-      transparent
-    );
-}
-
-
-.hero-logo{
-  width:100px;
-  height:100px;
-
-  object-fit:contain;
-
-  filter:
-    drop-shadow(
-      0 0 13px rgba(51,201,255,.23)
-    )
-    drop-shadow(
-      0 0 13px rgba(255,92,0,.20)
-    );
-}
-
-
-.hero-brand{
-  margin-top:8px;
-
-  color:#777;
-
-  font-size:7px;
-  font-weight:900;
-
+.hero h1{
+  margin:0;
+  font-size:clamp(32px,8vw,58px);
   letter-spacing:3px;
-}
-
-
-.page-title{
-  margin-top:15px;
-
-  font-size:
-    clamp(27px,8vw,36px);
-
   font-weight:900;
-
-  letter-spacing:1px;
+  background:linear-gradient(
+    90deg,
+    #eafbff,
+    #00bfff 38%,
+    #ff7a00 70%,
+    #ffb000
+  );
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
 }
 
-
-.ice{
-  color:#67dcff;
-}
-
-
-.fire{
-  color:#ff751c;
-}
-
-
-.subtitle{
-  margin-top:8px;
-
-  color:#999;
-
-  font-size:11px;
-
-  line-height:1.5;
-}
-
-
-/* =========================================
-   CONTENT
-========================================= */
-
-.content{
-  width:100%;
-
-  max-width:900px;
-
-  margin:auto;
-
-  padding:
-    28px
-    16px
-    calc(45px + env(safe-area-inset-bottom));
-}
-
-
-.content-heading{
-  margin-bottom:24px;
-}
-
-
-.content-label{
-  color:#67dcff;
-
-  font-size:7px;
-  font-weight:900;
-
+.hero p{
+  margin:10px 0 0;
+  color:#bfc7ce;
+  font-size:14px;
   letter-spacing:2px;
+  text-transform:uppercase;
 }
 
+/* PAGE */
 
-.content-heading h2{
-  margin-top:6px;
-
-  font-size:20px;
-  font-weight:900;
+.page{
+  width:min(1180px,94%);
+  margin:auto;
 }
 
+.section{
+  margin:28px 0 40px;
+}
 
-.content-heading p{
-  margin-top:7px;
+.section-title{
+  margin:0 0 16px;
+  font-size:22px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
 
-  color:#888;
-
-  font-size:10px;
-
+.section-subtitle{
+  margin:-7px 0 18px;
+  color:#8f9aa3;
+  font-size:13px;
   line-height:1.6;
 }
 
+/* CARDS */
 
-/* =========================================
-   MEDIA TYPE HEADING
-========================================= */
-
-.media-heading{
-  position:relative;
-
-  margin-top:30px;
-  margin-bottom:20px;
-
-  padding:
-    17px
-    16px;
-
-  overflow:hidden;
-
-  border-radius:15px;
-
-  border:
-    1px solid rgba(255,255,255,.10);
-
-  background:
-    linear-gradient(
-      110deg,
-      rgba(0,160,220,.09),
-      rgba(8,8,8,.92) 48%,
-      rgba(255,90,0,.09)
-    );
-}
-
-
-.media-heading::before{
-  content:"";
-
-  position:absolute;
-
-  left:0;
-  top:0;
-  bottom:0;
-
-  width:3px;
-
-  background:#00bfff;
-
-  box-shadow:
-    0 0 12px rgba(0,191,255,.65);
-}
-
-
-.media-heading::after{
-  content:"";
-
-  position:absolute;
-
-  right:0;
-  top:0;
-  bottom:0;
-
-  width:3px;
-
-  background:#ff5a00;
-
-  box-shadow:
-    0 0 12px rgba(255,90,0,.65);
-}
-
-
-.media-heading-label{
-  color:#67dcff;
-
-  font-size:7px;
-  font-weight:900;
-
-  letter-spacing:2px;
-}
-
-
-.media-heading-title{
-  margin-top:5px;
-
-  font-size:22px;
-  font-weight:900;
-}
-
-
-.media-heading-text{
-  margin-top:5px;
-
-  color:#888;
-
-  font-size:9px;
-
-  line-height:1.5;
-}
-
-
-/* =========================================
-   TEAM SECTION
-========================================= */
-
-.team-section{
-  margin-top:24px;
-}
-
-
-.team-section-header{
-  margin-bottom:14px;
-
-  padding-bottom:12px;
-
-  border-bottom:
-    1px solid rgba(255,255,255,.08);
-}
-
-
-.team-section-label{
-  color:#67dcff;
-
-  font-size:7px;
-  font-weight:900;
-
-  letter-spacing:2px;
-}
-
-
-.team-section-title{
-  margin-top:5px;
-
-  font-size:21px;
-  font-weight:900;
-}
-
-
-.team-section-text{
-  margin-top:5px;
-
-  color:#888;
-
-  font-size:9px;
-
-  line-height:1.5;
-}
-
-
-/* =========================================
-   GALLERY CARDS
-========================================= */
-
-.event-grid{
+.gallery-grid{
   display:grid;
-
-  grid-template-columns:
-    repeat(2,1fr);
-
+  grid-template-columns:repeat(2,1fr);
   gap:12px;
 }
 
-
-.event-card{
-  appearance:none;
-
+.gallery-card{
   position:relative;
-
-  overflow:hidden;
-
-  min-height:180px;
-
-  padding:18px;
-
-  display:flex;
-
-  flex-direction:column;
-
-  justify-content:flex-end;
-
-  text-align:left;
-
-  cursor:pointer;
-
+  min-height:118px;
+  border:1px solid rgba(255,255,255,.12);
   border-radius:16px;
-
-  border:
-    1px solid rgba(255,255,255,.12);
-
-  color:#fff;
-
-  background:
-    radial-gradient(
-      circle at 20% 10%,
-      rgba(0,190,255,.18),
-      transparent 38%
-    ),
-    radial-gradient(
-      circle at 90% 90%,
-      rgba(255,85,0,.19),
-      transparent 40%
-    ),
-    linear-gradient(
-      125deg,
-      rgba(6,26,35,.97),
-      rgba(5,5,5,.98) 52%,
-      rgba(32,13,5,.97)
-    );
-
-  box-shadow:
-    0 12px 30px rgba(0,0,0,.32);
-}
-
-
-.event-card::before{
-  content:"";
-
-  position:absolute;
-
-  left:0;
-  top:0;
-  bottom:0;
-
-  width:3px;
-
-  background:#4bd8ff;
-
-  box-shadow:
-    0 0 12px rgba(75,216,255,.55);
-}
-
-
-.event-card::after{
-  content:"";
-
-  position:absolute;
-
-  right:0;
-  top:0;
-  bottom:0;
-
-  width:3px;
-
-  background:#ff6500;
-
-  box-shadow:
-    0 0 12px rgba(255,101,0,.50);
-}
-
-
-.event-card:active{
-  transform:
-    scale(.985);
-}
-
-
-.event-icon{
-  position:absolute;
-
-  left:18px;
-  top:18px;
-
-  width:46px;
-  height:46px;
-
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  border-radius:13px;
-
-  border:
-    1px solid rgba(103,220,255,.20);
-
   background:
     linear-gradient(
       135deg,
-      rgba(0,160,220,.12),
-      rgba(255,90,0,.10)
-    );
-
-  color:#67dcff;
-
-  font-size:20px;
+      rgba(0,191,255,.09),
+      rgba(255,255,255,.025) 48%,
+      rgba(255,90,0,.08)
+    ),
+    #0b0d0f;
+  color:#fff;
+  padding:18px 14px;
+  text-align:left;
+  cursor:pointer;
+  overflow:hidden;
+  box-shadow:0 8px 28px rgba(0,0,0,.28);
 }
 
-
-.video-card .event-icon{
-  color:#ff751c;
+.gallery-card::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:3px;
+  background:#00bfff;
 }
 
+.gallery-card::after{
+  content:"";
+  position:absolute;
+  right:0;
+  top:0;
+  bottom:0;
+  width:3px;
+  background:#ff6a00;
+}
 
-.event-team{
-  position:relative;
+.gallery-card:active{
+  transform:scale(.98);
+}
 
-  z-index:2;
-
-  color:#67dcff;
-
-  font-size:7px;
-  font-weight:900;
-
+.card-type{
+  display:block;
+  color:#00bfff;
+  font-size:11px;
+  font-weight:800;
   letter-spacing:1.5px;
+  text-transform:uppercase;
+  margin-bottom:8px;
 }
 
+.gallery-card.video-card .card-type{
+  color:#ff8a00;
+}
 
-.event-title{
-  position:relative;
-
-  z-index:2;
-
-  margin-top:5px;
-
-  font-size:15px;
+.card-title{
+  display:block;
+  font-size:17px;
   font-weight:900;
-
+  letter-spacing:.5px;
   line-height:1.2;
 }
 
-
-.event-subtitle{
-  position:relative;
-
-  z-index:2;
-
-  margin-top:5px;
-
-  color:#aaa;
-
-  font-size:8px;
-  font-weight:700;
-
-  line-height:1.4;
-}
-
-
-.event-open{
-  position:relative;
-
-  z-index:2;
-
-  margin-top:12px;
-
-  color:#ff751c;
-
-  font-size:7px;
-  font-weight:900;
-
+.card-label{
+  display:block;
+  margin-top:7px;
+  color:#9ca5ad;
+  font-size:11px;
   letter-spacing:1px;
+  text-transform:uppercase;
 }
 
+/* VIEWER */
 
-/* =========================================
-   MEDIA PANEL
-========================================= */
-
-.media-panel{
+.viewer{
   display:none;
-
-  margin-top:30px;
-
-  padding-top:5px;
+  margin:24px 0 42px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:18px;
+  overflow:hidden;
+  background:#090b0d;
+  box-shadow:0 12px 40px rgba(0,0,0,.35);
 }
 
-
-.media-panel.show{
+.viewer.active{
   display:block;
 }
 
-
-.media-panel-header{
+.viewer-header{
   display:flex;
-
   align-items:center;
   justify-content:space-between;
-
-  gap:15px;
-
-  margin-bottom:14px;
-
-  padding-bottom:13px;
-
-  border-bottom:
-    1px solid rgba(255,255,255,.08);
-}
-
-
-.media-panel-label{
-  color:#67dcff;
-
-  font-size:7px;
-  font-weight:900;
-
-  letter-spacing:2px;
-}
-
-
-.media-panel-title{
-  margin-top:5px;
-
-  font-size:19px;
-  font-weight:900;
-}
-
-
-.close-gallery{
-  flex:
-    0 0 auto;
-
-  min-width:44px;
-  height:40px;
-
-  padding:
-    0
-    12px;
-
-  border-radius:10px;
-
-  border:
-    1px solid rgba(255,117,28,.25);
-
-  background:
-    rgba(255,90,0,.08);
-
-  color:#ff751c;
-
-  cursor:pointer;
-
-  font-size:17px;
-  font-weight:900;
-}
-
-
-.media-status{
-  padding:
-    30px
-    15px;
-
-  text-align:center;
-
-  color:#888;
-
-  font-size:10px;
-
-  line-height:1.6;
-
-  border-radius:14px;
-
-  border:
-    1px solid rgba(255,255,255,.08);
-
-  background:
-    rgba(255,255,255,.02);
-}
-
-
-/* =========================================
-   PHOTO GRID
-========================================= */
-
-.photo-grid{
-  display:grid;
-
-  grid-template-columns:
-    repeat(2,1fr);
-
-  gap:7px;
-}
-
-
-.photo-item{
-  position:relative;
-
-  overflow:hidden;
-
-  aspect-ratio:
-    1 / 1;
-
-  padding:0;
-
-  border:0;
-
-  border-radius:11px;
-
-  cursor:pointer;
-
-  background:#111;
-}
-
-
-.photo-item img{
-  display:block;
-
-  width:100%;
-  height:100%;
-
-  object-fit:cover;
-
-  transition:
-    transform .22s ease;
-}
-
-
-.photo-item:active img{
-  transform:
-    scale(.97);
-}
-
-
-/* =========================================
-   VIDEO GRID
-========================================= */
-
-.video-grid{
-  display:grid;
-
-  grid-template-columns:
-    1fr;
-
-  gap:14px;
-}
-
-
-.video-item{
-  overflow:hidden;
-
-  border-radius:14px;
-
-  border:
-    1px solid rgba(255,255,255,.10);
-
-  background:
-    rgba(0,0,0,.58);
-
-  box-shadow:
-    0 12px 28px rgba(0,0,0,.28);
-}
-
-
-.video-item video{
-  display:block;
-
-  width:100%;
-
-  max-height:620px;
-
-  background:#000;
-
-  object-fit:contain;
-}
-
-
-.video-info{
-  padding:
-    11px
-    12px
-    13px;
-}
-
-
-.video-name{
-  color:#fff;
-
-  font-size:10px;
-  font-weight:900;
-
-  line-height:1.45;
-
-  word-break:break-word;
-}
-
-
-.video-type{
-  margin-top:4px;
-
-  color:#ff751c;
-
-  font-size:7px;
-  font-weight:900;
-
-  letter-spacing:1px;
-}
-
-
-/* =========================================
-   IMAGE LIGHTBOX
-========================================= */
-
-.lightbox{
-  position:fixed;
-
-  inset:0;
-
-  z-index:2000;
-
-  display:none;
-
-  align-items:center;
-  justify-content:center;
-
-  padding:
-    calc(55px + env(safe-area-inset-top))
-    15px
-    calc(55px + env(safe-area-inset-bottom));
-
-  background:
-    rgba(0,0,0,.96);
-
-  backdrop-filter:
-    blur(9px);
-
-  -webkit-backdrop-filter:
-    blur(9px);
-}
-
-
-.lightbox.show{
-  display:flex;
-}
-
-
-.lightbox-image{
-  display:block;
-
-  max-width:100%;
-  max-height:82vh;
-
-  object-fit:contain;
-
-  border-radius:10px;
-
-  box-shadow:
-    0 15px 60px rgba(0,0,0,.70);
-}
-
-
-.lightbox-close{
-  position:absolute;
-
-  top:
-    calc(12px + env(safe-area-inset-top));
-
-  right:15px;
-
-  width:44px;
-  height:44px;
-
-  border-radius:12px;
-
-  border:
-    1px solid rgba(255,117,28,.35);
-
-  background:
-    rgba(10,10,10,.90);
-
-  color:#fff;
-
-  cursor:pointer;
-
-  font-size:25px;
-}
-
-
-.lightbox-counter{
-  position:absolute;
-
-  top:
-    calc(21px + env(safe-area-inset-top));
-
-  left:18px;
-
-  color:#aaa;
-
-  font-size:8px;
-  font-weight:900;
-
-  letter-spacing:1px;
-}
-
-
-.lightbox-nav{
-  position:absolute;
-
-  top:50%;
-
-  transform:
-    translateY(-50%);
-
-  width:45px;
-  height:58px;
-
-  border:0;
-
-  border-radius:12px;
-
-  background:
-    rgba(0,0,0,.62);
-
-  color:#fff;
-
-  cursor:pointer;
-
-  font-size:27px;
-}
-
-
-.lightbox-prev{
-  left:9px;
-
-  color:#67dcff;
-}
-
-
-.lightbox-next{
-  right:9px;
-
-  color:#ff751c;
-}
-
-
-/* =========================================
-   GALLERY INFO
-========================================= */
-
-.gallery-info{
-  margin-top:30px;
-
-  padding:20px;
-
-  text-align:center;
-
-  border-radius:15px;
-
-  border:
-    1px solid rgba(255,255,255,.10);
-
+  gap:12px;
+  padding:16px;
+  border-bottom:1px solid rgba(255,255,255,.1);
   background:
     linear-gradient(
-      110deg,
-      rgba(0,160,220,.07),
-      rgba(8,8,8,.88) 50%,
+      90deg,
+      rgba(0,191,255,.09),
       rgba(255,90,0,.07)
     );
 }
 
-
-.gallery-info-label{
-  color:#67dcff;
-
-  font-size:7px;
-  font-weight:900;
-
-  letter-spacing:2px;
+.viewer-heading{
+  min-width:0;
 }
 
-
-.gallery-info p{
-  margin-top:8px;
-
-  color:#999;
-
-  font-size:10px;
-
-  line-height:1.6;
-}
-
-
-.gallery-status{
-  display:inline-flex;
-
-  align-items:center;
-
-  gap:6px;
-
-  margin-top:12px;
-
-  padding:
-    7px
-    10px;
-
-  border-radius:20px;
-
-  border:
-    1px solid rgba(67,242,123,.20);
-
-  background:
-    rgba(67,242,123,.05);
-
-  color:#43f27b;
-
-  font-size:7px;
-  font-weight:900;
-
+.viewer-heading h2{
+  margin:0;
+  font-size:18px;
   letter-spacing:1px;
 }
 
+.viewer-heading p{
+  margin:5px 0 0;
+  color:#8f9aa3;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
 
-.gallery-status::before{
-  content:"";
-
-  width:5px;
-  height:5px;
-
+.close-viewer{
+  flex:0 0 auto;
+  width:38px;
+  height:38px;
   border-radius:50%;
-
-  background:#43f27b;
-
-  box-shadow:
-    0 0 7px rgba(67,242,123,.55);
+  border:1px solid rgba(255,255,255,.16);
+  background:#111;
+  color:#fff;
+  cursor:pointer;
+  font-size:18px;
 }
 
+.viewer-body{
+  padding:14px;
+}
 
-/* =========================================
-   FOOTER
-========================================= */
+/* STATUS */
 
-.app-footer{
-  margin-top:28px;
-
-  padding-top:20px;
-
-  border-top:
-    1px solid rgba(255,255,255,.07);
-
+.status{
+  padding:32px 14px;
   text-align:center;
-
-  color:#555;
-
-  font-size:7px;
-  font-weight:900;
-
-  letter-spacing:1.3px;
+  color:#a6afb6;
+  font-size:14px;
+  line-height:1.6;
 }
 
+/* PHOTO GRID */
 
-/* =========================================
-   COPYRIGHT
-========================================= */
+.photo-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
 
-.copyright{
-  display:flex;
+.photo-item{
+  border-radius:12px;
+  overflow:hidden;
+  background:#111;
+  border:1px solid rgba(255,255,255,.08);
+  cursor:pointer;
+}
 
+.photo-item img{
+  display:block;
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+}
+
+/* VIDEO GRID */
+
+.video-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:16px;
+}
+
+.video-item{
+  overflow:hidden;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.1);
+  background:#08090a;
+  box-shadow:0 8px 25px rgba(0,0,0,.3);
+}
+
+.video-frame{
+  position:relative;
+  width:100%;
+  background:#000;
+  overflow:hidden;
+}
+
+.video-item video{
+  display:block;
+  width:100%;
+  aspect-ratio:16/9;
+  max-height:620px;
+  background:#000;
+  object-fit:contain;
+}
+
+.video-info{
+  padding:13px 14px 15px;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+
+.video-title{
+  margin:0;
+  font-size:14px;
+  font-weight:800;
+  line-height:1.4;
+  color:#f3f6f8;
+}
+
+.video-label{
+  margin:5px 0 0;
+  color:#7e8991;
+  font-size:10px;
+  letter-spacing:1.3px;
+  text-transform:uppercase;
+}
+
+/* LIGHTBOX */
+
+.lightbox{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:none;
   align-items:center;
   justify-content:center;
+  padding:18px;
+  background:rgba(0,0,0,.94);
+}
 
-  gap:12px;
+.lightbox.active{
+  display:flex;
+}
 
-  width:100%;
+.lightbox img{
+  max-width:100%;
+  max-height:88vh;
+  object-fit:contain;
+  border-radius:10px;
+}
 
-  margin-top:17px;
+.lightbox-close{
+  position:absolute;
+  top:18px;
+  right:18px;
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.22);
+  background:#111;
+  color:#fff;
+  font-size:22px;
+  cursor:pointer;
+}
 
-  padding:
-    17px
-    2px
-    calc(6px + env(safe-area-inset-bottom));
+/* FOOTER */
 
-  color:#f1fbff;
-
-  font-size:8px;
-  font-weight:900;
-
-  letter-spacing:1.2px;
-
-  line-height:1.5;
-
+.footer{
   text-align:center;
-
-  text-shadow:
-    0 0 5px rgba(255,255,255,.35),
-    0 0 12px rgba(103,220,255,.15);
+  padding:10px 18px 30px;
+  color:#707a82;
+  font-size:11px;
+  letter-spacing:1px;
+  text-transform:uppercase;
 }
 
-
-.copyright span{
-  flex:
-    0 1 auto;
-
-  white-space:nowrap;
+.footer a{
+  color:#00bfff;
+  text-decoration:none;
 }
 
+/* BOTTOM NAV */
 
-.copyright::before,
-.copyright::after{
-  content:"";
-
-  flex:1;
-
-  height:2px;
-
-  max-width:130px;
-  min-width:20px;
-
-  border-radius:20px;
+.bottom-nav{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:5000;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  padding:
+    9px
+    8px
+    calc(9px + env(safe-area-inset-bottom));
+  background:rgba(5,5,5,.96);
+  border-top:1px solid rgba(255,255,255,.1);
+  backdrop-filter:blur(12px);
 }
 
-
-.copyright::before{
-  background:
-    linear-gradient(
-      90deg,
-      transparent 0%,
-      #003b80 15%,
-      #008cff 45%,
-      #00bfff 72%,
-      #8cecff 100%
-    );
-
-  box-shadow:
-    0 0 5px #00bfff,
-    0 0 12px rgba(0,191,255,.70),
-    0 0 20px rgba(0,140,255,.30);
+.bottom-nav a{
+  text-align:center;
+  text-decoration:none;
+  color:#8d969d;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.8px;
 }
 
-
-.copyright::after{
-  background:
-    linear-gradient(
-      90deg,
-      #ffb000 0%,
-      #ff7a00 28%,
-      #ff5a00 55%,
-      #b51a00 85%,
-      transparent 100%
-    );
-
-  box-shadow:
-    0 0 5px #ff5a00,
-    0 0 12px rgba(255,90,0,.70),
-    0 0 20px rgba(255,90,0,.30);
+.bottom-nav a.active{
+  color:#00bfff;
 }
 
+.nav-icon{
+  display:block;
+  margin-bottom:4px;
+  font-size:20px;
+}
 
-/* =========================================
-   TABLET / DESKTOP
-========================================= */
+/* DESKTOP */
 
 @media(min-width:720px){
 
-  .event-grid{
-    grid-template-columns:
-      repeat(3,1fr);
+  .gallery-grid{
+    grid-template-columns:repeat(3,1fr);
   }
 
   .photo-grid{
-    grid-template-columns:
-      repeat(4,1fr);
+    grid-template-columns:repeat(4,1fr);
   }
 
   .video-grid{
-    grid-template-columns:
-      repeat(2,1fr);
+    grid-template-columns:repeat(2,1fr);
   }
 
-}
-
-
-/* =========================================
-   SMALL PHONES
-========================================= */
-
-@media(max-width:430px){
-
-  .content{
-    padding-left:12px;
-    padding-right:12px;
-  }
-
-  .event-card{
-    min-height:170px;
-
-    padding:15px;
-  }
-
-  .event-title{
-    font-size:13px;
-  }
-
-  .copyright{
-    gap:7px;
-
-    font-size:6px;
-
-    letter-spacing:.45px;
-  }
-
-  .copyright span{
-    white-space:normal;
-  }
-
-  .copyright::before,
-  .copyright::after{
-    min-width:16px;
-  }
-
-}
-
-
-@media(max-width:360px){
-
-  .event-grid{
-    grid-template-columns:
-      1fr;
-  }
-
-}
-
-
-/* =========================================
-   REDUCED MOTION
-========================================= */
-
-@media(prefers-reduced-motion:reduce){
-
-  .side-menu,
-  .menu-backdrop,
-  .photo-item img{
-    transition:none;
+  .gallery-card{
+    min-height:135px;
   }
 
 }
@@ -1754,1749 +474,512 @@ body.lightbox-open{
 
 </head>
 
-
 <body>
 
-
-<!-- =========================================
-     APP BAR
-========================================= -->
-
-<header class="app-bar">
-
-<button
-  id="menuButton"
-  class="menu-button"
-  type="button"
-  aria-label="Open navigation menu"
-  aria-expanded="false"
->
-☰
-</button>
-
-
-<div class="app-bar-brand">
-
-<img
-  src="icon-192.png"
-  class="app-bar-logo"
-  alt=""
->
-
-<div class="app-bar-title">
-TEAM WOLFPACK
-</div>
-
-</div>
-
-
-<div
-  class="app-status"
-  aria-label="App online"
->
-<span class="app-status-dot"></span>
-</div>
-
+<header class="hero">
+  <h1>GALLERY</h1>
+  <p>Team Wolfpack • One Pack One Purpose</p>
 </header>
 
+<main class="page">
 
-<!-- =========================================
-     MENU BACKDROP
-========================================= -->
+<!-- PHOTO GALLERIES -->
 
-<div
-  id="menuBackdrop"
-  class="menu-backdrop"
-></div>
+<section class="section">
 
+  <h2 class="section-title">Photo Galleries</h2>
 
-<!-- =========================================
-     SIDE MENU
-========================================= -->
+  <p class="section-subtitle">
+    Fight nights, Team Wolfie and Team Wolfpack artwork.
+  </p>
 
-<aside
-  id="sideMenu"
-  class="side-menu"
-  aria-label="Team Wolfpack navigation"
->
+  <div class="gallery-grid">
 
-<div class="menu-header">
+    <button
+      class="gallery-card"
+      data-type="photo"
+      data-path="gallery/photos/fight-nights/fight-may-2025"
+      data-title="May 2025"
+      data-label="Team Wolfie Fight Night"
+      data-loading="Loading May 2025 photos..."
+      data-alt="Team Wolfie May 2025"
+    >
+      <span class="card-type">Photos</span>
+      <span class="card-title">MAY 2025</span>
+      <span class="card-label">Team Wolfie</span>
+    </button>
 
-<img
-  src="icon-192.png"
-  class="menu-logo"
-  alt="Team Wolfpack"
->
+    <button
+      class="gallery-card"
+      data-type="photo"
+      data-path="gallery/photos/fight-nights/fight-july-2025"
+      data-title="July 2025"
+      data-label="Team Wolfie Fight Night"
+      data-loading="Loading July 2025 photos..."
+      data-alt="Team Wolfie July 2025"
+    >
+      <span class="card-type">Photos</span>
+      <span class="card-title">JULY 2025</span>
+      <span class="card-label">Team Wolfie</span>
+    </button>
 
-<div class="menu-brand">
-TEAM WOLFPACK
-</div>
+    <button
+      class="gallery-card"
+      data-type="photo"
+      data-path="gallery/photos/fight-nights/fight-march-2026"
+      data-title="March 2026"
+      data-label="Team Wolfie Fight Night"
+      data-loading="Loading March 2026 photos..."
+      data-alt="Team Wolfie March 2026"
+    >
+      <span class="card-type">Photos</span>
+      <span class="card-title">MARCH 2026</span>
+      <span class="card-label">Team Wolfie</span>
+    </button>
 
-<div class="menu-tagline">
-ONE PACK • ONE PURPOSE
-</div>
+    <button
+      class="gallery-card"
+      data-type="photo"
+      data-path="gallery/photos/fight-nights/fight-july-2026"
+      data-title="July 2026"
+      data-label="Team Wolfie Fight Night"
+      data-loading="Loading July 2026 photos..."
+      data-alt="Team Wolfie July 2026"
+    >
+      <span class="card-type">Photos</span>
+      <span class="card-title">JULY 2026</span>
+      <span class="card-label">Team Wolfie</span>
+    </button>
 
-<button
-  id="closeMenuButton"
-  class="close-menu"
-  type="button"
-  aria-label="Close navigation menu"
->
-×
-</button>
+    <button
+      class="gallery-card"
+      data-type="photo"
+      data-path="gallery/photos/fight-nights/fight-october-2026"
+      data-title="October 2026"
+      data-label="Team Wolfie Fight Night"
+      data-loading="Loading October 2026 photos..."
+      data-alt="Team Wolfie October 2026"
+    >
+      <span class="card-type">Photos</span>
+      <span class="card-title">OCTOBER 2026</span>
+      <span class="card-label">Team Wolfie</span>
+    </button>
 
-</div>
+    <button
+      class="gallery-card"
+      data-type="photo"
+      data-path="gallery/photos/team-wolfpack/designs-posters-logos"
+      data-title="Team Wolfpack Artwork"
+      data-label="Designs • Posters • Logos"
+      data-loading="Loading Team Wolfpack artwork..."
+      data-alt="Team Wolfpack Artwork"
+    >
+      <span class="card-type">Photos</span>
+      <span class="card-title">TEAM WOLFPACK</span>
+      <span class="card-label">Designs • Posters • Logos</span>
+    </button>
 
-
-<div class="menu-section-label">
-MAIN
-</div>
-
-
-<nav class="menu-nav">
-
-<a
-  class="menu-link"
-  href="index.html"
->
-<span class="menu-icon">⌂</span>
-<span>HOME</span>
-<span class="menu-arrow">›</span>
-</a>
-
-
-<a
-  class="menu-link"
-  href="fights.html"
->
-<span class="menu-icon">♜</span>
-<span>FIGHTS</span>
-<span class="menu-arrow">›</span>
-</a>
-
-
-<a
-  class="menu-link"
-  href="fighters.html"
->
-<span class="menu-icon">♟</span>
-<span>FIGHTERS</span>
-<span class="menu-arrow">›</span>
-</a>
-
-
-<a
-  class="menu-link"
-  href="pack.html"
->
-<span class="menu-icon">◆</span>
-<span>MEET THE PACK</span>
-<span class="menu-arrow">›</span>
-</a>
-
-
-<a
-  class="menu-link chat"
-  href="chat.html"
->
-<span class="menu-icon">●</span>
-<span>PACK CHAT</span>
-<span class="menu-arrow">›</span>
-</a>
-
-</nav>
-
-
-<div class="menu-section-label">
-EXPLORE
-</div>
-
-
-<nav class="menu-nav">
-
-<a
-  class="menu-link"
-  href="sponsors.html"
->
-<span class="menu-icon">★</span>
-<span>SPONSORS &amp; PARTNERS</span>
-<span class="menu-arrow">›</span>
-</a>
-
-
-<a
-  class="menu-link active"
-  href="gallery.html"
->
-<span class="menu-icon">▣</span>
-<span>GALLERY</span>
-<span class="menu-arrow">›</span>
-</a>
-
-
-<a
-  class="menu-link"
-  href="merch.html"
->
-<span class="menu-icon">◇</span>
-<span>MERCH</span>
-<span class="menu-arrow">›</span>
-</a>
-
-
-<a
-  class="menu-link"
-  href="contact.html"
->
-<span class="menu-icon">✉</span>
-<span>CONTACT</span>
-<span class="menu-arrow">›</span>
-</a>
-
-
-<a
-  class="menu-link"
-  href="socials.html"
->
-<span class="menu-icon">◎</span>
-<span>SOCIALS</span>
-<span class="menu-arrow">›</span>
-</a>
-
-
-<a
-  class="menu-link"
-  href="about.html"
->
-<span class="menu-icon">ⓘ</span>
-<span>ABOUT</span>
-<span class="menu-arrow">›</span>
-</a>
-
-</nav>
-
-
-<a
-  class="menu-website"
-  href="https://officialteamwolfpack.com/boxing"
-  target="_blank"
-  rel="noopener noreferrer"
->
-VISIT OFFICIAL WEBSITE
-</a>
-
-</aside>
-
-
-<!-- =========================================
-     PAGE HERO
-========================================= -->
-
-<section class="page-hero">
-
-<img
-  src="icon-512.png"
-  class="hero-logo"
-  alt="Team Wolfpack"
->
-
-<div class="hero-brand">
-TEAM WOLFPACK
-</div>
-
-
-<h1 class="page-title">
-
-<span class="ice">
-THE
-</span>
-
-<span class="fire">
-GALLERY
-</span>
-
-</h1>
-
-
-<p class="subtitle">
-Photos, fight nights, artwork and videos from inside the pack.
-</p>
+  </div>
 
 </section>
 
 
-<!-- =========================================
-     CONTENT
-========================================= -->
-
-<main class="content">
-
-
-<div class="content-heading">
-
-<div class="content-label">
-INSIDE TEAM WOLFPACK
-</div>
-
-
-<h2>
-
-<span class="ice">
-PACK
-</span>
-
-<span class="fire">
-MEDIA
-</span>
-
-</h2>
-
-
-<p>
-Explore official Team Wolfpack photos, designs, posters, logos and videos from Team Wolfpack, Team Wolfie and Team Sloan.
-</p>
-
-</div>
-
-
-<!-- =========================================
-     PHOTOS HEADING
-========================================= -->
-
-<div class="media-heading">
-
-<div class="media-heading-label">
-TEAM WOLFPACK MEDIA
-</div>
-
-<div class="media-heading-title">
-
-<span class="ice">
-PHOTO
-</span>
-
-<span class="fire">
-GALLERIES
-</span>
-
-</div>
-
-<div class="media-heading-text">
-Fight photographs, posters, designs and official Team Wolfpack artwork.
-</div>
-
-</div>
-
-
-<!-- =========================================
-     TEAM WOLFIE PHOTOS
-========================================= -->
-
-<section class="team-section">
-
-<div class="team-section-header">
-
-<div class="team-section-label">
-PHOTO GALLERY
-</div>
-
-
-<div class="team-section-title">
-
-<span class="ice">
-TEAM
-</span>
-
-<span class="fire">
-WOLFIE
-</span>
-
-</div>
-
-
-<div class="team-section-text">
-Mrs Wolfie fight-night photo galleries.
-</div>
-
-</div>
-
-
-<div class="event-grid">
-
-
-<!-- MAY 2025 -->
-
-<button
-  class="event-card gallery-card"
-  type="button"
-
-  data-type="photo"
-
-  data-path="gallery/photos/fight-nights/fight-may-2025"
-
-  data-title="MAY 2025"
-
-  data-label="TEAM WOLFIE • FIGHT PHOTOS"
-
-  data-loading="Loading Team Wolfie May 2025 photos..."
-
-  data-alt="Team Wolfie May 2025 fight photograph"
->
-
-<div class="event-icon">
-♜
-</div>
-
-<div class="event-team">
-TEAM WOLFIE • FIGHT NIGHT
-</div>
-
-<div class="event-title">
-MAY 2025
-</div>
-
-<div class="event-subtitle">
-Mrs Wolfie Fight Gallery
-</div>
-
-<div class="event-open">
-VIEW PHOTOS ›
-</div>
-
-</button>
-
-
-<!-- JULY 2025 -->
-
-<button
-  class="event-card gallery-card"
-  type="button"
-
-  data-type="photo"
-
-  data-path="gallery/photos/fight-nights/fight-july-2025"
-
-  data-title="JULY 2025"
-
-  data-label="TEAM WOLFIE • FIGHT PHOTOS"
-
-  data-loading="Loading Team Wolfie July 2025 photos..."
-
-  data-alt="Team Wolfie July 2025 fight photograph"
->
-
-<div class="event-icon">
-♜
-</div>
-
-<div class="event-team">
-TEAM WOLFIE • FIGHT NIGHT
-</div>
-
-<div class="event-title">
-JULY 2025
-</div>
-
-<div class="event-subtitle">
-Mrs Wolfie Fight Gallery
-</div>
-
-<div class="event-open">
-VIEW PHOTOS ›
-</div>
-
-</button>
-
-
-<!-- MARCH 2026 -->
-
-<button
-  class="event-card gallery-card"
-  type="button"
-
-  data-type="photo"
-
-  data-path="gallery/photos/fight-nights/fight-march-2026"
-
-  data-title="MARCH 2026"
-
-  data-label="TEAM WOLFIE • FIGHT PHOTOS"
-
-  data-loading="Loading Team Wolfie March 2026 photos..."
-
-  data-alt="Team Wolfie March 2026 fight photograph"
->
-
-<div class="event-icon">
-♜
-</div>
-
-<div class="event-team">
-TEAM WOLFIE • FIGHT NIGHT
-</div>
-
-<div class="event-title">
-MARCH 2026
-</div>
-
-<div class="event-subtitle">
-Mrs Wolfie Fight Gallery
-</div>
-
-<div class="event-open">
-VIEW PHOTOS ›
-</div>
-
-</button>
-
-
-<!-- JULY 2026 -->
-
-<button
-  class="event-card gallery-card"
-  type="button"
-
-  data-type="photo"
-
-  data-path="gallery/photos/fight-nights/fight-july-2026"
-
-  data-title="JULY 2026"
-
-  data-label="TEAM WOLFIE • FIGHT PHOTOS"
-
-  data-loading="Loading Team Wolfie July 2026 photos..."
-
-  data-alt="Team Wolfie July 2026 fight photograph"
->
-
-<div class="event-icon">
-♜
-</div>
-
-<div class="event-team">
-TEAM WOLFIE • FIGHT NIGHT
-</div>
-
-<div class="event-title">
-JULY 2026
-</div>
-
-<div class="event-subtitle">
-Mrs Wolfie Fight Gallery
-</div>
-
-<div class="event-open">
-VIEW PHOTOS ›
-</div>
-
-</button>
-
-
-<!-- OCTOBER 2026 -->
-
-<button
-  class="event-card gallery-card"
-  type="button"
-
-  data-type="photo"
-
-  data-path="gallery/photos/fight-nights/fight-october-2026"
-
-  data-title="OCTOBER 2026"
-
-  data-label="TEAM WOLFIE • FIGHT PHOTOS"
-
-  data-loading="Loading Team Wolfie October 2026 photos..."
-
-  data-alt="Team Wolfie October 2026 fight photograph"
->
-
-<div class="event-icon">
-♜
-</div>
-
-<div class="event-team">
-TEAM WOLFIE • FIGHT NIGHT
-</div>
-
-<div class="event-title">
-OCTOBER 2026
-</div>
-
-<div class="event-subtitle">
-Mrs Wolfie Fight Gallery
-</div>
-
-<div class="event-open">
-VIEW PHOTOS ›
-</div>
-
-</button>
-
-
-</div>
+<!-- VIDEO GALLERIES -->
+
+<section class="section">
+
+  <h2 class="section-title">Video Galleries</h2>
+
+  <p class="section-subtitle">
+    Team Wolfpack, Team Wolfie and Team Sloan videos.
+  </p>
+
+  <!-- TEAM WOLFPACK -->
+
+  <h3 class="section-title" style="font-size:16px;">
+    Team Wolfpack
+  </h3>
+
+  <div class="gallery-grid">
+
+    <button
+      class="gallery-card video-card"
+      data-type="video"
+      data-path="gallery/videos/team-wolfpack/promos"
+      data-title="Team Wolfpack Promos"
+      data-label="Promotional Videos"
+      data-loading="Loading Team Wolfpack promo videos..."
+    >
+      <span class="card-type">Videos</span>
+      <span class="card-title">PROMOS</span>
+      <span class="card-label">Team Wolfpack</span>
+    </button>
+
+    <button
+      class="gallery-card video-card"
+      data-type="video"
+      data-path="gallery/videos/team-wolfpack/announcements"
+      data-title="Team Wolfpack Announcements"
+      data-label="Announcements"
+      data-loading="Loading Team Wolfpack announcement videos..."
+    >
+      <span class="card-type">Videos</span>
+      <span class="card-title">ANNOUNCEMENTS</span>
+      <span class="card-label">Team Wolfpack</span>
+    </button>
+
+    <button
+      class="gallery-card video-card"
+      data-type="video"
+      data-path="gallery/videos/team-wolfpack/behind-the-scenes"
+      data-title="Behind The Scenes"
+      data-label="Team Wolfpack"
+      data-loading="Loading behind the scenes videos..."
+    >
+      <span class="card-type">Videos</span>
+      <span class="card-title">BEHIND THE SCENES</span>
+      <span class="card-label">Team Wolfpack</span>
+    </button>
+
+    <button
+      class="gallery-card video-card"
+      data-type="video"
+      data-path="gallery/videos/team-wolfpack/training"
+      data-title="Training"
+      data-label="Team Wolfpack"
+      data-loading="Loading Team Wolfpack training videos..."
+    >
+      <span class="card-type">Videos</span>
+      <span class="card-title">TRAINING</span>
+      <span class="card-label">Team Wolfpack</span>
+    </button>
+
+    <button
+      class="gallery-card video-card"
+      data-type="video"
+      data-path="gallery/videos/team-wolfpack/other"
+      data-title="Other Videos"
+      data-label="Team Wolfpack"
+      data-loading="Loading Team Wolfpack videos..."
+    >
+      <span class="card-type">Videos</span>
+      <span class="card-title">OTHER</span>
+      <span class="card-label">Team Wolfpack</span>
+    </button>
+
+  </div>
+
+
+  <!-- TEAM WOLFIE -->
+
+  <h3
+    class="section-title"
+    style="font-size:16px;margin-top:32px;"
+  >
+    Team Wolfie
+  </h3>
+
+  <div class="gallery-grid">
+
+    <button
+      class="gallery-card video-card"
+      data-type="video"
+      data-path="gallery/videos/team-wolfie/fight-may-2025"
+      data-title="May 2025"
+      data-label="Team Wolfie Videos"
+      data-loading="Loading Team Wolfie May 2025 videos..."
+    >
+      <span class="card-type">Videos</span>
+      <span class="card-title">MAY 2025</span>
+      <span class="card-label">Team Wolfie</span>
+    </button>
+
+    <button
+      class="gallery-card video-card"
+      data-type="video"
+      data-path="gallery/videos/team-wolfie/fight-july-2025"
+      data-title="July 2025"
+      data-label="Team Wolfie Videos"
+      data-loading="Loading Team Wolfie July 2025 videos..."
+    >
+      <span class="card-type">Videos</span>
+      <span class="card-title">JULY 2025</span>
+      <span class="card-label">Team Wolfie</span>
+    </button>
+
+    <button
+      class="gallery-card video-card"
+      data-type="video"
+      data-path="gallery/videos/team-wolfie/fight-march-2026"
+      data-title="March 2026"
+      data-label="Team Wolfie Videos"
+      data-loading="Loading Team Wolfie March 2026 videos..."
+    >
+      <span class="card-type">Videos</span>
+      <span class="card-title">MARCH 2026</span>
+      <span class="card-label">Team Wolfie</span>
+    </button>
+
+    <button
+      class="gallery-card video-card"
+      data-type="video"
+      data-path="gallery/videos/team-wolfie/fight-july-2026"
+      data-title="July 2026"
+      data-label="Team Wolfie Videos"
+      data-loading="Loading Team Wolfie July 2026 videos..."
+    >
+      <span class="card-type">Videos</span>
+      <span class="card-title">JULY 2026</span>
+      <span class="card-label">Team Wolfie</span>
+    </button>
+
+    <button
+      class="gallery-card video-card"
+      data-type="video"
+      data-path="gallery/videos/team-wolfie/fight-october-2026"
+      data-title="October 2026"
+      data-label="Team Wolfie Videos"
+      data-loading="Loading Team Wolfie October 2026 videos..."
+    >
+      <span class="card-type">Videos</span>
+      <span class="card-title">OCTOBER 2026</span>
+      <span class="card-label">Team Wolfie</span>
+    </button>
+
+  </div>
+
+
+  <!-- TEAM SLOAN -->
+
+  <h3
+    class="section-title"
+    style="font-size:16px;margin-top:32px;"
+  >
+    Team Sloan
+  </h3>
+
+  <div class="gallery-grid">
+
+    <button
+      class="gallery-card video-card"
+      data-type="video"
+      data-path="gallery/videos/team-sloan/fight-march-2026"
+      data-title="March 2026"
+      data-label="Team Sloan Videos"
+      data-loading="Loading Team Sloan March 2026 videos..."
+    >
+      <span class="card-type">Videos</span>
+      <span class="card-title">MARCH 2026</span>
+      <span class="card-label">Team Sloan</span>
+    </button>
+
+    <button
+      class="gallery-card video-card"
+      data-type="video"
+      data-path="gallery/videos/team-sloan/fight-june-2026"
+      data-title="June 2026"
+      data-label="Team Sloan Videos"
+      data-loading="Loading Team Sloan June 2026 videos..."
+    >
+      <span class="card-type">Videos</span>
+      <span class="card-title">JUNE 2026</span>
+      <span class="card-label">Team Sloan</span>
+    </button>
+
+    <button
+      class="gallery-card video-card"
+      data-type="video"
+      data-path="gallery/videos/team-sloan/fight-september-2026"
+      data-title="September 2026"
+      data-label="Team Sloan Videos"
+      data-loading="Loading Team Sloan September 2026 videos..."
+    >
+      <span class="card-type">Videos</span>
+      <span class="card-title">SEPTEMBER 2026</span>
+      <span class="card-label">Team Sloan</span>
+    </button>
+
+    <button
+      class="gallery-card video-card"
+      data-type="video"
+      data-path="gallery/videos/team-sloan/fight-november-2026"
+      data-title="November 2026"
+      data-label="Team Sloan Videos"
+      data-loading="Loading Team Sloan November 2026 videos..."
+    >
+      <span class="card-type">Videos</span>
+      <span class="card-title">NOVEMBER 2026</span>
+      <span class="card-label">Team Sloan</span>
+    </button>
+
+  </div>
 
 </section>
 
 
-<!-- =========================================
-     TEAM WOLFPACK PHOTOS
-========================================= -->
-
-<section class="team-section">
-
-<div class="team-section-header">
-
-<div class="team-section-label">
-OFFICIAL MEDIA
-</div>
-
-
-<div class="team-section-title">
-
-<span class="ice">
-TEAM
-</span>
-
-<span class="fire">
-WOLFPACK
-</span>
-
-</div>
-
-
-<div class="team-section-text">
-Official Team Wolfpack designs, posters and logos.
-</div>
-
-</div>
-
-
-<div class="event-grid">
-
-
-<button
-  class="event-card gallery-card"
-  type="button"
-
-  data-type="photo"
-
-  data-path="gallery/photos/team-wolfpack/designs-posters-logos"
-
-  data-title="DESIGNS, POSTERS & LOGOS"
-
-  data-label="TEAM WOLFPACK • MEDIA GALLERY"
-
-  data-loading="Loading Team Wolfpack artwork..."
-
-  data-alt="Team Wolfpack design poster or logo"
->
-
-<div class="event-icon">
-◆
-</div>
-
-<div class="event-team">
-TEAM WOLFPACK • MEDIA
-</div>
-
-<div class="event-title">
-DESIGNS, POSTERS &amp; LOGOS
-</div>
-
-<div class="event-subtitle">
-Official Team Wolfpack Artwork
-</div>
-
-<div class="event-open">
-VIEW PHOTOS ›
-</div>
-
-</button>
-
-
-</div>
-
-</section>
-
-
-<!-- =========================================
-     VIDEOS HEADING
-========================================= -->
-
-<div class="media-heading">
-
-<div class="media-heading-label">
-TEAM WOLFPACK MEDIA
-</div>
-
-<div class="media-heading-title">
-
-<span class="ice">
-VIDEO
-</span>
-
-<span class="fire">
-GALLERIES
-</span>
-
-</div>
-
-<div class="media-heading-text">
-Promos, announcements, training footage and fight-night videos from across the pack.
-</div>
-
-</div>
-
-
-<!-- =========================================
-     TEAM WOLFPACK VIDEOS
-========================================= -->
-
-<section class="team-section">
-
-<div class="team-section-header">
-
-<div class="team-section-label">
-VIDEO GALLERY
-</div>
-
-
-<div class="team-section-title">
-
-<span class="ice">
-TEAM
-</span>
-
-<span class="fire">
-WOLFPACK
-</span>
-
-</div>
-
-
-<div class="team-section-text">
-Official Team Wolfpack video library.
-</div>
-
-</div>
-
-
-<div class="event-grid">
-
-
-<!-- PROMOS -->
-
-<button
-  class="event-card gallery-card video-card"
-  type="button"
-
-  data-type="video"
-
-  data-path="gallery/videos/team-wolfpack/promos"
-
-  data-title="PROMOS"
-
-  data-label="TEAM WOLFPACK • VIDEOS"
-
-  data-loading="Loading Team Wolfpack promo videos..."
->
-
-<div class="event-icon">
-▶
-</div>
-
-<div class="event-team">
-TEAM WOLFPACK • VIDEO
-</div>
-
-<div class="event-title">
-PROMOS
-</div>
-
-<div class="event-subtitle">
-Official promotional videos
-</div>
-
-<div class="event-open">
-WATCH VIDEOS ›
-</div>
-
-</button>
-
-
-<!-- ANNOUNCEMENTS -->
-
-<button
-  class="event-card gallery-card video-card"
-  type="button"
-
-  data-type="video"
-
-  data-path="gallery/videos/team-wolfpack/announcements"
-
-  data-title="ANNOUNCEMENTS"
-
-  data-label="TEAM WOLFPACK • VIDEOS"
-
-  data-loading="Loading Team Wolfpack announcement videos..."
->
-
-<div class="event-icon">
-▶
-</div>
-
-<div class="event-team">
-TEAM WOLFPACK • VIDEO
-</div>
-
-<div class="event-title">
-ANNOUNCEMENTS
-</div>
-
-<div class="event-subtitle">
-Official Team Wolfpack announcements
-</div>
-
-<div class="event-open">
-WATCH VIDEOS ›
-</div>
-
-</button>
-
-
-<!-- BEHIND THE SCENES -->
-
-<button
-  class="event-card gallery-card video-card"
-  type="button"
-
-  data-type="video"
-
-  data-path="gallery/videos/team-wolfpack/behind-the-scenes"
-
-  data-title="BEHIND THE SCENES"
-
-  data-label="TEAM WOLFPACK • VIDEOS"
-
-  data-loading="Loading behind-the-scenes videos..."
->
-
-<div class="event-icon">
-▶
-</div>
-
-<div class="event-team">
-TEAM WOLFPACK • VIDEO
-</div>
-
-<div class="event-title">
-BEHIND THE SCENES
-</div>
-
-<div class="event-subtitle">
-Life behind the scenes
-</div>
-
-<div class="event-open">
-WATCH VIDEOS ›
-</div>
-
-</button>
-
-
-<!-- TRAINING -->
-
-<button
-  class="event-card gallery-card video-card"
-  type="button"
-
-  data-type="video"
-
-  data-path="gallery/videos/team-wolfpack/training"
-
-  data-title="TRAINING"
-
-  data-label="TEAM WOLFPACK • VIDEOS"
-
-  data-loading="Loading Team Wolfpack training videos..."
->
-
-<div class="event-icon">
-▶
-</div>
-
-<div class="event-team">
-TEAM WOLFPACK • VIDEO
-</div>
-
-<div class="event-title">
-TRAINING
-</div>
-
-<div class="event-subtitle">
-Training and preparation
-</div>
-
-<div class="event-open">
-WATCH VIDEOS ›
-</div>
-
-</button>
-
-
-<!-- OTHER -->
-
-<button
-  class="event-card gallery-card video-card"
-  type="button"
-
-  data-type="video"
-
-  data-path="gallery/videos/team-wolfpack/other"
-
-  data-title="OTHER VIDEOS"
-
-  data-label="TEAM WOLFPACK • VIDEOS"
-
-  data-loading="Loading Team Wolfpack videos..."
->
-
-<div class="event-icon">
-▶
-</div>
-
-<div class="event-team">
-TEAM WOLFPACK • VIDEO
-</div>
-
-<div class="event-title">
-OTHER
-</div>
-
-<div class="event-subtitle">
-More from Team Wolfpack
-</div>
-
-<div class="event-open">
-WATCH VIDEOS ›
-</div>
-
-</button>
-
-
-</div>
-
-</section>
-
-
-<!-- =========================================
-     TEAM WOLFIE VIDEOS
-========================================= -->
-
-<section class="team-section">
-
-<div class="team-section-header">
-
-<div class="team-section-label">
-FIGHT VIDEOS
-</div>
-
-
-<div class="team-section-title">
-
-<span class="ice">
-TEAM
-</span>
-
-<span class="fire">
-WOLFIE
-</span>
-
-</div>
-
-
-<div class="team-section-text">
-Mrs Wolfie fight-night video galleries.
-</div>
-
-</div>
-
-
-<div class="event-grid">
-
-
-<!-- MAY 2025 -->
-
-<button
-  class="event-card gallery-card video-card"
-  type="button"
-
-  data-type="video"
-
-  data-path="gallery/videos/team-wolfie/fight-may-2025"
-
-  data-title="MAY 2025"
-
-  data-label="TEAM WOLFIE • FIGHT VIDEOS"
-
-  data-loading="Loading Team Wolfie May 2025 videos..."
->
-
-<div class="event-icon">
-▶
-</div>
-
-<div class="event-team">
-TEAM WOLFIE • FIGHT VIDEO
-</div>
-
-<div class="event-title">
-MAY 2025
-</div>
-
-<div class="event-subtitle">
-Mrs Wolfie Fight Videos
-</div>
-
-<div class="event-open">
-WATCH VIDEOS ›
-</div>
-
-</button>
-
-
-<!-- JULY 2025 -->
-
-<button
-  class="event-card gallery-card video-card"
-  type="button"
-
-  data-type="video"
-
-  data-path="gallery/videos/team-wolfie/fight-july-2025"
-
-  data-title="JULY 2025"
-
-  data-label="TEAM WOLFIE • FIGHT VIDEOS"
-
-  data-loading="Loading Team Wolfie July 2025 videos..."
->
-
-<div class="event-icon">
-▶
-</div>
-
-<div class="event-team">
-TEAM WOLFIE • FIGHT VIDEO
-</div>
-
-<div class="event-title">
-JULY 2025
-</div>
-
-<div class="event-subtitle">
-Mrs Wolfie Fight Videos
-</div>
-
-<div class="event-open">
-WATCH VIDEOS ›
-</div>
-
-</button>
-
-
-<!-- MARCH 2026 -->
-
-<button
-  class="event-card gallery-card video-card"
-  type="button"
-
-  data-type="video"
-
-  data-path="gallery/videos/team-wolfie/fight-march-2026"
-
-  data-title="MARCH 2026"
-
-  data-label="TEAM WOLFIE • FIGHT VIDEOS"
-
-  data-loading="Loading Team Wolfie March 2026 videos..."
->
-
-<div class="event-icon">
-▶
-</div>
-
-<div class="event-team">
-TEAM WOLFIE • FIGHT VIDEO
-</div>
-
-<div class="event-title">
-MARCH 2026
-</div>
-
-<div class="event-subtitle">
-Mrs Wolfie Fight Videos
-</div>
-
-<div class="event-open">
-WATCH VIDEOS ›
-</div>
-
-</button>
-
-
-<!-- JULY 2026 -->
-
-<button
-  class="event-card gallery-card video-card"
-  type="button"
-
-  data-type="video"
-
-  data-path="gallery/videos/team-wolfie/fight-july-2026"
-
-  data-title="JULY 2026"
-
-  data-label="TEAM WOLFIE • FIGHT VIDEOS"
-
-  data-loading="Loading Team Wolfie July 2026 videos..."
->
-
-<div class="event-icon">
-▶
-</div>
-
-<div class="event-team">
-TEAM WOLFIE • FIGHT VIDEO
-</div>
-
-<div class="event-title">
-JULY 2026
-</div>
-
-<div class="event-subtitle">
-Mrs Wolfie Fight Videos
-</div>
-
-<div class="event-open">
-WATCH VIDEOS ›
-</div>
-
-</button>
-
-
-<!-- OCTOBER 2026 -->
-
-<button
-  class="event-card gallery-card video-card"
-  type="button"
-
-  data-type="video"
-
-  data-path="gallery/videos/team-wolfie/fight-october-2026"
-
-  data-title="OCTOBER 2026"
-
-  data-label="TEAM WOLFIE • FIGHT VIDEOS"
-
-  data-loading="Loading Team Wolfie October 2026 videos..."
->
-
-<div class="event-icon">
-▶
-</div>
-
-<div class="event-team">
-TEAM WOLFIE • FIGHT VIDEO
-</div>
-
-<div class="event-title">
-OCTOBER 2026
-</div>
-
-<div class="event-subtitle">
-Mrs Wolfie Fight Videos
-</div>
-
-<div class="event-open">
-WATCH VIDEOS ›
-</div>
-
-</button>
-
-
-</div>
-
-</section>
-
-
-<!-- =========================================
-     TEAM SLOAN VIDEOS
-========================================= -->
-
-<section class="team-section">
-
-<div class="team-section-header">
-
-<div class="team-section-label">
-FIGHT VIDEOS
-</div>
-
-
-<div class="team-section-title">
-
-<span class="ice">
-TEAM
-</span>
-
-<span class="fire">
-SLOAN
-</span>
-
-</div>
-
-
-<div class="team-section-text">
-Greig Sloan fight-night video galleries.
-</div>
-
-</div>
-
-
-<div class="event-grid">
-
-
-<!-- MARCH 2026 -->
-
-<button
-  class="event-card gallery-card video-card"
-  type="button"
-
-  data-type="video"
-
-  data-path="gallery/videos/team-sloan/fight-march-2026"
-
-  data-title="MARCH 2026"
-
-  data-label="TEAM SLOAN • FIGHT VIDEOS"
-
-  data-loading="Loading Team Sloan March 2026 videos..."
->
-
-<div class="event-icon">
-▶
-</div>
-
-<div class="event-team">
-TEAM SLOAN • FIGHT VIDEO
-</div>
-
-<div class="event-title">
-MARCH 2026
-</div>
-
-<div class="event-subtitle">
-Greig Sloan Fight Videos
-</div>
-
-<div class="event-open">
-WATCH VIDEOS ›
-</div>
-
-</button>
-
-
-<!-- JUNE 2026 -->
-
-<button
-  class="event-card gallery-card video-card"
-  type="button"
-
-  data-type="video"
-
-  data-path="gallery/videos/team-sloan/fight-june-2026"
-
-  data-title="JUNE 2026"
-
-  data-label="TEAM SLOAN • FIGHT VIDEOS"
-
-  data-loading="Loading Team Sloan June 2026 videos..."
->
-
-<div class="event-icon">
-▶
-</div>
-
-<div class="event-team">
-TEAM SLOAN • FIGHT VIDEO
-</div>
-
-<div class="event-title">
-JUNE 2026
-</div>
-
-<div class="event-subtitle">
-Greig Sloan Fight Videos
-</div>
-
-<div class="event-open">
-WATCH VIDEOS ›
-</div>
-
-</button>
-
-
-<!-- SEPTEMBER 2026 -->
-
-<button
-  class="event-card gallery-card video-card"
-  type="button"
-
-  data-type="video"
-
-  data-path="gallery/videos/team-sloan/fight-september-2026"
-
-  data-title="SEPTEMBER 2026"
-
-  data-label="TEAM SLOAN • FIGHT VIDEOS"
-
-  data-loading="Loading Team Sloan September 2026 videos..."
->
-
-<div class="event-icon">
-▶
-</div>
-
-<div class="event-team">
-TEAM SLOAN • FIGHT VIDEO
-</div>
-
-<div class="event-title">
-SEPTEMBER 2026
-</div>
-
-<div class="event-subtitle">
-Greig Sloan Fight Videos
-</div>
-
-<div class="event-open">
-WATCH VIDEOS ›
-</div>
-
-</button>
-
-
-<!-- NOVEMBER 2026 -->
-
-<button
-  class="event-card gallery-card video-card"
-  type="button"
-
-  data-type="video"
-
-  data-path="gallery/videos/team-sloan/fight-november-2026"
-
-  data-title="NOVEMBER 2026"
-
-  data-label="TEAM SLOAN • FIGHT VIDEOS"
-
-  data-loading="Loading Team Sloan November 2026 videos..."
->
-
-<div class="event-icon">
-▶
-</div>
-
-<div class="event-team">
-TEAM SLOAN • FIGHT VIDEO
-</div>
-
-<div class="event-title">
-NOVEMBER 2026
-</div>
-
-<div class="event-subtitle">
-Greig Sloan Fight Videos
-</div>
-
-<div class="event-open">
-WATCH VIDEOS ›
-</div>
-
-</button>
-
-
-</div>
-
-</section>
-
-
-<!-- =========================================
-     MEDIA DISPLAY PANEL
-========================================= -->
+<!-- GALLERY VIEWER -->
 
 <section
-  id="mediaPanel"
-  class="media-panel"
+  id="galleryViewer"
+  class="viewer"
 >
 
-<div class="media-panel-header">
+  <div class="viewer-header">
 
-<div>
+    <div class="viewer-heading">
+      <h2 id="viewerTitle">Gallery</h2>
+      <p id="viewerLabel">Team Wolfpack</p>
+    </div>
 
-<div
-  id="mediaPanelLabel"
-  class="media-panel-label"
->
-TEAM WOLFPACK • GALLERY
-</div>
+    <button
+      id="closeViewer"
+      class="close-viewer"
+      type="button"
+      aria-label="Close gallery"
+    >
+      ✕
+    </button>
 
+  </div>
 
-<div
-  id="mediaPanelTitle"
-  class="media-panel-title"
->
-MEDIA
-</div>
-
-</div>
-
-
-<button
-  id="closeGalleryButton"
-  class="close-gallery"
-  type="button"
-  aria-label="Close gallery"
->
-×
-</button>
-
-</div>
-
-
-<div
-  id="mediaStatus"
-  class="media-status"
->
-Select a gallery above.
-</div>
-
-
-<div
-  id="photoGrid"
-  class="photo-grid"
-></div>
-
-
-<div
-  id="videoGrid"
-  class="video-grid"
-></div>
+  <div
+    id="viewerBody"
+    class="viewer-body"
+  ></div>
 
 </section>
-
-
-<!-- =========================================
-     INFO
-========================================= -->
-
-<div class="gallery-info">
-
-<div class="gallery-info-label">
-TEAM WOLFPACK GALLERY
-</div>
-
-
-<p>
-Select a photo or video gallery above. New media added to the matching GitHub folders will automatically become available here.
-</p>
-
-
-<div class="gallery-status">
-GALLERY LIVE
-</div>
-
-</div>
-
-
-<!-- =========================================
-     FOOTER
-========================================= -->
-
-<footer class="app-footer">
-TEAM WOLFPACK • STRENGTH IN UNITY
-</footer>
-
-
-<div class="copyright">
-<span>
-© 2026 TEAM WOLFPACK • ALL RIGHTS RESERVED
-</span>
-</div>
-
 
 </main>
 
 
-<!-- =========================================
-     IMAGE LIGHTBOX
-========================================= -->
+<!-- PHOTO LIGHTBOX -->
 
 <div
   id="lightbox"
   class="lightbox"
-  aria-hidden="true"
 >
 
-<div
-  id="lightboxCounter"
-  class="lightbox-counter"
-></div>
+  <button
+    id="lightboxClose"
+    class="lightbox-close"
+    type="button"
+    aria-label="Close image"
+  >
+    ✕
+  </button>
 
-
-<button
-  id="lightboxClose"
-  class="lightbox-close"
-  type="button"
-  aria-label="Close image"
->
-×
-</button>
-
-
-<button
-  id="lightboxPrev"
-  class="lightbox-nav lightbox-prev"
-  type="button"
-  aria-label="Previous image"
->
-‹
-</button>
-
-
-<img
-  id="lightboxImage"
-  class="lightbox-image"
-  src=""
-  alt="Team Wolfpack gallery image"
->
-
-
-<button
-  id="lightboxNext"
-  class="lightbox-nav lightbox-next"
-  type="button"
-  aria-label="Next image"
->
-›
-</button>
+  <img
+    id="lightboxImage"
+    src=""
+    alt=""
+  >
 
 </div>
 
 
-<!-- =========================================
-     SIDE MENU JAVASCRIPT
-========================================= -->
+<footer class="footer">
+
+  TEAM WOLFPACK • EST 2025
+  <br><br>
+
+  <a
+    href="https://officialteamwolfpack.com/boxing"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Official Team Wolfpack
+  </a>
+
+</footer>
+
+
+<nav class="bottom-nav">
+
+  <a href="index.html">
+    <span class="nav-icon">⌂</span>
+    HOME
+  </a>
+
+  <a href="fighters.html">
+    <span class="nav-icon">♜</span>
+    FIGHTERS
+  </a>
+
+  <a
+    href="gallery.html"
+    class="active"
+  >
+    <span class="nav-icon">▣</span>
+    GALLERY
+  </a>
+
+  <a href="contact.html">
+    <span class="nav-icon">✉</span>
+    CONTACT
+  </a>
+
+</nav>
+
 
 <script>
 
-const menuButton =
-  document.getElementById("menuButton");
+const GITHUB_OWNER = "OfficialTeamWolfpackApp";
+const GITHUB_REPO = "Team-Wolfpack-App";
 
-const closeMenuButton =
-  document.getElementById("closeMenuButton");
+const galleryViewer =
+  document.getElementById("galleryViewer");
 
-const sideMenu =
-  document.getElementById("sideMenu");
+const viewerTitle =
+  document.getElementById("viewerTitle");
 
-const menuBackdrop =
-  document.getElementById("menuBackdrop");
+const viewerLabel =
+  document.getElementById("viewerLabel");
 
+const viewerBody =
+  document.getElementById("viewerBody");
 
-function openMenu(){
+const closeViewerButton =
+  document.getElementById("closeViewer");
 
-  sideMenu.classList.add(
-    "show"
-  );
+const lightbox =
+  document.getElementById("lightbox");
 
-  menuBackdrop.classList.add(
-    "show"
-  );
+const lightboxImage =
+  document.getElementById("lightboxImage");
 
-  document.body.classList.add(
-    "menu-open"
-  );
-
-  menuButton.setAttribute(
-    "aria-expanded",
-    "true"
-  );
-
-}
+const lightboxClose =
+  document.getElementById("lightboxClose");
 
 
-function closeMenu(){
-
-  sideMenu.classList.remove(
-    "show"
-  );
-
-  menuBackdrop.classList.remove(
-    "show"
-  );
-
-  document.body.classList.remove(
-    "menu-open"
-  );
-
-  menuButton.setAttribute(
-    "aria-expanded",
-    "false"
-  );
-
-}
-
-
-menuButton.addEventListener(
-  "click",
-  openMenu
-);
-
-
-closeMenuButton.addEventListener(
-  "click",
-  closeMenu
-);
-
-
-menuBackdrop.addEventListener(
-  "click",
-  closeMenu
-);
-
-
-document
-  .querySelectorAll(".menu-link")
-  .forEach(function(link){
-
-    link.addEventListener(
-      "click",
-      closeMenu
-    );
-
-  });
-
-</script>
-
-
-<!-- =========================================
-     DYNAMIC GITHUB MEDIA GALLERY
-========================================= -->
-
-<script>
-
-const GITHUB_OWNER =
-  "OfficialTeamWolfpackApp";
-
-const GITHUB_REPO =
-  "Team-Wolfpack-App";
-
-
-const mediaPanel =
-  document.getElementById(
-    "mediaPanel"
-  );
-
-const mediaPanelLabel =
-  document.getElementById(
-    "mediaPanelLabel"
-  );
-
-const mediaPanelTitle =
-  document.getElementById(
-    "mediaPanelTitle"
-  );
-
-const mediaStatus =
-  document.getElementById(
-    "mediaStatus"
-  );
-
-const photoGrid =
-  document.getElementById(
-    "photoGrid"
-  );
-
-const videoGrid =
-  document.getElementById(
-    "videoGrid"
-  );
-
-const closeGalleryButton =
-  document.getElementById(
-    "closeGalleryButton"
-  );
-
-
-let currentImages = [];
-
-let currentImageIndex = 0;
-
-let currentImageAlt =
-  "Team Wolfpack gallery image";
-
+/* FILE TYPES */
 
 function isImageFile(filename){
 
-  return /\.(jpg|jpeg|png|webp|gif)$/i
-    .test(filename);
+  return /\.(jpg|jpeg|png|webp|gif)$/i.test(filename);
 
 }
-
 
 function isVideoFile(filename){
 
-  return /\.(mp4|webm|ogv|m4v|mov)$/i
-    .test(filename);
+  return /\.(mp4|webm|ogv|m4v|mov)$/i.test(filename);
 
 }
 
+
+/* CLEAN FILENAMES */
 
 function cleanFilename(filename){
 
   return filename
-    .replace(
-      /\.[^/.]+$/,
-      ""
-    )
-    .replace(
-      /[-_]+/g,
-      " "
-    )
-    .replace(
-      /\s+/g,
-      " "
-    )
+    .replace(/\.[^/.]+$/, "")
+    .replace(/[_-]+/g, " ")
+    .replace(/\s+/g, " ")
     .trim();
 
 }
 
 
-function stopAllVideos(){
-
-  document
-    .querySelectorAll(
-      "#videoGrid video"
-    )
-    .forEach(function(video){
-
-      video.pause();
-
-    });
-
-}
-
+/* OPEN GALLERY */
 
 async function openGallery(
   type,
@@ -3507,69 +990,23 @@ async function openGallery(
   altText
 ){
 
-  stopAllVideos();
+  galleryViewer.classList.add("active");
 
+  viewerTitle.textContent =
+    title || "Gallery";
 
-  mediaPanel.classList.add(
-    "show"
-  );
+  viewerLabel.textContent =
+    label || "Team Wolfpack";
 
+  viewerBody.innerHTML =
+    '<div class="status">' +
+    (loadingText || "Loading gallery...") +
+    "</div>";
 
-  mediaPanelLabel.textContent =
-    label;
-
-
-  mediaPanelTitle.textContent =
-    title;
-
-
-  photoGrid.innerHTML =
-    "";
-
-
-  videoGrid.innerHTML =
-    "";
-
-
-  mediaStatus.style.display =
-    "block";
-
-
-  mediaStatus.textContent =
-    loadingText;
-
-
-  currentImages =
-    [];
-
-
-  currentImageAlt =
-    altText ||
-    "Team Wolfpack gallery image";
-
-
-  mediaPanel.scrollIntoView({
+  galleryViewer.scrollIntoView({
     behavior:"smooth",
     block:"start"
   });
-
-
-  if(
-    typeof gtag === "function"
-  ){
-
-    gtag(
-      "event",
-      "gallery_media_open",
-      {
-        media_type:type,
-        title:title,
-        path:path
-      }
-    );
-
-  }
-
 
   const apiUrl =
     "https://api.github.com/repos/" +
@@ -3579,320 +1016,240 @@ async function openGallery(
     "/contents/" +
     path;
 
-
   try{
 
     const response =
-      await fetch(
-        apiUrl,
-        {
-          headers:{
-            "Accept":
-              "application/vnd.github+json"
-          }
-        }
-      );
+      await fetch(apiUrl);
 
-
-    if(
-      !response.ok
-    ){
-
-      console.error(
-        "GitHub API error:",
-        response.status,
-        response.statusText,
-        apiUrl
-      );
+    if(!response.ok){
 
       throw new Error(
-        "Gallery folder could not be loaded."
+        "GitHub returned " +
+        response.status
       );
 
     }
-
 
     const files =
       await response.json();
 
-
-    if(
-      !Array.isArray(files)
-    ){
-
-      throw new Error(
-        "Unexpected GitHub response."
-      );
-
-    }
-
-
-    if(
-      type === "photo"
-    ){
-
-      loadPhotos(
-        files,
-        title
-      );
-
-    }else if(
-      type === "video"
-    ){
+    if(type === "video"){
 
       loadVideos(
         files,
-        title
+        path,
+        label
+      );
+
+    }else{
+
+      loadPhotos(
+        files,
+        altText
       );
 
     }
 
-
   }catch(error){
 
-    console.error(
-      "Gallery loading error:",
-      error
-    );
+    console.error(error);
 
-
-    mediaStatus.style.display =
-      "block";
-
-
-    mediaStatus.textContent =
-      "The gallery could not be loaded right now. Please try again shortly.";
+    viewerBody.innerHTML =
+      '<div class="status">' +
+      "This gallery could not be loaded right now." +
+      "</div>";
 
   }
 
 }
 
 
-/* =========================================
-   LOAD PHOTOS
-========================================= */
+/* LOAD PHOTOS */
 
 function loadPhotos(
   files,
-  title
+  altText
 ){
 
-  videoGrid.innerHTML =
-    "";
-
-
-  currentImages =
+  const images =
     files
-      .filter(function(file){
-
-        return (
+      .filter(
+        file =>
           file.type === "file" &&
           isImageFile(file.name)
-        );
+      )
+      .sort(
+        (a,b) =>
+          a.name.localeCompare(
+            b.name,
+            undefined,
+            {
+              numeric:true,
+              sensitivity:"base"
+            }
+          )
+      );
 
-      })
-      .sort(function(a,b){
+  if(images.length === 0){
 
-        return a.name.localeCompare(
-          b.name,
-          undefined,
-          {
-            numeric:true,
-            sensitivity:"base"
-          }
-        );
-
-      });
-
-
-  if(
-    currentImages.length === 0
-  ){
-
-    mediaStatus.style.display =
-      "block";
-
-
-    mediaStatus.textContent =
-      "No photographs have been added to this gallery yet.";
+    viewerBody.innerHTML =
+      '<div class="status">' +
+      "No photos have been added to this gallery yet." +
+      "</div>";
 
     return;
 
   }
 
+  const grid =
+    document.createElement("div");
 
-  mediaStatus.style.display =
-    "none";
+  grid.className =
+    "photo-grid";
 
+  images.forEach(file => {
 
-  currentImages
-    .forEach(function(file,index){
+    const item =
+      document.createElement("div");
 
-      const button =
-        document.createElement(
-          "button"
+    item.className =
+      "photo-item";
+
+    const img =
+      document.createElement("img");
+
+    img.src =
+      file.download_url;
+
+    img.alt =
+      altText ||
+      cleanFilename(file.name);
+
+    img.loading =
+      "lazy";
+
+    img.addEventListener(
+      "click",
+      function(){
+
+        openLightbox(
+          file.download_url,
+          img.alt
         );
 
+      }
+    );
 
-      button.type =
-        "button";
+    item.appendChild(img);
 
+    grid.appendChild(item);
 
-      button.className =
-        "photo-item";
+  });
 
+  viewerBody.innerHTML = "";
 
-      const image =
-        document.createElement(
-          "img"
-        );
-
-
-      image.src =
-        file.download_url;
-
-
-      image.alt =
-        currentImageAlt;
-
-
-      image.loading =
-        "lazy";
-
-
-      image.decoding =
-        "async";
-
-
-      button.appendChild(
-        image
-      );
-
-
-      button.addEventListener(
-        "click",
-        function(){
-
-          openLightbox(
-            index
-          );
-
-        }
-      );
-
-
-      photoGrid.appendChild(
-        button
-      );
-
-    });
+  viewerBody.appendChild(grid);
 
 }
 
 
-/* =========================================
-   LOAD VIDEOS
-========================================= */
+/* LOAD VIDEOS */
 
 function loadVideos(
   files,
-  title
+  path,
+  label
 ){
-
-  photoGrid.innerHTML =
-    "";
-
 
   const videos =
     files
-      .filter(function(file){
-
-        return (
+      .filter(
+        file =>
           file.type === "file" &&
           isVideoFile(file.name)
-        );
+      )
+      .sort(
+        (a,b) =>
+          a.name.localeCompare(
+            b.name,
+            undefined,
+            {
+              numeric:true,
+              sensitivity:"base"
+            }
+          )
+      );
 
-      })
-      .sort(function(a,b){
+  if(videos.length === 0){
 
-        return a.name.localeCompare(
-          b.name,
-          undefined,
-          {
-            numeric:true,
-            sensitivity:"base"
-          }
-        );
-
-      });
-
-
-  if(
-    videos.length === 0
-  ){
-
-    mediaStatus.style.display =
-      "block";
-
-
-    mediaStatus.textContent =
-      "No videos have been added to this gallery yet.";
+    viewerBody.innerHTML =
+      '<div class="status">' +
+      "No videos have been added to this gallery yet." +
+      "</div>";
 
     return;
 
   }
 
+  const grid =
+    document.createElement("div");
 
-  mediaStatus.style.display =
-    "none";
+  grid.className =
+    "video-grid";
 
 
   videos.forEach(
-    function(file,index){
+    (file,index) => {
 
-      const card =
-        document.createElement(
-          "article"
-        );
+      const item =
+        document.createElement("div");
 
-
-      card.className =
+      item.className =
         "video-item";
 
 
-      const video =
-        document.createElement(
-          "video"
-        );
+      const frame =
+        document.createElement("div");
 
+      frame.className =
+        "video-frame";
+
+
+      const video =
+        document.createElement("video");
 
       video.src =
         file.download_url;
 
-
       video.controls =
         true;
 
-
       video.preload =
         "metadata";
-
 
       video.playsInline =
         true;
 
 
-      video.setAttribute(
-        "playsinline",
-        ""
-      );
+      /* ---------------------------------
+         TEAM WOLFIE MARCH 2026 THUMBNAIL
+         FIRST VIDEO
+      ---------------------------------- */
+
+      if(
+        path ===
+        "gallery/videos/team-wolfie/fight-march-2026"
+        &&
+        index === 0
+      ){
+
+        video.poster =
+          "gallery/videos/team-wolfie/fight-march-2026/thumbnails/Video%201.png";
+
+      }
 
 
-      video.setAttribute(
-        "webkit-playsinline",
-        ""
-      );
-
+      /* ONLY ONE VIDEO PLAYS AT A TIME */
 
       video.addEventListener(
         "play",
@@ -3900,10 +1257,10 @@ function loadVideos(
 
           document
             .querySelectorAll(
-              "#videoGrid video"
+              ".video-item video"
             )
             .forEach(
-              function(otherVideo){
+              otherVideo => {
 
                 if(
                   otherVideo !== video
@@ -3916,125 +1273,84 @@ function loadVideos(
               }
             );
 
-
-          if(
-            typeof gtag ===
-            "function"
-          ){
-
-            gtag(
-              "event",
-              "gallery_video_play",
-              {
-                gallery:title,
-                video_name:file.name
-              }
-            );
-
-          }
-
         }
       );
 
 
       const info =
-        document.createElement(
-          "div"
-        );
-
+        document.createElement("div");
 
       info.className =
         "video-info";
 
 
-      const name =
-        document.createElement(
-          "div"
-        );
+      const title =
+        document.createElement("p");
 
+      title.className =
+        "video-title";
 
-      name.className =
-        "video-name";
-
-
-      name.textContent =
+      title.textContent =
         cleanFilename(
           file.name
         );
 
 
-      const type =
-        document.createElement(
-          "div"
-        );
+      const videoLabel =
+        document.createElement("p");
 
+      videoLabel.className =
+        "video-label";
 
-      type.className =
-        "video-type";
-
-
-      type.textContent =
+      videoLabel.textContent =
+        label ||
         "TEAM WOLFPACK VIDEO";
 
 
+      frame.appendChild(video);
+
+      info.appendChild(title);
+
       info.appendChild(
-        name
+        videoLabel
       );
 
+      item.appendChild(frame);
 
-      info.appendChild(
-        type
-      );
+      item.appendChild(info);
 
-
-      card.appendChild(
-        video
-      );
-
-
-      card.appendChild(
-        info
-      );
-
-
-      videoGrid.appendChild(
-        card
-      );
+      grid.appendChild(item);
 
     }
   );
 
+
+  viewerBody.innerHTML = "";
+
+  viewerBody.appendChild(grid);
+
 }
 
 
-/* =========================================
-   CARD CLICKS
-========================================= */
+/* GALLERY CARD CLICKS */
 
 document
   .querySelectorAll(
     ".gallery-card"
   )
-  .forEach(function(card){
+  .forEach(card => {
 
     card.addEventListener(
       "click",
       function(){
 
         openGallery(
-
           card.dataset.type,
-
           card.dataset.path,
-
           card.dataset.title,
-
           card.dataset.label,
-
           card.dataset.loading,
-
           card.dataset.alt
-
         );
 
       }
@@ -4043,237 +1359,97 @@ document
   });
 
 
-/* =========================================
-   CLOSE GALLERY
-========================================= */
+/* CLOSE GALLERY */
 
-closeGalleryButton
-  .addEventListener(
-    "click",
-    function(){
+function closeGallery(){
 
-      stopAllVideos();
+  document
+    .querySelectorAll(
+      ".video-item video"
+    )
+    .forEach(video => {
 
+      video.pause();
 
-      mediaPanel.classList.remove(
-        "show"
-      );
+    });
 
+  galleryViewer
+    .classList
+    .remove("active");
 
-      photoGrid.innerHTML =
-        "";
-
-
-      videoGrid.innerHTML =
-        "";
-
-
-      mediaStatus.style.display =
-        "block";
-
-
-      mediaStatus.textContent =
-        "Select a gallery above.";
-
-
-      currentImages =
-        [];
-
-    }
-  );
-
-</script>
-
-
-<!-- =========================================
-     IMAGE LIGHTBOX JAVASCRIPT
-========================================= -->
-
-<script>
-
-const lightbox =
-  document.getElementById(
-    "lightbox"
-  );
-
-const lightboxImage =
-  document.getElementById(
-    "lightboxImage"
-  );
-
-const lightboxClose =
-  document.getElementById(
-    "lightboxClose"
-  );
-
-const lightboxPrev =
-  document.getElementById(
-    "lightboxPrev"
-  );
-
-const lightboxNext =
-  document.getElementById(
-    "lightboxNext"
-  );
-
-const lightboxCounter =
-  document.getElementById(
-    "lightboxCounter"
-  );
-
-
-function showLightboxImage(){
-
-  if(
-    currentImages.length === 0
-  ){
-    return;
-  }
-
-
-  const file =
-    currentImages[
-      currentImageIndex
-    ];
-
-
-  lightboxImage.src =
-    file.download_url;
-
-
-  lightboxImage.alt =
-    currentImageAlt;
-
-
-  lightboxCounter.textContent =
-    (currentImageIndex + 1) +
-    " / " +
-    currentImages.length;
+  viewerBody.innerHTML = "";
 
 }
 
 
-function openLightbox(index){
-
-  currentImageIndex =
-    index;
-
-
-  showLightboxImage();
-
-
-  lightbox.classList.add(
-    "show"
+closeViewerButton
+  .addEventListener(
+    "click",
+    closeGallery
   );
 
 
-  lightbox.setAttribute(
-    "aria-hidden",
-    "false"
-  );
+/* LIGHTBOX */
 
+function openLightbox(
+  src,
+  alt
+){
 
-  document.body.classList.add(
-    "lightbox-open"
-  );
+  lightboxImage.src =
+    src;
+
+  lightboxImage.alt =
+    alt || "Gallery image";
+
+  lightbox
+    .classList
+    .add("active");
 
 }
 
 
 function closeLightbox(){
 
-  lightbox.classList.remove(
-    "show"
-  );
+  lightbox
+    .classList
+    .remove("active");
 
-
-  lightbox.setAttribute(
-    "aria-hidden",
-    "true"
-  );
-
-
-  document.body.classList.remove(
-    "lightbox-open"
-  );
-
-
-  lightboxImage.src =
-    "";
+  lightboxImage.src = "";
 
 }
 
 
-function previousImage(){
-
-  if(
-    currentImages.length === 0
-  ){
-    return;
-  }
+lightboxClose
+  .addEventListener(
+    "click",
+    closeLightbox
+  );
 
 
-  currentImageIndex =
-    (
-      currentImageIndex -
-      1 +
-      currentImages.length
-    ) %
-    currentImages.length;
+lightbox
+  .addEventListener(
+    "click",
+    function(event){
+
+      if(
+        event.target === lightbox
+      ){
+
+        closeLightbox();
+
+      }
+
+    }
+  );
 
 
-  showLightboxImage();
-
-}
-
-
-function nextImage(){
-
-  if(
-    currentImages.length === 0
-  ){
-    return;
-  }
-
-
-  currentImageIndex =
-    (
-      currentImageIndex +
-      1
-    ) %
-    currentImages.length;
-
-
-  showLightboxImage();
-
-}
-
-
-lightboxClose.addEventListener(
-  "click",
-  closeLightbox
-);
-
-
-lightboxPrev.addEventListener(
-  "click",
-  previousImage
-);
-
-
-lightboxNext.addEventListener(
-  "click",
-  nextImage
-);
-
-
-lightbox.addEventListener(
-  "click",
+document.addEventListener(
+  "keydown",
   function(event){
 
     if(
-      event.target ===
-      lightbox
+      event.key === "Escape"
     ){
 
       closeLightbox();
@@ -4284,87 +1460,7 @@ lightbox.addEventListener(
 );
 
 
-document.addEventListener(
-  "keydown",
-  function(event){
-
-    if(
-      event.key ===
-      "Escape"
-    ){
-
-      if(
-        lightbox.classList.contains(
-          "show"
-        )
-      ){
-
-        closeLightbox();
-
-      }else if(
-        sideMenu.classList.contains(
-          "show"
-        )
-      ){
-
-        closeMenu();
-
-      }else if(
-        mediaPanel.classList.contains(
-          "show"
-        )
-      ){
-
-        stopAllVideos();
-
-        mediaPanel.classList.remove(
-          "show"
-        );
-
-      }
-
-    }
-
-
-    if(
-      !lightbox
-        .classList
-        .contains("show")
-    ){
-      return;
-    }
-
-
-    if(
-      event.key ===
-      "ArrowLeft"
-    ){
-
-      previousImage();
-
-    }
-
-
-    if(
-      event.key ===
-      "ArrowRight"
-    ){
-
-      nextImage();
-
-    }
-
-  }
-);
-
-</script>
-
-
-<!-- =========================================
-     SERVICE WORKER
-========================================= -->
-
-<script>
+/* SERVICE WORKER */
 
 if(
   "serviceWorker" in navigator
@@ -4380,14 +1476,11 @@ if(
           "service-worker.js"
         )
         .catch(
-          function(error){
-
-            console.error(
-              "Service worker error:",
+          error =>
+            console.log(
+              "Service worker registration failed:",
               error
-            );
-
-          }
+            )
         );
 
     }
