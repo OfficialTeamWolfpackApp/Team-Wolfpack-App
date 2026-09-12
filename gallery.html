@@ -96,6 +96,7 @@ body.lightbox-open{
 
 .app-bar{
   position:fixed;
+
   top:0;
   left:0;
   right:0;
@@ -676,7 +677,7 @@ body.lightbox-open{
 
 
 /* =========================================
-   EVENT CARDS
+   GALLERY CARDS
 ========================================= */
 
 .event-grid{
@@ -1397,6 +1398,7 @@ body.lightbox-open{
 
 </head>
 
+
 <body>
 
 
@@ -1439,8 +1441,6 @@ TEAM WOLFPACK
 
 </header>
 
-
-<!-- MENU BACKDROP -->
 
 <div
   id="menuBackdrop"
@@ -1611,7 +1611,7 @@ GALLERY
 </h1>
 
 <p class="subtitle">
-Fight nights, training and life inside the pack.
+Fight nights, artwork and life inside the pack.
 </p>
 
 </section>
@@ -1643,7 +1643,7 @@ MOMENTS
 </h2>
 
 <p>
-Explore fight nights, Team Wolfie, Team Sloan and life inside Team Wolfpack.
+Explore Team Wolfie fight nights and official Team Wolfpack designs, posters and logos.
 </p>
 
 </div>
@@ -1684,15 +1684,16 @@ Mrs Wolfie fight-night galleries.
 
 
 <button
-  class="event-card"
+  class="event-card gallery-card"
   type="button"
-  data-folder="fight-may-2025"
+  data-path="gallery/photos/fight-nights/fight-may-2025"
   data-title="MAY 2025"
+  data-label="TEAM WOLFIE • FIGHT GALLERY"
+  data-loading="Loading Team Wolfie photos..."
+  data-alt="Team Wolfie May 2025 fight photograph"
 >
 
-<div class="event-icon">
-♜
-</div>
+<div class="event-icon">♜</div>
 
 <div class="event-team">
 TEAM WOLFIE • FIGHT NIGHT
@@ -1714,15 +1715,16 @@ VIEW PHOTOS ›
 
 
 <button
-  class="event-card"
+  class="event-card gallery-card"
   type="button"
-  data-folder="fight-july-2025"
+  data-path="gallery/photos/fight-nights/fight-july-2025"
   data-title="JULY 2025"
+  data-label="TEAM WOLFIE • FIGHT GALLERY"
+  data-loading="Loading Team Wolfie photos..."
+  data-alt="Team Wolfie July 2025 fight photograph"
 >
 
-<div class="event-icon">
-♜
-</div>
+<div class="event-icon">♜</div>
 
 <div class="event-team">
 TEAM WOLFIE • FIGHT NIGHT
@@ -1744,15 +1746,16 @@ VIEW PHOTOS ›
 
 
 <button
-  class="event-card"
+  class="event-card gallery-card"
   type="button"
-  data-folder="fight-march-2026"
+  data-path="gallery/photos/fight-nights/fight-march-2026"
   data-title="MARCH 2026"
+  data-label="TEAM WOLFIE • FIGHT GALLERY"
+  data-loading="Loading Team Wolfie photos..."
+  data-alt="Team Wolfie March 2026 fight photograph"
 >
 
-<div class="event-icon">
-♜
-</div>
+<div class="event-icon">♜</div>
 
 <div class="event-team">
 TEAM WOLFIE • FIGHT NIGHT
@@ -1774,15 +1777,16 @@ VIEW PHOTOS ›
 
 
 <button
-  class="event-card"
+  class="event-card gallery-card"
   type="button"
-  data-folder="fight-july-2026"
+  data-path="gallery/photos/fight-nights/fight-july-2026"
   data-title="JULY 2026"
+  data-label="TEAM WOLFIE • FIGHT GALLERY"
+  data-loading="Loading Team Wolfie photos..."
+  data-alt="Team Wolfie July 2026 fight photograph"
 >
 
-<div class="event-icon">
-♜
-</div>
+<div class="event-icon">♜</div>
 
 <div class="event-team">
 TEAM WOLFIE • FIGHT NIGHT
@@ -1804,15 +1808,16 @@ VIEW PHOTOS ›
 
 
 <button
-  class="event-card"
+  class="event-card gallery-card"
   type="button"
-  data-folder="fight-october-2026"
+  data-path="gallery/photos/fight-nights/fight-october-2026"
   data-title="OCTOBER 2026"
+  data-label="TEAM WOLFIE • FIGHT GALLERY"
+  data-loading="Loading Team Wolfie photos..."
+  data-alt="Team Wolfie October 2026 fight photograph"
 >
 
-<div class="event-icon">
-♜
-</div>
+<div class="event-icon">♜</div>
 
 <div class="event-team">
 TEAM WOLFIE • FIGHT NIGHT
@@ -1839,6 +1844,76 @@ VIEW PHOTOS ›
 
 
 <!-- =========================================
+     TEAM WOLFPACK
+========================================= -->
+
+<section class="team-section">
+
+<div class="team-section-header">
+
+<div class="team-section-label">
+OFFICIAL TEAM WOLFPACK MEDIA
+</div>
+
+<div class="team-section-title">
+
+<span class="ice">
+TEAM
+</span>
+
+<span class="fire">
+WOLFPACK
+</span>
+
+</div>
+
+<div class="team-section-text">
+Official Team Wolfpack designs, posters and logos.
+</div>
+
+</div>
+
+
+<div class="event-grid">
+
+<button
+  class="event-card gallery-card"
+  type="button"
+  data-path="gallery/photos/team-wolfpack/designs-posters-logos"
+  data-title="DESIGNS, POSTERS & LOGOS"
+  data-label="TEAM WOLFPACK • MEDIA GALLERY"
+  data-loading="Loading Team Wolfpack artwork..."
+  data-alt="Team Wolfpack design poster or logo"
+>
+
+<div class="event-icon">
+◆
+</div>
+
+<div class="event-team">
+TEAM WOLFPACK • MEDIA
+</div>
+
+<div class="event-title">
+DESIGNS, POSTERS &amp; LOGOS
+</div>
+
+<div class="event-subtitle">
+Official Team Wolfpack Artwork
+</div>
+
+<div class="event-open">
+VIEW PHOTOS ›
+</div>
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- =========================================
      PHOTO PANEL
 ========================================= -->
 
@@ -1851,15 +1926,18 @@ VIEW PHOTOS ›
 
 <div>
 
-<div class="photo-panel-label">
-TEAM WOLFIE • FIGHT GALLERY
+<div
+  id="photoPanelLabel"
+  class="photo-panel-label"
+>
+TEAM WOLFPACK • GALLERY
 </div>
 
 <div
   id="photoPanelTitle"
   class="photo-panel-title"
 >
-FIGHT PHOTOS
+PHOTOS
 </div>
 
 </div>
@@ -1880,7 +1958,7 @@ FIGHT PHOTOS
   id="photoStatus"
   class="photo-status"
 >
-Select a fight gallery above.
+Select a gallery above.
 </div>
 
 
@@ -1903,9 +1981,8 @@ TEAM WOLFPACK GALLERY
 </div>
 
 <p>
-Select a fight gallery above to view the photographs.
-New images added to the matching Team Wolfie GitHub folders
-can be loaded into the gallery automatically.
+Select a gallery above to view the photographs and artwork.
+New images added to the matching GitHub folders are loaded automatically.
 </p>
 
 <div class="gallery-status">
@@ -1969,7 +2046,7 @@ TEAM WOLFPACK • STRENGTH IN UNITY
   id="lightboxImage"
   class="lightbox-image"
   src=""
-  alt="Team Wolfie gallery photograph"
+  alt="Team Wolfpack gallery image"
 >
 
 <button
@@ -2050,32 +2127,6 @@ menuBackdrop.addEventListener(
   closeMenu
 );
 
-document.addEventListener(
-  "keydown",
-  function(event){
-
-    if(event.key === "Escape"){
-
-      if(
-        document
-          .getElementById("lightbox")
-          .classList
-          .contains("show")
-      ){
-
-        closeLightbox();
-
-      }else{
-
-        closeMenu();
-
-      }
-
-    }
-
-  }
-);
-
 document
   .querySelectorAll(".menu-link")
   .forEach(function(link){
@@ -2102,12 +2153,12 @@ const GITHUB_OWNER =
 const GITHUB_REPO =
   "Team-Wolfpack-App";
 
-const TEAM_WOLFIE_BASE =
-  "gallery/photos/fight-nights";
-
 
 const photoPanel =
   document.getElementById("photoPanel");
+
+const photoPanelLabel =
+  document.getElementById("photoPanelLabel");
 
 const photoPanelTitle =
   document.getElementById("photoPanelTitle");
@@ -2126,6 +2177,9 @@ let currentImages = [];
 
 let currentImageIndex = 0;
 
+let currentImageAlt =
+  "Team Wolfpack gallery image";
+
 
 function isImageFile(filename){
 
@@ -2135,25 +2189,36 @@ function isImageFile(filename){
 }
 
 
-async function openFightGallery(
-  folder,
-  title
+async function openGallery(
+  path,
+  title,
+  label,
+  loadingText,
+  altText
 ){
 
   photoPanel.classList.add("show");
 
-  photoPanelTitle.textContent =
-    title + " FIGHT PHOTOS";
+  photoPanelLabel.textContent =
+    label;
 
-  photoGrid.innerHTML = "";
+  photoPanelTitle.textContent =
+    title;
+
+  photoGrid.innerHTML =
+    "";
 
   photoStatus.style.display =
     "block";
 
   photoStatus.textContent =
-    "Loading Team Wolfie photos...";
+    loadingText;
 
-  currentImages = [];
+  currentImages =
+    [];
+
+  currentImageAlt =
+    altText;
 
   photoPanel.scrollIntoView({
     behavior:"smooth",
@@ -2164,9 +2229,8 @@ async function openFightGallery(
   if(typeof gtag === "function"){
 
     gtag("event", "gallery_event_open", {
-      team:"Team Wolfie",
-      event:title,
-      folder:folder
+      title:title,
+      path:path
     });
 
   }
@@ -2178,9 +2242,7 @@ async function openFightGallery(
     "/" +
     GITHUB_REPO +
     "/contents/" +
-    TEAM_WOLFIE_BASE +
-    "/" +
-    folder;
+    path;
 
 
   try{
@@ -2252,7 +2314,7 @@ async function openFightGallery(
     if(currentImages.length === 0){
 
       photoStatus.textContent =
-        "No photographs have been added to this gallery yet.";
+        "No images have been added to this gallery yet.";
 
       return;
 
@@ -2287,9 +2349,7 @@ async function openFightGallery(
           file.download_url;
 
         image.alt =
-          "Team Wolfie " +
-          title +
-          " fight photograph";
+          altText;
 
         image.loading =
           "lazy";
@@ -2333,7 +2393,7 @@ async function openFightGallery(
       "block";
 
     photoStatus.textContent =
-      "The photographs could not be loaded right now. Please try again shortly.";
+      "The images could not be loaded right now. Please try again shortly.";
 
   }
 
@@ -2341,16 +2401,19 @@ async function openFightGallery(
 
 
 document
-  .querySelectorAll(".event-card")
+  .querySelectorAll(".gallery-card")
   .forEach(function(card){
 
     card.addEventListener(
       "click",
       function(){
 
-        openFightGallery(
-          card.dataset.folder,
-          card.dataset.title
+        openGallery(
+          card.dataset.path,
+          card.dataset.title,
+          card.dataset.label,
+          card.dataset.loading,
+          card.dataset.alt
         );
 
       }
@@ -2374,7 +2437,7 @@ closeGalleryButton.addEventListener(
       "block";
 
     photoStatus.textContent =
-      "Select a fight gallery above.";
+      "Select a gallery above.";
 
     currentImages =
       [];
@@ -2427,6 +2490,9 @@ function showLightboxImage(){
 
   lightboxImage.src =
     file.download_url;
+
+  lightboxImage.alt =
+    currentImageAlt;
 
 
   lightboxCounter.textContent =
@@ -2554,6 +2620,25 @@ lightbox.addEventListener(
 document.addEventListener(
   "keydown",
   function(event){
+
+    if(event.key === "Escape"){
+
+      if(
+        lightbox.classList.contains(
+          "show"
+        )
+      ){
+
+        closeLightbox();
+
+      }else{
+
+        closeMenu();
+
+      }
+
+    }
+
 
     if(
       !lightbox
