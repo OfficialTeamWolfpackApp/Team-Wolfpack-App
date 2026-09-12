@@ -406,10 +406,9 @@ button{
   background:
     linear-gradient(
       to top,
-      rgba(0,0,0,.60) 0%,
-      rgba(0,0,0,.12) 25%,
-      rgba(0,0,0,.02) 58%,
-      transparent 100%
+      rgba(0,0,0,.48) 0%,
+      rgba(0,0,0,.08) 22%,
+      transparent 55%
     );
 }
 
@@ -427,10 +426,10 @@ button{
   background:
     linear-gradient(
       90deg,
-      rgba(0,191,255,.06),
+      rgba(0,191,255,.05),
       transparent 30%,
       transparent 70%,
-      rgba(255,90,0,.06)
+      rgba(255,90,0,.05)
     );
 }
 
@@ -458,11 +457,11 @@ button{
 
   z-index:3;
 
-  left:14px;
-  right:14px;
-  bottom:14px;
+  left:12px;
+  right:12px;
+  bottom:10px;
 
-  min-height:36px;
+  min-height:28px;
 
   display:flex;
 
@@ -470,33 +469,33 @@ button{
 
   justify-content:space-between;
 
-  gap:10px;
+  gap:8px;
 
   padding:
-    9px
-    13px;
+    6px
+    10px;
 
   border:
-    1px solid rgba(255,255,255,.15);
+    1px solid rgba(255,255,255,.12);
 
-  border-radius:10px;
+  border-radius:8px;
 
   background:
     linear-gradient(
       90deg,
-      rgba(4,11,14,.76),
-      rgba(5,5,5,.62),
-      rgba(17,8,3,.76)
+      rgba(0,0,0,.54),
+      rgba(0,0,0,.40),
+      rgba(0,0,0,.54)
     );
 
   backdrop-filter:
-    blur(6px);
+    blur(4px);
 
   -webkit-backdrop-filter:
-    blur(6px);
+    blur(4px);
 
   box-shadow:
-    0 8px 22px rgba(0,0,0,.28);
+    0 5px 14px rgba(0,0,0,.24);
 
   transition:
     background .22s ease,
@@ -506,14 +505,14 @@ button{
 
 .photo-card:hover .photo-action{
   border-color:
-    rgba(255,255,255,.26);
+    rgba(255,255,255,.24);
 
   background:
     linear-gradient(
       90deg,
-      rgba(0,191,255,.16),
-      rgba(0,0,0,.72),
-      rgba(255,90,0,.16)
+      rgba(0,191,255,.12),
+      rgba(0,0,0,.56),
+      rgba(255,90,0,.12)
     );
 
   transform:
@@ -523,22 +522,22 @@ button{
 .photo-action-text{
   color:#fff;
 
-  font-size:10px;
+  font-size:8px;
 
   font-weight:1000;
 
-  letter-spacing:1.5px;
+  letter-spacing:1.2px;
 
   text-transform:uppercase;
 
   text-shadow:
-    0 2px 6px rgba(0,0,0,.95);
+    0 2px 5px rgba(0,0,0,.95);
 }
 
 .photo-action-arrow{
   color:#27cfff;
 
-  font-size:17px;
+  font-size:14px;
 
   font-weight:900;
 
@@ -1174,25 +1173,25 @@ button{
   }
 
   .photo-action{
-    left:9px;
-    right:9px;
-    bottom:9px;
+    left:8px;
+    right:8px;
+    bottom:7px;
 
-    min-height:31px;
+    min-height:25px;
 
     padding:
-      7px
-      9px;
+      5px
+      8px;
   }
 
   .photo-action-text{
-    font-size:8px;
+    font-size:7px;
 
-    letter-spacing:1px;
+    letter-spacing:.9px;
   }
 
   .photo-action-arrow{
-    font-size:14px;
+    font-size:12px;
   }
 
   .video-content{
@@ -1334,6 +1333,7 @@ button{
       <span class="card-arrow">›</span>
 
       <span class="photo-action">
+
         <span class="photo-action-text">
           View Photos
         </span>
@@ -1341,6 +1341,7 @@ button{
         <span class="photo-action-arrow">
           →
         </span>
+
       </span>
 
     </button>
@@ -1360,6 +1361,7 @@ button{
       <span class="card-arrow">›</span>
 
       <span class="photo-action">
+
         <span class="photo-action-text">
           View Photos
         </span>
@@ -1367,6 +1369,7 @@ button{
         <span class="photo-action-arrow">
           →
         </span>
+
       </span>
 
     </button>
@@ -1386,6 +1389,7 @@ button{
       <span class="card-arrow">›</span>
 
       <span class="photo-action">
+
         <span class="photo-action-text">
           View Photos
         </span>
@@ -1393,6 +1397,7 @@ button{
         <span class="photo-action-arrow">
           →
         </span>
+
       </span>
 
     </button>
@@ -1412,6 +1417,7 @@ button{
       <span class="card-arrow">›</span>
 
       <span class="photo-action">
+
         <span class="photo-action-text">
           View Photos
         </span>
@@ -1419,6 +1425,7 @@ button{
         <span class="photo-action-arrow">
           →
         </span>
+
       </span>
 
     </button>
@@ -1438,6 +1445,7 @@ button{
       <span class="card-arrow">›</span>
 
       <span class="photo-action">
+
         <span class="photo-action-text">
           View Photos
         </span>
@@ -1445,6 +1453,7 @@ button{
         <span class="photo-action-arrow">
           →
         </span>
+
       </span>
 
     </button>
@@ -1464,6 +1473,7 @@ button{
       <span class="card-arrow">›</span>
 
       <span class="photo-action">
+
         <span class="photo-action-text">
           View Artwork
         </span>
@@ -1471,6 +1481,7 @@ button{
         <span class="photo-action-arrow">
           →
         </span>
+
       </span>
 
     </button>
@@ -1512,6 +1523,8 @@ button{
   <div class="video-content">
 
 
+    <!-- TEAM WOLFPACK -->
+
     <div class="team-block">
 
       <div class="team-heading">
@@ -1529,6 +1542,7 @@ button{
 
 
       <div class="video-category-grid">
+
 
         <button
           class="gallery-card video-card"
@@ -1604,11 +1618,14 @@ button{
           <span class="card-subtitle">Team Wolfpack</span>
         </button>
 
+
       </div>
 
     </div>
 
 
+
+    <!-- TEAM WOLFIE -->
 
     <div class="team-block">
 
@@ -1627,6 +1644,7 @@ button{
 
 
       <div class="video-category-grid">
+
 
         <button
           class="gallery-card video-card"
@@ -1702,11 +1720,14 @@ button{
           <span class="card-subtitle">Team Wolfie</span>
         </button>
 
+
       </div>
 
     </div>
 
 
+
+    <!-- TEAM SLOAN -->
 
     <div class="team-block">
 
@@ -1725,6 +1746,7 @@ button{
 
 
       <div class="video-category-grid">
+
 
         <button
           class="gallery-card video-card"
@@ -1785,6 +1807,7 @@ button{
           <span class="card-subtitle">Team Sloan</span>
         </button>
 
+
       </div>
 
     </div>
@@ -1796,17 +1819,30 @@ button{
 
 
 
-<section id="galleryPanel" class="gallery-panel">
+<!-- =========================
+     OPENED GALLERY
+========================= -->
+
+<section
+  id="galleryPanel"
+  class="gallery-panel"
+>
 
   <div class="panel-header">
 
     <div>
 
-      <h2 id="panelTitle" class="panel-title">
+      <h2
+        id="panelTitle"
+        class="panel-title"
+      >
         Gallery
       </h2>
 
-      <div id="panelLabel" class="panel-label">
+      <div
+        id="panelLabel"
+        class="panel-label"
+      >
         Team Wolfpack
       </div>
 
@@ -1825,11 +1861,18 @@ button{
   </div>
 
 
-  <div id="panelBody" class="panel-body"></div>
+  <div
+    id="panelBody"
+    class="panel-body"
+  ></div>
 
 </section>
 
 
+
+<!-- =========================
+     FOOTER
+========================= -->
 
 <footer class="footer">
 
@@ -1858,7 +1901,14 @@ button{
 
 
 
-<div id="lightbox" class="lightbox">
+<!-- =========================
+     LIGHTBOX
+========================= -->
+
+<div
+  id="lightbox"
+  class="lightbox"
+>
 
   <button
     id="lightboxClose"
@@ -1888,28 +1938,44 @@ const GITHUB_REPO =
 
 
 const galleryPanel =
-  document.getElementById("galleryPanel");
+  document.getElementById(
+    "galleryPanel"
+  );
 
 const panelTitle =
-  document.getElementById("panelTitle");
+  document.getElementById(
+    "panelTitle"
+  );
 
 const panelLabel =
-  document.getElementById("panelLabel");
+  document.getElementById(
+    "panelLabel"
+  );
 
 const panelBody =
-  document.getElementById("panelBody");
+  document.getElementById(
+    "panelBody"
+  );
 
 const closePanelButton =
-  document.getElementById("closePanel");
+  document.getElementById(
+    "closePanel"
+  );
 
 const lightbox =
-  document.getElementById("lightbox");
+  document.getElementById(
+    "lightbox"
+  );
 
 const lightboxImage =
-  document.getElementById("lightboxImage");
+  document.getElementById(
+    "lightboxImage"
+  );
 
 const lightboxClose =
-  document.getElementById("lightboxClose");
+  document.getElementById(
+    "lightboxClose"
+  );
 
 
 function isImageFile(filename){
@@ -2085,7 +2151,10 @@ function loadPhotos(
 
 
   const grid =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
+
 
   grid.className =
     "image-grid";
@@ -2095,14 +2164,19 @@ function loadPhotos(
     file => {
 
       const item =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
+
 
       item.className =
         "image-item";
 
 
       const img =
-        document.createElement("img");
+        document.createElement(
+          "img"
+        );
 
 
       img.src =
@@ -2133,9 +2207,14 @@ function loadPhotos(
       );
 
 
-      item.appendChild(img);
+      item.appendChild(
+        img
+      );
 
-      grid.appendChild(item);
+
+      grid.appendChild(
+        item
+      );
 
     }
   );
@@ -2143,7 +2222,10 @@ function loadPhotos(
 
   panelBody.innerHTML = "";
 
-  panelBody.appendChild(grid);
+
+  panelBody.appendChild(
+    grid
+  );
 
 }
 
@@ -2220,7 +2302,10 @@ function loadVideos(
 
 
   const grid =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
+
 
   grid.className =
     "video-grid";
@@ -2230,14 +2315,19 @@ function loadVideos(
     (file,index) => {
 
       const item =
-        document.createElement("article");
+        document.createElement(
+          "article"
+        );
+
 
       item.className =
         "video-item";
 
 
       const video =
-        document.createElement("video");
+        document.createElement(
+          "video"
+        );
 
 
       video.src =
@@ -2298,14 +2388,20 @@ function loadVideos(
 
 
       const info =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
+
 
       info.className =
         "video-info";
 
 
       const name =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
+
 
       name.className =
         "video-name";
@@ -2331,7 +2427,10 @@ function loadVideos(
 
 
       const videoLabel =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
+
 
       videoLabel.className =
         "video-label";
@@ -2341,15 +2440,29 @@ function loadVideos(
         label;
 
 
-      info.appendChild(name);
+      info.appendChild(
+        name
+      );
 
-      info.appendChild(videoLabel);
 
-      item.appendChild(video);
+      info.appendChild(
+        videoLabel
+      );
 
-      item.appendChild(info);
 
-      grid.appendChild(item);
+      item.appendChild(
+        video
+      );
+
+
+      item.appendChild(
+        info
+      );
+
+
+      grid.appendChild(
+        item
+      );
 
     }
   );
@@ -2357,13 +2470,18 @@ function loadVideos(
 
   panelBody.innerHTML = "";
 
-  panelBody.appendChild(grid);
+
+  panelBody.appendChild(
+    grid
+  );
 
 }
 
 
 document
-  .querySelectorAll(".gallery-card")
+  .querySelectorAll(
+    ".gallery-card"
+  )
   .forEach(
     card => {
 
