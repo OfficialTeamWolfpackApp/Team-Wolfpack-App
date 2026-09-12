@@ -15,6 +15,12 @@ function gtag(){
 
 gtag("js", new Date());
 gtag("config", "G-M973P0B4F0");
+
+window.addEventListener("load", function(){
+  gtag("event", "gallery_page_view", {
+    section:"Gallery"
+  });
+});
 </script>
 
 <meta charset="UTF-8">
@@ -36,9 +42,18 @@ gtag("config", "G-M973P0B4F0");
   content="yes"
 >
 
+<meta
+  name="apple-mobile-web-app-status-bar-style"
+  content="black-translucent"
+>
+
 <title>Team Wolfpack Gallery</title>
 
 <style>
+
+/* =========================================================
+   GLOBAL
+========================================================= */
 
 *{
   box-sizing:border-box;
@@ -51,356 +66,317 @@ html{
 body{
   margin:0;
   min-height:100vh;
+
   background:
     radial-gradient(
-      circle at 0% 15%,
-      rgba(0,191,255,.15),
-      transparent 28%
-    ),
-    radial-gradient(
-      circle at 100% 65%,
-      rgba(255,90,0,.13),
+      circle at 0% 18%,
+      rgba(0,191,255,.13),
       transparent 30%
     ),
+    radial-gradient(
+      circle at 100% 72%,
+      rgba(255,90,0,.12),
+      transparent 32%
+    ),
     #030506;
+
   color:#fff;
+
   font-family:
     Arial,
     Helvetica,
     sans-serif;
+
+  overflow-x:hidden;
 }
 
 button{
   font:inherit;
 }
 
-/* =========================
-   HERO / BANNER
-========================= */
 
-.gallery-hero{
+/* =========================================================
+   REAL GALLERY BANNER
+========================================================= */
+
+.gallery-banner{
   position:relative;
-  min-height:390px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  overflow:hidden;
+  width:100%;
+  margin:0;
+  padding:0;
+
+  background:#000;
+
   border-bottom:
     1px solid rgba(255,255,255,.10);
 
-  background:
-    linear-gradient(
-      90deg,
-      rgba(0,174,255,.27),
-      rgba(0,0,0,.20) 35%,
-      rgba(0,0,0,.20) 65%,
-      rgba(255,89,0,.27)
-    ),
-    radial-gradient(
-      circle at center,
-      #172027 0%,
-      #060809 46%,
-      #020303 100%
-    );
-}
-
-.gallery-hero::before{
-  content:"";
-  position:absolute;
-  inset:0;
-
-  background:
-    linear-gradient(
-      115deg,
-      transparent 0 20%,
-      rgba(0,191,255,.12) 21% 22%,
-      transparent 23% 75%,
-      rgba(255,90,0,.10) 76% 77%,
-      transparent 78%
-    );
-
-  opacity:.8;
-}
-
-.gallery-hero::after{
-  content:"";
-  position:absolute;
-  left:50%;
-  bottom:-120px;
-  transform:translateX(-50%);
-  width:700px;
-  height:260px;
-
-  background:
-    radial-gradient(
-      ellipse,
-      rgba(0,191,255,.13),
-      rgba(255,90,0,.06) 48%,
-      transparent 72%
-    );
-
-  filter:blur(10px);
-}
-
-.hero-content{
-  position:relative;
-  z-index:2;
-  width:min(1000px,92%);
-  padding:56px 18px;
-}
-
-.hero-kicker{
-  font-size:13px;
-  letter-spacing:7px;
-  font-weight:800;
-  color:#b8c7cf;
-  text-transform:uppercase;
-}
-
-.hero-brand{
-  margin-top:13px;
-  font-size:
-    clamp(
-      27px,
-      7vw,
-      56px
-    );
-  font-weight:900;
-  letter-spacing:5px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #effcff,
-      #00bfff 32%,
-      #d9eef6 50%,
-      #ff7a00 70%,
-      #ffb000
-    );
-
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-}
-
-.hero-paw{
-  margin:17px auto 10px;
-  width:72px;
-  height:72px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:50%;
-  font-size:35px;
-
-  border:
-    1px solid rgba(255,255,255,.18);
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(0,191,255,.20),
-      rgba(255,90,0,.17)
-    );
+  overflow:hidden;
 
   box-shadow:
-    -15px 0 42px rgba(0,191,255,.18),
-    15px 0 42px rgba(255,90,0,.14);
+    0 18px 55px rgba(0,0,0,.55);
 }
 
-.hero-title{
-  margin:2px 0 0;
-  font-size:
-    clamp(
-      56px,
-      13vw,
-      118px
-    );
-  line-height:.92;
-  font-weight:1000;
-  letter-spacing:1px;
+.gallery-banner img{
+  display:block;
+  width:100%;
+  height:auto;
+  margin:0 auto;
+}
+
+/* subtle blend into page */
+
+.gallery-banner::after{
+  content:"";
+
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+
+  height:18%;
+
+  pointer-events:none;
 
   background:
     linear-gradient(
-      90deg,
-      #eafbff,
-      #00bfff 35%,
-      #ffffff 50%,
-      #ff7a00 72%,
-      #ffb000
+      to bottom,
+      transparent,
+      rgba(3,5,6,.78)
     );
-
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-
-  text-shadow:
-    0 12px 45px rgba(0,0,0,.55);
 }
 
-.hero-tagline{
-  margin-top:18px;
-  font-size:13px;
-  letter-spacing:6px;
-  color:#c2cbd0;
-  text-transform:uppercase;
-}
 
-.hero-motto{
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:18px;
-  margin-top:27px;
-}
-
-.hero-motto span{
-  padding:8px 14px;
-  border:
-    1px solid rgba(255,255,255,.10);
-  border-radius:100px;
-  font-size:10px;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  color:#aab4bb;
-  background:rgba(0,0,0,.30);
-}
-
-/* =========================
-   PAGE
-========================= */
+/* =========================================================
+   MAIN PAGE
+========================================================= */
 
 .page{
   width:min(1250px,94%);
   margin:0 auto;
-  padding:34px 0 60px;
+
+  padding:
+    42px
+    0
+    65px;
 }
 
-/* =========================
-   MAIN SECTION
-========================= */
+
+/* =========================================================
+   MEDIA SECTIONS
+========================================================= */
 
 .media-section{
-  margin-bottom:28px;
-  border-radius:22px;
+  margin-bottom:34px;
 
   border:
     1px solid rgba(255,255,255,.10);
 
-  background:
-    linear-gradient(
-      120deg,
-      rgba(0,191,255,.045),
-      rgba(255,255,255,.015) 50%,
-      rgba(255,90,0,.045)
-    ),
-    rgba(8,11,13,.95);
-
-  box-shadow:
-    0 24px 70px rgba(0,0,0,.34);
+  border-radius:22px;
 
   overflow:hidden;
+
+  background:
+    linear-gradient(
+      125deg,
+      rgba(0,191,255,.045),
+      rgba(255,255,255,.012) 48%,
+      rgba(255,90,0,.045)
+    ),
+    rgba(8,11,13,.96);
+
+  box-shadow:
+    0 22px 65px rgba(0,0,0,.38);
 }
 
+
 .section-header{
-  padding:22px 24px;
+  position:relative;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:18px;
+
+  gap:20px;
+
+  padding:
+    24px
+    25px;
 
   border-bottom:
     1px solid rgba(255,255,255,.08);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,191,255,.055),
+      transparent 45%,
+      rgba(255,90,0,.045)
+    );
 }
+
+
+.section-header::before{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  top:0;
+  bottom:0;
+
+  width:3px;
+
+  background:#00bfff;
+}
+
+
+.section-header::after{
+  content:"";
+
+  position:absolute;
+
+  right:0;
+  top:0;
+  bottom:0;
+
+  width:3px;
+
+  background:#ff6500;
+}
+
 
 .section-title-area{
   min-width:0;
 }
 
+
 .section-eyebrow{
+  margin-bottom:6px;
+
   font-size:10px;
-  letter-spacing:2px;
+
+  letter-spacing:2.2px;
+
   text-transform:uppercase;
+
   color:#7f8e97;
 }
 
+
 .section-title{
-  margin:5px 0 0;
+  margin:0;
+
   font-size:
     clamp(
-      24px,
+      25px,
       5vw,
-      38px
+      39px
     );
 
   letter-spacing:2px;
+
   text-transform:uppercase;
+
+  font-weight:900;
 }
 
+
 .photo-title{
-  color:#63d8ff;
+  background:
+    linear-gradient(
+      90deg,
+      #eafbff,
+      #00bfff
+    );
+
+  -webkit-background-clip:text;
+  background-clip:text;
+
+  color:transparent;
 }
+
 
 .video-title-main{
   background:
     linear-gradient(
       90deg,
-      #4dd6ff,
-      #fff 45%,
+      #00bfff,
+      #eafbff 43%,
       #ff7a00
     );
 
   -webkit-background-clip:text;
   background-clip:text;
+
   color:transparent;
 }
 
+
 .section-motto{
+  max-width:230px;
+
   color:#7c8990;
+
   font-size:10px;
+
+  line-height:1.5;
+
   letter-spacing:2px;
+
   text-transform:uppercase;
+
   text-align:right;
 }
 
-/* =========================
-   GALLERY CARDS
-========================= */
+
+/* =========================================================
+   STANDARD GALLERY GRID
+========================================================= */
 
 .card-grid{
   display:grid;
+
   grid-template-columns:
     repeat(2,1fr);
 
   gap:13px;
+
   padding:18px;
 }
 
+
+/* =========================================================
+   GALLERY CARDS
+========================================================= */
+
 .gallery-card{
   position:relative;
+
   min-height:145px;
 
   border:
     1px solid rgba(255,255,255,.10);
 
   border-radius:16px;
+
   overflow:hidden;
 
   cursor:pointer;
+
   color:#fff;
+
   text-align:left;
 
   background:
     linear-gradient(
       135deg,
-      rgba(0,191,255,.09),
-      rgba(12,14,16,.96) 42%,
-      rgba(255,90,0,.08)
+      rgba(0,191,255,.10),
+      rgba(11,13,15,.97) 43%,
+      rgba(255,90,0,.09)
     );
 
   box-shadow:
-    0 9px 25px rgba(0,0,0,.25);
+    0 9px 26px rgba(0,0,0,.27);
 
   transition:
     transform .22s ease,
@@ -408,178 +384,273 @@ button{
     box-shadow .22s ease;
 }
 
+
 .gallery-card:hover{
   transform:
     translateY(-4px);
 
   border-color:
-    rgba(255,255,255,.21);
+    rgba(255,255,255,.22);
 
   box-shadow:
-    -9px 10px 35px rgba(0,191,255,.07),
-    9px 10px 35px rgba(255,90,0,.05);
+    -9px 12px 35px rgba(0,191,255,.07),
+    9px 12px 35px rgba(255,90,0,.06);
 }
+
+
+.gallery-card:active{
+  transform:
+    scale(.98);
+}
+
 
 .gallery-card::before{
   content:"";
+
   position:absolute;
+
   left:0;
   top:0;
   bottom:0;
+
   width:3px;
+
   background:#00bfff;
 }
 
+
 .gallery-card::after{
   content:"";
+
   position:absolute;
+
   right:0;
   top:0;
   bottom:0;
+
   width:3px;
+
   background:#ff6500;
 }
 
+
 .card-content{
   position:absolute;
+
   left:0;
   right:0;
   bottom:0;
+
   z-index:3;
 
-  padding:28px 15px 14px;
+  padding:
+    30px
+    15px
+    15px;
 
   background:
     linear-gradient(
       transparent,
-      rgba(0,0,0,.80)
+      rgba(0,0,0,.84)
     );
 }
 
+
 .card-type{
   display:block;
+
   margin-bottom:6px;
 
   font-size:9px;
+
   letter-spacing:1.8px;
+
   text-transform:uppercase;
-  font-weight:800;
+
+  font-weight:900;
 }
 
+
 .photo-card .card-type{
-  color:#38d2ff;
+  color:#35d2ff;
 }
+
 
 .video-card .card-type{
   color:#ff8500;
 }
 
+
 .card-title{
   display:block;
+
   font-size:17px;
-  font-weight:1000;
-  letter-spacing:.4px;
+
+  font-weight:900;
+
+  letter-spacing:.5px;
 }
+
 
 .card-label{
   display:block;
+
   margin-top:5px;
-  font-size:9px;
-  letter-spacing:1.2px;
-  text-transform:uppercase;
+
   color:#97a1a8;
+
+  font-size:9px;
+
+  letter-spacing:1.2px;
+
+  text-transform:uppercase;
 }
+
 
 .card-arrow{
   position:absolute;
+
   right:13px;
   top:13px;
 
-  width:31px;
-  height:31px;
+  z-index:4;
+
+  width:32px;
+  height:32px;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
   border-radius:50%;
 
   border:
-    1px solid rgba(255,255,255,.20);
+    1px solid rgba(255,255,255,.18);
 
   background:
-    rgba(0,0,0,.40);
+    rgba(0,0,0,.52);
 
-  font-size:14px;
-  z-index:4;
+  color:#fff;
+
+  font-size:13px;
+
+  backdrop-filter:
+    blur(7px);
 }
 
-/* =========================
-   TEAM VIDEO BLOCKS
-========================= */
+
+/* =========================================================
+   TEAM PANELS
+========================================================= */
 
 .team-panel{
-  margin:0 18px 18px;
-  border-radius:18px;
+  margin:
+    18px
+    18px
+    22px;
 
   border:
-    1px solid rgba(255,255,255,.08);
+    1px solid rgba(255,255,255,.085);
 
-  background:
-    rgba(4,6,7,.56);
+  border-radius:18px;
 
   overflow:hidden;
+
+  background:
+    linear-gradient(
+      125deg,
+      rgba(0,191,255,.025),
+      rgba(0,0,0,.18),
+      rgba(255,90,0,.025)
+    ),
+    rgba(4,6,7,.62);
 }
+
 
 .team-panel-header{
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
+
   gap:15px;
-  padding:17px 18px;
+
+  padding:
+    18px
+    19px;
 
   border-bottom:
     1px solid rgba(255,255,255,.07);
+
+  background:
+    rgba(255,255,255,.012);
 }
 
+
 .team-name{
-  font-size:20px;
+  font-size:
+    clamp(
+      18px,
+      4vw,
+      22px
+    );
+
   font-weight:900;
+
   letter-spacing:1.5px;
+
   text-transform:uppercase;
 }
 
+
 .team-name .ice{
-  color:#24cfff;
+  color:#25cfff;
 }
+
 
 .team-name .fire{
   color:#ff7a00;
 }
 
+
 .team-motto{
+  color:#74818a;
+
   font-size:9px;
-  text-transform:uppercase;
+
   letter-spacing:2px;
-  color:#73808a;
+
+  text-transform:uppercase;
+
   text-align:right;
 }
 
+
 .team-grid{
   display:grid;
+
   grid-template-columns:
     repeat(2,1fr);
+
   gap:11px;
+
   padding:13px;
 }
 
-/* =========================
-   GALLERY VIEWER
-========================= */
+
+/* =========================================================
+   VIEWER
+========================================================= */
 
 .viewer{
   display:none;
-  margin:28px 0 0;
+
+  margin:
+    34px
+    0
+    5px;
 
   border:
     1px solid rgba(255,255,255,.13);
@@ -597,84 +668,126 @@ button{
     #07090a;
 
   box-shadow:
-    0 25px 70px rgba(0,0,0,.45);
+    0 25px 70px rgba(0,0,0,.48);
 }
+
 
 .viewer.active{
   display:block;
 }
 
+
 .viewer-header{
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
+
   gap:14px;
 
-  padding:18px 20px;
+  padding:
+    19px
+    20px;
 
   background:
     linear-gradient(
       90deg,
-      rgba(0,191,255,.10),
-      rgba(255,90,0,.06)
+      rgba(0,191,255,.11),
+      rgba(255,255,255,.01) 50%,
+      rgba(255,90,0,.07)
     );
 
   border-bottom:
     1px solid rgba(255,255,255,.09);
 }
 
+
 .viewer-heading h2{
   margin:0;
+
   font-size:23px;
+
+  font-weight:900;
 }
 
+
 .viewer-heading p{
-  margin:5px 0 0;
+  margin:
+    5px
+    0
+    0;
+
   color:#74818a;
+
   font-size:10px;
+
   letter-spacing:1.8px;
+
   text-transform:uppercase;
 }
 
+
 .close-viewer{
+  flex:0 0 auto;
+
   width:40px;
   height:40px;
+
   border-radius:50%;
 
   border:
     1px solid rgba(255,255,255,.16);
 
   background:#111;
+
   color:#fff;
+
   cursor:pointer;
+
   font-size:18px;
 }
+
 
 .viewer-body{
   padding:17px;
 }
 
+
 .status{
-  padding:45px 15px;
+  padding:
+    46px
+    15px;
+
   text-align:center;
+
   color:#99a4aa;
+
   font-size:14px;
+
+  line-height:1.6;
 }
 
-/* =========================
-   PHOTOS
-========================= */
+
+/* =========================================================
+   PHOTO VIEWER
+========================================================= */
 
 .photo-grid{
   display:grid;
+
   grid-template-columns:
     repeat(2,1fr);
+
   gap:11px;
 }
 
+
 .photo-item{
   border-radius:14px;
+
   overflow:hidden;
+
   cursor:pointer;
 
   border:
@@ -683,30 +796,39 @@ button{
   background:#111;
 }
 
+
 .photo-item img{
   display:block;
+
   width:100%;
+
   aspect-ratio:1/1;
+
   object-fit:cover;
 
   transition:
     transform .25s ease;
 }
 
+
 .photo-item:hover img{
   transform:
     scale(1.035);
 }
 
-/* =========================
-   VIDEOS
-========================= */
+
+/* =========================================================
+   VIDEO VIEWER
+========================================================= */
 
 .video-grid{
   display:grid;
+
   grid-template-columns:1fr;
-  gap:15px;
+
+  gap:16px;
 }
+
 
 .video-item{
   overflow:hidden;
@@ -719,55 +841,85 @@ button{
   background:#050607;
 
   box-shadow:
-    0 10px 28px rgba(0,0,0,.28);
+    0 10px 28px rgba(0,0,0,.30);
 }
 
+
 .video-frame{
+  position:relative;
+
   background:#000;
+
+  overflow:hidden;
 }
+
 
 .video-item video{
   display:block;
+
   width:100%;
+
   aspect-ratio:16/9;
+
   object-fit:contain;
+
   background:#000;
 }
 
+
 .video-info{
-  padding:13px 15px;
+  padding:
+    13px
+    15px
+    14px;
 
   border-top:
     1px solid rgba(255,255,255,.07);
 }
 
+
 .video-title{
   margin:0;
-  font-size:14px;
-  font-weight:900;
+
   color:#fff;
+
+  font-size:14px;
+
+  font-weight:900;
 }
+
 
 .video-label{
-  margin:5px 0 0;
+  margin:
+    5px
+    0
+    0;
+
+  color:#69757d;
 
   font-size:9px;
+
   letter-spacing:1.5px;
+
   text-transform:uppercase;
-  color:#69757d;
 }
 
-/* =========================
+
+/* =========================================================
    LIGHTBOX
-========================= */
+========================================================= */
 
 .lightbox{
   position:fixed;
+
   inset:0;
+
   z-index:9999;
 
   display:none;
+
   align-items:center;
+
   justify-content:center;
 
   padding:20px;
@@ -776,19 +928,26 @@ button{
     rgba(0,0,0,.95);
 }
 
+
 .lightbox.active{
   display:flex;
 }
 
+
 .lightbox img{
   max-width:100%;
+
   max-height:90vh;
+
   object-fit:contain;
+
   border-radius:12px;
 }
 
+
 .lightbox-close{
   position:absolute;
+
   right:20px;
   top:20px;
 
@@ -801,23 +960,38 @@ button{
     1px solid rgba(255,255,255,.18);
 
   background:#111;
+
   color:#fff;
+
   font-size:21px;
+
+  cursor:pointer;
 }
 
-/* =========================
+
+/* =========================================================
    FOOTER
-========================= */
+========================================================= */
 
 .footer{
   text-align:center;
-  padding:38px 20px 48px;
+
+  padding:
+    15px
+    20px
+    50px;
 }
+
 
 .footer-line{
   width:min(700px,80%);
+
   height:1px;
-  margin:0 auto 25px;
+
+  margin:
+    0
+    auto
+    25px;
 
   background:
     linear-gradient(
@@ -830,30 +1004,40 @@ button{
     );
 }
 
+
 .footer-brand{
-  font-size:10px;
-  letter-spacing:3px;
   color:#70808a;
+
+  font-size:10px;
+
+  letter-spacing:3px;
 }
 
+
 .footer-motto{
-  margin-top:8px;
+  margin-top:9px;
+
   font-size:12px;
+
   letter-spacing:4px;
-  font-weight:800;
+
+  font-weight:900;
 }
+
 
 .footer-motto .blue{
   color:#21cfff;
 }
 
+
 .footer-motto .orange{
   color:#ff7a00;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+
+/* =========================================================
+   TABLET
+========================================================= */
 
 @media(min-width:720px){
 
@@ -879,7 +1063,17 @@ button{
 
 }
 
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
 @media(min-width:1050px){
+
+  .card-grid.photo-main{
+    grid-template-columns:
+      repeat(6,1fr);
+  }
 
   .team-grid.team-five{
     grid-template-columns:
@@ -891,9 +1085,106 @@ button{
       repeat(4,1fr);
   }
 
-  .card-grid.photo-main{
-    grid-template-columns:
-      repeat(6,1fr);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:600px){
+
+  .page{
+    width:94%;
+
+    padding-top:24px;
+  }
+
+  .gallery-banner img{
+    width:100%;
+  }
+
+  .section-header{
+    align-items:flex-start;
+
+    padding:
+      19px
+      17px;
+  }
+
+  .section-motto{
+    display:none;
+  }
+
+  .section-title{
+    font-size:24px;
+  }
+
+  .card-grid{
+    padding:12px;
+
+    gap:9px;
+  }
+
+  .team-panel{
+    margin:
+      12px
+      12px
+      18px;
+  }
+
+  .team-panel-header{
+    padding:
+      15px
+      14px;
+  }
+
+  .team-motto{
+    max-width:110px;
+  }
+
+  .team-grid{
+    padding:10px;
+
+    gap:9px;
+  }
+
+  .gallery-card{
+    min-height:125px;
+  }
+
+  .card-title{
+    font-size:14px;
+  }
+
+  .card-arrow{
+    width:28px;
+    height:28px;
+
+    right:9px;
+    top:9px;
+  }
+
+  .viewer-body{
+    padding:10px;
+  }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media(max-width:390px){
+
+  .card-grid,
+  .team-grid{
+    grid-template-columns:1fr;
+  }
+
+  .gallery-card{
+    min-height:115px;
   }
 
 }
@@ -902,58 +1193,20 @@ button{
 
 </head>
 
+
 <body>
 
 
-<!-- =========================
-     HERO BANNER
-========================= -->
+<!-- ======================================================
+     REAL TEAM WOLFPACK GALLERY BANNER
+====================================================== -->
 
-<header class="gallery-hero">
+<header class="gallery-banner">
 
-  <div class="hero-content">
-
-    <div class="hero-kicker">
-      TEAM WOLFPACK
-    </div>
-
-    <div class="hero-brand">
-      STRENGTH IN UNITY
-    </div>
-
-    <div class="hero-paw">
-      ◈
-    </div>
-
-    <h1 class="hero-title">
-      GALLERY
-    </h1>
-
-    <div class="hero-tagline">
-      Capturing The Journey
-    </div>
-
-    <div class="hero-motto">
-
-      <span>
-        ONE PACK ONE PURPOSE
-      </span>
-
-      <span>
-        MOMENTS
-      </span>
-
-      <span>
-        MEMORIES
-      </span>
-
-      <span>
-        MILESTONES
-      </span>
-
-    </div>
-
-  </div>
+  <img
+    src="gallery/images/gallery-banner.png"
+    alt="Team Wolfpack Gallery - Capturing The Journey"
+  >
 
 </header>
 
@@ -961,9 +1214,9 @@ button{
 <main class="page">
 
 
-<!-- =========================
+<!-- ======================================================
      PHOTO GALLERIES
-========================= -->
+====================================================== -->
 
 <section class="media-section">
 
@@ -1001,9 +1254,7 @@ button{
       data-alt="Team Wolfie May 2025"
     >
 
-      <span class="card-arrow">
-        ›
-      </span>
+      <span class="card-arrow">›</span>
 
       <span class="card-content">
 
@@ -1184,9 +1435,10 @@ button{
 </section>
 
 
-<!-- =========================
+
+<!-- ======================================================
      VIDEO GALLERIES
-========================= -->
+====================================================== -->
 
 <section class="media-section">
 
@@ -1195,7 +1447,7 @@ button{
     <div class="section-title-area">
 
       <div class="section-eyebrow">
-        Watch • Relive • Get Inspired
+        Watch • Relive • Remember
       </div>
 
       <h2 class="section-title video-title-main">
@@ -1205,13 +1457,16 @@ button{
     </div>
 
     <div class="section-motto">
-      The Journey
+      Capturing The Journey
     </div>
 
   </div>
 
 
-<!-- TEAM WOLFPACK -->
+
+<!-- ======================================================
+     TEAM WOLFPACK
+====================================================== -->
 
   <div class="team-panel">
 
@@ -1365,7 +1620,7 @@ button{
         data-path="gallery/videos/team-wolfpack/other"
         data-title="Other Videos"
         data-label="Team Wolfpack Videos"
-        data-loading="Loading videos..."
+        data-loading="Loading Team Wolfpack videos..."
       >
 
         <span class="card-arrow">▶</span>
@@ -1394,7 +1649,10 @@ button{
   </div>
 
 
-<!-- TEAM WOLFIE -->
+
+<!-- ======================================================
+     TEAM WOLFIE
+====================================================== -->
 
   <div class="team-panel">
 
@@ -1577,7 +1835,10 @@ button{
   </div>
 
 
-<!-- TEAM SLOAN -->
+
+<!-- ======================================================
+     TEAM SLOAN
+====================================================== -->
 
   <div class="team-panel">
 
@@ -1733,9 +1994,10 @@ button{
 </section>
 
 
-<!-- =========================
-     VIEWER
-========================= -->
+
+<!-- ======================================================
+     GALLERY VIEWER
+====================================================== -->
 
 <section
   id="galleryViewer"
@@ -1756,6 +2018,7 @@ button{
 
     </div>
 
+
     <button
       id="closeViewer"
       class="close-viewer"
@@ -1766,6 +2029,7 @@ button{
     </button>
 
   </div>
+
 
   <div
     id="viewerBody"
@@ -1778,9 +2042,10 @@ button{
 </main>
 
 
-<!-- =========================
-     LIGHTBOX
-========================= -->
+
+<!-- ======================================================
+     PHOTO LIGHTBOX
+====================================================== -->
 
 <div
   id="lightbox"
@@ -1791,9 +2056,11 @@ button{
     id="lightboxClose"
     class="lightbox-close"
     type="button"
+    aria-label="Close image"
   >
     ✕
   </button>
+
 
   <img
     id="lightboxImage"
@@ -1804,17 +2071,20 @@ button{
 </div>
 
 
-<!-- =========================
+
+<!-- ======================================================
      FOOTER
-========================= -->
+====================================================== -->
 
 <footer class="footer">
 
   <div class="footer-line"></div>
 
+
   <div class="footer-brand">
     TEAM WOLFPACK • EST 2025
   </div>
+
 
   <div class="footer-motto">
 
@@ -1822,7 +2092,7 @@ button{
       ONE PACK
     </span>
 
-    &nbsp;
+    &nbsp;•&nbsp;
 
     <span class="orange">
       ONE PURPOSE
@@ -1833,7 +2103,12 @@ button{
 </footer>
 
 
+
 <script>
+
+/* =========================================================
+   GITHUB SETTINGS
+========================================================= */
 
 const GITHUB_OWNER =
   "OfficialTeamWolfpackApp";
@@ -1841,6 +2116,10 @@ const GITHUB_OWNER =
 const GITHUB_REPO =
   "Team-Wolfpack-App";
 
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
 
 const galleryViewer =
   document.getElementById(
@@ -1883,6 +2162,10 @@ const lightboxClose =
   );
 
 
+/* =========================================================
+   FILE TYPES
+========================================================= */
+
 function isImageFile(filename){
 
   return /\.(jpg|jpeg|png|webp|gif)$/i
@@ -1899,6 +2182,10 @@ function isVideoFile(filename){
 }
 
 
+/* =========================================================
+   CLEAN FILE NAMES
+========================================================= */
+
 function cleanFilename(filename){
 
   return filename
@@ -1910,9 +2197,9 @@ function cleanFilename(filename){
 }
 
 
-/* =========================
+/* =========================================================
    OPEN GALLERY
-========================= */
+========================================================= */
 
 async function openGallery(
   type,
@@ -1927,11 +2214,14 @@ async function openGallery(
     .classList
     .add("active");
 
+
   viewerTitle.textContent =
     title || "Gallery";
 
+
   viewerLabel.textContent =
     label || "Team Wolfpack";
+
 
   viewerBody.innerHTML =
     '<div class="status">' +
@@ -1940,6 +2230,7 @@ async function openGallery(
       "Loading gallery..."
     ) +
     "</div>";
+
 
   galleryViewer.scrollIntoView({
     behavior:"smooth",
@@ -1998,6 +2289,7 @@ async function openGallery(
 
     console.error(error);
 
+
     viewerBody.innerHTML =
       '<div class="status">' +
       "This gallery could not be loaded right now." +
@@ -2008,9 +2300,9 @@ async function openGallery(
 }
 
 
-/* =========================
-   PHOTOS
-========================= */
+/* =========================================================
+   LOAD PHOTOS
+========================================================= */
 
 function loadPhotos(
   files,
@@ -2019,11 +2311,13 @@ function loadPhotos(
 
   const images =
     files
+
       .filter(
         file =>
           file.type === "file" &&
           isImageFile(file.name)
       )
+
       .sort(
         (a,b) =>
           a.name.localeCompare(
@@ -2054,16 +2348,19 @@ function loadPhotos(
       "div"
     );
 
+
   grid.className =
     "photo-grid";
 
 
   images.forEach(file => {
 
+
     const item =
       document.createElement(
         "div"
       );
+
 
     item.className =
       "photo-item";
@@ -2074,14 +2371,17 @@ function loadPhotos(
         "img"
       );
 
+
     img.src =
       file.download_url;
+
 
     img.alt =
       altText ||
       cleanFilename(
         file.name
       );
+
 
     img.loading =
       "lazy";
@@ -2100,14 +2400,20 @@ function loadPhotos(
     );
 
 
-    item.appendChild(img);
+    item.appendChild(
+      img
+    );
 
-    grid.appendChild(item);
+
+    grid.appendChild(
+      item
+    );
 
   });
 
 
   viewerBody.innerHTML = "";
+
 
   viewerBody.appendChild(
     grid
@@ -2116,9 +2422,9 @@ function loadPhotos(
 }
 
 
-/* =========================
-   VIDEOS
-========================= */
+/* =========================================================
+   LOAD VIDEOS
+========================================================= */
 
 function loadVideos(
   files,
@@ -2128,11 +2434,13 @@ function loadVideos(
 
   const videos =
     files
+
       .filter(
         file =>
           file.type === "file" &&
           isVideoFile(file.name)
       )
+
       .sort(
         (a,b) =>
           a.name.localeCompare(
@@ -2163,6 +2471,7 @@ function loadVideos(
       "div"
     );
 
+
   grid.className =
     "video-grid";
 
@@ -2170,10 +2479,12 @@ function loadVideos(
   videos.forEach(
     (file,index) => {
 
+
       const item =
         document.createElement(
           "div"
         );
+
 
       item.className =
         "video-item";
@@ -2183,6 +2494,7 @@ function loadVideos(
         document.createElement(
           "div"
         );
+
 
       frame.className =
         "video-frame";
@@ -2197,17 +2509,24 @@ function loadVideos(
       video.src =
         file.download_url;
 
+
       video.controls =
         true;
 
+
       video.preload =
         "metadata";
+
 
       video.playsInline =
         true;
 
 
-      /* MARCH 2026 THUMBNAILS */
+
+      /* ===================================================
+         TEAM WOLFIE MARCH 2026 THUMBNAILS
+         Video 1.png - Video 5.png
+      =================================================== */
 
       if(
         path ===
@@ -2233,7 +2552,10 @@ function loadVideos(
       }
 
 
-      /* ONE VIDEO AT A TIME */
+
+      /* ===================================================
+         ONLY ONE VIDEO PLAYS AT A TIME
+      =================================================== */
 
       video.addEventListener(
         "play",
@@ -2261,10 +2583,12 @@ function loadVideos(
       );
 
 
+
       const info =
         document.createElement(
           "div"
         );
+
 
       info.className =
         "video-info";
@@ -2275,11 +2599,15 @@ function loadVideos(
           "p"
         );
 
+
       title.className =
         "video-title";
 
 
-      /* CLEANER DISPLAY NAMES */
+
+      /* ===================================================
+         CLEAN MARCH 2026 TITLES
+      =================================================== */
 
       if(
         path ===
@@ -2300,38 +2628,47 @@ function loadVideos(
       }
 
 
+
       const videoLabel =
         document.createElement(
           "p"
         );
 
+
       videoLabel.className =
         "video-label";
+
 
       videoLabel.textContent =
         label ||
         "TEAM WOLFPACK VIDEO";
 
 
+
       frame.appendChild(
         video
       );
+
 
       info.appendChild(
         title
       );
 
+
       info.appendChild(
         videoLabel
       );
+
 
       item.appendChild(
         frame
       );
 
+
       item.appendChild(
         info
       );
+
 
       grid.appendChild(
         item
@@ -2343,6 +2680,7 @@ function loadVideos(
 
   viewerBody.innerHTML = "";
 
+
   viewerBody.appendChild(
     grid
   );
@@ -2350,38 +2688,40 @@ function loadVideos(
 }
 
 
-/* =========================
-   CARD CLICKS
-========================= */
+/* =========================================================
+   GALLERY CARD CLICKS
+========================================================= */
 
 document
   .querySelectorAll(
     ".gallery-card"
   )
-  .forEach(card => {
+  .forEach(
+    card => {
 
-    card.addEventListener(
-      "click",
-      function(){
+      card.addEventListener(
+        "click",
+        function(){
 
-        openGallery(
-          card.dataset.type,
-          card.dataset.path,
-          card.dataset.title,
-          card.dataset.label,
-          card.dataset.loading,
-          card.dataset.alt
-        );
+          openGallery(
+            card.dataset.type,
+            card.dataset.path,
+            card.dataset.title,
+            card.dataset.label,
+            card.dataset.loading,
+            card.dataset.alt
+          );
 
-      }
-    );
+        }
+      );
 
-  });
+    }
+  );
 
 
-/* =========================
-   CLOSE VIEWER
-========================= */
+/* =========================================================
+   CLOSE GALLERY
+========================================================= */
 
 function closeGallery(){
 
@@ -2415,9 +2755,9 @@ closeViewerButton
   );
 
 
-/* =========================
-   LIGHTBOX
-========================= */
+/* =========================================================
+   PHOTO LIGHTBOX
+========================================================= */
 
 function openLightbox(
   src,
@@ -2427,8 +2767,11 @@ function openLightbox(
   lightboxImage.src =
     src;
 
+
   lightboxImage.alt =
-    alt || "Gallery image";
+    alt ||
+    "Gallery image";
+
 
   lightbox
     .classList
@@ -2442,6 +2785,7 @@ function closeLightbox(){
   lightbox
     .classList
     .remove("active");
+
 
   lightboxImage.src = "";
 
@@ -2480,9 +2824,15 @@ document.addEventListener(
       event.key === "Escape"
     ){
 
-      closeLightbox();
+      if(
+        lightbox.classList.contains(
+          "active"
+        )
+      ){
 
-      closeGallery();
+        closeLightbox();
+
+      }
 
     }
 
@@ -2490,9 +2840,9 @@ document.addEventListener(
 );
 
 
-/* =========================
+/* =========================================================
    SERVICE WORKER
-========================= */
+========================================================= */
 
 if(
   "serviceWorker" in navigator
@@ -2525,5 +2875,7 @@ if(
 
 </script>
 
+
 </body>
+
 </html>
