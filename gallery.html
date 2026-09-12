@@ -52,16 +52,8 @@ body{
   min-height:100vh;
 
   background:
-    radial-gradient(
-      circle at 0% 8%,
-      rgba(0,191,255,.12),
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 100% 82%,
-      rgba(255,90,0,.11),
-      transparent 30%
-    ),
+    radial-gradient(circle at 0% 8%, rgba(0,191,255,.12), transparent 30%),
+    radial-gradient(circle at 100% 82%, rgba(255,90,0,.11), transparent 30%),
     #030506;
 
   color:#fff;
@@ -83,7 +75,6 @@ button{
 
 .gallery-banner{
   position:relative;
-
   width:100%;
 
   height:clamp(
@@ -233,7 +224,6 @@ button{
   color:#74818a;
 
   font-size:10px;
-
   font-weight:800;
 
   letter-spacing:3px;
@@ -305,7 +295,7 @@ button{
 
 
 /* =========================
-   STANDARD CARDS
+   GENERAL GALLERY CARDS
 ========================= */
 
 .gallery-card{
@@ -406,10 +396,10 @@ button{
   background:
     linear-gradient(
       to top,
-      rgba(0,0,0,.93) 0%,
-      rgba(0,0,0,.68) 22%,
-      rgba(0,0,0,.18) 52%,
-      rgba(0,0,0,.06) 100%
+      rgba(0,0,0,.78) 0%,
+      rgba(0,0,0,.22) 30%,
+      rgba(0,0,0,.04) 58%,
+      transparent 100%
     );
 }
 
@@ -427,10 +417,10 @@ button{
   background:
     linear-gradient(
       90deg,
-      rgba(0,191,255,.08),
+      rgba(0,191,255,.07),
       transparent 32%,
       transparent 68%,
-      rgba(255,90,0,.08)
+      rgba(255,90,0,.07)
     );
 }
 
@@ -445,42 +435,79 @@ button{
     0 18px 38px rgba(0,0,0,.52);
 }
 
-.card-content{
+
+/* =========================
+   NEW CLEAN PHOTO CTA
+========================= */
+
+.photo-action{
   position:absolute;
 
-  z-index:2;
+  z-index:3;
 
-  left:0;
-  right:0;
-  bottom:0;
+  left:12px;
+  right:12px;
+  bottom:12px;
+
+  min-height:34px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:10px;
 
   padding:
-    38px
-    16px
-    16px;
+    9px
+    12px;
+
+  border:
+    1px solid rgba(255,255,255,.18);
+
+  border-radius:9px;
+
+  background:
+    rgba(0,0,0,.70);
+
+  backdrop-filter:
+    blur(7px);
+
+  -webkit-backdrop-filter:
+    blur(7px);
+
+  box-shadow:
+    0 7px 22px rgba(0,0,0,.32);
 }
 
-.photo-card .card-type{
-  margin:0 0 5px;
+.photo-action-text{
+  color:#fff;
 
-  color:#28d2ff;
+  font-size:10px;
+
+  font-weight:1000;
+
+  letter-spacing:1.4px;
+
+  text-transform:uppercase;
 
   text-shadow:
     0 2px 6px #000;
 }
 
-.photo-card .card-title{
-  font-size:19px;
+.photo-action-arrow{
+  color:#26cfff;
 
-  text-shadow:
-    0 2px 8px #000;
+  font-size:16px;
+
+  font-weight:900;
+
+  line-height:1;
 }
 
-.photo-card .card-subtitle{
-  color:#c6d0d5;
-
-  text-shadow:
-    0 2px 6px #000;
+.photo-card.artwork-card .photo-action-arrow{
+  color:#ff7300;
 }
 
 
@@ -1097,15 +1124,20 @@ button{
     min-height:180px;
   }
 
-  .card-content{
+  .photo-action{
+    left:8px;
+    right:8px;
+    bottom:8px;
+
     padding:
-      30px
-      11px
-      12px;
+      7px
+      9px;
   }
 
-  .photo-card .card-title{
-    font-size:14px;
+  .photo-action-text{
+    font-size:8px;
+
+    letter-spacing:1px;
   }
 
   .video-content{
@@ -1233,8 +1265,6 @@ button{
   <div class="photo-grid">
 
 
-    <!-- MAY 2025 -->
-
     <button
       class="gallery-card photo-card"
       style="--card-image:url('gallery/card-images/may-2025.jpg.png');"
@@ -1248,26 +1278,18 @@ button{
 
       <span class="card-arrow">›</span>
 
-      <span class="card-content">
-
-        <span class="card-type">
-          Photos
+      <span class="photo-action">
+        <span class="photo-action-text">
+          View Photos
         </span>
 
-        <span class="card-title">
-          May 2025
+        <span class="photo-action-arrow">
+          →
         </span>
-
-        <span class="card-subtitle">
-          Team Wolfie
-        </span>
-
       </span>
 
     </button>
 
-
-    <!-- JULY 2025 -->
 
     <button
       class="gallery-card photo-card"
@@ -1282,26 +1304,18 @@ button{
 
       <span class="card-arrow">›</span>
 
-      <span class="card-content">
-
-        <span class="card-type">
-          Photos
+      <span class="photo-action">
+        <span class="photo-action-text">
+          View Photos
         </span>
 
-        <span class="card-title">
-          July 2025
+        <span class="photo-action-arrow">
+          →
         </span>
-
-        <span class="card-subtitle">
-          Team Wolfie
-        </span>
-
       </span>
 
     </button>
 
-
-    <!-- MARCH 2026 -->
 
     <button
       class="gallery-card photo-card"
@@ -1316,26 +1330,18 @@ button{
 
       <span class="card-arrow">›</span>
 
-      <span class="card-content">
-
-        <span class="card-type">
-          Photos
+      <span class="photo-action">
+        <span class="photo-action-text">
+          View Photos
         </span>
 
-        <span class="card-title">
-          March 2026
+        <span class="photo-action-arrow">
+          →
         </span>
-
-        <span class="card-subtitle">
-          Team Wolfie
-        </span>
-
       </span>
 
     </button>
 
-
-    <!-- JULY 2026 -->
 
     <button
       class="gallery-card photo-card"
@@ -1350,26 +1356,18 @@ button{
 
       <span class="card-arrow">›</span>
 
-      <span class="card-content">
-
-        <span class="card-type">
-          Photos
+      <span class="photo-action">
+        <span class="photo-action-text">
+          View Photos
         </span>
 
-        <span class="card-title">
-          July 2026
+        <span class="photo-action-arrow">
+          →
         </span>
-
-        <span class="card-subtitle">
-          Team Wolfie
-        </span>
-
       </span>
 
     </button>
 
-
-    <!-- OCTOBER 2026 -->
 
     <button
       class="gallery-card photo-card"
@@ -1384,29 +1382,21 @@ button{
 
       <span class="card-arrow">›</span>
 
-      <span class="card-content">
-
-        <span class="card-type">
-          Photos
+      <span class="photo-action">
+        <span class="photo-action-text">
+          View Photos
         </span>
 
-        <span class="card-title">
-          October 2026
+        <span class="photo-action-arrow">
+          →
         </span>
-
-        <span class="card-subtitle">
-          Team Wolfie
-        </span>
-
       </span>
 
     </button>
 
 
-    <!-- TEAM WOLFPACK ARTWORK -->
-
     <button
-      class="gallery-card photo-card"
+      class="gallery-card photo-card artwork-card"
       style="--card-image:url('gallery/card-images/team-wolfpack.png.png');"
       data-type="photo"
       data-path="gallery/photos/team-wolfpack/designs-posters-logos"
@@ -1418,20 +1408,14 @@ button{
 
       <span class="card-arrow">›</span>
 
-      <span class="card-content">
-
-        <span class="card-type">
-          Artwork
+      <span class="photo-action">
+        <span class="photo-action-text">
+          View Artwork
         </span>
 
-        <span class="card-title">
-          Team Wolfpack
+        <span class="photo-action-arrow">
+          →
         </span>
-
-        <span class="card-subtitle">
-          Designs • Posters • Logos
-        </span>
-
       </span>
 
     </button>
@@ -1473,8 +1457,6 @@ button{
   <div class="video-content">
 
 
-    <!-- TEAM WOLFPACK -->
-
     <div class="team-block">
 
       <div class="team-heading">
@@ -1493,89 +1475,70 @@ button{
 
       <div class="video-category-grid">
 
-
-        <button
-          class="gallery-card video-card"
+        <button class="gallery-card video-card"
           data-type="video"
           data-path="gallery/videos/team-wolfpack/promos"
           data-title="Promos"
           data-label="Team Wolfpack Videos"
-          data-loading="Loading Team Wolfpack promo videos..."
-        >
+          data-loading="Loading Team Wolfpack promo videos...">
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">Promos</span>
           <span class="card-subtitle">Team Wolfpack</span>
         </button>
 
-
-        <button
-          class="gallery-card video-card"
+        <button class="gallery-card video-card"
           data-type="video"
           data-path="gallery/videos/team-wolfpack/announcements"
           data-title="Announcements"
           data-label="Team Wolfpack Videos"
-          data-loading="Loading Team Wolfpack announcement videos..."
-        >
+          data-loading="Loading Team Wolfpack announcement videos...">
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">Announcements</span>
           <span class="card-subtitle">Team Wolfpack</span>
         </button>
 
-
-        <button
-          class="gallery-card video-card"
+        <button class="gallery-card video-card"
           data-type="video"
           data-path="gallery/videos/team-wolfpack/behind-the-scenes"
           data-title="Behind The Scenes"
           data-label="Team Wolfpack Videos"
-          data-loading="Loading behind the scenes videos..."
-        >
+          data-loading="Loading behind the scenes videos...">
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">Behind The Scenes</span>
           <span class="card-subtitle">Team Wolfpack</span>
         </button>
 
-
-        <button
-          class="gallery-card video-card"
+        <button class="gallery-card video-card"
           data-type="video"
           data-path="gallery/videos/team-wolfpack/training"
           data-title="Training"
           data-label="Team Wolfpack Videos"
-          data-loading="Loading training videos..."
-        >
+          data-loading="Loading training videos...">
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">Training</span>
           <span class="card-subtitle">Team Wolfpack</span>
         </button>
 
-
-        <button
-          class="gallery-card video-card"
+        <button class="gallery-card video-card"
           data-type="video"
           data-path="gallery/videos/team-wolfpack/other"
           data-title="Other"
           data-label="Team Wolfpack Videos"
-          data-loading="Loading Team Wolfpack videos..."
-        >
+          data-loading="Loading Team Wolfpack videos...">
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">Other</span>
           <span class="card-subtitle">Team Wolfpack</span>
         </button>
 
-
       </div>
 
     </div>
 
-
-
-    <!-- TEAM WOLFIE -->
 
     <div class="team-block">
 
@@ -1595,89 +1558,70 @@ button{
 
       <div class="video-category-grid">
 
-
-        <button
-          class="gallery-card video-card"
+        <button class="gallery-card video-card"
           data-type="video"
           data-path="gallery/videos/team-wolfie/fight-may-2025"
           data-title="May 2025"
           data-label="Team Wolfie Videos"
-          data-loading="Loading May 2025 videos..."
-        >
+          data-loading="Loading May 2025 videos...">
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">May 2025</span>
           <span class="card-subtitle">Team Wolfie</span>
         </button>
 
-
-        <button
-          class="gallery-card video-card"
+        <button class="gallery-card video-card"
           data-type="video"
           data-path="gallery/videos/team-wolfie/fight-july-2025"
           data-title="July 2025"
           data-label="Team Wolfie Videos"
-          data-loading="Loading July 2025 videos..."
-        >
+          data-loading="Loading July 2025 videos...">
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">July 2025</span>
           <span class="card-subtitle">Team Wolfie</span>
         </button>
 
-
-        <button
-          class="gallery-card video-card"
+        <button class="gallery-card video-card"
           data-type="video"
           data-path="gallery/videos/team-wolfie/fight-march-2026"
           data-title="March 2026"
           data-label="Team Wolfie Videos"
-          data-loading="Loading March 2026 videos..."
-        >
+          data-loading="Loading March 2026 videos...">
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">March 2026</span>
           <span class="card-subtitle">Team Wolfie</span>
         </button>
 
-
-        <button
-          class="gallery-card video-card"
+        <button class="gallery-card video-card"
           data-type="video"
           data-path="gallery/videos/team-wolfie/fight-july-2026"
           data-title="July 2026"
           data-label="Team Wolfie Videos"
-          data-loading="Loading July 2026 videos..."
-        >
+          data-loading="Loading July 2026 videos...">
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">July 2026</span>
           <span class="card-subtitle">Team Wolfie</span>
         </button>
 
-
-        <button
-          class="gallery-card video-card"
+        <button class="gallery-card video-card"
           data-type="video"
           data-path="gallery/videos/team-wolfie/fight-october-2026"
           data-title="October 2026"
           data-label="Team Wolfie Videos"
-          data-loading="Loading October 2026 videos..."
-        >
+          data-loading="Loading October 2026 videos...">
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">October 2026</span>
           <span class="card-subtitle">Team Wolfie</span>
         </button>
 
-
       </div>
 
     </div>
 
-
-
-    <!-- TEAM SLOAN -->
 
     <div class="team-block">
 
@@ -1697,71 +1641,57 @@ button{
 
       <div class="video-category-grid">
 
-
-        <button
-          class="gallery-card video-card"
+        <button class="gallery-card video-card"
           data-type="video"
           data-path="gallery/videos/team-sloan/fight-march-2026"
           data-title="March 2026"
           data-label="Team Sloan Videos"
-          data-loading="Loading March 2026 videos..."
-        >
+          data-loading="Loading March 2026 videos...">
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">March 2026</span>
           <span class="card-subtitle">Team Sloan</span>
         </button>
 
-
-        <button
-          class="gallery-card video-card"
+        <button class="gallery-card video-card"
           data-type="video"
           data-path="gallery/videos/team-sloan/fight-june-2026"
           data-title="June 2026"
           data-label="Team Sloan Videos"
-          data-loading="Loading June 2026 videos..."
-        >
+          data-loading="Loading June 2026 videos...">
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">June 2026</span>
           <span class="card-subtitle">Team Sloan</span>
         </button>
 
-
-        <button
-          class="gallery-card video-card"
+        <button class="gallery-card video-card"
           data-type="video"
           data-path="gallery/videos/team-sloan/fight-september-2026"
           data-title="September 2026"
           data-label="Team Sloan Videos"
-          data-loading="Loading September 2026 videos..."
-        >
+          data-loading="Loading September 2026 videos...">
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">September 2026</span>
           <span class="card-subtitle">Team Sloan</span>
         </button>
 
-
-        <button
-          class="gallery-card video-card"
+        <button class="gallery-card video-card"
           data-type="video"
           data-path="gallery/videos/team-sloan/fight-november-2026"
           data-title="November 2026"
           data-label="Team Sloan Videos"
-          data-loading="Loading November 2026 videos..."
-        >
+          data-loading="Loading November 2026 videos...">
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">November 2026</span>
           <span class="card-subtitle">Team Sloan</span>
         </button>
 
-
       </div>
 
     </div>
-
 
   </div>
 
@@ -1769,35 +1699,19 @@ button{
 
 
 
-<!-- =========================
-     OPENED GALLERY PANEL
-========================= -->
-
-<section
-  id="galleryPanel"
-  class="gallery-panel"
->
+<section id="galleryPanel" class="gallery-panel">
 
   <div class="panel-header">
 
     <div>
-
-      <h2
-        id="panelTitle"
-        class="panel-title"
-      >
+      <h2 id="panelTitle" class="panel-title">
         Gallery
       </h2>
 
-      <div
-        id="panelLabel"
-        class="panel-label"
-      >
+      <div id="panelLabel" class="panel-label">
         Team Wolfpack
       </div>
-
     </div>
-
 
     <button
       id="closePanel"
@@ -1810,19 +1724,11 @@ button{
 
   </div>
 
-
-  <div
-    id="panelBody"
-    class="panel-body"
-  ></div>
+  <div id="panelBody" class="panel-body"></div>
 
 </section>
 
 
-
-<!-- =========================
-     FOOTER
-========================= -->
 
 <footer class="footer">
 
@@ -1851,14 +1757,7 @@ button{
 
 
 
-<!-- =========================
-     LIGHTBOX
-========================= -->
-
-<div
-  id="lightbox"
-  class="lightbox"
->
+<div id="lightbox" class="lightbox">
 
   <button
     id="lightboxClose"
@@ -1888,44 +1787,28 @@ const GITHUB_REPO =
 
 
 const galleryPanel =
-  document.getElementById(
-    "galleryPanel"
-  );
+  document.getElementById("galleryPanel");
 
 const panelTitle =
-  document.getElementById(
-    "panelTitle"
-  );
+  document.getElementById("panelTitle");
 
 const panelLabel =
-  document.getElementById(
-    "panelLabel"
-  );
+  document.getElementById("panelLabel");
 
 const panelBody =
-  document.getElementById(
-    "panelBody"
-  );
+  document.getElementById("panelBody");
 
 const closePanelButton =
-  document.getElementById(
-    "closePanel"
-  );
+  document.getElementById("closePanel");
 
 const lightbox =
-  document.getElementById(
-    "lightbox"
-  );
+  document.getElementById("lightbox");
 
 const lightboxImage =
-  document.getElementById(
-    "lightboxImage"
-  );
+  document.getElementById("lightboxImage");
 
 const lightboxClose =
-  document.getElementById(
-    "lightboxClose"
-  );
+  document.getElementById("lightboxClose");
 
 
 function isImageFile(filename){
@@ -1968,20 +1851,16 @@ async function openGallery(
     .classList
     .add("active");
 
-
   panelTitle.textContent =
     title;
 
-
   panelLabel.textContent =
     label;
-
 
   panelBody.innerHTML =
     '<div class="loading">' +
     loadingText +
     '</div>';
-
 
   galleryPanel.scrollIntoView({
     behavior:"smooth",
@@ -2003,7 +1882,6 @@ async function openGallery(
     const response =
       await fetch(apiUrl);
 
-
     if(!response.ok){
 
       throw new Error(
@@ -2013,10 +1891,8 @@ async function openGallery(
 
     }
 
-
     const files =
       await response.json();
-
 
     if(!Array.isArray(files)){
 
@@ -2025,7 +1901,6 @@ async function openGallery(
       );
 
     }
-
 
     if(type === "photo"){
 
@@ -2045,11 +1920,9 @@ async function openGallery(
 
     }
 
-
   }catch(error){
 
     console.error(error);
-
 
     panelBody.innerHTML =
       '<div class="error-message">' +
@@ -2101,10 +1974,7 @@ function loadPhotos(
 
 
   const grid =
-    document.createElement(
-      "div"
-    );
-
+    document.createElement("div");
 
   grid.className =
     "image-grid";
@@ -2114,28 +1984,20 @@ function loadPhotos(
     file => {
 
       const item =
-        document.createElement(
-          "div"
-        );
-
+        document.createElement("div");
 
       item.className =
         "image-item";
 
 
       const img =
-        document.createElement(
-          "img"
-        );
-
+        document.createElement("img");
 
       img.src =
         file.download_url;
 
-
       img.alt =
         altText;
-
 
       img.loading =
         "lazy";
@@ -2148,7 +2010,6 @@ function loadPhotos(
           lightboxImage.src =
             file.download_url;
 
-
           lightbox
             .classList
             .add("active");
@@ -2157,14 +2018,9 @@ function loadPhotos(
       );
 
 
-      item.appendChild(
-        img
-      );
+      item.appendChild(img);
 
-
-      grid.appendChild(
-        item
-      );
+      grid.appendChild(item);
 
     }
   );
@@ -2172,10 +2028,7 @@ function loadPhotos(
 
   panelBody.innerHTML = "";
 
-
-  panelBody.appendChild(
-    grid
-  );
+  panelBody.appendChild(grid);
 
 }
 
@@ -2203,7 +2056,6 @@ function getVideoThumbnail(
     );
 
   }
-
 
   return "";
 
@@ -2252,10 +2104,7 @@ function loadVideos(
 
 
   const grid =
-    document.createElement(
-      "div"
-    );
-
+    document.createElement("div");
 
   grid.className =
     "video-grid";
@@ -2265,32 +2114,23 @@ function loadVideos(
     (file,index) => {
 
       const item =
-        document.createElement(
-          "article"
-        );
-
+        document.createElement("article");
 
       item.className =
         "video-item";
 
 
       const video =
-        document.createElement(
-          "video"
-        );
-
+        document.createElement("video");
 
       video.src =
         file.download_url;
 
-
       video.controls =
         true;
 
-
       video.preload =
         "metadata";
-
 
       video.playsInline =
         true;
@@ -2338,20 +2178,14 @@ function loadVideos(
 
 
       const info =
-        document.createElement(
-          "div"
-        );
-
+        document.createElement("div");
 
       info.className =
         "video-info";
 
 
       const name =
-        document.createElement(
-          "div"
-        );
-
+        document.createElement("div");
 
       name.className =
         "video-name";
@@ -2377,42 +2211,24 @@ function loadVideos(
 
 
       const videoLabel =
-        document.createElement(
-          "div"
-        );
-
+        document.createElement("div");
 
       videoLabel.className =
         "video-label";
-
 
       videoLabel.textContent =
         label;
 
 
-      info.appendChild(
-        name
-      );
+      info.appendChild(name);
 
+      info.appendChild(videoLabel);
 
-      info.appendChild(
-        videoLabel
-      );
+      item.appendChild(video);
 
+      item.appendChild(info);
 
-      item.appendChild(
-        video
-      );
-
-
-      item.appendChild(
-        info
-      );
-
-
-      grid.appendChild(
-        item
-      );
+      grid.appendChild(item);
 
     }
   );
@@ -2420,18 +2236,13 @@ function loadVideos(
 
   panelBody.innerHTML = "";
 
-
-  panelBody.appendChild(
-    grid
-  );
+  panelBody.appendChild(grid);
 
 }
 
 
 document
-  .querySelectorAll(
-    ".gallery-card"
-  )
+  .querySelectorAll(".gallery-card")
   .forEach(
     card => {
 
@@ -2464,7 +2275,6 @@ closePanelButton
         .classList
         .remove("active");
 
-
       document
         .querySelectorAll(
           ".video-item video"
@@ -2490,7 +2300,6 @@ lightboxClose
         .classList
         .remove("active");
 
-
       lightboxImage.src = "";
 
     }
@@ -2509,7 +2318,6 @@ lightbox
         lightbox
           .classList
           .remove("active");
-
 
         lightboxImage.src = "";
 
@@ -2531,7 +2339,6 @@ document.addEventListener(
         .classList
         .remove("active");
 
-
       lightboxImage.src = "";
 
 
@@ -2544,7 +2351,6 @@ document.addEventListener(
         galleryPanel
           .classList
           .remove("active");
-
 
         document
           .querySelectorAll(
