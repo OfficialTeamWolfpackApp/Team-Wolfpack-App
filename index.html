@@ -67,19 +67,11 @@ body{
   font-family:Arial, Helvetica, sans-serif;
 }
 
-/* =========================
-   PAGE
-========================= */
-
 .page{
   width:min(1500px,100%);
   margin:0 auto;
   padding-bottom:40px;
 }
-
-/* =========================
-   HERO BANNER
-========================= */
 
 .gallery-banner{
   width:100%;
@@ -98,10 +90,6 @@ body{
   height:auto;
 }
 
-/* =========================
-   MAIN CONTENT
-========================= */
-
 .main-content{
   padding:24px 18px 0;
 }
@@ -110,10 +98,8 @@ body{
   position:relative;
   overflow:hidden;
   margin-bottom:26px;
-
   border:1px solid rgba(255,255,255,.10);
   border-radius:22px;
-
   background:
     linear-gradient(
       135deg,
@@ -122,7 +108,6 @@ body{
       rgba(255,90,0,.035)
     ),
     rgba(8,10,12,.90);
-
   box-shadow:
     0 24px 70px rgba(0,0,0,.45);
 }
@@ -145,16 +130,12 @@ body{
 .section-header{
   position:relative;
   z-index:2;
-
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:20px;
-
   padding:20px 22px;
-
   border-bottom:1px solid rgba(255,255,255,.08);
-
   background:
     linear-gradient(
       90deg,
@@ -171,7 +152,6 @@ body{
 .section-kicker{
   display:block;
   margin-bottom:4px;
-
   color:#71818a;
   font-size:9px;
   font-weight:900;
@@ -190,21 +170,16 @@ body{
 
 .section-title .ice{
   color:#32ceff;
-  text-shadow:0 0 18px rgba(0,191,255,.28);
 }
 
 .section-title .fire{
   color:#ff7100;
-  text-shadow:0 0 18px rgba(255,90,0,.25);
 }
 
 .section-line{
   width:95px;
   height:3px;
-  flex:0 0 auto;
-
   border-radius:99px;
-
   background:
     linear-gradient(
       90deg,
@@ -212,54 +187,34 @@ body{
       rgba(255,255,255,.85),
       #ff5a00
     );
-
-  box-shadow:
-    0 0 15px rgba(0,191,255,.25),
-    0 0 15px rgba(255,90,0,.18);
 }
-
-/* =========================
-   PHOTO GRID
-========================= */
 
 .photo-grid{
   position:relative;
   z-index:2;
-
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:18px;
-
   padding:18px;
 }
 
 .photo-card{
   position:relative;
   overflow:hidden;
-
   min-height:265px;
-
-  padding:0;
-
   cursor:pointer;
-
   border:1px solid rgba(255,255,255,.12);
   border-radius:16px;
-
   background-color:#020304;
   background-image:var(--card-image);
   background-size:contain;
   background-position:center;
   background-repeat:no-repeat;
-
-  box-shadow:
-    0 14px 30px rgba(0,0,0,.40);
-
+  box-shadow:0 14px 30px rgba(0,0,0,.40);
   transition:
     transform .22s ease,
     border-color .22s ease,
     box-shadow .22s ease;
-
   isolation:isolate;
 }
 
@@ -269,7 +224,6 @@ body{
   inset:0;
   z-index:0;
   pointer-events:none;
-
   background:
     linear-gradient(
       to top,
@@ -285,7 +239,6 @@ body{
   inset:0;
   z-index:0;
   pointer-events:none;
-
   background:
     linear-gradient(
       90deg,
@@ -298,9 +251,7 @@ body{
 
 .photo-card:hover{
   transform:translateY(-7px) scale(1.012);
-
   border-color:rgba(255,255,255,.28);
-
   box-shadow:
     -10px 0 34px rgba(0,191,255,.20),
     10px 0 34px rgba(255,90,0,.20),
@@ -310,46 +261,23 @@ body{
 .photo-action{
   position:absolute;
   z-index:3;
-
   left:12px;
   right:12px;
   bottom:10px;
-
   min-height:28px;
-
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:8px;
-
   padding:6px 10px;
-
   border:1px solid rgba(255,255,255,.12);
   border-radius:8px;
-
   background:
     linear-gradient(
       90deg,
       rgba(0,0,0,.54),
       rgba(0,0,0,.40),
       rgba(0,0,0,.54)
-    );
-
-  backdrop-filter:blur(4px);
-  -webkit-backdrop-filter:blur(4px);
-
-  box-shadow:0 5px 14px rgba(0,0,0,.24);
-}
-
-.photo-card:hover .photo-action{
-  border-color:rgba(255,255,255,.24);
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(0,191,255,.12),
-      rgba(0,0,0,.56),
-      rgba(255,90,0,.12)
     );
 }
 
@@ -371,10 +299,6 @@ body{
   color:#ff7300;
 }
 
-/* =========================
-   VIDEO CONTENT
-========================= */
-
 .video-content{
   position:relative;
   z-index:2;
@@ -384,10 +308,8 @@ body{
 .team-block{
   padding:18px 14px 14px;
   margin-bottom:18px;
-
   border:1px solid rgba(255,255,255,.08);
   border-radius:16px;
-
   background:rgba(0,0,0,.18);
 }
 
@@ -400,7 +322,6 @@ body{
   align-items:center;
   justify-content:space-between;
   gap:18px;
-
   padding:0 4px 16px;
 }
 
@@ -428,10 +349,6 @@ body{
   text-transform:uppercase;
 }
 
-/* =========================
-   VIDEO CARDS
-========================= */
-
 .video-category-grid{
   display:grid;
   grid-template-columns:repeat(5,1fr);
@@ -441,25 +358,17 @@ body{
 .video-card{
   position:relative;
   overflow:hidden;
-
   min-height:180px;
-
   cursor:pointer;
-
   border:1px solid rgba(255,255,255,.12);
   border-radius:14px;
-
   background-color:#020304;
   background-image:var(--video-image);
   background-size:contain;
   background-position:center;
   background-repeat:no-repeat;
-
-  box-shadow:
-    0 12px 25px rgba(0,0,0,.40);
-
+  box-shadow:0 12px 25px rgba(0,0,0,.40);
   isolation:isolate;
-
   transition:
     transform .22s ease,
     box-shadow .22s ease,
@@ -472,7 +381,6 @@ body{
   inset:0;
   z-index:0;
   pointer-events:none;
-
   background:
     linear-gradient(
       to top,
@@ -488,7 +396,6 @@ body{
   inset:0;
   z-index:0;
   pointer-events:none;
-
   background:
     linear-gradient(
       90deg,
@@ -501,9 +408,7 @@ body{
 
 .video-card:hover{
   transform:translateY(-6px) scale(1.015);
-
   border-color:rgba(255,255,255,.27);
-
   box-shadow:
     -8px 0 28px rgba(0,191,255,.17),
     8px 0 28px rgba(255,90,0,.17),
@@ -513,44 +418,23 @@ body{
 .video-action{
   position:absolute;
   z-index:3;
-
   left:10px;
   right:10px;
   bottom:9px;
-
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:8px;
-
   min-height:28px;
-
   padding:6px 9px;
-
   border:1px solid rgba(255,255,255,.12);
   border-radius:8px;
-
   background:
     linear-gradient(
       90deg,
       rgba(0,0,0,.62),
       rgba(0,0,0,.42),
       rgba(0,0,0,.62)
-    );
-
-  backdrop-filter:blur(4px);
-  -webkit-backdrop-filter:blur(4px);
-}
-
-.video-card:hover .video-action{
-  border-color:rgba(255,255,255,.22);
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(0,191,255,.13),
-      rgba(0,0,0,.60),
-      rgba(255,90,0,.13)
     );
 }
 
@@ -568,24 +452,14 @@ body{
   font-weight:1000;
 }
 
-/* =========================
-   OPENED GALLERY
-========================= */
-
 .opened-gallery{
   display:none;
-
   margin-top:26px;
-
   border:1px solid rgba(255,255,255,.10);
   border-radius:20px;
-
   overflow:hidden;
-
   background:#080a0c;
-
-  box-shadow:
-    0 25px 65px rgba(0,0,0,.55);
+  box-shadow:0 25px 65px rgba(0,0,0,.55);
 }
 
 .opened-gallery.show{
@@ -597,11 +471,8 @@ body{
   align-items:center;
   justify-content:space-between;
   gap:20px;
-
   padding:17px 20px;
-
   border-bottom:1px solid rgba(255,255,255,.08);
-
   background:
     linear-gradient(
       90deg,
@@ -619,18 +490,12 @@ body{
 }
 
 .close-gallery{
-  appearance:none;
-
   border:1px solid rgba(255,255,255,.14);
   border-radius:8px;
-
   padding:8px 11px;
-
   background:#111519;
   color:#fff;
-
   cursor:pointer;
-
   font-size:9px;
   font-weight:900;
   letter-spacing:1px;
@@ -646,29 +511,20 @@ body{
   letter-spacing:1px;
 }
 
-/* =========================
-   MEDIA GRID
-========================= */
-
 .media-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:14px;
-
   padding:18px;
 }
 
 .media-item{
   position:relative;
   overflow:hidden;
-
   border:1px solid rgba(255,255,255,.09);
   border-radius:12px;
-
   background:#020304;
-
-  box-shadow:
-    0 10px 22px rgba(0,0,0,.35);
+  box-shadow:0 10px 22px rgba(0,0,0,.35);
 }
 
 .media-item img{
@@ -687,24 +543,15 @@ body{
   background:#000;
 }
 
-/* =========================
-   LIGHTBOX
-========================= */
-
 .lightbox{
   position:fixed;
   inset:0;
   z-index:9999;
-
   display:none;
   align-items:center;
   justify-content:center;
-
   padding:25px;
-
   background:rgba(0,0,0,.94);
-
-  backdrop-filter:blur(8px);
 }
 
 .lightbox.show{
@@ -714,9 +561,7 @@ body{
 .lightbox img{
   max-width:96vw;
   max-height:92vh;
-
   object-fit:contain;
-
   border:1px solid rgba(255,255,255,.14);
   border-radius:12px;
 }
@@ -725,26 +570,17 @@ body{
   position:absolute;
   top:18px;
   right:20px;
-
   width:42px;
   height:42px;
-
   display:grid;
   place-items:center;
-
   border:1px solid rgba(255,255,255,.18);
   border-radius:50%;
-
   background:rgba(0,0,0,.70);
-
   color:#fff;
   cursor:pointer;
   font-size:22px;
 }
-
-/* =========================
-   FOOTER
-========================= */
 
 .site-footer{
   padding:25px 18px 12px;
@@ -767,10 +603,6 @@ body{
   letter-spacing:2px;
   text-transform:uppercase;
 }
-
-/* =========================
-   RESPONSIVE
-========================= */
 
 @media(max-width:1150px){
 
@@ -865,35 +697,25 @@ body{
 <div class="page">
 
 <header class="gallery-banner">
-
   <img
     src="gallery/gallery-banner.png.png?v=3"
     alt="Team Wolfpack Gallery"
   >
-
 </header>
 
 <main class="main-content">
-
-<!-- =========================
-     PHOTO GALLERIES
-========================= -->
 
 <section class="gallery-section">
 
   <div class="section-header">
 
     <div class="section-title-wrap">
-
-      <span class="section-kicker">
-        Explore The Pack
-      </span>
+      <span class="section-kicker">Explore The Pack</span>
 
       <h2 class="section-title">
         <span class="ice">Photo</span>
         Galleries
       </h2>
-
     </div>
 
     <div class="section-line"></div>
@@ -909,12 +731,10 @@ body{
       data-path="gallery/photos/fight-nights/fight-may-2025"
       data-title="May 2025"
     >
-
       <div class="photo-action">
         <span class="photo-action-text">View Photos</span>
         <span class="photo-action-arrow">→</span>
       </div>
-
     </article>
 
     <article
@@ -924,12 +744,10 @@ body{
       data-path="gallery/photos/fight-nights/fight-july-2025"
       data-title="July 2025"
     >
-
       <div class="photo-action">
         <span class="photo-action-text">View Photos</span>
         <span class="photo-action-arrow">→</span>
       </div>
-
     </article>
 
     <article
@@ -939,12 +757,10 @@ body{
       data-path="gallery/photos/fight-nights/fight-march-2026"
       data-title="March 2026"
     >
-
       <div class="photo-action">
         <span class="photo-action-text">View Photos</span>
         <span class="photo-action-arrow">→</span>
       </div>
-
     </article>
 
     <article
@@ -954,12 +770,10 @@ body{
       data-path="gallery/photos/fight-nights/fight-july-2026"
       data-title="July 2026"
     >
-
       <div class="photo-action">
         <span class="photo-action-text">View Photos</span>
         <span class="photo-action-arrow">→</span>
       </div>
-
     </article>
 
     <article
@@ -969,12 +783,10 @@ body{
       data-path="gallery/photos/fight-nights/fight-october-2026"
       data-title="October 2026"
     >
-
       <div class="photo-action">
         <span class="photo-action-text">View Photos</span>
         <span class="photo-action-arrow">→</span>
       </div>
-
     </article>
 
     <article
@@ -984,37 +796,27 @@ body{
       data-path="gallery/photos/team-wolfpack/designs-posters-logos"
       data-title="Team Wolfpack Artwork"
     >
-
       <div class="photo-action">
         <span class="photo-action-text">View Artwork</span>
         <span class="photo-action-arrow">→</span>
       </div>
-
     </article>
 
   </div>
 
 </section>
 
-<!-- =========================
-     VIDEO GALLERIES
-========================= -->
-
 <section class="gallery-section">
 
   <div class="section-header">
 
     <div class="section-title-wrap">
-
-      <span class="section-kicker">
-        Watch The Pack
-      </span>
+      <span class="section-kicker">Watch The Pack</span>
 
       <h2 class="section-title">
         <span class="fire">Video</span>
         Galleries
       </h2>
-
     </div>
 
     <div class="section-line"></div>
@@ -1028,7 +830,6 @@ body{
     <section class="team-block">
 
       <div class="team-heading">
-
         <h3>
           Team <span class="blue">Wolfpack</span>
         </h3>
@@ -1036,7 +837,6 @@ body{
         <span class="team-motto">
           Strength In Unity
         </span>
-
       </div>
 
       <div class="video-category-grid">
@@ -1115,7 +915,6 @@ body{
     <section class="team-block">
 
       <div class="team-heading">
-
         <h3>
           Team <span class="orange">Wolfie</span>
         </h3>
@@ -1123,7 +922,6 @@ body{
         <span class="team-motto">
           Hunt Without Fear
         </span>
-
       </div>
 
       <div class="video-category-grid">
@@ -1202,7 +1000,6 @@ body{
     <section class="team-block">
 
       <div class="team-heading">
-
         <h3>
           Team <span class="blue">Sloan</span>
         </h3>
@@ -1210,14 +1007,13 @@ body{
         <span class="team-motto">
           The Awakening
         </span>
-
       </div>
 
       <div class="video-category-grid">
 
         <article
           class="video-card"
-          style="--video-image:url('gallery/video-card-images/team-sloan/march-2026.png');"
+          style="--video-image:url('gallery/video-card-images/team-sloan/march-2026-ts.png');"
           data-type="videos"
           data-path="gallery/videos/team-sloan/fight-march-2026"
           data-title="Team Sloan — March 2026"
@@ -1230,7 +1026,7 @@ body{
 
         <article
           class="video-card"
-          style="--video-image:url('gallery/video-card-images/team-sloan/june-2026.png');"
+          style="--video-image:url('gallery/video-card-images/team-sloan/june-2026-ts.png');"
           data-type="videos"
           data-path="gallery/videos/team-sloan/fight-june-2026"
           data-title="Team Sloan — June 2026"
@@ -1243,7 +1039,7 @@ body{
 
         <article
           class="video-card"
-          style="--video-image:url('gallery/video-card-images/team-sloan/september-2026.png');"
+          style="--video-image:url('gallery/video-card-images/team-sloan/september-2026-ts.png');"
           data-type="videos"
           data-path="gallery/videos/team-sloan/fight-september-2026"
           data-title="Team Sloan — September 2026"
@@ -1256,7 +1052,7 @@ body{
 
         <article
           class="video-card"
-          style="--video-image:url('gallery/video-card-images/team-sloan/november-2026.png');"
+          style="--video-image:url('gallery/video-card-images/team-sloan/november-2026-ts.png');"
           data-type="videos"
           data-path="gallery/videos/team-sloan/fight-november-2026"
           data-title="Team Sloan — November 2026"
@@ -1274,10 +1070,6 @@ body{
   </div>
 
 </section>
-
-<!-- =========================
-     OPENED GALLERY
-========================= -->
 
 <section
   id="openedGallery"
@@ -1323,8 +1115,6 @@ body{
 
 </div>
 
-<!-- LIGHTBOX -->
-
 <div
   id="lightbox"
   class="lightbox"
@@ -1348,17 +1138,9 @@ body{
 
 <script>
 
-/* =========================
-   GITHUB SETTINGS
-========================= */
-
 const GITHUB_OWNER = "OfficialTeamWolfpackApp";
 const GITHUB_REPO = "Team-Wolfpack-App";
 const GITHUB_BRANCH = "main";
-
-/* =========================
-   ELEMENTS
-========================= */
 
 const openedGallery =
   document.getElementById("openedGallery");
@@ -1381,25 +1163,13 @@ const lightboxImage =
 const lightboxClose =
   document.getElementById("lightboxClose");
 
-/* =========================
-   FILE CHECKS
-========================= */
-
 function isImageFile(filename){
-
   return /\.(jpg|jpeg|png|webp|gif)$/i.test(filename);
-
 }
 
 function isVideoFile(filename){
-
   return /\.(mp4|webm|ogv|m4v|mov)$/i.test(filename);
-
 }
-
-/* =========================
-   SORT
-========================= */
 
 function naturalSort(a,b){
 
@@ -1413,10 +1183,6 @@ function naturalSort(a,b){
   );
 
 }
-
-/* =========================
-   VIDEO THUMBNAILS
-========================= */
 
 function getVideoThumbnail(path,videoIndex){
 
@@ -1444,10 +1210,6 @@ function getVideoThumbnail(path,videoIndex){
   return "";
 
 }
-
-/* =========================
-   OPEN GALLERY
-========================= */
 
 async function openGallery(card){
 
@@ -1539,10 +1301,6 @@ async function openGallery(card){
 
 }
 
-/* =========================
-   PHOTOS
-========================= */
-
 function renderPhotos(files){
 
   const images =
@@ -1615,10 +1373,6 @@ function renderPhotos(files){
   galleryOutput.appendChild(grid);
 
 }
-
-/* =========================
-   VIDEOS
-========================= */
 
 function renderVideos(files,path){
 
@@ -1693,10 +1447,6 @@ function renderVideos(files,path){
 
 }
 
-/* =========================
-   CARD CLICKS
-========================= */
-
 document
   .querySelectorAll(
     ".photo-card, .video-card"
@@ -1713,10 +1463,6 @@ document
     );
 
   });
-
-/* =========================
-   CLOSE GALLERY
-========================= */
 
 closeGallery.addEventListener(
   "click",
@@ -1735,10 +1481,6 @@ closeGallery.addEventListener(
   }
 );
 
-/* =========================
-   LIGHTBOX
-========================= */
-
 function openLightbox(src,alt){
 
   lightboxImage.src = src;
@@ -1751,7 +1493,6 @@ function openLightbox(src,alt){
 function closeLightbox(){
 
   lightbox.classList.remove("show");
-
   lightboxImage.src = "";
 
 }
@@ -1786,10 +1527,6 @@ document.addEventListener(
 
   }
 );
-
-/* =========================
-   SERVICE WORKER
-========================= */
 
 if("serviceWorker" in navigator){
 
