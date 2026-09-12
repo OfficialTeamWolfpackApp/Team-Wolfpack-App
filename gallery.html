@@ -378,12 +378,12 @@ button{
 
   padding:0;
 
-  background-color:#050708;
+  background-color:#020304;
 
   background-image:
     var(--card-image);
 
-  background-size:cover;
+  background-size:contain;
 
   background-position:center;
 
@@ -406,9 +406,9 @@ button{
   background:
     linear-gradient(
       to top,
-      rgba(0,0,0,.70) 0%,
-      rgba(0,0,0,.20) 28%,
-      rgba(0,0,0,.03) 58%,
+      rgba(0,0,0,.60) 0%,
+      rgba(0,0,0,.12) 25%,
+      rgba(0,0,0,.02) 58%,
       transparent 100%
     );
 }
@@ -427,10 +427,10 @@ button{
   background:
     linear-gradient(
       90deg,
-      rgba(0,191,255,.08),
+      rgba(0,191,255,.06),
       transparent 30%,
       transparent 70%,
-      rgba(255,90,0,.08)
+      rgba(255,90,0,.06)
     );
 }
 
@@ -1169,6 +1169,8 @@ button{
 
   .photo-card{
     min-height:195px;
+
+    background-size:contain;
   }
 
   .photo-action{
@@ -1275,10 +1277,6 @@ button{
 <body>
 
 
-<!-- =========================
-     HERO
-========================= -->
-
 <header class="gallery-banner">
 
   <img
@@ -1322,8 +1320,6 @@ button{
   <div class="photo-grid">
 
 
-    <!-- MAY 2025 -->
-
     <button
       class="gallery-card photo-card"
       style="--card-image:url('gallery/card-images/may-2025.jpg.png');"
@@ -1338,7 +1334,6 @@ button{
       <span class="card-arrow">›</span>
 
       <span class="photo-action">
-
         <span class="photo-action-text">
           View Photos
         </span>
@@ -1346,13 +1341,10 @@ button{
         <span class="photo-action-arrow">
           →
         </span>
-
       </span>
 
     </button>
 
-
-    <!-- JULY 2025 -->
 
     <button
       class="gallery-card photo-card"
@@ -1368,7 +1360,6 @@ button{
       <span class="card-arrow">›</span>
 
       <span class="photo-action">
-
         <span class="photo-action-text">
           View Photos
         </span>
@@ -1376,13 +1367,10 @@ button{
         <span class="photo-action-arrow">
           →
         </span>
-
       </span>
 
     </button>
 
-
-    <!-- MARCH 2026 -->
 
     <button
       class="gallery-card photo-card"
@@ -1398,7 +1386,6 @@ button{
       <span class="card-arrow">›</span>
 
       <span class="photo-action">
-
         <span class="photo-action-text">
           View Photos
         </span>
@@ -1406,13 +1393,10 @@ button{
         <span class="photo-action-arrow">
           →
         </span>
-
       </span>
 
     </button>
 
-
-    <!-- JULY 2026 -->
 
     <button
       class="gallery-card photo-card"
@@ -1428,7 +1412,6 @@ button{
       <span class="card-arrow">›</span>
 
       <span class="photo-action">
-
         <span class="photo-action-text">
           View Photos
         </span>
@@ -1436,13 +1419,10 @@ button{
         <span class="photo-action-arrow">
           →
         </span>
-
       </span>
 
     </button>
 
-
-    <!-- OCTOBER 2026 -->
 
     <button
       class="gallery-card photo-card"
@@ -1458,7 +1438,6 @@ button{
       <span class="card-arrow">›</span>
 
       <span class="photo-action">
-
         <span class="photo-action-text">
           View Photos
         </span>
@@ -1466,13 +1445,10 @@ button{
         <span class="photo-action-arrow">
           →
         </span>
-
       </span>
 
     </button>
 
-
-    <!-- TEAM WOLFPACK ARTWORK -->
 
     <button
       class="gallery-card photo-card artwork-card"
@@ -1488,7 +1464,6 @@ button{
       <span class="card-arrow">›</span>
 
       <span class="photo-action">
-
         <span class="photo-action-text">
           View Artwork
         </span>
@@ -1496,7 +1471,6 @@ button{
         <span class="photo-action-arrow">
           →
         </span>
-
       </span>
 
     </button>
@@ -1538,8 +1512,6 @@ button{
   <div class="video-content">
 
 
-    <!-- TEAM WOLFPACK -->
-
     <div class="team-block">
 
       <div class="team-heading">
@@ -1558,7 +1530,6 @@ button{
 
       <div class="video-category-grid">
 
-
         <button
           class="gallery-card video-card"
           data-type="video"
@@ -1567,12 +1538,10 @@ button{
           data-label="Team Wolfpack Videos"
           data-loading="Loading Team Wolfpack promo videos..."
         >
-
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">Promos</span>
           <span class="card-subtitle">Team Wolfpack</span>
-
         </button>
 
 
@@ -1584,12 +1553,10 @@ button{
           data-label="Team Wolfpack Videos"
           data-loading="Loading Team Wolfpack announcement videos..."
         >
-
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">Announcements</span>
           <span class="card-subtitle">Team Wolfpack</span>
-
         </button>
 
 
@@ -1601,12 +1568,10 @@ button{
           data-label="Team Wolfpack Videos"
           data-loading="Loading behind the scenes videos..."
         >
-
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">Behind The Scenes</span>
           <span class="card-subtitle">Team Wolfpack</span>
-
         </button>
 
 
@@ -1618,12 +1583,10 @@ button{
           data-label="Team Wolfpack Videos"
           data-loading="Loading training videos..."
         >
-
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">Training</span>
           <span class="card-subtitle">Team Wolfpack</span>
-
         </button>
 
 
@@ -1635,22 +1598,17 @@ button{
           data-label="Team Wolfpack Videos"
           data-loading="Loading Team Wolfpack videos..."
         >
-
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">Other</span>
           <span class="card-subtitle">Team Wolfpack</span>
-
         </button>
-
 
       </div>
 
     </div>
 
 
-
-    <!-- TEAM WOLFIE -->
 
     <div class="team-block">
 
@@ -1670,7 +1628,6 @@ button{
 
       <div class="video-category-grid">
 
-
         <button
           class="gallery-card video-card"
           data-type="video"
@@ -1679,12 +1636,10 @@ button{
           data-label="Team Wolfie Videos"
           data-loading="Loading May 2025 videos..."
         >
-
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">May 2025</span>
           <span class="card-subtitle">Team Wolfie</span>
-
         </button>
 
 
@@ -1696,12 +1651,10 @@ button{
           data-label="Team Wolfie Videos"
           data-loading="Loading July 2025 videos..."
         >
-
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">July 2025</span>
           <span class="card-subtitle">Team Wolfie</span>
-
         </button>
 
 
@@ -1713,12 +1666,10 @@ button{
           data-label="Team Wolfie Videos"
           data-loading="Loading March 2026 videos..."
         >
-
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">March 2026</span>
           <span class="card-subtitle">Team Wolfie</span>
-
         </button>
 
 
@@ -1730,12 +1681,10 @@ button{
           data-label="Team Wolfie Videos"
           data-loading="Loading July 2026 videos..."
         >
-
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">July 2026</span>
           <span class="card-subtitle">Team Wolfie</span>
-
         </button>
 
 
@@ -1747,22 +1696,17 @@ button{
           data-label="Team Wolfie Videos"
           data-loading="Loading October 2026 videos..."
         >
-
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">October 2026</span>
           <span class="card-subtitle">Team Wolfie</span>
-
         </button>
-
 
       </div>
 
     </div>
 
 
-
-    <!-- TEAM SLOAN -->
 
     <div class="team-block">
 
@@ -1782,7 +1726,6 @@ button{
 
       <div class="video-category-grid">
 
-
         <button
           class="gallery-card video-card"
           data-type="video"
@@ -1791,12 +1734,10 @@ button{
           data-label="Team Sloan Videos"
           data-loading="Loading March 2026 videos..."
         >
-
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">March 2026</span>
           <span class="card-subtitle">Team Sloan</span>
-
         </button>
 
 
@@ -1808,12 +1749,10 @@ button{
           data-label="Team Sloan Videos"
           data-loading="Loading June 2026 videos..."
         >
-
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">June 2026</span>
           <span class="card-subtitle">Team Sloan</span>
-
         </button>
 
 
@@ -1825,12 +1764,10 @@ button{
           data-label="Team Sloan Videos"
           data-loading="Loading September 2026 videos..."
         >
-
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">September 2026</span>
           <span class="card-subtitle">Team Sloan</span>
-
         </button>
 
 
@@ -1842,14 +1779,11 @@ button{
           data-label="Team Sloan Videos"
           data-loading="Loading November 2026 videos..."
         >
-
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">November 2026</span>
           <span class="card-subtitle">Team Sloan</span>
-
         </button>
-
 
       </div>
 
@@ -1862,30 +1796,17 @@ button{
 
 
 
-<!-- =========================
-     OPENED GALLERY
-========================= -->
-
-<section
-  id="galleryPanel"
-  class="gallery-panel"
->
+<section id="galleryPanel" class="gallery-panel">
 
   <div class="panel-header">
 
     <div>
 
-      <h2
-        id="panelTitle"
-        class="panel-title"
-      >
+      <h2 id="panelTitle" class="panel-title">
         Gallery
       </h2>
 
-      <div
-        id="panelLabel"
-        class="panel-label"
-      >
+      <div id="panelLabel" class="panel-label">
         Team Wolfpack
       </div>
 
@@ -1904,18 +1825,11 @@ button{
   </div>
 
 
-  <div
-    id="panelBody"
-    class="panel-body"
-  ></div>
+  <div id="panelBody" class="panel-body"></div>
 
 </section>
 
 
-
-<!-- =========================
-     FOOTER
-========================= -->
 
 <footer class="footer">
 
@@ -1944,14 +1858,7 @@ button{
 
 
 
-<!-- =========================
-     LIGHTBOX
-========================= -->
-
-<div
-  id="lightbox"
-  class="lightbox"
->
+<div id="lightbox" class="lightbox">
 
   <button
     id="lightboxClose"
@@ -1981,44 +1888,28 @@ const GITHUB_REPO =
 
 
 const galleryPanel =
-  document.getElementById(
-    "galleryPanel"
-  );
+  document.getElementById("galleryPanel");
 
 const panelTitle =
-  document.getElementById(
-    "panelTitle"
-  );
+  document.getElementById("panelTitle");
 
 const panelLabel =
-  document.getElementById(
-    "panelLabel"
-  );
+  document.getElementById("panelLabel");
 
 const panelBody =
-  document.getElementById(
-    "panelBody"
-  );
+  document.getElementById("panelBody");
 
 const closePanelButton =
-  document.getElementById(
-    "closePanel"
-  );
+  document.getElementById("closePanel");
 
 const lightbox =
-  document.getElementById(
-    "lightbox"
-  );
+  document.getElementById("lightbox");
 
 const lightboxImage =
-  document.getElementById(
-    "lightboxImage"
-  );
+  document.getElementById("lightboxImage");
 
 const lightboxClose =
-  document.getElementById(
-    "lightboxClose"
-  );
+  document.getElementById("lightboxClose");
 
 
 function isImageFile(filename){
@@ -2194,10 +2085,7 @@ function loadPhotos(
 
 
   const grid =
-    document.createElement(
-      "div"
-    );
-
+    document.createElement("div");
 
   grid.className =
     "image-grid";
@@ -2207,19 +2095,14 @@ function loadPhotos(
     file => {
 
       const item =
-        document.createElement(
-          "div"
-        );
-
+        document.createElement("div");
 
       item.className =
         "image-item";
 
 
       const img =
-        document.createElement(
-          "img"
-        );
+        document.createElement("img");
 
 
       img.src =
@@ -2250,14 +2133,9 @@ function loadPhotos(
       );
 
 
-      item.appendChild(
-        img
-      );
+      item.appendChild(img);
 
-
-      grid.appendChild(
-        item
-      );
+      grid.appendChild(item);
 
     }
   );
@@ -2265,10 +2143,7 @@ function loadPhotos(
 
   panelBody.innerHTML = "";
 
-
-  panelBody.appendChild(
-    grid
-  );
+  panelBody.appendChild(grid);
 
 }
 
@@ -2345,10 +2220,7 @@ function loadVideos(
 
 
   const grid =
-    document.createElement(
-      "div"
-    );
-
+    document.createElement("div");
 
   grid.className =
     "video-grid";
@@ -2358,19 +2230,14 @@ function loadVideos(
     (file,index) => {
 
       const item =
-        document.createElement(
-          "article"
-        );
-
+        document.createElement("article");
 
       item.className =
         "video-item";
 
 
       const video =
-        document.createElement(
-          "video"
-        );
+        document.createElement("video");
 
 
       video.src =
@@ -2431,20 +2298,14 @@ function loadVideos(
 
 
       const info =
-        document.createElement(
-          "div"
-        );
-
+        document.createElement("div");
 
       info.className =
         "video-info";
 
 
       const name =
-        document.createElement(
-          "div"
-        );
-
+        document.createElement("div");
 
       name.className =
         "video-name";
@@ -2470,10 +2331,7 @@ function loadVideos(
 
 
       const videoLabel =
-        document.createElement(
-          "div"
-        );
-
+        document.createElement("div");
 
       videoLabel.className =
         "video-label";
@@ -2483,29 +2341,15 @@ function loadVideos(
         label;
 
 
-      info.appendChild(
-        name
-      );
+      info.appendChild(name);
 
+      info.appendChild(videoLabel);
 
-      info.appendChild(
-        videoLabel
-      );
+      item.appendChild(video);
 
+      item.appendChild(info);
 
-      item.appendChild(
-        video
-      );
-
-
-      item.appendChild(
-        info
-      );
-
-
-      grid.appendChild(
-        item
-      );
+      grid.appendChild(item);
 
     }
   );
@@ -2513,18 +2357,13 @@ function loadVideos(
 
   panelBody.innerHTML = "";
 
-
-  panelBody.appendChild(
-    grid
-  );
+  panelBody.appendChild(grid);
 
 }
 
 
 document
-  .querySelectorAll(
-    ".gallery-card"
-  )
+  .querySelectorAll(".gallery-card")
   .forEach(
     card => {
 
