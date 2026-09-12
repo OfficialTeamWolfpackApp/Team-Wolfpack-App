@@ -64,8 +64,6 @@ button{
   font:inherit;
 }
 
-/* HEADER */
-
 .hero{
   text-align:center;
   padding:44px 18px 24px;
@@ -96,8 +94,6 @@ button{
   text-transform:uppercase;
 }
 
-/* PAGE */
-
 .page{
   width:min(1180px,94%);
   margin:auto;
@@ -120,8 +116,6 @@ button{
   font-size:13px;
   line-height:1.6;
 }
-
-/* CARDS */
 
 .gallery-grid{
   display:grid;
@@ -205,8 +199,6 @@ button{
   text-transform:uppercase;
 }
 
-/* VIEWER */
-
 .viewer{
   display:none;
   margin:24px 0 42px;
@@ -270,8 +262,6 @@ button{
   padding:14px;
 }
 
-/* STATUS */
-
 .status{
   padding:32px 14px;
   text-align:center;
@@ -279,8 +269,6 @@ button{
   font-size:14px;
   line-height:1.6;
 }
-
-/* PHOTO GRID */
 
 .photo-grid{
   display:grid;
@@ -302,8 +290,6 @@ button{
   aspect-ratio:1/1;
   object-fit:cover;
 }
-
-/* VIDEO GRID */
 
 .video-grid{
   display:grid;
@@ -356,8 +342,6 @@ button{
   text-transform:uppercase;
 }
 
-/* LIGHTBOX */
-
 .lightbox{
   position:fixed;
   inset:0;
@@ -394,8 +378,6 @@ button{
   cursor:pointer;
 }
 
-/* FOOTER */
-
 .footer{
   text-align:center;
   padding:10px 18px 30px;
@@ -409,8 +391,6 @@ button{
   color:#00bfff;
   text-decoration:none;
 }
-
-/* BOTTOM NAV */
 
 .bottom-nav{
   position:fixed;
@@ -448,8 +428,6 @@ button{
   font-size:20px;
 }
 
-/* DESKTOP */
-
 @media(min-width:720px){
 
   .gallery-grid{
@@ -482,8 +460,6 @@ button{
 </header>
 
 <main class="page">
-
-<!-- PHOTO GALLERIES -->
 
 <section class="section">
 
@@ -584,8 +560,6 @@ button{
 </section>
 
 
-<!-- VIDEO GALLERIES -->
-
 <section class="section">
 
   <h2 class="section-title">Video Galleries</h2>
@@ -593,8 +567,6 @@ button{
   <p class="section-subtitle">
     Team Wolfpack, Team Wolfie and Team Sloan videos.
   </p>
-
-  <!-- TEAM WOLFPACK -->
 
   <h3 class="section-title" style="font-size:16px;">
     Team Wolfpack
@@ -669,8 +641,6 @@ button{
 
   </div>
 
-
-  <!-- TEAM WOLFIE -->
 
   <h3
     class="section-title"
@@ -749,8 +719,6 @@ button{
   </div>
 
 
-  <!-- TEAM SLOAN -->
-
   <h3
     class="section-title"
     style="font-size:16px;margin-top:32px;"
@@ -817,8 +785,6 @@ button{
 </section>
 
 
-<!-- GALLERY VIEWER -->
-
 <section
   id="galleryViewer"
   class="viewer"
@@ -851,8 +817,6 @@ button{
 
 </main>
 
-
-<!-- PHOTO LIGHTBOX -->
 
 <div
   id="lightbox"
@@ -951,8 +915,6 @@ const lightboxClose =
   document.getElementById("lightboxClose");
 
 
-/* FILE TYPES */
-
 function isImageFile(filename){
 
   return /\.(jpg|jpeg|png|webp|gif)$/i.test(filename);
@@ -966,8 +928,6 @@ function isVideoFile(filename){
 }
 
 
-/* CLEAN FILENAMES */
-
 function cleanFilename(filename){
 
   return filename
@@ -978,8 +938,6 @@ function cleanFilename(filename){
 
 }
 
-
-/* OPEN GALLERY */
 
 async function openGallery(
   type,
@@ -1063,8 +1021,6 @@ async function openGallery(
 
 }
 
-
-/* LOAD PHOTOS */
 
 function loadPhotos(
   files,
@@ -1153,8 +1109,6 @@ function loadPhotos(
 }
 
 
-/* LOAD VIDEOS */
-
 function loadVideos(
   files,
   path,
@@ -1231,25 +1185,31 @@ function loadVideos(
         true;
 
 
-      /* ---------------------------------
-         TEAM WOLFIE MARCH 2026 THUMBNAIL
-         FIRST VIDEO
-      ---------------------------------- */
+      /* TEAM WOLFIE MARCH 2026
+         THUMBNAILS 1-5 */
 
       if(
         path ===
         "gallery/videos/team-wolfie/fight-march-2026"
-        &&
-        index === 0
       ){
 
-        video.poster =
-          "gallery/videos/team-wolfie/fight-march-2026/thumbnails/Video%201.png";
+        const thumbnailNumber =
+          index + 1;
+
+        if(
+          thumbnailNumber >= 1 &&
+          thumbnailNumber <= 5
+        ){
+
+          video.poster =
+            "gallery/videos/team-wolfie/fight-march-2026/thumbnails/Video%20" +
+            thumbnailNumber +
+            ".png";
+
+        }
 
       }
 
-
-      /* ONLY ONE VIDEO PLAYS AT A TIME */
 
       video.addEventListener(
         "play",
@@ -1332,8 +1292,6 @@ function loadVideos(
 }
 
 
-/* GALLERY CARD CLICKS */
-
 document
   .querySelectorAll(
     ".gallery-card"
@@ -1358,8 +1316,6 @@ document
 
   });
 
-
-/* CLOSE GALLERY */
 
 function closeGallery(){
 
@@ -1388,8 +1344,6 @@ closeViewerButton
     closeGallery
   );
 
-
-/* LIGHTBOX */
 
 function openLightbox(
   src,
@@ -1459,8 +1413,6 @@ document.addEventListener(
   }
 );
 
-
-/* SERVICE WORKER */
 
 if(
   "serviceWorker" in navigator
