@@ -3,7 +3,6 @@
 
 <head>
 
-<!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-M973P0B4F0"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
@@ -46,10 +45,20 @@ html{
 body{
   margin:0;
   min-height:100vh;
+
   background:
-    radial-gradient(circle at 0% 8%,rgba(0,191,255,.12),transparent 30%),
-    radial-gradient(circle at 100% 82%,rgba(255,90,0,.11),transparent 30%),
+    radial-gradient(
+      circle at 0% 8%,
+      rgba(0,191,255,.12),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 100% 82%,
+      rgba(255,90,0,.11),
+      transparent 30%
+    ),
     #030506;
+
   color:#fff;
   font-family:Arial,Helvetica,sans-serif;
 }
@@ -58,64 +67,92 @@ button{
   font:inherit;
 }
 
-/* =========================================================
+/* =========================
    HERO BANNER
-========================================================= */
+========================= */
 
 .gallery-banner{
   position:relative;
   width:100%;
-  height:clamp(260px,36vw,520px);
+
+  height:clamp(
+    260px,
+    36vw,
+    520px
+  );
+
   overflow:hidden;
+
   background:#000;
-  border-bottom:1px solid rgba(255,255,255,.10);
-  box-shadow:0 18px 55px rgba(0,0,0,.55);
+
+  border-bottom:
+    1px solid rgba(255,255,255,.10);
+
+  box-shadow:
+    0 18px 55px rgba(0,0,0,.55);
 }
 
 .gallery-banner img{
   display:block;
+
   width:100%;
   height:100%;
+
   object-fit:cover;
-  object-position:center;
+
+  object-position:
+    center 38%;
 }
 
 .gallery-banner::after{
   content:"";
+
   position:absolute;
+
   left:0;
   right:0;
   bottom:0;
+
   height:90px;
+
   pointer-events:none;
-  background:linear-gradient(
-    to bottom,
-    transparent,
-    rgba(3,5,6,.88)
-  );
+
+  background:
+    linear-gradient(
+      to bottom,
+      transparent,
+      rgba(3,5,6,.88)
+    );
 }
 
-/* =========================================================
+/* =========================
    MAIN PAGE
-========================================================= */
+========================= */
 
 .page{
   width:min(1180px,94%);
   margin:-18px auto 0;
+
   position:relative;
   z-index:2;
+
   padding-bottom:70px;
 }
 
-/* =========================================================
+/* =========================
    MAIN SECTION PANELS
-========================================================= */
+========================= */
 
 .gallery-section{
   margin:38px 0;
-  border:1px solid rgba(255,255,255,.10);
+
+  border:
+    1px solid rgba(255,255,255,.10);
+
   border-radius:20px;
+
   overflow:hidden;
+
   background:
     linear-gradient(
       110deg,
@@ -123,63 +160,92 @@ button{
       rgba(255,90,0,.025)
     ),
     rgba(7,10,12,.88);
-  box-shadow:0 22px 60px rgba(0,0,0,.38);
+
+  box-shadow:
+    0 22px 60px rgba(0,0,0,.38);
 }
 
 .section-heading{
   position:relative;
-  padding:24px 26px 22px;
+
+  padding:
+    24px
+    26px
+    22px;
+
   background:
     linear-gradient(
       100deg,
       rgba(0,191,255,.10),
       rgba(255,90,0,.07)
     );
-  border-bottom:1px solid rgba(255,255,255,.08);
+
+  border-bottom:
+    1px solid rgba(255,255,255,.08);
 }
 
 .section-heading::before{
   content:"";
+
   position:absolute;
+
   left:0;
   top:0;
   bottom:0;
+
   width:4px;
+
   background:#00bfff;
 }
 
 .section-heading::after{
   content:"";
+
   position:absolute;
+
   right:0;
   top:0;
   bottom:0;
+
   width:4px;
+
   background:#ff6a00;
 }
 
 .section-kicker{
   margin:0 0 8px;
+
   color:#74818a;
+
   font-size:10px;
   font-weight:800;
+
   letter-spacing:3px;
+
   text-transform:uppercase;
 }
 
 .section-title-row{
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
+
   gap:20px;
 }
 
 .section-title{
   margin:0;
+
   font-size:34px;
+
   line-height:1;
+
   font-weight:1000;
+
   letter-spacing:1.5px;
+
   text-transform:uppercase;
 }
 
@@ -193,40 +259,74 @@ button{
 
 .section-note{
   color:#74818a;
+
   font-size:10px;
+
   font-weight:800;
+
   letter-spacing:2px;
+
   text-transform:uppercase;
+
   white-space:nowrap;
 }
 
-/* =========================================================
-   PHOTO GALLERY CARDS
-========================================================= */
+/* =========================
+   PHOTO CARDS
+========================= */
 
 .photo-grid{
   display:grid;
-  grid-template-columns:repeat(6,1fr);
+
+  grid-template-columns:
+    repeat(6,1fr);
+
   gap:12px;
+
   padding:18px;
 }
 
 .gallery-card{
   position:relative;
+
   min-height:132px;
-  padding:18px 15px;
-  border:1px solid rgba(255,255,255,.12);
-  border-left:3px solid #00bfff;
-  border-right:3px solid #ff6a00;
+
+  padding:
+    18px
+    15px;
+
+  border:
+    1px solid rgba(255,255,255,.12);
+
+  border-left:
+    3px solid #00bfff;
+
+  border-right:
+    3px solid #ff6a00;
+
   border-radius:14px;
+
   background:
-    radial-gradient(circle at 0 0,rgba(0,191,255,.08),transparent 48%),
-    radial-gradient(circle at 100% 100%,rgba(255,90,0,.08),transparent 48%),
+    radial-gradient(
+      circle at 0 0,
+      rgba(0,191,255,.08),
+      transparent 48%
+    ),
+    radial-gradient(
+      circle at 100% 100%,
+      rgba(255,90,0,.08),
+      transparent 48%
+    ),
     #080b0d;
+
   color:#fff;
+
   text-align:left;
+
   cursor:pointer;
+
   overflow:hidden;
+
   transition:
     transform .22s ease,
     border-color .22s ease,
@@ -234,8 +334,12 @@ button{
 }
 
 .gallery-card:hover{
-  transform:translateY(-4px);
-  border-color:rgba(255,255,255,.24);
+  transform:
+    translateY(-4px);
+
+  border-color:
+    rgba(255,255,255,.24);
+
   box-shadow:
     -7px 0 24px rgba(0,191,255,.10),
     7px 0 24px rgba(255,90,0,.10),
@@ -245,28 +349,47 @@ button{
 .card-arrow,
 .card-play{
   position:absolute;
+
   top:12px;
   right:12px;
+
   width:28px;
   height:28px;
+
   border-radius:50%;
+
   display:flex;
+
   align-items:center;
+
   justify-content:center;
-  border:1px solid rgba(255,255,255,.22);
-  background:rgba(0,0,0,.55);
+
+  border:
+    1px solid rgba(255,255,255,.22);
+
+  background:
+    rgba(0,0,0,.55);
+
   color:#fff;
+
   font-size:12px;
 }
 
 .card-type{
   display:block;
+
   margin-top:42px;
+
   margin-bottom:7px;
+
   color:#23cfff;
+
   font-size:9px;
+
   font-weight:1000;
+
   letter-spacing:1.5px;
+
   text-transform:uppercase;
 }
 
@@ -276,36 +399,55 @@ button{
 
 .card-title{
   display:block;
+
   font-size:16px;
+
   line-height:1.05;
+
   font-weight:1000;
+
   text-transform:uppercase;
 }
 
 .card-subtitle{
   display:block;
+
   margin-top:7px;
+
   color:#78868f;
+
   font-size:9px;
+
   font-weight:800;
+
   letter-spacing:.5px;
+
   text-transform:uppercase;
 }
 
-/* =========================================================
+/* =========================
    VIDEO TEAM GROUPS
-========================================================= */
+========================= */
 
 .video-content{
   padding:18px;
 }
 
 .team-block{
-  padding:18px 14px 14px;
+  padding:
+    18px
+    14px
+    14px;
+
   margin-bottom:18px;
-  border:1px solid rgba(255,255,255,.08);
+
+  border:
+    1px solid rgba(255,255,255,.08);
+
   border-radius:16px;
-  background:rgba(0,0,0,.18);
+
+  background:
+    rgba(0,0,0,.18);
 }
 
 .team-block:last-child{
@@ -314,17 +456,28 @@ button{
 
 .team-heading{
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
+
   gap:18px;
-  padding:0 4px 16px;
+
+  padding:
+    0
+    4px
+    16px;
 }
 
 .team-heading h3{
   margin:0;
+
   font-size:21px;
+
   font-weight:1000;
+
   letter-spacing:1px;
+
   text-transform:uppercase;
 }
 
@@ -338,29 +491,45 @@ button{
 
 .team-motto{
   color:#66747d;
+
   font-size:9px;
+
   font-weight:800;
+
   letter-spacing:2px;
+
   text-transform:uppercase;
 }
 
 .video-category-grid{
   display:grid;
-  grid-template-columns:repeat(5,1fr);
+
+  grid-template-columns:
+    repeat(5,1fr);
+
   gap:12px;
 }
 
-/* =========================================================
+/* =========================
    OPENED GALLERY PANEL
-========================================================= */
+========================= */
 
 .gallery-panel{
   display:none;
-  margin:34px 0;
-  border:1px solid rgba(255,255,255,.12);
+
+  margin:
+    34px
+    0;
+
+  border:
+    1px solid rgba(255,255,255,.12);
+
   border-radius:18px;
+
   overflow:hidden;
+
   background:#070a0c;
+
   box-shadow:
     -10px 0 40px rgba(0,191,255,.06),
     10px 0 40px rgba(255,90,0,.06),
@@ -373,43 +542,67 @@ button{
 
 .panel-header{
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
+
   gap:15px;
-  padding:16px 18px;
+
+  padding:
+    16px
+    18px;
+
   background:
     linear-gradient(
       90deg,
       rgba(0,191,255,.10),
       rgba(255,90,0,.08)
     );
-  border-bottom:1px solid rgba(255,255,255,.09);
+
+  border-bottom:
+    1px solid rgba(255,255,255,.09);
 }
 
 .panel-title{
   margin:0;
+
   font-size:20px;
+
   font-weight:900;
 }
 
 .panel-label{
   margin-top:4px;
+
   color:#6f7e87;
+
   font-size:9px;
+
   font-weight:800;
+
   letter-spacing:1px;
+
   text-transform:uppercase;
 }
 
 .close-panel{
   flex:0 0 auto;
+
   width:34px;
   height:34px;
-  border:1px solid rgba(255,255,255,.18);
+
+  border:
+    1px solid rgba(255,255,255,.18);
+
   border-radius:50%;
+
   background:#090c0e;
+
   color:#fff;
+
   font-size:19px;
+
   cursor:pointer;
 }
 
@@ -420,101 +613,151 @@ button{
 .loading,
 .empty-message,
 .error-message{
-  padding:42px 20px;
+  padding:
+    42px
+    20px;
+
   color:#9ba6ac;
+
   text-align:center;
+
   font-size:13px;
 }
 
-/* =========================================================
+/* =========================
    PHOTO RESULTS
-========================================================= */
+========================= */
 
 .image-grid{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+
+  grid-template-columns:
+    repeat(3,1fr);
+
   gap:12px;
 }
 
 .image-item{
-  border:1px solid rgba(255,255,255,.09);
+  border:
+    1px solid rgba(255,255,255,.09);
+
   border-radius:12px;
+
   overflow:hidden;
+
   background:#000;
+
   cursor:pointer;
 }
 
 .image-item img{
   display:block;
+
   width:100%;
+
   aspect-ratio:4/3;
+
   object-fit:cover;
-  transition:transform .25s ease;
+
+  transition:
+    transform .25s ease;
 }
 
 .image-item:hover img{
-  transform:scale(1.025);
+  transform:
+    scale(1.025);
 }
 
-/* =========================================================
+/* =========================
    VIDEO RESULTS
-========================================================= */
+========================= */
 
 .video-grid{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
+
+  grid-template-columns:
+    repeat(2,1fr);
+
   gap:14px;
 }
 
 .video-item{
   overflow:hidden;
-  border:1px solid rgba(255,255,255,.10);
+
+  border:
+    1px solid rgba(255,255,255,.10);
+
   border-radius:13px;
+
   background:#030405;
 }
 
 .video-item video{
   display:block;
+
   width:100%;
+
   aspect-ratio:16/9;
+
   object-fit:contain;
+
   background:#000;
 }
 
 .video-info{
-  padding:12px 13px;
-  border-top:1px solid rgba(255,255,255,.08);
+  padding:
+    12px
+    13px;
+
+  border-top:
+    1px solid rgba(255,255,255,.08);
 }
 
 .video-name{
   color:#fff;
+
   font-size:11px;
+
   font-weight:900;
+
   line-height:1.35;
 }
 
 .video-label{
   margin-top:5px;
+
   color:#66747d;
+
   font-size:8px;
+
   font-weight:800;
+
   letter-spacing:.8px;
+
   text-transform:uppercase;
 }
 
-/* =========================================================
-   PHOTO LIGHTBOX
-========================================================= */
+/* =========================
+   LIGHTBOX
+========================= */
 
 .lightbox{
   display:none;
+
   position:fixed;
+
   inset:0;
+
   z-index:9999;
+
   align-items:center;
+
   justify-content:center;
+
   padding:20px;
-  background:rgba(0,0,0,.94);
+
+  background:
+    rgba(0,0,0,.94);
 }
 
 .lightbox.active{
@@ -523,55 +766,85 @@ button{
 
 .lightbox img{
   max-width:94vw;
+
   max-height:90vh;
+
   object-fit:contain;
+
   border-radius:10px;
 }
 
 .lightbox-close{
   position:absolute;
+
   top:18px;
   right:18px;
+
   width:42px;
   height:42px;
-  border:1px solid rgba(255,255,255,.25);
+
+  border:
+    1px solid rgba(255,255,255,.25);
+
   border-radius:50%;
+
   background:#080a0c;
+
   color:#fff;
+
   font-size:24px;
+
   cursor:pointer;
 }
 
-/* =========================================================
+/* =========================
    FOOTER
-========================================================= */
+========================= */
 
 .footer{
   width:min(760px,90%);
-  margin:55px auto 0;
-  padding:22px 10px 35px;
+
+  margin:
+    55px
+    auto
+    0;
+
+  padding:
+    22px
+    10px
+    35px;
+
   text-align:center;
+
   border-top:1px solid;
-  border-image:linear-gradient(
-    90deg,
-    transparent,
-    #00bfff,
-    #ff6a00,
-    transparent
-  ) 1;
+
+  border-image:
+    linear-gradient(
+      90deg,
+      transparent,
+      #00bfff,
+      #ff6a00,
+      transparent
+    ) 1;
 }
 
 .footer-top{
   color:#596770;
+
   font-size:9px;
+
   font-weight:800;
+
   letter-spacing:2px;
 }
 
 .footer-motto{
   margin-top:10px;
+
   font-size:11px;
+
   font-weight:1000;
+
   letter-spacing:2px;
 }
 
@@ -583,25 +856,27 @@ button{
   color:#ff7200;
 }
 
-/* =========================================================
+/* =========================
    TABLET
-========================================================= */
+========================= */
 
 @media(max-width:1000px){
 
   .photo-grid{
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:
+      repeat(3,1fr);
   }
 
   .video-category-grid{
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:
+      repeat(3,1fr);
   }
 
 }
 
-/* =========================================================
+/* =========================
    MOBILE
-========================================================= */
+========================= */
 
 @media(max-width:700px){
 
@@ -610,7 +885,8 @@ button{
   }
 
   .gallery-banner img{
-    object-position:center;
+    object-position:
+      center 34%;
   }
 
   .gallery-banner::after{
@@ -619,17 +895,27 @@ button{
 
   .page{
     width:94%;
-    margin:-8px auto 0;
+
+    margin:
+      -8px
+      auto
+      0;
+
     padding-bottom:45px;
   }
 
   .gallery-section{
-    margin:22px 0;
+    margin:
+      22px
+      0;
+
     border-radius:16px;
   }
 
   .section-heading{
-    padding:19px 17px;
+    padding:
+      19px
+      17px;
   }
 
   .section-title-row{
@@ -642,18 +928,25 @@ button{
 
   .section-note{
     margin-top:9px;
+
     white-space:normal;
   }
 
   .photo-grid{
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:
+      repeat(2,1fr);
+
     padding:12px;
+
     gap:10px;
   }
 
   .gallery-card{
     min-height:122px;
-    padding:13px 11px;
+
+    padding:
+      13px
+      11px;
   }
 
   .card-type{
@@ -669,13 +962,21 @@ button{
   }
 
   .team-block{
-    padding:14px 10px 10px;
+    padding:
+      14px
+      10px
+      10px;
+
     margin-bottom:12px;
   }
 
   .team-heading{
     display:block;
-    padding:0 2px 13px;
+
+    padding:
+      0
+      2px
+      13px;
   }
 
   .team-heading h3{
@@ -687,7 +988,9 @@ button{
   }
 
   .video-category-grid{
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:
+      repeat(2,1fr);
+
     gap:9px;
   }
 
@@ -696,14 +999,15 @@ button{
   }
 
   .image-grid{
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:
+      repeat(2,1fr);
   }
 
 }
 
-/* =========================================================
+/* =========================
    SMALL MOBILE
-========================================================= */
+========================= */
 
 @media(max-width:420px){
 
@@ -711,13 +1015,13 @@ button{
     height:210px;
   }
 
-  .section-title{
-    font-size:24px;
+  .gallery-banner img{
+    object-position:
+      center 32%;
   }
 
-  .photo-grid,
-  .video-category-grid{
-    grid-template-columns:1fr 1fr;
+  .section-title{
+    font-size:24px;
   }
 
 }
@@ -728,24 +1032,16 @@ button{
 
 <body>
 
-<!-- =====================================================
-     TEAM WOLFPACK GALLERY BANNER
-===================================================== -->
-
 <header class="gallery-banner">
 
   <img
-    src="gallery/gallery-banner.png.png?v=2"
+    src="gallery/gallery-banner.png.png?v=3"
     alt="Team Wolfpack Gallery"
   >
 
 </header>
 
 <main class="page">
-
-<!-- =====================================================
-     PHOTO GALLERIES
-===================================================== -->
 
 <section class="gallery-section">
 
@@ -865,10 +1161,6 @@ button{
 
 </section>
 
-<!-- =====================================================
-     VIDEO GALLERIES
-===================================================== -->
-
 <section class="gallery-section">
 
   <div class="section-heading">
@@ -893,8 +1185,6 @@ button{
 
   <div class="video-content">
 
-    <!-- TEAM WOLFPACK -->
-
     <div class="team-block">
 
       <div class="team-heading">
@@ -912,70 +1202,60 @@ button{
 
       <div class="video-category-grid">
 
-        <button
-          class="gallery-card video-card"
+        <button class="gallery-card video-card"
           data-type="video"
           data-path="gallery/videos/team-wolfpack/promos"
           data-title="Promos"
           data-label="Team Wolfpack Videos"
-          data-loading="Loading Team Wolfpack promo videos..."
-        >
+          data-loading="Loading Team Wolfpack promo videos...">
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">Promos</span>
           <span class="card-subtitle">Team Wolfpack</span>
         </button>
 
-        <button
-          class="gallery-card video-card"
+        <button class="gallery-card video-card"
           data-type="video"
           data-path="gallery/videos/team-wolfpack/announcements"
           data-title="Announcements"
           data-label="Team Wolfpack Videos"
-          data-loading="Loading Team Wolfpack announcement videos..."
-        >
+          data-loading="Loading Team Wolfpack announcement videos...">
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">Announcements</span>
           <span class="card-subtitle">Team Wolfpack</span>
         </button>
 
-        <button
-          class="gallery-card video-card"
+        <button class="gallery-card video-card"
           data-type="video"
           data-path="gallery/videos/team-wolfpack/behind-the-scenes"
           data-title="Behind The Scenes"
           data-label="Team Wolfpack Videos"
-          data-loading="Loading behind the scenes videos..."
-        >
+          data-loading="Loading behind the scenes videos...">
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">Behind The Scenes</span>
           <span class="card-subtitle">Team Wolfpack</span>
         </button>
 
-        <button
-          class="gallery-card video-card"
+        <button class="gallery-card video-card"
           data-type="video"
           data-path="gallery/videos/team-wolfpack/training"
           data-title="Training"
           data-label="Team Wolfpack Videos"
-          data-loading="Loading training videos..."
-        >
+          data-loading="Loading training videos...">
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">Training</span>
           <span class="card-subtitle">Team Wolfpack</span>
         </button>
 
-        <button
-          class="gallery-card video-card"
+        <button class="gallery-card video-card"
           data-type="video"
           data-path="gallery/videos/team-wolfpack/other"
           data-title="Other"
           data-label="Team Wolfpack Videos"
-          data-loading="Loading Team Wolfpack videos..."
-        >
+          data-loading="Loading Team Wolfpack videos...">
           <span class="card-play">▶</span>
           <span class="card-type">Videos</span>
           <span class="card-title">Other</span>
@@ -985,8 +1265,6 @@ button{
       </div>
 
     </div>
-
-    <!-- TEAM WOLFIE -->
 
     <div class="team-block">
 
@@ -1069,8 +1347,6 @@ button{
 
     </div>
 
-    <!-- TEAM SLOAN -->
-
     <div class="team-block">
 
       <div class="team-heading">
@@ -1144,10 +1420,6 @@ button{
 
 </section>
 
-<!-- =====================================================
-     DYNAMIC GALLERY PANEL
-===================================================== -->
-
 <section id="galleryPanel" class="gallery-panel">
 
   <div class="panel-header">
@@ -1174,10 +1446,6 @@ button{
 
 </section>
 
-<!-- =====================================================
-     FOOTER
-===================================================== -->
-
 <footer class="footer">
 
   <div class="footer-top">
@@ -1193,10 +1461,6 @@ button{
 </footer>
 
 </main>
-
-<!-- =====================================================
-     PHOTO LIGHTBOX
-===================================================== -->
 
 <div id="lightbox" class="lightbox">
 
@@ -1218,42 +1482,69 @@ button{
 
 <script>
 
-/* =========================================================
-   GITHUB SETTINGS
-========================================================= */
+const GITHUB_OWNER =
+  "OfficialTeamWolfpackApp";
 
-const GITHUB_OWNER = "OfficialTeamWolfpackApp";
-const GITHUB_REPO = "Team-Wolfpack-App";
+const GITHUB_REPO =
+  "Team-Wolfpack-App";
 
-/* =========================================================
-   ELEMENTS
-========================================================= */
 
-const galleryPanel = document.getElementById("galleryPanel");
-const panelTitle = document.getElementById("panelTitle");
-const panelLabel = document.getElementById("panelLabel");
-const panelBody = document.getElementById("panelBody");
-const closePanelButton = document.getElementById("closePanel");
+const galleryPanel =
+  document.getElementById(
+    "galleryPanel"
+  );
 
-const lightbox = document.getElementById("lightbox");
-const lightboxImage = document.getElementById("lightboxImage");
-const lightboxClose = document.getElementById("lightboxClose");
+const panelTitle =
+  document.getElementById(
+    "panelTitle"
+  );
 
-/* =========================================================
-   FILE FILTERS
-========================================================= */
+const panelLabel =
+  document.getElementById(
+    "panelLabel"
+  );
+
+const panelBody =
+  document.getElementById(
+    "panelBody"
+  );
+
+const closePanelButton =
+  document.getElementById(
+    "closePanel"
+  );
+
+const lightbox =
+  document.getElementById(
+    "lightbox"
+  );
+
+const lightboxImage =
+  document.getElementById(
+    "lightboxImage"
+  );
+
+const lightboxClose =
+  document.getElementById(
+    "lightboxClose"
+  );
+
 
 function isImageFile(filename){
-  return /\.(jpg|jpeg|png|webp|gif)$/i.test(filename);
+
+  return /\.(jpg|jpeg|png|webp|gif)$/i
+    .test(filename);
+
 }
+
 
 function isVideoFile(filename){
-  return /\.(mp4|webm|ogv|m4v|mov)$/i.test(filename);
+
+  return /\.(mp4|webm|ogv|m4v|mov)$/i
+    .test(filename);
+
 }
 
-/* =========================================================
-   CLEAN FILE NAMES
-========================================================= */
 
 function cleanFilename(filename){
 
@@ -1265,9 +1556,6 @@ function cleanFilename(filename){
 
 }
 
-/* =========================================================
-   OPEN GALLERY
-========================================================= */
 
 async function openGallery(
   type,
@@ -1278,20 +1566,30 @@ async function openGallery(
   altText
 ){
 
-  galleryPanel.classList.add("active");
+  galleryPanel
+    .classList
+    .add("active");
 
-  panelTitle.textContent = title;
-  panelLabel.textContent = label;
+
+  panelTitle.textContent =
+    title;
+
+
+  panelLabel.textContent =
+    label;
+
 
   panelBody.innerHTML =
     '<div class="loading">' +
     loadingText +
     '</div>';
 
+
   galleryPanel.scrollIntoView({
     behavior:"smooth",
     block:"start"
   });
+
 
   const apiUrl =
     "https://api.github.com/repos/" +
@@ -1301,21 +1599,35 @@ async function openGallery(
     "/contents/" +
     path;
 
+
   try{
 
-    const response = await fetch(apiUrl);
+    const response =
+      await fetch(apiUrl);
+
 
     if(!response.ok){
+
       throw new Error(
-        "GitHub returned status " + response.status
+        "GitHub returned status " +
+        response.status
       );
+
     }
 
-    const files = await response.json();
+
+    const files =
+      await response.json();
+
 
     if(!Array.isArray(files)){
-      throw new Error("Unexpected GitHub response.");
+
+      throw new Error(
+        "Unexpected GitHub response."
+      );
+
     }
+
 
     if(type === "photo"){
 
@@ -1335,9 +1647,11 @@ async function openGallery(
 
     }
 
+
   }catch(error){
 
     console.error(error);
+
 
     panelBody.innerHTML =
       '<div class="error-message">' +
@@ -1348,27 +1662,33 @@ async function openGallery(
 
 }
 
-/* =========================================================
-   LOAD PHOTOS
-========================================================= */
 
-function loadPhotos(files,altText){
+function loadPhotos(
+  files,
+  altText
+){
 
-  const photos = files
-    .filter(file =>
-      file.type === "file" &&
-      isImageFile(file.name)
-    )
-    .sort((a,b) =>
-      a.name.localeCompare(
-        b.name,
-        undefined,
-        {
-          numeric:true,
-          sensitivity:"base"
-        }
+  const photos =
+    files
+
+      .filter(
+        file =>
+          file.type === "file" &&
+          isImageFile(file.name)
       )
-    );
+
+      .sort(
+        (a,b) =>
+          a.name.localeCompare(
+            b.name,
+            undefined,
+            {
+              numeric:true,
+              sensitivity:"base"
+            }
+          )
+      );
+
 
   if(!photos.length){
 
@@ -1381,57 +1701,91 @@ function loadPhotos(files,altText){
 
   }
 
-  const grid = document.createElement("div");
-  grid.className = "image-grid";
 
-  photos.forEach(file => {
+  const grid =
+    document.createElement(
+      "div"
+    );
 
-    const item = document.createElement("div");
-    item.className = "image-item";
 
-    const img = document.createElement("img");
+  grid.className =
+    "image-grid";
 
-    img.src = file.download_url;
-    img.alt = altText;
-    img.loading = "lazy";
 
-    img.addEventListener("click", function(){
+  photos.forEach(
+    file => {
 
-      lightboxImage.src = file.download_url;
-      lightbox.classList.add("active");
+      const item =
+        document.createElement(
+          "div"
+        );
 
-    });
 
-    item.appendChild(img);
-    grid.appendChild(item);
+      item.className =
+        "image-item";
 
-  });
+
+      const img =
+        document.createElement(
+          "img"
+        );
+
+
+      img.src =
+        file.download_url;
+
+
+      img.alt =
+        altText;
+
+
+      img.loading =
+        "lazy";
+
+
+      img.addEventListener(
+        "click",
+        function(){
+
+          lightboxImage.src =
+            file.download_url;
+
+
+          lightbox
+            .classList
+            .add("active");
+
+        }
+      );
+
+
+      item.appendChild(
+        img
+      );
+
+
+      grid.appendChild(
+        item
+      );
+
+    }
+  );
+
 
   panelBody.innerHTML = "";
-  panelBody.appendChild(grid);
+
+
+  panelBody.appendChild(
+    grid
+  );
 
 }
 
-/* =========================================================
-   THUMBNAILS
-========================================================= */
 
 function getVideoThumbnail(
   path,
   videoIndex
 ){
-
-  /*
-     Team Wolfie March 2026 currently has:
-     Video 1.png
-     Video 2.png
-     Video 3.png
-     Video 4.png
-     Video 5.png
-
-     inside:
-     thumbnails/
-  */
 
   if(
     path ===
@@ -1452,13 +1806,11 @@ function getVideoThumbnail(
 
   }
 
+
   return "";
 
 }
 
-/* =========================================================
-   LOAD VIDEOS
-========================================================= */
 
 function loadVideos(
   files,
@@ -1467,21 +1819,27 @@ function loadVideos(
   label
 ){
 
-  const videos = files
-    .filter(file =>
-      file.type === "file" &&
-      isVideoFile(file.name)
-    )
-    .sort((a,b) =>
-      a.name.localeCompare(
-        b.name,
-        undefined,
-        {
-          numeric:true,
-          sensitivity:"base"
-        }
+  const videos =
+    files
+
+      .filter(
+        file =>
+          file.type === "file" &&
+          isVideoFile(file.name)
       )
-    );
+
+      .sort(
+        (a,b) =>
+          a.name.localeCompare(
+            b.name,
+            undefined,
+            {
+              numeric:true,
+              sensitivity:"base"
+            }
+          )
+      );
+
 
   if(!videos.length){
 
@@ -1494,163 +1852,313 @@ function loadVideos(
 
   }
 
-  const grid = document.createElement("div");
-  grid.className = "video-grid";
 
-  videos.forEach((file,index) => {
+  const grid =
+    document.createElement(
+      "div"
+    );
 
-    const item = document.createElement("article");
-    item.className = "video-item";
 
-    const video = document.createElement("video");
+  grid.className =
+    "video-grid";
 
-    video.src = file.download_url;
-    video.controls = true;
-    video.preload = "metadata";
-    video.playsInline = true;
 
-    const thumbnail =
-      getVideoThumbnail(
-        path,
-        index + 1
+  videos.forEach(
+    (file,index) => {
+
+      const item =
+        document.createElement(
+          "article"
+        );
+
+
+      item.className =
+        "video-item";
+
+
+      const video =
+        document.createElement(
+          "video"
+        );
+
+
+      video.src =
+        file.download_url;
+
+
+      video.controls =
+        true;
+
+
+      video.preload =
+        "metadata";
+
+
+      video.playsInline =
+        true;
+
+
+      const thumbnail =
+        getVideoThumbnail(
+          path,
+          index + 1
+        );
+
+
+      if(thumbnail){
+
+        video.poster =
+          thumbnail;
+
+      }
+
+
+      video.addEventListener(
+        "play",
+        function(){
+
+          document
+            .querySelectorAll(
+              ".video-item video"
+            )
+            .forEach(
+              otherVideo => {
+
+                if(
+                  otherVideo !== video
+                ){
+
+                  otherVideo.pause();
+
+                }
+
+              }
+            );
+
+        }
       );
 
-    if(thumbnail){
-      video.poster = thumbnail;
+
+      const info =
+        document.createElement(
+          "div"
+        );
+
+
+      info.className =
+        "video-info";
+
+
+      const name =
+        document.createElement(
+          "div"
+        );
+
+
+      name.className =
+        "video-name";
+
+
+      if(
+        path ===
+        "gallery/videos/team-wolfie/fight-march-2026"
+      ){
+
+        name.textContent =
+          "MARCH 2026 • VIDEO " +
+          (index + 1);
+
+      }else{
+
+        name.textContent =
+          cleanFilename(
+            file.name
+          );
+
+      }
+
+
+      const videoLabel =
+        document.createElement(
+          "div"
+        );
+
+
+      videoLabel.className =
+        "video-label";
+
+
+      videoLabel.textContent =
+        label;
+
+
+      info.appendChild(
+        name
+      );
+
+
+      info.appendChild(
+        videoLabel
+      );
+
+
+      item.appendChild(
+        video
+      );
+
+
+      item.appendChild(
+        info
+      );
+
+
+      grid.appendChild(
+        item
+      );
+
     }
+  );
 
-    /*
-       Only allow one video to play at once.
-    */
-
-    video.addEventListener("play", function(){
-
-      document
-        .querySelectorAll(".video-item video")
-        .forEach(otherVideo => {
-
-          if(otherVideo !== video){
-            otherVideo.pause();
-          }
-
-        });
-
-    });
-
-    const info = document.createElement("div");
-    info.className = "video-info";
-
-    const name = document.createElement("div");
-    name.className = "video-name";
-    name.textContent = cleanFilename(file.name);
-
-    const videoLabel = document.createElement("div");
-    videoLabel.className = "video-label";
-    videoLabel.textContent = label;
-
-    info.appendChild(name);
-    info.appendChild(videoLabel);
-
-    item.appendChild(video);
-    item.appendChild(info);
-
-    grid.appendChild(item);
-
-  });
 
   panelBody.innerHTML = "";
-  panelBody.appendChild(grid);
+
+
+  panelBody.appendChild(
+    grid
+  );
 
 }
 
-/* =========================================================
-   GALLERY CARD EVENTS
-========================================================= */
 
 document
-  .querySelectorAll(".gallery-card")
-  .forEach(card => {
+  .querySelectorAll(
+    ".gallery-card"
+  )
+  .forEach(
+    card => {
 
-    card.addEventListener("click", function(){
+      card.addEventListener(
+        "click",
+        function(){
 
-      openGallery(
-        this.dataset.type,
-        this.dataset.path,
-        this.dataset.title,
-        this.dataset.label,
-        this.dataset.loading,
-        this.dataset.alt
+          openGallery(
+            this.dataset.type,
+            this.dataset.path,
+            this.dataset.title,
+            this.dataset.label,
+            this.dataset.loading,
+            this.dataset.alt
+          );
+
+        }
       );
 
-    });
+    }
+  );
 
-  });
 
-/* =========================================================
-   CLOSE GALLERY
-========================================================= */
+closePanelButton
+  .addEventListener(
+    "click",
+    function(){
 
-closePanelButton.addEventListener(
-  "click",
-  function(){
+      galleryPanel
+        .classList
+        .remove("active");
 
-    galleryPanel.classList.remove("active");
 
-    document
-      .querySelectorAll(".video-item video")
-      .forEach(video => {
-        video.pause();
-      });
+      document
+        .querySelectorAll(
+          ".video-item video"
+        )
+        .forEach(
+          video => {
 
-  }
-);
+            video.pause();
 
-/* =========================================================
-   LIGHTBOX
-========================================================= */
+          }
+        );
 
-lightboxClose.addEventListener(
-  "click",
-  function(){
+    }
+  );
 
-    lightbox.classList.remove("active");
-    lightboxImage.src = "";
 
-  }
-);
+lightboxClose
+  .addEventListener(
+    "click",
+    function(){
 
-lightbox.addEventListener(
-  "click",
-  function(event){
+      lightbox
+        .classList
+        .remove("active");
 
-    if(event.target === lightbox){
 
-      lightbox.classList.remove("active");
       lightboxImage.src = "";
 
     }
+  );
 
-  }
-);
+
+lightbox
+  .addEventListener(
+    "click",
+    function(event){
+
+      if(
+        event.target === lightbox
+      ){
+
+        lightbox
+          .classList
+          .remove("active");
+
+
+        lightboxImage.src = "";
+
+      }
+
+    }
+  );
+
 
 document.addEventListener(
   "keydown",
   function(event){
 
-    if(event.key === "Escape"){
+    if(
+      event.key === "Escape"
+    ){
 
-      lightbox.classList.remove("active");
+      lightbox
+        .classList
+        .remove("active");
+
+
       lightboxImage.src = "";
 
-      if(galleryPanel.classList.contains("active")){
 
-        galleryPanel.classList.remove("active");
+      if(
+        galleryPanel
+          .classList
+          .contains("active")
+      ){
+
+        galleryPanel
+          .classList
+          .remove("active");
+
 
         document
-          .querySelectorAll(".video-item video")
-          .forEach(video => {
-            video.pause();
-          });
+          .querySelectorAll(
+            ".video-item video"
+          )
+          .forEach(
+            video => {
+
+              video.pause();
+
+            }
+          );
 
       }
 
@@ -1659,24 +2167,30 @@ document.addEventListener(
   }
 );
 
-/* =========================================================
-   SERVICE WORKER
-========================================================= */
 
-if("serviceWorker" in navigator){
+if(
+  "serviceWorker" in navigator
+){
 
   window.addEventListener(
     "load",
     function(){
 
-      navigator.serviceWorker
-        .register("service-worker.js")
-        .catch(function(error){
-          console.log(
-            "Service worker registration failed:",
-            error
-          );
-        });
+      navigator
+        .serviceWorker
+        .register(
+          "service-worker.js"
+        )
+        .catch(
+          function(error){
+
+            console.log(
+              "Service worker registration failed:",
+              error
+            );
+
+          }
+        );
 
     }
   );
