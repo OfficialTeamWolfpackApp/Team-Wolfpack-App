@@ -31,7 +31,6 @@ window.addEventListener("load", function(){
 >
 
 <meta name="theme-color" content="#050505">
-
 <meta name="apple-mobile-web-app-title" content="TEAM WOLFPACK">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -51,6 +50,7 @@ html{
 body{
   margin:0;
   min-height:100vh;
+
   background:
     radial-gradient(
       circle at top left,
@@ -63,21 +63,475 @@ body{
       transparent 30%
     ),
     #030405;
+
   color:#fff;
-  font-family:Arial, Helvetica, sans-serif;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
 }
+
+/* ========================================
+   LEFT MENU BUTTON
+======================================== */
+
+.menu-toggle{
+  position:fixed;
+  top:18px;
+  left:18px;
+
+  z-index:5000;
+
+  width:48px;
+  height:48px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:0;
+
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:12px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0,191,255,.18),
+      rgba(4,7,10,.95) 50%,
+      rgba(255,90,0,.15)
+    );
+
+  color:#fff;
+
+  font-size:25px;
+  font-weight:900;
+
+  cursor:pointer;
+
+  box-shadow:
+    0 8px 25px rgba(0,0,0,.50),
+    0 0 20px rgba(0,191,255,.12);
+
+  transition:
+    transform .2s ease,
+    border-color .2s ease,
+    box-shadow .2s ease;
+}
+
+.menu-toggle:hover{
+  transform:scale(1.05);
+
+  border-color:rgba(255,255,255,.35);
+
+  box-shadow:
+    0 8px 30px rgba(0,0,0,.55),
+    -5px 0 22px rgba(0,191,255,.18),
+    5px 0 22px rgba(255,90,0,.14);
+}
+
+/* ========================================
+   MENU OVERLAY
+======================================== */
+
+.menu-overlay{
+  position:fixed;
+  inset:0;
+
+  z-index:4998;
+
+  visibility:hidden;
+  opacity:0;
+
+  background:rgba(0,0,0,.72);
+
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+
+  transition:
+    opacity .28s ease,
+    visibility .28s ease;
+}
+
+.menu-overlay.show{
+  visibility:visible;
+  opacity:1;
+}
+
+/* ========================================
+   LEFT SIDEBAR
+======================================== */
+
+.side-menu{
+  position:fixed;
+
+  top:0;
+  left:0;
+  bottom:0;
+
+  z-index:4999;
+
+  width:min(340px,88vw);
+
+  transform:translateX(-105%);
+
+  overflow-y:auto;
+
+  border-right:1px solid rgba(255,255,255,.13);
+
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(0,191,255,.15),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(255,90,0,.12),
+      transparent 34%
+    ),
+    linear-gradient(
+      180deg,
+      #090d10,
+      #030405
+    );
+
+  box-shadow:
+    22px 0 60px rgba(0,0,0,.70);
+
+  transition:transform .30s ease;
+}
+
+.side-menu.open{
+  transform:translateX(0);
+}
+
+.side-menu-inner{
+  min-height:100%;
+
+  display:flex;
+  flex-direction:column;
+
+  padding:
+    max(22px,env(safe-area-inset-top))
+    18px
+    max(22px,env(safe-area-inset-bottom));
+}
+
+/* ========================================
+   MENU HEADER
+======================================== */
+
+.menu-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:15px;
+
+  padding:5px 3px 20px;
+
+  border-bottom:1px solid rgba(255,255,255,.09);
+}
+
+.menu-brand{
+  min-width:0;
+}
+
+.menu-brand-small{
+  display:block;
+
+  margin-bottom:4px;
+
+  color:#71818a;
+
+  font-size:8px;
+  font-weight:900;
+
+  letter-spacing:2.5px;
+
+  text-transform:uppercase;
+}
+
+.menu-brand-title{
+  margin:0;
+
+  font-size:22px;
+  line-height:1;
+
+  font-weight:1000;
+
+  letter-spacing:.8px;
+
+  text-transform:uppercase;
+}
+
+.menu-brand-title .ice{
+  color:#2dccff;
+}
+
+.menu-brand-title .fire{
+  color:#ff7000;
+}
+
+.menu-close{
+  width:40px;
+  height:40px;
+
+  flex:0 0 auto;
+
+  display:grid;
+  place-items:center;
+
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:10px;
+
+  background:rgba(255,255,255,.04);
+
+  color:#fff;
+
+  font-size:23px;
+
+  cursor:pointer;
+}
+
+/* ========================================
+   MENU MOTTO
+======================================== */
+
+.menu-motto{
+  margin:16px 0 6px;
+
+  padding:12px;
+
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:10px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,191,255,.07),
+      rgba(0,0,0,.20),
+      rgba(255,90,0,.07)
+    );
+
+  text-align:center;
+
+  color:#8c9aa2;
+
+  font-size:8px;
+  font-weight:900;
+
+  letter-spacing:2px;
+
+  text-transform:uppercase;
+}
+
+/* ========================================
+   MENU LINKS
+======================================== */
+
+.menu-nav{
+  display:flex;
+  flex-direction:column;
+
+  gap:8px;
+
+  padding:14px 0 20px;
+}
+
+.menu-link{
+  position:relative;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:12px;
+
+  min-height:50px;
+
+  padding:12px 14px;
+
+  overflow:hidden;
+
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:11px;
+
+  background:rgba(255,255,255,.025);
+
+  color:#eaf2f5;
+
+  text-decoration:none;
+
+  font-size:11px;
+  font-weight:1000;
+
+  letter-spacing:1.2px;
+
+  text-transform:uppercase;
+
+  transition:
+    transform .18s ease,
+    border-color .18s ease,
+    background .18s ease;
+}
+
+.menu-link::before{
+  content:"";
+
+  position:absolute;
+
+  top:0;
+  left:0;
+  bottom:0;
+
+  width:3px;
+
+  background:#00bfff;
+}
+
+.menu-link::after{
+  content:"";
+
+  position:absolute;
+
+  top:0;
+  right:0;
+  bottom:0;
+
+  width:3px;
+
+  background:#ff5a00;
+}
+
+.menu-link:hover{
+  transform:translateX(3px);
+
+  border-color:rgba(255,255,255,.20);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,191,255,.08),
+      rgba(255,255,255,.025),
+      rgba(255,90,0,.08)
+    );
+}
+
+.menu-link.active{
+  border-color:rgba(255,255,255,.22);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,191,255,.12),
+      rgba(255,255,255,.04),
+      rgba(255,90,0,.12)
+    );
+}
+
+.menu-link-left{
+  display:flex;
+  align-items:center;
+
+  gap:12px;
+}
+
+.menu-icon{
+  width:28px;
+  height:28px;
+
+  display:grid;
+  place-items:center;
+
+  flex:0 0 auto;
+
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:7px;
+
+  background:#080b0d;
+
+  color:#2dccff;
+
+  font-size:14px;
+}
+
+.menu-link.active .menu-icon{
+  color:#ff7200;
+}
+
+.menu-arrow{
+  color:#ff7200;
+
+  font-size:15px;
+  font-weight:1000;
+}
+
+/* ========================================
+   MENU FOOTER
+======================================== */
+
+.menu-footer{
+  margin-top:auto;
+
+  padding-top:20px;
+
+  border-top:1px solid rgba(255,255,255,.08);
+
+  text-align:center;
+}
+
+.menu-footer-main{
+  color:#dce6ea;
+
+  font-size:8px;
+  font-weight:1000;
+
+  letter-spacing:2.5px;
+
+  text-transform:uppercase;
+}
+
+.menu-footer-sub{
+  margin-top:6px;
+
+  color:#65747c;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:1.8px;
+
+  text-transform:uppercase;
+}
+
+/* ========================================
+   PAGE
+======================================== */
 
 .page{
   width:min(1500px,100%);
+
   margin:0 auto;
+
   padding-bottom:40px;
 }
 
+/* ========================================
+   HERO
+======================================== */
+
 .gallery-banner{
   width:100%;
+
   overflow:hidden;
+
   background:#000;
+
   border-bottom:1px solid rgba(255,255,255,.08);
+
   box-shadow:
     0 20px 60px rgba(0,0,0,.70),
     -20px 0 60px rgba(0,191,255,.08),
@@ -86,9 +540,14 @@ body{
 
 .gallery-banner img{
   display:block;
+
   width:100%;
   height:auto;
 }
+
+/* ========================================
+   CONTENT
+======================================== */
 
 .main-content{
   padding:24px 18px 0;
@@ -96,10 +555,14 @@ body{
 
 .gallery-section{
   position:relative;
+
   overflow:hidden;
+
   margin-bottom:26px;
+
   border:1px solid rgba(255,255,255,.10);
   border-radius:22px;
+
   background:
     linear-gradient(
       135deg,
@@ -108,15 +571,20 @@ body{
       rgba(255,90,0,.035)
     ),
     rgba(8,10,12,.90);
+
   box-shadow:
     0 24px 70px rgba(0,0,0,.45);
 }
 
 .gallery-section::before{
   content:"";
+
   position:absolute;
+
   inset:0;
+
   pointer-events:none;
+
   background:
     linear-gradient(
       90deg,
@@ -129,13 +597,19 @@ body{
 
 .section-header{
   position:relative;
+
   z-index:2;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
+
   gap:20px;
+
   padding:20px 22px;
+
   border-bottom:1px solid rgba(255,255,255,.08);
+
   background:
     linear-gradient(
       90deg,
@@ -151,20 +625,29 @@ body{
 
 .section-kicker{
   display:block;
+
   margin-bottom:4px;
+
   color:#71818a;
+
   font-size:9px;
   font-weight:900;
+
   letter-spacing:3px;
+
   text-transform:uppercase;
 }
 
 .section-title{
   margin:0;
+
   font-size:27px;
   line-height:1;
+
   font-weight:1000;
+
   letter-spacing:.5px;
+
   text-transform:uppercase;
 }
 
@@ -179,7 +662,9 @@ body{
 .section-line{
   width:95px;
   height:3px;
+
   border-radius:99px;
+
   background:
     linear-gradient(
       90deg,
@@ -189,41 +674,66 @@ body{
     );
 }
 
+/* ========================================
+   PHOTO CARDS
+======================================== */
+
 .photo-grid{
   position:relative;
+
   z-index:2;
+
   display:grid;
+
   grid-template-columns:repeat(3,1fr);
+
   gap:18px;
+
   padding:18px;
 }
 
 .photo-card{
   position:relative;
+
   overflow:hidden;
+
   min-height:265px;
+
   cursor:pointer;
+
   border:1px solid rgba(255,255,255,.12);
   border-radius:16px;
+
   background-color:#020304;
+
   background-image:var(--card-image);
+
   background-size:contain;
   background-position:center;
   background-repeat:no-repeat;
-  box-shadow:0 14px 30px rgba(0,0,0,.40);
+
+  box-shadow:
+    0 14px 30px rgba(0,0,0,.40);
+
   transition:
     transform .22s ease,
     border-color .22s ease,
     box-shadow .22s ease;
+
   isolation:isolate;
 }
 
 .photo-card::before{
   content:"";
+
   position:absolute;
+
   inset:0;
+
   z-index:0;
+
   pointer-events:none;
+
   background:
     linear-gradient(
       to top,
@@ -235,10 +745,15 @@ body{
 
 .photo-card::after{
   content:"";
+
   position:absolute;
+
   inset:0;
+
   z-index:0;
+
   pointer-events:none;
+
   background:
     linear-gradient(
       90deg,
@@ -250,8 +765,13 @@ body{
 }
 
 .photo-card:hover{
-  transform:translateY(-7px) scale(1.012);
-  border-color:rgba(255,255,255,.28);
+  transform:
+    translateY(-7px)
+    scale(1.012);
+
+  border-color:
+    rgba(255,255,255,.28);
+
   box-shadow:
     -10px 0 34px rgba(0,191,255,.20),
     10px 0 34px rgba(255,90,0,.20),
@@ -260,18 +780,26 @@ body{
 
 .photo-action{
   position:absolute;
+
   z-index:3;
+
   left:12px;
   right:12px;
   bottom:10px;
+
   min-height:28px;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
+
   gap:8px;
+
   padding:6px 10px;
+
   border:1px solid rgba(255,255,255,.12);
   border-radius:8px;
+
   background:
     linear-gradient(
       90deg,
@@ -283,33 +811,47 @@ body{
 
 .photo-action-text{
   color:#fff;
+
   font-size:8px;
   font-weight:1000;
+
   letter-spacing:1.2px;
+
   text-transform:uppercase;
 }
 
 .photo-action-arrow{
   color:#27cfff;
+
   font-size:14px;
   font-weight:900;
 }
 
-.photo-card.artwork-card .photo-action-arrow{
+.photo-card.artwork-card
+.photo-action-arrow{
   color:#ff7300;
 }
 
+/* ========================================
+   VIDEO SECTION
+======================================== */
+
 .video-content{
   position:relative;
+
   z-index:2;
+
   padding:18px;
 }
 
 .team-block{
   padding:18px 14px 14px;
+
   margin-bottom:18px;
+
   border:1px solid rgba(255,255,255,.08);
   border-radius:16px;
+
   background:rgba(0,0,0,.18);
 }
 
@@ -321,15 +863,20 @@ body{
   display:flex;
   align-items:center;
   justify-content:space-between;
+
   gap:18px;
+
   padding:0 4px 16px;
 }
 
 .team-heading h3{
   margin:0;
+
   font-size:21px;
   font-weight:1000;
+
   letter-spacing:1px;
+
   text-transform:uppercase;
 }
 
@@ -343,32 +890,54 @@ body{
 
 .team-motto{
   color:#66747d;
+
   font-size:9px;
   font-weight:800;
+
   letter-spacing:2px;
+
   text-transform:uppercase;
 }
 
+/* ========================================
+   VIDEO CARDS
+======================================== */
+
 .video-category-grid{
   display:grid;
-  grid-template-columns:repeat(5,1fr);
+
+  grid-template-columns:
+    repeat(5,1fr);
+
   gap:14px;
 }
 
 .video-card{
   position:relative;
+
   overflow:hidden;
+
   min-height:180px;
+
   cursor:pointer;
+
   border:1px solid rgba(255,255,255,.12);
   border-radius:14px;
+
   background-color:#020304;
-  background-image:var(--video-image);
+
+  background-image:
+    var(--video-image);
+
   background-size:contain;
   background-position:center;
   background-repeat:no-repeat;
-  box-shadow:0 12px 25px rgba(0,0,0,.40);
+
+  box-shadow:
+    0 12px 25px rgba(0,0,0,.40);
+
   isolation:isolate;
+
   transition:
     transform .22s ease,
     box-shadow .22s ease,
@@ -377,10 +946,15 @@ body{
 
 .video-card::before{
   content:"";
+
   position:absolute;
+
   inset:0;
+
   z-index:0;
+
   pointer-events:none;
+
   background:
     linear-gradient(
       to top,
@@ -392,10 +966,15 @@ body{
 
 .video-card::after{
   content:"";
+
   position:absolute;
+
   inset:0;
+
   z-index:0;
+
   pointer-events:none;
+
   background:
     linear-gradient(
       90deg,
@@ -407,8 +986,13 @@ body{
 }
 
 .video-card:hover{
-  transform:translateY(-6px) scale(1.015);
-  border-color:rgba(255,255,255,.27);
+  transform:
+    translateY(-6px)
+    scale(1.015);
+
+  border-color:
+    rgba(255,255,255,.27);
+
   box-shadow:
     -8px 0 28px rgba(0,191,255,.17),
     8px 0 28px rgba(255,90,0,.17),
@@ -417,18 +1001,26 @@ body{
 
 .video-action{
   position:absolute;
+
   z-index:3;
+
   left:10px;
   right:10px;
   bottom:9px;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
+
   gap:8px;
+
   min-height:28px;
+
   padding:6px 9px;
+
   border:1px solid rgba(255,255,255,.12);
   border-radius:8px;
+
   background:
     linear-gradient(
       90deg,
@@ -440,26 +1032,40 @@ body{
 
 .video-action-text{
   color:#fff;
+
   font-size:8px;
   font-weight:1000;
+
   letter-spacing:1.1px;
+
   text-transform:uppercase;
 }
 
 .video-action-arrow{
   color:#ff7200;
+
   font-size:13px;
   font-weight:1000;
 }
 
+/* ========================================
+   OPENED GALLERY
+======================================== */
+
 .opened-gallery{
   display:none;
+
   margin-top:26px;
+
   border:1px solid rgba(255,255,255,.10);
   border-radius:20px;
+
   overflow:hidden;
+
   background:#080a0c;
-  box-shadow:0 25px 65px rgba(0,0,0,.55);
+
+  box-shadow:
+    0 25px 65px rgba(0,0,0,.55);
 }
 
 .opened-gallery.show{
@@ -470,9 +1076,13 @@ body{
   display:flex;
   align-items:center;
   justify-content:space-between;
+
   gap:20px;
+
   padding:17px 20px;
+
   border-bottom:1px solid rgba(255,255,255,.08);
+
   background:
     linear-gradient(
       90deg,
@@ -484,74 +1094,121 @@ body{
 
 .opened-title{
   margin:0;
+
   font-size:20px;
   font-weight:1000;
+
   text-transform:uppercase;
 }
 
 .close-gallery{
   border:1px solid rgba(255,255,255,.14);
   border-radius:8px;
+
   padding:8px 11px;
+
   background:#111519;
+
   color:#fff;
+
   cursor:pointer;
+
   font-size:9px;
   font-weight:900;
+
   letter-spacing:1px;
+
   text-transform:uppercase;
 }
 
 .status-message{
   padding:28px;
+
   color:#aab4ba;
+
   text-align:center;
+
   font-size:12px;
   font-weight:800;
+
   letter-spacing:1px;
 }
 
+/* ========================================
+   LOADED MEDIA
+======================================== */
+
 .media-grid{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+
+  grid-template-columns:
+    repeat(4,1fr);
+
   gap:14px;
+
   padding:18px;
 }
 
 .media-item{
   position:relative;
+
   overflow:hidden;
+
   border:1px solid rgba(255,255,255,.09);
   border-radius:12px;
+
   background:#020304;
-  box-shadow:0 10px 22px rgba(0,0,0,.35);
+
+  box-shadow:
+    0 10px 22px rgba(0,0,0,.35);
 }
 
 .media-item img{
   display:block;
+
   width:100%;
+
   aspect-ratio:1 / 1;
+
   object-fit:cover;
+
   cursor:pointer;
 }
 
 .media-item video{
   display:block;
+
   width:100%;
+
   aspect-ratio:16 / 9;
+
   object-fit:contain;
+
   background:#000;
 }
 
+/* ========================================
+   LIGHTBOX
+======================================== */
+
 .lightbox{
   position:fixed;
+
   inset:0;
+
   z-index:9999;
+
   display:none;
+
   align-items:center;
   justify-content:center;
+
   padding:25px;
+
   background:rgba(0,0,0,.94);
+
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
 }
 
 .lightbox.show{
@@ -561,57 +1218,85 @@ body{
 .lightbox img{
   max-width:96vw;
   max-height:92vh;
+
   object-fit:contain;
+
   border:1px solid rgba(255,255,255,.14);
   border-radius:12px;
 }
 
 .lightbox-close{
   position:absolute;
+
   top:18px;
   right:20px;
+
   width:42px;
   height:42px;
+
   display:grid;
   place-items:center;
+
   border:1px solid rgba(255,255,255,.18);
   border-radius:50%;
+
   background:rgba(0,0,0,.70);
+
   color:#fff;
+
   cursor:pointer;
+
   font-size:22px;
 }
 
+/* ========================================
+   FOOTER
+======================================== */
+
 .site-footer{
   padding:25px 18px 12px;
+
   text-align:center;
 }
 
 .footer-main{
   color:#d8e0e4;
+
   font-size:10px;
   font-weight:1000;
+
   letter-spacing:3px;
+
   text-transform:uppercase;
 }
 
 .footer-motto{
   margin-top:7px;
+
   color:#59666d;
+
   font-size:8px;
   font-weight:800;
+
   letter-spacing:2px;
+
   text-transform:uppercase;
 }
+
+/* ========================================
+   RESPONSIVE
+======================================== */
 
 @media(max-width:1150px){
 
   .video-category-grid{
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:
+      repeat(3,1fr);
   }
 
   .media-grid{
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:
+      repeat(3,1fr);
   }
 
 }
@@ -619,20 +1304,33 @@ body{
 @media(max-width:850px){
 
   .photo-grid{
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:
+      repeat(2,1fr);
   }
 
   .video-category-grid{
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:
+      repeat(2,1fr);
   }
 
   .media-grid{
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:
+      repeat(2,1fr);
   }
 
 }
 
 @media(max-width:560px){
+
+  .menu-toggle{
+    top:12px;
+    left:12px;
+
+    width:43px;
+    height:43px;
+
+    font-size:22px;
+  }
 
   .main-content{
     padding:14px 10px 0;
@@ -652,6 +1350,7 @@ body{
 
   .photo-grid{
     grid-template-columns:1fr;
+
     padding:12px;
   }
 
@@ -669,7 +1368,9 @@ body{
 
   .team-heading{
     align-items:flex-start;
+
     flex-direction:column;
+
     gap:6px;
   }
 
@@ -683,6 +1384,7 @@ body{
 
   .media-grid{
     grid-template-columns:1fr;
+
     padding:12px;
   }
 
@@ -694,28 +1396,215 @@ body{
 
 <body>
 
+<!-- ========================================
+     MENU BUTTON
+======================================== -->
+
+<button
+  id="menuToggle"
+  class="menu-toggle"
+  type="button"
+  aria-label="Open menu"
+  aria-expanded="false"
+>
+  ☰
+</button>
+
+<!-- ========================================
+     MENU OVERLAY
+======================================== -->
+
+<div
+  id="menuOverlay"
+  class="menu-overlay"
+></div>
+
+<!-- ========================================
+     LEFT SIDE MENU
+======================================== -->
+
+<aside
+  id="sideMenu"
+  class="side-menu"
+>
+
+  <div class="side-menu-inner">
+
+    <div class="menu-header">
+
+      <div class="menu-brand">
+
+        <span class="menu-brand-small">
+          Official
+        </span>
+
+        <h2 class="menu-brand-title">
+          TEAM
+          <span class="ice">WOLF</span><span class="fire">PACK</span>
+        </h2>
+
+      </div>
+
+      <button
+        id="menuClose"
+        class="menu-close"
+        type="button"
+        aria-label="Close menu"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <div class="menu-motto">
+      ONE PACK • ONE PURPOSE
+    </div>
+
+    <nav class="menu-nav">
+
+      <a
+        class="menu-link"
+        href="index.html"
+      >
+        <span class="menu-link-left">
+          <span class="menu-icon">⌂</span>
+          Home
+        </span>
+
+        <span class="menu-arrow">›</span>
+      </a>
+
+      <a
+        class="menu-link"
+        href="fighters.html"
+      >
+        <span class="menu-link-left">
+          <span class="menu-icon">♜</span>
+          Fighters
+        </span>
+
+        <span class="menu-arrow">›</span>
+      </a>
+
+      <a
+        class="menu-link"
+        href="meet-the-pack.html"
+      >
+        <span class="menu-link-left">
+          <span class="menu-icon">♟</span>
+          Meet The Pack
+        </span>
+
+        <span class="menu-arrow">›</span>
+      </a>
+
+      <a
+        class="menu-link active"
+        href="gallery.html"
+      >
+        <span class="menu-link-left">
+          <span class="menu-icon">▣</span>
+          Gallery
+        </span>
+
+        <span class="menu-arrow">›</span>
+      </a>
+
+      <a
+        class="menu-link"
+        href="follow-the-pack.html"
+      >
+        <span class="menu-link-left">
+          <span class="menu-icon">★</span>
+          Follow The Pack
+        </span>
+
+        <span class="menu-arrow">›</span>
+      </a>
+
+      <a
+        class="menu-link"
+        href="contact.html"
+      >
+        <span class="menu-link-left">
+          <span class="menu-icon">✉</span>
+          Contact Us
+        </span>
+
+        <span class="menu-arrow">›</span>
+      </a>
+
+      <a
+        class="menu-link"
+        href="more.html"
+      >
+        <span class="menu-link-left">
+          <span class="menu-icon">•••</span>
+          More
+        </span>
+
+        <span class="menu-arrow">›</span>
+      </a>
+
+    </nav>
+
+    <div class="menu-footer">
+
+      <div class="menu-footer-main">
+        TEAM WOLFPACK • EST 2025
+      </div>
+
+      <div class="menu-footer-sub">
+        Strength In Unity
+      </div>
+
+    </div>
+
+  </div>
+
+</aside>
+
+<!-- ========================================
+     PAGE
+======================================== -->
+
 <div class="page">
 
 <header class="gallery-banner">
+
   <img
     src="gallery/gallery-banner.png.png?v=3"
     alt="Team Wolfpack Gallery"
   >
+
 </header>
 
 <main class="main-content">
+
+<!-- ========================================
+     PHOTO GALLERIES
+======================================== -->
 
 <section class="gallery-section">
 
   <div class="section-header">
 
     <div class="section-title-wrap">
-      <span class="section-kicker">Explore The Pack</span>
+
+      <span class="section-kicker">
+        Explore The Pack
+      </span>
 
       <h2 class="section-title">
-        <span class="ice">Photo</span>
+
+        <span class="ice">
+          Photo
+        </span>
+
         Galleries
+
       </h2>
+
     </div>
 
     <div class="section-line"></div>
@@ -731,10 +1620,19 @@ body{
       data-path="gallery/photos/fight-nights/fight-may-2025"
       data-title="May 2025"
     >
+
       <div class="photo-action">
-        <span class="photo-action-text">View Photos</span>
-        <span class="photo-action-arrow">→</span>
+
+        <span class="photo-action-text">
+          View Photos
+        </span>
+
+        <span class="photo-action-arrow">
+          →
+        </span>
+
       </div>
+
     </article>
 
     <article
@@ -744,10 +1642,19 @@ body{
       data-path="gallery/photos/fight-nights/fight-july-2025"
       data-title="July 2025"
     >
+
       <div class="photo-action">
-        <span class="photo-action-text">View Photos</span>
-        <span class="photo-action-arrow">→</span>
+
+        <span class="photo-action-text">
+          View Photos
+        </span>
+
+        <span class="photo-action-arrow">
+          →
+        </span>
+
       </div>
+
     </article>
 
     <article
@@ -757,10 +1664,19 @@ body{
       data-path="gallery/photos/fight-nights/fight-march-2026"
       data-title="March 2026"
     >
+
       <div class="photo-action">
-        <span class="photo-action-text">View Photos</span>
-        <span class="photo-action-arrow">→</span>
+
+        <span class="photo-action-text">
+          View Photos
+        </span>
+
+        <span class="photo-action-arrow">
+          →
+        </span>
+
       </div>
+
     </article>
 
     <article
@@ -770,10 +1686,19 @@ body{
       data-path="gallery/photos/fight-nights/fight-july-2026"
       data-title="July 2026"
     >
+
       <div class="photo-action">
-        <span class="photo-action-text">View Photos</span>
-        <span class="photo-action-arrow">→</span>
+
+        <span class="photo-action-text">
+          View Photos
+        </span>
+
+        <span class="photo-action-arrow">
+          →
+        </span>
+
       </div>
+
     </article>
 
     <article
@@ -783,10 +1708,19 @@ body{
       data-path="gallery/photos/fight-nights/fight-october-2026"
       data-title="October 2026"
     >
+
       <div class="photo-action">
-        <span class="photo-action-text">View Photos</span>
-        <span class="photo-action-arrow">→</span>
+
+        <span class="photo-action-text">
+          View Photos
+        </span>
+
+        <span class="photo-action-arrow">
+          →
+        </span>
+
       </div>
+
     </article>
 
     <article
@@ -796,27 +1730,49 @@ body{
       data-path="gallery/photos/team-wolfpack/designs-posters-logos"
       data-title="Team Wolfpack Artwork"
     >
+
       <div class="photo-action">
-        <span class="photo-action-text">View Artwork</span>
-        <span class="photo-action-arrow">→</span>
+
+        <span class="photo-action-text">
+          View Artwork
+        </span>
+
+        <span class="photo-action-arrow">
+          →
+        </span>
+
       </div>
+
     </article>
 
   </div>
 
 </section>
 
+<!-- ========================================
+     VIDEO GALLERIES
+======================================== -->
+
 <section class="gallery-section">
 
   <div class="section-header">
 
     <div class="section-title-wrap">
-      <span class="section-kicker">Watch The Pack</span>
+
+      <span class="section-kicker">
+        Watch The Pack
+      </span>
 
       <h2 class="section-title">
-        <span class="fire">Video</span>
+
+        <span class="fire">
+          Video
+        </span>
+
         Galleries
+
       </h2>
+
     </div>
 
     <div class="section-line"></div>
@@ -830,13 +1786,18 @@ body{
     <section class="team-block">
 
       <div class="team-heading">
+
         <h3>
-          Team <span class="blue">Wolfpack</span>
+          Team
+          <span class="blue">
+            Wolfpack
+          </span>
         </h3>
 
         <span class="team-motto">
           Strength In Unity
         </span>
+
       </div>
 
       <div class="video-category-grid">
@@ -848,10 +1809,19 @@ body{
           data-path="gallery/videos/team-wolfpack/promos"
           data-title="Team Wolfpack — Promos"
         >
+
           <div class="video-action">
-            <span class="video-action-text">Watch Videos</span>
-            <span class="video-action-arrow">▶</span>
+
+            <span class="video-action-text">
+              Watch Videos
+            </span>
+
+            <span class="video-action-arrow">
+              ▶
+            </span>
+
           </div>
+
         </article>
 
         <article
@@ -861,10 +1831,19 @@ body{
           data-path="gallery/videos/team-wolfpack/announcements"
           data-title="Team Wolfpack — Announcements"
         >
+
           <div class="video-action">
-            <span class="video-action-text">Watch Videos</span>
-            <span class="video-action-arrow">▶</span>
+
+            <span class="video-action-text">
+              Watch Videos
+            </span>
+
+            <span class="video-action-arrow">
+              ▶
+            </span>
+
           </div>
+
         </article>
 
         <article
@@ -874,10 +1853,19 @@ body{
           data-path="gallery/videos/team-wolfpack/behind-the-scenes"
           data-title="Team Wolfpack — Behind The Scenes"
         >
+
           <div class="video-action">
-            <span class="video-action-text">Watch Videos</span>
-            <span class="video-action-arrow">▶</span>
+
+            <span class="video-action-text">
+              Watch Videos
+            </span>
+
+            <span class="video-action-arrow">
+              ▶
+            </span>
+
           </div>
+
         </article>
 
         <article
@@ -887,10 +1875,19 @@ body{
           data-path="gallery/videos/team-wolfpack/training"
           data-title="Team Wolfpack — Training"
         >
+
           <div class="video-action">
-            <span class="video-action-text">Watch Videos</span>
-            <span class="video-action-arrow">▶</span>
+
+            <span class="video-action-text">
+              Watch Videos
+            </span>
+
+            <span class="video-action-arrow">
+              ▶
+            </span>
+
           </div>
+
         </article>
 
         <article
@@ -900,10 +1897,19 @@ body{
           data-path="gallery/videos/team-wolfpack/other"
           data-title="Team Wolfpack — Other"
         >
+
           <div class="video-action">
-            <span class="video-action-text">Watch Videos</span>
-            <span class="video-action-arrow">▶</span>
+
+            <span class="video-action-text">
+              Watch Videos
+            </span>
+
+            <span class="video-action-arrow">
+              ▶
+            </span>
+
           </div>
+
         </article>
 
       </div>
@@ -915,13 +1921,18 @@ body{
     <section class="team-block">
 
       <div class="team-heading">
+
         <h3>
-          Team <span class="orange">Wolfie</span>
+          Team
+          <span class="orange">
+            Wolfie
+          </span>
         </h3>
 
         <span class="team-motto">
           Hunt Without Fear
         </span>
+
       </div>
 
       <div class="video-category-grid">
@@ -933,10 +1944,19 @@ body{
           data-path="gallery/videos/team-wolfie/fight-may-2025"
           data-title="Team Wolfie — May 2025"
         >
+
           <div class="video-action">
-            <span class="video-action-text">Watch Fight Videos</span>
-            <span class="video-action-arrow">▶</span>
+
+            <span class="video-action-text">
+              Watch Fight Videos
+            </span>
+
+            <span class="video-action-arrow">
+              ▶
+            </span>
+
           </div>
+
         </article>
 
         <article
@@ -946,10 +1966,19 @@ body{
           data-path="gallery/videos/team-wolfie/fight-july-2025"
           data-title="Team Wolfie — July 2025"
         >
+
           <div class="video-action">
-            <span class="video-action-text">Watch Fight Videos</span>
-            <span class="video-action-arrow">▶</span>
+
+            <span class="video-action-text">
+              Watch Fight Videos
+            </span>
+
+            <span class="video-action-arrow">
+              ▶
+            </span>
+
           </div>
+
         </article>
 
         <article
@@ -959,10 +1988,19 @@ body{
           data-path="gallery/videos/team-wolfie/fight-march-2026"
           data-title="Team Wolfie — March 2026"
         >
+
           <div class="video-action">
-            <span class="video-action-text">Watch Fight Videos</span>
-            <span class="video-action-arrow">▶</span>
+
+            <span class="video-action-text">
+              Watch Fight Videos
+            </span>
+
+            <span class="video-action-arrow">
+              ▶
+            </span>
+
           </div>
+
         </article>
 
         <article
@@ -972,10 +2010,19 @@ body{
           data-path="gallery/videos/team-wolfie/fight-july-2026"
           data-title="Team Wolfie — July 2026"
         >
+
           <div class="video-action">
-            <span class="video-action-text">Watch Fight Videos</span>
-            <span class="video-action-arrow">▶</span>
+
+            <span class="video-action-text">
+              Watch Fight Videos
+            </span>
+
+            <span class="video-action-arrow">
+              ▶
+            </span>
+
           </div>
+
         </article>
 
         <article
@@ -985,10 +2032,19 @@ body{
           data-path="gallery/videos/team-wolfie/fight-october-2026"
           data-title="Team Wolfie — October 2026"
         >
+
           <div class="video-action">
-            <span class="video-action-text">Watch Fight Videos</span>
-            <span class="video-action-arrow">▶</span>
+
+            <span class="video-action-text">
+              Watch Fight Videos
+            </span>
+
+            <span class="video-action-arrow">
+              ▶
+            </span>
+
           </div>
+
         </article>
 
       </div>
@@ -1000,13 +2056,18 @@ body{
     <section class="team-block">
 
       <div class="team-heading">
+
         <h3>
-          Team <span class="blue">Sloan</span>
+          Team
+          <span class="blue">
+            Sloan
+          </span>
         </h3>
 
         <span class="team-motto">
           The Awakening
         </span>
+
       </div>
 
       <div class="video-category-grid">
@@ -1018,10 +2079,19 @@ body{
           data-path="gallery/videos/team-sloan/fight-march-2026"
           data-title="Team Sloan — March 2026"
         >
+
           <div class="video-action">
-            <span class="video-action-text">Watch Fight Videos</span>
-            <span class="video-action-arrow">▶</span>
+
+            <span class="video-action-text">
+              Watch Fight Videos
+            </span>
+
+            <span class="video-action-arrow">
+              ▶
+            </span>
+
           </div>
+
         </article>
 
         <article
@@ -1031,10 +2101,19 @@ body{
           data-path="gallery/videos/team-sloan/fight-june-2026"
           data-title="Team Sloan — June 2026"
         >
+
           <div class="video-action">
-            <span class="video-action-text">Watch Fight Videos</span>
-            <span class="video-action-arrow">▶</span>
+
+            <span class="video-action-text">
+              Watch Fight Videos
+            </span>
+
+            <span class="video-action-arrow">
+              ▶
+            </span>
+
           </div>
+
         </article>
 
         <article
@@ -1044,10 +2123,19 @@ body{
           data-path="gallery/videos/team-sloan/fight-september-2026"
           data-title="Team Sloan — September 2026"
         >
+
           <div class="video-action">
-            <span class="video-action-text">Watch Fight Videos</span>
-            <span class="video-action-arrow">▶</span>
+
+            <span class="video-action-text">
+              Watch Fight Videos
+            </span>
+
+            <span class="video-action-arrow">
+              ▶
+            </span>
+
           </div>
+
         </article>
 
         <article
@@ -1057,10 +2145,19 @@ body{
           data-path="gallery/videos/team-sloan/fight-november-2026"
           data-title="Team Sloan — November 2026"
         >
+
           <div class="video-action">
-            <span class="video-action-text">Watch Fight Videos</span>
-            <span class="video-action-arrow">▶</span>
+
+            <span class="video-action-text">
+              Watch Fight Videos
+            </span>
+
+            <span class="video-action-arrow">
+              ▶
+            </span>
+
           </div>
+
         </article>
 
       </div>
@@ -1070,6 +2167,10 @@ body{
   </div>
 
 </section>
+
+<!-- ========================================
+     OPENED GALLERY
+======================================== -->
 
 <section
   id="openedGallery"
@@ -1115,6 +2216,10 @@ body{
 
 </div>
 
+<!-- ========================================
+     LIGHTBOX
+======================================== -->
+
 <div
   id="lightbox"
   class="lightbox"
@@ -1138,38 +2243,153 @@ body{
 
 <script>
 
-const GITHUB_OWNER = "OfficialTeamWolfpackApp";
-const GITHUB_REPO = "Team-Wolfpack-App";
-const GITHUB_BRANCH = "main";
+/* ========================================
+   GITHUB
+======================================== */
+
+const GITHUB_OWNER =
+  "OfficialTeamWolfpackApp";
+
+const GITHUB_REPO =
+  "Team-Wolfpack-App";
+
+const GITHUB_BRANCH =
+  "main";
+
+/* ========================================
+   SIDE MENU
+======================================== */
+
+const menuToggle =
+  document.getElementById("menuToggle");
+
+const menuClose =
+  document.getElementById("menuClose");
+
+const sideMenu =
+  document.getElementById("sideMenu");
+
+const menuOverlay =
+  document.getElementById("menuOverlay");
+
+function openSideMenu(){
+
+  sideMenu.classList.add("open");
+
+  menuOverlay.classList.add("show");
+
+  menuToggle.setAttribute(
+    "aria-expanded",
+    "true"
+  );
+
+  document.body.style.overflow =
+    "hidden";
+
+}
+
+function closeSideMenu(){
+
+  sideMenu.classList.remove("open");
+
+  menuOverlay.classList.remove("show");
+
+  menuToggle.setAttribute(
+    "aria-expanded",
+    "false"
+  );
+
+  document.body.style.overflow =
+    "";
+
+}
+
+menuToggle.addEventListener(
+  "click",
+  openSideMenu
+);
+
+menuClose.addEventListener(
+  "click",
+  closeSideMenu
+);
+
+menuOverlay.addEventListener(
+  "click",
+  closeSideMenu
+);
+
+document
+  .querySelectorAll(".menu-link")
+  .forEach(function(link){
+
+    link.addEventListener(
+      "click",
+      closeSideMenu
+    );
+
+  });
+
+/* ========================================
+   GALLERY ELEMENTS
+======================================== */
 
 const openedGallery =
-  document.getElementById("openedGallery");
+  document.getElementById(
+    "openedGallery"
+  );
 
 const openedTitle =
-  document.getElementById("openedTitle");
+  document.getElementById(
+    "openedTitle"
+  );
 
 const galleryOutput =
-  document.getElementById("galleryOutput");
+  document.getElementById(
+    "galleryOutput"
+  );
 
 const closeGallery =
-  document.getElementById("closeGallery");
+  document.getElementById(
+    "closeGallery"
+  );
 
 const lightbox =
-  document.getElementById("lightbox");
+  document.getElementById(
+    "lightbox"
+  );
 
 const lightboxImage =
-  document.getElementById("lightboxImage");
+  document.getElementById(
+    "lightboxImage"
+  );
 
 const lightboxClose =
-  document.getElementById("lightboxClose");
+  document.getElementById(
+    "lightboxClose"
+  );
+
+/* ========================================
+   FILE TYPES
+======================================== */
 
 function isImageFile(filename){
-  return /\.(jpg|jpeg|png|webp|gif)$/i.test(filename);
+
+  return /\.(jpg|jpeg|png|webp|gif)$/i
+    .test(filename);
+
 }
 
 function isVideoFile(filename){
-  return /\.(mp4|webm|ogv|m4v|mov)$/i.test(filename);
+
+  return /\.(mp4|webm|ogv|m4v|mov)$/i
+    .test(filename);
+
 }
+
+/* ========================================
+   SORT
+======================================== */
 
 function naturalSort(a,b){
 
@@ -1184,7 +2404,14 @@ function naturalSort(a,b){
 
 }
 
-function getVideoThumbnail(path,videoIndex){
+/* ========================================
+   VIDEO THUMBNAILS
+======================================== */
+
+function getVideoThumbnail(
+  path,
+  videoIndex
+){
 
   if(
     path ===
@@ -1211,6 +2438,10 @@ function getVideoThumbnail(path,videoIndex){
 
 }
 
+/* ========================================
+   OPEN GALLERY
+======================================== */
+
 async function openGallery(card){
 
   const path =
@@ -1220,14 +2451,20 @@ async function openGallery(card){
     card.dataset.type;
 
   const title =
-    card.dataset.title || "Gallery";
+    card.dataset.title ||
+    "Gallery";
 
-  openedTitle.textContent = title;
+  openedTitle.textContent =
+    title;
 
   galleryOutput.innerHTML =
-    '<div class="status-message">LOADING GALLERY...</div>';
+    '<div class="status-message">' +
+    'LOADING GALLERY...' +
+    '</div>';
 
-  openedGallery.classList.add("show");
+  openedGallery.classList.add(
+    "show"
+  );
 
   setTimeout(function(){
 
@@ -1301,6 +2538,10 @@ async function openGallery(card){
 
 }
 
+/* ========================================
+   RENDER PHOTOS
+======================================== */
+
 function renderPhotos(files){
 
   const images =
@@ -1327,54 +2568,71 @@ function renderPhotos(files){
   }
 
   const grid =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
   grid.className =
     "media-grid";
 
-  images.forEach(function(file){
+  images.forEach(
+    function(file){
 
-    const item =
-      document.createElement("div");
-
-    item.className =
-      "media-item";
-
-    const image =
-      document.createElement("img");
-
-    image.src =
-      file.download_url;
-
-    image.alt =
-      file.name;
-
-    image.loading =
-      "lazy";
-
-    image.addEventListener(
-      "click",
-      function(){
-
-        openLightbox(
-          file.download_url,
-          file.name
+      const item =
+        document.createElement(
+          "div"
         );
 
-      }
-    );
+      item.className =
+        "media-item";
 
-    item.appendChild(image);
-    grid.appendChild(item);
+      const image =
+        document.createElement(
+          "img"
+        );
 
-  });
+      image.src =
+        file.download_url;
+
+      image.alt =
+        file.name;
+
+      image.loading =
+        "lazy";
+
+      image.addEventListener(
+        "click",
+        function(){
+
+          openLightbox(
+            file.download_url,
+            file.name
+          );
+
+        }
+      );
+
+      item.appendChild(image);
+
+      grid.appendChild(item);
+
+    }
+  );
 
   galleryOutput.innerHTML = "";
+
   galleryOutput.appendChild(grid);
 
 }
 
-function renderVideos(files,path){
+/* ========================================
+   RENDER VIDEOS
+======================================== */
+
+function renderVideos(
+  files,
+  path
+){
 
   const videos =
     files
@@ -1400,26 +2658,40 @@ function renderVideos(files,path){
   }
 
   const grid =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
   grid.className =
     "media-grid";
 
   videos.forEach(
-    function(file,index){
+    function(
+      file,
+      index
+    ){
 
       const item =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
       item.className =
         "media-item";
 
       const video =
-        document.createElement("video");
+        document.createElement(
+          "video"
+        );
 
-      video.controls = true;
-      video.preload = "metadata";
-      video.playsInline = true;
+      video.controls =
+        true;
+
+      video.preload =
+        "metadata";
+
+      video.playsInline =
+        true;
 
       video.src =
         file.download_url;
@@ -1432,20 +2704,27 @@ function renderVideos(files,path){
 
       if(poster){
 
-        video.poster = poster;
+        video.poster =
+          poster;
 
       }
 
       item.appendChild(video);
+
       grid.appendChild(item);
 
     }
   );
 
   galleryOutput.innerHTML = "";
+
   galleryOutput.appendChild(grid);
 
 }
+
+/* ========================================
+   CARD CLICKS
+======================================== */
 
 document
   .querySelectorAll(
@@ -1464,35 +2743,58 @@ document
 
   });
 
+/* ========================================
+   CLOSE OPEN GALLERY
+======================================== */
+
 closeGallery.addEventListener(
   "click",
   function(){
 
-    openedGallery.classList.remove("show");
+    openedGallery
+      .classList
+      .remove("show");
 
     galleryOutput
       .querySelectorAll("video")
-      .forEach(function(video){
+      .forEach(
+        function(video){
 
-        video.pause();
+          video.pause();
 
-      });
+        }
+      );
 
   }
 );
 
-function openLightbox(src,alt){
+/* ========================================
+   LIGHTBOX
+======================================== */
 
-  lightboxImage.src = src;
-  lightboxImage.alt = alt || "";
+function openLightbox(
+  src,
+  alt
+){
 
-  lightbox.classList.add("show");
+  lightboxImage.src =
+    src;
+
+  lightboxImage.alt =
+    alt || "";
+
+  lightbox.classList.add(
+    "show"
+  );
 
 }
 
 function closeLightbox(){
 
-  lightbox.classList.remove("show");
+  lightbox.classList.remove(
+    "show"
+  );
+
   lightboxImage.src = "";
 
 }
@@ -1506,7 +2808,10 @@ lightbox.addEventListener(
   "click",
   function(event){
 
-    if(event.target === lightbox){
+    if(
+      event.target ===
+      lightbox
+    ){
 
       closeLightbox();
 
@@ -1514,6 +2819,10 @@ lightbox.addEventListener(
 
   }
 );
+
+/* ========================================
+   ESCAPE KEY
+======================================== */
 
 document.addEventListener(
   "keydown",
@@ -1521,14 +2830,38 @@ document.addEventListener(
 
     if(event.key === "Escape"){
 
-      closeLightbox();
+      if(
+        lightbox
+          .classList
+          .contains("show")
+      ){
+
+        closeLightbox();
+
+      }
+
+      if(
+        sideMenu
+          .classList
+          .contains("open")
+      ){
+
+        closeSideMenu();
+
+      }
 
     }
 
   }
 );
 
-if("serviceWorker" in navigator){
+/* ========================================
+   SERVICE WORKER
+======================================== */
+
+if(
+  "serviceWorker" in navigator
+){
 
   window.addEventListener(
     "load",
@@ -1536,15 +2869,19 @@ if("serviceWorker" in navigator){
 
       navigator
         .serviceWorker
-        .register("./service-worker.js")
-        .catch(function(error){
+        .register(
+          "./service-worker.js"
+        )
+        .catch(
+          function(error){
 
-          console.log(
-            "Service worker registration skipped:",
-            error
-          );
+            console.log(
+              "Service worker registration skipped:",
+              error
+            );
 
-        });
+          }
+        );
 
     }
   );
