@@ -3,6 +3,7 @@ const CACHE_NAME = "team-wolfpack-v11";
 const APP_FILES = [
   "./",
   "./index.html",
+  "./chat.html",
   "./fighters.html",
   "./mrs-wolfie.html",
   "./greig-sloan.html",
