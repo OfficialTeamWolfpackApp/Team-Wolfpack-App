@@ -1,6 +1,6 @@
 {
- "name": "Team Wolfpack",
-"short_name": "Team Wolfpack",
+  "name": "Team Wolfpack",
+  "short_name": "Team Wolfpack",
   "description": "Official Team Wolfpack Mobile App",
   "start_url": "./",
   "display": "standalone",
