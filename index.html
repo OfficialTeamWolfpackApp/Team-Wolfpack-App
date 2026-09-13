@@ -31,7 +31,7 @@ window.addEventListener("load", function(){
 >
 
 <meta name="theme-color" content="#050505">
-<meta name="apple-mobile-web-app-title" content="TEAM WOLFPACK">
+<meta name="apple-mobile-web-app-title" content="Team Wolfpack">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -1362,9 +1362,6 @@ body.menu-open{
   font-weight:900;
 
   line-height:1;
-
-  text-shadow:
-    0 2px 8px rgba(0,0,0,.8);
 }
 
 .date-month{
@@ -1413,9 +1410,6 @@ body.menu-open{
   font-weight:900;
 
   line-height:1.2;
-
-  text-shadow:
-    0 2px 8px rgba(0,0,0,.75);
 }
 
 .next-name .versus{
@@ -1658,9 +1652,6 @@ body.menu-open{
   line-height:1.05;
 
   letter-spacing:.2px;
-
-  text-shadow:
-    0 2px 9px rgba(0,0,0,.75);
 }
 
 .latest-details{
@@ -1742,14 +1733,6 @@ body.menu-open{
   font-weight:900;
 
   letter-spacing:1px;
-
-  transition:
-    transform .18s ease,
-    border-color .18s ease;
-}
-
-.latest-button:active{
-  transform:scale(.98);
 }
 
 
@@ -1891,7 +1874,7 @@ body.menu-open{
 
 
 /* =========================================
-   TEAM WOLFPACK COPYRIGHT
+   COPYRIGHT
 ========================================= */
 
 .copyright{
@@ -1922,10 +1905,6 @@ body.menu-open{
   line-height:1.5;
 
   text-align:center;
-
-  text-shadow:
-    0 0 5px rgba(255,255,255,.35),
-    0 0 12px rgba(103,220,255,.15);
 }
 
 .copyright span{
@@ -2258,9 +2237,7 @@ body.menu-open{
 <body>
 
 
-<!-- =========================================
-     APP BAR
-========================================= -->
+<!-- APP BAR -->
 
 <header class="app-bar">
 
@@ -2304,9 +2281,7 @@ TEAM WOLFPACK
 ></div>
 
 
-<!-- =========================================
-     SIDE MENU
-========================================= -->
+<!-- SIDE MENU -->
 
 <aside
   id="sideMenu"
@@ -2460,9 +2435,7 @@ VISIT OFFICIAL WEBSITE
 </aside>
 
 
-<!-- =========================================
-     HOME BANNER
-========================================= -->
+<!-- HOME BANNER -->
 
 <section class="home-banner">
 
@@ -2478,33 +2451,22 @@ VISIT OFFICIAL WEBSITE
 <main class="main">
 
 
-<!-- =========================================
-     NEXT FIGHT
-========================================= -->
+<!-- NEXT FIGHT -->
 
 <section class="next-fight">
 
 <div class="fighter-side left">
 
 <img
-  src="zoey-james.jpg"
+  src="greig-sloan.jpg"
   class="fighter-photo"
-  alt="Mrs Wolfie"
+  alt="Greig Sloan"
 >
 
 </div>
-
 
 <div class="fighter-side right">
-
-<img
-  src="colleen-leyden.jpg"
-  class="fighter-photo"
-  alt="Colleen Leyden"
->
-
 </div>
-
 
 <div class="fight-centre">
 
@@ -2513,10 +2475,10 @@ NEXT FIGHT
 </div>
 
 <div class="promotion">
-AYRSHIRE BOXING
+FSG PROMOTIONS
 
 <span class="promotion-small">
-THE LAUNCH
+UNFINISHED BUSINESS
 </span>
 
 </div>
@@ -2528,11 +2490,11 @@ VS
 <div class="fight-details">
 
 <div class="fight-detail">
-17 OCTOBER 2026
+19 SEPTEMBER 2026
 </div>
 
 <div class="fight-detail">
-AYR RACECOURSE
+HAMPDEN PARK
 </div>
 
 </div>
@@ -2541,9 +2503,9 @@ AYR RACECOURSE
   class="fight-button"
   href="fights.html"
   onclick="gtag('event','home_next_fight_click',{
-    fighter:'Mrs Wolfie',
-    opponent:'Colleen Leyden',
-    event:'The Launch'
+    fighter:'Greig Sloan',
+    opponent:'TBA',
+    event:'Unfinished Business'
   });"
 >
 VIEW FIGHT DETAILS →
@@ -2555,11 +2517,11 @@ VIEW FIGHT DETAILS →
 <div class="fighter-name left">
 
 <strong>
-MRS WOLFIE
+GREIG SLOAN
 </strong>
 
 <span>
-TEAM WOLFIE
+TEAM SLOAN
 </span>
 
 </div>
@@ -2568,7 +2530,7 @@ TEAM WOLFIE
 <div class="fighter-name right">
 
 <strong>
-COLLEEN LEYDEN
+TBA
 </strong>
 
 <span>
@@ -2580,9 +2542,7 @@ OPPONENT
 </section>
 
 
-<!-- =========================================
-     THE PACK
-========================================= -->
+<!-- THE PACK -->
 
 <div class="section-heading">
 
@@ -2662,9 +2622,7 @@ TEAM SLOAN
 </div>
 
 
-<!-- =========================================
-     NEXT UP
-========================================= -->
+<!-- NEXT UP -->
 
 <div class="section-heading">
 
@@ -2686,6 +2644,59 @@ VIEW ALL FIGHTS →
 
 
 <!-- FIGHT 1 -->
+
+<a
+  class="next-item"
+  href="fights.html"
+  onclick="gtag('event','home_upcoming_fight_click',{
+    fighter:'Greig Sloan',
+    opponent:'TBA',
+    event:'Unfinished Business'
+  });"
+>
+
+<div class="date-box">
+
+<div class="date-number">
+19
+</div>
+
+<div class="date-month">
+SEPT
+</div>
+
+</div>
+
+<div class="next-info">
+
+<div class="next-fight-label">
+UPCOMING FIGHT
+</div>
+
+<div class="next-name">
+GREIG SLOAN
+<span class="versus">VS</span>
+TBA
+</div>
+
+<div class="next-meta">
+HAMPDEN PARK
+</div>
+
+<div class="next-event">
+UNFINISHED BUSINESS
+</div>
+
+</div>
+
+<div class="next-arrow">
+›
+</div>
+
+</a>
+
+
+<!-- FIGHT 2 -->
 
 <a
   class="next-item"
@@ -2738,7 +2749,7 @@ THE LAUNCH
 </a>
 
 
-<!-- FIGHT 2 -->
+<!-- FIGHT 3 -->
 
 <a
   class="next-item"
@@ -2790,65 +2801,10 @@ SUPER MIDDLEWEIGHT TITLE
 
 </a>
 
-
-<!-- FIGHT 3 -->
-
-<a
-  class="next-item"
-  href="fights.html"
-  onclick="gtag('event','home_upcoming_fight_click',{
-    fighter:'Greig Sloan',
-    opponent:'TBA',
-    event:'Unfinished Business'
-  });"
->
-
-<div class="date-box">
-
-<div class="date-number">
-19
-</div>
-
-<div class="date-month">
-SEPT
-</div>
-
-</div>
-
-<div class="next-info">
-
-<div class="next-fight-label">
-UPCOMING FIGHT
-</div>
-
-<div class="next-name">
-GREIG SLOAN
-<span class="versus">VS</span>
-TBA
-</div>
-
-<div class="next-meta">
-HAMPDEN PARK
-</div>
-
-<div class="next-event">
-UNFINISHED BUSINESS
-</div>
-
-</div>
-
-<div class="next-arrow">
-›
-</div>
-
-</a>
-
 </div>
 
 
-<!-- =========================================
-     LATEST FROM THE PACK
-========================================= -->
+<!-- LATEST FROM THE PACK -->
 
 <div class="section-heading">
 
@@ -2913,9 +2869,7 @@ VIEW FIGHT DETAILS →
 </article>
 
 
-<!-- =========================================
-     WEBSITE
-========================================= -->
+<!-- WEBSITE -->
 
 <section class="website-card">
 
@@ -2959,18 +2913,14 @@ OFFICIALTEAMWOLFPACK.COM
 </section>
 
 
-<!-- =========================================
-     FOOTER
-========================================= -->
+<!-- FOOTER -->
 
 <footer class="app-footer">
 TEAM WOLFPACK • STRENGTH IN UNITY
 </footer>
 
 
-<!-- =========================================
-     COPYRIGHT
-========================================= -->
+<!-- COPYRIGHT -->
 
 <div class="copyright">
 <span>© 2026 TEAM WOLFPACK • ALL RIGHTS RESERVED</span>
@@ -2980,9 +2930,7 @@ TEAM WOLFPACK • STRENGTH IN UNITY
 </main>
 
 
-<!-- =========================================
-     MENU JAVASCRIPT
-========================================= -->
+<!-- MENU JAVASCRIPT -->
 
 <script>
 
@@ -3071,9 +3019,7 @@ document
 </script>
 
 
-<!-- =========================================
-     ADMIN
-========================================= -->
+<!-- ADMIN -->
 
 <script type="module">
 
@@ -3144,9 +3090,7 @@ onAuthStateChanged(
 </script>
 
 
-<!-- =========================================
-     SERVICE WORKER
-========================================= -->
+<!-- SERVICE WORKER -->
 
 <script>
 
