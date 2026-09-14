@@ -846,35 +846,120 @@ body.menu-open{
 ========================================= */
 
 .about-card{
-  padding:20px;
+  position:relative;
+
+  overflow:hidden;
+
+  padding:22px 20px;
 
   border-radius:15px;
 
   border:
-    1px solid rgba(255,255,255,.10);
+    1px solid rgba(255,255,255,.11);
 
   background:
-    rgba(10,10,10,.60);
+    linear-gradient(
+      110deg,
+      rgba(20,150,205,.10),
+      rgba(8,8,8,.92) 48%,
+      rgba(220,70,0,.10)
+    );
+
+  box-shadow:
+    0 10px 28px rgba(0,0,0,.22);
 }
 
-.about{
-  color:#c8c8c8;
+.about-card::before{
+  content:"";
 
-  font-size:13px;
+  position:absolute;
+
+  left:0;
+  top:0;
+  bottom:0;
+
+  width:3px;
+
+  background:#4bd8ff;
+}
+
+.about-card::after{
+  content:"";
+
+  position:absolute;
+
+  right:0;
+  top:0;
+  bottom:0;
+
+  width:3px;
+
+  background:#ff6500;
+}
+
+.about-card p{
+  margin:0 0 16px;
+
+  color:#d7dce0;
+
+  font-size:14px;
 
   line-height:1.7;
+
+  letter-spacing:.1px;
 }
 
-.highlight{
+.about-card p:last-child{
+  margin-bottom:0;
+}
+
+.about-card strong{
+  color:#fff;
+}
+
+.about-highlight{
   color:#67dcff;
-
-  font-weight:bold;
+  font-weight:900;
 }
 
-.highlight-fire{
+.about-highlight-fire{
   color:#ff751c;
+  font-weight:900;
+}
 
-  font-weight:bold;
+.about-closing{
+  padding-top:4px;
+
+  text-align:center;
+
+  font-weight:900;
+
+  color:#fff !important;
+}
+
+.about-motto{
+  margin-top:4px !important;
+
+  text-align:center;
+
+  font-size:13px !important;
+
+  font-weight:900;
+
+  letter-spacing:1.5px !important;
+
+  background:
+    linear-gradient(
+      90deg,
+      #67dcff,
+      #ffffff 48%,
+      #ff751c
+    );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  background-clip:text;
 }
 
 
@@ -1290,6 +1375,16 @@ body.menu-open{
     font-size:18px;
   }
 
+  .about-card{
+    padding:18px 16px;
+  }
+
+  .about-card p{
+    font-size:13px;
+    line-height:1.65;
+    margin-bottom:14px;
+  }
+
   .copyright{
     gap:7px;
   }
@@ -1642,14 +1737,24 @@ FIGHTER INFORMATION
 
 <section class="section">
 
-<h2>ABOUT MRS WOLFIE</h2>
+<div class="section-kicker">
+THE STORY BEHIND THE FIGHTER
+</div>
+
+<h2 class="section-title">
+<span class="ice">ABOUT</span>
+<span class="fire">MRS WOLFIE</span>
+</h2>
+
+<div class="about-card">
 
 <p>
 <strong>Zoey “Mrs Wolfie” James</strong> found boxing at a time when she was rebuilding her life after experiencing domestic violence. What began as a way to regain confidence, strength and control soon became something much bigger.
 </p>
 
 <p>
-Boxing gave Zoey a place to focus, push herself and rediscover the person she wanted to be. <strong>It became more than a sport — it became a source of strength, purpose and belief.</strong>
+Boxing gave Zoey a place to focus, push herself and rediscover the person she wanted to be.
+<strong>It became more than a sport — it became a source of strength, purpose and belief.</strong>
 </p>
 
 <p>
@@ -1657,11 +1762,18 @@ Every training session and every time she stepped into the ring became another p
 </p>
 
 <p>
-Throughout that journey, <strong>Chris “Mr Wolfie” James</strong> has been by her side — supporting her development, believing in what she could achieve and helping turn their shared vision into something bigger than either of them.
+Throughout that journey,
+<strong>Chris “Mr Wolfie” James</strong>
+has been by her side — supporting her development, believing in what she could achieve and helping turn their shared vision into something bigger than either of them.
 </p>
 
 <p>
-Together, <strong>Zoey “Mrs Wolfie” James and Chris “Mr Wolfie” James co-founded Team Wolfpack</strong> — creating a team built around <strong>strength, loyalty, unity and purpose</strong>.
+Together,
+<strong>Zoey “Mrs Wolfie” James and Chris “Mr Wolfie” James co-founded Team Wolfpack</strong>
+— creating a team built around
+<span class="about-highlight">strength</span>,
+<span class="about-highlight-fire">loyalty</span>,
+unity and purpose.
 </p>
 
 <p>
@@ -1672,13 +1784,16 @@ For Zoey, Team Wolfpack represents more than boxing. It represents moving forwar
 Now, as <strong>Mrs Wolfie</strong>, she steps into the ring not only to compete, but to continue challenging herself, growing stronger and hopefully encourage others to believe that they can move forward too.
 </p>
 
-<p>
-<strong>Her journey continues. One fight. One step. One purpose at a time.</strong>
+<p class="about-closing">
+Her journey continues.<br>
+One fight. One step. One purpose at a time.
 </p>
 
-<p>
-<strong>ONE PACK • ONE PURPOSE</strong>
+<p class="about-motto">
+ONE PACK • ONE PURPOSE
 </p>
+
+</div>
 
 </section>
 
@@ -1888,7 +2003,7 @@ EASTHOUSES BOXING CLUB
 <div class="event-date">
 20/21 NOVEMBER 2026
 </div>
-  
+
 <div class="fight">
 MRS WOLFIE vs TBA
 </div>
