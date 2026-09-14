@@ -542,7 +542,28 @@ body.menu-open{
   object-fit:cover;
 }
 
+/* =========================================
+   PROFILE PAGE BACKGROUND
+========================================= */
 
+.profile-background{
+  position:relative;
+
+  width:100%;
+
+  background:
+    linear-gradient(
+      rgba(0,0,0,.32),
+      rgba(0,0,0,.55)
+    ),
+    url("mr-wolfie-background.png");
+
+  background-size:cover;
+  background-position:center top;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+}
+  
 /* =========================================
    MAIN CONTENT
 ========================================= */
@@ -1421,11 +1442,16 @@ VISIT OFFICIAL WEBSITE
 
 
 <!-- =========================================
+     PROFILE BACKGROUND
+========================================= -->
+
+<div class="profile-background">
+
+<!-- =========================================
      MAIN PROFILE
 ========================================= -->
 
 <main class="content">
-
 
 <div class="profile-photo-wrap">
 
@@ -1733,6 +1759,8 @@ TEAM WOLFPACK • STRENGTH IN UNITY
 </footer>
 
 </main>
+
+</div>
 
 
 <!-- =========================================
