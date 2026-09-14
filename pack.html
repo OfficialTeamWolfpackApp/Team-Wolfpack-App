@@ -526,6 +526,7 @@ body.menu-open{
   position:relative;
 
   width:100%;
+  height:clamp(300px,30vw,520px);
 
   overflow:hidden;
 
@@ -542,14 +543,15 @@ body.menu-open{
   display:block;
 
   width:100%;
-  height:auto;
-
-  max-height:430px;
+  height:100%;
 
   margin:0 auto;
 
   object-fit:cover;
-  object-position:center;
+
+  /* keeps the people lower in frame
+     so more of their bodies are visible */
+  object-position:center 62%;
 }
 
 
@@ -1054,13 +1056,17 @@ a.member-card:active{
 
 @media(max-width:430px){
 
-  .pack-banner-image{
-    min-height:155px;
-    max-height:205px;
+.pack-banner{
+  height:230px;
+}
 
-    object-fit:cover;
-    object-position:center;
-  }
+.pack-banner-image{
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+  object-position:center 62%;
+}
 
   .content{
     padding-top:22px;
@@ -1494,7 +1500,7 @@ CO-FOUNDER • FIGHTER
 </div>
 
 <div class="member-team">
-TEAM WOLFIE
+TEAM WOLFPACK • TEAM WOLFIE
 </div>
 
 <div class="member-name">
@@ -1588,7 +1594,7 @@ BRY KELLY
 </div>
 
 <div class="member-role">
-Corner Team
+Corner Team • Boxer
 </div>
 
 </div>
@@ -1620,7 +1626,7 @@ BILLY “BOSSMAN” BURTON
 </div>
 
 <div class="member-role">
-Corner Team
+Corner Team • Boxer
 </div>
 
 </div>
