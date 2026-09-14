@@ -518,104 +518,30 @@ body.menu-open{
 
 
 /* =========================================
-   PROFILE HERO
+   PROFILE BANNER
 ========================================= */
 
-.profile-hero{
-  position:relative;
-
-  text-align:center;
-
-  padding:
-    31px
-    18px
-    27px;
+.profile-banner{
+  width:100%;
 
   overflow:hidden;
+
+  background:#050505;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.10);
+
+  box-shadow:
+    0 12px 35px rgba(0,0,0,.30);
 }
 
-.profile-hero::after{
-  content:"";
+.profile-banner img{
+  display:block;
 
-  position:absolute;
+  width:100%;
+  height:auto;
 
-  left:0;
-  right:0;
-  bottom:0;
-
-  height:1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      #4bd8ff,
-      rgba(255,255,255,.15),
-      #ff6200,
-      transparent
-    );
-}
-
-.hero-logo{
-  width:86px;
-  height:86px;
-
-  object-fit:contain;
-
-  filter:
-    drop-shadow(
-      0 0 12px rgba(51,201,255,.22)
-    )
-    drop-shadow(
-      0 0 12px rgba(255,92,0,.20)
-    );
-}
-
-.team-label{
-  margin-top:8px;
-
-  color:#67dcff;
-
-  font-size:8px;
-  font-weight:900;
-
-  letter-spacing:3px;
-}
-
-.fighter-label{
-  margin-top:16px;
-
-  color:#888;
-
-  font-size:7px;
-  font-weight:900;
-
-  letter-spacing:2px;
-}
-
-.profile-name{
-  margin-top:7px;
-
-  font-size:
-    clamp(
-      29px,
-      8vw,
-      38px
-    );
-
-  font-weight:900;
-
-  letter-spacing:.5px;
-
-  line-height:1;
-}
-
-.ice{
-  color:#67dcff;
-}
-
-.fire{
-  color:#ff751c;
+  object-fit:cover;
 }
 
 
@@ -638,6 +564,14 @@ body.menu-open{
 
 .section{
   margin-bottom:32px;
+}
+
+.ice{
+  color:#67dcff;
+}
+
+.fire{
+  color:#ff751c;
 }
 
 
@@ -849,23 +783,65 @@ body.menu-open{
 ========================================= */
 
 .about-card{
-  padding:20px;
+  position:relative;
+
+  overflow:hidden;
+
+  padding:22px 20px;
 
   border-radius:15px;
 
   border:
-    1px solid rgba(255,255,255,.10);
+    1px solid rgba(255,255,255,.11);
 
   background:
-    rgba(10,10,10,.60);
+    linear-gradient(
+      110deg,
+      rgba(20,150,205,.10),
+      rgba(8,8,8,.92) 48%,
+      rgba(220,70,0,.10)
+    );
+
+  box-shadow:
+    0 10px 28px rgba(0,0,0,.22);
+}
+
+.about-card::before{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  top:0;
+  bottom:0;
+
+  width:3px;
+
+  background:#4bd8ff;
+}
+
+.about-card::after{
+  content:"";
+
+  position:absolute;
+
+  right:0;
+  top:0;
+  bottom:0;
+
+  width:3px;
+
+  background:#ff6500;
 }
 
 .about{
-  color:#c8c8c8;
+  color:#d7dce0;
 
-  font-size:13px;
+  font-size:14px;
 
   line-height:1.7;
+
+  letter-spacing:.1px;
 }
 
 .highlight{
@@ -1171,7 +1147,7 @@ body.menu-open{
 
 
 /* =========================================
-   TEAM WOLFPACK COPYRIGHT
+   COPYRIGHT
 ========================================= */
 
 .copyright{
@@ -1290,12 +1266,17 @@ body.menu-open{
     height:290px;
   }
 
-  .profile-name{
-    font-size:27px;
-  }
-
   .section-title{
     font-size:18px;
+  }
+
+  .about-card{
+    padding:18px 16px;
+  }
+
+  .about{
+    font-size:13px;
+    line-height:1.65;
   }
 
   .copyright{
@@ -1429,7 +1410,6 @@ ONE PACK • ONE PURPOSE
 MAIN
 </div>
 
-
 <nav class="menu-nav">
 
 <a class="menu-link" href="index.html">
@@ -1468,7 +1448,6 @@ MAIN
 <div class="menu-section-label">
 EXPLORE
 </div>
-
 
 <nav class="menu-nav">
 
@@ -1511,9 +1490,7 @@ EXPLORE
 </nav>
 
 
-<!-- =========================================
-     ADMIN - HIDDEN FOR NORMAL MEMBERS
-========================================= -->
+<!-- ADMIN - HIDDEN FOR NORMAL MEMBERS -->
 
 <div id="adminMenuSection">
 
@@ -1550,38 +1527,17 @@ VISIT OFFICIAL WEBSITE
 
 
 <!-- =========================================
-     PROFILE HERO
+     GREIG SLOAN PROFILE BANNER
 ========================================= -->
 
-<section class="profile-hero">
+<div class="profile-banner">
 
 <img
-  src="icon-512.png"
-  class="hero-logo"
-  alt="Team Wolfpack"
+  src="greig-sloan-banner.png"
+  alt="Greig Sloan Team Sloan profile banner"
 >
 
-<div class="team-label">
-TEAM SLOAN
 </div>
-
-<div class="fighter-label">
-FIGHTER PROFILE
-</div>
-
-<h1 class="profile-name">
-
-<span class="ice">
-GREIG
-</span>
-
-<span class="fire">
-SLOAN
-</span>
-
-</h1>
-
-</section>
 
 
 <!-- =========================================
@@ -1910,6 +1866,8 @@ HAMPDEN PARK
 </div>
 
 </div>
+
+
 <div class="upcoming">
 
 <div class="upcoming-badge">
@@ -1934,6 +1892,7 @@ VENUE TBA • TITLE ELIMINATOR
 </div>
 
 </div>
+
 </section>
 
 
@@ -2047,7 +2006,6 @@ document.addEventListener(
 
   }
 );
-
 
 document
   .querySelectorAll(".menu-link")
