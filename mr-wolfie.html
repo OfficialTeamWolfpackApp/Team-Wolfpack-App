@@ -520,7 +520,7 @@ body.menu-open{
 
 
 /* =========================================
-   PROFILE PAGE BACKGROUND
+   PROFILE BACKGROUND
 ========================================= */
 
 .profile-background{
@@ -1200,7 +1200,7 @@ body.menu-open{
 
 
 /* =========================================
-   RESPONSIVE
+   TABLET / DESKTOP
 ========================================= */
 
 @media(min-width:700px){
@@ -1215,21 +1215,70 @@ body.menu-open{
 
 }
 
+
+/* =========================================
+   MOBILE BACKGROUND FIX
+========================================= */
+
 @media(max-width:700px){
 
   .profile-background{
-    background-attachment:scroll;
+    background:
+      linear-gradient(
+        rgba(0,0,0,.38),
+        rgba(0,0,0,.54)
+      ),
+      url("mr-wolfie-background.png");
 
-    background-size:auto 100%;
-    background-position:center top;
+    background-size:100% auto;
+
+    background-position:
+      center top;
+
+    background-repeat:
+      repeat-y;
+
+    background-attachment:
+      scroll;
+  }
+
+  .profile-background::before{
+    background:
+      linear-gradient(
+        90deg,
+        rgba(0,20,32,.20),
+        rgba(0,0,0,.12) 35%,
+        rgba(0,0,0,.12) 65%,
+        rgba(45,14,0,.20)
+      );
   }
 
 }
 
+
+/* =========================================
+   SMALL PHONES
+========================================= */
+
 @media(max-width:400px){
+
+  .content{
+    padding:
+      18px
+      12px
+      calc(35px + env(safe-area-inset-bottom));
+  }
 
   .profile-photo-wrap{
     height:320px;
+
+    margin-bottom:22px;
+
+    border-radius:15px;
+  }
+
+  .section{
+    margin-bottom:27px;
   }
 
   .section-title{
@@ -1243,7 +1292,32 @@ body.menu-open{
   .about-card p{
     font-size:13px;
     line-height:1.65;
+
     margin-bottom:14px;
+  }
+
+  .profile-box{
+    padding:
+      8px
+      15px;
+  }
+
+  .value-card{
+    padding:
+      17px
+      8px;
+  }
+
+  .value-title{
+    font-size:13px;
+  }
+
+  .value-copy{
+    font-size:7px;
+  }
+
+  .motto-main{
+    font-size:19px;
   }
 
   .copyright{
@@ -1263,6 +1337,11 @@ body.menu-open{
 
 }
 
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
 @media(prefers-reduced-motion:reduce){
 
   .side-menu,
@@ -1271,11 +1350,6 @@ body.menu-open{
   }
 
 }
-
-
-/* =========================================
-   END STYLES
-========================================= */
 
 </style>
 
@@ -1615,7 +1689,9 @@ THE STORY
 <div class="about-card">
 
 <p>
-<span class="highlight">Chris “Mr Wolfie” James</span>
+<span class="highlight">
+Chris “Mr Wolfie” James
+</span>
 is the Co-Founder and Joint Owner of Team Wolfpack and the Manager to Team Wolfie.
 </p>
 
@@ -1628,7 +1704,9 @@ helping keep everything moving and making sure the people representing Team Wolf
 
 <p>
 Together with
-<span class="highlight-fire">Zoey “Mrs Wolfie” James</span>,
+<span class="highlight-fire">
+Zoey “Mrs Wolfie” James
+</span>,
 he co-founded Team Wolfpack around the values of
 <span class="highlight">strength</span>,
 <span class="highlight-fire">loyalty</span>,
