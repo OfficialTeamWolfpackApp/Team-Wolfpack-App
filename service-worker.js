@@ -6,6 +6,7 @@ const APP_FILES = [
   "./chat.html",
   "./fighters.html",
   "./mrs-wolfie.html",
+  "./mr-wolfie.html",
   "./greig-sloan.html",
   "./fights.html",
   "./pack.html",
