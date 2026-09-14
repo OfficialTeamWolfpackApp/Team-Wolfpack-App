@@ -187,6 +187,7 @@ body.menu-open{
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
+
   background-clip:text;
 }
 
@@ -324,6 +325,7 @@ body.menu-open{
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
+
   background-clip:text;
 }
 
@@ -456,7 +458,9 @@ body.menu-open{
 }
 
 
-/* ADMIN MENU */
+/* =========================================
+   ADMIN MENU
+========================================= */
 
 #adminMenuSection{
   display:none;
@@ -512,104 +516,30 @@ body.menu-open{
 
 
 /* =========================================
-   PROFILE HERO
+   PROFILE BANNER
 ========================================= */
 
-.profile-hero{
-  position:relative;
-
-  text-align:center;
-
-  padding:
-    31px
-    18px
-    27px;
+.profile-banner{
+  width:100%;
 
   overflow:hidden;
+
+  background:#050505;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.10);
+
+  box-shadow:
+    0 12px 35px rgba(0,0,0,.30);
 }
 
-.profile-hero::after{
-  content:"";
+.profile-banner img{
+  display:block;
 
-  position:absolute;
+  width:100%;
+  height:auto;
 
-  left:0;
-  right:0;
-  bottom:0;
-
-  height:1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      #4bd8ff,
-      rgba(255,255,255,.15),
-      #ff6200,
-      transparent
-    );
-}
-
-.hero-logo{
-  width:86px;
-  height:86px;
-
-  object-fit:contain;
-
-  filter:
-    drop-shadow(
-      0 0 12px rgba(51,201,255,.22)
-    )
-    drop-shadow(
-      0 0 12px rgba(255,92,0,.20)
-    );
-}
-
-.team-label{
-  margin-top:8px;
-
-  color:#67dcff;
-
-  font-size:8px;
-  font-weight:900;
-
-  letter-spacing:3px;
-}
-
-.fighter-label{
-  margin-top:16px;
-
-  color:#888;
-
-  font-size:7px;
-  font-weight:900;
-
-  letter-spacing:2px;
-}
-
-.profile-name{
-  margin-top:7px;
-
-  font-size:
-    clamp(
-      29px,
-      8vw,
-      38px
-    );
-
-  font-weight:900;
-
-  letter-spacing:.5px;
-
-  line-height:1;
-}
-
-.ice{
-  color:#67dcff;
-}
-
-.fire{
-  color:#ff751c;
+  object-fit:cover;
 }
 
 
@@ -632,6 +562,14 @@ body.menu-open{
 
 .section{
   margin-bottom:32px;
+}
+
+.ice{
+  color:#67dcff;
+}
+
+.fire{
+  color:#ff751c;
 }
 
 
@@ -841,35 +779,83 @@ body.menu-open{
 ========================================= */
 
 .about-card{
-  padding:20px;
+  position:relative;
+
+  overflow:hidden;
+
+  padding:22px 20px;
 
   border-radius:15px;
 
   border:
-    1px solid rgba(255,255,255,.10);
+    1px solid rgba(255,255,255,.11);
 
   background:
-    rgba(10,10,10,.60);
+    linear-gradient(
+      110deg,
+      rgba(20,150,205,.10),
+      rgba(8,8,8,.92) 48%,
+      rgba(220,70,0,.10)
+    );
+
+  box-shadow:
+    0 10px 28px rgba(0,0,0,.22);
 }
 
-.about{
-  color:#c8c8c8;
+.about-card::before{
+  content:"";
 
-  font-size:13px;
+  position:absolute;
+
+  left:0;
+  top:0;
+  bottom:0;
+
+  width:3px;
+
+  background:#4bd8ff;
+}
+
+.about-card::after{
+  content:"";
+
+  position:absolute;
+
+  right:0;
+  top:0;
+  bottom:0;
+
+  width:3px;
+
+  background:#ff6500;
+}
+
+.about-card p{
+  margin:0 0 16px;
+
+  color:#d7dce0;
+
+  font-size:14px;
 
   line-height:1.7;
+
+  letter-spacing:.1px;
+}
+
+.about-card p:last-child{
+  margin-bottom:0;
 }
 
 .highlight{
   color:#67dcff;
 
-  font-weight:bold;
+  font-weight:900;
 }
 
 .highlight-fire{
   color:#ff751c;
 
-  font-weight:bold;
+  font-weight:900;
 }
 
 
@@ -1141,6 +1127,7 @@ body.menu-open{
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
+
   background-clip:text;
 }
 
@@ -1167,12 +1154,18 @@ body.menu-open{
     height:320px;
   }
 
-  .profile-name{
-    font-size:27px;
-  }
-
   .section-title{
     font-size:18px;
+  }
+
+  .about-card{
+    padding:18px 16px;
+  }
+
+  .about-card p{
+    font-size:13px;
+    line-height:1.65;
+    margin-bottom:14px;
   }
 
   .copyright{
@@ -1209,7 +1202,9 @@ body.menu-open{
 <body>
 
 
-<!-- APP BAR -->
+<!-- =========================================
+     APP BAR
+========================================= -->
 
 <header class="app-bar">
 
@@ -1253,7 +1248,9 @@ TEAM WOLFPACK
 ></div>
 
 
-<!-- SIDE MENU -->
+<!-- =========================================
+     SIDE MENU
+========================================= -->
 
 <aside
   id="sideMenu"
@@ -1409,40 +1406,23 @@ VISIT OFFICIAL WEBSITE
 </aside>
 
 
-<!-- PROFILE HERO -->
+<!-- =========================================
+     MR WOLFIE PROFILE BANNER
+========================================= -->
 
-<section class="profile-hero">
+<div class="profile-banner">
 
 <img
-  src="icon-512.png"
-  class="hero-logo"
-  alt="Team Wolfpack"
+  src="mr-wolfie-banner.png"
+  alt="Mr Wolfie Team Wolfpack manager profile banner"
 >
 
-<div class="team-label">
-TEAM WOLFPACK
 </div>
 
-<div class="fighter-label">
-MANAGER PROFILE
-</div>
 
-<h1 class="profile-name">
-
-<span class="ice">
-MR
-</span>
-
-<span class="fire">
-WOLFIE
-</span>
-
-</h1>
-
-</section>
-
-
-<!-- MAIN PROFILE -->
+<!-- =========================================
+     MAIN PROFILE
+========================================= -->
 
 <main class="content">
 
@@ -1470,7 +1450,9 @@ CHRIS “MR WOLFIE” JAMES
 </div>
 
 
-<!-- PROFILE DETAILS -->
+<!-- =========================================
+     PROFILE DETAILS
+========================================= -->
 
 <section class="section">
 
@@ -1497,10 +1479,13 @@ PACK INFORMATION
 
 <div class="info-row">
 <span class="label">ROLE</span>
+
 <span class="value">
-Co-Founder &amp; Joint Owner<br>
+Co-Founder &amp; Joint Owner
+<br>
 Manager to Team Wolfie
 </span>
+
 </div>
 
 <div class="info-row">
@@ -1510,9 +1495,11 @@ Manager to Team Wolfie
 
 <div class="info-row">
 <span class="label">FOCUS</span>
+
 <span class="value">
 Leadership • Support • Team Growth
 </span>
+
 </div>
 
 </div>
@@ -1520,7 +1507,9 @@ Leadership • Support • Team Growth
 </section>
 
 
-<!-- ABOUT -->
+<!-- =========================================
+     ABOUT
+========================================= -->
 
 <section class="section">
 
@@ -1535,56 +1524,55 @@ THE STORY
 
 <div class="about-card">
 
-<p class="about">
-
+<p>
 <span class="highlight">
 Chris “Mr Wolfie” James
 </span>
+is the Co-Founder and Joint Owner of Team Wolfpack and the Manager to Team Wolfie.
+</p>
 
-is the Co-Founder and Joint Owner of Team Wolfpack and
-the Manager to Team Wolfie.
-
-<br><br>
-
+<p>
 Working behind the scenes, his role is centred around
-supporting the team, helping keep everything moving and
-making sure the people representing Team Wolfpack have
-someone in their corner.
+<span class="highlight">supporting the team</span>,
+helping keep everything moving and making sure the people representing Team Wolfpack have
+<span class="highlight-fire">someone in their corner</span>.
+</p>
 
-<br><br>
-
+<p>
 Together with
-
 <span class="highlight-fire">
 Zoey “Mrs Wolfie” James
 </span>,
-
 he co-founded Team Wolfpack around the values of
-strength, loyalty, unity and purpose.
+<span class="highlight">strength</span>,
+<span class="highlight-fire">loyalty</span>,
+<span class="highlight">unity</span>
+and
+<span class="highlight-fire">purpose</span>.
+</p>
 
-<br><br>
+<p>
+As Manager to Team Wolfie, Mr Wolfie supports the journey inside and outside the ring — helping with
+<span class="highlight">preparation</span>,
+organisation, opportunities and the continued development of the wider
+<span class="highlight-fire">Team Wolfpack family</span>.
+</p>
 
-As Manager to Team Wolfie, Mr Wolfie supports the journey
-inside and outside the ring — helping with preparation,
-organisation, opportunities and the continued development
-of the wider Team Wolfpack family.
+<p>
+For Mr Wolfie, the purpose is bigger than one fight or one event. It is about building something where people
+<span class="highlight">support one another</span>,
+<span class="highlight-fire">grow together</span>
+and keep moving forward.
+</p>
 
-<br><br>
-
-For Mr Wolfie, the purpose is bigger than one fight or
-one event. It is about building something where people
-support one another, grow together and keep moving forward.
-
-<br><br>
-
+<p style="text-align:center;font-weight:900;">
 <span class="highlight">
-One Pack.
+ONE PACK
 </span>
-
+•
 <span class="highlight-fire">
-One Purpose.
+ONE PURPOSE
 </span>
-
 </p>
 
 </div>
@@ -1592,7 +1580,9 @@ One Purpose.
 </section>
 
 
-<!-- VALUES -->
+<!-- =========================================
+     VALUES
+========================================= -->
 
 <section class="section">
 
@@ -1671,7 +1661,9 @@ A STRONGER TOMORROW
 </section>
 
 
-<!-- MOTTO -->
+<!-- =========================================
+     MOTTO
+========================================= -->
 
 <section class="section">
 
@@ -1700,7 +1692,9 @@ STRENGTH IN UNITY
 </section>
 
 
-<!-- BACK -->
+<!-- =========================================
+     BACK
+========================================= -->
 
 <a
   class="back"
@@ -1716,7 +1710,9 @@ STRENGTH IN UNITY
 </a>
 
 
-<!-- FOOTER -->
+<!-- =========================================
+     FOOTER
+========================================= -->
 
 <footer class="app-footer">
 
@@ -1739,7 +1735,9 @@ TEAM WOLFPACK • STRENGTH IN UNITY
 </main>
 
 
-<!-- SIDE MENU JAVASCRIPT -->
+<!-- =========================================
+     SIDE MENU JAVASCRIPT
+========================================= -->
 
 <script>
 
@@ -1828,7 +1826,9 @@ document
 </script>
 
 
-<!-- ADMIN DASHBOARD VISIBILITY -->
+<!-- =========================================
+     ADMIN DASHBOARD VISIBILITY
+========================================= -->
 
 <script type="module">
 
@@ -1899,7 +1899,9 @@ onAuthStateChanged(
 </script>
 
 
-<!-- SERVICE WORKER -->
+<!-- =========================================
+     SERVICE WORKER
+========================================= -->
 
 <script>
 
