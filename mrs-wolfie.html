@@ -65,23 +65,7 @@ body{
   color:#fff;
   overflow-x:hidden;
 
-  background:
-    radial-gradient(
-      circle at 0% 15%,
-      rgba(0,190,255,.22),
-      transparent 31%
-    ),
-    radial-gradient(
-      circle at 100% 65%,
-      rgba(255,85,0,.22),
-      transparent 34%
-    ),
-    linear-gradient(
-      115deg,
-      #02090d 0%,
-      #050505 50%,
-      #150802 100%
-    );
+  background:#050505;
 }
 
 body.menu-open{
@@ -95,9 +79,11 @@ body.menu-open{
 
 .app-bar{
   position:fixed;
+
   top:0;
   left:0;
   right:0;
+
   z-index:500;
 
   height:calc(66px + env(safe-area-inset-top));
@@ -109,6 +95,7 @@ body.menu-open{
 
   display:grid;
   grid-template-columns:46px 1fr 46px;
+
   align-items:center;
 
   background:rgba(4,4,4,.94);
@@ -136,12 +123,12 @@ body.menu-open{
   border:
     1px solid rgba(103,220,255,.22);
 
-  background:
-    rgba(0,150,210,.07);
+  background:rgba(0,150,210,.07);
 
   color:#67dcff;
 
   cursor:pointer;
+
   font-size:24px;
 }
 
@@ -151,12 +138,14 @@ body.menu-open{
   justify-content:center;
 
   gap:9px;
+
   min-width:0;
 }
 
 .app-bar-logo{
   width:34px;
   height:34px;
+
   object-fit:contain;
 }
 
@@ -168,6 +157,7 @@ body.menu-open{
 
   font-size:11px;
   font-weight:900;
+
   letter-spacing:1.8px;
 
   background:
@@ -197,6 +187,7 @@ body.menu-open{
   height:8px;
 
   border-radius:50%;
+
   background:#43f27b;
 
   box-shadow:
@@ -244,6 +235,7 @@ body.menu-open{
   width:min(84vw,340px);
 
   transform:translateX(-105%);
+
   transition:transform .28s ease;
 
   overflow-y:auto;
@@ -295,12 +287,14 @@ body.menu-open{
   height:72px;
 
   object-fit:contain;
+
   margin-bottom:10px;
 }
 
 .menu-brand{
   font-size:18px;
   font-weight:900;
+
   letter-spacing:1px;
 
   background:
@@ -323,6 +317,7 @@ body.menu-open{
 
   font-size:8px;
   font-weight:900;
+
   letter-spacing:2px;
 }
 
@@ -340,12 +335,12 @@ body.menu-open{
   border:
     1px solid rgba(255,117,28,.25);
 
-  background:
-    rgba(255,90,0,.07);
+  background:rgba(255,90,0,.07);
 
   color:#ff751c;
 
   cursor:pointer;
+
   font-size:21px;
 }
 
@@ -356,12 +351,14 @@ body.menu-open{
 
   font-size:7px;
   font-weight:900;
+
   letter-spacing:2px;
 }
 
 .menu-nav{
   display:flex;
   flex-direction:column;
+
   gap:4px;
 }
 
@@ -376,13 +373,14 @@ body.menu-open{
   border-radius:10px;
 
   text-decoration:none;
+
   color:#d7d7d7;
 
-  border:
-    1px solid transparent;
+  border:1px solid transparent;
 
   font-size:10px;
   font-weight:900;
+
   letter-spacing:.5px;
 }
 
@@ -393,8 +391,7 @@ body.menu-open{
 .menu-link.active{
   color:#67dcff;
 
-  border-color:
-    rgba(103,220,255,.22);
+  border-color:rgba(103,220,255,.22);
 
   background:
     linear-gradient(
@@ -407,8 +404,7 @@ body.menu-open{
 .menu-link.chat{
   color:#fff;
 
-  border-color:
-    rgba(103,220,255,.15);
+  border-color:rgba(103,220,255,.15);
 
   background:
     linear-gradient(
@@ -420,11 +416,13 @@ body.menu-open{
 
 .menu-icon{
   width:34px;
+
   flex:0 0 34px;
 
   text-align:center;
 
   color:#67dcff;
+
   font-size:17px;
 }
 
@@ -432,6 +430,7 @@ body.menu-open{
   margin-left:auto;
 
   color:#666;
+
   font-size:16px;
 }
 
@@ -447,8 +446,7 @@ body.menu-open{
 .admin-menu-link{
   color:#ffb05d;
 
-  border-color:
-    rgba(255,117,28,.22);
+  border-color:rgba(255,117,28,.22);
 
   background:
     linear-gradient(
@@ -466,6 +464,7 @@ body.menu-open{
   display:block;
 
   margin-top:19px;
+
   padding:14px;
 
   text-align:center;
@@ -487,6 +486,7 @@ body.menu-open{
 
   font-size:8px;
   font-weight:900;
+
   letter-spacing:1px;
 }
 
@@ -497,6 +497,7 @@ body.menu-open{
 
 .profile-banner{
   width:100%;
+
   overflow:hidden;
 
   background:#050505;
@@ -519,95 +520,48 @@ body.menu-open{
 
 
 /* =========================================
-   PROFILE HERO
+   PROFILE BACKGROUND
 ========================================= */
 
-.profile-hero{
+.profile-background{
   position:relative;
 
-  text-align:center;
+  width:100%;
 
-  padding:
-    31px
-    18px
-    27px;
+  background:
+    linear-gradient(
+      rgba(0,0,0,.30),
+      rgba(0,0,0,.52)
+    ),
+    url("mrs-wolfie-background.png");
 
-  overflow:hidden;
+  background-size:cover;
+  background-position:center top;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
 }
 
-.profile-hero::after{
+.profile-background::before{
   content:"";
 
   position:absolute;
+  inset:0;
 
-  left:0;
-  right:0;
-  bottom:0;
-
-  height:1px;
+  pointer-events:none;
 
   background:
     linear-gradient(
       90deg,
-      transparent,
-      #4bd8ff,
-      rgba(255,255,255,.15),
-      #ff6200,
-      transparent
+      rgba(0,25,38,.12),
+      rgba(0,0,0,.08) 35%,
+      rgba(0,0,0,.08) 65%,
+      rgba(48,15,0,.12)
     );
 }
 
-.hero-logo{
-  width:86px;
-  height:86px;
-
-  object-fit:contain;
-
-  filter:
-    drop-shadow(
-      0 0 12px rgba(51,201,255,.22)
-    )
-    drop-shadow(
-      0 0 12px rgba(255,92,0,.20)
-    );
-}
-
-.team-label{
-  margin-top:8px;
-
-  color:#67dcff;
-
-  font-size:8px;
-  font-weight:900;
-  letter-spacing:3px;
-}
-
-.fighter-label{
-  margin-top:16px;
-
-  color:#888;
-
-  font-size:7px;
-  font-weight:900;
-  letter-spacing:2px;
-}
-
-.profile-name{
-  margin-top:7px;
-
-  font-size:clamp(29px,8vw,38px);
-
-  font-weight:900;
-  letter-spacing:.5px;
-  line-height:1;
-}
-
-.ice{
-  color:#67dcff;
-}
-
-.fire{
-  color:#ff751c;
+.profile-background > *{
+  position:relative;
+  z-index:1;
 }
 
 
@@ -617,6 +571,7 @@ body.menu-open{
 
 .content{
   width:100%;
+
   max-width:680px;
 
   margin:auto;
@@ -629,6 +584,14 @@ body.menu-open{
 
 .section{
   margin-bottom:32px;
+}
+
+.ice{
+  color:#67dcff;
+}
+
+.fire{
+  color:#ff751c;
 }
 
 
@@ -660,7 +623,7 @@ body.menu-open{
   background:#080808;
 
   box-shadow:
-    0 12px 35px rgba(0,0,0,.40);
+    0 15px 40px rgba(0,0,0,.55);
 }
 
 .profile-photo{
@@ -690,7 +653,7 @@ body.menu-open{
     linear-gradient(
       to bottom,
       transparent,
-      rgba(5,5,5,.75)
+      rgba(5,5,5,.86)
     );
 }
 
@@ -709,6 +672,7 @@ body.menu-open{
 
   font-size:7px;
   font-weight:900;
+
   letter-spacing:2px;
 }
 
@@ -727,11 +691,15 @@ body.menu-open{
 .section-kicker{
   margin-bottom:5px;
 
-  color:#777;
+  color:#aaa;
 
   font-size:7px;
   font-weight:900;
+
   letter-spacing:2px;
+
+  text-shadow:
+    0 2px 7px rgba(0,0,0,.95);
 }
 
 .section-title{
@@ -739,36 +707,46 @@ body.menu-open{
 
   font-size:20px;
   font-weight:900;
+
   letter-spacing:.5px;
+
+  text-shadow:
+    0 2px 10px rgba(0,0,0,.95);
 }
 
 
 /* =========================================
-   PROFILE INFORMATION
+   DARK GLASS CARDS
 ========================================= */
 
-.profile-box{
+.profile-box,
+.about-card,
+.event,
+.upcoming{
   position:relative;
 
   overflow:hidden;
 
-  padding:9px 19px;
-
-  border-radius:15px;
-
   border:
-    1px solid rgba(255,255,255,.12);
+    1px solid rgba(255,255,255,.14);
 
   background:
     linear-gradient(
       110deg,
-      rgba(20,150,205,.15),
-      rgba(10,10,10,.94) 50%,
-      rgba(220,70,0,.15)
+      rgba(0,30,42,.92),
+      rgba(5,5,5,.96) 50%,
+      rgba(48,15,0,.92)
     );
+
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+
+  box-shadow:
+    0 14px 32px rgba(0,0,0,.42);
 }
 
 .profile-box::before,
+.about-card::before,
 .event::before,
 .upcoming::before{
   content:"";
@@ -782,9 +760,13 @@ body.menu-open{
   width:3px;
 
   background:#4bd8ff;
+
+  box-shadow:
+    0 0 12px rgba(75,216,255,.55);
 }
 
 .profile-box::after,
+.about-card::after,
 .event::after,
 .upcoming::after{
   content:"";
@@ -798,13 +780,27 @@ body.menu-open{
   width:3px;
 
   background:#ff6500;
+
+  box-shadow:
+    0 0 12px rgba(255,101,0,.55);
+}
+
+
+/* =========================================
+   PROFILE INFORMATION
+========================================= */
+
+.profile-box{
+  padding:9px 19px;
+
+  border-radius:15px;
 }
 
 .info-row{
   padding:12px 0;
 
   border-bottom:
-    1px solid rgba(255,255,255,.07);
+    1px solid rgba(255,255,255,.08);
 }
 
 .info-row:last-child{
@@ -820,14 +816,17 @@ body.menu-open{
 
   font-size:7px;
   font-weight:900;
+
   letter-spacing:1.7px;
 }
 
 .value{
-  color:#e4faff;
+  color:#f2fbff;
 
   font-size:13px;
   font-weight:bold;
+
+  line-height:1.45;
 }
 
 
@@ -836,64 +835,19 @@ body.menu-open{
 ========================================= */
 
 .about-card{
-  position:relative;
-
-  overflow:hidden;
-
   padding:22px 20px;
 
   border-radius:15px;
-
-  border:
-    1px solid rgba(255,255,255,.11);
-
-  background:
-    linear-gradient(
-      110deg,
-      rgba(20,150,205,.10),
-      rgba(8,8,8,.92) 48%,
-      rgba(220,70,0,.10)
-    );
-
-  box-shadow:
-    0 10px 28px rgba(0,0,0,.22);
-}
-
-.about-card::before{
-  content:"";
-
-  position:absolute;
-
-  left:0;
-  top:0;
-  bottom:0;
-
-  width:3px;
-
-  background:#4bd8ff;
-}
-
-.about-card::after{
-  content:"";
-
-  position:absolute;
-
-  right:0;
-  top:0;
-  bottom:0;
-
-  width:3px;
-
-  background:#ff6500;
 }
 
 .about-card p{
   margin:0 0 16px;
 
-  color:#d7dce0;
+  color:#e2e7ea;
 
   font-size:14px;
   line-height:1.7;
+
   letter-spacing:.1px;
 }
 
@@ -907,11 +861,13 @@ body.menu-open{
 
 .about-highlight{
   color:#67dcff;
+
   font-weight:900;
 }
 
 .about-highlight-fire{
   color:#ff751c;
+
   font-weight:900;
 }
 
@@ -932,6 +888,7 @@ body.menu-open{
 
   font-size:13px !important;
   font-weight:900;
+
   letter-spacing:1.5px !important;
 
   background:
@@ -955,7 +912,10 @@ body.menu-open{
 
 .stats{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+
+  grid-template-columns:
+    repeat(3,1fr);
+
   gap:10px;
 }
 
@@ -969,17 +929,23 @@ body.menu-open{
   padding:18px 8px;
 
   border:
-    1px solid rgba(255,255,255,.11);
+    1px solid rgba(255,255,255,.14);
 
   border-radius:13px;
 
   background:
     linear-gradient(
       145deg,
-      rgba(0,160,220,.09),
-      rgba(10,10,10,.80),
-      rgba(255,90,0,.08)
+      rgba(0,30,42,.93),
+      rgba(5,5,5,.96) 50%,
+      rgba(48,15,0,.93)
     );
+
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+
+  box-shadow:
+    0 12px 28px rgba(0,0,0,.38);
 }
 
 .stat-letter{
@@ -987,6 +953,7 @@ body.menu-open{
 
   font-size:11px;
   font-weight:900;
+
   letter-spacing:1px;
 }
 
@@ -1006,26 +973,11 @@ body.menu-open{
 
 .event,
 .upcoming{
-  position:relative;
-
-  overflow:hidden;
-
   padding:18px 19px;
 
   margin-bottom:11px;
 
   border-radius:14px;
-
-  border:
-    1px solid rgba(255,255,255,.11);
-
-  background:
-    linear-gradient(
-      110deg,
-      rgba(20,150,205,.14),
-      rgba(10,10,10,.94) 50%,
-      rgba(220,70,0,.14)
-    );
 }
 
 .event-name{
@@ -1035,7 +987,9 @@ body.menu-open{
 
   font-size:9px;
   font-weight:900;
+
   letter-spacing:.7px;
+
   line-height:1.4;
 }
 
@@ -1053,17 +1007,21 @@ body.menu-open{
 
   padding-right:30px;
 
+  color:#fff;
+
   font-size:13px;
   font-weight:900;
+
   line-height:1.4;
 }
 
 .venue{
   margin-top:6px;
 
-  color:#999;
+  color:#aaa;
 
   font-size:9px;
+
   line-height:1.5;
 }
 
@@ -1083,10 +1041,10 @@ body.menu-open{
   border-radius:50%;
 
   border:
-    1px solid rgba(255,117,28,.30);
+    1px solid rgba(255,117,28,.36);
 
   background:
-    rgba(255,90,0,.08);
+    rgba(255,90,0,.12);
 
   color:#ff751c;
 
@@ -1113,15 +1071,16 @@ body.menu-open{
   border-radius:20px;
 
   border:
-    1px solid rgba(255,117,28,.30);
+    1px solid rgba(255,117,28,.35);
 
   background:
-    rgba(255,90,0,.08);
+    rgba(255,90,0,.10);
 
   color:#ff751c;
 
   font-size:7px;
   font-weight:900;
+
   letter-spacing:1px;
 }
 
@@ -1158,20 +1117,28 @@ body.menu-open{
   color:#fff;
 
   border:
-    1px solid rgba(91,217,255,.45);
+    1px solid rgba(91,217,255,.55);
 
   border-radius:10px;
 
   font-size:9px;
   font-weight:900;
+
   letter-spacing:1px;
 
   background:
     linear-gradient(
       90deg,
-      rgba(0,160,220,.10),
-      rgba(255,90,0,.10)
+      rgba(0,30,42,.94),
+      rgba(5,5,5,.96) 50%,
+      rgba(48,15,0,.94)
     );
+
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+
+  box-shadow:
+    0 10px 25px rgba(0,0,0,.35);
 }
 
 .back:active{
@@ -1185,17 +1152,19 @@ body.menu-open{
 
 .app-footer{
   margin-top:28px;
+
   padding-top:20px;
 
   border-top:
-    1px solid rgba(255,255,255,.07);
+    1px solid rgba(255,255,255,.10);
 
   text-align:center;
 
-  color:#777;
+  color:#aaa;
 
   font-size:7px;
   font-weight:900;
+
   letter-spacing:1.3px;
 }
 
@@ -1215,11 +1184,15 @@ body.menu-open{
   width:100%;
   max-width:560px;
 
-  margin:17px auto 0;
+  margin:
+    17px
+    auto
+    0;
+
   padding-top:15px;
 
   border-top:
-    1px solid rgba(255,255,255,.04);
+    1px solid rgba(255,255,255,.06);
 }
 
 .copyright::before,
@@ -1240,10 +1213,10 @@ body.menu-open{
   background:
     linear-gradient(
       90deg,
-      transparent 0%,
-      #008cff 35%,
-      #00bfff 70%,
-      #67dcff 100%
+      transparent,
+      #008cff,
+      #00bfff,
+      #67dcff
     );
 
   box-shadow:
@@ -1255,10 +1228,10 @@ body.menu-open{
   background:
     linear-gradient(
       90deg,
-      #ff751c 0%,
-      #ff5a00 35%,
-      #ff3d00 70%,
-      transparent 100%
+      #ff751c,
+      #ff5a00,
+      #ff3d00,
+      transparent
     );
 
   box-shadow:
@@ -1273,13 +1246,10 @@ body.menu-open{
 
   font-size:7px;
   font-weight:900;
+
   letter-spacing:1.1px;
 
   white-space:nowrap;
-
-  text-shadow:
-    0 0 6px rgba(255,255,255,.25),
-    0 0 12px rgba(103,220,255,.12);
 }
 
 .copyright-year{
@@ -1320,17 +1290,65 @@ body.menu-open{
 
 
 /* =========================================
+   MOBILE BACKGROUND FIX
+========================================= */
+
+@media(max-width:700px){
+
+  .profile-background{
+    background:
+      linear-gradient(
+        rgba(0,0,0,.38),
+        rgba(0,0,0,.54)
+      ),
+      url("mrs-wolfie-background.png");
+
+    background-size:100% auto;
+
+    background-position:center top;
+
+    background-repeat:repeat-y;
+
+    background-attachment:scroll;
+  }
+
+  .profile-background::before{
+    background:
+      linear-gradient(
+        90deg,
+        rgba(0,20,32,.20),
+        rgba(0,0,0,.12) 35%,
+        rgba(0,0,0,.12) 65%,
+        rgba(45,14,0,.20)
+      );
+  }
+
+}
+
+
+/* =========================================
    SMALL PHONES
 ========================================= */
 
 @media(max-width:400px){
 
-  .profile-photo-wrap{
-    height:290px;
+  .content{
+    padding:
+      18px
+      12px
+      calc(35px + env(safe-area-inset-bottom));
   }
 
-  .profile-name{
-    font-size:27px;
+  .profile-photo-wrap{
+    height:290px;
+
+    margin-bottom:22px;
+
+    border-radius:15px;
+  }
+
+  .section{
+    margin-bottom:27px;
   }
 
   .section-title{
@@ -1343,8 +1361,23 @@ body.menu-open{
 
   .about-card p{
     font-size:13px;
+
     line-height:1.65;
+
     margin-bottom:14px;
+  }
+
+  .profile-box{
+    padding:8px 15px;
+  }
+
+  .event,
+  .upcoming{
+    padding:16px 15px;
+  }
+
+  .fight{
+    font-size:12px;
   }
 
   .copyright{
@@ -1359,6 +1392,7 @@ body.menu-open{
 
   .copyright-text{
     font-size:5.8px;
+
     letter-spacing:.55px;
   }
 
@@ -1602,6 +1636,13 @@ VISIT OFFICIAL WEBSITE
 >
 
 </div>
+
+
+<!-- =========================================
+     PROFILE BACKGROUND
+========================================= -->
+
+<div class="profile-background">
 
 
 <!-- =========================================
@@ -2021,6 +2062,8 @@ TEAM WOLFPACK • STRENGTH IN UNITY
 </footer>
 
 </main>
+
+</div>
 
 
 <!-- =========================================
