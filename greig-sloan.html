@@ -32,7 +32,6 @@ window.addEventListener("load", function(){
 >
 
 <meta name="theme-color" content="#050505">
-
 <meta name="apple-mobile-web-app-title" content="Team Wolfpack">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -58,14 +57,10 @@ html{
 body{
   min-height:100vh;
   min-height:100dvh;
-
   padding-top:calc(66px + env(safe-area-inset-top));
-
   font-family:Arial, Helvetica, sans-serif;
-
   color:#fff;
   overflow-x:hidden;
-
   background:#050505;
 }
 
@@ -80,11 +75,9 @@ body.menu-open{
 
 .app-bar{
   position:fixed;
-
   top:0;
   left:0;
   right:0;
-
   z-index:500;
 
   height:calc(66px + env(safe-area-inset-top));
@@ -96,7 +89,6 @@ body.menu-open{
 
   display:grid;
   grid-template-columns:46px 1fr 46px;
-
   align-items:center;
 
   background:rgba(4,4,4,.94);
@@ -129,7 +121,6 @@ body.menu-open{
   color:#67dcff;
 
   cursor:pointer;
-
   font-size:24px;
 }
 
@@ -137,28 +128,23 @@ body.menu-open{
   display:flex;
   align-items:center;
   justify-content:center;
-
   gap:9px;
-
   min-width:0;
 }
 
 .app-bar-logo{
   width:34px;
   height:34px;
-
   object-fit:contain;
 }
 
 .app-bar-title{
   overflow:hidden;
-
   white-space:nowrap;
   text-overflow:ellipsis;
 
   font-size:11px;
   font-weight:900;
-
   letter-spacing:1.8px;
 
   background:
@@ -171,7 +157,6 @@ body.menu-open{
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-
   background-clip:text;
 }
 
@@ -237,7 +222,6 @@ body.menu-open{
   width:min(84vw,340px);
 
   transform:translateX(-105%);
-
   transition:transform .28s ease;
 
   overflow-y:auto;
@@ -287,16 +271,13 @@ body.menu-open{
 .menu-logo{
   width:72px;
   height:72px;
-
   object-fit:contain;
-
   margin-bottom:10px;
 }
 
 .menu-brand{
   font-size:18px;
   font-weight:900;
-
   letter-spacing:1px;
 
   background:
@@ -309,7 +290,6 @@ body.menu-open{
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-
   background-clip:text;
 }
 
@@ -320,7 +300,6 @@ body.menu-open{
 
   font-size:8px;
   font-weight:900;
-
   letter-spacing:2px;
 }
 
@@ -338,13 +317,11 @@ body.menu-open{
   border:
     1px solid rgba(255,117,28,.25);
 
-  background:
-    rgba(255,90,0,.07);
+  background:rgba(255,90,0,.07);
 
   color:#ff751c;
 
   cursor:pointer;
-
   font-size:21px;
 }
 
@@ -355,14 +332,12 @@ body.menu-open{
 
   font-size:7px;
   font-weight:900;
-
   letter-spacing:2px;
 }
 
 .menu-nav{
   display:flex;
   flex-direction:column;
-
   gap:4px;
 }
 
@@ -380,12 +355,10 @@ body.menu-open{
 
   color:#d7d7d7;
 
-  border:
-    1px solid transparent;
+  border:1px solid transparent;
 
   font-size:10px;
   font-weight:900;
-
   letter-spacing:.5px;
 }
 
@@ -423,21 +396,15 @@ body.menu-open{
 
 .menu-icon{
   width:34px;
-
   flex:0 0 34px;
-
   text-align:center;
-
   color:#67dcff;
-
   font-size:17px;
 }
 
 .menu-arrow{
   margin-left:auto;
-
   color:#666;
-
   font-size:16px;
 }
 
@@ -476,7 +443,6 @@ body.menu-open{
   padding:14px;
 
   text-align:center;
-
   text-decoration:none;
 
   border-radius:10px;
@@ -495,7 +461,6 @@ body.menu-open{
 
   font-size:8px;
   font-weight:900;
-
   letter-spacing:1px;
 }
 
@@ -506,7 +471,6 @@ body.menu-open{
 
 .profile-banner{
   width:100%;
-
   overflow:hidden;
 
   background:#050505;
@@ -520,10 +484,8 @@ body.menu-open{
 
 .profile-banner img{
   display:block;
-
   width:100%;
   height:auto;
-
   object-fit:cover;
 }
 
@@ -534,7 +496,6 @@ body.menu-open{
 
 .profile-background{
   position:relative;
-
   width:100%;
 
   background:
@@ -570,7 +531,6 @@ body.menu-open{
 
 .profile-background > *{
   position:relative;
-
   z-index:1;
 }
 
@@ -581,7 +541,6 @@ body.menu-open{
 
 .content{
   width:100%;
-
   max-width:680px;
 
   margin:auto;
@@ -682,7 +641,6 @@ body.menu-open{
 
   font-size:7px;
   font-weight:900;
-
   letter-spacing:2px;
 }
 
@@ -705,7 +663,6 @@ body.menu-open{
 
   font-size:7px;
   font-weight:900;
-
   letter-spacing:2px;
 
   text-shadow:
@@ -717,7 +674,6 @@ body.menu-open{
 
   font-size:20px;
   font-weight:900;
-
   letter-spacing:.5px;
 
   text-shadow:
@@ -802,7 +758,6 @@ body.menu-open{
 
 .profile-box{
   padding:9px 19px;
-
   border-radius:15px;
 }
 
@@ -826,7 +781,6 @@ body.menu-open{
 
   font-size:7px;
   font-weight:900;
-
   letter-spacing:1.7px;
 }
 
@@ -835,7 +789,6 @@ body.menu-open{
 
   font-size:13px;
   font-weight:bold;
-
   line-height:1.45;
 }
 
@@ -846,7 +799,6 @@ body.menu-open{
 
 .about-card{
   padding:22px 20px;
-
   border-radius:15px;
 }
 
@@ -854,21 +806,17 @@ body.menu-open{
   color:#e2e7ea;
 
   font-size:14px;
-
   line-height:1.7;
-
   letter-spacing:.1px;
 }
 
 .highlight{
   color:#67dcff;
-
   font-weight:bold;
 }
 
 .highlight-fire{
   color:#ff751c;
-
   font-weight:bold;
 }
 
@@ -891,7 +839,6 @@ body.menu-open{
 
   font-weight:bold;
   font-style:italic;
-
   line-height:1.6;
 }
 
@@ -902,10 +849,7 @@ body.menu-open{
 
 .stats{
   display:grid;
-
-  grid-template-columns:
-    repeat(3,1fr);
-
+  grid-template-columns:repeat(3,1fr);
   gap:10px;
 }
 
@@ -941,7 +885,6 @@ body.menu-open{
 
   font-size:11px;
   font-weight:900;
-
   letter-spacing:1px;
 }
 
@@ -977,9 +920,7 @@ body.menu-open{
 
   font-size:9px;
   font-weight:900;
-
   letter-spacing:.7px;
-
   line-height:1.4;
 }
 
@@ -1001,7 +942,6 @@ body.menu-open{
 
   font-size:13px;
   font-weight:900;
-
   line-height:1.4;
 }
 
@@ -1011,7 +951,6 @@ body.menu-open{
   color:#aaa;
 
   font-size:9px;
-
   line-height:1.5;
 }
 
@@ -1022,7 +961,9 @@ body.menu-open{
   top:16px;
 
   min-width:27px;
-  height:27px;
+  min-height:27px;
+
+  padding:0 6px;
 
   display:flex;
   align-items:center;
@@ -1049,7 +990,6 @@ body.menu-open{
 
 .upcoming-badge{
   display:inline-flex;
-
   align-items:center;
 
   gap:6px;
@@ -1072,7 +1012,6 @@ body.menu-open{
 
   font-size:7px;
   font-weight:900;
-
   letter-spacing:1px;
 }
 
@@ -1086,6 +1025,43 @@ body.menu-open{
 
   box-shadow:
     0 0 6px rgba(255,117,28,.65);
+}
+
+
+/* =========================================
+   DATABASE STATUS
+========================================= */
+
+.fight-database-status{
+  margin-bottom:12px;
+
+  padding:8px 10px;
+
+  text-align:center;
+
+  border-radius:8px;
+
+  border:
+    1px solid rgba(67,242,123,.18);
+
+  background:
+    rgba(0,80,35,.12);
+
+  color:#43f27b;
+
+  font-size:6px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.fight-database-status.error{
+  color:#ff755f;
+
+  border-color:
+    rgba(255,80,60,.24);
+
+  background:
+    rgba(100,15,10,.16);
 }
 
 
@@ -1104,7 +1080,6 @@ body.menu-open{
   padding:14px;
 
   text-align:center;
-
   text-decoration:none;
 
   color:#fff;
@@ -1116,7 +1091,6 @@ body.menu-open{
 
   font-size:9px;
   font-weight:900;
-
   letter-spacing:1px;
 
   background:
@@ -1157,7 +1131,6 @@ body.menu-open{
 
   font-size:7px;
   font-weight:900;
-
   letter-spacing:1.3px;
 }
 
@@ -1186,13 +1159,9 @@ body.menu-open{
   color:#f1fbff;
 
   font-size:8px;
-
   font-weight:900;
-
   letter-spacing:1.2px;
-
   line-height:1.5;
-
   text-align:center;
 
   text-shadow:
@@ -1202,7 +1171,6 @@ body.menu-open{
 
 .copyright span{
   flex:0 1 auto;
-
   white-space:nowrap;
 }
 
@@ -1287,11 +1255,8 @@ body.menu-open{
       url("greig-sloan-background.png");
 
     background-size:100% auto;
-
     background-position:center top;
-
     background-repeat:repeat-y;
-
     background-attachment:scroll;
   }
 
@@ -1324,9 +1289,7 @@ body.menu-open{
 
   .profile-photo-wrap{
     height:290px;
-
     margin-bottom:22px;
-
     border-radius:15px;
   }
 
@@ -1344,7 +1307,6 @@ body.menu-open{
 
   .about{
     font-size:13px;
-
     line-height:1.65;
   }
 
@@ -1367,9 +1329,7 @@ body.menu-open{
 
   .copyright{
     gap:7px;
-
     font-size:6px;
-
     letter-spacing:.45px;
   }
 
@@ -1661,7 +1621,9 @@ GREIG SLOAN
 </div>
 
 
-<!-- PROFILE INFORMATION -->
+<!-- =========================================
+     PROFILE INFORMATION
+========================================= -->
 
 <section class="section">
 
@@ -1701,7 +1663,9 @@ FIGHTER INFORMATION
 </section>
 
 
-<!-- ABOUT -->
+<!-- =========================================
+     ABOUT
+========================================= -->
 
 <section class="section">
 
@@ -1793,7 +1757,9 @@ to define your future.
 </section>
 
 
-<!-- BOXING STATISTICS -->
+<!-- =========================================
+     BOXING STATISTICS
+========================================= -->
 
 <section class="section">
 
@@ -1810,17 +1776,17 @@ FIGHT RECORD
 
 <div class="stat">
 <div class="stat-letter">WINS</div>
-<div class="stat-number">0</div>
+<div class="stat-number" id="winsCount">0</div>
 </div>
 
 <div class="stat">
 <div class="stat-letter">LOSSES</div>
-<div class="stat-number">1</div>
+<div class="stat-number" id="lossesCount">1</div>
 </div>
 
 <div class="stat">
 <div class="stat-letter">DRAWS</div>
-<div class="stat-number">2</div>
+<div class="stat-number" id="drawsCount">2</div>
 </div>
 
 </div>
@@ -1828,7 +1794,9 @@ FIGHT RECORD
 </section>
 
 
-<!-- PAST EVENTS -->
+<!-- =========================================
+     PAST EVENTS
+========================================= -->
 
 <section class="section">
 
@@ -1841,6 +1809,8 @@ FIGHT HISTORY
 <span class="fire">EVENTS</span>
 </h2>
 
+
+<!-- HISTORICAL FIGHT 1 -->
 
 <div class="event">
 
@@ -1867,6 +1837,8 @@ D
 </div>
 
 
+<!-- HISTORICAL FIGHT 2 -->
+
 <div class="event">
 
 <div class="event-name">
@@ -1892,6 +1864,8 @@ D
 </div>
 
 
+<!-- HISTORICAL FIGHT 3 -->
+
 <div class="event">
 
 <div class="event-name">
@@ -1916,10 +1890,17 @@ L
 
 </div>
 
+
+<!-- NEW COMPLETED FIREBASE FIGHTS -->
+
+<div id="firebasePastFights"></div>
+
 </section>
 
 
-<!-- UPCOMING FIGHTS -->
+<!-- =========================================
+     UPCOMING FIGHTS
+========================================= -->
 
 <section class="section">
 
@@ -1933,53 +1914,22 @@ WHAT'S NEXT
 </h2>
 
 
-<div class="upcoming">
-
-<div class="upcoming-badge">
-<span class="upcoming-dot"></span>
-UPCOMING
+<div
+  id="fightDatabaseStatus"
+  class="fight-database-status"
+>
+● CONNECTING TO FIGHT DATABASE...
 </div>
 
-<div class="event-name">
-UNFINISHED BUSINESS
-</div>
 
-<div class="event-date">
-19 SEPTEMBER 2026
-</div>
-
-<div class="fight">
-GREIG SLOAN vs TBA
-</div>
-
-<div class="venue">
-HAMPDEN PARK
-</div>
-
-</div>
-
+<div id="firebaseUpcomingFights">
 
 <div class="upcoming">
 
-<div class="upcoming-badge">
-<span class="upcoming-dot"></span>
-UPCOMING
-</div>
-
 <div class="event-name">
-TITLE ELIMINATOR
+LOADING UPCOMING FIGHTS...
 </div>
 
-<div class="event-date">
-NOVEMBER 2026
-</div>
-
-<div class="fight">
-GREIG SLOAN vs TBA
-</div>
-
-<div class="venue">
-VENUE TBA • TITLE ELIMINATOR
 </div>
 
 </div>
@@ -2115,7 +2065,7 @@ document
 
 
 <!-- =========================================
-     ADMIN DASHBOARD VISIBILITY
+     FIREBASE
 ========================================= -->
 
 <script type="module">
@@ -2129,16 +2079,39 @@ import {
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
+import {
+  getDatabase,
+  ref,
+  onValue
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
-  authDomain: "team-wolfpack-app.firebaseapp.com",
-  databaseURL: "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "team-wolfpack-app",
-  storageBucket: "team-wolfpack-app.firebasestorage.app",
-  messagingSenderId: "1070414578856",
-  appId: "1:1070414578856:web:df14e7d387e658eeae2e9d",
-  measurementId: "G-6JTCE2N9LZ"
+
+  apiKey:
+    "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+
+  authDomain:
+    "team-wolfpack-app.firebaseapp.com",
+
+  databaseURL:
+    "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+
+  projectId:
+    "team-wolfpack-app",
+
+  storageBucket:
+    "team-wolfpack-app.firebasestorage.app",
+
+  messagingSenderId:
+    "1070414578856",
+
+  appId:
+    "1:1070414578856:web:df14e7d387e658eeae2e9d",
+
+  measurementId:
+    "G-6JTCE2N9LZ"
+
 };
 
 
@@ -2147,6 +2120,9 @@ const firebaseApp =
 
 const auth =
   getAuth(firebaseApp);
+
+const database =
+  getDatabase(firebaseApp);
 
 
 const ADMIN_UIDS =
@@ -2161,6 +2137,40 @@ const adminMenuSection =
     "adminMenuSection"
   );
 
+const upcomingContainer =
+  document.getElementById(
+    "firebaseUpcomingFights"
+  );
+
+const pastContainer =
+  document.getElementById(
+    "firebasePastFights"
+  );
+
+const fightDatabaseStatus =
+  document.getElementById(
+    "fightDatabaseStatus"
+  );
+
+const winsCount =
+  document.getElementById(
+    "winsCount"
+  );
+
+const lossesCount =
+  document.getElementById(
+    "lossesCount"
+  );
+
+const drawsCount =
+  document.getElementById(
+    "drawsCount"
+  );
+
+
+/* =========================================
+   ADMIN VISIBILITY
+========================================= */
 
 onAuthStateChanged(
   auth,
@@ -2184,6 +2194,538 @@ onAuthStateChanged(
   }
 );
 
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* =========================================
+   DISPLAY DATE
+========================================= */
+
+function displayDate(fight){
+
+  if(fight.displayDate){
+
+    return escapeHTML(
+      fight.displayDate
+    );
+
+  }
+
+
+  if(!fight.fightDate){
+    return "";
+  }
+
+
+  const parts =
+    String(
+      fight.fightDate
+    ).split("-");
+
+
+  if(parts.length !== 3){
+
+    return escapeHTML(
+      fight.fightDate
+    );
+
+  }
+
+
+  const date =
+    new Date(
+      Number(parts[0]),
+      Number(parts[1]) - 1,
+      Number(parts[2])
+    );
+
+
+  if(
+    Number.isNaN(
+      date.getTime()
+    )
+  ){
+
+    return escapeHTML(
+      fight.fightDate
+    );
+
+  }
+
+
+  return date
+    .toLocaleDateString(
+      "en-GB",
+      {
+        day:"numeric",
+        month:"long",
+        year:"numeric"
+      }
+    )
+    .toUpperCase();
+
+}
+
+
+/* =========================================
+   EVENT HEADING
+========================================= */
+
+function eventHeading(fight){
+
+  const promotion =
+    String(
+      fight.promotion || ""
+    ).trim();
+
+  const eventName =
+    String(
+      fight.eventName || ""
+    ).trim();
+
+
+  if(
+    promotion &&
+    eventName &&
+    promotion.toUpperCase() !==
+    eventName.toUpperCase()
+  ){
+
+    return escapeHTML(
+      promotion +
+      " • " +
+      eventName
+    );
+
+  }
+
+
+  return escapeHTML(
+    eventName ||
+    promotion ||
+    "FIGHT NIGHT"
+  );
+
+}
+
+
+/* =========================================
+   VENUE DETAILS
+========================================= */
+
+function venueDetails(fight){
+
+  const parts = [];
+
+
+  if(fight.venue){
+
+    parts.push(
+      fight.venue
+    );
+
+  }
+
+
+  if(fight.fightType){
+
+    parts.push(
+      fight.fightType
+    );
+
+  }
+
+
+  return escapeHTML(
+    parts.join(" • ")
+  );
+
+}
+
+
+/* =========================================
+   UPCOMING CARD
+========================================= */
+
+function renderUpcoming(fight){
+
+  return `
+    <div class="upcoming">
+
+      <div class="upcoming-badge">
+        <span class="upcoming-dot"></span>
+        UPCOMING
+      </div>
+
+      <div class="event-name">
+        ${eventHeading(fight)}
+      </div>
+
+      <div class="event-date">
+        ${displayDate(fight)}
+      </div>
+
+      <div class="fight">
+        GREIG SLOAN vs
+        ${escapeHTML(
+          fight.opponent || "TBA"
+        )}
+      </div>
+
+      <div class="venue">
+        ${venueDetails(fight)}
+      </div>
+
+    </div>
+  `;
+
+}
+
+
+/* =========================================
+   COMPLETED CARD
+========================================= */
+
+function renderCompleted(fight){
+
+  const result =
+    String(
+      fight.result || ""
+    )
+    .trim()
+    .toUpperCase();
+
+
+  let resultLetter = "--";
+
+
+  if(result === "WIN"){
+    resultLetter = "W";
+  }
+
+  if(result === "LOSS"){
+    resultLetter = "L";
+  }
+
+  if(result === "DRAW"){
+    resultLetter = "D";
+  }
+
+  if(result === "NC"){
+    resultLetter = "NC";
+  }
+
+
+  const method =
+    String(
+      fight.method || ""
+    ).trim();
+
+
+  return `
+    <div class="event">
+
+      <div class="event-name">
+        ${eventHeading(fight)}
+      </div>
+
+      <div class="event-date">
+        ${displayDate(fight)}
+      </div>
+
+      <div class="fight">
+        GREIG SLOAN vs
+        ${escapeHTML(
+          fight.opponent || "TBA"
+        )}
+      </div>
+
+      <div class="venue">
+
+        ${venueDetails(fight)}
+
+        ${
+          method
+            ? `
+                <br>
+                ${escapeHTML(method)}
+              `
+            : ""
+        }
+
+      </div>
+
+      <div class="result">
+        ${resultLetter}
+      </div>
+
+    </div>
+  `;
+
+}
+
+
+/* =========================================
+   LIVE FIGHT DATABASE
+========================================= */
+
+onValue(
+  ref(
+    database,
+    "fights"
+  ),
+
+  function(snapshot){
+
+    const upcoming = [];
+    const completed = [];
+
+
+    snapshot.forEach(
+      function(childSnapshot){
+
+        const fight =
+          childSnapshot.val();
+
+
+        if(
+          !fight ||
+          fight.fighterId !==
+          "greig-sloan"
+        ){
+
+          return;
+
+        }
+
+
+        if(
+          fight.status ===
+          "upcoming"
+        ){
+
+          upcoming.push({
+            id:
+              childSnapshot.key,
+
+            ...fight
+          });
+
+        }
+
+
+        if(
+          fight.status ===
+          "completed" &&
+          fight.result
+        ){
+
+          completed.push({
+            id:
+              childSnapshot.key,
+
+            ...fight
+          });
+
+        }
+
+      }
+    );
+
+
+    /* =====================================
+       SORT UPCOMING
+    ===================================== */
+
+    upcoming.sort(
+      function(a,b){
+
+        return (
+          Number(
+            a.dateTimestamp || 0
+          ) -
+          Number(
+            b.dateTimestamp || 0
+          )
+        );
+
+      }
+    );
+
+
+    /* =====================================
+       SORT COMPLETED
+    ===================================== */
+
+    completed.sort(
+      function(a,b){
+
+        return (
+          Number(
+            a.dateTimestamp || 0
+          ) -
+          Number(
+            b.dateTimestamp || 0
+          )
+        );
+
+      }
+    );
+
+
+    /* =====================================
+       DATABASE STATUS
+    ===================================== */
+
+    fightDatabaseStatus.className =
+      "fight-database-status";
+
+    fightDatabaseStatus.textContent =
+      "● LIVE • FIGHT DATABASE CONNECTED";
+
+
+    /* =====================================
+       UPCOMING
+    ===================================== */
+
+    if(upcoming.length){
+
+      upcomingContainer.innerHTML =
+        upcoming
+          .map(
+            renderUpcoming
+          )
+          .join("");
+
+    }else{
+
+      upcomingContainer.innerHTML =
+        `
+          <div class="upcoming">
+
+            <div class="event-name">
+              NO UPCOMING FIGHTS CURRENTLY SCHEDULED
+            </div>
+
+          </div>
+        `;
+
+    }
+
+
+    /* =====================================
+       COMPLETED
+    ===================================== */
+
+    pastContainer.innerHTML =
+      completed
+        .map(
+          renderCompleted
+        )
+        .join("");
+
+
+    /* =====================================
+       BOXING RECORD
+
+       EXISTING HISTORICAL RECORD:
+       0 WINS
+       1 LOSS
+       2 DRAWS
+
+       NEW FIREBASE COMPLETED RESULTS
+       ARE ADDED TO THIS RECORD.
+    ===================================== */
+
+    let wins = 0;
+    let losses = 1;
+    let draws = 2;
+
+
+    completed.forEach(
+      function(fight){
+
+        const result =
+          String(
+            fight.result || ""
+          )
+          .trim()
+          .toUpperCase();
+
+
+        if(result === "WIN"){
+          wins++;
+        }
+
+
+        if(result === "LOSS"){
+          losses++;
+        }
+
+
+        if(result === "DRAW"){
+          draws++;
+        }
+
+      }
+    );
+
+
+    winsCount.textContent =
+      String(wins);
+
+    lossesCount.textContent =
+      String(losses);
+
+    drawsCount.textContent =
+      String(draws);
+
+  },
+
+
+  function(error){
+
+    console.error(
+      "Fight database error:",
+      error
+    );
+
+
+    fightDatabaseStatus.className =
+      "fight-database-status error";
+
+    fightDatabaseStatus.textContent =
+      "FIGHT DATABASE COULD NOT BE LOADED";
+
+
+    upcomingContainer.innerHTML =
+      `
+        <div class="upcoming">
+
+          <div class="event-name">
+            UPCOMING FIGHTS COULD NOT BE LOADED
+          </div>
+
+        </div>
+      `;
+
+  }
+);
+
 </script>
 
 
@@ -2203,6 +2745,16 @@ if("serviceWorker" in navigator){
         .serviceWorker
         .register(
           "service-worker.js"
+        )
+        .catch(
+          function(error){
+
+            console.error(
+              "Service worker error:",
+              error
+            );
+
+          }
         );
 
     }
