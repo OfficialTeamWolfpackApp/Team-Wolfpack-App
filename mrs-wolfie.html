@@ -57,14 +57,10 @@ html{
 body{
   min-height:100vh;
   min-height:100dvh;
-
   padding-top:calc(66px + env(safe-area-inset-top));
-
   font-family:Arial, Helvetica, sans-serif;
-
   color:#fff;
   overflow-x:hidden;
-
   background:#050505;
 }
 
@@ -79,11 +75,9 @@ body.menu-open{
 
 .app-bar{
   position:fixed;
-
   top:0;
   left:0;
   right:0;
-
   z-index:500;
 
   height:calc(66px + env(safe-area-inset-top));
@@ -95,7 +89,6 @@ body.menu-open{
 
   display:grid;
   grid-template-columns:46px 1fr 46px;
-
   align-items:center;
 
   background:rgba(4,4,4,.94);
@@ -128,7 +121,6 @@ body.menu-open{
   color:#67dcff;
 
   cursor:pointer;
-
   font-size:24px;
 }
 
@@ -138,26 +130,22 @@ body.menu-open{
   justify-content:center;
 
   gap:9px;
-
   min-width:0;
 }
 
 .app-bar-logo{
   width:34px;
   height:34px;
-
   object-fit:contain;
 }
 
 .app-bar-title{
   overflow:hidden;
-
   white-space:nowrap;
   text-overflow:ellipsis;
 
   font-size:11px;
   font-weight:900;
-
   letter-spacing:1.8px;
 
   background:
@@ -235,7 +223,6 @@ body.menu-open{
   width:min(84vw,340px);
 
   transform:translateX(-105%);
-
   transition:transform .28s ease;
 
   overflow-y:auto;
@@ -317,7 +304,6 @@ body.menu-open{
 
   font-size:8px;
   font-weight:900;
-
   letter-spacing:2px;
 }
 
@@ -340,7 +326,6 @@ body.menu-open{
   color:#ff751c;
 
   cursor:pointer;
-
   font-size:21px;
 }
 
@@ -351,14 +336,12 @@ body.menu-open{
 
   font-size:7px;
   font-weight:900;
-
   letter-spacing:2px;
 }
 
 .menu-nav{
   display:flex;
   flex-direction:column;
-
   gap:4px;
 }
 
@@ -380,7 +363,6 @@ body.menu-open{
 
   font-size:10px;
   font-weight:900;
-
   letter-spacing:.5px;
 }
 
@@ -391,7 +373,8 @@ body.menu-open{
 .menu-link.active{
   color:#67dcff;
 
-  border-color:rgba(103,220,255,.22);
+  border-color:
+    rgba(103,220,255,.22);
 
   background:
     linear-gradient(
@@ -404,7 +387,8 @@ body.menu-open{
 .menu-link.chat{
   color:#fff;
 
-  border-color:rgba(103,220,255,.15);
+  border-color:
+    rgba(103,220,255,.15);
 
   background:
     linear-gradient(
@@ -416,7 +400,6 @@ body.menu-open{
 
 .menu-icon{
   width:34px;
-
   flex:0 0 34px;
 
   text-align:center;
@@ -446,7 +429,8 @@ body.menu-open{
 .admin-menu-link{
   color:#ffb05d;
 
-  border-color:rgba(255,117,28,.22);
+  border-color:
+    rgba(255,117,28,.22);
 
   background:
     linear-gradient(
@@ -486,7 +470,6 @@ body.menu-open{
 
   font-size:8px;
   font-weight:900;
-
   letter-spacing:1px;
 }
 
@@ -672,7 +655,6 @@ body.menu-open{
 
   font-size:7px;
   font-weight:900;
-
   letter-spacing:2px;
 }
 
@@ -816,7 +798,6 @@ body.menu-open{
 
   font-size:7px;
   font-weight:900;
-
   letter-spacing:1.7px;
 }
 
@@ -901,7 +882,6 @@ body.menu-open{
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-
   background-clip:text;
 }
 
@@ -989,7 +969,6 @@ body.menu-open{
   font-weight:900;
 
   letter-spacing:.7px;
-
   line-height:1.4;
 }
 
@@ -1021,7 +1000,6 @@ body.menu-open{
   color:#aaa;
 
   font-size:9px;
-
   line-height:1.5;
 }
 
@@ -1032,7 +1010,9 @@ body.menu-open{
   top:16px;
 
   min-width:27px;
-  height:27px;
+  min-height:27px;
+
+  padding:0 6px;
 
   display:flex;
   align-items:center;
@@ -1094,6 +1074,44 @@ body.menu-open{
 
   box-shadow:
     0 0 6px rgba(255,117,28,.65);
+}
+
+
+/* =========================================
+   DATABASE STATUS
+========================================= */
+
+.fight-database-status{
+  margin-bottom:12px;
+
+  padding:8px 10px;
+
+  text-align:center;
+
+  border-radius:8px;
+
+  border:
+    1px solid rgba(67,242,123,.18);
+
+  background:
+    rgba(0,80,35,.12);
+
+  color:#43f27b;
+
+  font-size:6px;
+  font-weight:900;
+
+  letter-spacing:1px;
+}
+
+.fight-database-status.error{
+  color:#ff755f;
+
+  border-color:
+    rgba(255,80,60,.24);
+
+  background:
+    rgba(100,15,10,.16);
 }
 
 
@@ -1267,7 +1285,6 @@ body.menu-open{
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-
   background-clip:text;
 }
 
@@ -1304,11 +1321,8 @@ body.menu-open{
       url("mrs-wolfie-background.png");
 
     background-size:100% auto;
-
     background-position:center top;
-
     background-repeat:repeat-y;
-
     background-attachment:scroll;
   }
 
@@ -1361,9 +1375,7 @@ body.menu-open{
 
   .about-card p{
     font-size:13px;
-
     line-height:1.65;
-
     margin-bottom:14px;
   }
 
@@ -1392,7 +1404,6 @@ body.menu-open{
 
   .copyright-text{
     font-size:5.8px;
-
     letter-spacing:.55px;
   }
 
@@ -1415,7 +1426,6 @@ body.menu-open{
 </style>
 
 </head>
-
 
 <body>
 
@@ -1675,7 +1685,9 @@ ZOEY “MRS WOLFIE” JAMES
 </div>
 
 
-<!-- PROFILE INFORMATION -->
+<!-- =========================================
+     PROFILE INFORMATION
+========================================= -->
 
 <section class="section">
 
@@ -1715,7 +1727,9 @@ FIGHTER INFORMATION
 </section>
 
 
-<!-- ABOUT -->
+<!-- =========================================
+     ABOUT
+========================================= -->
 
 <section class="section">
 
@@ -1806,7 +1820,9 @@ ONE PACK • ONE PURPOSE
 </section>
 
 
-<!-- BOXING STATISTICS -->
+<!-- =========================================
+     BOXING STATISTICS
+========================================= -->
 
 <section class="section">
 
@@ -1823,17 +1839,17 @@ FIGHT RECORD
 
 <div class="stat">
 <div class="stat-letter">WINS</div>
-<div class="stat-number">1</div>
+<div class="stat-number" id="winsCount">1</div>
 </div>
 
 <div class="stat">
 <div class="stat-letter">LOSSES</div>
-<div class="stat-number">2</div>
+<div class="stat-number" id="lossesCount">2</div>
 </div>
 
 <div class="stat">
 <div class="stat-letter">DRAWS</div>
-<div class="stat-number">0</div>
+<div class="stat-number" id="drawsCount">0</div>
 </div>
 
 </div>
@@ -1841,7 +1857,9 @@ FIGHT RECORD
 </section>
 
 
-<!-- PAST EVENTS -->
+<!-- =========================================
+     PAST EVENTS
+========================================= -->
 
 <section class="section">
 
@@ -1854,6 +1872,8 @@ FIGHT HISTORY
 <span class="fire">EVENTS</span>
 </h2>
 
+
+<!-- EXISTING HISTORICAL RESULT -->
 
 <div class="event">
 
@@ -1880,6 +1900,8 @@ L
 </div>
 
 
+<!-- EXISTING HISTORICAL RESULT -->
+
 <div class="event">
 
 <div class="event-name">
@@ -1904,6 +1926,8 @@ L
 
 </div>
 
+
+<!-- EXISTING HISTORICAL RESULT -->
 
 <div class="event">
 
@@ -1930,6 +1954,8 @@ W
 </div>
 
 
+<!-- EXISTING HISTORICAL EVENT - NO W/L/D RESULT -->
+
 <div class="event">
 
 <div class="event-name">
@@ -1954,10 +1980,17 @@ THE VENUE
 
 </div>
 
+
+<!-- NEW FIREBASE COMPLETED FIGHTS APPEAR HERE -->
+
+<div id="firebasePastFights"></div>
+
 </section>
 
 
-<!-- UPCOMING FIGHTS -->
+<!-- =========================================
+     UPCOMING FIGHTS - FIREBASE
+========================================= -->
 
 <section class="section">
 
@@ -1971,53 +2004,22 @@ WHAT'S NEXT
 </h2>
 
 
-<div class="upcoming">
-
-<div class="upcoming-badge">
-<span class="upcoming-dot"></span>
-UPCOMING
+<div
+  id="fightDatabaseStatus"
+  class="fight-database-status"
+>
+● CONNECTING TO FIGHT DATABASE...
 </div>
 
-<div class="event-name">
-AYRSHIRE BOXING • THE LAUNCH
-</div>
 
-<div class="event-date">
-17 OCTOBER 2026
-</div>
-
-<div class="fight">
-MRS WOLFIE vs COLLEEN LEYDEN
-</div>
-
-<div class="venue">
-AYR RACECOURSE • FIGHT TYPE: DEBUT
-</div>
-
-</div>
-
+<div id="firebaseUpcomingFights">
 
 <div class="upcoming">
 
-<div class="upcoming-badge">
-<span class="upcoming-dot"></span>
-UPCOMING
-</div>
-
 <div class="event-name">
-EASTHOUSES BOXING CLUB
+LOADING UPCOMING FIGHTS...
 </div>
 
-<div class="event-date">
-20/21 NOVEMBER 2026
-</div>
-
-<div class="fight">
-MRS WOLFIE vs TBA
-</div>
-
-<div class="venue">
-EASTHOUSES MINERS CLUB • SUPER MIDDLEWEIGHT TITLE
 </div>
 
 </div>
@@ -2143,6 +2145,7 @@ document.addEventListener(
   }
 );
 
+
 document
   .querySelectorAll(".menu-link")
   .forEach(function(link){
@@ -2158,7 +2161,7 @@ document
 
 
 <!-- =========================================
-     ADMIN DASHBOARD VISIBILITY
+     FIREBASE
 ========================================= -->
 
 <script type="module">
@@ -2172,16 +2175,39 @@ import {
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
+import {
+  getDatabase,
+  ref,
+  onValue
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
-  authDomain: "team-wolfpack-app.firebaseapp.com",
-  databaseURL: "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "team-wolfpack-app",
-  storageBucket: "team-wolfpack-app.firebasestorage.app",
-  messagingSenderId: "1070414578856",
-  appId: "1:1070414578856:web:df14e7d387e658eeae2e9d",
-  measurementId: "G-6JTCE2N9LZ"
+
+  apiKey:
+    "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+
+  authDomain:
+    "team-wolfpack-app.firebaseapp.com",
+
+  databaseURL:
+    "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+
+  projectId:
+    "team-wolfpack-app",
+
+  storageBucket:
+    "team-wolfpack-app.firebasestorage.app",
+
+  messagingSenderId:
+    "1070414578856",
+
+  appId:
+    "1:1070414578856:web:df14e7d387e658eeae2e9d",
+
+  measurementId:
+    "G-6JTCE2N9LZ"
+
 };
 
 
@@ -2190,6 +2216,9 @@ const firebaseApp =
 
 const auth =
   getAuth(firebaseApp);
+
+const database =
+  getDatabase(firebaseApp);
 
 
 const ADMIN_UIDS =
@@ -2204,6 +2233,40 @@ const adminMenuSection =
     "adminMenuSection"
   );
 
+const upcomingContainer =
+  document.getElementById(
+    "firebaseUpcomingFights"
+  );
+
+const pastContainer =
+  document.getElementById(
+    "firebasePastFights"
+  );
+
+const fightDatabaseStatus =
+  document.getElementById(
+    "fightDatabaseStatus"
+  );
+
+const winsCount =
+  document.getElementById(
+    "winsCount"
+  );
+
+const lossesCount =
+  document.getElementById(
+    "lossesCount"
+  );
+
+const drawsCount =
+  document.getElementById(
+    "drawsCount"
+  );
+
+
+/* =========================================
+   ADMIN VISIBILITY
+========================================= */
 
 onAuthStateChanged(
   auth,
@@ -2227,6 +2290,539 @@ onAuthStateChanged(
   }
 );
 
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* =========================================
+   DISPLAY DATE
+========================================= */
+
+function displayDate(fight){
+
+  if(fight.displayDate){
+
+    return escapeHTML(
+      fight.displayDate
+    );
+
+  }
+
+
+  if(!fight.fightDate){
+    return "";
+  }
+
+
+  const parts =
+    String(
+      fight.fightDate
+    ).split("-");
+
+
+  if(parts.length !== 3){
+
+    return escapeHTML(
+      fight.fightDate
+    );
+
+  }
+
+
+  const date =
+    new Date(
+      Number(parts[0]),
+      Number(parts[1]) - 1,
+      Number(parts[2])
+    );
+
+
+  if(
+    Number.isNaN(
+      date.getTime()
+    )
+  ){
+
+    return escapeHTML(
+      fight.fightDate
+    );
+
+  }
+
+
+  return date
+    .toLocaleDateString(
+      "en-GB",
+      {
+        day:"numeric",
+        month:"long",
+        year:"numeric"
+      }
+    )
+    .toUpperCase();
+
+}
+
+
+/* =========================================
+   EVENT HEADING
+========================================= */
+
+function eventHeading(fight){
+
+  const promotion =
+    String(
+      fight.promotion || ""
+    ).trim();
+
+  const eventName =
+    String(
+      fight.eventName || ""
+    ).trim();
+
+
+  if(
+    promotion &&
+    eventName &&
+    promotion.toUpperCase() !==
+    eventName.toUpperCase()
+  ){
+
+    return escapeHTML(
+      promotion +
+      " • " +
+      eventName
+    );
+
+  }
+
+
+  return escapeHTML(
+    eventName ||
+    promotion ||
+    "FIGHT NIGHT"
+  );
+
+}
+
+
+/* =========================================
+   VENUE DETAILS
+========================================= */
+
+function venueDetails(fight){
+
+  const parts = [];
+
+
+  if(fight.venue){
+
+    parts.push(
+      fight.venue
+    );
+
+  }
+
+
+  if(fight.fightType){
+
+    parts.push(
+      fight.fightType
+    );
+
+  }
+
+
+  return escapeHTML(
+    parts.join(" • ")
+  );
+
+}
+
+
+/* =========================================
+   UPCOMING FIGHT CARD
+========================================= */
+
+function renderUpcoming(fight){
+
+  return `
+    <div class="upcoming">
+
+      <div class="upcoming-badge">
+        <span class="upcoming-dot"></span>
+        UPCOMING
+      </div>
+
+      <div class="event-name">
+        ${eventHeading(fight)}
+      </div>
+
+      <div class="event-date">
+        ${displayDate(fight)}
+      </div>
+
+      <div class="fight">
+        MRS WOLFIE vs
+        ${escapeHTML(
+          fight.opponent || "TBA"
+        )}
+      </div>
+
+      <div class="venue">
+        ${venueDetails(fight)}
+      </div>
+
+    </div>
+  `;
+
+}
+
+
+/* =========================================
+   COMPLETED FIGHT CARD
+========================================= */
+
+function renderCompleted(fight){
+
+  const result =
+    String(
+      fight.result || ""
+    )
+    .trim()
+    .toUpperCase();
+
+
+  let resultLetter =
+    "--";
+
+
+  if(result === "WIN"){
+    resultLetter = "W";
+  }
+
+  if(result === "LOSS"){
+    resultLetter = "L";
+  }
+
+  if(result === "DRAW"){
+    resultLetter = "D";
+  }
+
+  if(result === "NC"){
+    resultLetter = "NC";
+  }
+
+
+  const method =
+    String(
+      fight.method || ""
+    ).trim();
+
+
+  return `
+    <div class="event">
+
+      <div class="event-name">
+        ${eventHeading(fight)}
+      </div>
+
+      <div class="event-date">
+        ${displayDate(fight)}
+      </div>
+
+      <div class="fight">
+        MRS WOLFIE vs
+        ${escapeHTML(
+          fight.opponent || "TBA"
+        )}
+      </div>
+
+      <div class="venue">
+
+        ${venueDetails(fight)}
+
+        ${
+          method
+            ? `
+                <br>
+                ${escapeHTML(method)}
+              `
+            : ""
+        }
+
+      </div>
+
+      <div class="result">
+        ${resultLetter}
+      </div>
+
+    </div>
+  `;
+
+}
+
+
+/* =========================================
+   LIVE FIGHT DATABASE
+========================================= */
+
+onValue(
+  ref(
+    database,
+    "fights"
+  ),
+
+  function(snapshot){
+
+    const upcoming = [];
+    const completed = [];
+
+
+    snapshot.forEach(
+      function(childSnapshot){
+
+        const fight =
+          childSnapshot.val();
+
+
+        if(
+          !fight ||
+          fight.fighterId !==
+          "mrs-wolfie"
+        ){
+
+          return;
+
+        }
+
+
+        if(
+          fight.status ===
+          "upcoming"
+        ){
+
+          upcoming.push({
+            id:
+              childSnapshot.key,
+
+            ...fight
+          });
+
+        }
+
+
+        if(
+          fight.status ===
+          "completed" &&
+          fight.result
+        ){
+
+          completed.push({
+            id:
+              childSnapshot.key,
+
+            ...fight
+          });
+
+        }
+
+      }
+    );
+
+
+    /* =====================================
+       SORT UPCOMING
+    ===================================== */
+
+    upcoming.sort(
+      function(a,b){
+
+        return (
+          Number(
+            a.dateTimestamp || 0
+          ) -
+          Number(
+            b.dateTimestamp || 0
+          )
+        );
+
+      }
+    );
+
+
+    /* =====================================
+       SORT COMPLETED
+    ===================================== */
+
+    completed.sort(
+      function(a,b){
+
+        return (
+          Number(
+            a.dateTimestamp || 0
+          ) -
+          Number(
+            b.dateTimestamp || 0
+          )
+        );
+
+      }
+    );
+
+
+    /* =====================================
+       DATABASE STATUS
+    ===================================== */
+
+    fightDatabaseStatus.className =
+      "fight-database-status";
+
+    fightDatabaseStatus.textContent =
+      "● LIVE • FIGHT DATABASE CONNECTED";
+
+
+    /* =====================================
+       UPCOMING FIGHTS
+    ===================================== */
+
+    if(upcoming.length){
+
+      upcomingContainer.innerHTML =
+        upcoming
+          .map(
+            renderUpcoming
+          )
+          .join("");
+
+    }else{
+
+      upcomingContainer.innerHTML =
+        `
+          <div class="upcoming">
+
+            <div class="event-name">
+              NO UPCOMING FIGHTS CURRENTLY SCHEDULED
+            </div>
+
+          </div>
+        `;
+
+    }
+
+
+    /* =====================================
+       COMPLETED FIGHTS
+    ===================================== */
+
+    pastContainer.innerHTML =
+      completed
+        .map(
+          renderCompleted
+        )
+        .join("");
+
+
+    /* =====================================
+       BOXING RECORD
+
+       EXISTING HISTORICAL RECORD:
+       1 WIN
+       2 LOSSES
+       0 DRAWS
+
+       NEW FIREBASE RESULTS ARE ADDED
+       TO THIS EXISTING RECORD.
+    ===================================== */
+
+    let wins = 1;
+    let losses = 2;
+    let draws = 0;
+
+
+    completed.forEach(
+      function(fight){
+
+        const result =
+          String(
+            fight.result || ""
+          )
+          .trim()
+          .toUpperCase();
+
+
+        if(result === "WIN"){
+          wins++;
+        }
+
+
+        if(result === "LOSS"){
+          losses++;
+        }
+
+
+        if(result === "DRAW"){
+          draws++;
+        }
+
+      }
+    );
+
+
+    winsCount.textContent =
+      String(wins);
+
+    lossesCount.textContent =
+      String(losses);
+
+    drawsCount.textContent =
+      String(draws);
+
+  },
+
+
+  function(error){
+
+    console.error(
+      "Fight database error:",
+      error
+    );
+
+
+    fightDatabaseStatus.className =
+      "fight-database-status error";
+
+    fightDatabaseStatus.textContent =
+      "FIGHT DATABASE COULD NOT BE LOADED";
+
+
+    upcomingContainer.innerHTML =
+      `
+        <div class="upcoming">
+
+          <div class="event-name">
+            UPCOMING FIGHTS COULD NOT BE LOADED
+          </div>
+
+        </div>
+      `;
+
+  }
+);
+
 </script>
 
 
@@ -2246,6 +2842,16 @@ if("serviceWorker" in navigator){
         .serviceWorker
         .register(
           "service-worker.js"
+        )
+        .catch(
+          function(error){
+
+            console.error(
+              "Service worker error:",
+              error
+            );
+
+          }
         );
 
     }
