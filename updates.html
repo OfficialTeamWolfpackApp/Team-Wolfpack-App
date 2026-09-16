@@ -1,0 +1,1930 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<!-- Google Analytics - Team Wolfpack App -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M973P0B4F0"></script>
+
+<script>
+window.dataLayer = window.dataLayer || [];
+
+function gtag(){
+  dataLayer.push(arguments);
+}
+
+gtag("js", new Date());
+gtag("config", "G-M973P0B4F0");
+
+window.addEventListener("load", function(){
+  gtag("event", "updates_page_view", {
+    section: "Live Updates"
+  });
+});
+</script>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
+
+<meta name="theme-color" content="#050505">
+
+<meta name="apple-mobile-web-app-title" content="TEAM WOLFPACK">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<title>Live Updates | Team Wolfpack</title>
+
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+
+<style>
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  background:#050505;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Arial, Helvetica, sans-serif;
+  color:#ffffff;
+
+  background:
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(0,191,255,.13),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 85% 15%,
+      rgba(255,90,0,.12),
+      transparent 30%
+    ),
+    linear-gradient(
+      180deg,
+      #050505 0%,
+      #080b0f 55%,
+      #050505 100%
+    );
+}
+
+
+/* =========================================
+   APP BAR
+========================================= */
+
+.app-bar{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+
+  height:calc(
+    66px + env(safe-area-inset-top)
+  );
+
+  padding-top:
+    env(safe-area-inset-top);
+
+  display:flex;
+  align-items:center;
+
+  background:
+    rgba(5,5,5,.96);
+
+  border-bottom:
+    1px solid rgba(255,255,255,.08);
+
+  z-index:1000;
+}
+
+.menu-button{
+  width:58px;
+  height:58px;
+
+  border:0;
+  background:transparent;
+
+  color:#67dcff;
+
+  font-size:28px;
+  cursor:pointer;
+}
+
+.app-bar-brand{
+  flex:1;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  gap:10px;
+}
+
+.app-bar-logo{
+  width:36px;
+  height:36px;
+
+  border-radius:9px;
+
+  object-fit:cover;
+}
+
+.app-bar-title{
+  font-size:15px;
+  font-weight:900;
+
+  letter-spacing:1.5px;
+}
+
+.app-status{
+  width:58px;
+
+  display:flex;
+  justify-content:center;
+}
+
+.app-status-dot{
+  width:9px;
+  height:9px;
+
+  border-radius:50%;
+
+  background:#67dcff;
+
+  box-shadow:
+    0 0 10px #67dcff;
+}
+
+
+/* =========================================
+   SIDE MENU
+========================================= */
+
+.menu-backdrop{
+  position:fixed;
+  inset:0;
+
+  background:rgba(0,0,0,.72);
+
+  opacity:0;
+  visibility:hidden;
+
+  transition:.25s;
+
+  z-index:1998;
+}
+
+.menu-backdrop.show{
+  opacity:1;
+  visibility:visible;
+}
+
+.side-menu{
+  position:fixed;
+
+  top:0;
+  left:0;
+  bottom:0;
+
+  width:min(84vw,340px);
+
+  padding-bottom:
+    env(safe-area-inset-bottom);
+
+  background:
+    linear-gradient(
+      180deg,
+      #0a0d11,
+      #050505
+    );
+
+  border-right:
+    1px solid rgba(103,220,255,.22);
+
+  transform:
+    translateX(-105%);
+
+  transition:
+    transform .28s ease;
+
+  overflow-y:auto;
+
+  z-index:1999;
+}
+
+.side-menu.show{
+  transform:
+    translateX(0);
+}
+
+body.menu-open{
+  overflow:hidden;
+}
+
+.menu-header{
+  position:relative;
+
+  padding:
+    calc(26px + env(safe-area-inset-top))
+    22px
+    24px;
+
+  text-align:center;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.08);
+}
+
+.menu-logo{
+  width:78px;
+  height:78px;
+
+  object-fit:cover;
+
+  border-radius:18px;
+
+  margin-bottom:12px;
+}
+
+.menu-brand{
+  font-size:19px;
+  font-weight:900;
+
+  letter-spacing:1.5px;
+}
+
+.menu-tagline{
+  margin-top:6px;
+
+  color:#ff751c;
+
+  font-size:11px;
+  font-weight:800;
+
+  letter-spacing:1.4px;
+}
+
+.close-menu{
+  position:absolute;
+
+  top:
+    calc(
+      16px +
+      env(safe-area-inset-top)
+    );
+
+  right:14px;
+
+  width:42px;
+  height:42px;
+
+  border:0;
+
+  background:transparent;
+
+  color:#ffffff;
+
+  font-size:30px;
+
+  cursor:pointer;
+}
+
+.menu-section-label{
+  padding:
+    22px 22px 8px;
+
+  color:#6c7782;
+
+  font-size:10px;
+  font-weight:900;
+
+  letter-spacing:2px;
+}
+
+.menu-nav{
+  display:flex;
+  flex-direction:column;
+}
+
+.menu-link{
+  display:grid;
+
+  grid-template-columns:
+    32px 1fr 22px;
+
+  align-items:center;
+
+  min-height:52px;
+
+  padding:
+    0 20px;
+
+  color:#e8edf2;
+
+  text-decoration:none;
+
+  border-left:
+    3px solid transparent;
+}
+
+.menu-link:hover{
+  background:
+    rgba(255,255,255,.04);
+}
+
+.menu-link.active{
+  color:#67dcff;
+
+  background:
+    rgba(103,220,255,.07);
+
+  border-left-color:#67dcff;
+}
+
+.menu-link.chat{
+  color:#ff8b42;
+}
+
+.menu-icon{
+  text-align:center;
+
+  font-size:16px;
+}
+
+.menu-arrow{
+  text-align:right;
+
+  color:#68727c;
+
+  font-size:22px;
+}
+
+.admin-menu-link{
+  color:#ff9b59;
+}
+
+#adminMenuSection{
+  display:none;
+}
+
+.menu-website{
+  display:block;
+
+  margin:
+    28px 20px;
+
+  padding:
+    15px;
+
+  text-align:center;
+
+  color:#ffffff;
+
+  text-decoration:none;
+
+  font-size:12px;
+  font-weight:900;
+
+  letter-spacing:1px;
+
+  border:
+    1px solid rgba(255,117,28,.45);
+
+  border-radius:10px;
+
+  background:
+    rgba(255,117,28,.08);
+}
+
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.content{
+  width:min(
+    calc(100% - 28px),
+    900px
+  );
+
+  margin:0 auto;
+
+  padding:
+    calc(
+      96px +
+      env(safe-area-inset-top)
+    )
+    0
+    50px;
+}
+
+
+/* =========================================
+   INTRO
+========================================= */
+
+.content-intro{
+  text-align:center;
+
+  margin-bottom:30px;
+}
+
+.content-label{
+  margin-bottom:8px;
+
+  color:#8c98a4;
+
+  font-size:11px;
+  font-weight:900;
+
+  letter-spacing:2px;
+}
+
+.content-intro h1{
+  margin:0;
+
+  font-size:
+    clamp(
+      32px,
+      8vw,
+      54px
+    );
+
+  line-height:.95;
+
+  letter-spacing:-1px;
+}
+
+.content-intro p{
+  margin:
+    14px auto 0;
+
+  color:#9da8b2;
+
+  font-size:14px;
+}
+
+
+/* =========================================
+   COLOURS
+========================================= */
+
+.ice{
+  color:#67dcff;
+}
+
+.fire{
+  color:#ff751c;
+}
+
+
+/* =========================================
+   LIVE STATUS
+========================================= */
+
+.live-status{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  gap:8px;
+
+  width:max-content;
+
+  max-width:100%;
+
+  margin:
+    0 auto 24px;
+
+  padding:
+    9px 14px;
+
+  border:
+    1px solid rgba(103,220,255,.25);
+
+  border-radius:999px;
+
+  background:
+    rgba(103,220,255,.06);
+
+  color:#dce8ef;
+
+  font-size:11px;
+  font-weight:900;
+
+  letter-spacing:1px;
+}
+
+.live-dot{
+  width:8px;
+  height:8px;
+
+  border-radius:50%;
+
+  background:#67dcff;
+
+  box-shadow:
+    0 0 10px #67dcff;
+}
+
+
+/* =========================================
+   FILTERS
+========================================= */
+
+.filters{
+  display:flex;
+
+  gap:8px;
+
+  margin-bottom:24px;
+
+  overflow-x:auto;
+
+  scrollbar-width:none;
+
+  padding-bottom:3px;
+}
+
+.filters::-webkit-scrollbar{
+  display:none;
+}
+
+.filter-button{
+  flex:0 0 auto;
+
+  padding:
+    10px 15px;
+
+  border:
+    1px solid rgba(255,255,255,.10);
+
+  border-radius:999px;
+
+  background:
+    rgba(255,255,255,.035);
+
+  color:#98a3ad;
+
+  font-size:11px;
+  font-weight:900;
+
+  letter-spacing:.7px;
+
+  cursor:pointer;
+}
+
+.filter-button.active{
+  color:#050505;
+
+  background:#67dcff;
+
+  border-color:#67dcff;
+}
+
+
+/* =========================================
+   UPDATE FEED
+========================================= */
+
+.updates-feed{
+  display:grid;
+
+  gap:16px;
+}
+
+.update-card{
+  position:relative;
+
+  overflow:hidden;
+
+  padding:
+    20px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(17,22,28,.97),
+      rgba(7,9,12,.98)
+    );
+
+  border:
+    1px solid rgba(255,255,255,.075);
+
+  border-left:
+    3px solid #67dcff;
+
+  border-right:
+    3px solid #ff751c;
+
+  border-radius:14px;
+
+  box-shadow:
+    0 14px 35px rgba(0,0,0,.22);
+}
+
+.update-card::before{
+  content:"";
+
+  position:absolute;
+
+  top:0;
+  left:0;
+  right:0;
+
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #67dcff,
+      transparent 45%,
+      transparent 55%,
+      #ff751c
+    );
+
+  opacity:.65;
+}
+
+.update-top{
+  display:flex;
+
+  justify-content:
+    space-between;
+
+  align-items:flex-start;
+
+  gap:14px;
+
+  margin-bottom:12px;
+}
+
+.update-type{
+  display:inline-flex;
+
+  padding:
+    6px 9px;
+
+  border-radius:6px;
+
+  background:
+    rgba(103,220,255,.09);
+
+  color:#67dcff;
+
+  font-size:9px;
+  font-weight:900;
+
+  letter-spacing:1.2px;
+}
+
+.update-type.result{
+  color:#ff751c;
+
+  background:
+    rgba(255,117,28,.10);
+}
+
+.update-type.fight{
+  color:#ffffff;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(103,220,255,.15),
+      rgba(255,117,28,.15)
+    );
+}
+
+.update-date{
+  color:#68737e;
+
+  font-size:10px;
+  font-weight:800;
+
+  white-space:nowrap;
+}
+
+.update-title{
+  margin:
+    0 0 9px;
+
+  color:#ffffff;
+
+  font-size:20px;
+  font-weight:900;
+
+  line-height:1.15;
+}
+
+.update-message{
+  margin:0;
+
+  color:#aab4bd;
+
+  font-size:14px;
+
+  line-height:1.65;
+}
+
+.update-meta{
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:8px;
+
+  margin-top:15px;
+}
+
+.meta-item{
+  padding:
+    6px 9px;
+
+  border-radius:6px;
+
+  background:
+    rgba(255,255,255,.045);
+
+  color:#87939d;
+
+  font-size:10px;
+  font-weight:800;
+}
+
+
+/* =========================================
+   EMPTY / LOADING
+========================================= */
+
+.feed-message{
+  padding:
+    35px 20px;
+
+  text-align:center;
+
+  color:#7f8b95;
+
+  font-size:13px;
+
+  border:
+    1px dashed rgba(255,255,255,.10);
+
+  border-radius:12px;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.app-footer{
+  margin-top:38px;
+
+  padding:
+    24px 10px
+    calc(
+      24px +
+      env(safe-area-inset-bottom)
+    );
+
+  text-align:center;
+
+  color:#66727c;
+
+  font-size:10px;
+  font-weight:800;
+
+  letter-spacing:1px;
+
+  border-top:
+    1px solid rgba(255,255,255,.06);
+}
+
+.footer-motto{
+  margin-bottom:8px;
+
+  color:#8c98a3;
+}
+
+.footer-motto .ice{
+  margin-right:4px;
+}
+
+.footer-motto .fire{
+  margin-left:4px;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:500px){
+
+  .content{
+    width:
+      calc(100% - 22px);
+  }
+
+  .update-card{
+    padding:17px;
+  }
+
+  .update-title{
+    font-size:18px;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     APP BAR
+========================================= -->
+
+<header class="app-bar">
+
+<button
+  id="menuButton"
+  class="menu-button"
+  type="button"
+  aria-label="Open navigation menu"
+  aria-expanded="false"
+>
+☰
+</button>
+
+<div class="app-bar-brand">
+
+<img
+  src="icon-192.png"
+  class="app-bar-logo"
+  alt=""
+>
+
+<div class="app-bar-title">
+TEAM WOLFPACK
+</div>
+
+</div>
+
+<div
+  class="app-status"
+  aria-label="App online"
+>
+<span class="app-status-dot"></span>
+</div>
+
+</header>
+
+
+<!-- =========================================
+     SIDE MENU
+========================================= -->
+
+<div
+  id="menuBackdrop"
+  class="menu-backdrop"
+></div>
+
+<aside
+  id="sideMenu"
+  class="side-menu"
+  aria-label="Team Wolfpack navigation"
+>
+
+<div class="menu-header">
+
+<img
+  src="icon-192.png"
+  class="menu-logo"
+  alt="Team Wolfpack"
+>
+
+<div class="menu-brand">
+TEAM WOLFPACK
+</div>
+
+<div class="menu-tagline">
+ONE PACK • ONE PURPOSE
+</div>
+
+<button
+  id="closeMenuButton"
+  class="close-menu"
+  type="button"
+  aria-label="Close navigation menu"
+>
+×
+</button>
+
+</div>
+
+
+<div class="menu-section-label">
+MAIN
+</div>
+
+<nav class="menu-nav">
+
+<a class="menu-link" href="index.html">
+<span class="menu-icon">⌂</span>
+<span>HOME</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="fights.html">
+<span class="menu-icon">♜</span>
+<span>FIGHTS</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="fighters.html">
+<span class="menu-icon">♟</span>
+<span>FIGHTERS</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="pack.html">
+<span class="menu-icon">◆</span>
+<span>MEET THE PACK</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link chat" href="chat.html">
+<span class="menu-icon">●</span>
+<span>PACK CHAT</span>
+<span class="menu-arrow">›</span>
+</a>
+
+</nav>
+
+
+<div class="menu-section-label">
+LIVE
+</div>
+
+<nav class="menu-nav">
+
+<a
+  class="menu-link active"
+  href="updates.html"
+>
+<span class="menu-icon">◉</span>
+<span>LIVE UPDATES</span>
+<span class="menu-arrow">›</span>
+</a>
+
+</nav>
+
+
+<div class="menu-section-label">
+EXPLORE
+</div>
+
+<nav class="menu-nav">
+
+<a class="menu-link" href="sponsors.html">
+<span class="menu-icon">★</span>
+<span>SPONSORS &amp; PARTNERS</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="gallery.html">
+<span class="menu-icon">▣</span>
+<span>GALLERY</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="merch.html">
+<span class="menu-icon">◇</span>
+<span>MERCH</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="contact.html">
+<span class="menu-icon">✉</span>
+<span>CONTACT</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="socials.html">
+<span class="menu-icon">◎</span>
+<span>SOCIALS</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="about.html">
+<span class="menu-icon">ⓘ</span>
+<span>ABOUT</span>
+<span class="menu-arrow">›</span>
+</a>
+
+</nav>
+
+
+<div id="adminMenuSection">
+
+<div class="menu-section-label">
+ADMIN
+</div>
+
+<nav class="menu-nav">
+
+<a
+  class="menu-link admin-menu-link"
+  href="admin-dashboard.html"
+>
+<span class="menu-icon">⚙</span>
+<span>ADMIN DASHBOARD</span>
+<span class="menu-arrow">›</span>
+</a>
+
+</nav>
+
+</div>
+
+
+<a
+  class="menu-website"
+  href="https://officialteamwolfpack.com/boxing"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+VISIT OFFICIAL WEBSITE
+</a>
+
+</aside>
+
+
+<!-- =========================================
+     PAGE CONTENT
+========================================= -->
+
+<main class="content">
+
+
+<section class="content-intro">
+
+<div class="content-label">
+TEAM WOLFPACK
+</div>
+
+<h1>
+
+<span class="ice">
+LIVE
+</span>
+
+<span class="fire">
+UPDATES
+</span>
+
+</h1>
+
+<p>
+News • Fight Results • Announcements • Pack Updates
+</p>
+
+</section>
+
+
+<div class="live-status">
+
+<span class="live-dot"></span>
+
+<span id="connectionText">
+CONNECTING TO THE PACK...
+</span>
+
+</div>
+
+
+<!-- FILTERS -->
+
+<div class="filters">
+
+<button
+  class="filter-button active"
+  data-filter="all"
+>
+ALL
+</button>
+
+<button
+  class="filter-button"
+  data-filter="news"
+>
+NEWS
+</button>
+
+<button
+  class="filter-button"
+  data-filter="result"
+>
+RESULTS
+</button>
+
+<button
+  class="filter-button"
+  data-filter="fight"
+>
+FIGHTS
+</button>
+
+<button
+  class="filter-button"
+  data-filter="announcement"
+>
+ANNOUNCEMENTS
+</button>
+
+</div>
+
+
+<!-- LIVE FEED -->
+
+<section
+  id="updatesFeed"
+  class="updates-feed"
+>
+
+<div class="feed-message">
+Loading Team Wolfpack updates...
+</div>
+
+</section>
+
+
+<footer class="app-footer">
+
+<div class="footer-motto">
+
+<span class="ice">
+STRENGTH IN UNITY
+</span>
+
+•
+
+<span class="fire">
+ONE PACK • ONE PURPOSE
+</span>
+
+</div>
+
+<div>
+© 2026 TEAM WOLFPACK • ALL RIGHTS RESERVED
+</div>
+
+</footer>
+
+
+</main>
+
+
+<!-- =========================================
+     SIDE MENU SCRIPT
+========================================= -->
+
+<script>
+
+const menuButton =
+  document.getElementById(
+    "menuButton"
+  );
+
+const closeMenuButton =
+  document.getElementById(
+    "closeMenuButton"
+  );
+
+const sideMenu =
+  document.getElementById(
+    "sideMenu"
+  );
+
+const menuBackdrop =
+  document.getElementById(
+    "menuBackdrop"
+  );
+
+
+function openMenu(){
+
+  sideMenu.classList.add(
+    "show"
+  );
+
+  menuBackdrop.classList.add(
+    "show"
+  );
+
+  document.body.classList.add(
+    "menu-open"
+  );
+
+  menuButton.setAttribute(
+    "aria-expanded",
+    "true"
+  );
+
+}
+
+
+function closeMenu(){
+
+  sideMenu.classList.remove(
+    "show"
+  );
+
+  menuBackdrop.classList.remove(
+    "show"
+  );
+
+  document.body.classList.remove(
+    "menu-open"
+  );
+
+  menuButton.setAttribute(
+    "aria-expanded",
+    "false"
+  );
+
+}
+
+
+menuButton.addEventListener(
+  "click",
+  openMenu
+);
+
+
+closeMenuButton.addEventListener(
+  "click",
+  closeMenu
+);
+
+
+menuBackdrop.addEventListener(
+  "click",
+  closeMenu
+);
+
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(
+      event.key === "Escape"
+    ){
+      closeMenu();
+    }
+
+  }
+);
+
+
+document
+  .querySelectorAll(
+    ".menu-link"
+  )
+  .forEach(
+    function(link){
+
+      link.addEventListener(
+        "click",
+        closeMenu
+      );
+
+    }
+  );
+
+</script>
+
+
+<!-- =========================================
+     FIREBASE LIVE UPDATES
+========================================= -->
+
+<script type="module">
+
+import {
+  initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+
+import {
+  getAuth,
+  onAuthStateChanged
+}
+from
+"https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+
+import {
+  getDatabase,
+  ref,
+  onValue
+}
+from
+"https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+
+  authDomain:
+    "team-wolfpack-app.firebaseapp.com",
+
+  databaseURL:
+    "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+
+  projectId:
+    "team-wolfpack-app",
+
+  storageBucket:
+    "team-wolfpack-app.firebasestorage.app",
+
+  messagingSenderId:
+    "1070414578856",
+
+  appId:
+    "1:1070414578856:web:df14e7d387e658eeae2e9d",
+
+  measurementId:
+    "G-6JTCE2N9LZ"
+
+};
+
+
+const firebaseApp =
+  initializeApp(
+    firebaseConfig
+  );
+
+
+const auth =
+  getAuth(
+    firebaseApp
+  );
+
+
+const database =
+  getDatabase(
+    firebaseApp
+  );
+
+
+const ADMIN_UIDS =
+  new Set([
+    "PRGa9TsCW0QDn1QtoUXyYjEi7YB3",
+    "SlpEQYl94DaH6j42QUyl8Kv2ujJ3"
+  ]);
+
+
+const adminMenuSection =
+  document.getElementById(
+    "adminMenuSection"
+  );
+
+
+onAuthStateChanged(
+  auth,
+  function(user){
+
+    if(
+      user &&
+      ADMIN_UIDS.has(
+        user.uid
+      )
+    ){
+
+      adminMenuSection.style.display =
+        "block";
+
+    }else{
+
+      adminMenuSection.style.display =
+        "none";
+
+    }
+
+  }
+);
+
+
+/* =========================================
+   LIVE UPDATE DATA
+========================================= */
+
+const updatesFeed =
+  document.getElementById(
+    "updatesFeed"
+  );
+
+
+const connectionText =
+  document.getElementById(
+    "connectionText"
+  );
+
+
+const updatesRef =
+  ref(
+    database,
+    "updates"
+  );
+
+
+let allUpdates = [];
+
+let currentFilter =
+  "all";
+
+
+function safeText(value){
+
+  if(
+    value === null ||
+    value === undefined
+  ){
+    return "";
+  }
+
+  return String(value);
+
+}
+
+
+function formatDate(value){
+
+  if(!value){
+    return "";
+  }
+
+  const date =
+    new Date(value);
+
+  if(
+    Number.isNaN(
+      date.getTime()
+    )
+  ){
+    return safeText(value);
+  }
+
+  return date.toLocaleDateString(
+    "en-GB",
+    {
+      day:"2-digit",
+      month:"short",
+      year:"numeric"
+    }
+  );
+
+}
+
+
+function renderUpdates(){
+
+  let updates =
+    allUpdates;
+
+
+  if(
+    currentFilter !== "all"
+  ){
+
+    updates =
+      allUpdates.filter(
+        function(update){
+
+          return (
+            safeText(
+              update.type
+            ).toLowerCase()
+            ===
+            currentFilter
+          );
+
+        }
+      );
+
+  }
+
+
+  updatesFeed.innerHTML =
+    "";
+
+
+  if(
+    updates.length === 0
+  ){
+
+    updatesFeed.innerHTML =
+      '<div class="feed-message">' +
+      'No Team Wolfpack updates to show yet.' +
+      '</div>';
+
+    return;
+
+  }
+
+
+  updates.forEach(
+    function(update){
+
+      const card =
+        document.createElement(
+          "article"
+        );
+
+
+      card.className =
+        "update-card";
+
+
+      const top =
+        document.createElement(
+          "div"
+        );
+
+      top.className =
+        "update-top";
+
+
+      const type =
+        document.createElement(
+          "div"
+        );
+
+
+      const updateType =
+        safeText(
+          update.type || "news"
+        ).toLowerCase();
+
+
+      type.className =
+        "update-type " +
+        updateType;
+
+
+      type.textContent =
+        updateType.toUpperCase();
+
+
+      const date =
+        document.createElement(
+          "div"
+        );
+
+      date.className =
+        "update-date";
+
+      date.textContent =
+        formatDate(
+          update.date
+        );
+
+
+      top.appendChild(type);
+      top.appendChild(date);
+
+
+      const title =
+        document.createElement(
+          "h2"
+        );
+
+      title.className =
+        "update-title";
+
+      title.textContent =
+        safeText(
+          update.title
+        );
+
+
+      const message =
+        document.createElement(
+          "p"
+        );
+
+      message.className =
+        "update-message";
+
+      message.textContent =
+        safeText(
+          update.message
+        );
+
+
+      card.appendChild(top);
+      card.appendChild(title);
+      card.appendChild(message);
+
+
+      if(
+        update.fighter ||
+        update.location
+      ){
+
+        const meta =
+          document.createElement(
+            "div"
+          );
+
+        meta.className =
+          "update-meta";
+
+
+        if(
+          update.fighter
+        ){
+
+          const fighter =
+            document.createElement(
+              "span"
+            );
+
+          fighter.className =
+            "meta-item";
+
+          fighter.textContent =
+            safeText(
+              update.fighter
+            );
+
+          meta.appendChild(
+            fighter
+          );
+
+        }
+
+
+        if(
+          update.location
+        ){
+
+          const location =
+            document.createElement(
+              "span"
+            );
+
+          location.className =
+            "meta-item";
+
+          location.textContent =
+            safeText(
+              update.location
+            );
+
+          meta.appendChild(
+            location
+          );
+
+        }
+
+
+        card.appendChild(
+          meta
+        );
+
+      }
+
+
+      updatesFeed.appendChild(
+        card
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================
+   FIREBASE LISTENER
+========================================= */
+
+onValue(
+
+  updatesRef,
+
+  function(snapshot){
+
+    connectionText.textContent =
+      "LIVE • CONNECTED";
+
+
+    const data =
+      snapshot.val();
+
+
+    if(!data){
+
+      allUpdates = [];
+
+      renderUpdates();
+
+      return;
+
+    }
+
+
+    allUpdates =
+      Object.entries(data)
+        .map(
+          function(entry){
+
+            const id =
+              entry[0];
+
+            const value =
+              entry[1] || {};
+
+            return {
+              id:id,
+              ...value
+            };
+
+          }
+        )
+        .filter(
+          function(update){
+
+            return (
+              update.published
+              !==
+              false
+            );
+
+          }
+        )
+        .sort(
+          function(a,b){
+
+            const aTime =
+              Number(
+                a.timestamp
+              ) ||
+              new Date(
+                a.date || 0
+              ).getTime();
+
+            const bTime =
+              Number(
+                b.timestamp
+              ) ||
+              new Date(
+                b.date || 0
+              ).getTime();
+
+            return (
+              bTime -
+              aTime
+            );
+
+          }
+        );
+
+
+    renderUpdates();
+
+  },
+
+  function(error){
+
+    console.error(
+      "Live updates error:",
+      error
+    );
+
+    connectionText.textContent =
+      "UPDATES UNAVAILABLE";
+
+    updatesFeed.innerHTML =
+      '<div class="feed-message">' +
+      'Live updates could not be loaded.' +
+      '</div>';
+
+  }
+
+);
+
+
+/* =========================================
+   FILTER BUTTONS
+========================================= */
+
+document
+  .querySelectorAll(
+    ".filter-button"
+  )
+  .forEach(
+    function(button){
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          document
+            .querySelectorAll(
+              ".filter-button"
+            )
+            .forEach(
+              function(item){
+
+                item.classList.remove(
+                  "active"
+                );
+
+              }
+            );
+
+
+          button.classList.add(
+            "active"
+          );
+
+
+          currentFilter =
+            button.dataset.filter;
+
+
+          renderUpdates();
+
+        }
+      );
+
+    }
+  );
+
+</script>
+
+
+<!-- =========================================
+     SERVICE WORKER
+========================================= -->
+
+<script>
+
+if(
+  "serviceWorker"
+  in
+  navigator
+){
+
+  window.addEventListener(
+    "load",
+    function(){
+
+      navigator
+        .serviceWorker
+        .register(
+          "service-worker.js"
+        )
+        .catch(
+          function(error){
+
+            console.error(
+              "Service worker error:",
+              error
+            );
+
+          }
+        );
+
+    }
+  );
+
+}
+
+</script>
+
+
+</body>
+</html>
