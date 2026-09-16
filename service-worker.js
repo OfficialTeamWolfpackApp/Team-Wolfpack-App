@@ -1,4 +1,4 @@
-const CACHE_NAME = "team-wolfpack-v12";
+const CACHE_NAME = "team-wolfpack-v13";
 
 const APP_FILES = [
   "./",
@@ -16,6 +16,7 @@ const APP_FILES = [
   "./contact.html",
   "./socials.html",
   "./about.html",
+  "./updates.html",
   "./chat-rules.html",
   "./admin-dashboard.html",
   "./admin-reports.html",
