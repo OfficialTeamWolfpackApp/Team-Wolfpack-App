@@ -1466,41 +1466,40 @@ body.menu-open{
 
 
 /* =========================================
-   LATEST FROM THE PACK
+   LIVE UPDATES
 ========================================= */
 
-.latest-card{
-  position:relative;
+.home-live-updates{
+  display:flex;
+  flex-direction:column;
+  gap:11px;
+}
 
+.home-update-card{
+  position:relative;
   overflow:hidden;
 
-  display:grid;
+  padding:17px 18px;
 
-  grid-template-columns:
-    105px
-    minmax(0,1fr);
-
-  min-height:175px;
-
-  border-radius:18px;
+  border-radius:15px;
 
   border:
-    1px solid rgba(255,255,255,.14);
+    1px solid rgba(255,255,255,.13);
 
   background:
     linear-gradient(
-      110deg,
-      rgba(0,155,220,.14) 0%,
-      rgba(6,6,6,.98) 36%,
-      rgba(6,6,6,.98) 68%,
-      rgba(255,90,0,.13) 100%
+      100deg,
+      rgba(0,150,210,.14) 0%,
+      rgba(7,7,7,.97) 35%,
+      rgba(7,7,7,.97) 68%,
+      rgba(255,90,0,.12) 100%
     );
 
   box-shadow:
-    0 13px 32px rgba(0,0,0,.34);
+    0 9px 24px rgba(0,0,0,.28);
 }
 
-.latest-card::before{
+.home-update-card::before{
   content:"";
 
   position:absolute;
@@ -1511,15 +1510,13 @@ body.menu-open{
 
   width:3px;
 
-  z-index:5;
-
   background:#45d8ff;
 
   box-shadow:
-    0 0 14px rgba(69,216,255,.50);
+    0 0 12px rgba(69,216,255,.42);
 }
 
-.latest-card::after{
+.home-update-card::after{
   content:"";
 
   position:absolute;
@@ -1530,102 +1527,31 @@ body.menu-open{
 
   width:3px;
 
-  z-index:5;
-
   background:#ff701c;
 
   box-shadow:
-    0 0 14px rgba(255,112,28,.50);
+    0 0 12px rgba(255,112,28,.42);
 }
 
-.latest-visual{
-  position:relative;
-
+.home-update-top{
   display:flex;
 
   align-items:center;
-  justify-content:center;
+  justify-content:space-between;
 
-  overflow:hidden;
-
-  padding:15px 10px;
-
-  border-right:
-    1px solid rgba(103,220,255,.13);
-
-  background:
-    radial-gradient(
-      circle at 40% 45%,
-      rgba(0,190,255,.18),
-      transparent 58%
-    ),
-    linear-gradient(
-      145deg,
-      rgba(0,125,185,.12),
-      rgba(0,0,0,.16)
-    );
+  gap:10px;
 }
 
-.latest-visual::after{
-  content:"";
+.home-update-type{
+  display:inline-flex;
 
-  position:absolute;
-
-  inset:0;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent 45%,
-      rgba(0,0,0,.38) 100%
-    );
-
-  pointer-events:none;
-}
-
-.latest-image{
-  position:relative;
-
-  z-index:2;
-
-  width:82px;
-  height:82px;
-
-  display:block;
-
-  object-fit:contain;
-
-  filter:
-    drop-shadow(0 7px 12px rgba(0,0,0,.55));
-}
-
-.latest-content{
-  position:relative;
-
-  z-index:2;
-
-  display:flex;
-
-  flex-direction:column;
-
-  justify-content:center;
-
-  min-width:0;
-
-  padding:
-    18px
-    17px
-    17px;
-}
-
-.latest-label{
-  align-self:flex-start;
+  align-items:center;
 
   padding:5px 8px;
 
   border-radius:5px;
 
-  color:#79e4ff;
+  color:#67dcff;
 
   border:
     1px solid rgba(103,220,255,.28);
@@ -1637,57 +1563,58 @@ body.menu-open{
 
   font-weight:900;
 
-  letter-spacing:1.7px;
+  letter-spacing:1.4px;
 }
 
-.latest-title{
-  margin-top:10px;
+.home-update-type.result,
+.home-update-type.announcement{
+  color:#ff9b59;
 
+  border-color:
+    rgba(255,117,28,.28);
+
+  background:
+    rgba(255,90,0,.12);
+}
+
+.home-update-type.fight{
   color:#fff;
 
-  font-size:17px;
+  border-color:
+    rgba(103,220,255,.25);
 
-  font-weight:900;
-
-  line-height:1.05;
-
-  letter-spacing:.2px;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,145,205,.15),
+      rgba(255,90,0,.15)
+    );
 }
 
-.latest-details{
-  display:flex;
-
-  flex-wrap:wrap;
-
-  gap:
-    5px
-    12px;
-
-  margin-top:9px;
-}
-
-.latest-detail{
-  color:#ddd;
+.home-update-date{
+  color:#888;
 
   font-size:7px;
 
   font-weight:900;
 
-  letter-spacing:.7px;
+  letter-spacing:.5px;
 }
 
-.latest-detail:first-child{
-  color:#7ce4ff;
+.home-update-title{
+  margin-top:10px;
+
+  color:#fff;
+
+  font-size:15px;
+
+  font-weight:900;
+
+  line-height:1.15;
 }
 
-.latest-detail:last-child{
-  color:#ff9b59;
-}
-
-.latest-text{
-  margin-top:9px;
-
-  max-width:520px;
+.home-update-message{
+  margin-top:7px;
 
   color:#999;
 
@@ -1696,36 +1623,119 @@ body.menu-open{
   line-height:1.5;
 }
 
-.latest-button{
-  align-self:flex-start;
+.home-update-meta{
+  display:flex;
 
-  display:inline-flex;
+  flex-wrap:wrap;
+
+  gap:6px 12px;
+
+  margin-top:9px;
+
+  color:#67dcff;
+
+  font-size:7px;
+
+  font-weight:900;
+
+  letter-spacing:.5px;
+}
+
+.home-update-meta .venue{
+  color:#ff9b59;
+}
+
+.live-loading,
+.live-empty,
+.live-error{
+  min-height:90px;
+
+  display:flex;
 
   align-items:center;
   justify-content:center;
 
-  min-height:34px;
+  padding:20px;
 
-  margin-top:12px;
+  text-align:center;
 
-  padding:
-    9px
-    14px;
+  border-radius:15px;
 
-  border-radius:7px;
+  border:
+    1px solid rgba(255,255,255,.10);
+
+  background:
+    rgba(8,8,8,.78);
+
+  color:#777;
+
+  font-size:8px;
+
+  font-weight:900;
+
+  letter-spacing:1px;
+}
+
+.live-error{
+  color:#ff9b59;
+}
+
+.live-status{
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:6px;
+
+  margin-left:8px;
+
+  color:#67dcff;
+
+  font-size:6px;
+
+  font-weight:900;
+
+  letter-spacing:1px;
+}
+
+.live-status-dot{
+  width:6px;
+  height:6px;
+
+  border-radius:50%;
+
+  background:#67dcff;
+
+  box-shadow:
+    0 0 8px rgba(103,220,255,.75);
+}
+
+.live-all-button{
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  min-height:42px;
+
+  margin-top:11px;
+
+  padding:11px;
+
+  border-radius:9px;
 
   text-decoration:none;
 
   color:#fff;
 
   border:
-    1px solid rgba(103,220,255,.32);
+    1px solid rgba(103,220,255,.30);
 
   background:
     linear-gradient(
       90deg,
-      rgba(0,160,220,.13),
-      rgba(255,90,0,.13)
+      rgba(0,160,220,.12),
+      rgba(255,90,0,.12)
     );
 
   font-size:7px;
@@ -2804,70 +2814,65 @@ SUPER MIDDLEWEIGHT TITLE
 </div>
 
 
-<!-- LATEST FROM THE PACK -->
+<!-- LIVE UPDATES -->
 
 <div class="section-heading">
 
-<div class="section-title">
-LATEST FROM THE PACK
-</div>
+  <div class="section-title">
+
+    <span class="ice">
+      LIVE
+    </span>
+
+    <span class="fire">
+      UPDATES
+    </span>
+
+    <span
+      id="homeLiveStatus"
+      class="live-status"
+    >
+      <span class="live-status-dot"></span>
+      CONNECTING
+    </span>
+
+  </div>
+
+  <a
+    class="section-link"
+    href="updates.html"
+    onclick="gtag('event','home_live_updates_click',{
+      source:'Home Heading'
+    });"
+  >
+    VIEW ALL →
+  </a>
 
 </div>
 
 
-<article class="latest-card">
-
-<div class="latest-visual">
-
-<img
-  src="icon-512.png"
-  class="latest-image"
-  alt="Team Wolfpack"
+<section
+  id="homeLiveUpdates"
+  class="home-live-updates"
+  aria-live="polite"
 >
 
-</div>
+  <div class="live-loading">
+    CONNECTING TO LIVE UPDATES...
+  </div>
 
+</section>
 
-<div class="latest-content">
-
-<div class="latest-label">
-TEAM NEWS
-</div>
-
-<div class="latest-title">
-THE LAUNCH IS COMING
-</div>
-
-<div class="latest-details">
-
-<div class="latest-detail">
-17 OCTOBER 2026
-</div>
-
-<div class="latest-detail">
-AYR RACECOURSE
-</div>
-
-</div>
-
-<div class="latest-text">
-Mrs Wolfie returns to the ring at The Launch as Team Wolfpack heads to Ayr Racecourse.
-</div>
 
 <a
-  class="latest-button"
-  href="fights.html"
-  onclick="gtag('event','home_news_click',{
-    story:'The Launch Is Coming'
+  class="live-all-button"
+  href="updates.html"
+  onclick="gtag('event','home_live_updates_click',{
+    source:'Home Button'
   });"
 >
-VIEW FIGHT DETAILS →
+  VIEW ALL LIVE UPDATES →
 </a>
-
-</div>
-
-</article>
-
 
 <!-- WEBSITE -->
 
@@ -3019,7 +3024,7 @@ document
 </script>
 
 
-<!-- ADMIN -->
+<!-- FIREBASE / ADMIN / LIVE UPDATES -->
 
 <script type="module">
 
@@ -3032,16 +3037,42 @@ import {
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
+import {
+  getDatabase,
+  ref,
+  onValue,
+  query,
+  orderByChild,
+  limitToLast
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
-  authDomain: "team-wolfpack-app.firebaseapp.com",
-  databaseURL: "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "team-wolfpack-app",
-  storageBucket: "team-wolfpack-app.firebasestorage.app",
-  messagingSenderId: "1070414578856",
-  appId: "1:1070414578856:web:df14e7d387e658eeae2e9d",
-  measurementId: "G-6JTCE2N9LZ"
+
+  apiKey:
+    "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+
+  authDomain:
+    "team-wolfpack-app.firebaseapp.com",
+
+  databaseURL:
+    "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+
+  projectId:
+    "team-wolfpack-app",
+
+  storageBucket:
+    "team-wolfpack-app.firebasestorage.app",
+
+  messagingSenderId:
+    "1070414578856",
+
+  appId:
+    "1:1070414578856:web:df14e7d387e658eeae2e9d",
+
+  measurementId:
+    "G-6JTCE2N9LZ"
+
 };
 
 
@@ -3050,6 +3081,9 @@ const firebaseApp =
 
 const auth =
   getAuth(firebaseApp);
+
+const database =
+  getDatabase(firebaseApp);
 
 
 const ADMIN_UIDS =
@@ -3087,8 +3121,288 @@ onAuthStateChanged(
   }
 );
 
-</script>
 
+/* =========================================
+   HOME LIVE UPDATES
+========================================= */
+
+const homeLiveUpdates =
+  document.getElementById(
+    "homeLiveUpdates"
+  );
+
+const homeLiveStatus =
+  document.getElementById(
+    "homeLiveStatus"
+  );
+
+
+function escapeHTML(value){
+
+  return String(value || "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+function formatUpdateDate(value){
+
+  if(!value){
+    return "";
+  }
+
+  const parts =
+    String(value).split("-");
+
+  if(parts.length !== 3){
+    return escapeHTML(value);
+  }
+
+  const date =
+    new Date(
+      Number(parts[0]),
+      Number(parts[1]) - 1,
+      Number(parts[2])
+    );
+
+  if(
+    Number.isNaN(
+      date.getTime()
+    )
+  ){
+    return escapeHTML(value);
+  }
+
+  return date.toLocaleDateString(
+    "en-GB",
+    {
+      day:"numeric",
+      month:"short",
+      year:"numeric"
+    }
+  );
+
+}
+
+
+function renderHomeUpdates(items){
+
+  if(!items.length){
+
+    homeLiveUpdates.innerHTML =
+      `
+        <div class="live-empty">
+          NO LIVE UPDATES AVAILABLE
+        </div>
+      `;
+
+    return;
+
+  }
+
+
+  homeLiveUpdates.innerHTML =
+    items.map(function(item){
+
+      const type =
+        escapeHTML(
+          item.type || "news"
+        )
+        .toLowerCase();
+
+      const title =
+        escapeHTML(
+          item.title || "Team Wolfpack Update"
+        );
+
+      const message =
+        escapeHTML(
+          item.message || ""
+        );
+
+      const fighter =
+        escapeHTML(
+          item.fighter || ""
+        );
+
+      const venue =
+        escapeHTML(
+          item.venue || ""
+        );
+
+      const date =
+        formatUpdateDate(
+          item.date
+        );
+
+
+      let meta =
+        "";
+
+
+      if(
+        fighter ||
+        venue
+      ){
+
+        meta =
+          `
+            <div class="home-update-meta">
+
+              ${
+                fighter
+                  ? `<span>${fighter}</span>`
+                  : ""
+              }
+
+              ${
+                venue
+                  ? `<span class="venue">${venue}</span>`
+                  : ""
+              }
+
+            </div>
+          `;
+
+      }
+
+
+      return `
+        <article class="home-update-card">
+
+          <div class="home-update-top">
+
+            <div class="home-update-type ${type}">
+              ${type.toUpperCase()}
+            </div>
+
+            <div class="home-update-date">
+              ${date}
+            </div>
+
+          </div>
+
+          <div class="home-update-title">
+            ${title}
+          </div>
+
+          ${
+            message
+              ? `
+                  <div class="home-update-message">
+                    ${message}
+                  </div>
+                `
+              : ""
+          }
+
+          ${meta}
+
+        </article>
+      `;
+
+    })
+    .join("");
+
+}
+
+
+const updatesQuery =
+  query(
+    ref(
+      database,
+      "updates"
+    ),
+    orderByChild(
+      "timestamp"
+    ),
+    limitToLast(10)
+  );
+
+
+onValue(
+  updatesQuery,
+
+  function(snapshot){
+
+    const items =
+      [];
+
+
+    snapshot.forEach(
+      function(childSnapshot){
+
+        const item =
+          childSnapshot.val();
+
+
+        if(
+          item &&
+          item.published !== false
+        ){
+
+          items.push(
+            item
+          );
+
+        }
+
+      }
+    );
+
+
+    items.sort(
+      function(a,b){
+
+        return (
+          Number(b.timestamp || 0) -
+          Number(a.timestamp || 0)
+        );
+
+      }
+    );
+
+
+    renderHomeUpdates(
+      items.slice(0,3)
+    );
+
+
+    homeLiveStatus.innerHTML =
+      `
+        <span class="live-status-dot"></span>
+        LIVE
+      `;
+
+  },
+
+  function(error){
+
+    console.error(
+      "Home live updates:",
+      error
+    );
+
+
+    homeLiveStatus.textContent =
+      "OFFLINE";
+
+
+    homeLiveUpdates.innerHTML =
+      `
+        <div class="live-error">
+          LIVE UPDATES ARE CURRENTLY UNAVAILABLE
+        </div>
+      `;
+
+  }
+);
+
+</script>
 
 <!-- SERVICE WORKER -->
 
