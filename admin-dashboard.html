@@ -67,7 +67,7 @@ body{
 
 /* =========================
    HEADER
-   ========================= */
+========================= */
 
 .header{
   text-align:center;
@@ -133,7 +133,7 @@ body{
 
 /* =========================
    CONTENT
-   ========================= */
+========================= */
 
 .content{
   width:100%;
@@ -150,7 +150,7 @@ body{
 
 /* =========================
    STATUS
-   ========================= */
+========================= */
 
 .status{
   margin-bottom:15px;
@@ -177,7 +177,7 @@ body{
 
 /* =========================
    ACCESS DENIED
-   ========================= */
+========================= */
 
 .access-denied{
   display:none;
@@ -218,7 +218,7 @@ body{
 
 /* =========================
    ADMIN BAR
-   ========================= */
+========================= */
 
 .admin-bar{
   display:none;
@@ -285,7 +285,7 @@ body{
 
 /* =========================
    SECTION
-   ========================= */
+========================= */
 
 .dashboard{
   display:none;
@@ -313,7 +313,7 @@ body{
 
 /* =========================
    PRIMARY STATS
-   ========================= */
+========================= */
 
 .stats{
   display:grid;
@@ -383,7 +383,7 @@ body{
 
 /* =========================
    ALERT PANEL
-   ========================= */
+========================= */
 
 .alert-panel{
   display:none;
@@ -429,7 +429,7 @@ body{
 
 /* =========================
    ADMIN ACTION CARDS
-   ========================= */
+========================= */
 
 .action-grid{
   display:grid;
@@ -564,8 +564,47 @@ body{
 
 
 /* =========================
+   LIVE UPDATES CARD
+========================= */
+
+.action-card.live-updates{
+  border:
+    1px solid rgba(103,220,255,.24);
+
+  background:
+    linear-gradient(
+      115deg,
+      rgba(0,191,255,.16),
+      rgba(8,8,8,.95) 50%,
+      rgba(255,90,0,.17)
+    );
+}
+
+.live-badge{
+  position:absolute;
+
+  top:12px;
+  right:12px;
+
+  padding:
+    5px
+    8px;
+
+  border-radius:20px;
+
+  background:#67dcff;
+
+  color:#050505;
+
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.5px;
+}
+
+
+/* =========================
    SYSTEM INFORMATION
-   ========================= */
+========================= */
 
 .system-panel{
   padding:15px;
@@ -627,7 +666,7 @@ body{
 
 /* =========================
    NAVIGATION
-   ========================= */
+========================= */
 
 .nav-grid{
   display:grid;
@@ -678,7 +717,7 @@ body{
 
 /* =========================
    LOADING
-   ========================= */
+========================= */
 
 .loading{
   padding:
@@ -695,7 +734,7 @@ body{
 
 /* =========================
    MOBILE
-   ========================= */
+========================= */
 
 @media(max-width:520px){
 
@@ -748,7 +787,7 @@ DASHBOARD
 </h1>
 
 <p class="subtitle">
-Pack Chat administration and moderation control centre.
+Team Wolfpack administration, moderation and live updates control centre.
 </p>
 
 <div class="line"></div>
@@ -1056,6 +1095,28 @@ View Pack Chat members and manage active, muted and blocked accounts.
 </a>
 
 
+<!-- LIVE UPDATES -->
+
+<a
+  class="action-card live-updates"
+  href="admin-updates.html"
+>
+
+<div class="live-badge">
+LIVE
+</div>
+
+<div class="action-name">
+LIVE UPDATES
+</div>
+
+<div class="action-description">
+Create, publish, edit and manage Team Wolfpack news, fight results, fight updates and announcements.
+</div>
+
+</a>
+
+
 <a
   class="action-card"
   href="chat.html"
@@ -1067,6 +1128,22 @@ PACK CHAT
 
 <div class="action-description">
 Return directly to the live Team Wolfpack Pack Chat.
+</div>
+
+</a>
+
+
+<a
+  class="action-card"
+  href="updates.html"
+>
+
+<div class="action-name">
+VIEW LIVE FEED
+</div>
+
+<div class="action-description">
+Open the public Team Wolfpack Live Updates feed and check published news and fight updates.
 </div>
 
 </a>
@@ -1138,6 +1215,19 @@ ONLINE
 </div>
 
 
+<div class="system-row">
+
+<div class="system-label">
+LIVE UPDATES
+</div>
+
+<div class="system-value online">
+ONLINE
+</div>
+
+</div>
+
+
 </div>
 
 
@@ -1188,7 +1278,7 @@ import {
 
 /* =========================
    FIREBASE CONFIG
-   ========================= */
+========================= */
 
 const firebaseConfig = {
 
@@ -1197,6 +1287,9 @@ const firebaseConfig = {
 
   authDomain:
     "team-wolfpack-app.firebaseapp.com",
+
+  databaseURL:
+    "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
 
   projectId:
     "team-wolfpack-app",
@@ -1218,7 +1311,7 @@ const firebaseConfig = {
 
 /* =========================
    ADMINS
-   ========================= */
+========================= */
 
 const ADMINS = {
 
@@ -1251,7 +1344,7 @@ const db =
 
 /* =========================
    ELEMENTS
-   ========================= */
+========================= */
 
 const status =
   document.getElementById(
@@ -1346,7 +1439,7 @@ const systemAdmin =
 
 /* =========================
    STATE
-   ========================= */
+========================= */
 
 let currentAdmin =
   null;
@@ -1378,7 +1471,7 @@ let unsubscribeResolved =
 
 /* =========================
    UPDATE MEMBERS
-   ========================= */
+========================= */
 
 function updateMemberStats(){
 
@@ -1521,7 +1614,7 @@ function updateMemberStats(){
 
 /* =========================
    REPORT ALERT
-   ========================= */
+========================= */
 
 function updateReportAlert(){
 
@@ -1558,7 +1651,7 @@ function updateReportAlert(){
 
 /* =========================
    START LISTENERS
-   ========================= */
+========================= */
 
 function startDashboard(){
 
@@ -1733,11 +1826,6 @@ function startDashboard(){
           error
         );
 
-        /*
-          Keep the rest of the dashboard working
-          even if resolvedReports has not yet been
-          created or permitted by Firestore rules.
-        */
 
         resolvedReports.textContent =
           "—";
@@ -1754,7 +1842,7 @@ function startDashboard(){
 
 /* =========================
    STOP LISTENERS
-   ========================= */
+========================= */
 
 function stopDashboard(){
 
@@ -1810,7 +1898,7 @@ function stopDashboard(){
 
 /* =========================
    AUTH
-   ========================= */
+========================= */
 
 onAuthStateChanged(
   auth,
