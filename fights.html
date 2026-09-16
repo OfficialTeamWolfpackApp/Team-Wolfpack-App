@@ -204,7 +204,7 @@ body.menu-open{
 
 
 /* =========================================
-   MENU BACKDROP
+   MENU
 ========================================= */
 
 .menu-backdrop{
@@ -230,11 +230,6 @@ body.menu-open{
   visibility:visible;
   opacity:1;
 }
-
-
-/* =========================================
-   SIDE MENU
-========================================= */
 
 .side-menu{
   position:fixed;
@@ -442,11 +437,6 @@ body.menu-open{
   font-size:16px;
 }
 
-
-/* =========================================
-   ADMIN MENU
-========================================= */
-
 #adminMenuSection{
   display:none;
 }
@@ -499,7 +489,7 @@ body.menu-open{
 
 
 /* =========================================
-   FIGHT NIGHT BANNER
+   BANNER
 ========================================= */
 
 .fights-banner{
@@ -533,7 +523,7 @@ body.menu-open{
 
 
 /* =========================================
-   UPCOMING FIGHTS INTRO
+   INTRO
 ========================================= */
 
 .fights-intro{
@@ -684,6 +674,61 @@ body.menu-open{
 
 .fire{
   color:#ff751c;
+}
+
+
+/* =========================================
+   LIVE STATUS
+========================================= */
+
+.live-status{
+  margin-bottom:20px;
+
+  padding:10px 12px;
+
+  border-radius:8px;
+
+  border:
+    1px solid rgba(67,242,123,.20);
+
+  background:
+    rgba(0,80,35,.15);
+
+  color:#43f27b;
+
+  text-align:center;
+
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.live-status.error{
+  color:#ff755f;
+
+  border-color:
+    rgba(255,80,60,.25);
+
+  background:
+    rgba(100,15,10,.16);
+}
+
+.loading-message,
+.no-fights{
+  padding:35px 15px;
+
+  text-align:center;
+
+  border-radius:12px;
+
+  border:
+    1px dashed rgba(255,255,255,.12);
+
+  color:#777;
+
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:1px;
 }
 
 
@@ -1202,11 +1247,6 @@ body.menu-open{
   letter-spacing:1.3px;
 }
 
-
-/* =========================================
-   TEAM WOLFPACK COPYRIGHT
-========================================= */
-
 .copyright{
   display:flex;
 
@@ -1339,11 +1379,6 @@ body.menu-open{
 
 }
 
-
-/* =========================================
-   SMALL PHONES
-========================================= */
-
 @media(max-width:430px){
 
   .content{
@@ -1426,11 +1461,6 @@ body.menu-open{
 
 }
 
-
-/* =========================================
-   REDUCED MOTION
-========================================= */
-
 @media(prefers-reduced-motion:reduce){
 
   .side-menu,
@@ -1443,7 +1473,6 @@ body.menu-open{
 </style>
 
 </head>
-
 
 <body>
 
@@ -1651,7 +1680,7 @@ VISIT OFFICIAL WEBSITE
 
 
 <!-- =========================================
-     FIGHT NIGHT BANNER
+     BANNER
 ========================================= -->
 
 <section class="fights-banner">
@@ -1666,7 +1695,7 @@ VISIT OFFICIAL WEBSITE
 
 
 <!-- =========================================
-     UPCOMING FIGHTS INTRO
+     INTRO
 ========================================= -->
 
 <section class="fights-intro">
@@ -1694,460 +1723,21 @@ THE NEXT FIGHTS FOR TEAM WOLFPACK
 <main class="content">
 
 
-<!-- =========================================
-     MRS WOLFIE
-========================================= -->
-
-<section class="section">
-
-<div class="section-header">
-
-<h2 class="section-title">
-<span class="ice">MRS WOLFIE</span>
-</h2>
-
-<div class="section-team">
-TEAM WOLFIE
-</div>
-
-</div>
-
-
-<!-- MRS WOLFIE VS COLLEEN LEYDEN -->
-
-<article class="fight-card">
-
-<div class="upcoming-badge">
-<span class="upcoming-dot"></span>
-UPCOMING
-</div>
-
-<div class="team-label">
-TEAM WOLFIE
-</div>
-
-<div class="fight-layout">
-
-<div class="fight-person left">
-
-<img
-  src="zoey-james.jpg"
-  alt="Mrs Wolfie"
+<div
+  id="liveFightsStatus"
+  class="live-status"
 >
-
+● CONNECTING TO FIGHT DATABASE...
 </div>
 
 
-<div class="fight-centre">
+<div id="liveFights">
 
-<div class="event-name">
-AYRSHIRE BOXING
-
-<span class="event-small">
-THE LAUNCH
-</span>
-
-</div>
-
-<div class="matchup-row">
-
-<div class="card-fighter-name">
-MRS<br>WOLFIE
-</div>
-
-<div class="card-vs">
-VS
-</div>
-
-<div class="card-fighter-name">
-COLLEEN<br>LEYDEN
+<div class="loading-message">
+LOADING UPCOMING FIGHTS...
 </div>
 
 </div>
-
-<div class="card-date">
-17 OCTOBER 2026
-</div>
-
-<div class="card-venue">
-AYR RACECOURSE
-</div>
-
-<div class="fight-detail-badge">
-DEBUT
-</div>
-
-<a
-  class="details-button"
-  href="mrs-wolfie.html"
-  onclick="gtag('event','fight_profile_click',{
-    fighter:'Mrs Wolfie',
-    team:'Team Wolfie',
-    event_name_detail:'Ayrshire Boxing - The Launch',
-    fight_date:'17 October 2026',
-    opponent:'Colleen Leyden',
-    source:'Fights Page'
-  });"
->
-VIEW FIGHT DETAILS →
-</a>
-
-</div>
-
-
-<div class="fight-person right">
-
-<img
-  src="colleen-leyden.jpg"
-  alt="Colleen Leyden"
->
-
-</div>
-
-</div>
-
-</article>
-
-
-<a
-  class="profile-link"
-  href="mrs-wolfie.html"
-  onclick="gtag('event','fight_profile_click',{
-    fighter:'Mrs Wolfie',
-    team:'Team Wolfie',
-    source:'Fights Page'
-  });"
->
-VIEW MRS WOLFIE PROFILE →
-</a>
-
-
-<!-- MRS WOLFIE SUPER MIDDLEWEIGHT TITLE -->
-
-<article
-  class="fight-card"
-  style="margin-top:16px;"
->
-
-<div class="upcoming-badge">
-<span class="upcoming-dot"></span>
-UPCOMING
-</div>
-
-<div class="team-label">
-TEAM WOLFIE
-</div>
-
-<div class="fight-layout">
-
-<div class="fight-person left">
-
-<img
-  src="zoey-james.jpg"
-  alt="Mrs Wolfie"
->
-
-</div>
-
-
-<div class="fight-centre">
-
-<div class="title-badge">
-★ &nbsp; SUPER MIDDLEWEIGHT TITLE
-</div>
-
-<div class="event-name">
-EASTHOUSES BOXING CLUB
-</div>
-
-<div class="matchup-row">
-
-<div class="card-fighter-name">
-MRS<br>WOLFIE
-</div>
-
-<div class="card-vs">
-VS
-</div>
-
-<div class="card-fighter-name tba">
-TBA
-</div>
-
-</div>
-
-<div class="card-date">
-20/21 NOVEMBER 2026
-</div>
-
-<div class="card-venue">
-EASTHOUSES MINERS CLUB
-</div>
-
-<a
-  class="details-button"
-  href="mrs-wolfie.html"
-  onclick="gtag('event','fight_profile_click',{
-    fighter:'Mrs Wolfie',
-    team:'Team Wolfie',
-    event_name_detail:'Easthouses Boxing Club - Super Middleweight Title',
-    fight_date:'20/21 November 2026',
-    opponent:'TBA',
-    source:'Fights Page'
-  });"
->
-VIEW FIGHT DETAILS →
-</a>
-
-</div>
-
-
-<div class="fight-person right">
-
-<img
-  src="unknown-female-fighter.png"
-  alt="Unknown female opponent"
->
-
-</div>
-
-</div>
-
-</article>
-
-
-<a
-  class="profile-link"
-  href="mrs-wolfie.html"
-  onclick="gtag('event','fight_profile_click',{
-    fighter:'Mrs Wolfie',
-    team:'Team Wolfie',
-    source:'Fights Page'
-  });"
->
-VIEW MRS WOLFIE PROFILE →
-</a>
-
-</section>
-
-
-<!-- =========================================
-     GREIG SLOAN
-========================================= -->
-
-<section class="section">
-
-<div class="section-header">
-
-<h2 class="section-title">
-<span class="fire">GREIG SLOAN</span>
-</h2>
-
-<div class="section-team">
-TEAM SLOAN
-</div>
-
-</div>
-
-
-<!-- GREIG SLOAN - UNFINISHED BUSINESS -->
-
-<article class="fight-card">
-
-<div class="upcoming-badge">
-<span class="upcoming-dot"></span>
-UPCOMING
-</div>
-
-<div class="team-label">
-TEAM SLOAN
-</div>
-
-<div class="fight-layout">
-
-<div class="fight-person left">
-
-<img
-  src="greig-sloan.jpg"
-  alt="Greig Sloan"
->
-
-</div>
-
-
-<div class="fight-centre">
-
-<div class="event-name">
-UNFINISHED BUSINESS
-</div>
-
-<div class="matchup-row">
-
-<div class="card-fighter-name">
-GREIG<br>SLOAN
-</div>
-
-<div class="card-vs">
-VS
-</div>
-
-<div class="card-fighter-name tba">
-TBA
-</div>
-
-</div>
-
-<div class="card-date">
-19 SEPTEMBER 2026
-</div>
-
-<div class="card-venue">
-HAMPDEN PARK
-</div>
-
-<a
-  class="details-button"
-  href="greig-sloan.html"
-  onclick="gtag('event','fight_profile_click',{
-    fighter:'Greig Sloan',
-    team:'Team Sloan',
-    event_name_detail:'Unfinished Business',
-    fight_date:'19 September 2026',
-    opponent:'TBA',
-    source:'Fights Page'
-  });"
->
-VIEW FIGHT DETAILS →
-</a>
-
-</div>
-
-
-<div class="fight-person right">
-
-<img
-  src="unknown-male-fighter.png"
-  alt="Unknown male opponent"
->
-
-</div>
-
-</div>
-
-</article>
-
-
-<!-- GREIG SLOAN TITLE ELIMINATOR -->
-
-<article
-  class="fight-card"
-  style="margin-top:16px;"
->
-
-<div class="upcoming-badge">
-<span class="upcoming-dot"></span>
-UPCOMING
-</div>
-
-<div class="team-label">
-TEAM SLOAN
-</div>
-
-<div class="fight-layout">
-
-<div class="fight-person left">
-
-<img
-  src="greig-sloan.jpg"
-  alt="Greig Sloan"
->
-
-</div>
-
-
-<div class="fight-centre">
-
-<div class="title-badge">
-★ &nbsp; TITLE ELIMINATOR
-</div>
-
-<div class="event-name">
-TBA
-</div>
-
-<div class="matchup-row">
-
-<div class="card-fighter-name">
-GREIG<br>SLOAN
-</div>
-
-<div class="card-vs">
-VS
-</div>
-
-<div class="card-fighter-name tba">
-TBA
-</div>
-
-</div>
-
-<div class="card-date">
-NOVEMBER 2026
-</div>
-
-<div class="card-venue">
-VENUE TBA
-</div>
-
-<div class="fight-detail-badge title">
-TITLE ELIMINATOR
-</div>
-
-<a
-  class="details-button"
-  href="greig-sloan.html"
-  onclick="gtag('event','fight_profile_click',{
-    fighter:'Greig Sloan',
-    team:'Team Sloan',
-    event_name_detail:'Title Eliminator',
-    fight_date:'November 2026',
-    opponent:'TBA',
-    source:'Fights Page'
-  });"
->
-VIEW FIGHT DETAILS →
-</a>
-
-</div>
-
-
-<div class="fight-person right">
-
-<img
-  src="unknown-male-fighter.png"
-  alt="Unknown male opponent"
->
-
-</div>
-
-</div>
-
-</article>
-
-
-<a
-  class="profile-link fire-link"
-  href="greig-sloan.html"
-  onclick="gtag('event','fight_profile_click',{
-    fighter:'Greig Sloan',
-    team:'Team Sloan',
-    source:'Fights Page'
-  });"
->
-VIEW GREIG SLOAN PROFILE →
-</a>
-
-</section>
 
 
 <!-- =========================================
@@ -2158,10 +1748,6 @@ VIEW GREIG SLOAN PROFILE →
 TEAM WOLFPACK • STRENGTH IN UNITY
 </footer>
 
-
-<!-- =========================================
-     COPYRIGHT
-========================================= -->
 
 <div class="copyright">
 <span>© 2026 TEAM WOLFPACK • ALL RIGHTS RESERVED</span>
@@ -2259,7 +1845,7 @@ document
 
 
 <!-- =========================================
-     ADMIN DASHBOARD VISIBILITY
+     FIREBASE
 ========================================= -->
 
 <script type="module">
@@ -2273,16 +1859,39 @@ import {
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
+import {
+  getDatabase,
+  ref,
+  onValue
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
-  authDomain: "team-wolfpack-app.firebaseapp.com",
-  databaseURL: "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "team-wolfpack-app",
-  storageBucket: "team-wolfpack-app.firebasestorage.app",
-  messagingSenderId: "1070414578856",
-  appId: "1:1070414578856:web:df14e7d387e658eeae2e9d",
-  measurementId: "G-6JTCE2N9LZ"
+
+  apiKey:
+    "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+
+  authDomain:
+    "team-wolfpack-app.firebaseapp.com",
+
+  databaseURL:
+    "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+
+  projectId:
+    "team-wolfpack-app",
+
+  storageBucket:
+    "team-wolfpack-app.firebasestorage.app",
+
+  messagingSenderId:
+    "1070414578856",
+
+  appId:
+    "1:1070414578856:web:df14e7d387e658eeae2e9d",
+
+  measurementId:
+    "G-6JTCE2N9LZ"
+
 };
 
 
@@ -2291,6 +1900,9 @@ const firebaseApp =
 
 const auth =
   getAuth(firebaseApp);
+
+const database =
+  getDatabase(firebaseApp);
 
 
 const ADMIN_UIDS =
@@ -2303,6 +1915,16 @@ const ADMIN_UIDS =
 const adminMenuSection =
   document.getElementById(
     "adminMenuSection"
+  );
+
+const liveFights =
+  document.getElementById(
+    "liveFights"
+  );
+
+const liveFightsStatus =
+  document.getElementById(
+    "liveFightsStatus"
   );
 
 
@@ -2328,6 +1950,619 @@ onAuthStateChanged(
   }
 );
 
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHTML(value){
+
+  return String(value || "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* =========================================
+   DISPLAY NAME
+========================================= */
+
+function formatName(name){
+
+  const safe =
+    escapeHTML(name);
+
+  const words =
+    safe.split(/\s+/);
+
+  if(words.length <= 1){
+    return safe;
+  }
+
+  return words.join("<br>");
+}
+
+
+/* =========================================
+   DISPLAY DATE
+========================================= */
+
+function formatDate(fight){
+
+  if(fight.displayDate){
+    return escapeHTML(
+      fight.displayDate
+    );
+  }
+
+  if(!fight.fightDate){
+    return "";
+  }
+
+  const parts =
+    String(
+      fight.fightDate
+    ).split("-");
+
+  if(parts.length !== 3){
+    return escapeHTML(
+      fight.fightDate
+    );
+  }
+
+  const date =
+    new Date(
+      Number(parts[0]),
+      Number(parts[1]) - 1,
+      Number(parts[2])
+    );
+
+  if(
+    Number.isNaN(
+      date.getTime()
+    )
+  ){
+    return escapeHTML(
+      fight.fightDate
+    );
+  }
+
+  return date
+    .toLocaleDateString(
+      "en-GB",
+      {
+        day:"numeric",
+        month:"long",
+        year:"numeric"
+      }
+    )
+    .toUpperCase();
+
+}
+
+
+/* =========================================
+   FALLBACK IMAGES
+========================================= */
+
+function getFighterImage(fight){
+
+  if(fight.fighterImage){
+    return fight.fighterImage;
+  }
+
+  if(
+    fight.fighterId ===
+    "mrs-wolfie"
+  ){
+    return "zoey-james.jpg";
+  }
+
+  if(
+    fight.fighterId ===
+    "greig-sloan"
+  ){
+    return "greig-sloan.jpg";
+  }
+
+  return "icon-512.png";
+
+}
+
+
+function getOpponentImage(fight){
+
+  if(fight.opponentImage){
+    return fight.opponentImage;
+  }
+
+  if(
+    fight.fighterId ===
+    "mrs-wolfie"
+  ){
+    return "unknown-female-fighter.png";
+  }
+
+  return "unknown-male-fighter.png";
+
+}
+
+
+/* =========================================
+   PROFILE
+========================================= */
+
+function getProfile(fight){
+
+  if(fight.fighterProfile){
+    return fight.fighterProfile;
+  }
+
+  if(
+    fight.fighterId ===
+    "mrs-wolfie"
+  ){
+    return "mrs-wolfie.html";
+  }
+
+  if(
+    fight.fighterId ===
+    "greig-sloan"
+  ){
+    return "greig-sloan.html";
+  }
+
+  return "fighters.html";
+
+}
+
+
+/* =========================================
+   RENDER FIGHT
+========================================= */
+
+function renderFightCard(fight){
+
+  const fighterName =
+    fight.fighterName ||
+    "TEAM WOLFPACK FIGHTER";
+
+  const opponent =
+    fight.opponent ||
+    "TBA";
+
+  const profile =
+    getProfile(fight);
+
+  const fighterImage =
+    escapeHTML(
+      getFighterImage(fight)
+    );
+
+  const opponentImage =
+    escapeHTML(
+      getOpponentImage(fight)
+    );
+
+  const team =
+    escapeHTML(
+      fight.team ||
+      "TEAM WOLFPACK"
+    );
+
+  const eventName =
+    escapeHTML(
+      fight.eventName ||
+      "FIGHT NIGHT"
+    );
+
+  const promotion =
+    escapeHTML(
+      fight.promotion ||
+      ""
+    );
+
+  const venue =
+    escapeHTML(
+      fight.venue ||
+      "VENUE TBA"
+    );
+
+  const fightType =
+    escapeHTML(
+      fight.fightType ||
+      ""
+    );
+
+  const isTBA =
+    String(opponent)
+      .trim()
+      .toUpperCase() ===
+    "TBA";
+
+
+  return `
+    <article class="fight-card">
+
+      <div class="upcoming-badge">
+        <span class="upcoming-dot"></span>
+        UPCOMING
+      </div>
+
+      <div class="team-label">
+        ${team}
+      </div>
+
+      <div class="fight-layout">
+
+        <div class="fight-person left">
+
+          <img
+            src="${fighterImage}"
+            alt="${escapeHTML(fighterName)}"
+          >
+
+        </div>
+
+
+        <div class="fight-centre">
+
+          ${
+            fightType
+              ? `
+                  <div class="title-badge">
+                    ★ &nbsp; ${fightType}
+                  </div>
+                `
+              : ""
+          }
+
+          <div class="event-name">
+
+            ${eventName}
+
+            ${
+              promotion &&
+              promotion.toUpperCase() !==
+              eventName.toUpperCase()
+                ? `
+                    <span class="event-small">
+                      ${promotion}
+                    </span>
+                  `
+                : ""
+            }
+
+          </div>
+
+
+          <div class="matchup-row">
+
+            <div class="card-fighter-name">
+              ${formatName(fighterName)}
+            </div>
+
+            <div class="card-vs">
+              VS
+            </div>
+
+            <div
+              class="card-fighter-name ${
+                isTBA
+                  ? "tba"
+                  : ""
+              }"
+            >
+              ${formatName(opponent)}
+            </div>
+
+          </div>
+
+
+          <div class="card-date">
+            ${formatDate(fight)}
+          </div>
+
+          <div class="card-venue">
+            ${venue}
+          </div>
+
+
+          ${
+            fightType
+              ? `
+                  <div class="fight-detail-badge title">
+                    ${fightType}
+                  </div>
+                `
+              : ""
+          }
+
+
+          <a
+            class="details-button"
+            href="${escapeHTML(profile)}"
+          >
+            VIEW FIGHT DETAILS →
+          </a>
+
+        </div>
+
+
+        <div class="fight-person right">
+
+          <img
+            src="${opponentImage}"
+            alt="${escapeHTML(opponent)}"
+          >
+
+        </div>
+
+      </div>
+
+    </article>
+  `;
+
+}
+
+
+/* =========================================
+   RENDER FIGHTER SECTION
+========================================= */
+
+function renderFighterSection(
+  fighterId,
+  fights
+){
+
+  if(!fights.length){
+    return "";
+  }
+
+
+  const firstFight =
+    fights[0];
+
+  const fighterName =
+    firstFight.fighterName ||
+    "TEAM WOLFPACK";
+
+  const team =
+    firstFight.team ||
+    "TEAM WOLFPACK";
+
+  const profile =
+    getProfile(firstFight);
+
+  const titleClass =
+    fighterId ===
+    "greig-sloan"
+      ? "fire"
+      : "ice";
+
+  const profileClass =
+    fighterId ===
+    "greig-sloan"
+      ? "profile-link fire-link"
+      : "profile-link";
+
+
+  const cards =
+    fights
+      .map(
+        renderFightCard
+      )
+      .join("");
+
+
+  return `
+    <section class="section">
+
+      <div class="section-header">
+
+        <h2 class="section-title">
+          <span class="${titleClass}">
+            ${escapeHTML(fighterName)}
+          </span>
+        </h2>
+
+        <div class="section-team">
+          ${escapeHTML(team)}
+        </div>
+
+      </div>
+
+      ${cards}
+
+      <a
+        class="${profileClass}"
+        href="${escapeHTML(profile)}"
+      >
+        VIEW ${escapeHTML(fighterName)} PROFILE →
+      </a>
+
+    </section>
+  `;
+
+}
+
+
+/* =========================================
+   LIVE FIGHT DATABASE
+========================================= */
+
+onValue(
+  ref(
+    database,
+    "fights"
+  ),
+
+  function(snapshot){
+
+    const fights = [];
+
+
+    snapshot.forEach(
+      function(childSnapshot){
+
+        const fight =
+          childSnapshot.val();
+
+        if(
+          fight &&
+          fight.status ===
+          "upcoming"
+        ){
+
+          fights.push({
+            id:
+              childSnapshot.key,
+
+            ...fight
+          });
+
+        }
+
+      }
+    );
+
+
+    fights.sort(
+      function(a,b){
+
+        return (
+          Number(
+            a.dateTimestamp || 0
+          ) -
+          Number(
+            b.dateTimestamp || 0
+          )
+        );
+
+      }
+    );
+
+
+    liveFightsStatus.className =
+      "live-status";
+
+    liveFightsStatus.textContent =
+      "● LIVE • FIGHT DATABASE CONNECTED";
+
+
+    if(!fights.length){
+
+      liveFights.innerHTML =
+        `
+          <div class="no-fights">
+            NO UPCOMING FIGHTS CURRENTLY SCHEDULED
+          </div>
+        `;
+
+      return;
+    }
+
+
+    const groups = {};
+
+
+    fights.forEach(
+      function(fight){
+
+        const id =
+          fight.fighterId ||
+          "other";
+
+        if(!groups[id]){
+          groups[id] = [];
+        }
+
+        groups[id].push(
+          fight
+        );
+
+      }
+    );
+
+
+    const preferredOrder = [
+      "mrs-wolfie",
+      "greig-sloan"
+    ];
+
+
+    const remaining =
+      Object.keys(groups)
+        .filter(
+          function(id){
+
+            return !preferredOrder
+              .includes(id);
+
+          }
+        );
+
+
+    const order =
+      preferredOrder
+        .concat(remaining);
+
+
+    liveFights.innerHTML =
+      order
+        .filter(
+          function(id){
+
+            return (
+              groups[id] &&
+              groups[id].length
+            );
+
+          }
+        )
+        .map(
+          function(id){
+
+            return renderFighterSection(
+              id,
+              groups[id]
+            );
+
+          }
+        )
+        .join("");
+
+  },
+
+  function(error){
+
+    console.error(
+      "Fight database error:",
+      error
+    );
+
+
+    liveFightsStatus.className =
+      "live-status error";
+
+    liveFightsStatus.textContent =
+      "FIGHT DATABASE OFFLINE";
+
+
+    liveFights.innerHTML =
+      `
+        <div class="no-fights">
+          UPCOMING FIGHTS COULD NOT BE LOADED
+        </div>
+      `;
+
+  }
+);
+
 </script>
 
 
@@ -2344,15 +2579,19 @@ if("serviceWorker" in navigator){
     function(){
 
       navigator.serviceWorker
-        .register("service-worker.js")
-        .catch(function(error){
+        .register(
+          "service-worker.js"
+        )
+        .catch(
+          function(error){
 
-          console.error(
-            "Service worker error:",
-            error
-          );
+            console.error(
+              "Service worker error:",
+              error
+            );
 
-        });
+          }
+        );
 
     }
   );
