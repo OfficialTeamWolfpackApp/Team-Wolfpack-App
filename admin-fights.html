@@ -1,1 +1,2280 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
+
+<meta name="theme-color" content="#050505">
+
+<title>Fight Manager | Team Wolfpack</title>
+
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  min-height:100vh;
+  min-height:100dvh;
+
+  font-family:Arial,Helvetica,sans-serif;
+  color:#fff;
+
+  background:
+    radial-gradient(
+      circle at 0% 15%,
+      rgba(0,190,255,.18),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 100% 70%,
+      rgba(255,90,0,.18),
+      transparent 35%
+    ),
+    linear-gradient(
+      115deg,
+      #02090d 0%,
+      #050505 50%,
+      #150802 100%
+    );
+}
+
+button,
+input,
+select,
+textarea{
+  font:inherit;
+}
+
+.page{
+  width:100%;
+  max-width:900px;
+  margin:auto;
+
+  padding:
+    28px
+    16px
+    calc(50px + env(safe-area-inset-bottom));
+}
+
+
+/* HEADER */
+
+.header{
+  text-align:center;
+
+  padding:
+    calc(12px + env(safe-area-inset-top))
+    0
+    24px;
+}
+
+.logo{
+  width:92px;
+  height:92px;
+
+  object-fit:contain;
+
+  margin-bottom:12px;
+}
+
+.header-label{
+  color:#777;
+
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:3px;
+}
+
+.header h1{
+  margin-top:7px;
+
+  font-size:27px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.ice{
+  color:#67dcff;
+}
+
+.fire{
+  color:#ff751c;
+}
+
+.header p{
+  max-width:600px;
+
+  margin:
+    9px
+    auto
+    0;
+
+  color:#999;
+
+  font-size:9px;
+  font-weight:700;
+  line-height:1.6;
+}
+
+
+/* AUTH STATUS */
+
+.auth-status{
+  margin-bottom:20px;
+
+  padding:12px;
+
+  text-align:center;
+
+  border-radius:10px;
+
+  border:
+    1px solid rgba(103,220,255,.18);
+
+  background:
+    rgba(0,0,0,.45);
+
+  color:#999;
+
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.auth-status.authorised{
+  color:#43f27b;
+
+  border-color:
+    rgba(67,242,123,.25);
+
+  background:
+    rgba(0,80,35,.18);
+}
+
+.auth-status.denied{
+  color:#ff755f;
+
+  border-color:
+    rgba(255,80,60,.25);
+}
+
+
+/* ADMIN BAR */
+
+.admin-bar{
+  display:none;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:12px;
+
+  margin-bottom:20px;
+
+  padding:13px 15px;
+
+  border-radius:12px;
+
+  border:
+    1px solid rgba(255,255,255,.10);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,160,220,.09),
+      rgba(255,90,0,.09)
+    );
+}
+
+.admin-name{
+  font-size:10px;
+  font-weight:900;
+}
+
+.admin-role{
+  margin-top:3px;
+
+  color:#888;
+
+  font-size:6px;
+  font-weight:900;
+  letter-spacing:1.5px;
+}
+
+.live-control{
+  color:#43f27b;
+
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+
+/* CARD */
+
+.card{
+  margin-bottom:20px;
+
+  padding:20px;
+
+  border-radius:16px;
+
+  border:
+    1px solid rgba(255,255,255,.11);
+
+  background:
+    rgba(5,5,5,.88);
+
+  box-shadow:
+    0 14px 35px rgba(0,0,0,.35);
+}
+
+.card-title{
+  margin-bottom:17px;
+
+  font-size:18px;
+  font-weight:900;
+}
+
+.card-subtitle{
+  margin:
+    -9px
+    0
+    18px;
+
+  color:#777;
+
+  font-size:8px;
+  font-weight:700;
+  line-height:1.5;
+}
+
+
+/* FORM */
+
+.form-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,minmax(0,1fr));
+
+  gap:14px;
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+
+.field.full{
+  grid-column:1 / -1;
+}
+
+label{
+  color:#aaa;
+
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+
+  border-radius:9px;
+
+  border:
+    1px solid rgba(255,255,255,.13);
+
+  outline:none;
+
+  background:#090909;
+  color:#fff;
+
+  padding:12px;
+
+  font-size:10px;
+  font-weight:700;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:#67dcff;
+
+  box-shadow:
+    0 0 0 2px rgba(103,220,255,.08);
+}
+
+textarea{
+  min-height:80px;
+  resize:vertical;
+}
+
+.help{
+  color:#666;
+
+  font-size:7px;
+  line-height:1.5;
+}
+
+
+/* BUTTONS */
+
+.button-row{
+  display:flex;
+  flex-wrap:wrap;
+
+  gap:10px;
+
+  margin-top:19px;
+}
+
+.button{
+  min-height:42px;
+
+  padding:
+    10px
+    18px;
+
+  border-radius:9px;
+
+  border:
+    1px solid rgba(103,220,255,.28);
+
+  cursor:pointer;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,160,220,.18),
+      rgba(255,90,0,.16)
+    );
+
+  color:#fff;
+
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.8px;
+}
+
+.button:hover{
+  border-color:#67dcff;
+}
+
+.button.secondary{
+  border-color:
+    rgba(255,255,255,.15);
+
+  background:#0b0b0b;
+
+  color:#bbb;
+}
+
+.button.danger{
+  border-color:
+    rgba(255,80,60,.28);
+
+  background:
+    rgba(120,15,10,.18);
+
+  color:#ff755f;
+}
+
+.button.edit{
+  border-color:
+    rgba(103,220,255,.25);
+
+  color:#67dcff;
+}
+
+
+/* MESSAGE */
+
+.form-message{
+  display:none;
+
+  margin-top:15px;
+
+  padding:11px;
+
+  border-radius:8px;
+
+  text-align:center;
+
+  font-size:8px;
+  font-weight:900;
+}
+
+.form-message.success{
+  display:block;
+
+  color:#43f27b;
+
+  border:
+    1px solid rgba(67,242,123,.22);
+
+  background:
+    rgba(0,80,35,.18);
+}
+
+.form-message.error{
+  display:block;
+
+  color:#ff755f;
+
+  border:
+    1px solid rgba(255,80,60,.22);
+
+  background:
+    rgba(100,15,10,.18);
+}
+
+
+/* FIGHT LIST */
+
+.fight-list{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.empty{
+  padding:20px;
+
+  text-align:center;
+
+  border-radius:10px;
+
+  border:
+    1px dashed rgba(255,255,255,.12);
+
+  color:#777;
+
+  font-size:8px;
+  font-weight:900;
+}
+
+.fight-item{
+  position:relative;
+
+  overflow:hidden;
+
+  padding:16px;
+
+  border-radius:12px;
+
+  border:
+    1px solid rgba(255,255,255,.10);
+
+  background:#080808;
+}
+
+.fight-item::before{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  top:0;
+  bottom:0;
+
+  width:3px;
+
+  background:#67dcff;
+}
+
+.fight-item.completed::before{
+  background:#ff751c;
+}
+
+.fight-item.cancelled::before{
+  background:#ff4f4f;
+}
+
+.fight-item.postponed::before{
+  background:#ffb000;
+}
+
+.fight-top{
+  display:flex;
+
+  align-items:flex-start;
+  justify-content:space-between;
+
+  gap:12px;
+}
+
+.fight-status{
+  display:inline-flex;
+
+  padding:
+    5px
+    8px;
+
+  border-radius:20px;
+
+  color:#43f27b;
+
+  border:
+    1px solid rgba(67,242,123,.22);
+
+  background:
+    rgba(0,80,35,.20);
+
+  font-size:6px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.fight-status.completed{
+  color:#67dcff;
+
+  border-color:
+    rgba(103,220,255,.22);
+
+  background:
+    rgba(0,100,150,.15);
+}
+
+.fight-status.cancelled{
+  color:#ff755f;
+
+  border-color:
+    rgba(255,80,60,.22);
+
+  background:
+    rgba(100,15,10,.16);
+}
+
+.fight-status.postponed{
+  color:#ffb000;
+
+  border-color:
+    rgba(255,176,0,.22);
+
+  background:
+    rgba(120,80,0,.14);
+}
+
+.fight-date{
+  color:#999;
+
+  font-size:7px;
+  font-weight:900;
+}
+
+.fight-match{
+  margin-top:12px;
+
+  font-size:16px;
+  font-weight:900;
+}
+
+.fight-match .vs{
+  padding:0 7px;
+  color:#ff751c;
+}
+
+.fight-meta{
+  margin-top:8px;
+
+  color:#999;
+
+  font-size:8px;
+  font-weight:700;
+  line-height:1.7;
+}
+
+.result-line{
+  margin-top:10px;
+
+  color:#fff;
+
+  font-size:9px;
+  font-weight:900;
+}
+
+.result-win{
+  color:#43f27b;
+}
+
+.result-loss{
+  color:#ff755f;
+}
+
+.result-draw{
+  color:#ffb000;
+}
+
+.result-nc{
+  color:#aaa;
+}
+
+.item-actions{
+  display:flex;
+  flex-wrap:wrap;
+
+  gap:8px;
+
+  margin-top:13px;
+}
+
+
+/* LINKS */
+
+.bottom-links{
+  display:flex;
+
+  flex-wrap:wrap;
+
+  justify-content:center;
+
+  gap:10px;
+
+  margin-top:25px;
+}
+
+.bottom-link{
+  display:inline-flex;
+
+  align-items:center;
+  justify-content:center;
+
+  min-height:40px;
+
+  padding:
+    10px
+    15px;
+
+  border-radius:8px;
+
+  border:
+    1px solid rgba(103,220,255,.18);
+
+  background:
+    rgba(0,0,0,.40);
+
+  color:#67dcff;
+
+  text-decoration:none;
+
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:.7px;
+}
+
+
+/* FOOTER */
+
+.footer{
+  margin-top:28px;
+
+  padding-top:20px;
+
+  border-top:
+    1px solid rgba(255,255,255,.08);
+
+  text-align:center;
+
+  color:#777;
+
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:1.2px;
+}
+
+
+/* MOBILE */
+
+@media(max-width:620px){
+
+  .page{
+    padding-left:11px;
+    padding-right:11px;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .field.full{
+    grid-column:auto;
+  }
+
+  .card{
+    padding:16px;
+  }
+
+  .fight-top{
+    flex-direction:column;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<main class="page">
+
+<header class="header">
+
+<img
+  src="icon-512.png"
+  class="logo"
+  alt="Team Wolfpack"
+>
+
+<div class="header-label">
+TEAM WOLFPACK ADMIN
+</div>
+
+<h1>
+<span class="ice">FIGHT</span>
+<span class="fire">MANAGER</span>
+</h1>
+
+<p>
+Create and manage Team Wolfpack fights from one central control panel.
+Completed fight results can be used across the app and fighter profiles.
+</p>
+
+</header>
+
+
+<div
+  id="authStatus"
+  class="auth-status"
+>
+CHECKING ADMIN ACCESS...
+</div>
+
+
+<div
+  id="adminBar"
+  class="admin-bar"
+>
+
+<div>
+
+<div
+  id="adminName"
+  class="admin-name"
+>
+ADMIN
+</div>
+
+<div class="admin-role">
+FIGHT MANAGEMENT
+</div>
+
+</div>
+
+<div class="live-control">
+● LIVE CONTROL
+</div>
+
+</div>
+
+
+<section
+  id="managerContent"
+  style="display:none;"
+>
+
+
+<div class="card">
+
+<h2 class="card-title">
+<span class="ice">ADD / EDIT</span>
+<span class="fire">FIGHT</span>
+</h2>
+
+<p class="card-subtitle">
+Enter the fight once here. The same record will later power the Fights page,
+Home page and fighter results.
+</p>
+
+
+<form id="fightForm">
+
+<input
+  type="hidden"
+  id="fightId"
+>
+
+
+<div class="form-grid">
+
+
+<div class="field">
+
+<label for="fighter">
+FIGHTER
+</label>
+
+<select id="fighter" required>
+
+<option value="">
+SELECT FIGHTER
+</option>
+
+<option value="mrs-wolfie">
+MRS WOLFIE
+</option>
+
+<option value="greig-sloan">
+GREIG SLOAN
+</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label for="team">
+TEAM
+</label>
+
+<select id="team" required>
+
+<option value="">
+SELECT TEAM
+</option>
+
+<option value="TEAM WOLFIE">
+TEAM WOLFIE
+</option>
+
+<option value="TEAM SLOAN">
+TEAM SLOAN
+</option>
+
+<option value="TEAM WOLFPACK">
+TEAM WOLFPACK
+</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label for="opponent">
+OPPONENT
+</label>
+
+<input
+  id="opponent"
+  type="text"
+  placeholder="e.g. Colleen Leyden or TBA"
+  required
+>
+
+</div>
+
+
+<div class="field">
+
+<label for="fightDate">
+FIGHT DATE
+</label>
+
+<input
+  id="fightDate"
+  type="date"
+  required
+>
+
+<div class="help">
+Use the confirmed first fight date. Additional date wording can be entered below.
+</div>
+
+</div>
+
+
+<div class="field">
+
+<label for="displayDate">
+DISPLAY DATE
+</label>
+
+<input
+  id="displayDate"
+  type="text"
+  placeholder="e.g. 20/21 NOVEMBER 2026"
+>
+
+<div class="help">
+Optional. Useful when an event spans two possible dates.
+</div>
+
+</div>
+
+
+<div class="field">
+
+<label for="status">
+FIGHT STATUS
+</label>
+
+<select id="status" required>
+
+<option value="upcoming">
+UPCOMING
+</option>
+
+<option value="completed">
+COMPLETED
+</option>
+
+<option value="postponed">
+POSTPONED
+</option>
+
+<option value="cancelled">
+CANCELLED
+</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label for="result">
+RESULT
+</label>
+
+<select id="result">
+
+<option value="">
+NO RESULT YET
+</option>
+
+<option value="WIN">
+WIN
+</option>
+
+<option value="LOSS">
+LOSS
+</option>
+
+<option value="DRAW">
+DRAW
+</option>
+
+<option value="NC">
+NO CONTEST
+</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label for="method">
+RESULT / METHOD
+</label>
+
+<input
+  id="method"
+  type="text"
+  placeholder="e.g. Points, TKO, Decision"
+>
+
+</div>
+
+
+<div class="field">
+
+<label for="promotion">
+PROMOTION
+</label>
+
+<input
+  id="promotion"
+  type="text"
+  placeholder="e.g. FSG Promotions"
+>
+
+</div>
+
+
+<div class="field">
+
+<label for="eventName">
+EVENT NAME
+</label>
+
+<input
+  id="eventName"
+  type="text"
+  placeholder="e.g. Unfinished Business"
+  required
+>
+
+</div>
+
+
+<div class="field">
+
+<label for="venue">
+VENUE
+</label>
+
+<input
+  id="venue"
+  type="text"
+  placeholder="e.g. Hampden Park"
+  required
+>
+
+</div>
+
+
+<div class="field">
+
+<label for="fightType">
+FIGHT TYPE / TITLE
+</label>
+
+<input
+  id="fightType"
+  type="text"
+  placeholder="e.g. Debut, Title Eliminator"
+>
+
+</div>
+
+
+<div class="field">
+
+<label for="fighterImage">
+FIGHTER IMAGE
+</label>
+
+<input
+  id="fighterImage"
+  type="text"
+  placeholder="e.g. zoey-james.jpg"
+>
+
+</div>
+
+
+<div class="field">
+
+<label for="opponentImage">
+OPPONENT IMAGE
+</label>
+
+<input
+  id="opponentImage"
+  type="text"
+  placeholder="e.g. colleen-leyden.jpg"
+>
+
+</div>
+
+
+<div class="field full">
+
+<label for="notes">
+FIGHT NOTES
+</label>
+
+<textarea
+  id="notes"
+  placeholder="Optional fight information..."
+></textarea>
+
+</div>
+
+
+</div>
+
+
+<div class="button-row">
+
+<button
+  id="saveButton"
+  class="button"
+  type="submit"
+>
+SAVE FIGHT
+</button>
+
+<button
+  id="cancelEditButton"
+  class="button secondary"
+  type="button"
+  style="display:none;"
+>
+CANCEL EDIT
+</button>
+
+</div>
+
+
+<div
+  id="formMessage"
+  class="form-message"
+></div>
+
+
+</form>
+
+</div>
+
+
+
+<div class="card">
+
+<h2 class="card-title">
+<span class="ice">FIGHT</span>
+<span class="fire">DATABASE</span>
+</h2>
+
+<p class="card-subtitle">
+Upcoming, completed, postponed and cancelled Team Wolfpack fights.
+</p>
+
+<div
+  id="fightList"
+  class="fight-list"
+>
+
+<div class="empty">
+LOADING FIGHTS...
+</div>
+
+</div>
+
+</div>
+
+
+<div class="bottom-links">
+
+<a
+  class="bottom-link"
+  href="admin-dashboard.html"
+>
+‹ ADMIN DASHBOARD
+</a>
+
+<a
+  class="bottom-link"
+  href="fights.html"
+>
+VIEW FIGHTS →
+</a>
+
+</div>
+
+
+</section>
+
+
+<footer class="footer">
+TEAM WOLFPACK • STRENGTH IN UNITY • ONE PACK • ONE PURPOSE
+</footer>
+
+</main>
+
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+import {
+  getDatabase,
+  ref,
+  push,
+  set,
+  update,
+  remove,
+  onValue
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+
+  authDomain:
+    "team-wolfpack-app.firebaseapp.com",
+
+  databaseURL:
+    "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+
+  projectId:
+    "team-wolfpack-app",
+
+  storageBucket:
+    "team-wolfpack-app.firebasestorage.app",
+
+  messagingSenderId:
+    "1070414578856",
+
+  appId:
+    "1:1070414578856:web:df14e7d387e658eeae2e9d",
+
+  measurementId:
+    "G-6JTCE2N9LZ"
+
+};
+
+
+const app =
+  initializeApp(firebaseConfig);
+
+const auth =
+  getAuth(app);
+
+const database =
+  getDatabase(app);
+
+
+const ADMINS = {
+
+  "PRGa9TsCW0QDn1QtoUXyYjEi7YB3":
+    "MR WOLFIE",
+
+  "SlpEQYl94DaH6j42QUyl8Kv2ujJ3":
+    "MRS WOLFIE"
+
+};
+
+
+const FIGHTERS = {
+
+  "mrs-wolfie": {
+    name:"MRS WOLFIE",
+    profile:"mrs-wolfie.html",
+    image:"zoey-james.jpg",
+    team:"TEAM WOLFIE"
+  },
+
+  "greig-sloan": {
+    name:"GREIG SLOAN",
+    profile:"greig-sloan.html",
+    image:"greig-sloan.jpg",
+    team:"TEAM SLOAN"
+  }
+
+};
+
+
+const authStatus =
+  document.getElementById(
+    "authStatus"
+  );
+
+const adminBar =
+  document.getElementById(
+    "adminBar"
+  );
+
+const adminName =
+  document.getElementById(
+    "adminName"
+  );
+
+const managerContent =
+  document.getElementById(
+    "managerContent"
+  );
+
+const fightForm =
+  document.getElementById(
+    "fightForm"
+  );
+
+const fightId =
+  document.getElementById(
+    "fightId"
+  );
+
+const fighter =
+  document.getElementById(
+    "fighter"
+  );
+
+const team =
+  document.getElementById(
+    "team"
+  );
+
+const opponent =
+  document.getElementById(
+    "opponent"
+  );
+
+const fightDate =
+  document.getElementById(
+    "fightDate"
+  );
+
+const displayDate =
+  document.getElementById(
+    "displayDate"
+  );
+
+const status =
+  document.getElementById(
+    "status"
+  );
+
+const result =
+  document.getElementById(
+    "result"
+  );
+
+const method =
+  document.getElementById(
+    "method"
+  );
+
+const promotion =
+  document.getElementById(
+    "promotion"
+  );
+
+const eventName =
+  document.getElementById(
+    "eventName"
+  );
+
+const venue =
+  document.getElementById(
+    "venue"
+  );
+
+const fightType =
+  document.getElementById(
+    "fightType"
+  );
+
+const fighterImage =
+  document.getElementById(
+    "fighterImage"
+  );
+
+const opponentImage =
+  document.getElementById(
+    "opponentImage"
+  );
+
+const notes =
+  document.getElementById(
+    "notes"
+  );
+
+const saveButton =
+  document.getElementById(
+    "saveButton"
+  );
+
+const cancelEditButton =
+  document.getElementById(
+    "cancelEditButton"
+  );
+
+const formMessage =
+  document.getElementById(
+    "formMessage"
+  );
+
+const fightList =
+  document.getElementById(
+    "fightList"
+  );
+
+
+let currentUser = null;
+
+let fightsCache = {};
+
+
+/* =========================================
+   SECURITY
+========================================= */
+
+function isAdmin(user){
+
+  return Boolean(
+    user &&
+    ADMINS[user.uid]
+  );
+
+}
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHTML(value){
+
+  return String(value || "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* =========================================
+   FIGHTER CHANGE
+========================================= */
+
+fighter.addEventListener(
+  "change",
+  function(){
+
+    const data =
+      FIGHTERS[fighter.value];
+
+    if(!data){
+      return;
+    }
+
+    team.value =
+      data.team;
+
+    if(
+      !fighterImage.value.trim()
+    ){
+      fighterImage.value =
+        data.image;
+    }
+
+  }
+);
+
+
+/* =========================================
+   RESULT / STATUS LOGIC
+========================================= */
+
+result.addEventListener(
+  "change",
+  function(){
+
+    if(
+      result.value &&
+      status.value !== "completed"
+    ){
+      status.value =
+        "completed";
+    }
+
+  }
+);
+
+
+status.addEventListener(
+  "change",
+  function(){
+
+    if(
+      status.value !== "completed"
+    ){
+      result.value = "";
+    }
+
+  }
+);
+
+
+/* =========================================
+   DEFAULT OPPONENT IMAGE
+========================================= */
+
+fighter.addEventListener(
+  "change",
+  function(){
+
+    if(
+      opponentImage.value.trim()
+    ){
+      return;
+    }
+
+    if(
+      fighter.value === "mrs-wolfie"
+    ){
+      opponentImage.value =
+        "unknown-female-fighter.png";
+    }
+
+    if(
+      fighter.value === "greig-sloan"
+    ){
+      opponentImage.value =
+        "unknown-male-fighter.png";
+    }
+
+  }
+);
+
+
+/* =========================================
+   FORM MESSAGE
+========================================= */
+
+function showMessage(
+  message,
+  type
+){
+
+  formMessage.className =
+    "form-message " + type;
+
+  formMessage.textContent =
+    message;
+
+}
+
+
+/* =========================================
+   RESET FORM
+========================================= */
+
+function resetForm(){
+
+  fightForm.reset();
+
+  fightId.value = "";
+
+  saveButton.textContent =
+    "SAVE FIGHT";
+
+  cancelEditButton.style.display =
+    "none";
+
+  formMessage.className =
+    "form-message";
+
+  formMessage.textContent = "";
+
+}
+
+
+/* =========================================
+   SAVE FIGHT
+========================================= */
+
+fightForm.addEventListener(
+  "submit",
+  async function(event){
+
+    event.preventDefault();
+
+    if(!isAdmin(currentUser)){
+
+      showMessage(
+        "ADMIN ACCESS REQUIRED",
+        "error"
+      );
+
+      return;
+    }
+
+
+    const fighterData =
+      FIGHTERS[fighter.value];
+
+    if(!fighterData){
+
+      showMessage(
+        "SELECT A VALID FIGHTER",
+        "error"
+      );
+
+      return;
+    }
+
+
+    if(
+      status.value === "completed" &&
+      !result.value
+    ){
+
+      showMessage(
+        "SELECT THE FIGHT RESULT BEFORE MARKING IT COMPLETED",
+        "error"
+      );
+
+      return;
+    }
+
+
+    const dateTimestamp =
+      new Date(
+        fightDate.value + "T12:00:00"
+      ).getTime();
+
+
+    if(
+      !Number.isFinite(dateTimestamp)
+    ){
+
+      showMessage(
+        "ENTER A VALID FIGHT DATE",
+        "error"
+      );
+
+      return;
+    }
+
+
+    const data = {
+
+      fighterId:
+        fighter.value,
+
+      fighterName:
+        fighterData.name,
+
+      fighterProfile:
+        fighterData.profile,
+
+      team:
+        team.value,
+
+      opponent:
+        opponent.value.trim(),
+
+      fightDate:
+        fightDate.value,
+
+      displayDate:
+        displayDate.value.trim(),
+
+      dateTimestamp:
+        dateTimestamp,
+
+      status:
+        status.value,
+
+      result:
+        result.value,
+
+      method:
+        method.value.trim(),
+
+      promotion:
+        promotion.value.trim(),
+
+      eventName:
+        eventName.value.trim(),
+
+      venue:
+        venue.value.trim(),
+
+      fightType:
+        fightType.value.trim(),
+
+      fighterImage:
+        fighterImage.value.trim() ||
+        fighterData.image,
+
+      opponentImage:
+        opponentImage.value.trim(),
+
+      notes:
+        notes.value.trim(),
+
+      updatedAt:
+        Date.now(),
+
+      updatedBy:
+        currentUser.uid
+
+    };
+
+
+    try{
+
+      if(fightId.value){
+
+        await update(
+          ref(
+            database,
+            "fights/" + fightId.value
+          ),
+          data
+        );
+
+        showMessage(
+          "FIGHT UPDATED",
+          "success"
+        );
+
+      }else{
+
+        const newFight =
+          push(
+            ref(
+              database,
+              "fights"
+            )
+          );
+
+        data.createdAt =
+          Date.now();
+
+        data.createdBy =
+          currentUser.uid;
+
+        await set(
+          newFight,
+          data
+        );
+
+        showMessage(
+          "FIGHT ADDED",
+          "success"
+        );
+
+      }
+
+
+      setTimeout(
+        resetForm,
+        900
+      );
+
+    }catch(error){
+
+      console.error(
+        "Fight save error:",
+        error
+      );
+
+      showMessage(
+        "FIGHT COULD NOT BE SAVED",
+        "error"
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================================
+   CANCEL EDIT
+========================================= */
+
+cancelEditButton.addEventListener(
+  "click",
+  resetForm
+);
+
+
+/* =========================================
+   EDIT
+========================================= */
+
+window.editFight =
+  function(id){
+
+    const data =
+      fightsCache[id];
+
+    if(!data){
+      return;
+    }
+
+
+    fightId.value =
+      id;
+
+    fighter.value =
+      data.fighterId || "";
+
+    team.value =
+      data.team || "";
+
+    opponent.value =
+      data.opponent || "";
+
+    fightDate.value =
+      data.fightDate || "";
+
+    displayDate.value =
+      data.displayDate || "";
+
+    status.value =
+      data.status || "upcoming";
+
+    result.value =
+      data.result || "";
+
+    method.value =
+      data.method || "";
+
+    promotion.value =
+      data.promotion || "";
+
+    eventName.value =
+      data.eventName || "";
+
+    venue.value =
+      data.venue || "";
+
+    fightType.value =
+      data.fightType || "";
+
+    fighterImage.value =
+      data.fighterImage || "";
+
+    opponentImage.value =
+      data.opponentImage || "";
+
+    notes.value =
+      data.notes || "";
+
+
+    saveButton.textContent =
+      "UPDATE FIGHT";
+
+    cancelEditButton.style.display =
+      "inline-flex";
+
+
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+
+  };
+
+
+/* =========================================
+   DELETE
+========================================= */
+
+window.deleteFight =
+  async function(id){
+
+    if(!isAdmin(currentUser)){
+      return;
+    }
+
+
+    const data =
+      fightsCache[id];
+
+
+    const label =
+      data
+        ? (
+            data.fighterName +
+            " vs " +
+            data.opponent
+          )
+        : "this fight";
+
+
+    const confirmed =
+      window.confirm(
+        "Delete " +
+        label +
+        "?\n\nThis cannot be undone."
+      );
+
+
+    if(!confirmed){
+      return;
+    }
+
+
+    try{
+
+      await remove(
+        ref(
+          database,
+          "fights/" + id
+        )
+      );
+
+      if(
+        fightId.value === id
+      ){
+        resetForm();
+      }
+
+    }catch(error){
+
+      console.error(
+        "Delete fight error:",
+        error
+      );
+
+      alert(
+        "The fight could not be deleted."
+      );
+
+    }
+
+  };
+
+
+/* =========================================
+   RESULT CLASS
+========================================= */
+
+function resultClass(value){
+
+  switch(value){
+
+    case "WIN":
+      return "result-win";
+
+    case "LOSS":
+      return "result-loss";
+
+    case "DRAW":
+      return "result-draw";
+
+    default:
+      return "result-nc";
+
+  }
+
+}
+
+
+/* =========================================
+   RENDER FIGHTS
+========================================= */
+
+function renderFights(){
+
+  const entries =
+    Object.entries(
+      fightsCache
+    );
+
+
+  if(!entries.length){
+
+    fightList.innerHTML =
+      `
+        <div class="empty">
+          NO FIGHTS HAVE BEEN ADDED YET
+        </div>
+      `;
+
+    return;
+  }
+
+
+  entries.sort(
+    function(a,b){
+
+      return (
+        Number(
+          a[1].dateTimestamp || 0
+        ) -
+        Number(
+          b[1].dateTimestamp || 0
+        )
+      );
+
+    }
+  );
+
+
+  fightList.innerHTML =
+    entries
+      .map(
+        function(entry){
+
+          const id =
+            entry[0];
+
+          const data =
+            entry[1] || {};
+
+          const fightStatus =
+            data.status ||
+            "upcoming";
+
+          let resultHTML = "";
+
+
+          if(
+            fightStatus ===
+            "completed"
+          ){
+
+            resultHTML =
+              `
+                <div class="result-line">
+                  RESULT:
+                  <span class="${resultClass(data.result)}">
+                    ${escapeHTML(data.result || "PENDING")}
+                  </span>
+                  ${
+                    data.method
+                      ? " • " + escapeHTML(data.method)
+                      : ""
+                  }
+                </div>
+              `;
+
+          }
+
+
+          return `
+            <article
+              class="fight-item ${escapeHTML(fightStatus)}"
+            >
+
+              <div class="fight-top">
+
+                <span
+                  class="fight-status ${escapeHTML(fightStatus)}"
+                >
+                  ${escapeHTML(fightStatus.toUpperCase())}
+                </span>
+
+                <span class="fight-date">
+                  ${escapeHTML(
+                    data.displayDate ||
+                    data.fightDate ||
+                    ""
+                  )}
+                </span>
+
+              </div>
+
+              <div class="fight-match">
+
+                ${escapeHTML(data.fighterName)}
+
+                <span class="vs">
+                  VS
+                </span>
+
+                ${escapeHTML(data.opponent)}
+
+              </div>
+
+              <div class="fight-meta">
+
+                ${
+                  data.promotion
+                    ? escapeHTML(data.promotion) + "<br>"
+                    : ""
+                }
+
+                ${escapeHTML(data.eventName)}
+
+                ${
+                  data.venue
+                    ? " • " + escapeHTML(data.venue)
+                    : ""
+                }
+
+                ${
+                  data.fightType
+                    ? "<br>" + escapeHTML(data.fightType)
+                    : ""
+                }
+
+              </div>
+
+              ${resultHTML}
+
+              <div class="item-actions">
+
+                <button
+                  class="button edit"
+                  type="button"
+                  onclick="editFight('${id}')"
+                >
+                  EDIT
+                </button>
+
+                <button
+                  class="button danger"
+                  type="button"
+                  onclick="deleteFight('${id}')"
+                >
+                  DELETE
+                </button>
+
+              </div>
+
+            </article>
+          `;
+
+        }
+      )
+      .join("");
+
+}
+
+
+/* =========================================
+   LIVE DATABASE
+========================================= */
+
+onValue(
+  ref(
+    database,
+    "fights"
+  ),
+  function(snapshot){
+
+    fightsCache =
+      snapshot.val() || {};
+
+    renderFights();
+
+  },
+  function(error){
+
+    console.error(
+      "Fight database error:",
+      error
+    );
+
+    fightList.innerHTML =
+      `
+        <div class="empty">
+          FIGHT DATABASE COULD NOT BE LOADED
+        </div>
+      `;
+
+  }
+);
+
+
+/* =========================================
+   AUTH
+========================================= */
+
+onAuthStateChanged(
+  auth,
+  function(user){
+
+    currentUser =
+      user;
+
+
+    if(isAdmin(user)){
+
+      authStatus.className =
+        "auth-status authorised";
+
+      authStatus.textContent =
+        ADMINS[user.uid] +
+        " • FIGHT ADMIN";
+
+
+      adminName.textContent =
+        ADMINS[user.uid];
+
+
+      adminBar.style.display =
+        "flex";
+
+      managerContent.style.display =
+        "block";
+
+    }else{
+
+      authStatus.className =
+        "auth-status denied";
+
+      authStatus.textContent =
+        "ADMIN ACCESS REQUIRED";
+
+      adminBar.style.display =
+        "none";
+
+      managerContent.style.display =
+        "none";
+
+    }
+
+  }
+);
+
+</script>
+
+
+<script>
+
+if("serviceWorker" in navigator){
+
+  window.addEventListener(
+    "load",
+    function(){
+
+      navigator.serviceWorker
+        .register(
+          "service-worker.js"
+        )
+        .catch(
+          function(error){
+
+            console.error(
+              "Service worker error:",
+              error
+            );
+
+          }
+        );
+
+    }
+  );
+
+}
+
+</script>
+
+</body>
+</html>
