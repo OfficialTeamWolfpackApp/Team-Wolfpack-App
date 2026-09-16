@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
+
+<meta name="theme-color" content="#050505">
+
+<meta name="apple-mobile-web-app-title" content="TEAM WOLFPACK">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<title>Live Updates Manager | Team Wolfpack</title>
+
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  min-height:100vh;
+  min-height:100dvh;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  color:#fff;
+
+  background:
+    radial-gradient(
+      circle at 0% 15%,
+      rgba(0,190,255,.22),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 100% 35%,
+      rgba(255,85,0,.22),
+      transparent 30%
+    ),
+    linear-gradient(
+      115deg,
+      #02090d 0%,
+      #050505 50%,
+      #150802 100%
+    );
+}
+
+.header{
+  text-align:center;
+  padding:25px 18px 18px;
+}
+
+.logo{
+  width:95px;
+  height:95px;
+  object-fit:contain;
+}
+
+.brand{
+  margin-top:5px;
+  color:#67dcff;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:4px;
+}
+
+.title{
+  margin-top:18px;
+  font-size:29px;
+  font-weight:900;
+}
+
+.ice{
+  color:#67dcff;
+}
+
+.fire{
+  color:#ff751c;
+}
+
+.subtitle{
+  margin-top:8px;
+  color:#999;
+  font-size:11px;
+  line-height:1.5;
+}
+
+.line{
+  width:100%;
+  max-width:650px;
+  height:2px;
+  margin:20px auto 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      #4bd8ff,
+      transparent,
+      #ff6200
+    );
+}
+
+.content{
+  width:100%;
+  max-width:700px;
+  margin:auto;
+  padding:8px 16px 70px;
+}
+
+.status{
+  margin-bottom:15px;
+  padding:10px;
+  text-align:center;
+  color:#aaa;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.status.admin{
+  color:#67dcff;
+}
+
+.status.error{
+  color:#ff7957;
+}
+
+.access-denied{
+  display:none;
+  padding:25px 18px;
+  border-radius:14px;
+  text-align:center;
+
+  border:
+    1px solid rgba(255,117,28,.35);
+
+  background:
+    rgba(50,10,0,.35);
+}
+
+.access-denied.show{
+  display:block;
+}
+
+.access-title{
+  color:#ff751c;
+  font-size:18px;
+  font-weight:900;
+}
+
+.access-text{
+  margin-top:10px;
+  color:#aaa;
+  font-size:11px;
+  line-height:1.6;
+}
+
+.manager{
+  display:none;
+}
+
+.manager.show{
+  display:block;
+}
+
+.admin-bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+
+  margin-bottom:18px;
+  padding:14px 16px;
+
+  border-radius:12px;
+
+  border:
+    1px solid rgba(255,117,28,.35);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,150,210,.12),
+      rgba(255,90,0,.16)
+    );
+}
+
+.admin-name{
+  font-size:11px;
+  font-weight:900;
+}
+
+.admin-badge{
+  display:inline-block;
+  margin-left:6px;
+  padding:4px 7px;
+  border-radius:20px;
+  background:#ff751c;
+  color:#050505;
+  font-size:8px;
+  font-weight:900;
+}
+
+.section-title{
+  margin:23px 0 11px;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.form-card,
+.update-card{
+  position:relative;
+  overflow:hidden;
+
+  padding:18px;
+
+  border-radius:14px;
+
+  border:
+    1px solid rgba(255,255,255,.12);
+
+  background:
+    rgba(8,8,8,.82);
+}
+
+.form-card::before,
+.update-card::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:3px;
+  background:#4bd8ff;
+}
+
+.form-card::after,
+.update-card::after{
+  content:"";
+  position:absolute;
+  right:0;
+  top:0;
+  bottom:0;
+  width:3px;
+  background:#ff6500;
+}
+
+.field{
+  margin-bottom:14px;
+}
+
+label{
+  display:block;
+  margin-bottom:7px;
+
+  color:#aaa;
+
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.8px;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+
+  padding:13px;
+
+  border-radius:10px;
+
+  border:
+    1px solid rgba(255,255,255,.14);
+
+  outline:none;
+
+  color:#fff;
+
+  background:
+    #090b0d;
+
+  font-family:inherit;
+  font-size:12px;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:#67dcff;
+}
+
+textarea{
+  min-height:120px;
+  resize:vertical;
+  line-height:1.5;
+}
+
+.form-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.publish-button{
+  width:100%;
+
+  min-height:50px;
+
+  border:none;
+  border-radius:11px;
+
+  cursor:pointer;
+
+  color:#050505;
+
+  background:
+    linear-gradient(
+      90deg,
+      #67dcff,
+      #ff751c
+    );
+
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.7px;
+}
+
+.publish-button:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+}
+
+.form-message{
+  min-height:18px;
+  margin-top:12px;
+
+  text-align:center;
+
+  color:#67dcff;
+
+  font-size:10px;
+  font-weight:900;
+}
+
+.form-message.error{
+  color:#ff7957;
+}
+
+.update-list{
+  display:grid;
+  gap:10px;
+}
+
+.update-card{
+  padding:16px;
+}
+
+.update-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:flex-start;
+}
+
+.update-type{
+  display:inline-block;
+
+  padding:5px 8px;
+
+  border-radius:20px;
+
+  color:#050505;
+  background:#67dcff;
+
+  font-size:8px;
+  font-weight:900;
+}
+
+.update-type.result,
+.update-type.announcement{
+  background:#ff751c;
+}
+
+.update-title{
+  margin-top:10px;
+
+  font-size:14px;
+  font-weight:900;
+}
+
+.update-date{
+  color:#888;
+
+  font-size:9px;
+  font-weight:900;
+}
+
+.update-message{
+  margin-top:8px;
+
+  color:#aaa;
+
+  font-size:10px;
+  line-height:1.55;
+}
+
+.update-meta{
+  margin-top:10px;
+
+  color:#67dcff;
+
+  font-size:9px;
+  font-weight:900;
+}
+
+.update-actions{
+  display:flex;
+  gap:8px;
+  margin-top:14px;
+}
+
+.small-button{
+  flex:1;
+
+  padding:10px;
+
+  border-radius:9px;
+
+  cursor:pointer;
+
+  font-size:9px;
+  font-weight:900;
+}
+
+.edit-button{
+  border:
+    1px solid #67dcff;
+
+  color:#67dcff;
+
+  background:
+    rgba(0,180,255,.08);
+}
+
+.delete-button{
+  border:
+    1px solid #ff751c;
+
+  color:#ff751c;
+
+  background:
+    rgba(255,90,0,.08);
+}
+
+.empty{
+  padding:25px 15px;
+
+  text-align:center;
+
+  color:#777;
+
+  font-size:10px;
+}
+
+.nav-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+  margin-top:20px;
+}
+
+.nav-button{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  min-height:48px;
+
+  padding:12px 8px;
+
+  text-align:center;
+  text-decoration:none;
+
+  color:#fff;
+
+  border:
+    1px solid #59d9ff;
+
+  border-radius:11px;
+
+  font-size:9px;
+  font-weight:900;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,160,220,.10),
+      rgba(255,90,0,.10)
+    );
+}
+
+@media(max-width:520px){
+
+  .form-row{
+    grid-template-columns:1fr;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="header">
+
+<a href="index.html">
+
+<img
+  src="icon-512.png"
+  class="logo"
+  alt="Team Wolfpack"
+>
+
+</a>
+
+<div class="brand">
+TEAM WOLFPACK
+</div>
+
+<h1 class="title">
+
+<span class="ice">
+LIVE UPDATES
+</span>
+
+<span class="fire">
+MANAGER
+</span>
+
+</h1>
+
+<p class="subtitle">
+Publish Team Wolfpack news, fight results, fight updates and announcements.
+</p>
+
+<div class="line"></div>
+
+</header>
+
+<main class="content">
+
+<div
+  id="status"
+  class="status"
+>
+CHECKING ADMIN ACCESS...
+</div>
+
+<div
+  id="accessDenied"
+  class="access-denied"
+>
+
+<div class="access-title">
+ADMIN ACCESS REQUIRED
+</div>
+
+<div class="access-text">
+Sign into Pack Chat using an authorised Team Wolfpack administrator account.
+</div>
+
+<div class="nav-grid">
+
+<a
+  class="nav-button"
+  href="chat.html"
+>
+PACK CHAT
+</a>
+
+<a
+  class="nav-button"
+  href="index.html"
+>
+HOME
+</a>
+
+</div>
+
+</div>
+
+<div
+  id="manager"
+  class="manager"
+>
+
+<div class="admin-bar">
+
+<div class="admin-name">
+
+<span id="adminName"></span>
+
+<span class="admin-badge">
+ADMIN
+</span>
+
+</div>
+
+<div class="ice">
+LIVE CONTROL
+</div>
+
+</div>
+
+<div class="section-title">
+
+<span class="ice">
+PUBLISH
+</span>
+
+<span class="fire">
+UPDATE
+</span>
+
+</div>
+
+<div class="form-card">
+
+<form id="updateForm">
+
+<input
+  type="hidden"
+  id="editId"
+>
+
+<div class="field">
+
+<label for="type">
+UPDATE TYPE
+</label>
+
+<select id="type" required>
+
+<option value="news">
+NEWS
+</option>
+
+<option value="result">
+RESULT
+</option>
+
+<option value="fight">
+FIGHT
+</option>
+
+<option value="announcement">
+ANNOUNCEMENT
+</option>
+
+</select>
+
+</div>
+
+<div class="field">
+
+<label for="title">
+TITLE
+</label>
+
+<input
+  id="title"
+  type="text"
+  maxlength="100"
+  placeholder="Example: Fight Result"
+  required
+>
+
+</div>
+
+<div class="field">
+
+<label for="message">
+MESSAGE
+</label>
+
+<textarea
+  id="message"
+  maxlength="1000"
+  placeholder="Enter the update..."
+  required
+></textarea>
+
+</div>
+
+<div class="form-row">
+
+<div class="field">
+
+<label for="date">
+DATE
+</label>
+
+<input
+  id="date"
+  type="date"
+  required
+>
+
+</div>
+
+<div class="field">
+
+<label for="fighter">
+FIGHTER / TEAM
+</label>
+
+<input
+  id="fighter"
+  type="text"
+  maxlength="100"
+  placeholder="Optional"
+>
+
+</div>
+
+</div>
+
+<div class="field">
+
+<label for="venue">
+VENUE / LOCATION
+</label>
+
+<input
+  id="venue"
+  type="text"
+  maxlength="150"
+  placeholder="Optional"
+>
+
+</div>
+
+<button
+  id="publishButton"
+  class="publish-button"
+  type="submit"
+>
+PUBLISH LIVE UPDATE
+</button>
+
+<div
+  id="formMessage"
+  class="form-message"
+></div>
+
+</form>
+
+</div>
+
+<div class="section-title">
+
+<span class="ice">
+LIVE
+</span>
+
+<span class="fire">
+UPDATES
+</span>
+
+</div>
+
+<div
+  id="updateList"
+  class="update-list"
+>
+
+<div class="empty">
+LOADING UPDATES...
+</div>
+
+</div>
+
+<div class="nav-grid">
+
+<a
+  class="nav-button"
+  href="admin-dashboard.html"
+>
+‹ ADMIN DASHBOARD
+</a>
+
+<a
+  class="nav-button"
+  href="updates.html"
+>
+VIEW LIVE UPDATES
+</a>
+
+</div>
+
+</div>
+
+</main>
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+import {
+  getDatabase,
+  ref,
+  push,
+  set,
+  remove,
+  onValue
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+
+  authDomain:
+    "team-wolfpack-app.firebaseapp.com",
+
+  databaseURL:
+    "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+
+  projectId:
+    "team-wolfpack-app",
+
+  storageBucket:
+    "team-wolfpack-app.firebasestorage.app",
+
+  messagingSenderId:
+    "1070414578856",
+
+  appId:
+    "1:1070414578856:web:df14e7d387e658eeae2e9d",
+
+  measurementId:
+    "G-6JTCE2N9LZ"
+
+};
+
+
+const ADMINS = {
+
+  "PRGa9TsCW0QDn1QtoUXyYjEi7YB3":
+    "MR WOLFIE",
+
+  "SlpEQYl94DaH6j42QUyl8Kv2ujJ3":
+    "MRS WOLFIE"
+
+};
+
+
+const app =
+  initializeApp(firebaseConfig);
+
+const auth =
+  getAuth(app);
+
+const database =
+  getDatabase(app);
+
+
+const status =
+  document.getElementById("status");
+
+const accessDenied =
+  document.getElementById("accessDenied");
+
+const manager =
+  document.getElementById("manager");
+
+const adminName =
+  document.getElementById("adminName");
+
+const updateForm =
+  document.getElementById("updateForm");
+
+const editId =
+  document.getElementById("editId");
+
+const typeInput =
+  document.getElementById("type");
+
+const titleInput =
+  document.getElementById("title");
+
+const messageInput =
+  document.getElementById("message");
+
+const dateInput =
+  document.getElementById("date");
+
+const fighterInput =
+  document.getElementById("fighter");
+
+const venueInput =
+  document.getElementById("venue");
+
+const publishButton =
+  document.getElementById("publishButton");
+
+const formMessage =
+  document.getElementById("formMessage");
+
+const updateList =
+  document.getElementById("updateList");
+
+
+let currentUser =
+  null;
+
+let updates =
+  {};
+
+
+function setToday(){
+
+  const now =
+    new Date();
+
+  const localDate =
+    new Date(
+      now.getTime() -
+      now.getTimezoneOffset() * 60000
+    )
+    .toISOString()
+    .slice(0,10);
+
+  dateInput.value =
+    localDate;
+
+}
+
+
+setToday();
+
+
+function escapeHTML(value){
+
+  return String(value || "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+function renderUpdates(){
+
+  const entries =
+    Object.entries(updates || {})
+      .filter(function(entry){
+
+        return (
+          entry[1] &&
+          entry[1].published !== false
+        );
+
+      })
+      .sort(function(a,b){
+
+        return (
+          Number(b[1].timestamp || 0) -
+          Number(a[1].timestamp || 0)
+        );
+
+      });
+
+
+  if(entries.length === 0){
+
+    updateList.innerHTML =
+      '<div class="empty">NO LIVE UPDATES YET</div>';
+
+    return;
+
+  }
+
+
+  updateList.innerHTML =
+    entries.map(function(entry){
+
+      const id =
+        entry[0];
+
+      const item =
+        entry[1];
+
+      const type =
+        escapeHTML(item.type || "news");
+
+      const title =
+        escapeHTML(item.title || "Update");
+
+      const message =
+        escapeHTML(item.message || "");
+
+      const date =
+        escapeHTML(item.date || "");
+
+      const fighter =
+        escapeHTML(item.fighter || "");
+
+      const venue =
+        escapeHTML(item.venue || "");
+
+      let meta =
+        "";
+
+      if(fighter){
+        meta += fighter;
+      }
+
+      if(
+        fighter &&
+        venue
+      ){
+        meta += " • ";
+      }
+
+      if(venue){
+        meta += venue;
+      }
+
+
+      return `
+        <article class="update-card">
+
+          <div class="update-top">
+
+            <span class="update-type ${type}">
+              ${type.toUpperCase()}
+            </span>
+
+            <span class="update-date">
+              ${date}
+            </span>
+
+          </div>
+
+          <div class="update-title">
+            ${title}
+          </div>
+
+          <div class="update-message">
+            ${message}
+          </div>
+
+          ${
+            meta
+              ? `<div class="update-meta">${meta}</div>`
+              : ""
+          }
+
+          <div class="update-actions">
+
+            <button
+              class="small-button edit-button"
+              type="button"
+              data-edit="${escapeHTML(id)}"
+            >
+              EDIT
+            </button>
+
+            <button
+              class="small-button delete-button"
+              type="button"
+              data-delete="${escapeHTML(id)}"
+            >
+              DELETE
+            </button>
+
+          </div>
+
+        </article>
+      `;
+
+    })
+    .join("");
+
+}
+
+
+function listenForUpdates(){
+
+  onValue(
+    ref(
+      database,
+      "updates"
+    ),
+
+    function(snapshot){
+
+      updates =
+        snapshot.val() || {};
+
+      renderUpdates();
+
+    },
+
+    function(error){
+
+      console.error(
+        "Updates:",
+        error
+      );
+
+      updateList.innerHTML =
+        '<div class="empty">UNABLE TO LOAD UPDATES</div>';
+
+    }
+  );
+
+}
+
+
+updateForm.addEventListener(
+  "submit",
+  async function(event){
+
+    event.preventDefault();
+
+
+    if(
+      !currentUser ||
+      !ADMINS[currentUser.uid]
+    ){
+      return;
+    }
+
+
+    publishButton.disabled =
+      true;
+
+    formMessage.className =
+      "form-message";
+
+    formMessage.textContent =
+      "SAVING...";
+
+
+    try{
+
+      const existingId =
+        editId.value.trim();
+
+      const updateData = {
+
+        type:
+          typeInput.value,
+
+        title:
+          titleInput.value.trim(),
+
+        message:
+          messageInput.value.trim(),
+
+        date:
+          dateInput.value,
+
+        fighter:
+          fighterInput.value.trim(),
+
+        venue:
+          venueInput.value.trim(),
+
+        published:
+          true,
+
+        timestamp:
+          Date.now(),
+
+        adminUid:
+          currentUser.uid,
+
+        adminName:
+          ADMINS[currentUser.uid]
+
+      };
+
+
+      if(existingId){
+
+        await set(
+          ref(
+            database,
+            "updates/" + existingId
+          ),
+          updateData
+        );
+
+        formMessage.textContent =
+          "UPDATE SAVED";
+
+      }else{
+
+        const newUpdate =
+          push(
+            ref(
+              database,
+              "updates"
+            )
+          );
+
+        await set(
+          newUpdate,
+          updateData
+        );
+
+        formMessage.textContent =
+          "LIVE UPDATE PUBLISHED";
+
+      }
+
+
+      updateForm.reset();
+
+      editId.value =
+        "";
+
+      publishButton.textContent =
+        "PUBLISH LIVE UPDATE";
+
+      setToday();
+
+
+    }catch(error){
+
+      console.error(
+        "Publish update:",
+        error
+      );
+
+      formMessage.className =
+        "form-message error";
+
+      formMessage.textContent =
+        "UPDATE COULD NOT BE SAVED";
+
+    }
+
+
+    publishButton.disabled =
+      false;
+
+  }
+);
+
+
+updateList.addEventListener(
+  "click",
+  async function(event){
+
+    const editButton =
+      event.target.closest(
+        "[data-edit]"
+      );
+
+    const deleteButton =
+      event.target.closest(
+        "[data-delete]"
+      );
+
+
+    if(editButton){
+
+      const id =
+        editButton.dataset.edit;
+
+      const item =
+        updates[id];
+
+      if(!item){
+        return;
+      }
+
+      editId.value =
+        id;
+
+      typeInput.value =
+        item.type || "news";
+
+      titleInput.value =
+        item.title || "";
+
+      messageInput.value =
+        item.message || "";
+
+      dateInput.value =
+        item.date || "";
+
+      fighterInput.value =
+        item.fighter || "";
+
+      venueInput.value =
+        item.venue || "";
+
+      publishButton.textContent =
+        "SAVE CHANGES";
+
+      formMessage.textContent =
+        "EDITING LIVE UPDATE";
+
+      window.scrollTo({
+        top:0,
+        behavior:"smooth"
+      });
+
+      return;
+
+    }
+
+
+    if(deleteButton){
+
+      const id =
+        deleteButton.dataset.delete;
+
+      const item =
+        updates[id];
+
+      if(!item){
+        return;
+      }
+
+
+      const confirmed =
+        window.confirm(
+          'Delete "' +
+          (item.title || "this update") +
+          '"?'
+        );
+
+
+      if(!confirmed){
+        return;
+      }
+
+
+      try{
+
+        await remove(
+          ref(
+            database,
+            "updates/" + id
+          )
+        );
+
+      }catch(error){
+
+        console.error(
+          "Delete update:",
+          error
+        );
+
+        window.alert(
+          "The update could not be deleted."
+        );
+
+      }
+
+    }
+
+  }
+);
+
+
+onAuthStateChanged(
+  auth,
+  function(user){
+
+    if(
+      user &&
+      ADMINS[user.uid]
+    ){
+
+      currentUser =
+        user;
+
+      const name =
+        ADMINS[user.uid];
+
+      status.textContent =
+        "● " +
+        name +
+        " • LIVE UPDATES ADMIN";
+
+      status.className =
+        "status admin";
+
+      adminName.textContent =
+        name;
+
+      accessDenied.classList.remove(
+        "show"
+      );
+
+      manager.classList.add(
+        "show"
+      );
+
+      listenForUpdates();
+
+      return;
+
+    }
+
+
+    currentUser =
+      null;
+
+    status.textContent =
+      "ADMIN ACCESS REQUIRED";
+
+    status.className =
+      "status error";
+
+    manager.classList.remove(
+      "show"
+    );
+
+    accessDenied.classList.add(
+      "show"
+    );
+
+  }
+);
+
+</script>
+
+
+<script>
+
+if("serviceWorker" in navigator){
+
+  window.addEventListener(
+    "load",
+    function(){
+
+      navigator.serviceWorker
+        .register(
+          "service-worker.js"
+        )
+        .catch(function(error){
+
+          console.error(
+            "Service worker error:",
+            error
+          );
+
+        });
+
+    }
+  );
+
+}
+
+</script>
+
+</body>
+
+</html>
