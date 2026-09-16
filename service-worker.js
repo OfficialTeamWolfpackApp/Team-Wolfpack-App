@@ -1,4 +1,4 @@
-const CACHE_NAME = "team-wolfpack-v14";
+const CACHE_NAME = "team-wolfpack-v15";
 
 const APP_FILES = [
   "./",
