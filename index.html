@@ -100,13 +100,13 @@ body.menu-open{overflow:hidden}a{-webkit-tap-highlight-color:transparent}
 <section class="home-banner"><img src="team-wolfpack-banner.png" class="home-banner-image" alt="Team Wolfpack - One Pack One Purpose"></section>
 <main class="main">
 <section class="next-fight">
-<div class="fighter-side left"><img src="greig-sloan.jpg" class="fighter-photo" alt="Greig Sloan"></div>
+<div class="fighter-side left"><img id="heroFighterImage" src="greig-sloan.jpg" class="fighter-photo" alt="Greig Sloan"></div>
 <div class="fighter-side right">
-  <img src="unknown-male-fighter.png" class="opponent-silhouette" alt="">
+  <img id="heroOpponentImage" src="unknown-male-fighter.png" class="opponent-silhouette" alt="">
 </div>
-<div class="fight-centre"><div class="next-label">NEXT FIGHT</div><div class="promotion">FSG PROMOTIONS<span class="promotion-small">UNFINISHED BUSINESS</span></div><div class="vs">VS</div><div class="fight-details"><div class="fight-detail">19 SEPTEMBER 2026</div><div class="fight-detail">HAMPDEN PARK</div></div>
+<div class="fight-centre"><div class="next-label">NEXT FIGHT</div><div class="promotion"><span id="heroPromotion">FSG PROMOTIONS</span><span id="heroEvent" class="promotion-small">UNFINISHED BUSINESS</span></div><div class="vs">VS</div><div class="fight-details"><div id="heroDate" class="fight-detail">19 SEPTEMBER 2026</div><div id="heroVenue" class="fight-detail">HAMPDEN PARK</div></div>
 <div class="countdown"><div class="count-box"><div class="count-value" id="cdDays">--</div><div class="count-label">DAYS</div></div><div class="count-box"><div class="count-value" id="cdHours">--</div><div class="count-label">HRS</div></div><div class="count-box"><div class="count-value" id="cdMinutes">--</div><div class="count-label">MINS</div></div><div class="count-box"><div class="count-value" id="cdSeconds">--</div><div class="count-label">SECS</div></div></div>
-<a class="fight-button" href="fights.html">VIEW FIGHT DETAILS →</a></div><div class="fighter-name left"><strong>GREIG SLOAN</strong><span>TEAM SLOAN</span></div><div class="fighter-name right"><strong>TBA</strong><span>OPPONENT</span></div></section>
+<a class="fight-button" href="fights.html">VIEW FIGHT DETAILS →</a></div><div class="fighter-name left"><strong id="heroFighterName">GREIG SLOAN</strong><span id="heroFighterTeam">TEAM SLOAN</span></div><div class="fighter-name right"><strong id="heroOpponentName">TBA</strong><span>OPPONENT</span></div></section>
 
 <nav class="quick-grid"><a class="quick-card" href="fights.html"><span class="quick-icon">♜</span>FIGHTS</a><a class="quick-card" href="fighters.html"><span class="quick-icon">♟</span>FIGHTERS</a><a class="quick-card" href="gallery.html"><span class="quick-icon">▣</span>GALLERY</a><a class="quick-card" href="chat.html"><span class="quick-icon">●</span>PACK CHAT</a></nav>
 
@@ -133,7 +133,7 @@ const menuButton=document.getElementById("menuButton"),closeMenuButton=document.
 function openMenu(){sideMenu.classList.add("show");menuBackdrop.classList.add("show");document.body.classList.add("menu-open");menuButton.setAttribute("aria-expanded","true")}
 function closeMenu(){sideMenu.classList.remove("show");menuBackdrop.classList.remove("show");document.body.classList.remove("menu-open");menuButton.setAttribute("aria-expanded","false")}
 menuButton.addEventListener("click",openMenu);closeMenuButton.addEventListener("click",closeMenu);menuBackdrop.addEventListener("click",closeMenu);document.addEventListener("keydown",e=>{if(e.key==="Escape")closeMenu()});
-const fightTarget=new Date(2026,8,19,12,0,0);
+let fightTarget=new Date(2026,8,19,12,0,0);
 function updateCountdown(){let d=fightTarget-new Date(),els=["cdDays","cdHours","cdMinutes","cdSeconds"].map(id=>document.getElementById(id));if(d<=0){els.forEach(e=>e.textContent="00");return}let days=Math.floor(d/86400000);d%=86400000;let hrs=Math.floor(d/3600000);d%=3600000;let mins=Math.floor(d/60000);d%=60000;let secs=Math.floor(d/1000);[days,hrs,mins,secs].forEach((v,i)=>els[i].textContent=String(v).padStart(2,"0"))}updateCountdown();setInterval(updateCountdown,1000);
 </script>
 
@@ -143,7 +143,74 @@ import{getAuth,onAuthStateChanged}from"https://www.gstatic.com/firebasejs/12.2.1
 import{getDatabase,ref,onValue,query,orderByChild,limitToLast}from"https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
 const firebaseConfig={apiKey:"AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",authDomain:"team-wolfpack-app.firebaseapp.com",databaseURL:"https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",projectId:"team-wolfpack-app",storageBucket:"team-wolfpack-app.firebasestorage.app",messagingSenderId:"1070414578856",appId:"1:1070414578856:web:df14e7d387e658eeae2e9d",measurementId:"G-6JTCE2N9LZ"};
 const app=initializeApp(firebaseConfig),auth=getAuth(app),database=getDatabase(app),ADMIN_UIDS=new Set(["PRGa9TsCW0QDn1QtoUXyYjEi7YB3","SlpEQYl94DaH6j42QUyl8Kv2ujJ3"]),admin=document.getElementById("adminMenuSection");
+
 onAuthStateChanged(auth,u=>admin.style.display=u&&ADMIN_UIDS.has(u.uid)?"block":"none");
+
+/* NEXT FIGHT — Firebase driven */
+const hero={
+  fighterImage:document.getElementById("heroFighterImage"),
+  opponentImage:document.getElementById("heroOpponentImage"),
+  promotion:document.getElementById("heroPromotion"),
+  event:document.getElementById("heroEvent"),
+  date:document.getElementById("heroDate"),
+  venue:document.getElementById("heroVenue"),
+  fighterName:document.getElementById("heroFighterName"),
+  fighterTeam:document.getElementById("heroFighterTeam"),
+  opponentName:document.getElementById("heroOpponentName")
+};
+function fightTime(f){
+  const n=Number(f?.dateTimestamp||0);
+  if(n>0)return n;
+  if(f?.date){
+    const d=new Date(String(f.date)+"T12:00:00");
+    if(!Number.isNaN(d.getTime()))return d.getTime();
+  }
+  return Number.MAX_SAFE_INTEGER;
+}
+function displayFightDate(f){
+  if(f?.displayDate)return String(f.displayDate).toUpperCase();
+  if(!f?.date)return "DATE TBA";
+  const p=String(f.date).split("-");
+  if(p.length!==3)return String(f.date).toUpperCase();
+  const d=new Date(+p[0],+p[1]-1,+p[2]);
+  return Number.isNaN(d.getTime())?String(f.date).toUpperCase():
+    d.toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"}).toUpperCase();
+}
+function firstValue(...values){
+  return values.find(v=>v!==undefined&&v!==null&&String(v).trim()!=="");
+}
+function applyNextFight(f){
+  const fighterName=firstValue(f.fighterName,f.fighter,"TBA");
+  const opponentName=firstValue(f.opponentName,f.opponent,"TBA");
+  const fighterImage=firstValue(f.fighterImage,f.image,f.images?.fighter);
+  const opponentImage=firstValue(f.opponentImage,f.images?.opponent);
+
+  hero.fighterName.textContent=String(fighterName).toUpperCase();
+  hero.fighterTeam.textContent=String(firstValue(f.team,f.fighterTeam,"TEAM WOLFPACK")).toUpperCase();
+  hero.opponentName.textContent=String(opponentName).toUpperCase();
+  hero.promotion.textContent=String(firstValue(f.promotion,"PROMOTION TBA")).toUpperCase();
+  hero.event.textContent=String(firstValue(f.eventName,f.event,f.fightType,"FIGHT NIGHT")).toUpperCase();
+  hero.date.textContent=displayFightDate(f);
+  hero.venue.textContent=String(firstValue(f.venue,"VENUE TBA")).toUpperCase();
+
+  if(fighterImage)hero.fighterImage.src=String(fighterImage);
+  if(opponentImage)hero.opponentImage.src=String(opponentImage);
+  else hero.opponentImage.src=String(fighterName).toUpperCase().includes("MRS WOLFIE")?
+    "unknown-female-fighter.png":"unknown-male-fighter.png";
+
+  const t=fightTime(f);
+  if(Number.isFinite(t)&&t<Number.MAX_SAFE_INTEGER)fightTarget=new Date(t);
+}
+onValue(ref(database,"fights"),snapshot=>{
+  const fights=[];
+  snapshot.forEach(child=>{
+    const f=child.val();
+    if(f&&String(f.status||"upcoming").toLowerCase()==="upcoming")fights.push(f);
+  });
+  fights.sort((a,b)=>fightTime(a)-fightTime(b));
+  if(fights.length)applyNextFight(fights[0]);
+},error=>console.error("Next fight could not be loaded:",error));
+
 const box=document.getElementById("homeLiveUpdates"),status=document.getElementById("homeLiveStatus");
 function esc(v){return String(v||"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
 function fmt(v){if(!v)return"";let p=String(v).split("-");if(p.length!==3)return esc(v);let d=new Date(+p[0],+p[1]-1,+p[2]);return Number.isNaN(d.getTime())?esc(v):d.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})}
