@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
 
 <meta
@@ -11,7 +10,6 @@
 >
 
 <meta name="theme-color" content="#050505">
-
 <meta name="apple-mobile-web-app-title" content="TEAM WOLFPACK">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -21,7 +19,6 @@
 
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
-
 
 <style>
 
@@ -38,12 +35,7 @@ html{
 body{
   min-height:100vh;
   min-height:100dvh;
-
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
-
+  font-family:Arial,Helvetica,sans-serif;
   color:#fff;
 
   background:
@@ -83,9 +75,7 @@ body{
 
 .brand{
   margin-top:5px;
-
   color:#67dcff;
-
   font-size:12px;
   font-weight:900;
   letter-spacing:4px;
@@ -93,7 +83,6 @@ body{
 
 .title{
   margin-top:18px;
-
   font-size:29px;
   font-weight:900;
 }
@@ -108,9 +97,7 @@ body{
 
 .subtitle{
   margin-top:8px;
-
   color:#999;
-
   font-size:11px;
   line-height:1.5;
 }
@@ -119,7 +106,6 @@ body{
   width:100%;
   max-width:520px;
   height:2px;
-
   margin:20px auto 0;
 
   background:
@@ -139,13 +125,8 @@ body{
 .content{
   width:100%;
   max-width:700px;
-
   margin:auto;
-
-  padding:
-    8px
-    16px
-    70px;
+  padding:8px 16px 70px;
 }
 
 
@@ -155,13 +136,9 @@ body{
 
 .status{
   margin-bottom:15px;
-
   padding:10px;
-
   text-align:center;
-
   color:#aaa;
-
   font-size:10px;
   font-weight:900;
   letter-spacing:1px;
@@ -182,11 +159,8 @@ body{
 
 .access-denied{
   display:none;
-
   padding:25px 18px;
-
   border-radius:14px;
-
   text-align:center;
 
   border:
@@ -202,16 +176,13 @@ body{
 
 .access-title{
   color:#ff8fd3;
-
   font-size:18px;
   font-weight:900;
 }
 
 .access-text{
   margin-top:10px;
-
   color:#aaa;
-
   font-size:11px;
   line-height:1.6;
 }
@@ -223,18 +194,11 @@ body{
 
 .admin-bar{
   display:none;
-
   align-items:center;
   justify-content:space-between;
-
   gap:10px;
-
   margin-bottom:16px;
-
-  padding:
-    14px
-    16px;
-
+  padding:14px 16px;
   border-radius:12px;
 
   border:
@@ -259,26 +223,17 @@ body{
 
 .admin-badge{
   display:inline-block;
-
   margin-left:6px;
-
-  padding:
-    4px
-    7px;
-
+  padding:4px 7px;
   border-radius:20px;
-
   background:#ff8fd3;
-
   color:#050505;
-
   font-size:8px;
   font-weight:900;
 }
 
 .admin-label{
   color:#67dcff;
-
   font-size:9px;
   font-weight:900;
 }
@@ -297,11 +252,7 @@ body{
 }
 
 .section-title{
-  margin:
-    23px
-    0
-    11px;
-
+  margin:23px 0 11px;
   font-size:12px;
   font-weight:900;
   letter-spacing:1px;
@@ -314,7 +265,6 @@ body{
 
 .intro-panel{
   padding:18px;
-
   border-radius:14px;
 
   border:
@@ -331,7 +281,6 @@ body{
 
 .intro-label{
   color:#67dcff;
-
   font-size:9px;
   font-weight:900;
   letter-spacing:1px;
@@ -339,28 +288,24 @@ body{
 
 .intro-title{
   margin-top:7px;
-
   font-size:20px;
   font-weight:900;
 }
 
 .intro-text{
   margin-top:9px;
-
   color:#999;
-
   font-size:10px;
   line-height:1.6;
 }
 
 
 /* =========================
-   LIVE FIGHT STATUS
+   LIVE PANELS
 ========================= */
 
 .live-panel{
   overflow:hidden;
-
   border-radius:14px;
 
   border:
@@ -384,7 +329,6 @@ body{
 
 .live-label{
   color:#67dcff;
-
   font-size:8px;
   font-weight:900;
   letter-spacing:1px;
@@ -392,39 +336,31 @@ body{
 
 .live-opponent{
   margin-top:6px;
-
   font-size:21px;
   font-weight:900;
 }
 
 .live-event{
   margin-top:7px;
-
   color:#ff8fd3;
-
   font-size:10px;
   font-weight:900;
 }
 
 .live-venue{
   margin-top:6px;
-
   color:#888;
-
   font-size:9px;
   line-height:1.5;
 }
 
 .live-stats{
   display:grid;
-
-  grid-template-columns:
-    repeat(3,1fr);
+  grid-template-columns:repeat(3,1fr);
 }
 
 .live-stat{
   padding:15px 8px;
-
   text-align:center;
 
   border-right:
@@ -437,21 +373,18 @@ body{
 
 .live-stat-value{
   color:#67dcff;
-
   font-size:15px;
   font-weight:900;
+  overflow-wrap:anywhere;
 }
 
-.live-stat:nth-child(2)
-.live-stat-value{
+.live-stat:nth-child(2) .live-stat-value{
   color:#ff8fd3;
 }
 
 .live-stat-label{
   margin-top:5px;
-
   color:#777;
-
   font-size:7px;
   font-weight:900;
   letter-spacing:.5px;
@@ -459,11 +392,8 @@ body{
 
 .live-loading{
   padding:25px 15px;
-
   text-align:center;
-
   color:#777;
-
   font-size:9px;
   font-weight:900;
 }
@@ -475,34 +405,20 @@ body{
 
 .action-grid{
   display:grid;
-
-  grid-template-columns:
-    repeat(2,1fr);
-
+  grid-template-columns:repeat(2,1fr);
   gap:10px;
 }
 
 .action-card{
   position:relative;
-
   overflow:hidden;
-
   min-height:125px;
-
   display:flex;
-
   flex-direction:column;
-
   justify-content:center;
-
-  padding:
-    17px
-    15px;
-
+  padding:17px 15px;
   border-radius:14px;
-
   color:#fff;
-
   text-decoration:none;
 
   border:
@@ -519,29 +435,21 @@ body{
 
 .action-card::before{
   content:"";
-
   position:absolute;
-
   left:0;
   top:0;
   bottom:0;
-
   width:3px;
-
   background:#67dcff;
 }
 
 .action-card::after{
   content:"";
-
   position:absolute;
-
   right:0;
   top:0;
   bottom:0;
-
   width:3px;
-
   background:#ff8fd3;
 }
 
@@ -551,52 +459,31 @@ body{
 
 .action-name{
   position:relative;
-
   z-index:2;
-
   font-size:12px;
   font-weight:900;
 }
 
 .action-description{
   position:relative;
-
   z-index:2;
-
   margin-top:7px;
-
   color:#888;
-
   font-size:9px;
-
   line-height:1.5;
 }
 
 .coming-badge{
   position:absolute;
-
   top:12px;
   right:12px;
-
   z-index:3;
-
-  padding:
-    5px
-    8px;
-
+  padding:5px 8px;
   border-radius:20px;
-
   background:#67dcff;
-
   color:#050505;
-
   font-size:8px;
   font-weight:900;
-}
-
-.coming-badge.live{
-  background:#67dcff;
-  color:#050505;
 }
 
 
@@ -606,7 +493,6 @@ body{
 
 .system-panel{
   padding:15px;
-
   border-radius:13px;
 
   border:
@@ -618,15 +504,10 @@ body{
 
 .system-row{
   display:flex;
-
   align-items:center;
   justify-content:space-between;
-
   gap:10px;
-
-  padding:
-    10px
-    0;
+  padding:10px 0;
 
   border-bottom:
     1px solid rgba(255,255,255,.06);
@@ -638,16 +519,13 @@ body{
 
 .system-label{
   color:#888;
-
   font-size:9px;
   font-weight:900;
 }
 
 .system-value{
   text-align:right;
-
   color:#67dcff;
-
   font-size:9px;
   font-weight:900;
 }
@@ -663,38 +541,22 @@ body{
 
 .nav-grid{
   display:grid;
-
-  grid-template-columns:
-    repeat(2,1fr);
-
+  grid-template-columns:repeat(2,1fr);
   gap:8px;
-
   margin-top:20px;
 }
 
 .nav-button{
   display:flex;
-
   align-items:center;
   justify-content:center;
-
   min-height:48px;
-
-  padding:
-    12px
-    8px;
-
+  padding:12px 8px;
   text-align:center;
-
   text-decoration:none;
-
   color:#fff;
-
-  border:
-    1px solid #67dcff;
-
+  border:1px solid #67dcff;
   border-radius:11px;
-
   font-size:9px;
   font-weight:900;
 
@@ -726,7 +588,7 @@ body{
   }
 
   .live-stat-value{
-    font-size:13px;
+    font-size:12px;
   }
 
 }
@@ -742,13 +604,11 @@ body{
 <header class="header">
 
 <a href="admin-dashboard.html">
-
-<img
-  src="icon-512.png"
-  class="logo"
-  alt="Team Wolfpack"
->
-
+  <img
+    src="icon-512.png"
+    class="logo"
+    alt="Team Wolfpack"
+  >
 </a>
 
 <div class="brand">
@@ -756,15 +616,8 @@ TEAM WOLFPACK ADMIN
 </div>
 
 <h1 class="title">
-
-<span class="ice">
-MRS WOLFIE
-</span>
-
-<span class="pink">
-CONTROL
-</span>
-
+  <span class="ice">MRS WOLFIE</span>
+  <span class="pink">CONTROL</span>
 </h1>
 
 <p class="subtitle">
@@ -779,95 +632,85 @@ Manage the Mrs Wolfie boxing app from the Team Wolfpack administration system.
 <main class="content">
 
 
-<div
-  id="status"
-  class="status"
->
+<div id="status" class="status">
 CHECKING ADMIN ACCESS...
 </div>
 
 
 <!-- ACCESS DENIED -->
 
-<div
-  id="accessDenied"
-  class="access-denied"
->
+<div id="accessDenied" class="access-denied">
 
-<div class="access-title">
-ADMIN ACCESS REQUIRED
-</div>
+  <div class="access-title">
+    ADMIN ACCESS REQUIRED
+  </div>
 
-<div class="access-text">
-Sign into Pack Chat using an authorised Team Wolfpack administrator account before opening Mrs Wolfie Control.
-</div>
+  <div class="access-text">
+    Sign into Pack Chat using an authorised Team Wolfpack administrator account before opening Mrs Wolfie Control.
+  </div>
 
-<div class="nav-grid">
+  <div class="nav-grid">
 
-<a
-  class="nav-button"
-  href="chat.html"
->
-PACK CHAT
-</a>
+    <a
+      class="nav-button"
+      href="chat.html"
+    >
+      PACK CHAT
+    </a>
 
-<a
-  class="nav-button"
-  href="admin-dashboard.html"
->
-ADMIN DASHBOARD
-</a>
+    <a
+      class="nav-button"
+      href="admin-dashboard.html"
+    >
+      ADMIN DASHBOARD
+    </a>
 
-</div>
+  </div>
 
 </div>
 
 
 <!-- ADMIN BAR -->
 
-<div
-  id="adminBar"
-  class="admin-bar"
->
+<div id="adminBar" class="admin-bar">
 
-<div class="admin-name">
+  <div class="admin-name">
 
-<span id="adminName"></span>
+    <span id="adminName"></span>
 
-<span class="admin-badge">
-ADMIN
-</span>
+    <span class="admin-badge">
+      ADMIN
+    </span>
 
-</div>
+  </div>
 
-<div class="admin-label">
-MRS WOLFIE CONTROL
-</div>
+  <div class="admin-label">
+    MRS WOLFIE CONTROL
+  </div>
 
 </div>
 
 
 <!-- DASHBOARD -->
 
-<div
-  id="dashboard"
-  class="dashboard"
->
+<div id="dashboard" class="dashboard">
 
+
+<!-- INTRO -->
 
 <div class="intro-panel">
 
-<div class="intro-label">
-MRS WOLFIE APP
-</div>
+  <div class="intro-label">
+    MRS WOLFIE APP
+  </div>
 
-<div class="intro-title">
-CENTRAL CONTROL
-</div>
+  <div class="intro-title">
+    CENTRAL CONTROL
+  </div>
 
-<div class="intro-text">
-Control Mrs Wolfie's fights, results and app updates directly from the Team Wolfpack Admin system.
-</div>
+  <div class="intro-text">
+    Control Mrs Wolfie's fights, results and app updates directly from the Team Wolfpack Admin system.
+  </div>
 
 </div>
 
@@ -875,112 +718,83 @@ Control Mrs Wolfie's fights, results and app updates directly from the Team Wolf
 <!-- LIVE FIGHT STATUS -->
 
 <div class="section-title">
-
-<span class="ice">
-LIVE FIGHT
-</span>
-
-<span class="pink">
-STATUS
-</span>
-
+  <span class="ice">LIVE FIGHT</span>
+  <span class="pink">STATUS</span>
 </div>
-
 
 <div
   id="liveFightPanel"
   class="live-panel"
 >
-
-<div class="live-loading">
-LOADING LIVE FIGHT DATA...
+  <div class="live-loading">
+    LOADING LIVE FIGHT DATA...
+  </div>
 </div>
 
-</div>
 
 <!-- LIVE UPDATE STATUS -->
 
 <div class="section-title">
-
-<span class="ice">
-LIVE UPDATE
-</span>
-
-<span class="pink">
-STATUS
-</span>
-
+  <span class="ice">LIVE UPDATE</span>
+  <span class="pink">STATUS</span>
 </div>
 
 <div
   id="liveUpdatePanel"
   class="live-panel"
 >
-
-<div class="live-loading">
-LOADING LIVE UPDATE DATA...
+  <div class="live-loading">
+    LOADING LIVE UPDATE DATA...
+  </div>
 </div>
 
-</div>
-  
+
 <!-- MANAGEMENT -->
 
 <div class="section-title">
-
-<span class="ice">
-MRS WOLFIE
-</span>
-
-<span class="pink">
-MANAGEMENT
-</span>
-
+  <span class="ice">MRS WOLFIE</span>
+  <span class="pink">MANAGEMENT</span>
 </div>
-
 
 <div class="action-grid">
 
-
-<!-- FIGHT MANAGEMENT -->
 
 <a
   class="action-card"
   href="admin-mrs-wolfie-fights.html"
 >
 
-<div class="coming-badge live">
-LIVE
-</div>
+  <div class="coming-badge">
+    LIVE
+  </div>
 
-<div class="action-name">
-FIGHT MANAGEMENT
-</div>
+  <div class="action-name">
+    FIGHT MANAGEMENT
+  </div>
 
-<div class="action-description">
-Add upcoming fights, edit fight information, enter completed results and manage Mrs Wolfie's fight history.
-</div>
+  <div class="action-description">
+    Add upcoming fights, edit fight information, enter completed results and manage Mrs Wolfie's fight history.
+  </div>
 
 </a>
 
-
-<!-- APP UPDATES -->
 
 <a
   class="action-card"
   href="admin-mrs-wolfie-updates.html"
 >
 
-<div class="coming-badge live">
-LIVE
-</div>
+  <div class="coming-badge">
+    LIVE
+  </div>
 
-<div class="action-name">
-APP UPDATES
-</div>
+  <div class="action-name">
+    APP UPDATES
+  </div>
 
-<div class="action-description">
-Create, edit and manage Mrs Wolfie news, announcements and app updates. Automatic fight results remain controlled by Fight Management.
-</div>
+  <div class="action-description">
+    Create, edit and manage Mrs Wolfie news, announcements and app updates. Automatic fight results remain controlled by Fight Management.
+  </div>
 
 </a>
 
@@ -991,78 +805,73 @@ Create, edit and manage Mrs Wolfie news, announcements and app updates. Automati
 <!-- SYSTEM STATUS -->
 
 <div class="section-title">
-
-<span class="ice">
-SYSTEM
-</span>
-
-<span class="pink">
-STATUS
-</span>
-
+  <span class="ice">SYSTEM</span>
+  <span class="pink">STATUS</span>
 </div>
-
 
 <div class="system-panel">
 
 
 <div class="system-row">
 
-<div class="system-label">
-FIREBASE
-</div>
+  <div class="system-label">
+    FIREBASE
+  </div>
 
-<div
-  id="firebaseStatus"
-  class="system-value"
->
-CONNECTING...
-</div>
-
-</div>
-
-
-<div class="system-row">
-
-<div class="system-label">
-ADMIN ACCOUNT
-</div>
-
-<div
-  id="systemAdmin"
-  class="system-value pink"
->
--
-</div>
+  <div
+    id="firebaseStatus"
+    class="system-value"
+  >
+    CONNECTING...
+  </div>
 
 </div>
 
 
 <div class="system-row">
 
-<div class="system-label">
-MRS WOLFIE FIGHTS
-</div>
+  <div class="system-label">
+    ADMIN ACCOUNT
+  </div>
 
-<div
-  id="fightManagerStatus"
-  class="system-value"
->
-CONNECTING...
-</div>
+  <div
+    id="systemAdmin"
+    class="system-value pink"
+  >
+    -
+  </div>
 
 </div>
 
 
 <div class="system-row">
 
-<div class="system-label">
-MRS WOLFIE UPDATES
+  <div class="system-label">
+    MRS WOLFIE FIGHTS
+  </div>
+
+  <div
+    id="fightManagerStatus"
+    class="system-value"
+  >
+    CONNECTING...
+  </div>
+
 </div>
 
-<div class="system-value">
-UPDATE MANAGER LIVE
-</div>
+
+<div class="system-row">
+
+  <div class="system-label">
+    MRS WOLFIE UPDATES
+  </div>
+
+  <div
+    id="updateManagerStatus"
+    class="system-value"
+  >
+    CONNECTING...
+  </div>
 
 </div>
 
@@ -1076,21 +885,20 @@ UPDATE MANAGER LIVE
   class="nav-button"
   href="admin-dashboard.html"
 >
-‹ ADMIN DASHBOARD
+  ‹ ADMIN DASHBOARD
 </a>
 
 <a
   class="nav-button"
   href="index.html"
 >
-HOME
+  HOME
 </a>
 
 </div>
 
 
 </div>
-
 
 </main>
 
@@ -1221,50 +1029,41 @@ const fightManagerStatus =
     "fightManagerStatus"
   );
 
+const updateManagerStatus =
+  document.getElementById(
+    "updateManagerStatus"
+  );
+
 const liveFightPanel =
   document.getElementById(
     "liveFightPanel"
   );
+
 const liveUpdatePanel =
   document.getElementById(
     "liveUpdatePanel"
   );
 
+
 /* =========================
    STATE
 ========================= */
-
-let currentUser =
-  null;
 
 let unsubscribeFights =
   null;
 
 let unsubscribeUpdates =
   null;
-  
+
+
 /* =========================
    PERMANENT HISTORY
-
-   These are the three existing
-   fights already used by the
-   Mrs Wolfie public app.
 ========================= */
 
 const permanentHistory = [
-
-  {
-    result:"W"
-  },
-
-  {
-    result:"L"
-  },
-
-  {
-    result:"L"
-  }
-
+  { result:"W" },
+  { result:"L" },
+  { result:"L" }
 ];
 
 
@@ -1277,11 +1076,10 @@ function parseDate(
 ){
 
   if(
-    !value
+    !value ||
+    typeof value !== "string"
   ){
-
     return null;
-
   }
 
   const parts =
@@ -1290,15 +1088,30 @@ function parseDate(
   if(
     parts.length !== 3
   ){
-
     return null;
+  }
 
+  const year =
+    Number(parts[0]);
+
+  const month =
+    Number(parts[1]);
+
+  const day =
+    Number(parts[2]);
+
+  if(
+    !year ||
+    !month ||
+    !day
+  ){
+    return null;
   }
 
   return new Date(
-    Number(parts[0]),
-    Number(parts[1]) - 1,
-    Number(parts[2]),
+    year,
+    month - 1,
+    day,
     23,
     59,
     59,
@@ -1315,9 +1128,13 @@ function formatDate(
   if(
     !value
   ){
-
     return "DATE TBA";
+  }
 
+  if(
+    typeof value !== "string"
+  ){
+    return String(value);
   }
 
   const parts =
@@ -1326,7 +1143,6 @@ function formatDate(
   if(
     parts.length !== 3
   ){
-
     return value;
   }
 
@@ -1336,6 +1152,14 @@ function formatDate(
       Number(parts[1]) - 1,
       Number(parts[2])
     );
+
+  if(
+    Number.isNaN(
+      date.getTime()
+    )
+  ){
+    return value;
+  }
 
   return date
     .toLocaleDateString(
@@ -1372,7 +1196,7 @@ function escapeHtml(
 
 
 /* =========================
-   LIVE FIGHT DATA
+   LIVE FIGHT STATUS
 ========================= */
 
 function renderFightStatus(
@@ -1383,27 +1207,23 @@ function renderFightStatus(
     new Date();
 
 
-  /*
-    Upcoming fights:
-    - not cancelled
-    - not completed
-    - no result
-    - fight date has not passed
-  */
-
   const upcoming =
     fights
       .filter(
         function(fight){
 
           if(
-            fight.status === "CANCELLED"
+            String(
+              fight.status || ""
+            ).toUpperCase() === "CANCELLED"
           ){
             return false;
           }
 
           if(
-            fight.status === "COMPLETED"
+            String(
+              fight.status || ""
+            ).toUpperCase() === "COMPLETED"
           ){
             return false;
           }
@@ -1432,10 +1252,13 @@ function renderFightStatus(
       .sort(
         function(a,b){
 
-          return String(a.date || "")
-            .localeCompare(
-              String(b.date || "")
-            );
+          return String(
+            a.date || ""
+          ).localeCompare(
+            String(
+              b.date || ""
+            )
+          );
 
         }
       );
@@ -1446,14 +1269,6 @@ function renderFightStatus(
       ? upcoming[0]
       : null;
 
-
-  /*
-    Start with permanent history:
-    1 win, 2 losses, 0 draws.
-
-    Then include completed Firestore
-    fights with valid results.
-  */
 
   const results =
     [
@@ -1467,10 +1282,20 @@ function renderFightStatus(
         .filter(
           function(fight){
 
+            const statusValue =
+              String(
+                fight.status || ""
+              ).toUpperCase();
+
+            const resultValue =
+              String(
+                fight.result || ""
+              ).toUpperCase();
+
             return (
-              fight.status === "COMPLETED" &&
+              statusValue === "COMPLETED" &&
               ["W","L","D"].includes(
-                fight.result
+                resultValue
               )
             );
 
@@ -1478,7 +1303,11 @@ function renderFightStatus(
         )
         .map(
           function(fight){
-            return fight.result;
+
+            return String(
+              fight.result || ""
+            ).toUpperCase();
+
           }
         )
     ];
@@ -1579,7 +1408,6 @@ function renderFightStatus(
     `;
 
     return;
-
   }
 
 
@@ -1694,9 +1522,62 @@ function renderFightStatus(
   `;
 
 }
-  
+
+
 /* =========================
-   LIVE UPDATE DATA
+   UPDATE FIELD HELPERS
+========================= */
+
+function getUpdatePublished(
+  update
+){
+
+  /*
+    Current manager normally uses active.
+    These alternatives make the dashboard
+    tolerant of older update documents.
+  */
+
+  if(
+    update.active === true
+  ){
+    return true;
+  }
+
+  if(
+    update.published === true
+  ){
+    return true;
+  }
+
+  if(
+    String(
+      update.status || ""
+    ).toUpperCase() === "PUBLISHED"
+  ){
+    return true;
+  }
+
+  return false;
+
+}
+
+
+function getUpdateDate(
+  update
+){
+
+  return (
+    update.date ||
+    update.displayDate ||
+    ""
+  );
+
+}
+
+
+/* =========================
+   LIVE UPDATE STATUS
 ========================= */
 
 function renderUpdateStatus(
@@ -1708,7 +1589,9 @@ function renderUpdateStatus(
       .filter(
         function(update){
 
-          return update.active === true;
+          return getUpdatePublished(
+            update
+          );
 
         }
       )
@@ -1716,10 +1599,10 @@ function renderUpdateStatus(
         function(a,b){
 
           return String(
-            b.date || ""
+            getUpdateDate(b)
           ).localeCompare(
             String(
-              a.date || ""
+              getUpdateDate(a)
             )
           );
 
@@ -1754,6 +1637,7 @@ function renderUpdateStatus(
 
       </div>
 
+
       <div class="live-stats">
 
         <div class="live-stat">
@@ -1768,6 +1652,7 @@ function renderUpdateStatus(
 
         </div>
 
+
         <div class="live-stat">
 
           <div class="live-stat-value">
@@ -1779,6 +1664,7 @@ function renderUpdateStatus(
           </div>
 
         </div>
+
 
         <div class="live-stat">
 
@@ -1796,8 +1682,13 @@ function renderUpdateStatus(
     `;
 
     return;
-
   }
+
+
+  const updateDate =
+    getUpdateDate(
+      latestUpdate
+    );
 
 
   liveUpdatePanel.innerHTML = `
@@ -1854,7 +1745,7 @@ function renderUpdateStatus(
         <div class="live-stat-value">
           ${escapeHtml(
             formatDate(
-              latestUpdate.date
+              updateDate
             )
           )}
         </div>
@@ -1883,8 +1774,9 @@ function renderUpdateStatus(
 
 }
 
+
 /* =========================
-   FIRESTORE LISTENER
+   FIGHT FIRESTORE LISTENER
 ========================= */
 
 function startFightListener(){
@@ -1892,9 +1784,7 @@ function startFightListener(){
   if(
     unsubscribeFights
   ){
-
     unsubscribeFights();
-
   }
 
 
@@ -1934,6 +1824,7 @@ function startFightListener(){
         fightManagerStatus.textContent =
           "FIGHT MANAGER LIVE";
 
+
         renderFightStatus(
           fights
         );
@@ -1965,6 +1856,7 @@ function startFightListener(){
 
 }
 
+
 /* =========================
    UPDATE FIRESTORE LISTENER
 ========================= */
@@ -1974,9 +1866,12 @@ function startUpdateListener(){
   if(
     unsubscribeUpdates
   ){
-
     unsubscribeUpdates();
   }
+
+
+  updateManagerStatus.textContent =
+    "CONNECTING...";
 
 
   unsubscribeUpdates =
@@ -2005,6 +1900,13 @@ function startUpdateListener(){
         );
 
 
+        firebaseStatus.textContent =
+          "CONNECTED";
+
+        updateManagerStatus.textContent =
+          "UPDATE MANAGER LIVE";
+
+
         renderUpdateStatus(
           updates
         );
@@ -2020,6 +1922,10 @@ function startUpdateListener(){
         );
 
 
+        updateManagerStatus.textContent =
+          "CONNECTION ERROR";
+
+
         liveUpdatePanel.innerHTML = `
           <div class="live-loading">
             LIVE UPDATE DATA COULD NOT BE LOADED.
@@ -2031,7 +1937,40 @@ function startUpdateListener(){
     );
 
 }
-  
+
+
+/* =========================
+   STOP LISTENERS
+========================= */
+
+function stopListeners(){
+
+  if(
+    unsubscribeFights
+  ){
+
+    unsubscribeFights();
+
+    unsubscribeFights =
+      null;
+
+  }
+
+
+  if(
+    unsubscribeUpdates
+  ){
+
+    unsubscribeUpdates();
+
+    unsubscribeUpdates =
+      null;
+
+  }
+
+}
+
+
 /* =========================
    AUTH
 ========================= */
@@ -2046,10 +1985,6 @@ onAuthStateChanged(
         user.uid
       ]
     ){
-
-      currentUser =
-        user;
-
 
       const name =
         ADMINS[
@@ -2097,25 +2032,14 @@ onAuthStateChanged(
       startFightListener();
 
       startUpdateListener();
+
+
       return;
 
     }
 
 
-    currentUser =
-      null;
-
-
-    if(
-      unsubscribeFights
-    ){
-
-      unsubscribeFights();
-
-      unsubscribeFights =
-        null;
-
-    }
+    stopListeners();
 
 
     status.textContent =
@@ -2131,6 +2055,10 @@ onAuthStateChanged(
 
 
     fightManagerStatus.textContent =
+      "NOT AUTHORISED";
+
+
+    updateManagerStatus.textContent =
       "NOT AUTHORISED";
 
 
@@ -2163,8 +2091,7 @@ onAuthStateChanged(
 <script>
 
 if(
-  "serviceWorker"
-  in navigator
+  "serviceWorker" in navigator
 ){
 
   window.addEventListener(
@@ -2203,5 +2130,4 @@ if(
 
 
 </body>
-
 </html>
