@@ -1694,7 +1694,194 @@ function renderFightStatus(
   `;
 
 }
+  
+/* =========================
+   LIVE UPDATE DATA
+========================= */
 
+function renderUpdateStatus(
+  updates
+){
+
+  const publishedUpdates =
+    updates
+      .filter(
+        function(update){
+
+          return update.active === true;
+
+        }
+      )
+      .sort(
+        function(a,b){
+
+          return String(
+            b.date || ""
+          ).localeCompare(
+            String(
+              a.date || ""
+            )
+          );
+
+        }
+      );
+
+
+  const latestUpdate =
+    publishedUpdates.length
+      ? publishedUpdates[0]
+      : null;
+
+
+  if(
+    !latestUpdate
+  ){
+
+    liveUpdatePanel.innerHTML = `
+      <div class="live-main">
+
+        <div class="live-label">
+          LATEST PUBLISHED UPDATE
+        </div>
+
+        <div class="live-opponent">
+          NO PUBLISHED UPDATES
+        </div>
+
+        <div class="live-venue">
+          Publish an update through App Updates.
+        </div>
+
+      </div>
+
+      <div class="live-stats">
+
+        <div class="live-stat">
+
+          <div class="live-stat-value">
+            -
+          </div>
+
+          <div class="live-stat-label">
+            TYPE
+          </div>
+
+        </div>
+
+        <div class="live-stat">
+
+          <div class="live-stat-value">
+            -
+          </div>
+
+          <div class="live-stat-label">
+            DATE
+          </div>
+
+        </div>
+
+        <div class="live-stat">
+
+          <div class="live-stat-value">
+            0
+          </div>
+
+          <div class="live-stat-label">
+            PUBLISHED
+          </div>
+
+        </div>
+
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  liveUpdatePanel.innerHTML = `
+    <div class="live-main">
+
+      <div class="live-label">
+        LATEST PUBLISHED UPDATE
+      </div>
+
+      <div class="live-opponent">
+        ${escapeHtml(
+          latestUpdate.title ||
+          "UNTITLED UPDATE"
+        )}
+      </div>
+
+      <div class="live-event">
+        ${escapeHtml(
+          latestUpdate.type ||
+          "NEWS"
+        )}
+      </div>
+
+      <div class="live-venue">
+        ${escapeHtml(
+          latestUpdate.message ||
+          ""
+        )}
+      </div>
+
+    </div>
+
+
+    <div class="live-stats">
+
+      <div class="live-stat">
+
+        <div class="live-stat-value">
+          ${escapeHtml(
+            latestUpdate.type ||
+            "NEWS"
+          )}
+        </div>
+
+        <div class="live-stat-label">
+          TYPE
+        </div>
+
+      </div>
+
+
+      <div class="live-stat">
+
+        <div class="live-stat-value">
+          ${escapeHtml(
+            formatDate(
+              latestUpdate.date
+            )
+          )}
+        </div>
+
+        <div class="live-stat-label">
+          DATE
+        </div>
+
+      </div>
+
+
+      <div class="live-stat">
+
+        <div class="live-stat-value">
+          ${publishedUpdates.length}
+        </div>
+
+        <div class="live-stat-label">
+          PUBLISHED
+        </div>
+
+      </div>
+
+    </div>
+  `;
+
+}
 
 /* =========================
    FIRESTORE LISTENER
