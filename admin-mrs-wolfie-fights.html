@@ -274,6 +274,42 @@ textarea:focus{
   border-color:#67dcff;
 }
 
+.private-note-box{
+  padding:13px;
+  border-radius:10px;
+
+  border:
+    1px solid rgba(255,143,211,.22);
+
+  background:
+    rgba(255,143,211,.045);
+}
+
+.private-note-label{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.private-badge{
+  padding:4px 7px;
+  border-radius:20px;
+
+  background:#ff8fd3;
+  color:#050505;
+
+  font-size:7px;
+  font-weight:900;
+}
+
+.private-note-help{
+  margin-top:7px;
+  color:#777;
+  font-size:8px;
+  line-height:1.5;
+}
+
 .form-actions{
   display:flex;
   flex-wrap:wrap;
@@ -544,7 +580,9 @@ textarea:focus{
 </head>
 
 
+
 <body>
+
 
 
 <header class="header">
@@ -584,7 +622,9 @@ Create and manage Mrs Wolfie's boxing schedule and results.
 </header>
 
 
+
 <main class="content">
+
 
 
 <div
@@ -593,6 +633,7 @@ Create and manage Mrs Wolfie's boxing schedule and results.
 >
 CHECKING ADMIN ACCESS...
 </div>
+
 
 
 <div
@@ -629,10 +670,12 @@ ADMIN DASHBOARD
 </div>
 
 
+
 <div
   id="manager"
   class="manager"
 >
+
 
 
 <div class="admin-bar">
@@ -654,6 +697,7 @@ FIGHT MANAGER
 </div>
 
 
+
 <div class="section-title">
 
 <span class="ice">
@@ -667,13 +711,17 @@ FIGHT
 </div>
 
 
+
 <div class="panel">
+
 
 
 <form id="fightForm">
 
 
+
 <div class="form-grid">
+
 
 
 <div class="field">
@@ -692,6 +740,7 @@ PROMOTION
 </div>
 
 
+
 <div class="field">
 
 <label for="event">
@@ -708,6 +757,7 @@ EVENT
 </div>
 
 
+
 <div class="field">
 
 <label for="opponent">
@@ -722,6 +772,7 @@ OPPONENT
 >
 
 </div>
+
 
 
 <div class="field">
@@ -753,6 +804,7 @@ OTHER
 </div>
 
 
+
 <div class="field">
 
 <label for="fightDate">
@@ -766,6 +818,7 @@ FIGHT DATE
 >
 
 </div>
+
 
 
 <div class="field">
@@ -782,6 +835,7 @@ END DATE — OPTIONAL
 </div>
 
 
+
 <div class="field full">
 
 <label for="venue">
@@ -796,6 +850,7 @@ VENUE
 >
 
 </div>
+
 
 
 <div class="field">
@@ -821,6 +876,7 @@ CANCELLED
 </select>
 
 </div>
+
 
 
 <div class="field">
@@ -852,21 +908,43 @@ DRAW
 </div>
 
 
+
 <div class="field full">
 
-<label for="notes">
+<div class="private-note-box">
+
+<div class="private-note-label">
+
+<label
+  for="notes"
+  style="margin-bottom:0;"
+>
 ADMIN NOTES — OPTIONAL
 </label>
 
+<span class="private-badge">
+PRIVATE
+</span>
+
+</div>
+
 <textarea
   id="notes"
-  placeholder="Private fight notes..."
+  placeholder="Private fight notes — Team Wolfpack admins only..."
 ></textarea>
 
+<div class="private-note-help">
+Stored separately from the public fight database. Only authorised Team Wolfpack administrators can read or change this note.
+</div>
+
+</div>
+
 </div>
 
 
+
 </div>
+
 
 
 <div class="form-actions">
@@ -891,16 +969,20 @@ CANCEL EDIT
 </div>
 
 
+
 <div
   id="formMessage"
   class="message"
 ></div>
 
 
+
 </form>
 
 
+
 </div>
+
 
 
 <div class="section-title">
@@ -916,6 +998,7 @@ FIGHT DATABASE
 </div>
 
 
+
 <div
   id="fightList"
   class="fight-list"
@@ -926,6 +1009,7 @@ LOADING FIGHTS...
 </div>
 
 </div>
+
 
 
 <div class="nav-grid">
@@ -947,10 +1031,13 @@ ADMIN DASHBOARD
 </div>
 
 
+
 </div>
 
 
+
 </main>
+
 
 
 <script type="module">
@@ -959,12 +1046,10 @@ import {
   initializeApp
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 
-
 import {
   getAuth,
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-
 
 import {
   getFirestore,
@@ -973,9 +1058,13 @@ import {
   updateDoc,
   deleteDoc,
   doc,
+  getDoc,
+  setDoc,
   onSnapshot,
-  serverTimestamp
+  serverTimestamp,
+  deleteField
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
 
 
 const firebaseConfig = {
@@ -1007,6 +1096,7 @@ const firebaseConfig = {
 };
 
 
+
 const ADMINS = {
 
   "PRGa9TsCW0QDn1QtoUXyYjEi7YB3":
@@ -1018,17 +1108,16 @@ const ADMINS = {
 };
 
 
+
 const app =
   initializeApp(
     firebaseConfig
   );
 
-
 const auth =
   getAuth(
     app
   );
-
 
 const db =
   getFirestore(
@@ -1036,12 +1125,28 @@ const db =
   );
 
 
+
+/* =========================================================
+   FIRESTORE COLLECTIONS
+========================================================= */
+
 const fightsCollection =
   collection(
     db,
     "mrsWolfieFights"
   );
 
+const privateNotesCollection =
+  collection(
+    db,
+    "mrsWolfieFightAdminNotes"
+  );
+
+
+
+/* =========================================================
+   PAGE ELEMENTS
+========================================================= */
 
 const status =
   document.getElementById(
@@ -1139,6 +1244,11 @@ const fightList =
   );
 
 
+
+/* =========================================================
+   STATE
+========================================================= */
+
 let currentUser =
   null;
 
@@ -1151,6 +1261,14 @@ let fights =
 let unsubscribeFights =
   null;
 
+let loadingPrivateNote =
+  false;
+
+
+
+/* =========================================================
+   MESSAGES
+========================================================= */
 
 function showMessage(
   text,
@@ -1166,7 +1284,6 @@ function showMessage(
 
 }
 
-
 function clearMessage(){
 
   formMessage.textContent =
@@ -1177,6 +1294,11 @@ function clearMessage(){
 
 }
 
+
+
+/* =========================================================
+   FORMAT DATE
+========================================================= */
 
 function formatDate(
   value
@@ -1190,10 +1312,8 @@ function formatDate(
 
   }
 
-
   const parts =
     value.split("-");
-
 
   if(
     parts.length !== 3
@@ -1203,14 +1323,12 @@ function formatDate(
 
   }
 
-
   const date =
     new Date(
       Number(parts[0]),
       Number(parts[1]) - 1,
       Number(parts[2])
     );
-
 
   return date
     .toLocaleDateString(
@@ -1226,39 +1344,73 @@ function formatDate(
 }
 
 
+
+/* =========================================================
+   HTML ESCAPING
+========================================================= */
+
+function escapeHtml(
+  value
+){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+
+/* =========================================================
+   RESET FORM
+========================================================= */
+
 function resetForm(){
 
   editingId =
     null;
 
+  loadingPrivateNote =
+    false;
 
   fightForm.reset();
-
 
   fightType.value =
     "FIGHT NIGHT";
 
-
   fightStatus.value =
     "UPCOMING";
-
 
   fightResult.value =
     "";
 
+  notes.value =
+    "";
+
+  notes.disabled =
+    false;
 
   saveButton.textContent =
     "ADD FIGHT";
 
+  saveButton.disabled =
+    false;
 
   cancelEditButton.hidden =
     true;
-
 
   clearMessage();
 
 }
 
+
+
+/* =========================================================
+   GET FIGHT
+========================================================= */
 
 function getFight(
   id
@@ -1275,6 +1427,189 @@ function getFight(
 }
 
 
+
+/* =========================================================
+   PRIVATE ADMIN NOTE
+========================================================= */
+
+async function loadPrivateNote(
+  fightId
+){
+
+  notes.value =
+    "";
+
+  notes.disabled =
+    true;
+
+  loadingPrivateNote =
+    true;
+
+  try{
+
+    const noteReference =
+      doc(
+        db,
+        "mrsWolfieFightAdminNotes",
+        fightId
+      );
+
+    const noteSnapshot =
+      await getDoc(
+        noteReference
+      );
+
+    /*
+      Make sure the administrator has not
+      selected another fight while this note
+      was loading.
+    */
+
+    if(
+      editingId !== fightId
+    ){
+
+      return;
+
+    }
+
+    if(
+      noteSnapshot.exists()
+    ){
+
+      const privateData =
+        noteSnapshot.data();
+
+      notes.value =
+        privateData.note ||
+        "";
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "Load private fight note:",
+      error
+    );
+
+    if(
+      editingId === fightId
+    ){
+
+      showMessage(
+        "PRIVATE ADMIN NOTE COULD NOT BE LOADED.",
+        "error"
+      );
+
+    }
+
+  }finally{
+
+    if(
+      editingId === fightId
+    ){
+
+      loadingPrivateNote =
+        false;
+
+      notes.disabled =
+        false;
+
+    }
+
+  }
+
+}
+
+
+
+async function savePrivateNote(
+  fightId,
+  noteText
+){
+
+  const noteReference =
+    doc(
+      db,
+      "mrsWolfieFightAdminNotes",
+      fightId
+    );
+
+  const cleanNote =
+    String(
+      noteText ||
+      ""
+    ).trim();
+
+  /*
+    An empty Admin Note does not need its
+    own Firestore document.
+  */
+
+  if(
+    !cleanNote
+  ){
+
+    try{
+
+      await deleteDoc(
+        noteReference
+      );
+
+    }catch(error){
+
+      /*
+        Deleting a non-existent document is
+        harmless, but genuine permission/network
+        failures should still be reported.
+      */
+
+      console.error(
+        "Delete private fight note:",
+        error
+      );
+
+      throw error;
+
+    }
+
+    return;
+
+  }
+
+  await setDoc(
+    noteReference,
+    {
+      fightId:
+        fightId,
+
+      note:
+        cleanNote,
+
+      updatedAt:
+        serverTimestamp(),
+
+      updatedBy:
+        currentUser.uid,
+
+      updatedByName:
+        ADMINS[currentUser.uid] ||
+        "TEAM WOLFPACK ADMIN"
+    },
+    {
+      merge:true
+    }
+  );
+
+}
+
+
+
+/* =========================================================
+   RENDER FIGHTS
+========================================================= */
+
 function renderFights(){
 
   if(
@@ -1287,7 +1622,6 @@ function renderFights(){
     return;
 
   }
-
 
   const sorted =
     [...fights]
@@ -1302,10 +1636,8 @@ function renderFights(){
         }
       );
 
-
   fightList.innerHTML =
     "";
-
 
   sorted.forEach(
     function(fight){
@@ -1315,10 +1647,8 @@ function renderFights(){
           "div"
         );
 
-
       card.className =
         "fight-card";
-
 
       const statusClass =
         fight.status === "COMPLETED"
@@ -1326,7 +1656,6 @@ function renderFights(){
           : fight.status === "CANCELLED"
             ? " cancelled"
             : "";
-
 
       const resultText =
         fight.result === "W"
@@ -1336,7 +1665,6 @@ function renderFights(){
             : fight.result === "D"
               ? "DRAW"
               : "";
-
 
       card.innerHTML = `
         <div class="fight-top">
@@ -1436,7 +1764,6 @@ function renderFights(){
         </div>
       `;
 
-
       fightList.appendChild(
         card
       );
@@ -1447,21 +1774,12 @@ function renderFights(){
 }
 
 
-function escapeHtml(
-  value
-){
 
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+/* =========================================================
+   EDIT FIGHT
+========================================================= */
 
-}
-
-
-function editFight(
+async function editFight(
   id
 ){
 
@@ -1469,7 +1787,6 @@ function editFight(
     getFight(
       id
     );
-
 
   if(
     !fight
@@ -1479,10 +1796,8 @@ function editFight(
 
   }
 
-
   editingId =
     id;
-
 
   promotion.value =
     fight.promotion || "";
@@ -1511,28 +1826,41 @@ function editFight(
   fightResult.value =
     fight.result || "";
 
-  notes.value =
-    fight.notes || "";
+  /*
+    Never read Admin Notes from the public
+    fight document.
 
+    They are loaded from the protected
+    collection below.
+  */
+
+  notes.value =
+    "";
 
   saveButton.textContent =
     "SAVE CHANGES";
 
-
   cancelEditButton.hidden =
     false;
 
-
   clearMessage();
-
 
   window.scrollTo({
     top:0,
     behavior:"smooth"
   });
 
+  await loadPrivateNote(
+    id
+  );
+
 }
 
+
+
+/* =========================================================
+   SET RESULT
+========================================================= */
 
 async function setResult(
   id,
@@ -1546,7 +1874,6 @@ async function setResult(
         ? "LOSS"
         : "DRAW";
 
-
   if(
     !confirm(
       "Mark this fight as " +
@@ -1558,7 +1885,6 @@ async function setResult(
     return;
 
   }
-
 
   try{
 
@@ -1591,6 +1917,11 @@ async function setResult(
 }
 
 
+
+/* =========================================================
+   CANCEL FIGHT
+========================================================= */
+
 async function cancelFight(
   id
 ){
@@ -1604,7 +1935,6 @@ async function cancelFight(
     return;
 
   }
-
 
   try{
 
@@ -1637,13 +1967,18 @@ async function cancelFight(
 }
 
 
+
+/* =========================================================
+   DELETE FIGHT + PRIVATE NOTE
+========================================================= */
+
 async function deleteFight(
   id
 ){
 
   if(
     !confirm(
-      "Permanently delete this fight?"
+      "Permanently delete this fight and its private Admin Note?"
     )
   ){
 
@@ -1651,8 +1986,23 @@ async function deleteFight(
 
   }
 
-
   try{
+
+    /*
+      Remove the private note first.
+    */
+
+    await deleteDoc(
+      doc(
+        db,
+        "mrsWolfieFightAdminNotes",
+        id
+      )
+    );
+
+    /*
+      Then remove the public fight.
+    */
 
     await deleteDoc(
       doc(
@@ -1662,6 +2012,14 @@ async function deleteFight(
       )
     );
 
+    if(
+      editingId === id
+    ){
+
+      resetForm();
+
+    }
+
   }catch(error){
 
     console.error(
@@ -1669,13 +2027,18 @@ async function deleteFight(
     );
 
     alert(
-      "The fight could not be deleted."
+      "The fight could not be completely deleted."
     );
 
   }
 
 }
 
+
+
+/* =========================================================
+   FIGHT CARD ACTIONS
+========================================================= */
 
 fightList.addEventListener(
   "click",
@@ -1686,7 +2049,6 @@ fightList.addEventListener(
         "button[data-action]"
       );
 
-
     if(
       !button
     ){
@@ -1695,13 +2057,11 @@ fightList.addEventListener(
 
     }
 
-
     const id =
       button.dataset.id;
 
     const action =
       button.dataset.action;
-
 
     if(
       action === "edit"
@@ -1712,7 +2072,6 @@ fightList.addEventListener(
       );
 
     }
-
 
     if(
       action === "win"
@@ -1725,7 +2084,6 @@ fightList.addEventListener(
 
     }
 
-
     if(
       action === "loss"
     ){
@@ -1736,7 +2094,6 @@ fightList.addEventListener(
       );
 
     }
-
 
     if(
       action === "draw"
@@ -1749,7 +2106,6 @@ fightList.addEventListener(
 
     }
 
-
     if(
       action === "cancel"
     ){
@@ -1759,7 +2115,6 @@ fightList.addEventListener(
       );
 
     }
-
 
     if(
       action === "delete"
@@ -1775,15 +2130,18 @@ fightList.addEventListener(
 );
 
 
+
+/* =========================================================
+   SAVE FIGHT
+========================================================= */
+
 fightForm.addEventListener(
   "submit",
   async function(e){
 
     e.preventDefault();
 
-
     clearMessage();
-
 
     if(
       !currentUser
@@ -1798,8 +2156,27 @@ fightForm.addEventListener(
 
     }
 
+    if(
+      loadingPrivateNote
+    ){
 
-    const data = {
+      showMessage(
+        "PLEASE WAIT FOR THE PRIVATE ADMIN NOTE TO FINISH LOADING.",
+        "error"
+      );
+
+      return;
+
+    }
+
+    /*
+      PUBLIC DATA ONLY.
+
+      Notice that Admin Notes are deliberately
+      NOT included in this object.
+    */
+
+    const publicData = {
 
       promotion:
         promotion.value
@@ -1836,9 +2213,6 @@ fightForm.addEventListener(
       result:
         fightResult.value,
 
-      notes:
-        notes.value.trim(),
-
       updatedAt:
         serverTimestamp(),
 
@@ -1847,10 +2221,12 @@ fightForm.addEventListener(
 
     };
 
+    const privateNote =
+      notes.value.trim();
 
     if(
-      data.status === "COMPLETED" &&
-      !data.result
+      publicData.status === "COMPLETED" &&
+      !publicData.result
     ){
 
       showMessage(
@@ -1862,73 +2238,118 @@ fightForm.addEventListener(
 
     }
 
-
     if(
-      data.result &&
-      data.status !== "COMPLETED"
+      publicData.result &&
+      publicData.status !== "COMPLETED"
     ){
 
-      data.status =
+      publicData.status =
         "COMPLETED";
 
     }
 
-
     saveButton.disabled =
       true;
 
-
     try{
+
+      /* ===============================================
+         EDIT EXISTING FIGHT
+      =============================================== */
 
       if(
         editingId
       ){
 
+        const fightId =
+          editingId;
+
+        /*
+          deleteField() removes any legacy public
+          notes property from this fight document.
+        */
+
         await updateDoc(
           doc(
             db,
             "mrsWolfieFights",
-            editingId
+            fightId
           ),
-          data
+          {
+            ...publicData,
+            notes:deleteField()
+          }
         );
 
+        /*
+          Store the note separately behind the
+          admin-only Firestore rule.
+        */
+
+        await savePrivateNote(
+          fightId,
+          privateNote
+        );
 
         resetForm();
 
-
         showMessage(
-          "FIGHT UPDATED SUCCESSFULLY.",
-          "success"
-        );
-
-
-      }else{
-
-
-        data.createdAt =
-          serverTimestamp();
-
-        data.createdBy =
-          currentUser.uid;
-
-
-        await addDoc(
-          fightsCollection,
-          data
-        );
-
-
-        resetForm();
-
-
-        showMessage(
-          "FIGHT ADDED SUCCESSFULLY.",
+          "FIGHT UPDATED. PRIVATE ADMIN NOTE SECURED.",
           "success"
         );
 
       }
 
+
+      /* ===============================================
+         ADD NEW FIGHT
+      =============================================== */
+
+      else{
+
+        publicData.createdAt =
+          serverTimestamp();
+
+        publicData.createdBy =
+          currentUser.uid;
+
+        /*
+          Create the public fight first so Firestore
+          gives us its document ID.
+        */
+
+        const newFight =
+          await addDoc(
+            fightsCollection,
+            publicData
+          );
+
+        /*
+          Use exactly the same document ID for the
+          private note.
+        */
+
+        if(
+          privateNote
+        ){
+
+          await savePrivateNote(
+            newFight.id,
+            privateNote
+          );
+
+        }
+
+        resetForm();
+
+        showMessage(
+          privateNote
+            ? "FIGHT ADDED. PRIVATE ADMIN NOTE SECURED."
+            : "FIGHT ADDED SUCCESSFULLY.",
+          "success"
+        );
+
+      }
 
     }catch(error){
 
@@ -1937,14 +2358,12 @@ fightForm.addEventListener(
         error
       );
 
-
       showMessage(
-        "FIGHT COULD NOT BE SAVED. CHECK FIRESTORE PERMISSIONS.",
+        "FIGHT OR PRIVATE NOTE COULD NOT BE SAVED. CHECK FIRESTORE PERMISSIONS.",
         "error"
       );
 
     }
-
 
     saveButton.disabled =
       false;
@@ -1952,6 +2371,11 @@ fightForm.addEventListener(
   }
 );
 
+
+
+/* =========================================================
+   CANCEL EDIT
+========================================================= */
 
 cancelEditButton.addEventListener(
   "click",
@@ -1963,6 +2387,11 @@ cancelEditButton.addEventListener(
 );
 
 
+
+/* =========================================================
+   LIVE FIGHT LISTENER
+========================================================= */
+
 function startFightListener(){
 
   if(
@@ -1972,7 +2401,6 @@ function startFightListener(){
     unsubscribeFights();
 
   }
-
 
   unsubscribeFights =
     onSnapshot(
@@ -1984,18 +2412,30 @@ function startFightListener(){
         fights =
           [];
 
-
         snapshot.forEach(
           function(item){
 
+            const data =
+              item.data();
+
+            /*
+              Do not put any legacy public Admin Note
+              into the Fight Manager's in-memory fight
+              object either.
+            */
+
+            const {
+              notes:legacyPublicNotes,
+              ...safeFightData
+            } = data;
+
             fights.push({
               id:item.id,
-              ...item.data()
+              ...safeFightData
             });
 
           }
         );
-
 
         renderFights();
 
@@ -2008,7 +2448,6 @@ function startFightListener(){
           error
         );
 
-
         fightList.innerHTML =
           '<div class="empty">FIGHTS COULD NOT BE LOADED. CHECK FIRESTORE PERMISSIONS.</div>';
 
@@ -2018,6 +2457,11 @@ function startFightListener(){
 
 }
 
+
+
+/* =========================================================
+   AUTHENTICATION
+========================================================= */
 
 onAuthStateChanged(
   auth,
@@ -2033,48 +2477,40 @@ onAuthStateChanged(
       currentUser =
         user;
 
-
       const name =
         ADMINS[
           user.uid
         ];
-
 
       status.textContent =
         "● " +
         name +
         " • ADMIN CONNECTED";
 
-
       status.className =
         "status admin";
 
-
       adminName.textContent =
         name;
-
 
       accessDenied.classList.remove(
         "show"
       );
 
-
       manager.classList.add(
         "show"
       );
 
-
       startFightListener();
-
 
       return;
 
     }
 
-
     currentUser =
       null;
 
+    resetForm();
 
     if(
       unsubscribeFights
@@ -2087,19 +2523,15 @@ onAuthStateChanged(
 
     }
 
-
     status.textContent =
       "ADMIN ACCESS REQUIRED";
-
 
     status.className =
       "status error";
 
-
     manager.classList.remove(
       "show"
     );
-
 
     accessDenied.classList.add(
       "show"
@@ -2111,6 +2543,7 @@ onAuthStateChanged(
 </script>
 
 
+
 <script>
 
 if(
@@ -2120,22 +2553,30 @@ if(
 
   window.addEventListener(
     "load",
-    function(){
+    async function(){
 
-      navigator.serviceWorker
-        .register(
-          "service-worker.js"
-        )
-        .catch(
-          function(error){
+      try{
 
-            console.error(
-              "Service worker error:",
-              error
+        const registration =
+          await navigator
+            .serviceWorker
+            .register(
+              "service-worker.js",
+              {
+                updateViaCache:"none"
+              }
             );
 
-          }
+        await registration.update();
+
+      }catch(error){
+
+        console.error(
+          "Service worker error:",
+          error
         );
+
+      }
 
     }
   );
@@ -2143,6 +2584,7 @@ if(
 }
 
 </script>
+
 
 
 </body>
