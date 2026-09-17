@@ -22,6 +22,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
 
+
 <style>
 
 *{
@@ -354,6 +355,121 @@ body{
 
 
 /* =========================
+   LIVE FIGHT STATUS
+========================= */
+
+.live-panel{
+  overflow:hidden;
+
+  border-radius:14px;
+
+  border:
+    1px solid rgba(255,255,255,.11);
+
+  background:
+    linear-gradient(
+      115deg,
+      rgba(103,220,255,.09),
+      rgba(7,7,7,.96) 50%,
+      rgba(255,143,211,.09)
+    );
+}
+
+.live-main{
+  padding:18px;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.07);
+}
+
+.live-label{
+  color:#67dcff;
+
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.live-opponent{
+  margin-top:6px;
+
+  font-size:21px;
+  font-weight:900;
+}
+
+.live-event{
+  margin-top:7px;
+
+  color:#ff8fd3;
+
+  font-size:10px;
+  font-weight:900;
+}
+
+.live-venue{
+  margin-top:6px;
+
+  color:#888;
+
+  font-size:9px;
+  line-height:1.5;
+}
+
+.live-stats{
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+}
+
+.live-stat{
+  padding:15px 8px;
+
+  text-align:center;
+
+  border-right:
+    1px solid rgba(255,255,255,.07);
+}
+
+.live-stat:last-child{
+  border-right:none;
+}
+
+.live-stat-value{
+  color:#67dcff;
+
+  font-size:15px;
+  font-weight:900;
+}
+
+.live-stat:nth-child(2)
+.live-stat-value{
+  color:#ff8fd3;
+}
+
+.live-stat-label{
+  margin-top:5px;
+
+  color:#777;
+
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:.5px;
+}
+
+.live-loading{
+  padding:25px 15px;
+
+  text-align:center;
+
+  color:#777;
+
+  font-size:9px;
+  font-weight:900;
+}
+
+
+/* =========================
    ACTION CARDS
 ========================= */
 
@@ -605,6 +721,14 @@ body{
     grid-template-columns:1fr;
   }
 
+  .live-opponent{
+    font-size:18px;
+  }
+
+  .live-stat-value{
+    font-size:13px;
+  }
+
 }
 
 </style>
@@ -612,9 +736,7 @@ body{
 </head>
 
 
-
 <body>
-
 
 
 <header class="header">
@@ -654,9 +776,7 @@ Manage the Mrs Wolfie boxing app from the Team Wolfpack administration system.
 </header>
 
 
-
 <main class="content">
-
 
 
 <div
@@ -665,7 +785,6 @@ Manage the Mrs Wolfie boxing app from the Team Wolfpack administration system.
 >
 CHECKING ADMIN ACCESS...
 </div>
-
 
 
 <!-- ACCESS DENIED -->
@@ -704,7 +823,6 @@ ADMIN DASHBOARD
 </div>
 
 
-
 <!-- ADMIN BAR -->
 
 <div
@@ -729,14 +847,12 @@ MRS WOLFIE CONTROL
 </div>
 
 
-
 <!-- DASHBOARD -->
 
 <div
   id="dashboard"
   class="dashboard"
 >
-
 
 
 <div class="intro-panel">
@@ -756,6 +872,34 @@ Control Mrs Wolfie's fights, results and app updates directly from the Team Wolf
 </div>
 
 
+<!-- LIVE FIGHT STATUS -->
+
+<div class="section-title">
+
+<span class="ice">
+LIVE FIGHT
+</span>
+
+<span class="pink">
+STATUS
+</span>
+
+</div>
+
+
+<div
+  id="liveFightPanel"
+  class="live-panel"
+>
+
+<div class="live-loading">
+LOADING LIVE FIGHT DATA...
+</div>
+
+</div>
+
+
+<!-- MANAGEMENT -->
 
 <div class="section-title">
 
@@ -770,9 +914,7 @@ MANAGEMENT
 </div>
 
 
-
 <div class="action-grid">
-
 
 
 <!-- FIGHT MANAGEMENT -->
@@ -797,7 +939,6 @@ Add upcoming fights, edit fight information, enter completed results and manage 
 </a>
 
 
-
 <!-- APP UPDATES -->
 
 <a
@@ -820,10 +961,10 @@ Create, edit and manage Mrs Wolfie news, announcements and app updates. Automati
 </a>
 
 
-
 </div>
 
 
+<!-- SYSTEM STATUS -->
 
 <div class="section-title">
 
@@ -838,9 +979,7 @@ STATUS
 </div>
 
 
-
 <div class="system-panel">
-
 
 
 <div class="system-row">
@@ -859,7 +998,6 @@ CONNECTING...
 </div>
 
 
-
 <div class="system-row">
 
 <div class="system-label">
@@ -876,19 +1014,20 @@ ADMIN ACCOUNT
 </div>
 
 
-
 <div class="system-row">
 
 <div class="system-label">
 MRS WOLFIE FIGHTS
 </div>
 
-<div class="system-value">
-FIGHT MANAGER LIVE
+<div
+  id="fightManagerStatus"
+  class="system-value"
+>
+CONNECTING...
 </div>
 
 </div>
-
 
 
 <div class="system-row">
@@ -904,9 +1043,7 @@ UPDATE MANAGER LIVE
 </div>
 
 
-
 </div>
-
 
 
 <div class="nav-grid">
@@ -928,13 +1065,10 @@ HOME
 </div>
 
 
-
 </div>
 
 
-
 </main>
-
 
 
 <script type="module">
@@ -947,6 +1081,12 @@ import {
   getAuth,
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+import {
+  getFirestore,
+  collection,
+  onSnapshot
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 
 /* =========================
@@ -1002,9 +1142,13 @@ const app =
     firebaseConfig
   );
 
-
 const auth =
   getAuth(
+    app
+  );
+
+const db =
+  getFirestore(
     app
   );
 
@@ -1048,6 +1192,563 @@ const systemAdmin =
     "systemAdmin"
   );
 
+const fightManagerStatus =
+  document.getElementById(
+    "fightManagerStatus"
+  );
+
+const liveFightPanel =
+  document.getElementById(
+    "liveFightPanel"
+  );
+
+
+/* =========================
+   STATE
+========================= */
+
+let currentUser =
+  null;
+
+let unsubscribeFights =
+  null;
+
+
+/* =========================
+   PERMANENT HISTORY
+
+   These are the three existing
+   fights already used by the
+   Mrs Wolfie public app.
+========================= */
+
+const permanentHistory = [
+
+  {
+    result:"W"
+  },
+
+  {
+    result:"L"
+  },
+
+  {
+    result:"L"
+  }
+
+];
+
+
+/* =========================
+   DATE HELPERS
+========================= */
+
+function parseDate(
+  value
+){
+
+  if(
+    !value
+  ){
+
+    return null;
+
+  }
+
+  const parts =
+    value.split("-");
+
+  if(
+    parts.length !== 3
+  ){
+
+    return null;
+
+  }
+
+  return new Date(
+    Number(parts[0]),
+    Number(parts[1]) - 1,
+    Number(parts[2]),
+    23,
+    59,
+    59,
+    999
+  );
+
+}
+
+
+function formatDate(
+  value
+){
+
+  if(
+    !value
+  ){
+
+    return "DATE TBA";
+
+  }
+
+  const parts =
+    value.split("-");
+
+  if(
+    parts.length !== 3
+  ){
+
+    return value;
+  }
+
+  const date =
+    new Date(
+      Number(parts[0]),
+      Number(parts[1]) - 1,
+      Number(parts[2])
+    );
+
+  return date
+    .toLocaleDateString(
+      "en-GB",
+      {
+        day:"2-digit",
+        month:"long",
+        year:"numeric"
+      }
+    )
+    .toUpperCase();
+
+}
+
+
+/* =========================
+   HTML ESCAPING
+========================= */
+
+function escapeHtml(
+  value
+){
+
+  return String(
+    value ?? ""
+  )
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* =========================
+   LIVE FIGHT DATA
+========================= */
+
+function renderFightStatus(
+  fights
+){
+
+  const now =
+    new Date();
+
+
+  /*
+    Upcoming fights:
+    - not cancelled
+    - not completed
+    - no result
+    - fight date has not passed
+  */
+
+  const upcoming =
+    fights
+      .filter(
+        function(fight){
+
+          if(
+            fight.status === "CANCELLED"
+          ){
+            return false;
+          }
+
+          if(
+            fight.status === "COMPLETED"
+          ){
+            return false;
+          }
+
+          if(
+            fight.result
+          ){
+            return false;
+          }
+
+          const date =
+            parseDate(
+              fight.date
+            );
+
+          if(
+            !date
+          ){
+            return false;
+          }
+
+          return date >= now;
+
+        }
+      )
+      .sort(
+        function(a,b){
+
+          return String(a.date || "")
+            .localeCompare(
+              String(b.date || "")
+            );
+
+        }
+      );
+
+
+  const nextFight =
+    upcoming.length
+      ? upcoming[0]
+      : null;
+
+
+  /*
+    Start with permanent history:
+    1 win, 2 losses, 0 draws.
+
+    Then include completed Firestore
+    fights with valid results.
+  */
+
+  const results =
+    [
+      ...permanentHistory.map(
+        function(fight){
+          return fight.result;
+        }
+      ),
+
+      ...fights
+        .filter(
+          function(fight){
+
+            return (
+              fight.status === "COMPLETED" &&
+              ["W","L","D"].includes(
+                fight.result
+              )
+            );
+
+          }
+        )
+        .map(
+          function(fight){
+            return fight.result;
+          }
+        )
+    ];
+
+
+  const wins =
+    results.filter(
+      function(result){
+        return result === "W";
+      }
+    ).length;
+
+
+  const losses =
+    results.filter(
+      function(result){
+        return result === "L";
+      }
+    ).length;
+
+
+  const draws =
+    results.filter(
+      function(result){
+        return result === "D";
+      }
+    ).length;
+
+
+  const record =
+    wins +
+    "–" +
+    losses +
+    "–" +
+    draws;
+
+
+  if(
+    !nextFight
+  ){
+
+    liveFightPanel.innerHTML = `
+      <div class="live-main">
+
+        <div class="live-label">
+          NEXT FIGHT
+        </div>
+
+        <div class="live-opponent">
+          NO UPCOMING FIGHT
+        </div>
+
+        <div class="live-venue">
+          Add the next fight through Fight Management.
+        </div>
+
+      </div>
+
+      <div class="live-stats">
+
+        <div class="live-stat">
+
+          <div class="live-stat-value">
+            -
+          </div>
+
+          <div class="live-stat-label">
+            NEXT DATE
+          </div>
+
+        </div>
+
+        <div class="live-stat">
+
+          <div class="live-stat-value">
+            ${upcoming.length}
+          </div>
+
+          <div class="live-stat-label">
+            UPCOMING
+          </div>
+
+        </div>
+
+        <div class="live-stat">
+
+          <div class="live-stat-value">
+            ${record}
+          </div>
+
+          <div class="live-stat-label">
+            RECORD
+          </div>
+
+        </div>
+
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  const promotionEvent =
+    [
+      nextFight.promotion,
+      nextFight.event
+    ]
+      .filter(Boolean)
+      .join(" • ");
+
+
+  liveFightPanel.innerHTML = `
+    <div class="live-main">
+
+      <div class="live-label">
+        NEXT FIGHT
+      </div>
+
+      <div class="live-opponent">
+        MRS WOLFIE vs
+        ${escapeHtml(
+          nextFight.opponent ||
+          "TBA"
+        )}
+      </div>
+
+      <div class="live-event">
+        ${escapeHtml(
+          promotionEvent ||
+          nextFight.type ||
+          "FIGHT NIGHT"
+        )}
+      </div>
+
+      <div class="live-venue">
+
+        ${escapeHtml(
+          formatDate(
+            nextFight.date
+          )
+        )}
+
+        ${
+          nextFight.dateEnd
+            ? " — " +
+              escapeHtml(
+                formatDate(
+                  nextFight.dateEnd
+                )
+              )
+            : ""
+        }
+
+        <br>
+
+        ${escapeHtml(
+          nextFight.venue ||
+          "VENUE TBA"
+        )}
+
+      </div>
+
+    </div>
+
+
+    <div class="live-stats">
+
+      <div class="live-stat">
+
+        <div class="live-stat-value">
+          ${escapeHtml(
+            formatDate(
+              nextFight.date
+            )
+          )}
+        </div>
+
+        <div class="live-stat-label">
+          NEXT DATE
+        </div>
+
+      </div>
+
+
+      <div class="live-stat">
+
+        <div class="live-stat-value">
+          ${upcoming.length}
+        </div>
+
+        <div class="live-stat-label">
+          UPCOMING
+        </div>
+
+      </div>
+
+
+      <div class="live-stat">
+
+        <div class="live-stat-value">
+          ${record}
+        </div>
+
+        <div class="live-stat-label">
+          RECORD
+        </div>
+
+      </div>
+
+    </div>
+  `;
+
+}
+
+
+/* =========================
+   FIRESTORE LISTENER
+========================= */
+
+function startFightListener(){
+
+  if(
+    unsubscribeFights
+  ){
+
+    unsubscribeFights();
+
+  }
+
+
+  fightManagerStatus.textContent =
+    "CONNECTING...";
+
+
+  unsubscribeFights =
+    onSnapshot(
+
+      collection(
+        db,
+        "mrsWolfieFights"
+      ),
+
+      function(snapshot){
+
+        const fights =
+          [];
+
+
+        snapshot.forEach(
+          function(item){
+
+            fights.push({
+              id:item.id,
+              ...item.data()
+            });
+
+          }
+        );
+
+
+        firebaseStatus.textContent =
+          "CONNECTED";
+
+        fightManagerStatus.textContent =
+          "FIGHT MANAGER LIVE";
+
+        renderFightStatus(
+          fights
+        );
+
+      },
+
+
+      function(error){
+
+        console.error(
+          "Mrs Wolfie live fight status:",
+          error
+        );
+
+
+        fightManagerStatus.textContent =
+          "CONNECTION ERROR";
+
+
+        liveFightPanel.innerHTML = `
+          <div class="live-loading">
+            LIVE FIGHT DATA COULD NOT BE LOADED.
+          </div>
+        `;
+
+      }
+
+    );
+
+}
+
 
 /* =========================
    AUTH
@@ -1063,6 +1764,10 @@ onAuthStateChanged(
         user.uid
       ]
     ){
+
+      currentUser =
+        user;
+
 
       const name =
         ADMINS[
@@ -1107,7 +1812,26 @@ onAuthStateChanged(
       );
 
 
+      startFightListener();
+
+
       return;
+
+    }
+
+
+    currentUser =
+      null;
+
+
+    if(
+      unsubscribeFights
+    ){
+
+      unsubscribeFights();
+
+      unsubscribeFights =
+        null;
 
     }
 
@@ -1122,6 +1846,14 @@ onAuthStateChanged(
 
     firebaseStatus.textContent =
       "NOT AUTHORISED";
+
+
+    fightManagerStatus.textContent =
+      "NOT AUTHORISED";
+
+
+    systemAdmin.textContent =
+      "-";
 
 
     adminBar.classList.remove(
@@ -1142,7 +1874,6 @@ onAuthStateChanged(
 );
 
 </script>
-
 
 
 <!-- SERVICE WORKER -->
@@ -1168,7 +1899,9 @@ if(
             }
           );
 
+
         await registration.update();
+
 
       }catch(error){
 
@@ -1185,7 +1918,6 @@ if(
 }
 
 </script>
-
 
 
 </body>
