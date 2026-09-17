@@ -1,0 +1,2149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
+
+<meta name="theme-color" content="#050505">
+
+<title>Mrs Wolfie Fight Management | Team Wolfpack</title>
+
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  min-height:100vh;
+  min-height:100dvh;
+  font-family:Arial,Helvetica,sans-serif;
+  color:#fff;
+
+  background:
+    radial-gradient(circle at 0% 15%,rgba(103,220,255,.20),transparent 30%),
+    radial-gradient(circle at 100% 35%,rgba(255,143,211,.18),transparent 30%),
+    linear-gradient(115deg,#02090d 0%,#050505 50%,#130810 100%);
+}
+
+button,
+input,
+select,
+textarea{
+  font:inherit;
+}
+
+.header{
+  text-align:center;
+  padding:25px 18px 18px;
+}
+
+.logo{
+  width:90px;
+  height:90px;
+  object-fit:contain;
+}
+
+.brand{
+  margin-top:6px;
+  color:#67dcff;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:3px;
+}
+
+.title{
+  margin-top:17px;
+  font-size:28px;
+  font-weight:900;
+}
+
+.ice{
+  color:#67dcff;
+}
+
+.pink{
+  color:#ff8fd3;
+}
+
+.subtitle{
+  margin-top:8px;
+  color:#999;
+  font-size:11px;
+  line-height:1.5;
+}
+
+.line{
+  width:100%;
+  max-width:650px;
+  height:2px;
+  margin:20px auto 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      #67dcff,
+      transparent,
+      #ff8fd3
+    );
+}
+
+.content{
+  width:100%;
+  max-width:850px;
+  margin:auto;
+  padding:8px 16px 70px;
+}
+
+.status{
+  margin-bottom:15px;
+  padding:10px;
+  text-align:center;
+  color:#aaa;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.status.admin{
+  color:#67dcff;
+}
+
+.status.error{
+  color:#ff7957;
+}
+
+.access-denied{
+  display:none;
+  padding:25px 18px;
+  border-radius:14px;
+  text-align:center;
+  border:1px solid rgba(255,143,211,.35);
+  background:rgba(45,8,35,.35);
+}
+
+.access-denied.show{
+  display:block;
+}
+
+.access-title{
+  color:#ff8fd3;
+  font-size:18px;
+  font-weight:900;
+}
+
+.access-text{
+  margin-top:10px;
+  color:#aaa;
+  font-size:11px;
+  line-height:1.6;
+}
+
+.manager{
+  display:none;
+}
+
+.manager.show{
+  display:block;
+}
+
+.admin-bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+
+  margin-bottom:16px;
+  padding:14px 16px;
+
+  border-radius:12px;
+  border:1px solid rgba(103,220,255,.30);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(103,220,255,.12),
+      rgba(255,143,211,.12)
+    );
+}
+
+.admin-name{
+  font-size:11px;
+  font-weight:900;
+}
+
+.admin-badge{
+  display:inline-block;
+  margin-left:6px;
+  padding:4px 7px;
+  border-radius:20px;
+  background:#ff8fd3;
+  color:#050505;
+  font-size:8px;
+  font-weight:900;
+}
+
+.admin-label{
+  color:#67dcff;
+  font-size:9px;
+  font-weight:900;
+}
+
+.section-title{
+  margin:24px 0 11px;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.panel{
+  padding:18px;
+  border-radius:15px;
+
+  border:
+    1px solid rgba(255,255,255,.10);
+
+  background:
+    linear-gradient(
+      115deg,
+      rgba(103,220,255,.08),
+      rgba(8,8,8,.94) 50%,
+      rgba(255,143,211,.08)
+    );
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:13px;
+}
+
+.field{
+  min-width:0;
+}
+
+.field.full{
+  grid-column:1 / -1;
+}
+
+label{
+  display:block;
+  margin-bottom:6px;
+  color:#aaa;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.7px;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  min-height:45px;
+  padding:11px 12px;
+
+  border-radius:9px;
+  border:1px solid rgba(255,255,255,.14);
+
+  outline:none;
+
+  background:#090b0d;
+  color:#fff;
+
+  font-size:11px;
+}
+
+textarea{
+  min-height:75px;
+  resize:vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:#67dcff;
+}
+
+.form-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:16px;
+}
+
+.button{
+  min-height:44px;
+  padding:11px 16px;
+
+  border:0;
+  border-radius:9px;
+
+  cursor:pointer;
+
+  font-size:9px;
+  font-weight:900;
+}
+
+.button.primary{
+  background:#67dcff;
+  color:#050505;
+}
+
+.button.secondary{
+  background:#ff8fd3;
+  color:#050505;
+}
+
+.button.dark{
+  border:1px solid rgba(255,255,255,.18);
+  background:#101214;
+  color:#fff;
+}
+
+.button.danger{
+  background:#b92727;
+  color:#fff;
+}
+
+.button:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+}
+
+.message{
+  display:none;
+
+  margin-top:14px;
+  padding:11px 12px;
+
+  border-radius:9px;
+
+  font-size:9px;
+  font-weight:900;
+  line-height:1.5;
+}
+
+.message.show{
+  display:block;
+}
+
+.message.success{
+  color:#67dcff;
+  border:1px solid rgba(103,220,255,.25);
+  background:rgba(103,220,255,.07);
+}
+
+.message.error{
+  color:#ff8b8b;
+  border:1px solid rgba(255,80,80,.25);
+  background:rgba(255,80,80,.07);
+}
+
+.fight-list{
+  display:grid;
+  gap:11px;
+}
+
+.empty{
+  padding:25px 15px;
+
+  text-align:center;
+
+  border-radius:13px;
+  border:1px solid rgba(255,255,255,.08);
+
+  color:#777;
+  background:rgba(8,8,8,.72);
+
+  font-size:10px;
+}
+
+.fight-card{
+  position:relative;
+
+  padding:17px;
+
+  border-radius:14px;
+
+  border:
+    1px solid rgba(255,255,255,.11);
+
+  background:
+    linear-gradient(
+      110deg,
+      rgba(103,220,255,.09),
+      rgba(7,7,7,.95) 48%,
+      rgba(255,143,211,.09)
+    );
+}
+
+.fight-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.fight-event{
+  color:#67dcff;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.6px;
+}
+
+.fight-opponent{
+  margin-top:5px;
+  font-size:18px;
+  font-weight:900;
+}
+
+.fight-meta{
+  margin-top:8px;
+  color:#999;
+  font-size:9px;
+  line-height:1.65;
+}
+
+.fight-status{
+  flex:0 0 auto;
+
+  padding:6px 9px;
+
+  border-radius:20px;
+
+  background:#67dcff;
+  color:#050505;
+
+  font-size:8px;
+  font-weight:900;
+}
+
+.fight-status.completed{
+  background:#ff8fd3;
+}
+
+.fight-status.cancelled{
+  background:#777;
+  color:#fff;
+}
+
+.fight-result{
+  display:inline-block;
+
+  margin-top:10px;
+  padding:6px 9px;
+
+  border-radius:7px;
+
+  background:#ff8fd3;
+  color:#050505;
+
+  font-size:9px;
+  font-weight:900;
+}
+
+.card-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-top:14px;
+}
+
+.small-button{
+  min-height:38px;
+  padding:9px 11px;
+
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:8px;
+
+  cursor:pointer;
+
+  background:#101214;
+  color:#fff;
+
+  font-size:8px;
+  font-weight:900;
+}
+
+.small-button.blue{
+  border-color:rgba(103,220,255,.40);
+  color:#67dcff;
+}
+
+.small-button.pink{
+  border-color:rgba(255,143,211,.40);
+  color:#ff8fd3;
+}
+
+.small-button.red{
+  border-color:rgba(255,90,90,.40);
+  color:#ff8585;
+}
+
+.nav-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+  margin-top:20px;
+}
+
+.nav-button{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  min-height:48px;
+  padding:12px 8px;
+
+  text-decoration:none;
+  text-align:center;
+
+  color:#fff;
+
+  border:1px solid #67dcff;
+  border-radius:11px;
+
+  font-size:9px;
+  font-weight:900;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(103,220,255,.10),
+      rgba(255,143,211,.10)
+    );
+}
+
+@media(max-width:600px){
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .field.full{
+    grid-column:auto;
+  }
+
+  .fight-top{
+    flex-direction:column;
+  }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+<a href="admin-mrs-wolfie.html">
+
+<img
+  src="icon-512.png"
+  class="logo"
+  alt="Team Wolfpack"
+>
+
+</a>
+
+<div class="brand">
+TEAM WOLFPACK ADMIN
+</div>
+
+<h1 class="title">
+
+<span class="ice">
+MRS WOLFIE
+</span>
+
+<span class="pink">
+FIGHTS
+</span>
+
+</h1>
+
+<p class="subtitle">
+Create and manage Mrs Wolfie's boxing schedule and results.
+</p>
+
+<div class="line"></div>
+
+</header>
+
+
+<main class="content">
+
+
+<div
+  id="status"
+  class="status"
+>
+CHECKING ADMIN ACCESS...
+</div>
+
+
+<div
+  id="accessDenied"
+  class="access-denied"
+>
+
+<div class="access-title">
+ADMIN ACCESS REQUIRED
+</div>
+
+<div class="access-text">
+Sign into Pack Chat using an authorised Team Wolfpack administrator account.
+</div>
+
+<div class="nav-grid">
+
+<a
+  class="nav-button"
+  href="chat.html"
+>
+PACK CHAT
+</a>
+
+<a
+  class="nav-button"
+  href="admin-dashboard.html"
+>
+ADMIN DASHBOARD
+</a>
+
+</div>
+
+</div>
+
+
+<div
+  id="manager"
+  class="manager"
+>
+
+
+<div class="admin-bar">
+
+<div class="admin-name">
+
+<span id="adminName"></span>
+
+<span class="admin-badge">
+ADMIN
+</span>
+
+</div>
+
+<div class="admin-label">
+FIGHT MANAGER
+</div>
+
+</div>
+
+
+<div class="section-title">
+
+<span class="ice">
+ADD / EDIT
+</span>
+
+<span class="pink">
+FIGHT
+</span>
+
+</div>
+
+
+<div class="panel">
+
+
+<form id="fightForm">
+
+
+<div class="form-grid">
+
+
+<div class="field">
+
+<label for="promotion">
+PROMOTION
+</label>
+
+<input
+  id="promotion"
+  type="text"
+  placeholder="e.g. AYRSHIRE BOXING"
+  required
+>
+
+</div>
+
+
+<div class="field">
+
+<label for="event">
+EVENT
+</label>
+
+<input
+  id="event"
+  type="text"
+  placeholder="e.g. THE LAUNCH"
+  required
+>
+
+</div>
+
+
+<div class="field">
+
+<label for="opponent">
+OPPONENT
+</label>
+
+<input
+  id="opponent"
+  type="text"
+  placeholder="e.g. COLLEEN LEYDEN"
+  required
+>
+
+</div>
+
+
+<div class="field">
+
+<label for="fightType">
+FIGHT TYPE
+</label>
+
+<select id="fightType">
+
+<option value="FIGHT NIGHT">
+FIGHT NIGHT
+</option>
+
+<option value="TITLE FIGHT">
+TITLE FIGHT
+</option>
+
+<option value="EXHIBITION">
+EXHIBITION
+</option>
+
+<option value="OTHER">
+OTHER
+</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label for="fightDate">
+FIGHT DATE
+</label>
+
+<input
+  id="fightDate"
+  type="date"
+  required
+>
+
+</div>
+
+
+<div class="field">
+
+<label for="endDate">
+END DATE — OPTIONAL
+</label>
+
+<input
+  id="endDate"
+  type="date"
+>
+
+</div>
+
+
+<div class="field full">
+
+<label for="venue">
+VENUE
+</label>
+
+<input
+  id="venue"
+  type="text"
+  placeholder="e.g. AYR RACECOURSE"
+  required
+>
+
+</div>
+
+
+<div class="field">
+
+<label for="fightStatus">
+STATUS
+</label>
+
+<select id="fightStatus">
+
+<option value="UPCOMING">
+UPCOMING
+</option>
+
+<option value="COMPLETED">
+COMPLETED
+</option>
+
+<option value="CANCELLED">
+CANCELLED
+</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label for="fightResult">
+RESULT
+</label>
+
+<select id="fightResult">
+
+<option value="">
+NO RESULT
+</option>
+
+<option value="W">
+WIN
+</option>
+
+<option value="L">
+LOSS
+</option>
+
+<option value="D">
+DRAW
+</option>
+
+</select>
+
+</div>
+
+
+<div class="field full">
+
+<label for="notes">
+ADMIN NOTES — OPTIONAL
+</label>
+
+<textarea
+  id="notes"
+  placeholder="Private fight notes..."
+></textarea>
+
+</div>
+
+
+</div>
+
+
+<div class="form-actions">
+
+<button
+  id="saveButton"
+  class="button primary"
+  type="submit"
+>
+ADD FIGHT
+</button>
+
+<button
+  id="cancelEditButton"
+  class="button dark"
+  type="button"
+  hidden
+>
+CANCEL EDIT
+</button>
+
+</div>
+
+
+<div
+  id="formMessage"
+  class="message"
+></div>
+
+
+</form>
+
+
+</div>
+
+
+<div class="section-title">
+
+<span class="ice">
+MRS WOLFIE
+</span>
+
+<span class="pink">
+FIGHT DATABASE
+</span>
+
+</div>
+
+
+<div
+  id="fightList"
+  class="fight-list"
+>
+
+<div class="empty">
+LOADING FIGHTS...
+</div>
+
+</div>
+
+
+<div class="nav-grid">
+
+<a
+  class="nav-button"
+  href="admin-mrs-wolfie.html"
+>
+‹ MRS WOLFIE CONTROL
+</a>
+
+<a
+  class="nav-button"
+  href="admin-dashboard.html"
+>
+ADMIN DASHBOARD
+</a>
+
+</div>
+
+
+</div>
+
+
+</main>
+
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+
+  authDomain:
+    "team-wolfpack-app.firebaseapp.com",
+
+  databaseURL:
+    "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+
+  projectId:
+    "team-wolfpack-app",
+
+  storageBucket:
+    "team-wolfpack-app.firebasestorage.app",
+
+  messagingSenderId:
+    "1070414578856",
+
+  appId:
+    "1:1070414578856:web:df14e7d387e658eeae2e9d",
+
+  measurementId:
+    "G-6JTCE2N9LZ"
+
+};
+
+
+const ADMINS = {
+
+  "PRGa9TsCW0QDn1QtoUXyYjEi7YB3":
+    "MR WOLFIE",
+
+  "SlpEQYl94DaH6j42QUyl8Kv2ujJ3":
+    "MRS WOLFIE"
+
+};
+
+
+const app =
+  initializeApp(
+    firebaseConfig
+  );
+
+
+const auth =
+  getAuth(
+    app
+  );
+
+
+const db =
+  getFirestore(
+    app
+  );
+
+
+const fightsCollection =
+  collection(
+    db,
+    "mrsWolfieFights"
+  );
+
+
+const status =
+  document.getElementById(
+    "status"
+  );
+
+const accessDenied =
+  document.getElementById(
+    "accessDenied"
+  );
+
+const manager =
+  document.getElementById(
+    "manager"
+  );
+
+const adminName =
+  document.getElementById(
+    "adminName"
+  );
+
+const fightForm =
+  document.getElementById(
+    "fightForm"
+  );
+
+const promotion =
+  document.getElementById(
+    "promotion"
+  );
+
+const eventInput =
+  document.getElementById(
+    "event"
+  );
+
+const opponent =
+  document.getElementById(
+    "opponent"
+  );
+
+const fightType =
+  document.getElementById(
+    "fightType"
+  );
+
+const fightDate =
+  document.getElementById(
+    "fightDate"
+  );
+
+const endDate =
+  document.getElementById(
+    "endDate"
+  );
+
+const venue =
+  document.getElementById(
+    "venue"
+  );
+
+const fightStatus =
+  document.getElementById(
+    "fightStatus"
+  );
+
+const fightResult =
+  document.getElementById(
+    "fightResult"
+  );
+
+const notes =
+  document.getElementById(
+    "notes"
+  );
+
+const saveButton =
+  document.getElementById(
+    "saveButton"
+  );
+
+const cancelEditButton =
+  document.getElementById(
+    "cancelEditButton"
+  );
+
+const formMessage =
+  document.getElementById(
+    "formMessage"
+  );
+
+const fightList =
+  document.getElementById(
+    "fightList"
+  );
+
+
+let currentUser =
+  null;
+
+let editingId =
+  null;
+
+let fights =
+  [];
+
+let unsubscribeFights =
+  null;
+
+
+function showMessage(
+  text,
+  type
+){
+
+  formMessage.textContent =
+    text;
+
+  formMessage.className =
+    "message show " +
+    type;
+
+}
+
+
+function clearMessage(){
+
+  formMessage.textContent =
+    "";
+
+  formMessage.className =
+    "message";
+
+}
+
+
+function formatDate(
+  value
+){
+
+  if(
+    !value
+  ){
+
+    return "DATE TBA";
+
+  }
+
+
+  const parts =
+    value.split("-");
+
+
+  if(
+    parts.length !== 3
+  ){
+
+    return value;
+
+  }
+
+
+  const date =
+    new Date(
+      Number(parts[0]),
+      Number(parts[1]) - 1,
+      Number(parts[2])
+    );
+
+
+  return date
+    .toLocaleDateString(
+      "en-GB",
+      {
+        day:"2-digit",
+        month:"long",
+        year:"numeric"
+      }
+    )
+    .toUpperCase();
+
+}
+
+
+function resetForm(){
+
+  editingId =
+    null;
+
+
+  fightForm.reset();
+
+
+  fightType.value =
+    "FIGHT NIGHT";
+
+
+  fightStatus.value =
+    "UPCOMING";
+
+
+  fightResult.value =
+    "";
+
+
+  saveButton.textContent =
+    "ADD FIGHT";
+
+
+  cancelEditButton.hidden =
+    true;
+
+
+  clearMessage();
+
+}
+
+
+function getFight(
+  id
+){
+
+  return fights.find(
+    function(fight){
+
+      return fight.id === id;
+
+    }
+  );
+
+}
+
+
+function renderFights(){
+
+  if(
+    fights.length === 0
+  ){
+
+    fightList.innerHTML =
+      '<div class="empty">NO MRS WOLFIE FIGHTS HAVE BEEN ADDED YET.</div>';
+
+    return;
+
+  }
+
+
+  const sorted =
+    [...fights]
+      .sort(
+        function(a,b){
+
+          return String(a.date || "")
+            .localeCompare(
+              String(b.date || "")
+            );
+
+        }
+      );
+
+
+  fightList.innerHTML =
+    "";
+
+
+  sorted.forEach(
+    function(fight){
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+
+      card.className =
+        "fight-card";
+
+
+      const statusClass =
+        fight.status === "COMPLETED"
+          ? " completed"
+          : fight.status === "CANCELLED"
+            ? " cancelled"
+            : "";
+
+
+      const resultText =
+        fight.result === "W"
+          ? "WIN"
+          : fight.result === "L"
+            ? "LOSS"
+            : fight.result === "D"
+              ? "DRAW"
+              : "";
+
+
+      card.innerHTML = `
+        <div class="fight-top">
+
+          <div>
+
+            <div class="fight-event">
+              ${escapeHtml(fight.promotion || "")}
+              ${fight.event ? " • " + escapeHtml(fight.event) : ""}
+            </div>
+
+            <div class="fight-opponent">
+              MRS WOLFIE vs ${escapeHtml(fight.opponent || "TBA")}
+            </div>
+
+            <div class="fight-meta">
+              ${formatDate(fight.date)}
+              ${fight.dateEnd ? " — " + formatDate(fight.dateEnd) : ""}
+              <br>
+              ${escapeHtml(fight.venue || "VENUE TBA")}
+              <br>
+              ${escapeHtml(fight.type || "FIGHT NIGHT")}
+            </div>
+
+            ${
+              resultText
+                ? '<div class="fight-result">' +
+                  resultText +
+                  '</div>'
+                : ""
+            }
+
+          </div>
+
+          <div class="fight-status${statusClass}">
+            ${escapeHtml(fight.status || "UPCOMING")}
+          </div>
+
+        </div>
+
+        <div class="card-actions">
+
+          <button
+            class="small-button blue"
+            type="button"
+            data-action="edit"
+            data-id="${fight.id}"
+          >
+            EDIT
+          </button>
+
+          <button
+            class="small-button pink"
+            type="button"
+            data-action="win"
+            data-id="${fight.id}"
+          >
+            WIN
+          </button>
+
+          <button
+            class="small-button pink"
+            type="button"
+            data-action="loss"
+            data-id="${fight.id}"
+          >
+            LOSS
+          </button>
+
+          <button
+            class="small-button pink"
+            type="button"
+            data-action="draw"
+            data-id="${fight.id}"
+          >
+            DRAW
+          </button>
+
+          <button
+            class="small-button"
+            type="button"
+            data-action="cancel"
+            data-id="${fight.id}"
+          >
+            CANCEL FIGHT
+          </button>
+
+          <button
+            class="small-button red"
+            type="button"
+            data-action="delete"
+            data-id="${fight.id}"
+          >
+            DELETE
+          </button>
+
+        </div>
+      `;
+
+
+      fightList.appendChild(
+        card
+      );
+
+    }
+  );
+
+}
+
+
+function escapeHtml(
+  value
+){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+function editFight(
+  id
+){
+
+  const fight =
+    getFight(
+      id
+    );
+
+
+  if(
+    !fight
+  ){
+
+    return;
+
+  }
+
+
+  editingId =
+    id;
+
+
+  promotion.value =
+    fight.promotion || "";
+
+  eventInput.value =
+    fight.event || "";
+
+  opponent.value =
+    fight.opponent || "";
+
+  fightType.value =
+    fight.type || "FIGHT NIGHT";
+
+  fightDate.value =
+    fight.date || "";
+
+  endDate.value =
+    fight.dateEnd || "";
+
+  venue.value =
+    fight.venue || "";
+
+  fightStatus.value =
+    fight.status || "UPCOMING";
+
+  fightResult.value =
+    fight.result || "";
+
+  notes.value =
+    fight.notes || "";
+
+
+  saveButton.textContent =
+    "SAVE CHANGES";
+
+
+  cancelEditButton.hidden =
+    false;
+
+
+  clearMessage();
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+async function setResult(
+  id,
+  result
+){
+
+  const label =
+    result === "W"
+      ? "WIN"
+      : result === "L"
+        ? "LOSS"
+        : "DRAW";
+
+
+  if(
+    !confirm(
+      "Mark this fight as " +
+      label +
+      "?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  try{
+
+    await updateDoc(
+      doc(
+        db,
+        "mrsWolfieFights",
+        id
+      ),
+      {
+        status:"COMPLETED",
+        result:result,
+        updatedAt:serverTimestamp(),
+        updatedBy:currentUser.uid
+      }
+    );
+
+  }catch(error){
+
+    console.error(
+      error
+    );
+
+    alert(
+      "The result could not be saved."
+    );
+
+  }
+
+}
+
+
+async function cancelFight(
+  id
+){
+
+  if(
+    !confirm(
+      "Cancel this fight?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  try{
+
+    await updateDoc(
+      doc(
+        db,
+        "mrsWolfieFights",
+        id
+      ),
+      {
+        status:"CANCELLED",
+        result:"",
+        updatedAt:serverTimestamp(),
+        updatedBy:currentUser.uid
+      }
+    );
+
+  }catch(error){
+
+    console.error(
+      error
+    );
+
+    alert(
+      "The fight could not be cancelled."
+    );
+
+  }
+
+}
+
+
+async function deleteFight(
+  id
+){
+
+  if(
+    !confirm(
+      "Permanently delete this fight?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  try{
+
+    await deleteDoc(
+      doc(
+        db,
+        "mrsWolfieFights",
+        id
+      )
+    );
+
+  }catch(error){
+
+    console.error(
+      error
+    );
+
+    alert(
+      "The fight could not be deleted."
+    );
+
+  }
+
+}
+
+
+fightList.addEventListener(
+  "click",
+  function(e){
+
+    const button =
+      e.target.closest(
+        "button[data-action]"
+      );
+
+
+    if(
+      !button
+    ){
+
+      return;
+
+    }
+
+
+    const id =
+      button.dataset.id;
+
+    const action =
+      button.dataset.action;
+
+
+    if(
+      action === "edit"
+    ){
+
+      editFight(
+        id
+      );
+
+    }
+
+
+    if(
+      action === "win"
+    ){
+
+      setResult(
+        id,
+        "W"
+      );
+
+    }
+
+
+    if(
+      action === "loss"
+    ){
+
+      setResult(
+        id,
+        "L"
+      );
+
+    }
+
+
+    if(
+      action === "draw"
+    ){
+
+      setResult(
+        id,
+        "D"
+      );
+
+    }
+
+
+    if(
+      action === "cancel"
+    ){
+
+      cancelFight(
+        id
+      );
+
+    }
+
+
+    if(
+      action === "delete"
+    ){
+
+      deleteFight(
+        id
+      );
+
+    }
+
+  }
+);
+
+
+fightForm.addEventListener(
+  "submit",
+  async function(e){
+
+    e.preventDefault();
+
+
+    clearMessage();
+
+
+    if(
+      !currentUser
+    ){
+
+      showMessage(
+        "ADMIN ACCESS REQUIRED.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    const data = {
+
+      promotion:
+        promotion.value
+          .trim()
+          .toUpperCase(),
+
+      event:
+        eventInput.value
+          .trim()
+          .toUpperCase(),
+
+      opponent:
+        opponent.value
+          .trim()
+          .toUpperCase(),
+
+      type:
+        fightType.value,
+
+      date:
+        fightDate.value,
+
+      dateEnd:
+        endDate.value,
+
+      venue:
+        venue.value
+          .trim()
+          .toUpperCase(),
+
+      status:
+        fightStatus.value,
+
+      result:
+        fightResult.value,
+
+      notes:
+        notes.value.trim(),
+
+      updatedAt:
+        serverTimestamp(),
+
+      updatedBy:
+        currentUser.uid
+
+    };
+
+
+    if(
+      data.status === "COMPLETED" &&
+      !data.result
+    ){
+
+      showMessage(
+        "A completed fight needs a WIN, LOSS or DRAW result.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    if(
+      data.result &&
+      data.status !== "COMPLETED"
+    ){
+
+      data.status =
+        "COMPLETED";
+
+    }
+
+
+    saveButton.disabled =
+      true;
+
+
+    try{
+
+      if(
+        editingId
+      ){
+
+        await updateDoc(
+          doc(
+            db,
+            "mrsWolfieFights",
+            editingId
+          ),
+          data
+        );
+
+
+        resetForm();
+
+
+        showMessage(
+          "FIGHT UPDATED SUCCESSFULLY.",
+          "success"
+        );
+
+
+      }else{
+
+
+        data.createdAt =
+          serverTimestamp();
+
+        data.createdBy =
+          currentUser.uid;
+
+
+        await addDoc(
+          fightsCollection,
+          data
+        );
+
+
+        resetForm();
+
+
+        showMessage(
+          "FIGHT ADDED SUCCESSFULLY.",
+          "success"
+        );
+
+      }
+
+
+    }catch(error){
+
+      console.error(
+        "Save fight:",
+        error
+      );
+
+
+      showMessage(
+        "FIGHT COULD NOT BE SAVED. CHECK FIRESTORE PERMISSIONS.",
+        "error"
+      );
+
+    }
+
+
+    saveButton.disabled =
+      false;
+
+  }
+);
+
+
+cancelEditButton.addEventListener(
+  "click",
+  function(){
+
+    resetForm();
+
+  }
+);
+
+
+function startFightListener(){
+
+  if(
+    unsubscribeFights
+  ){
+
+    unsubscribeFights();
+
+  }
+
+
+  unsubscribeFights =
+    onSnapshot(
+
+      fightsCollection,
+
+      function(snapshot){
+
+        fights =
+          [];
+
+
+        snapshot.forEach(
+          function(item){
+
+            fights.push({
+              id:item.id,
+              ...item.data()
+            });
+
+          }
+        );
+
+
+        renderFights();
+
+      },
+
+      function(error){
+
+        console.error(
+          "Mrs Wolfie fights:",
+          error
+        );
+
+
+        fightList.innerHTML =
+          '<div class="empty">FIGHTS COULD NOT BE LOADED. CHECK FIRESTORE PERMISSIONS.</div>';
+
+      }
+
+    );
+
+}
+
+
+onAuthStateChanged(
+  auth,
+  function(user){
+
+    if(
+      user &&
+      ADMINS[
+        user.uid
+      ]
+    ){
+
+      currentUser =
+        user;
+
+
+      const name =
+        ADMINS[
+          user.uid
+        ];
+
+
+      status.textContent =
+        "● " +
+        name +
+        " • ADMIN CONNECTED";
+
+
+      status.className =
+        "status admin";
+
+
+      adminName.textContent =
+        name;
+
+
+      accessDenied.classList.remove(
+        "show"
+      );
+
+
+      manager.classList.add(
+        "show"
+      );
+
+
+      startFightListener();
+
+
+      return;
+
+    }
+
+
+    currentUser =
+      null;
+
+
+    if(
+      unsubscribeFights
+    ){
+
+      unsubscribeFights();
+
+      unsubscribeFights =
+        null;
+
+    }
+
+
+    status.textContent =
+      "ADMIN ACCESS REQUIRED";
+
+
+    status.className =
+      "status error";
+
+
+    manager.classList.remove(
+      "show"
+    );
+
+
+    accessDenied.classList.add(
+      "show"
+    );
+
+  }
+);
+
+</script>
+
+
+<script>
+
+if(
+  "serviceWorker"
+  in navigator
+){
+
+  window.addEventListener(
+    "load",
+    function(){
+
+      navigator.serviceWorker
+        .register(
+          "service-worker.js"
+        )
+        .catch(
+          function(error){
+
+            console.error(
+              "Service worker error:",
+              error
+            );
+
+          }
+        );
+
+    }
+  );
+
+}
+
+</script>
+
+
+</body>
+</html>
