@@ -1,0 +1,2045 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
+
+<meta name="theme-color" content="#050505">
+
+<title>Mrs Wolfie Updates | Team Wolfpack</title>
+
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  min-height:100vh;
+  min-height:100dvh;
+  font-family:Arial,Helvetica,sans-serif;
+  color:#fff;
+
+  background:
+    radial-gradient(circle at 0% 15%,rgba(103,220,255,.20),transparent 30%),
+    radial-gradient(circle at 100% 35%,rgba(255,143,211,.18),transparent 30%),
+    linear-gradient(115deg,#02090d 0%,#050505 50%,#130810 100%);
+}
+
+button,
+input,
+select,
+textarea{
+  font:inherit;
+}
+
+.header{
+  text-align:center;
+  padding:25px 18px 18px;
+}
+
+.logo{
+  width:90px;
+  height:90px;
+  object-fit:contain;
+}
+
+.brand{
+  margin-top:6px;
+  color:#67dcff;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:3px;
+}
+
+.title{
+  margin-top:17px;
+  font-size:28px;
+  font-weight:900;
+}
+
+.ice{
+  color:#67dcff;
+}
+
+.pink{
+  color:#ff8fd3;
+}
+
+.subtitle{
+  margin-top:8px;
+  color:#999;
+  font-size:11px;
+  line-height:1.5;
+}
+
+.line{
+  width:100%;
+  max-width:650px;
+  height:2px;
+  margin:20px auto 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      #67dcff,
+      transparent,
+      #ff8fd3
+    );
+}
+
+.content{
+  width:100%;
+  max-width:850px;
+  margin:auto;
+  padding:8px 16px 70px;
+}
+
+.status{
+  margin-bottom:15px;
+  padding:10px;
+  text-align:center;
+  color:#aaa;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.status.admin{
+  color:#67dcff;
+}
+
+.status.error{
+  color:#ff7957;
+}
+
+.access-denied{
+  display:none;
+  padding:25px 18px;
+  border-radius:14px;
+  text-align:center;
+  border:1px solid rgba(255,143,211,.35);
+  background:rgba(45,8,35,.35);
+}
+
+.access-denied.show{
+  display:block;
+}
+
+.access-title{
+  color:#ff8fd3;
+  font-size:18px;
+  font-weight:900;
+}
+
+.access-text{
+  margin-top:10px;
+  color:#aaa;
+  font-size:11px;
+  line-height:1.6;
+}
+
+.manager{
+  display:none;
+}
+
+.manager.show{
+  display:block;
+}
+
+.admin-bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+
+  margin-bottom:16px;
+  padding:14px 16px;
+
+  border-radius:12px;
+  border:1px solid rgba(103,220,255,.30);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(103,220,255,.12),
+      rgba(255,143,211,.12)
+    );
+}
+
+.admin-name{
+  font-size:11px;
+  font-weight:900;
+}
+
+.admin-badge{
+  display:inline-block;
+  margin-left:6px;
+  padding:4px 7px;
+  border-radius:20px;
+  background:#ff8fd3;
+  color:#050505;
+  font-size:8px;
+  font-weight:900;
+}
+
+.admin-label{
+  color:#67dcff;
+  font-size:9px;
+  font-weight:900;
+}
+
+.section-title{
+  margin:24px 0 11px;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.panel{
+  padding:18px;
+  border-radius:15px;
+
+  border:1px solid rgba(255,255,255,.10);
+
+  background:
+    linear-gradient(
+      115deg,
+      rgba(103,220,255,.08),
+      rgba(8,8,8,.94) 50%,
+      rgba(255,143,211,.08)
+    );
+}
+
+.info-box{
+  margin-bottom:16px;
+  padding:12px 13px;
+  border-radius:10px;
+  border:1px solid rgba(103,220,255,.18);
+  background:rgba(103,220,255,.05);
+  color:#999;
+  font-size:9px;
+  line-height:1.6;
+}
+
+.info-box strong{
+  color:#67dcff;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:13px;
+}
+
+.field{
+  min-width:0;
+}
+
+.field.full{
+  grid-column:1 / -1;
+}
+
+label{
+  display:block;
+  margin-bottom:6px;
+  color:#aaa;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.7px;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  min-height:45px;
+  padding:11px 12px;
+
+  border-radius:9px;
+  border:1px solid rgba(255,255,255,.14);
+
+  outline:none;
+
+  background:#090b0d;
+  color:#fff;
+
+  font-size:11px;
+}
+
+textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:#67dcff;
+}
+
+.checkbox-box{
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  min-height:45px;
+  padding:10px 12px;
+
+  border-radius:9px;
+  border:1px solid rgba(255,255,255,.14);
+
+  background:#090b0d;
+}
+
+.checkbox-box input{
+  width:18px;
+  height:18px;
+  min-height:0;
+}
+
+.checkbox-text{
+  color:#fff;
+  font-size:9px;
+  font-weight:900;
+}
+
+.form-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:16px;
+}
+
+.button{
+  min-height:44px;
+  padding:11px 16px;
+
+  border:0;
+  border-radius:9px;
+
+  cursor:pointer;
+
+  font-size:9px;
+  font-weight:900;
+}
+
+.button.primary{
+  background:#67dcff;
+  color:#050505;
+}
+
+.button.dark{
+  border:1px solid rgba(255,255,255,.18);
+  background:#101214;
+  color:#fff;
+}
+
+.button:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+}
+
+.message{
+  display:none;
+
+  margin-top:14px;
+  padding:11px 12px;
+
+  border-radius:9px;
+
+  font-size:9px;
+  font-weight:900;
+  line-height:1.5;
+}
+
+.message.show{
+  display:block;
+}
+
+.message.success{
+  color:#67dcff;
+  border:1px solid rgba(103,220,255,.25);
+  background:rgba(103,220,255,.07);
+}
+
+.message.error{
+  color:#ff8b8b;
+  border:1px solid rgba(255,80,80,.25);
+  background:rgba(255,80,80,.07);
+}
+
+.update-list{
+  display:grid;
+  gap:11px;
+}
+
+.empty{
+  padding:25px 15px;
+
+  text-align:center;
+
+  border-radius:13px;
+  border:1px solid rgba(255,255,255,.08);
+
+  color:#777;
+  background:rgba(8,8,8,.72);
+
+  font-size:10px;
+}
+
+.update-card{
+  padding:17px;
+
+  border-radius:14px;
+
+  border:1px solid rgba(255,255,255,.11);
+
+  background:
+    linear-gradient(
+      110deg,
+      rgba(103,220,255,.09),
+      rgba(7,7,7,.95) 48%,
+      rgba(255,143,211,.09)
+    );
+}
+
+.update-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.update-type{
+  display:inline-block;
+
+  padding:5px 8px;
+
+  border-radius:20px;
+
+  background:#67dcff;
+  color:#050505;
+
+  font-size:8px;
+  font-weight:900;
+}
+
+.update-title{
+  margin-top:8px;
+
+  font-size:17px;
+  font-weight:900;
+}
+
+.update-date{
+  margin-top:6px;
+
+  color:#ff8fd3;
+
+  font-size:9px;
+  font-weight:900;
+}
+
+.update-message{
+  margin-top:10px;
+
+  color:#aaa;
+
+  font-size:10px;
+  line-height:1.6;
+}
+
+.update-button-info{
+  margin-top:9px;
+
+  color:#777;
+
+  font-size:8px;
+  line-height:1.5;
+}
+
+.publish-status{
+  flex:0 0 auto;
+
+  padding:6px 9px;
+
+  border-radius:20px;
+
+  background:#67dcff;
+  color:#050505;
+
+  font-size:8px;
+  font-weight:900;
+}
+
+.publish-status.hidden{
+  background:#777;
+  color:#fff;
+}
+
+.card-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-top:14px;
+}
+
+.small-button{
+  min-height:38px;
+  padding:9px 11px;
+
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:8px;
+
+  cursor:pointer;
+
+  background:#101214;
+  color:#fff;
+
+  font-size:8px;
+  font-weight:900;
+}
+
+.small-button.blue{
+  border-color:rgba(103,220,255,.40);
+  color:#67dcff;
+}
+
+.small-button.pink{
+  border-color:rgba(255,143,211,.40);
+  color:#ff8fd3;
+}
+
+.small-button.red{
+  border-color:rgba(255,90,90,.40);
+  color:#ff8585;
+}
+
+.nav-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+  margin-top:20px;
+}
+
+.nav-button{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  min-height:48px;
+  padding:12px 8px;
+
+  text-decoration:none;
+  text-align:center;
+
+  color:#fff;
+
+  border:1px solid #67dcff;
+  border-radius:11px;
+
+  font-size:9px;
+  font-weight:900;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(103,220,255,.10),
+      rgba(255,143,211,.10)
+    );
+}
+
+@media(max-width:600px){
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .field.full{
+    grid-column:auto;
+  }
+
+  .update-top{
+    flex-direction:column;
+  }
+
+}
+
+</style>
+</head>
+
+
+
+<body>
+
+
+
+<header class="header">
+
+<a href="admin-mrs-wolfie.html">
+
+<img
+  src="icon-512.png"
+  class="logo"
+  alt="Team Wolfpack"
+>
+
+</a>
+
+<div class="brand">
+TEAM WOLFPACK ADMIN
+</div>
+
+<h1 class="title">
+
+<span class="ice">
+MRS WOLFIE
+</span>
+
+<span class="pink">
+UPDATES
+</span>
+
+</h1>
+
+<p class="subtitle">
+Create and manage news and announcements for the Mrs Wolfie app.
+</p>
+
+<div class="line"></div>
+
+</header>
+
+
+
+<main class="content">
+
+<div
+  id="status"
+  class="status"
+>
+CHECKING ADMIN ACCESS...
+</div>
+
+
+
+<div
+  id="accessDenied"
+  class="access-denied"
+>
+
+<div class="access-title">
+ADMIN ACCESS REQUIRED
+</div>
+
+<div class="access-text">
+Sign into Pack Chat using an authorised Team Wolfpack administrator account.
+</div>
+
+<div class="nav-grid">
+
+<a
+  class="nav-button"
+  href="chat.html"
+>
+PACK CHAT
+</a>
+
+<a
+  class="nav-button"
+  href="admin-dashboard.html"
+>
+ADMIN DASHBOARD
+</a>
+
+</div>
+
+</div>
+
+
+
+<div
+  id="manager"
+  class="manager"
+>
+
+<div class="admin-bar">
+
+<div class="admin-name">
+
+<span id="adminName"></span>
+
+<span class="admin-badge">
+ADMIN
+</span>
+
+</div>
+
+<div class="admin-label">
+UPDATE MANAGER
+</div>
+
+</div>
+
+
+
+<div class="section-title">
+
+<span class="ice">
+CREATE / EDIT
+</span>
+
+<span class="pink">
+UPDATE
+</span>
+
+</div>
+
+
+
+<div class="panel">
+
+<div class="info-box">
+<strong>PUBLIC APP UPDATE:</strong>
+Updates created here are for the Mrs Wolfie public app. Fight results are generated automatically from Fight Management and do not need to be entered here.
+</div>
+
+<form id="updateForm">
+
+<div class="form-grid">
+
+<div class="field">
+
+<label for="updateType">
+UPDATE TYPE
+</label>
+
+<select id="updateType">
+
+<option value="NEWS">
+NEWS
+</option>
+
+<option value="ANNOUNCEMENT">
+ANNOUNCEMENT
+</option>
+
+<option value="FIGHT">
+FIGHT
+</option>
+
+<option value="TRAINING">
+TRAINING
+</option>
+
+<option value="SPONSOR">
+SPONSOR
+</option>
+
+<option value="EVENT">
+EVENT
+</option>
+
+</select>
+
+</div>
+
+
+
+<div class="field">
+
+<label for="updateDate">
+DISPLAY DATE
+</label>
+
+<input
+  id="updateDate"
+  type="date"
+  required
+>
+
+</div>
+
+
+
+<div class="field full">
+
+<label for="updateTitle">
+TITLE
+</label>
+
+<input
+  id="updateTitle"
+  type="text"
+  maxlength="100"
+  placeholder="e.g. NEXT FIGHT CONFIRMED"
+  required
+>
+
+</div>
+
+
+
+<div class="field full">
+
+<label for="updateMessage">
+MESSAGE
+</label>
+
+<textarea
+  id="updateMessage"
+  maxlength="1000"
+  placeholder="Enter the update shown in the Mrs Wolfie app..."
+  required
+></textarea>
+
+</div>
+
+
+
+<div class="field">
+
+<label for="buttonText">
+BUTTON TEXT — OPTIONAL
+</label>
+
+<input
+  id="buttonText"
+  type="text"
+  maxlength="40"
+  placeholder="e.g. VIEW FIGHT"
+>
+
+</div>
+
+
+
+<div class="field">
+
+<label for="buttonLink">
+BUTTON LINK — OPTIONAL
+</label>
+
+<input
+  id="buttonLink"
+  type="text"
+  maxlength="500"
+  placeholder="e.g. ./fight.html"
+>
+
+</div>
+
+
+
+<div class="field full">
+
+<label>
+PUBLISHING
+</label>
+
+<div class="checkbox-box">
+
+<input
+  id="updateActive"
+  type="checkbox"
+  checked
+>
+
+<div class="checkbox-text">
+PUBLISHED — SHOW THIS UPDATE IN THE MRS WOLFIE APP
+</div>
+
+</div>
+
+</div>
+
+
+
+</div>
+
+
+
+<div class="form-actions">
+
+<button
+  id="saveButton"
+  class="button primary"
+  type="submit"
+>
+PUBLISH UPDATE
+</button>
+
+<button
+  id="cancelEditButton"
+  class="button dark"
+  type="button"
+  hidden
+>
+CANCEL EDIT
+</button>
+
+</div>
+
+
+
+<div
+  id="formMessage"
+  class="message"
+></div>
+
+</form>
+
+</div>
+
+
+
+<div class="section-title">
+
+<span class="ice">
+MRS WOLFIE
+</span>
+
+<span class="pink">
+UPDATE DATABASE
+</span>
+
+</div>
+
+
+
+<div
+  id="updateList"
+  class="update-list"
+>
+
+<div class="empty">
+LOADING UPDATES...
+</div>
+
+</div>
+
+
+
+<div class="nav-grid">
+
+<a
+  class="nav-button"
+  href="admin-mrs-wolfie.html"
+>
+‹ MRS WOLFIE CONTROL
+</a>
+
+<a
+  class="nav-button"
+  href="admin-dashboard.html"
+>
+ADMIN DASHBOARD
+</a>
+
+</div>
+
+</div>
+
+</main>
+
+
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+
+  authDomain:
+    "team-wolfpack-app.firebaseapp.com",
+
+  databaseURL:
+    "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+
+  projectId:
+    "team-wolfpack-app",
+
+  storageBucket:
+    "team-wolfpack-app.firebasestorage.app",
+
+  messagingSenderId:
+    "1070414578856",
+
+  appId:
+    "1:1070414578856:web:df14e7d387e658eeae2e9d",
+
+  measurementId:
+    "G-6JTCE2N9LZ"
+
+};
+
+
+
+const ADMINS = {
+
+  "PRGa9TsCW0QDn1QtoUXyYjEi7YB3":
+    "MR WOLFIE",
+
+  "SlpEQYl94DaH6j42QUyl8Kv2ujJ3":
+    "MRS WOLFIE"
+
+};
+
+
+
+const app =
+  initializeApp(
+    firebaseConfig
+  );
+
+const auth =
+  getAuth(
+    app
+  );
+
+const db =
+  getFirestore(
+    app
+  );
+
+const updatesCollection =
+  collection(
+    db,
+    "mrsWolfieUpdates"
+  );
+
+
+
+const status =
+  document.getElementById(
+    "status"
+  );
+
+const accessDenied =
+  document.getElementById(
+    "accessDenied"
+  );
+
+const manager =
+  document.getElementById(
+    "manager"
+  );
+
+const adminName =
+  document.getElementById(
+    "adminName"
+  );
+
+const updateForm =
+  document.getElementById(
+    "updateForm"
+  );
+
+const updateType =
+  document.getElementById(
+    "updateType"
+  );
+
+const updateDate =
+  document.getElementById(
+    "updateDate"
+  );
+
+const updateTitle =
+  document.getElementById(
+    "updateTitle"
+  );
+
+const updateMessage =
+  document.getElementById(
+    "updateMessage"
+  );
+
+const buttonText =
+  document.getElementById(
+    "buttonText"
+  );
+
+const buttonLink =
+  document.getElementById(
+    "buttonLink"
+  );
+
+const updateActive =
+  document.getElementById(
+    "updateActive"
+  );
+
+const saveButton =
+  document.getElementById(
+    "saveButton"
+  );
+
+const cancelEditButton =
+  document.getElementById(
+    "cancelEditButton"
+  );
+
+const formMessage =
+  document.getElementById(
+    "formMessage"
+  );
+
+const updateList =
+  document.getElementById(
+    "updateList"
+  );
+
+
+
+let currentUser =
+  null;
+
+let editingId =
+  null;
+
+let updates =
+  [];
+
+let unsubscribeUpdates =
+  null;
+
+
+
+function escapeHtml(
+  value
+){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+
+function showMessage(
+  text,
+  type
+){
+
+  formMessage.textContent =
+    text;
+
+  formMessage.className =
+    "message show " +
+    type;
+
+}
+
+
+
+function clearMessage(){
+
+  formMessage.textContent =
+    "";
+
+  formMessage.className =
+    "message";
+
+}
+
+
+
+function formatDate(
+  value
+){
+
+  if(
+    !value
+  ){
+
+    return "DATE TBA";
+
+  }
+
+  const parts =
+    value.split("-");
+
+  if(
+    parts.length !== 3
+  ){
+
+    return value;
+
+  }
+
+  const date =
+    new Date(
+      Number(parts[0]),
+      Number(parts[1]) - 1,
+      Number(parts[2])
+    );
+
+  return date
+    .toLocaleDateString(
+      "en-GB",
+      {
+        day:"2-digit",
+        month:"long",
+        year:"numeric"
+      }
+    )
+    .toUpperCase();
+
+}
+
+
+
+function setDefaultDate(){
+
+  const now =
+    new Date();
+
+  const year =
+    now.getFullYear();
+
+  const month =
+    String(
+      now.getMonth() + 1
+    ).padStart(
+      2,
+      "0"
+    );
+
+  const day =
+    String(
+      now.getDate()
+    ).padStart(
+      2,
+      "0"
+    );
+
+  updateDate.value =
+    year +
+    "-" +
+    month +
+    "-" +
+    day;
+
+}
+
+
+
+function resetForm(){
+
+  editingId =
+    null;
+
+  updateForm.reset();
+
+  updateType.value =
+    "NEWS";
+
+  updateActive.checked =
+    true;
+
+  setDefaultDate();
+
+  saveButton.textContent =
+    "PUBLISH UPDATE";
+
+  cancelEditButton.hidden =
+    true;
+
+  clearMessage();
+
+}
+
+
+
+function getUpdate(
+  id
+){
+
+  return updates.find(
+    function(item){
+
+      return item.id === id;
+
+    }
+  );
+
+}
+
+
+
+function renderUpdates(){
+
+  if(
+    updates.length === 0
+  ){
+
+    updateList.innerHTML =
+      '<div class="empty">NO MRS WOLFIE APP UPDATES HAVE BEEN ADDED YET.</div>';
+
+    return;
+
+  }
+
+  const sorted =
+    [...updates]
+      .sort(
+        function(a,b){
+
+          const dateCompare =
+            String(b.date || "")
+              .localeCompare(
+                String(a.date || "")
+              );
+
+          if(
+            dateCompare !== 0
+          ){
+
+            return dateCompare;
+
+          }
+
+          return String(b.id)
+            .localeCompare(
+              String(a.id)
+            );
+
+        }
+      );
+
+  updateList.innerHTML =
+    "";
+
+  sorted.forEach(
+    function(item){
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+      card.className =
+        "update-card";
+
+      const active =
+        item.active !== false;
+
+      card.innerHTML = `
+        <div class="update-top">
+
+          <div>
+
+            <div class="update-type">
+              ${escapeHtml(item.type || "NEWS")}
+            </div>
+
+            <div class="update-title">
+              ${escapeHtml(item.title || "")}
+            </div>
+
+            <div class="update-date">
+              ${formatDate(item.date)}
+            </div>
+
+          </div>
+
+          <div class="publish-status${active ? "" : " hidden"}">
+            ${active ? "PUBLISHED" : "HIDDEN"}
+          </div>
+
+        </div>
+
+        <div class="update-message">
+          ${escapeHtml(item.message || "")}
+        </div>
+
+        ${
+          item.buttonText || item.link
+            ? `
+              <div class="update-button-info">
+                BUTTON:
+                ${escapeHtml(item.buttonText || "NO TEXT")}
+                ${
+                  item.link
+                    ? " • " + escapeHtml(item.link)
+                    : ""
+                }
+              </div>
+            `
+            : ""
+        }
+
+        <div class="card-actions">
+
+          <button
+            class="small-button blue"
+            type="button"
+            data-action="edit"
+            data-id="${item.id}"
+          >
+            EDIT
+          </button>
+
+          <button
+            class="small-button pink"
+            type="button"
+            data-action="toggle"
+            data-id="${item.id}"
+          >
+            ${active ? "UNPUBLISH" : "PUBLISH"}
+          </button>
+
+          <button
+            class="small-button red"
+            type="button"
+            data-action="delete"
+            data-id="${item.id}"
+          >
+            DELETE
+          </button>
+
+        </div>
+      `;
+
+      updateList.appendChild(
+        card
+      );
+
+    }
+  );
+
+}
+
+
+
+function editUpdate(
+  id
+){
+
+  const item =
+    getUpdate(
+      id
+    );
+
+  if(
+    !item
+  ){
+
+    return;
+
+  }
+
+  editingId =
+    id;
+
+  updateType.value =
+    item.type || "NEWS";
+
+  updateDate.value =
+    item.date || "";
+
+  updateTitle.value =
+    item.title || "";
+
+  updateMessage.value =
+    item.message || "";
+
+  buttonText.value =
+    item.buttonText || "";
+
+  buttonLink.value =
+    item.link || "";
+
+  updateActive.checked =
+    item.active !== false;
+
+  saveButton.textContent =
+    "SAVE CHANGES";
+
+  cancelEditButton.hidden =
+    false;
+
+  clearMessage();
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+
+async function toggleUpdate(
+  id
+){
+
+  const item =
+    getUpdate(
+      id
+    );
+
+  if(
+    !item
+  ){
+
+    return;
+
+  }
+
+  const newState =
+    item.active === false;
+
+  const action =
+    newState
+      ? "publish"
+      : "unpublish";
+
+  if(
+    !confirm(
+      "Are you sure you want to " +
+      action +
+      " this update?"
+    )
+  ){
+
+    return;
+
+  }
+
+  try{
+
+    await updateDoc(
+      doc(
+        db,
+        "mrsWolfieUpdates",
+        id
+      ),
+      {
+        active:newState,
+        updatedAt:serverTimestamp(),
+        updatedBy:currentUser.uid,
+        updatedByName:
+          ADMINS[currentUser.uid] ||
+          "TEAM WOLFPACK ADMIN"
+      }
+    );
+
+  }catch(error){
+
+    console.error(
+      "Toggle update:",
+      error
+    );
+
+    alert(
+      "The update could not be changed."
+    );
+
+  }
+
+}
+
+
+
+async function deleteUpdate(
+  id
+){
+
+  if(
+    !confirm(
+      "Permanently delete this Mrs Wolfie app update?"
+    )
+  ){
+
+    return;
+
+  }
+
+  try{
+
+    await deleteDoc(
+      doc(
+        db,
+        "mrsWolfieUpdates",
+        id
+      )
+    );
+
+    if(
+      editingId === id
+    ){
+
+      resetForm();
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "Delete update:",
+      error
+    );
+
+    alert(
+      "The update could not be deleted."
+    );
+
+  }
+
+}
+
+
+
+updateList.addEventListener(
+  "click",
+  function(e){
+
+    const button =
+      e.target.closest(
+        "button[data-action]"
+      );
+
+    if(
+      !button
+    ){
+
+      return;
+
+    }
+
+    const id =
+      button.dataset.id;
+
+    const action =
+      button.dataset.action;
+
+    if(
+      action === "edit"
+    ){
+
+      editUpdate(
+        id
+      );
+
+    }
+
+    if(
+      action === "toggle"
+    ){
+
+      toggleUpdate(
+        id
+      );
+
+    }
+
+    if(
+      action === "delete"
+    ){
+
+      deleteUpdate(
+        id
+      );
+
+    }
+
+  }
+);
+
+
+
+updateForm.addEventListener(
+  "submit",
+  async function(e){
+
+    e.preventDefault();
+
+    clearMessage();
+
+    if(
+      !currentUser
+    ){
+
+      showMessage(
+        "ADMIN ACCESS REQUIRED.",
+        "error"
+      );
+
+      return;
+
+    }
+
+    const cleanButtonText =
+      buttonText.value.trim();
+
+    const cleanButtonLink =
+      buttonLink.value.trim();
+
+    if(
+      cleanButtonText &&
+      !cleanButtonLink
+    ){
+
+      showMessage(
+        "BUTTON LINK IS REQUIRED WHEN BUTTON TEXT IS ENTERED.",
+        "error"
+      );
+
+      return;
+
+    }
+
+    if(
+      cleanButtonLink &&
+      !cleanButtonText
+    ){
+
+      showMessage(
+        "BUTTON TEXT IS REQUIRED WHEN A BUTTON LINK IS ENTERED.",
+        "error"
+      );
+
+      return;
+
+    }
+
+    const data = {
+
+      type:
+        updateType.value,
+
+      date:
+        updateDate.value,
+
+      title:
+        updateTitle.value
+          .trim()
+          .toUpperCase(),
+
+      message:
+        updateMessage.value
+          .trim(),
+
+      buttonText:
+        cleanButtonText
+          .toUpperCase(),
+
+      link:
+        cleanButtonLink,
+
+      active:
+        updateActive.checked,
+
+      updatedAt:
+        serverTimestamp(),
+
+      updatedBy:
+        currentUser.uid,
+
+      updatedByName:
+        ADMINS[currentUser.uid] ||
+        "TEAM WOLFPACK ADMIN"
+
+    };
+
+    saveButton.disabled =
+      true;
+
+    try{
+
+      if(
+        editingId
+      ){
+
+        await updateDoc(
+          doc(
+            db,
+            "mrsWolfieUpdates",
+            editingId
+          ),
+          data
+        );
+
+        resetForm();
+
+        showMessage(
+          "APP UPDATE SAVED SUCCESSFULLY.",
+          "success"
+        );
+
+      }else{
+
+        data.createdAt =
+          serverTimestamp();
+
+        data.createdBy =
+          currentUser.uid;
+
+        data.createdByName =
+          ADMINS[currentUser.uid] ||
+          "TEAM WOLFPACK ADMIN";
+
+        await addDoc(
+          updatesCollection,
+          data
+        );
+
+        resetForm();
+
+        showMessage(
+          data.active
+            ? "APP UPDATE PUBLISHED SUCCESSFULLY."
+            : "APP UPDATE SAVED AS HIDDEN.",
+          "success"
+        );
+
+      }
+
+    }catch(error){
+
+      console.error(
+        "Save update:",
+        error
+      );
+
+      showMessage(
+        "APP UPDATE COULD NOT BE SAVED. CHECK FIRESTORE PERMISSIONS.",
+        "error"
+      );
+
+    }
+
+    saveButton.disabled =
+      false;
+
+  }
+);
+
+
+
+cancelEditButton.addEventListener(
+  "click",
+  function(){
+
+    resetForm();
+
+  }
+);
+
+
+
+function startUpdateListener(){
+
+  if(
+    unsubscribeUpdates
+  ){
+
+    unsubscribeUpdates();
+
+  }
+
+  unsubscribeUpdates =
+    onSnapshot(
+
+      updatesCollection,
+
+      function(snapshot){
+
+        updates =
+          [];
+
+        snapshot.forEach(
+          function(item){
+
+            updates.push({
+              id:item.id,
+              ...item.data()
+            });
+
+          }
+        );
+
+        renderUpdates();
+
+      },
+
+      function(error){
+
+        console.error(
+          "Mrs Wolfie updates:",
+          error
+        );
+
+        updateList.innerHTML =
+          '<div class="empty">UPDATES COULD NOT BE LOADED. CHECK FIRESTORE PERMISSIONS.</div>';
+
+      }
+
+    );
+
+}
+
+
+
+onAuthStateChanged(
+  auth,
+  function(user){
+
+    if(
+      user &&
+      ADMINS[
+        user.uid
+      ]
+    ){
+
+      currentUser =
+        user;
+
+      const name =
+        ADMINS[
+          user.uid
+        ];
+
+      status.textContent =
+        "● " +
+        name +
+        " • ADMIN CONNECTED";
+
+      status.className =
+        "status admin";
+
+      adminName.textContent =
+        name;
+
+      accessDenied.classList.remove(
+        "show"
+      );
+
+      manager.classList.add(
+        "show"
+      );
+
+      setDefaultDate();
+
+      startUpdateListener();
+
+      return;
+
+    }
+
+    currentUser =
+      null;
+
+    if(
+      unsubscribeUpdates
+    ){
+
+      unsubscribeUpdates();
+
+      unsubscribeUpdates =
+        null;
+
+    }
+
+    status.textContent =
+      "ADMIN ACCESS REQUIRED";
+
+    status.className =
+      "status error";
+
+    manager.classList.remove(
+      "show"
+    );
+
+    accessDenied.classList.add(
+      "show"
+    );
+
+  }
+);
+
+</script>
+
+
+
+<script>
+
+if(
+  "serviceWorker"
+  in navigator
+){
+
+  window.addEventListener(
+    "load",
+    async function(){
+
+      try{
+
+        const registration =
+          await navigator.serviceWorker.register(
+            "service-worker.js",
+            {
+              updateViaCache:"none"
+            }
+          );
+
+        await registration.update();
+
+      }catch(error){
+
+        console.error(
+          "Service worker error:",
+          error
+        );
+
+      }
+
+    }
+  );
+
+}
+
+</script>
+
+</body>
+</html>
