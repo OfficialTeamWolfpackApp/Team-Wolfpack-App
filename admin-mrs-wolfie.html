@@ -1965,7 +1965,73 @@ function startFightListener(){
 
 }
 
+/* =========================
+   UPDATE FIRESTORE LISTENER
+========================= */
 
+function startUpdateListener(){
+
+  if(
+    unsubscribeUpdates
+  ){
+
+    unsubscribeUpdates();
+  }
+
+
+  unsubscribeUpdates =
+    onSnapshot(
+
+      collection(
+        db,
+        "mrsWolfieUpdates"
+      ),
+
+      function(snapshot){
+
+        const updates =
+          [];
+
+
+        snapshot.forEach(
+          function(item){
+
+            updates.push({
+              id:item.id,
+              ...item.data()
+            });
+
+          }
+        );
+
+
+        renderUpdateStatus(
+          updates
+        );
+
+      },
+
+
+      function(error){
+
+        console.error(
+          "Mrs Wolfie live update status:",
+          error
+        );
+
+
+        liveUpdatePanel.innerHTML = `
+          <div class="live-loading">
+            LIVE UPDATE DATA COULD NOT BE LOADED.
+          </div>
+        `;
+
+      }
+
+    );
+
+}
+  
 /* =========================
    AUTH
 ========================= */
