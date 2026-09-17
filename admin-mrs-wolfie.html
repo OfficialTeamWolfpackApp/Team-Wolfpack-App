@@ -483,11 +483,6 @@ body{
   color:#050505;
 }
 
-.coming-badge.soon{
-  background:#ff8fd3;
-  color:#050505;
-}
-
 
 /* =========================
    SYSTEM
@@ -617,7 +612,9 @@ body{
 </head>
 
 
+
 <body>
+
 
 
 <header class="header">
@@ -657,7 +654,9 @@ Manage the Mrs Wolfie boxing app from the Team Wolfpack administration system.
 </header>
 
 
+
 <main class="content">
+
 
 
 <div
@@ -666,6 +665,7 @@ Manage the Mrs Wolfie boxing app from the Team Wolfpack administration system.
 >
 CHECKING ADMIN ACCESS...
 </div>
+
 
 
 <!-- ACCESS DENIED -->
@@ -704,6 +704,7 @@ ADMIN DASHBOARD
 </div>
 
 
+
 <!-- ADMIN BAR -->
 
 <div
@@ -728,12 +729,14 @@ MRS WOLFIE CONTROL
 </div>
 
 
+
 <!-- DASHBOARD -->
 
 <div
   id="dashboard"
   class="dashboard"
 >
+
 
 
 <div class="intro-panel">
@@ -753,6 +756,7 @@ Control Mrs Wolfie's fights, results and app updates directly from the Team Wolf
 </div>
 
 
+
 <div class="section-title">
 
 <span class="ice">
@@ -766,7 +770,9 @@ MANAGEMENT
 </div>
 
 
+
 <div class="action-grid">
+
 
 
 <!-- FIGHT MANAGEMENT -->
@@ -791,12 +797,16 @@ Add upcoming fights, edit fight information, enter completed results and manage 
 </a>
 
 
+
 <!-- APP UPDATES -->
 
-<div class="action-card">
+<a
+  class="action-card"
+  href="admin-mrs-wolfie-updates.html"
+>
 
-<div class="coming-badge soon">
-SOON
+<div class="coming-badge live">
+LIVE
 </div>
 
 <div class="action-name">
@@ -804,13 +814,15 @@ APP UPDATES
 </div>
 
 <div class="action-description">
-Create and manage Mrs Wolfie news, announcements, fight updates and published results.
+Create, edit and manage Mrs Wolfie news, announcements and app updates. Automatic fight results remain controlled by Fight Management.
 </div>
+
+</a>
+
+
 
 </div>
 
-
-</div>
 
 
 <div class="section-title">
@@ -826,7 +838,9 @@ STATUS
 </div>
 
 
+
 <div class="system-panel">
+
 
 
 <div class="system-row">
@@ -845,6 +859,7 @@ CONNECTING...
 </div>
 
 
+
 <div class="system-row">
 
 <div class="system-label">
@@ -861,6 +876,7 @@ ADMIN ACCOUNT
 </div>
 
 
+
 <div class="system-row">
 
 <div class="system-label">
@@ -874,6 +890,7 @@ FIGHT MANAGER LIVE
 </div>
 
 
+
 <div class="system-row">
 
 <div class="system-label">
@@ -881,13 +898,15 @@ MRS WOLFIE UPDATES
 </div>
 
 <div class="system-value">
-SETUP LATER
+UPDATE MANAGER LIVE
 </div>
 
 </div>
 
 
+
 </div>
+
 
 
 <div class="nav-grid">
@@ -909,10 +928,13 @@ HOME
 </div>
 
 
+
 </div>
 
 
+
 </main>
+
 
 
 <script type="module">
@@ -920,7 +942,6 @@ HOME
 import {
   initializeApp
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-
 
 import {
   getAuth,
@@ -1123,6 +1144,7 @@ onAuthStateChanged(
 </script>
 
 
+
 <!-- SERVICE WORKER -->
 
 <script>
@@ -1134,22 +1156,28 @@ if(
 
   window.addEventListener(
     "load",
-    function(){
+    async function(){
 
-      navigator.serviceWorker
-        .register(
-          "service-worker.js"
-        )
-        .catch(
-          function(error){
+      try{
 
-            console.error(
-              "Service worker error:",
-              error
-            );
+        const registration =
+          await navigator.serviceWorker.register(
+            "service-worker.js",
+            {
+              updateViaCache:"none"
+            }
+          );
 
-          }
+        await registration.update();
+
+      }catch(error){
+
+        console.error(
+          "Service worker error:",
+          error
         );
+
+      }
 
     }
   );
@@ -1157,6 +1185,7 @@ if(
 }
 
 </script>
+
 
 
 </body>
