@@ -2218,33 +2218,28 @@ function escapeHTML(value){
 function displayDate(fight){
 
   if(fight.displayDate){
-
     return escapeHTML(
-      fight.displayDate
+      String(fight.displayDate).toUpperCase()
     );
-
   }
 
+  const storedDate =
+    fight.date ||
+    fight.fightDate ||
+    "";
 
-  if(!fight.fightDate){
-    return "";
+  if(!storedDate){
+    return "DATE TBA";
   }
-
 
   const parts =
-    String(
-      fight.fightDate
-    ).split("-");
-
+    String(storedDate).split("-");
 
   if(parts.length !== 3){
-
     return escapeHTML(
-      fight.fightDate
+      String(storedDate).toUpperCase()
     );
-
   }
-
 
   const date =
     new Date(
@@ -2253,19 +2248,11 @@ function displayDate(fight){
       Number(parts[2])
     );
 
-
-  if(
-    Number.isNaN(
-      date.getTime()
-    )
-  ){
-
+  if(Number.isNaN(date.getTime())){
     return escapeHTML(
-      fight.fightDate
+      String(storedDate).toUpperCase()
     );
-
   }
-
 
   return date
     .toLocaleDateString(
@@ -2277,6 +2264,46 @@ function displayDate(fight){
       }
     )
     .toUpperCase();
+
+}
+
+
+/* =========================================
+   FIGHT SORT DATE
+========================================= */
+
+function fightTime(fight){
+
+  const timestamp =
+    Number(fight.dateTimestamp || 0);
+
+  if(
+    Number.isFinite(timestamp) &&
+    timestamp > 0
+  ){
+    return timestamp;
+  }
+
+  const storedDate =
+    fight.date ||
+    fight.fightDate ||
+    "";
+
+  if(storedDate){
+
+    const parsed =
+      new Date(
+        String(storedDate) +
+        "T12:00:00"
+      );
+
+    if(!Number.isNaN(parsed.getTime())){
+      return parsed.getTime();
+    }
+
+  }
+
+  return Number.MAX_SAFE_INTEGER;
 
 }
 
@@ -2501,20 +2528,33 @@ onValue(
         const fight =
           childSnapshot.val();
 
-
-        if(
-          !fight ||
-          fight.fighterId !==
-          "greig-sloan"
-        ){
-
+        if(!fight){
           return;
-
         }
 
+        const fighterId =
+          String(
+            fight.fighterId || ""
+          )
+          .trim()
+          .toLowerCase();
+
+        const status =
+          String(
+            fight.status || ""
+          )
+          .trim()
+          .toLowerCase();
 
         if(
-          fight.status ===
+          fighterId !==
+          "greig-sloan"
+        ){
+          return;
+        }
+
+        if(
+          status ===
           "upcoming"
         ){
 
@@ -2527,11 +2567,12 @@ onValue(
 
         }
 
-
         if(
-          fight.status ===
+          status ===
           "completed" &&
-          fight.result
+          String(
+            fight.result || ""
+          ).trim()
         ){
 
           completed.push({
@@ -2555,12 +2596,8 @@ onValue(
       function(a,b){
 
         return (
-          Number(
-            a.dateTimestamp || 0
-          ) -
-          Number(
-            b.dateTimestamp || 0
-          )
+          fightTime(a) -
+          fightTime(b)
         );
 
       }
@@ -2575,12 +2612,8 @@ onValue(
       function(a,b){
 
         return (
-          Number(
-            a.dateTimestamp || 0
-          ) -
-          Number(
-            b.dateTimestamp || 0
-          )
+          fightTime(a) -
+          fightTime(b)
         );
 
       }
