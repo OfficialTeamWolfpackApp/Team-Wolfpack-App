@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
+
+<meta name="theme-color" content="#050505">
+
+<meta name="apple-mobile-web-app-title" content="TEAM WOLFPACK">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<title>Mrs Wolfie Control | Team Wolfpack</title>
+
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  min-height:100vh;
+  min-height:100dvh;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  color:#fff;
+
+  background:
+    radial-gradient(
+      circle at 0% 15%,
+      rgba(103,220,255,.20),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 100% 35%,
+      rgba(255,143,211,.18),
+      transparent 30%
+    ),
+    linear-gradient(
+      115deg,
+      #02090d 0%,
+      #050505 50%,
+      #130810 100%
+    );
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+  text-align:center;
+  padding:25px 18px 18px;
+}
+
+.logo{
+  width:95px;
+  height:95px;
+  object-fit:contain;
+}
+
+.brand{
+  margin-top:5px;
+
+  color:#67dcff;
+
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:4px;
+}
+
+.title{
+  margin-top:18px;
+
+  font-size:29px;
+  font-weight:900;
+}
+
+.ice{
+  color:#67dcff;
+}
+
+.pink{
+  color:#ff8fd3;
+}
+
+.subtitle{
+  margin-top:8px;
+
+  color:#999;
+
+  font-size:11px;
+  line-height:1.5;
+}
+
+.line{
+  width:100%;
+  max-width:520px;
+  height:2px;
+
+  margin:20px auto 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      #67dcff,
+      transparent,
+      #ff8fd3
+    );
+}
+
+
+/* =========================
+   CONTENT
+========================= */
+
+.content{
+  width:100%;
+  max-width:700px;
+
+  margin:auto;
+
+  padding:
+    8px
+    16px
+    70px;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.status{
+  margin-bottom:15px;
+
+  padding:10px;
+
+  text-align:center;
+
+  color:#aaa;
+
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.status.admin{
+  color:#67dcff;
+}
+
+.status.error{
+  color:#ff7957;
+}
+
+
+/* =========================
+   ACCESS DENIED
+========================= */
+
+.access-denied{
+  display:none;
+
+  padding:25px 18px;
+
+  border-radius:14px;
+
+  text-align:center;
+
+  border:
+    1px solid rgba(255,143,211,.35);
+
+  background:
+    rgba(45,8,35,.35);
+}
+
+.access-denied.show{
+  display:block;
+}
+
+.access-title{
+  color:#ff8fd3;
+
+  font-size:18px;
+  font-weight:900;
+}
+
+.access-text{
+  margin-top:10px;
+
+  color:#aaa;
+
+  font-size:11px;
+  line-height:1.6;
+}
+
+
+/* =========================
+   ADMIN BAR
+========================= */
+
+.admin-bar{
+  display:none;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:10px;
+
+  margin-bottom:16px;
+
+  padding:
+    14px
+    16px;
+
+  border-radius:12px;
+
+  border:
+    1px solid rgba(103,220,255,.30);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(103,220,255,.12),
+      rgba(255,143,211,.12)
+    );
+}
+
+.admin-bar.show{
+  display:flex;
+}
+
+.admin-name{
+  font-size:11px;
+  font-weight:900;
+}
+
+.admin-badge{
+  display:inline-block;
+
+  margin-left:6px;
+
+  padding:
+    4px
+    7px;
+
+  border-radius:20px;
+
+  background:#ff8fd3;
+
+  color:#050505;
+
+  font-size:8px;
+  font-weight:900;
+}
+
+.admin-label{
+  color:#67dcff;
+
+  font-size:9px;
+  font-weight:900;
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard{
+  display:none;
+}
+
+.dashboard.show{
+  display:block;
+}
+
+.section-title{
+  margin:
+    23px
+    0
+    11px;
+
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+
+/* =========================
+   INTRO
+========================= */
+
+.intro-panel{
+  padding:18px;
+
+  border-radius:14px;
+
+  border:
+    1px solid rgba(255,255,255,.10);
+
+  background:
+    linear-gradient(
+      115deg,
+      rgba(103,220,255,.10),
+      rgba(8,8,8,.92) 50%,
+      rgba(255,143,211,.10)
+    );
+}
+
+.intro-label{
+  color:#67dcff;
+
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.intro-title{
+  margin-top:7px;
+
+  font-size:20px;
+  font-weight:900;
+}
+
+.intro-text{
+  margin-top:9px;
+
+  color:#999;
+
+  font-size:10px;
+  line-height:1.6;
+}
+
+
+/* =========================
+   ACTION CARDS
+========================= */
+
+.action-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:10px;
+}
+
+.action-card{
+  position:relative;
+
+  overflow:hidden;
+
+  min-height:125px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:center;
+
+  padding:
+    17px
+    15px;
+
+  border-radius:14px;
+
+  color:#fff;
+
+  border:
+    1px solid rgba(255,255,255,.12);
+
+  background:
+    linear-gradient(
+      115deg,
+      rgba(103,220,255,.11),
+      rgba(8,8,8,.95) 50%,
+      rgba(255,143,211,.11)
+    );
+}
+
+.action-card::before{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  top:0;
+  bottom:0;
+
+  width:3px;
+
+  background:#67dcff;
+}
+
+.action-card::after{
+  content:"";
+
+  position:absolute;
+
+  right:0;
+  top:0;
+  bottom:0;
+
+  width:3px;
+
+  background:#ff8fd3;
+}
+
+.action-name{
+  position:relative;
+
+  z-index:2;
+
+  font-size:12px;
+  font-weight:900;
+}
+
+.action-description{
+  position:relative;
+
+  z-index:2;
+
+  margin-top:7px;
+
+  color:#888;
+
+  font-size:9px;
+
+  line-height:1.5;
+}
+
+.coming-badge{
+  position:absolute;
+
+  top:12px;
+  right:12px;
+
+  z-index:3;
+
+  padding:
+    5px
+    8px;
+
+  border-radius:20px;
+
+  background:#67dcff;
+
+  color:#050505;
+
+  font-size:8px;
+  font-weight:900;
+}
+
+
+/* =========================
+   SYSTEM
+========================= */
+
+.system-panel{
+  padding:15px;
+
+  border-radius:13px;
+
+  border:
+    1px solid rgba(255,255,255,.10);
+
+  background:
+    rgba(8,8,8,.75);
+}
+
+.system-row{
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:10px;
+
+  padding:
+    10px
+    0;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.06);
+}
+
+.system-row:last-child{
+  border-bottom:none;
+}
+
+.system-label{
+  color:#888;
+
+  font-size:9px;
+  font-weight:900;
+}
+
+.system-value{
+  text-align:right;
+
+  color:#67dcff;
+
+  font-size:9px;
+  font-weight:900;
+}
+
+.system-value.pink{
+  color:#ff8fd3;
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+.nav-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:8px;
+
+  margin-top:20px;
+}
+
+.nav-button{
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  min-height:48px;
+
+  padding:
+    12px
+    8px;
+
+  text-align:center;
+
+  text-decoration:none;
+
+  color:#fff;
+
+  border:
+    1px solid #67dcff;
+
+  border-radius:11px;
+
+  font-size:9px;
+  font-weight:900;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(103,220,255,.10),
+      rgba(255,143,211,.10)
+    );
+}
+
+.nav-button:active{
+  transform:scale(.985);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:520px){
+
+  .action-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+<a href="admin-dashboard.html">
+
+<img
+  src="icon-512.png"
+  class="logo"
+  alt="Team Wolfpack"
+>
+
+</a>
+
+<div class="brand">
+TEAM WOLFPACK ADMIN
+</div>
+
+<h1 class="title">
+
+<span class="ice">
+MRS WOLFIE
+</span>
+
+<span class="pink">
+CONTROL
+</span>
+
+</h1>
+
+<p class="subtitle">
+Manage the Mrs Wolfie boxing app from the Team Wolfpack administration system.
+</p>
+
+<div class="line"></div>
+
+</header>
+
+
+<main class="content">
+
+
+<div
+  id="status"
+  class="status"
+>
+CHECKING ADMIN ACCESS...
+</div>
+
+
+<!-- ACCESS DENIED -->
+
+<div
+  id="accessDenied"
+  class="access-denied"
+>
+
+<div class="access-title">
+ADMIN ACCESS REQUIRED
+</div>
+
+<div class="access-text">
+Sign into Pack Chat using an authorised Team Wolfpack administrator account before opening Mrs Wolfie Control.
+</div>
+
+<div class="nav-grid">
+
+<a
+  class="nav-button"
+  href="chat.html"
+>
+PACK CHAT
+</a>
+
+<a
+  class="nav-button"
+  href="admin-dashboard.html"
+>
+ADMIN DASHBOARD
+</a>
+
+</div>
+
+</div>
+
+
+<!-- ADMIN BAR -->
+
+<div
+  id="adminBar"
+  class="admin-bar"
+>
+
+<div class="admin-name">
+
+<span id="adminName"></span>
+
+<span class="admin-badge">
+ADMIN
+</span>
+
+</div>
+
+<div class="admin-label">
+MRS WOLFIE CONTROL
+</div>
+
+</div>
+
+
+<!-- DASHBOARD -->
+
+<div
+  id="dashboard"
+  class="dashboard"
+>
+
+
+<div class="intro-panel">
+
+<div class="intro-label">
+MRS WOLFIE APP
+</div>
+
+<div class="intro-title">
+CENTRAL CONTROL
+</div>
+
+<div class="intro-text">
+This area will control Mrs Wolfie's fights, results and app updates directly from the Team Wolfpack Admin system.
+</div>
+
+</div>
+
+
+<div class="section-title">
+
+<span class="ice">
+MRS WOLFIE
+</span>
+
+<span class="pink">
+MANAGEMENT
+</span>
+
+</div>
+
+
+<div class="action-grid">
+
+
+<div class="action-card">
+
+<div class="coming-badge">
+NEXT
+</div>
+
+<div class="action-name">
+FIGHT MANAGEMENT
+</div>
+
+<div class="action-description">
+Add upcoming fights, edit fight information, enter completed results and manage Mrs Wolfie's fight history.
+</div>
+
+</div>
+
+
+<div class="action-card">
+
+<div class="coming-badge">
+SOON
+</div>
+
+<div class="action-name">
+APP UPDATES
+</div>
+
+<div class="action-description">
+Create and manage Mrs Wolfie news, announcements, fight updates and published results.
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="section-title">
+
+<span class="ice">
+SYSTEM
+</span>
+
+<span class="pink">
+STATUS
+</span>
+
+</div>
+
+
+<div class="system-panel">
+
+
+<div class="system-row">
+
+<div class="system-label">
+FIREBASE
+</div>
+
+<div
+  id="firebaseStatus"
+  class="system-value"
+>
+CONNECTING...
+</div>
+
+</div>
+
+
+<div class="system-row">
+
+<div class="system-label">
+ADMIN ACCOUNT
+</div>
+
+<div
+  id="systemAdmin"
+  class="system-value pink"
+>
+-
+</div>
+
+</div>
+
+
+<div class="system-row">
+
+<div class="system-label">
+MRS WOLFIE FIGHTS
+</div>
+
+<div class="system-value">
+SETUP NEXT
+</div>
+
+</div>
+
+
+<div class="system-row">
+
+<div class="system-label">
+MRS WOLFIE UPDATES
+</div>
+
+<div class="system-value">
+SETUP LATER
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="nav-grid">
+
+<a
+  class="nav-button"
+  href="admin-dashboard.html"
+>
+‹ ADMIN DASHBOARD
+</a>
+
+<a
+  class="nav-button"
+  href="index.html"
+>
+HOME
+</a>
+
+</div>
+
+
+</div>
+
+
+</main>
+
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+
+/* =========================
+   FIREBASE CONFIG
+========================= */
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+
+  authDomain:
+    "team-wolfpack-app.firebaseapp.com",
+
+  databaseURL:
+    "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+
+  projectId:
+    "team-wolfpack-app",
+
+  storageBucket:
+    "team-wolfpack-app.firebasestorage.app",
+
+  messagingSenderId:
+    "1070414578856",
+
+  appId:
+    "1:1070414578856:web:df14e7d387e658eeae2e9d",
+
+  measurementId:
+    "G-6JTCE2N9LZ"
+
+};
+
+
+/* =========================
+   AUTHORISED ADMINS
+========================= */
+
+const ADMINS = {
+
+  "PRGa9TsCW0QDn1QtoUXyYjEi7YB3":
+    "MR WOLFIE",
+
+  "SlpEQYl94DaH6j42QUyl8Kv2ujJ3":
+    "MRS WOLFIE"
+
+};
+
+
+const app =
+  initializeApp(
+    firebaseConfig
+  );
+
+
+const auth =
+  getAuth(
+    app
+  );
+
+
+/* =========================
+   ELEMENTS
+========================= */
+
+const status =
+  document.getElementById(
+    "status"
+  );
+
+const accessDenied =
+  document.getElementById(
+    "accessDenied"
+  );
+
+const adminBar =
+  document.getElementById(
+    "adminBar"
+  );
+
+const adminName =
+  document.getElementById(
+    "adminName"
+  );
+
+const dashboard =
+  document.getElementById(
+    "dashboard"
+  );
+
+const firebaseStatus =
+  document.getElementById(
+    "firebaseStatus"
+  );
+
+const systemAdmin =
+  document.getElementById(
+    "systemAdmin"
+  );
+
+
+/* =========================
+   AUTH
+========================= */
+
+onAuthStateChanged(
+  auth,
+  function(user){
+
+    if(
+      user &&
+      ADMINS[
+        user.uid
+      ]
+    ){
+
+      const name =
+        ADMINS[
+          user.uid
+        ];
+
+
+      status.textContent =
+        "● " +
+        name +
+        " • ADMIN CONNECTED";
+
+
+      status.className =
+        "status admin";
+
+
+      adminName.textContent =
+        name;
+
+
+      systemAdmin.textContent =
+        name;
+
+
+      firebaseStatus.textContent =
+        "CONNECTED";
+
+
+      accessDenied.classList.remove(
+        "show"
+      );
+
+
+      adminBar.classList.add(
+        "show"
+      );
+
+
+      dashboard.classList.add(
+        "show"
+      );
+
+
+      return;
+
+    }
+
+
+    status.textContent =
+      "ADMIN ACCESS REQUIRED";
+
+
+    status.className =
+      "status error";
+
+
+    firebaseStatus.textContent =
+      "NOT AUTHORISED";
+
+
+    adminBar.classList.remove(
+      "show"
+    );
+
+
+    dashboard.classList.remove(
+      "show"
+    );
+
+
+    accessDenied.classList.add(
+      "show"
+    );
+
+  }
+);
+
+</script>
+
+
+<!-- SERVICE WORKER -->
+
+<script>
+
+if(
+  "serviceWorker"
+  in navigator
+){
+
+  window.addEventListener(
+    "load",
+    function(){
+
+      navigator.serviceWorker
+        .register(
+          "service-worker.js"
+        )
+        .catch(
+          function(error){
+
+            console.error(
+              "Service worker error:",
+              error
+            );
+
+          }
+        );
+
+    }
+  );
+
+}
+
+</script>
+
+
+</body>
+
+</html>
