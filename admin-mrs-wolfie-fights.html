@@ -208,9 +208,7 @@
     .panel {
       padding: 18px;
       border-radius: 15px;
-
-      border:
-        1px solid rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.10);
 
       background:
         linear-gradient(
@@ -219,6 +217,26 @@
           rgba(8,8,8,.94) 50%,
           rgba(255,143,211,.08)
         );
+    }
+
+    .notification-info {
+      margin-bottom: 18px;
+      padding: 13px 14px;
+      border-radius: 10px;
+
+      border:
+        1px solid rgba(103,220,255,.20);
+
+      background:
+        rgba(103,220,255,.05);
+
+      color: #aaa;
+      font-size: 9px;
+      line-height: 1.6;
+    }
+
+    .notification-info strong {
+      color: #67dcff;
     }
 
     .form-grid {
@@ -480,6 +498,28 @@
       margin-top: 14px;
     }
 
+    .notification-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+
+      margin-top: 12px;
+      padding-top: 12px;
+
+      border-top:
+        1px solid rgba(103,220,255,.12);
+    }
+
+    .notification-label {
+      width: 100%;
+      margin-bottom: 2px;
+
+      color: #777;
+      font-size: 7px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
     .small-button {
       min-height: 38px;
       padding: 9px 11px;
@@ -509,6 +549,24 @@
     .small-button.red {
       border-color: rgba(255,90,90,.40);
       color: #ff8585;
+    }
+
+    .small-button.notify {
+      border-color: rgba(103,220,255,.45);
+
+      background:
+        linear-gradient(
+          90deg,
+          rgba(103,220,255,.12),
+          rgba(255,143,211,.10)
+        );
+
+      color: #fff;
+    }
+
+    .small-button:disabled {
+      opacity: .45;
+      cursor: not-allowed;
     }
 
     .nav-grid {
@@ -636,6 +694,15 @@
         FIGHT MANAGER
       </div>
 
+    </div>
+
+
+    <div class="notification-info">
+      <strong>FIGHT NOTIFICATIONS:</strong>
+      Adding, editing or completing a fight updates the Mrs Wolfie app
+      automatically but does not send a push notification. Use the
+      notification buttons on a fight when you deliberately want to
+      notify registered Mrs Wolfie devices.
     </div>
 
 
@@ -872,7 +939,8 @@ import {
 
 import {
   getAuth,
-  onAuthStateChanged
+  onAuthStateChanged,
+  getIdToken
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 import {
@@ -928,6 +996,11 @@ const ADMINS = {
     "MRS WOLFIE"
 
 };
+
+
+const FIGHT_NOTIFICATION_URL =
+  "https://europe-west1-team-wolfpack-app.cloudfunctions.net/" +
+  "sendMrsWolfieFightNotification";
 
 
 const app =
@@ -1010,6 +1083,7 @@ let editingId = null;
 let fights = [];
 let unsubscribeFights = null;
 let loadingPrivateNote = false;
+let notificationSending = false;
 
 
 function showMessage(text, type) {
@@ -1227,6 +1301,223 @@ async function savePrivateNote(
 
 
 /* =========================================================
+   SEND FIGHT NOTIFICATION
+========================================================= */
+
+async function sendFightNotification(
+  fightId,
+  notificationType,
+  button
+) {
+
+  if (!currentUser) {
+
+    alert(
+      "ADMIN ACCESS REQUIRED."
+    );
+
+    return;
+  }
+
+
+  if (notificationSending) {
+    return;
+  }
+
+
+  const fight =
+    getFight(fightId);
+
+  if (!fight) {
+
+    alert(
+      "THE FIGHT COULD NOT BE FOUND."
+    );
+
+    return;
+  }
+
+
+  let notificationName =
+    "FIGHT UPDATE";
+
+  if (notificationType === "NEW_FIGHT") {
+    notificationName =
+      "NEW FIGHT ANNOUNCEMENT";
+  }
+
+  if (notificationType === "FIGHT_RESULT") {
+    notificationName =
+      "FIGHT RESULT";
+  }
+
+
+  const confirmed =
+    confirm(
+      "Send " +
+      notificationName +
+      " notification for:\n\n" +
+      "MRS WOLFIE vs " +
+      (fight.opponent || "TBA") +
+      "?"
+    );
+
+
+  if (!confirmed) {
+    return;
+  }
+
+
+  notificationSending = true;
+
+
+  const originalText =
+    button.textContent;
+
+
+  button.disabled = true;
+  button.textContent =
+    "SENDING...";
+
+
+  try {
+
+    const idToken =
+      await getIdToken(
+        currentUser,
+        true
+      );
+
+
+    const response =
+      await fetch(
+        FIGHT_NOTIFICATION_URL,
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json",
+
+            "Authorization":
+              "Bearer " + idToken
+          },
+
+          body:
+            JSON.stringify({
+              fightId: fightId,
+              notificationType:
+                notificationType
+            })
+        }
+      );
+
+
+    let result = {};
+
+    try {
+      result =
+        await response.json();
+    } catch (jsonError) {
+      console.error(
+        "Fight notification response:",
+        jsonError
+      );
+    }
+
+
+    if (
+      !response.ok ||
+      result.success !== true
+    ) {
+
+      const errorCode =
+        result.error ||
+        "NOTIFICATION_SEND_FAILED";
+
+      throw new Error(
+        errorCode
+      );
+    }
+
+
+    alert(
+      "FIGHT NOTIFICATION SENT.\n\n" +
+      "Delivered: " +
+      (result.delivered || 0) +
+      "\nFailed: " +
+      (result.failed || 0) +
+      "\nInvalid devices removed: " +
+      (result.removedInvalid || 0)
+    );
+
+  } catch (error) {
+
+    console.error(
+      "Send fight notification:",
+      error
+    );
+
+
+    let message =
+      "THE FIGHT NOTIFICATION COULD NOT BE SENT.";
+
+
+    if (
+      error.message ===
+      "FIGHT_NOT_UPCOMING"
+    ) {
+      message =
+        "A NEW FIGHT NOTIFICATION CAN ONLY BE SENT FOR AN UPCOMING FIGHT.";
+    }
+
+    if (
+      error.message ===
+      "FIGHT_CANCELLED"
+    ) {
+      message =
+        "AN UPDATE NOTIFICATION CANNOT BE SENT FOR A CANCELLED FIGHT.";
+    }
+
+    if (
+      error.message ===
+      "RESULT_NOT_AVAILABLE"
+    ) {
+      message =
+        "A RESULT NOTIFICATION REQUIRES A COMPLETED FIGHT WITH A WIN, LOSS OR DRAW.";
+    }
+
+    if (
+      error.message ===
+      "UNAUTHENTICATED" ||
+      error.message ===
+      "INVALID_AUTH_TOKEN" ||
+      error.message ===
+      "ADMIN_REQUIRED"
+    ) {
+      message =
+        "ADMIN AUTHENTICATION FAILED. SIGN IN AGAIN AND RETRY.";
+    }
+
+
+    alert(
+      message +
+      "\n\nNo fight information was changed."
+    );
+
+  } finally {
+
+    notificationSending = false;
+
+    button.disabled = false;
+
+    button.textContent =
+      originalText;
+  }
+}
+
+
+/* =========================================================
    RENDER FIGHTS
 ========================================================= */
 
@@ -1283,6 +1574,21 @@ function renderFights() {
             : fight.result === "D"
               ? "DRAW"
               : "";
+
+
+      const canSendNewFight =
+        fight.status === "UPCOMING";
+
+
+      const canSendUpdate =
+        fight.status !== "CANCELLED";
+
+
+      const canSendResult =
+        fight.status === "COMPLETED" &&
+        ["W", "L", "D"].includes(
+          fight.result
+        );
 
 
       card.innerHTML = `
@@ -1391,6 +1697,60 @@ function renderFights() {
           >
             DELETE
           </button>
+
+        </div>
+
+
+        <div class="notification-actions">
+
+          <div class="notification-label">
+            PUSH NOTIFICATIONS
+          </div>
+
+          ${
+            canSendNewFight
+              ? `
+                <button
+                  class="small-button notify"
+                  type="button"
+                  data-action="notify-new"
+                  data-id="${fight.id}"
+                >
+                  SEND NEW FIGHT
+                </button>
+              `
+              : ""
+          }
+
+          ${
+            canSendUpdate
+              ? `
+                <button
+                  class="small-button notify"
+                  type="button"
+                  data-action="notify-update"
+                  data-id="${fight.id}"
+                >
+                  SEND UPDATE
+                </button>
+              `
+              : ""
+          }
+
+          ${
+            canSendResult
+              ? `
+                <button
+                  class="small-button notify"
+                  type="button"
+                  data-action="notify-result"
+                  data-id="${fight.id}"
+                >
+                  SEND RESULT
+                </button>
+              `
+              : ""
+          }
 
         </div>
       `;
@@ -1668,6 +2028,33 @@ fightList.addEventListener(
 
     if (action === "delete") {
       deleteFight(id);
+    }
+
+    if (action === "notify-new") {
+
+      sendFightNotification(
+        id,
+        "NEW_FIGHT",
+        button
+      );
+    }
+
+    if (action === "notify-update") {
+
+      sendFightNotification(
+        id,
+        "FIGHT_UPDATE",
+        button
+      );
+    }
+
+    if (action === "notify-result") {
+
+      sendFightNotification(
+        id,
+        "FIGHT_RESULT",
+        button
+      );
     }
   }
 );
