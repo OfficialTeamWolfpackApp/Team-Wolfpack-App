@@ -511,9 +511,20 @@ textarea:focus{
   font-weight:900;
 }
 
+.small-button:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+}
+
 .small-button.blue{
   border-color:rgba(103,220,255,.40);
   color:#67dcff;
+}
+
+.small-button.notify{
+  border-color:rgba(103,220,255,.55);
+  color:#050505;
+  background:#67dcff;
 }
 
 .small-button.pink{
@@ -579,11 +590,7 @@ textarea:focus{
 </style>
 </head>
 
-
-
 <body>
-
-
 
 <header class="header">
 
@@ -621,8 +628,6 @@ Create and manage news and announcements for the Mrs Wolfie app.
 
 </header>
 
-
-
 <main class="content">
 
 <div
@@ -631,8 +636,6 @@ Create and manage news and announcements for the Mrs Wolfie app.
 >
 CHECKING ADMIN ACCESS...
 </div>
-
-
 
 <div
   id="accessDenied"
@@ -667,8 +670,6 @@ ADMIN DASHBOARD
 
 </div>
 
-
-
 <div
   id="manager"
   class="manager"
@@ -692,8 +693,6 @@ UPDATE MANAGER
 
 </div>
 
-
-
 <div class="section-title">
 
 <span class="ice">
@@ -706,13 +705,14 @@ UPDATE
 
 </div>
 
-
-
 <div class="panel">
 
 <div class="info-box">
 <strong>PUBLIC APP UPDATE:</strong>
 Updates created here are for the Mrs Wolfie public app. Fight results are generated automatically from Fight Management and do not need to be entered here.
+<br><br>
+<strong>PUSH NOTIFICATIONS:</strong>
+Publishing or editing an update does not automatically send a notification. Use SEND NOTIFICATION on a published update when you want to alert registered Mrs Wolfie devices.
 </div>
 
 <form id="updateForm">
@@ -755,8 +755,6 @@ EVENT
 
 </div>
 
-
-
 <div class="field">
 
 <label for="updateDate">
@@ -770,8 +768,6 @@ DISPLAY DATE
 >
 
 </div>
-
-
 
 <div class="field full">
 
@@ -789,8 +785,6 @@ TITLE
 
 </div>
 
-
-
 <div class="field full">
 
 <label for="updateMessage">
@@ -805,8 +799,6 @@ MESSAGE
 ></textarea>
 
 </div>
-
-
 
 <div class="field">
 
@@ -823,8 +815,6 @@ BUTTON TEXT — OPTIONAL
 
 </div>
 
-
-
 <div class="field">
 
 <label for="buttonLink">
@@ -839,8 +829,6 @@ BUTTON LINK — OPTIONAL
 >
 
 </div>
-
-
 
 <div class="field full">
 
@@ -864,11 +852,7 @@ PUBLISHED — SHOW THIS UPDATE IN THE MRS WOLFIE APP
 
 </div>
 
-
-
 </div>
-
-
 
 <div class="form-actions">
 
@@ -891,8 +875,6 @@ CANCEL EDIT
 
 </div>
 
-
-
 <div
   id="formMessage"
   class="message"
@@ -901,8 +883,6 @@ CANCEL EDIT
 </form>
 
 </div>
-
-
 
 <div class="section-title">
 
@@ -916,8 +896,6 @@ UPDATE DATABASE
 
 </div>
 
-
-
 <div
   id="updateList"
   class="update-list"
@@ -928,8 +906,6 @@ LOADING UPDATES...
 </div>
 
 </div>
-
-
 
 <div class="nav-grid">
 
@@ -953,8 +929,6 @@ ADMIN DASHBOARD
 
 </main>
 
-
-
 <script type="module">
 
 import {
@@ -963,7 +937,8 @@ import {
 
 import {
   getAuth,
-  onAuthStateChanged
+  onAuthStateChanged,
+  getIdToken
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 import {
@@ -976,8 +951,6 @@ import {
   onSnapshot,
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-
-
 
 const firebaseConfig = {
 
@@ -1007,8 +980,6 @@ const firebaseConfig = {
 
 };
 
-
-
 const ADMINS = {
 
   "PRGa9TsCW0QDn1QtoUXyYjEi7YB3":
@@ -1019,7 +990,9 @@ const ADMINS = {
 
 };
 
-
+const UPDATE_NOTIFICATION_URL =
+  "https://europe-west1-team-wolfpack-app.cloudfunctions.net/" +
+  "sendMrsWolfieUpdateNotification";
 
 const app =
   initializeApp(
@@ -1041,8 +1014,6 @@ const updatesCollection =
     db,
     "mrsWolfieUpdates"
   );
-
-
 
 const status =
   document.getElementById(
@@ -1124,8 +1095,6 @@ const updateList =
     "updateList"
   );
 
-
-
 let currentUser =
   null;
 
@@ -1138,7 +1107,8 @@ let updates =
 let unsubscribeUpdates =
   null;
 
-
+let notificationSending =
+  false;
 
 function escapeHtml(
   value
@@ -1152,8 +1122,6 @@ function escapeHtml(
     .replaceAll("'","&#039;");
 
 }
-
-
 
 function showMessage(
   text,
@@ -1169,8 +1137,6 @@ function showMessage(
 
 }
 
-
-
 function clearMessage(){
 
   formMessage.textContent =
@@ -1180,8 +1146,6 @@ function clearMessage(){
     "message";
 
 }
-
-
 
 function formatDate(
   value
@@ -1226,8 +1190,6 @@ function formatDate(
 
 }
 
-
-
 function setDefaultDate(){
 
   const now =
@@ -1261,8 +1223,6 @@ function setDefaultDate(){
 
 }
 
-
-
 function resetForm(){
 
   editingId =
@@ -1288,8 +1248,6 @@ function resetForm(){
 
 }
 
-
-
 function getUpdate(
   id
 ){
@@ -1303,8 +1261,6 @@ function getUpdate(
   );
 
 }
-
-
 
 function renderUpdates(){
 
@@ -1419,6 +1375,21 @@ function renderUpdates(){
             EDIT
           </button>
 
+          ${
+            active
+              ? `
+                <button
+                  class="small-button notify"
+                  type="button"
+                  data-action="notify"
+                  data-id="${item.id}"
+                >
+                  SEND NOTIFICATION
+                </button>
+              `
+              : ""
+          }
+
           <button
             class="small-button pink"
             type="button"
@@ -1448,8 +1419,6 @@ function renderUpdates(){
   );
 
 }
-
-
 
 function editUpdate(
   id
@@ -1506,8 +1475,6 @@ function editUpdate(
   });
 
 }
-
-
 
 async function toggleUpdate(
   id
@@ -1579,8 +1546,6 @@ async function toggleUpdate(
 
 }
 
-
-
 async function deleteUpdate(
   id
 ){
@@ -1628,7 +1593,188 @@ async function deleteUpdate(
 
 }
 
+async function sendUpdateNotification(
+  id,
+  button
+){
 
+  if(
+    notificationSending
+  ){
+
+    return;
+
+  }
+
+  const item =
+    getUpdate(
+      id
+    );
+
+  if(
+    !item
+  ){
+
+    alert(
+      "The selected update could not be found."
+    );
+
+    return;
+
+  }
+
+  if(
+    item.active === false
+  ){
+
+    alert(
+      "Publish this update before sending a notification."
+    );
+
+    return;
+
+  }
+
+  if(
+    !currentUser ||
+    !ADMINS[currentUser.uid]
+  ){
+
+    alert(
+      "Admin access is required."
+    );
+
+    return;
+
+  }
+
+  const confirmed =
+    confirm(
+      "Send a push notification for:\n\n" +
+      (item.title || "MRS WOLFIE UPDATE") +
+      "\n\n" +
+      "This will alert registered Mrs Wolfie devices."
+    );
+
+  if(
+    !confirmed
+  ){
+
+    return;
+
+  }
+
+  notificationSending =
+    true;
+
+  const originalText =
+    button.textContent;
+
+  button.disabled =
+    true;
+
+  button.textContent =
+    "SENDING...";
+
+  try{
+
+    const idToken =
+      await getIdToken(
+        currentUser,
+        true
+      );
+
+    const response =
+      await fetch(
+        UPDATE_NOTIFICATION_URL,
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":"application/json",
+            "Authorization":
+              "Bearer " +
+              idToken
+          },
+
+          body:
+            JSON.stringify({
+              updateId:id
+            })
+        }
+      );
+
+    let result =
+      null;
+
+    try{
+
+      result =
+        await response.json();
+
+    }catch(error){
+
+      console.error(
+        "Notification response:",
+        error
+      );
+
+    }
+
+    if(
+      !response.ok ||
+      !result ||
+      result.success !== true
+    ){
+
+      const errorCode =
+        result &&
+        result.error
+          ? result.error
+          : "NOTIFICATION_REQUEST_FAILED";
+
+      throw new Error(
+        errorCode
+      );
+
+    }
+
+    alert(
+      "MRS WOLFIE NOTIFICATION SENT.\n\n" +
+      "Delivered: " +
+      Number(result.delivered || 0) +
+      "\nFailed: " +
+      Number(result.failed || 0) +
+      "\nInvalid devices removed: " +
+      Number(result.removedInvalid || 0)
+    );
+
+  }catch(error){
+
+    console.error(
+      "Send Mrs Wolfie notification:",
+      error
+    );
+
+    alert(
+      "THE NOTIFICATION COULD NOT BE SENT.\n\n" +
+      "No update was deleted or unpublished."
+    );
+
+  }finally{
+
+    notificationSending =
+      false;
+
+    button.disabled =
+      false;
+
+    button.textContent =
+      originalText;
+
+  }
+
+}
 
 updateList.addEventListener(
   "click",
@@ -1664,6 +1810,17 @@ updateList.addEventListener(
     }
 
     if(
+      action === "notify"
+    ){
+
+      sendUpdateNotification(
+        id,
+        button
+      );
+
+    }
+
+    if(
       action === "toggle"
     ){
 
@@ -1685,8 +1842,6 @@ updateList.addEventListener(
 
   }
 );
-
-
 
 updateForm.addEventListener(
   "submit",
@@ -1855,8 +2010,6 @@ updateForm.addEventListener(
   }
 );
 
-
-
 cancelEditButton.addEventListener(
   "click",
   function(){
@@ -1865,8 +2018,6 @@ cancelEditButton.addEventListener(
 
   }
 );
-
-
 
 function startUpdateListener(){
 
@@ -1918,8 +2069,6 @@ function startUpdateListener(){
     );
 
 }
-
-
 
 onAuthStateChanged(
   auth,
@@ -1999,8 +2148,6 @@ onAuthStateChanged(
 );
 
 </script>
-
-
 
 <script>
 
