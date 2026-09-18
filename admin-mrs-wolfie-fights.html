@@ -223,13 +223,8 @@
       margin-bottom: 18px;
       padding: 13px 14px;
       border-radius: 10px;
-
-      border:
-        1px solid rgba(103,220,255,.20);
-
-      background:
-        rgba(103,220,255,.05);
-
+      border: 1px solid rgba(103,220,255,.20);
+      background: rgba(103,220,255,.05);
       color: #aaa;
       font-size: 9px;
       line-height: 1.6;
@@ -268,15 +263,11 @@
       width: 100%;
       min-height: 45px;
       padding: 11px 12px;
-
       border-radius: 9px;
       border: 1px solid rgba(255,255,255,.14);
-
       outline: none;
-
       background: #090b0d;
       color: #fff;
-
       font-size: 11px;
     }
 
@@ -294,12 +285,8 @@
     .private-note-box {
       padding: 13px;
       border-radius: 10px;
-
-      border:
-        1px solid rgba(255,143,211,.22);
-
-      background:
-        rgba(255,143,211,.045);
+      border: 1px solid rgba(255,143,211,.22);
+      background: rgba(255,143,211,.045);
     }
 
     .private-note-label {
@@ -312,10 +299,8 @@
     .private-badge {
       padding: 4px 7px;
       border-radius: 20px;
-
       background: #ff8fd3;
       color: #050505;
-
       font-size: 7px;
       font-weight: 900;
     }
@@ -337,12 +322,9 @@
     .button {
       min-height: 44px;
       padding: 11px 16px;
-
       border: 0;
       border-radius: 9px;
-
       cursor: pointer;
-
       font-size: 9px;
       font-weight: 900;
     }
@@ -365,12 +347,9 @@
 
     .message {
       display: none;
-
       margin-top: 14px;
       padding: 11px 12px;
-
       border-radius: 9px;
-
       font-size: 9px;
       font-weight: 900;
       line-height: 1.5;
@@ -400,13 +379,10 @@
     .empty {
       padding: 25px 15px;
       text-align: center;
-
       border-radius: 13px;
       border: 1px solid rgba(255,255,255,.08);
-
       color: #777;
       background: rgba(8,8,8,.72);
-
       font-size: 10px;
     }
 
@@ -414,9 +390,7 @@
       position: relative;
       padding: 17px;
       border-radius: 14px;
-
-      border:
-        1px solid rgba(255,255,255,.11);
+      border: 1px solid rgba(255,255,255,.11);
 
       background:
         linear-gradient(
@@ -456,13 +430,10 @@
 
     .fight-status {
       flex: 0 0 auto;
-
       padding: 6px 9px;
       border-radius: 20px;
-
       background: #67dcff;
       color: #050505;
-
       font-size: 8px;
       font-weight: 900;
     }
@@ -478,15 +449,11 @@
 
     .fight-result {
       display: inline-block;
-
       margin-top: 10px;
       padding: 6px 9px;
-
       border-radius: 7px;
-
       background: #ff8fd3;
       color: #050505;
-
       font-size: 9px;
       font-weight: 900;
     }
@@ -502,18 +469,14 @@
       display: flex;
       flex-wrap: wrap;
       gap: 7px;
-
       margin-top: 12px;
       padding-top: 12px;
-
-      border-top:
-        1px solid rgba(103,220,255,.12);
+      border-top: 1px solid rgba(103,220,255,.12);
     }
 
     .notification-label {
       width: 100%;
       margin-bottom: 2px;
-
       color: #777;
       font-size: 7px;
       font-weight: 900;
@@ -523,15 +486,11 @@
     .small-button {
       min-height: 38px;
       padding: 9px 11px;
-
       border: 1px solid rgba(255,255,255,.14);
       border-radius: 8px;
-
       cursor: pointer;
-
       background: #101214;
       color: #fff;
-
       font-size: 8px;
       font-weight: 900;
     }
@@ -564,6 +523,12 @@
       color: #fff;
     }
 
+    .small-button.cancel-notify {
+      border-color: rgba(255,90,90,.55);
+      background: rgba(255,70,70,.10);
+      color: #ff8585;
+    }
+
     .small-button:disabled {
       opacity: .45;
       cursor: not-allowed;
@@ -580,18 +545,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-
       min-height: 48px;
       padding: 12px 8px;
-
       text-decoration: none;
       text-align: center;
-
       color: #fff;
-
       border: 1px solid #67dcff;
       border-radius: 11px;
-
       font-size: 9px;
       font-weight: 900;
 
@@ -699,10 +659,10 @@
 
     <div class="notification-info">
       <strong>FIGHT NOTIFICATIONS:</strong>
-      Adding, editing or completing a fight updates the Mrs Wolfie app
-      automatically but does not send a push notification. Use the
-      notification buttons on a fight when you deliberately want to
-      notify registered Mrs Wolfie devices.
+      Adding, editing, completing or cancelling a fight updates the
+      Mrs Wolfie app automatically but does not send a push notification.
+      Use the notification buttons on a fight when you deliberately want
+      to notify registered Mrs Wolfie devices.
     </div>
 
 
@@ -1351,6 +1311,11 @@ async function sendFightNotification(
       "FIGHT RESULT";
   }
 
+  if (notificationType === "FIGHT_CANCELLED") {
+    notificationName =
+      "FIGHT CANCELLATION";
+  }
+
 
   const confirmed =
     confirm(
@@ -1481,6 +1446,14 @@ async function sendFightNotification(
 
     if (
       error.message ===
+      "FIGHT_NOT_CANCELLED"
+    ) {
+      message =
+        "A CANCELLATION NOTIFICATION CAN ONLY BE SENT FOR A CANCELLED FIGHT.";
+    }
+
+    if (
+      error.message ===
       "RESULT_NOT_AVAILABLE"
     ) {
       message =
@@ -1589,6 +1562,10 @@ function renderFights() {
         ["W", "L", "D"].includes(
           fight.result
         );
+
+
+      const canSendCancellation =
+        fight.status === "CANCELLED";
 
 
       card.innerHTML = `
@@ -1747,6 +1724,21 @@ function renderFights() {
                   data-id="${fight.id}"
                 >
                   SEND RESULT
+                </button>
+              `
+              : ""
+          }
+
+          ${
+            canSendCancellation
+              ? `
+                <button
+                  class="small-button cancel-notify"
+                  type="button"
+                  data-action="notify-cancelled"
+                  data-id="${fight.id}"
+                >
+                  SEND CANCELLATION
                 </button>
               `
               : ""
@@ -2053,6 +2045,15 @@ fightList.addEventListener(
       sendFightNotification(
         id,
         "FIGHT_RESULT",
+        button
+      );
+    }
+
+    if (action === "notify-cancelled") {
+
+      sendFightNotification(
+        id,
+        "FIGHT_CANCELLED",
         button
       );
     }
