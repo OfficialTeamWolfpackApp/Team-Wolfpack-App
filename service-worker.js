@@ -135,6 +135,11 @@ self.addEventListener(
   "notificationclick",
   (event) => {
 
+    console.log(
+      "[Team Wolfpack] NOTIFICATION CLICK FIRED",
+      event.notification.data
+    );
+
     event.notification.close();
 
     const notificationData =
