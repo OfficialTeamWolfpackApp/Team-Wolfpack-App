@@ -449,8 +449,7 @@ select option{
   border:
     1px solid rgba(255,255,255,.08);
 
-  background:
-    #111;
+  background:#111;
 }
 
 .preview-brand{
@@ -481,7 +480,7 @@ select option{
 
 
 /* =========================
-   BUTTONS
+   BUTTON
 ========================= */
 
 .send-button{
@@ -669,7 +668,7 @@ HOME
 </div>
 
 
-<!-- NOTIFICATION MANAGER -->
+<!-- MANAGER -->
 
 <div
   id="manager"
@@ -711,7 +710,7 @@ NOTIFICATION
 </div>
 
 <div class="panel-text">
-Create an official Team Wolfpack notification. You will be shown a confirmation before anything is sent.
+Create an official Team Wolfpack notification. A confirmation will be required before it is sent.
 </div>
 
 
@@ -839,7 +838,7 @@ SEND TEAM WOLFPACK NOTIFICATION
 
 
 <div class="info">
-The secure sending backend will be connected after this page has been verified.
+Notifications are sent only after administrator authentication and confirmation.
 </div>
 
 
@@ -880,7 +879,8 @@ import {
 
 import {
   getAuth,
-  onAuthStateChanged
+  onAuthStateChanged,
+  getIdToken
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 
@@ -915,6 +915,15 @@ const firebaseConfig = {
     "G-6JTCE2N9LZ"
 
 };
+
+
+/* =========================
+   ENDPOINT
+========================= */
+
+const NOTIFICATION_URL =
+  "https://europe-west1-team-wolfpack-app.cloudfunctions.net/" +
+  "sendTeamWolfpackNotification";
 
 
 /* =========================
@@ -1015,10 +1024,18 @@ const sendButton =
 
 
 /* =========================
-   PREVIEW
+   STATE
 ========================= */
 
-function updatePreview(){
+let currentAdmin = null;
+let notificationSending = false;
+
+
+/* =========================
+   FORM
+========================= */
+
+function updateForm(){
 
   const type =
     notificationType.value;
@@ -1054,6 +1071,13 @@ function updatePreview(){
     message ||
     "Your notification message will appear here.";
 
+
+  sendButton.disabled =
+    !currentAdmin ||
+    notificationSending ||
+    !title ||
+    !message;
+
 }
 
 
@@ -1063,19 +1087,211 @@ function updatePreview(){
 
 notificationType.addEventListener(
   "change",
-  updatePreview
+  updateForm
 );
 
 
 notificationTitle.addEventListener(
   "input",
-  updatePreview
+  updateForm
 );
 
 
 notificationMessage.addEventListener(
   "input",
-  updatePreview
+  updateForm
+);
+
+
+/* =========================
+   SEND
+========================= */
+
+sendButton.addEventListener(
+  "click",
+  async function(){
+
+    if(
+      notificationSending ||
+      !currentAdmin
+    ){
+      return;
+    }
+
+
+    const type =
+      notificationType.value;
+
+    const title =
+      notificationTitle.value.trim();
+
+    const message =
+      notificationMessage.value.trim();
+
+
+    if(
+      !title ||
+      !message
+    ){
+      alert(
+        "Enter both a notification title and message."
+      );
+
+      return;
+    }
+
+
+    const confirmed =
+      window.confirm(
+        "Send this Team Wolfpack notification?\n\n" +
+        type +
+        "\n\n" +
+        title +
+        "\n\n" +
+        message +
+        "\n\n" +
+        "This will alert registered Team Wolfpack devices."
+      );
+
+
+    if(!confirmed){
+      return;
+    }
+
+
+    notificationSending = true;
+
+    sendButton.textContent =
+      "SENDING...";
+
+    updateForm();
+
+
+    try{
+
+      const idToken =
+        await getIdToken(
+          currentAdmin,
+          true
+        );
+
+
+      const response =
+        await fetch(
+          NOTIFICATION_URL,
+          {
+            method:
+              "POST",
+
+            headers:{
+              "Content-Type":
+                "application/json",
+
+              "Authorization":
+                "Bearer " +
+                idToken
+            },
+
+            body:
+              JSON.stringify({
+                notificationType:
+                  type,
+
+                title:
+                  title,
+
+                message:
+                  message
+              })
+          }
+        );
+
+
+      let result = null;
+
+
+      try{
+
+        result =
+          await response.json();
+
+      }catch(error){
+
+        result = null;
+
+      }
+
+
+      if(
+        !response.ok ||
+        !result ||
+        result.success !== true
+      ){
+
+        const errorCode =
+          result &&
+          result.error ?
+            result.error :
+            "UNKNOWN_ERROR";
+
+
+        throw new Error(
+          errorCode
+        );
+
+      }
+
+
+      alert(
+        "TEAM WOLFPACK NOTIFICATION SENT.\n\n" +
+        "Delivered: " +
+        result.delivered +
+        "\n" +
+        "Failed: " +
+        result.failed +
+        "\n" +
+        "Invalid devices removed: " +
+        result.removedInvalid
+      );
+
+
+      notificationTitle.value =
+        "";
+
+      notificationMessage.value =
+        "";
+
+
+    }catch(error){
+
+      console.error(
+        "Team Wolfpack notification send failed:",
+        error
+      );
+
+
+      alert(
+        "NOTIFICATION FAILED.\n\n" +
+        "The Team Wolfpack notification could not be sent.\n\n" +
+        "Error: " +
+        error.message
+      );
+
+    }finally{
+
+      notificationSending =
+        false;
+
+
+      sendButton.textContent =
+        "SEND TEAM WOLFPACK NOTIFICATION";
+
+
+      updateForm();
+
+    }
+
+  }
 );
 
 
@@ -1093,6 +1309,10 @@ onAuthStateChanged(
         user.uid
       ]
     ){
+
+      currentAdmin =
+        user;
+
 
       const name =
         ADMINS[
@@ -1124,9 +1344,16 @@ onAuthStateChanged(
       );
 
 
+      updateForm();
+
+
       return;
 
     }
+
+
+    currentAdmin =
+      null;
 
 
     status.textContent =
@@ -1146,11 +1373,14 @@ onAuthStateChanged(
       "show"
     );
 
+
+    updateForm();
+
   }
 );
 
 
-updatePreview();
+updateForm();
 
 </script>
 
