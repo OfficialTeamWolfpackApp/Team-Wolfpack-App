@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
+
+<meta name="theme-color" content="#050505">
+
+<meta name="apple-mobile-web-app-title" content="TEAM WOLFPACK">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<title>Notification Manager | Team Wolfpack</title>
+
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  min-height:100vh;
+  min-height:100dvh;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  color:#fff;
+
+  background:
+    radial-gradient(
+      circle at 0% 15%,
+      rgba(0,190,255,.22),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 100% 35%,
+      rgba(255,85,0,.22),
+      transparent 30%
+    ),
+    linear-gradient(
+      115deg,
+      #02090d 0%,
+      #050505 50%,
+      #150802 100%
+    );
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+  text-align:center;
+  padding:25px 18px 18px;
+}
+
+.logo{
+  width:95px;
+  height:95px;
+  object-fit:contain;
+}
+
+.brand{
+  margin-top:5px;
+
+  color:#67dcff;
+
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:4px;
+}
+
+.title{
+  margin-top:18px;
+
+  font-size:29px;
+  font-weight:900;
+}
+
+.ice{
+  color:#67dcff;
+}
+
+.fire{
+  color:#ff751c;
+}
+
+.subtitle{
+  margin-top:8px;
+
+  color:#999;
+
+  font-size:11px;
+  line-height:1.5;
+}
+
+.line{
+  width:100%;
+  max-width:520px;
+  height:2px;
+
+  margin:20px auto 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      #4bd8ff,
+      transparent,
+      #ff6200
+    );
+}
+
+
+/* =========================
+   CONTENT
+========================= */
+
+.content{
+  width:100%;
+  max-width:700px;
+
+  margin:auto;
+
+  padding:
+    8px
+    16px
+    70px;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.status{
+  margin-bottom:15px;
+
+  padding:10px;
+
+  text-align:center;
+
+  color:#aaa;
+
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.status.admin{
+  color:#ff751c;
+}
+
+.status.error{
+  color:#ff7957;
+}
+
+
+/* =========================
+   ACCESS DENIED
+========================= */
+
+.access-denied{
+  display:none;
+
+  padding:25px 18px;
+
+  border-radius:14px;
+
+  text-align:center;
+
+  border:
+    1px solid rgba(255,117,28,.35);
+
+  background:
+    rgba(50,10,0,.35);
+}
+
+.access-denied.show{
+  display:block;
+}
+
+.access-title{
+  color:#ff751c;
+
+  font-size:18px;
+  font-weight:900;
+}
+
+.access-text{
+  margin-top:10px;
+
+  color:#aaa;
+
+  font-size:11px;
+  line-height:1.6;
+}
+
+
+/* =========================
+   MANAGER
+========================= */
+
+.manager{
+  display:none;
+}
+
+.manager.show{
+  display:block;
+}
+
+
+/* =========================
+   ADMIN BAR
+========================= */
+
+.admin-bar{
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:10px;
+
+  margin-bottom:18px;
+
+  padding:
+    14px
+    16px;
+
+  border-radius:12px;
+
+  border:
+    1px solid rgba(255,117,28,.35);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,150,210,.12),
+      rgba(255,90,0,.16)
+    );
+}
+
+.admin-name{
+  font-size:11px;
+  font-weight:900;
+}
+
+.admin-badge{
+  display:inline-block;
+
+  margin-left:6px;
+
+  padding:
+    4px
+    7px;
+
+  border-radius:20px;
+
+  background:#ff751c;
+
+  color:#050505;
+
+  font-size:8px;
+  font-weight:900;
+}
+
+.admin-label{
+  color:#67dcff;
+
+  font-size:9px;
+  font-weight:900;
+}
+
+
+/* =========================
+   PANEL
+========================= */
+
+.panel{
+  padding:
+    20px
+    17px;
+
+  border-radius:15px;
+
+  border:
+    1px solid rgba(255,255,255,.11);
+
+  background:
+    linear-gradient(
+      115deg,
+      rgba(0,150,210,.10),
+      rgba(8,8,8,.95) 50%,
+      rgba(255,90,0,.12)
+    );
+}
+
+.panel-title{
+  font-size:15px;
+  font-weight:900;
+}
+
+.panel-text{
+  margin-top:7px;
+  margin-bottom:20px;
+
+  color:#888;
+
+  font-size:10px;
+  line-height:1.5;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.field{
+  margin-top:15px;
+}
+
+.field:first-of-type{
+  margin-top:0;
+}
+
+label{
+  display:block;
+
+  margin-bottom:7px;
+
+  color:#aaa;
+
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.7px;
+}
+
+input,
+textarea,
+select{
+  width:100%;
+
+  border:
+    1px solid rgba(103,220,255,.22);
+
+  border-radius:10px;
+
+  outline:none;
+
+  padding:
+    13px
+    12px;
+
+  color:#fff;
+
+  background:
+    rgba(0,0,0,.55);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size:12px;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+  border-color:#67dcff;
+}
+
+textarea{
+  min-height:125px;
+  resize:vertical;
+}
+
+select option{
+  color:#fff;
+  background:#111;
+}
+
+.counter{
+  margin-top:5px;
+
+  text-align:right;
+
+  color:#666;
+
+  font-size:8px;
+}
+
+
+/* =========================
+   PREVIEW
+========================= */
+
+.preview{
+  margin-top:22px;
+
+  padding:
+    16px;
+
+  border-radius:12px;
+
+  border:
+    1px solid rgba(255,117,28,.25);
+
+  background:
+    rgba(0,0,0,.42);
+}
+
+.preview-label{
+  margin-bottom:10px;
+
+  color:#67dcff;
+
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.7px;
+}
+
+.preview-card{
+  padding:
+    14px;
+
+  border-radius:10px;
+
+  border:
+    1px solid rgba(255,255,255,.08);
+
+  background:
+    #111;
+}
+
+.preview-brand{
+  color:#ff751c;
+
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.preview-title{
+  margin-top:7px;
+
+  font-size:13px;
+  font-weight:900;
+}
+
+.preview-message{
+  margin-top:6px;
+
+  color:#aaa;
+
+  font-size:10px;
+  line-height:1.5;
+
+  overflow-wrap:anywhere;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.send-button{
+  width:100%;
+
+  min-height:52px;
+
+  margin-top:20px;
+
+  border:0;
+
+  border-radius:11px;
+
+  cursor:pointer;
+
+  color:#050505;
+
+  background:
+    linear-gradient(
+      90deg,
+      #67dcff,
+      #ff751c
+    );
+
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.5px;
+}
+
+.send-button:disabled{
+  cursor:not-allowed;
+  opacity:.45;
+}
+
+.info{
+  margin-top:12px;
+
+  text-align:center;
+
+  color:#777;
+
+  font-size:9px;
+  line-height:1.5;
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+.nav-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:8px;
+
+  margin-top:20px;
+}
+
+.nav-button{
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  min-height:48px;
+
+  padding:
+    12px
+    8px;
+
+  text-align:center;
+
+  text-decoration:none;
+
+  color:#fff;
+
+  border:
+    1px solid #59d9ff;
+
+  border-radius:11px;
+
+  font-size:9px;
+  font-weight:900;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,160,220,.10),
+      rgba(255,90,0,.10)
+    );
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+<a href="index.html">
+
+<img
+  src="icon-512.png"
+  class="logo"
+  alt="Team Wolfpack"
+>
+
+</a>
+
+<div class="brand">
+TEAM WOLFPACK
+</div>
+
+<h1 class="title">
+
+<span class="ice">
+NOTIFICATION
+</span>
+
+<span class="fire">
+MANAGER
+</span>
+
+</h1>
+
+<p class="subtitle">
+Send official Team Wolfpack push notifications to registered devices.
+</p>
+
+<div class="line"></div>
+
+</header>
+
+
+<main class="content">
+
+
+<div
+  id="status"
+  class="status"
+>
+CHECKING ADMIN ACCESS...
+</div>
+
+
+<!-- ACCESS DENIED -->
+
+<div
+  id="accessDenied"
+  class="access-denied"
+>
+
+<div class="access-title">
+ADMIN ACCESS REQUIRED
+</div>
+
+<div class="access-text">
+Sign into Pack Chat using an authorised Team Wolfpack administrator account before using the Notification Manager.
+</div>
+
+<div class="nav-grid">
+
+<a
+  class="nav-button"
+  href="chat.html"
+>
+PACK CHAT
+</a>
+
+<a
+  class="nav-button"
+  href="index.html"
+>
+HOME
+</a>
+
+</div>
+
+</div>
+
+
+<!-- NOTIFICATION MANAGER -->
+
+<div
+  id="manager"
+  class="manager"
+>
+
+
+<div class="admin-bar">
+
+<div class="admin-name">
+
+<span id="adminName"></span>
+
+<span class="admin-badge">
+ADMIN
+</span>
+
+</div>
+
+<div class="admin-label">
+SECURE NOTIFICATIONS
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-title">
+
+<span class="ice">
+CREATE
+</span>
+
+<span class="fire">
+NOTIFICATION
+</span>
+
+</div>
+
+<div class="panel-text">
+Create an official Team Wolfpack notification. You will be shown a confirmation before anything is sent.
+</div>
+
+
+<div class="field">
+
+<label for="notificationType">
+NOTIFICATION TYPE
+</label>
+
+<select id="notificationType">
+
+<option value="ANNOUNCEMENT">
+ANNOUNCEMENT
+</option>
+
+<option value="NEWS">
+NEWS
+</option>
+
+<option value="FIGHT UPDATE">
+FIGHT UPDATE
+</option>
+
+<option value="FIGHT RESULT">
+FIGHT RESULT
+</option>
+
+<option value="TEAM UPDATE">
+TEAM UPDATE
+</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label for="notificationTitle">
+TITLE
+</label>
+
+<input
+  id="notificationTitle"
+  type="text"
+  maxlength="80"
+  placeholder="Enter notification title"
+  autocomplete="off"
+>
+
+<div
+  id="titleCounter"
+  class="counter"
+>
+0 / 80
+</div>
+
+</div>
+
+
+<div class="field">
+
+<label for="notificationMessage">
+MESSAGE
+</label>
+
+<textarea
+  id="notificationMessage"
+  maxlength="240"
+  placeholder="Enter notification message"
+></textarea>
+
+<div
+  id="messageCounter"
+  class="counter"
+>
+0 / 240
+</div>
+
+</div>
+
+
+<div class="preview">
+
+<div class="preview-label">
+NOTIFICATION PREVIEW
+</div>
+
+<div class="preview-card">
+
+<div
+  id="previewBrand"
+  class="preview-brand"
+>
+TEAM WOLFPACK • ANNOUNCEMENT
+</div>
+
+<div
+  id="previewTitle"
+  class="preview-title"
+>
+Notification title
+</div>
+
+<div
+  id="previewMessage"
+  class="preview-message"
+>
+Your notification message will appear here.
+</div>
+
+</div>
+
+</div>
+
+
+<button
+  id="sendButton"
+  class="send-button"
+  type="button"
+  disabled
+>
+SEND TEAM WOLFPACK NOTIFICATION
+</button>
+
+
+<div class="info">
+The secure sending backend will be connected after this page has been verified.
+</div>
+
+
+</div>
+
+
+<div class="nav-grid">
+
+<a
+  class="nav-button"
+  href="admin-dashboard.html"
+>
+‹ ADMIN DASHBOARD
+</a>
+
+<a
+  class="nav-button"
+  href="index.html"
+>
+HOME
+</a>
+
+</div>
+
+
+</div>
+
+
+</main>
+
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+
+/* =========================
+   FIREBASE CONFIG
+========================= */
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+
+  authDomain:
+    "team-wolfpack-app.firebaseapp.com",
+
+  databaseURL:
+    "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+
+  projectId:
+    "team-wolfpack-app",
+
+  storageBucket:
+    "team-wolfpack-app.firebasestorage.app",
+
+  messagingSenderId:
+    "1070414578856",
+
+  appId:
+    "1:1070414578856:web:df14e7d387e658eeae2e9d",
+
+  measurementId:
+    "G-6JTCE2N9LZ"
+
+};
+
+
+/* =========================
+   ADMINS
+========================= */
+
+const ADMINS = {
+
+  "PRGa9TsCW0QDn1QtoUXyYjEi7YB3":
+    "MR WOLFIE",
+
+  "SlpEQYl94DaH6j42QUyl8Kv2ujJ3":
+    "MRS WOLFIE"
+
+};
+
+
+const app =
+  initializeApp(
+    firebaseConfig
+  );
+
+
+const auth =
+  getAuth(
+    app
+  );
+
+
+/* =========================
+   ELEMENTS
+========================= */
+
+const status =
+  document.getElementById(
+    "status"
+  );
+
+const accessDenied =
+  document.getElementById(
+    "accessDenied"
+  );
+
+const manager =
+  document.getElementById(
+    "manager"
+  );
+
+const adminName =
+  document.getElementById(
+    "adminName"
+  );
+
+const notificationType =
+  document.getElementById(
+    "notificationType"
+  );
+
+const notificationTitle =
+  document.getElementById(
+    "notificationTitle"
+  );
+
+const notificationMessage =
+  document.getElementById(
+    "notificationMessage"
+  );
+
+const titleCounter =
+  document.getElementById(
+    "titleCounter"
+  );
+
+const messageCounter =
+  document.getElementById(
+    "messageCounter"
+  );
+
+const previewBrand =
+  document.getElementById(
+    "previewBrand"
+  );
+
+const previewTitle =
+  document.getElementById(
+    "previewTitle"
+  );
+
+const previewMessage =
+  document.getElementById(
+    "previewMessage"
+  );
+
+const sendButton =
+  document.getElementById(
+    "sendButton"
+  );
+
+
+/* =========================
+   PREVIEW
+========================= */
+
+function updatePreview(){
+
+  const type =
+    notificationType.value;
+
+  const title =
+    notificationTitle.value.trim();
+
+  const message =
+    notificationMessage.value.trim();
+
+
+  titleCounter.textContent =
+    notificationTitle.value.length +
+    " / 80";
+
+
+  messageCounter.textContent =
+    notificationMessage.value.length +
+    " / 240";
+
+
+  previewBrand.textContent =
+    "TEAM WOLFPACK • " +
+    type;
+
+
+  previewTitle.textContent =
+    title ||
+    "Notification title";
+
+
+  previewMessage.textContent =
+    message ||
+    "Your notification message will appear here.";
+
+}
+
+
+/* =========================
+   EVENTS
+========================= */
+
+notificationType.addEventListener(
+  "change",
+  updatePreview
+);
+
+
+notificationTitle.addEventListener(
+  "input",
+  updatePreview
+);
+
+
+notificationMessage.addEventListener(
+  "input",
+  updatePreview
+);
+
+
+/* =========================
+   AUTH
+========================= */
+
+onAuthStateChanged(
+  auth,
+  function(user){
+
+    if(
+      user &&
+      ADMINS[
+        user.uid
+      ]
+    ){
+
+      const name =
+        ADMINS[
+          user.uid
+        ];
+
+
+      status.textContent =
+        "● " +
+        name +
+        " • ADMIN CONNECTED";
+
+
+      status.className =
+        "status admin";
+
+
+      adminName.textContent =
+        name;
+
+
+      accessDenied.classList.remove(
+        "show"
+      );
+
+
+      manager.classList.add(
+        "show"
+      );
+
+
+      return;
+
+    }
+
+
+    status.textContent =
+      "ADMIN ACCESS REQUIRED";
+
+
+    status.className =
+      "status error";
+
+
+    manager.classList.remove(
+      "show"
+    );
+
+
+    accessDenied.classList.add(
+      "show"
+    );
+
+  }
+);
+
+
+updatePreview();
+
+</script>
+
+
+<!-- SERVICE WORKER -->
+
+<script>
+
+if(
+  "serviceWorker"
+  in navigator
+){
+
+  window.addEventListener(
+    "load",
+    function(){
+
+      navigator.serviceWorker
+        .register(
+          "service-worker.js"
+        )
+        .catch(
+          function(error){
+
+            console.error(
+              "Service worker error:",
+              error
+            );
+
+          }
+        );
+
+    }
+  );
+
+}
+
+</script>
+
+
+</body>
+
+</html>
