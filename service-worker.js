@@ -127,17 +127,21 @@ messaging.onBackgroundMessage(
    NOTIFICATION CLICK
 ========================================================= */
 
+/* =========================================================
+   NOTIFICATION CLICK
+========================================================= */
+
 self.addEventListener(
   "notificationclick",
   (event) => {
 
     event.notification.close();
-console.log(
-  "[Team Wolfpack] Notification clicked:",
-  event.notification.data
-);
+
+    const notificationData =
+      event.notification.data || {};
+
     const targetURL =
-      event.notification.data?.url ||
+      notificationData.url ||
       "./index.html";
 
     const absoluteURL =
@@ -147,45 +151,64 @@ console.log(
       ).href;
 
     event.waitUntil(
+      (async () => {
 
-      clients
-        .matchAll({
-          type: "window",
-          includeUncontrolled: true
-        })
+        const clientList =
+          await clients.matchAll({
+            type: "window",
+            includeUncontrolled: true
+          });
 
-        .then(
-          async (clientList) => {
+        /*
+          If the app is already open, navigate that
+          window to the notification destination.
+        */
 
-            for (const client of clientList) {
+        for (const client of clientList) {
 
-              if ("navigate" in client) {
+          if ("navigate" in client) {
 
-                await client.navigate(
-                  absoluteURL
-                );
+            try {
 
-              }
+              await client.navigate(
+                absoluteURL
+              );
 
               if ("focus" in client) {
 
-                return client.focus();
+                await client.focus();
 
               }
 
-            }
+              return;
 
-            if (clients.openWindow) {
+            } catch (error) {
 
-              return clients.openWindow(
-                absoluteURL
+              console.warn(
+                "[Team Wolfpack] Could not navigate existing window:",
+                error
               );
 
             }
 
           }
-        )
 
+        }
+
+        /*
+          If no Team Wolfpack window is open,
+          open the notification destination.
+        */
+
+        if (clients.openWindow) {
+
+          await clients.openWindow(
+            absoluteURL
+          );
+
+        }
+
+      })()
     );
 
   }
@@ -197,7 +220,7 @@ console.log(
 ========================================================= */
 
 const CACHE_NAME =
-  "team-wolfpack-v19";
+  "team-wolfpack-v20";
 
 
 /* =========================================================
