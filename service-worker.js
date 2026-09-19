@@ -1,4 +1,205 @@
-const CACHE_NAME = "team-wolfpack-v16";
+/* =========================================================
+   TEAM WOLFPACK APP
+   SERVICE WORKER
+   PWA CACHE + FIREBASE CLOUD MESSAGING
+========================================================= */
+
+
+/* =========================================================
+   FIREBASE CLOUD MESSAGING
+========================================================= */
+
+importScripts(
+  "https://www.gstatic.com/firebasejs/12.2.1/firebase-app-compat.js"
+);
+
+importScripts(
+  "https://www.gstatic.com/firebasejs/12.2.1/firebase-messaging-compat.js"
+);
+
+
+firebase.initializeApp({
+  apiKey:
+    "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+
+  authDomain:
+    "team-wolfpack-app.firebaseapp.com",
+
+  databaseURL:
+    "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+
+  projectId:
+    "team-wolfpack-app",
+
+  storageBucket:
+    "team-wolfpack-app.firebasestorage.app",
+
+  messagingSenderId:
+    "1070414578856",
+
+  appId:
+    "1:1070414578856:web:df14e7d387e658eeae2e9d",
+
+  measurementId:
+    "G-6JTCE2N9LZ"
+});
+
+
+const messaging =
+  firebase.messaging();
+
+
+/* =========================================================
+   FIREBASE BACKGROUND MESSAGES
+========================================================= */
+
+messaging.onBackgroundMessage(
+  (payload) => {
+
+    console.log(
+      "[Team Wolfpack] Background notification received:",
+      payload
+    );
+
+    const data =
+      payload.data || {};
+
+    const notification =
+      payload.notification || {};
+
+    const title =
+      notification.title ||
+      data.title ||
+      "TEAM WOLFPACK";
+
+    const body =
+      notification.body ||
+      data.body ||
+      "A new Team Wolfpack update is available.";
+
+    const targetURL =
+      data.url ||
+      "./updates.html";
+
+
+    /*
+      If Firebase supplied a notification payload,
+      the browser may already display it.
+
+      For data-only messages, display the
+      notification ourselves.
+    */
+
+    if (!payload.notification) {
+
+      return self.registration.showNotification(
+        title,
+        {
+          body: body,
+
+          icon:
+            "./icon-192.png",
+
+          badge:
+            "./icon-192.png",
+
+          tag:
+            data.tag ||
+            "team-wolfpack-update",
+
+          renotify:
+            true,
+
+          data: {
+            url:
+              targetURL
+          }
+        }
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   NOTIFICATION CLICK
+========================================================= */
+
+self.addEventListener(
+  "notificationclick",
+  (event) => {
+
+    event.notification.close();
+
+    const targetURL =
+      event.notification.data?.url ||
+      "./index.html";
+
+    const absoluteURL =
+      new URL(
+        targetURL,
+        self.registration.scope
+      ).href;
+
+    event.waitUntil(
+
+      clients
+        .matchAll({
+          type: "window",
+          includeUncontrolled: true
+        })
+
+        .then(
+          async (clientList) => {
+
+            for (const client of clientList) {
+
+              if ("navigate" in client) {
+
+                await client.navigate(
+                  absoluteURL
+                );
+
+              }
+
+              if ("focus" in client) {
+
+                return client.focus();
+
+              }
+
+            }
+
+            if (clients.openWindow) {
+
+              return clients.openWindow(
+                absoluteURL
+              );
+
+            }
+
+          }
+        )
+
+    );
+
+  }
+);
+
+
+/* =========================================================
+   CACHE VERSION
+========================================================= */
+
+const CACHE_NAME =
+  "team-wolfpack-v17";
+
+
+/* =========================================================
+   CORE APP FILES
+========================================================= */
 
 const APP_FILES = [
   "./",
@@ -30,276 +231,382 @@ const APP_FILES = [
 ];
 
 
-/* =========================================
+/* =========================================================
    INSTALL
-========================================= */
+========================================================= */
 
-self.addEventListener("install", event => {
+self.addEventListener(
+  "install",
+  (event) => {
 
-  event.waitUntil(
+    event.waitUntil(
 
-    caches.open(CACHE_NAME).then(async cache => {
+      caches
+        .open(CACHE_NAME)
+        .then(
+          async (cache) => {
 
-      for (const file of APP_FILES) {
+            for (const file of APP_FILES) {
 
-        try {
+              try {
 
-          const response = await fetch(
-            file,
-            {
-              cache: "reload"
-            }
-          );
+                const response =
+                  await fetch(
+                    file,
+                    {
+                      cache: "reload"
+                    }
+                  );
 
-          if (response.ok) {
+                if (response.ok) {
 
-            await cache.put(
-              file,
-              response
-            );
+                  await cache.put(
+                    file,
+                    response
+                  );
 
-          }
+                }
 
-        } catch (error) {
+              } catch (error) {
 
-          console.warn(
-            "Could not cache:",
-            file,
-            error
-          );
+                console.warn(
+                  "Could not cache:",
+                  file,
+                  error
+                );
 
-        }
-
-      }
-
-    })
-
-  );
-
-  self.skipWaiting();
-
-});
-
-
-/* =========================================
-   ACTIVATE
-========================================= */
-
-self.addEventListener("activate", event => {
-
-  event.waitUntil(
-
-    (async () => {
-
-      const cacheNames =
-        await caches.keys();
-
-      await Promise.all(
-
-        cacheNames.map(
-          cacheName => {
-
-            if (
-              cacheName.startsWith(
-                "team-wolfpack-"
-              ) &&
-              cacheName !== CACHE_NAME
-            ) {
-
-              return caches.delete(
-                cacheName
-              );
+              }
 
             }
 
           }
         )
 
-      );
-
-      await self.clients.claim();
-
-    })()
-
-  );
-
-});
-
-
-/* =========================================
-   FETCH
-========================================= */
-
-self.addEventListener("fetch", event => {
-
-  if (
-    event.request.method !== "GET"
-  ) {
-    return;
-  }
-
-
-  const requestURL =
-    new URL(
-      event.request.url
     );
 
+    self.skipWaiting();
 
-  /*
-     Only handle files from
-     Team Wolfpack itself.
-  */
-
-  if (
-    requestURL.origin !==
-    self.location.origin
-  ) {
-    return;
   }
+);
 
 
-  /* =======================================
-     PACK CHAT
-     Always load latest version.
-  ======================================= */
+/* =========================================================
+   ACTIVATE
+========================================================= */
 
-  if (
-  requestURL.pathname.endsWith(
-    "/chat.html"
-  )
-) {
+self.addEventListener(
+  "activate",
+  (event) => {
 
-  event.respondWith(
+    event.waitUntil(
 
-    (async () => {
+      (async () => {
 
-      try {
+        const cacheNames =
+          await caches.keys();
 
-        const response =
-          await fetch(
-            event.request,
-            {
-              cache: "no-store"
+        await Promise.all(
+
+          cacheNames.map(
+            (cacheName) => {
+
+              if (
+                cacheName.startsWith(
+                  "team-wolfpack-"
+                ) &&
+                cacheName !== CACHE_NAME
+              ) {
+
+                return caches.delete(
+                  cacheName
+                );
+
+              }
+
+              return Promise.resolve();
+
             }
-          );
+          )
 
-        if (
-          response &&
-          response.ok
-        ) {
-
-          const cache =
-            await caches.open(
-              CACHE_NAME
-            );
-
-          await cache.put(
-            event.request,
-            response.clone()
-          );
-
-        }
-
-        return response;
-
-      } catch (error) {
-
-        const cached =
-          await caches.match(
-            event.request
-          );
-
-        if (cached) {
-          return cached;
-        }
-
-        return new Response(
-          "Pack Chat is currently unavailable while offline.",
-          {
-            status: 503,
-            headers: {
-              "Content-Type":
-                "text/plain"
-            }
-          }
         );
 
-      }
+        await self.clients.claim();
 
-    })()
-
-  );
-
-  return;
-
-}
-
-
-  /* =======================================
-     SERVICE WORKER
-     Never serve cached worker.
-  ======================================= */
-
-  if (
-    requestURL.pathname.endsWith(
-      "/service-worker.js"
-    )
-  ) {
-
-    event.respondWith(
-
-      fetch(
-        event.request,
-        {
-          cache: "no-store"
-        }
-      )
+      })()
 
     );
 
-    return;
-
   }
+);
 
 
-  /* =======================================
-     MANIFEST
-  ======================================= */
+/* =========================================================
+   FETCH
+========================================================= */
 
-  if (
-    requestURL.pathname.endsWith(
-      "/manifest.json"
-    )
-  ) {
+self.addEventListener(
+  "fetch",
+  (event) => {
 
-    event.respondWith(
+    if (
+      event.request.method !==
+      "GET"
+    ) {
 
-      fetch(
-        event.request,
-        {
-          cache: "no-store"
-        }
+      return;
+
+    }
+
+    const requestURL =
+      new URL(
+        event.request.url
+      );
+
+
+    /*
+      Only handle files from
+      Team Wolfpack itself.
+    */
+
+    if (
+      requestURL.origin !==
+      self.location.origin
+    ) {
+
+      return;
+
+    }
+
+
+    /* =====================================================
+       PACK CHAT
+       Always load latest version.
+    ===================================================== */
+
+    if (
+      requestURL.pathname.endsWith(
+        "/chat.html"
       )
+    ) {
 
-    );
+      event.respondWith(
 
-    return;
+        (async () => {
 
-  }
+          try {
+
+            const response =
+              await fetch(
+                event.request,
+                {
+                  cache: "no-store"
+                }
+              );
+
+            if (
+              response &&
+              response.ok
+            ) {
+
+              const cache =
+                await caches.open(
+                  CACHE_NAME
+                );
+
+              await cache.put(
+                event.request,
+                response.clone()
+              );
+
+            }
+
+            return response;
+
+          } catch (error) {
+
+            const cached =
+              await caches.match(
+                event.request
+              );
+
+            if (cached) {
+
+              return cached;
+
+            }
+
+            return new Response(
+              "Pack Chat is currently unavailable while offline.",
+              {
+                status: 503,
+
+                headers: {
+                  "Content-Type":
+                    "text/plain"
+                }
+              }
+            );
+
+          }
+
+        })()
+
+      );
+
+      return;
+
+    }
 
 
-  /* =======================================
-     HTML PAGES
-     Network first.
-  ======================================= */
+    /* =====================================================
+       SERVICE WORKER
+       Never serve cached worker.
+    ===================================================== */
 
-  if (
-    event.request.mode ===
-      "navigate" ||
-    requestURL.pathname.endsWith(
-      ".html"
-    )
-  ) {
+    if (
+      requestURL.pathname.endsWith(
+        "/service-worker.js"
+      )
+    ) {
+
+      event.respondWith(
+
+        fetch(
+          event.request,
+          {
+            cache: "no-store"
+          }
+        )
+
+      );
+
+      return;
+
+    }
+
+
+    /* =====================================================
+       MANIFEST
+    ===================================================== */
+
+    if (
+      requestURL.pathname.endsWith(
+        "/manifest.json"
+      )
+    ) {
+
+      event.respondWith(
+
+        fetch(
+          event.request,
+          {
+            cache: "no-store"
+          }
+        )
+
+      );
+
+      return;
+
+    }
+
+
+    /* =====================================================
+       HTML PAGES
+       Network first.
+    ===================================================== */
+
+    if (
+      event.request.mode ===
+        "navigate" ||
+      requestURL.pathname.endsWith(
+        ".html"
+      )
+    ) {
+
+      event.respondWith(
+
+        (async () => {
+
+          try {
+
+            const response =
+              await fetch(
+                event.request,
+                {
+                  cache: "no-store"
+                }
+              );
+
+            if (
+              response &&
+              response.ok
+            ) {
+
+              const cache =
+                await caches.open(
+                  CACHE_NAME
+                );
+
+              await cache.put(
+                event.request,
+                response.clone()
+              );
+
+            }
+
+            return response;
+
+          } catch (error) {
+
+            const cached =
+              await caches.match(
+                event.request
+              );
+
+            if (cached) {
+
+              return cached;
+
+            }
+
+            const home =
+              await caches.match(
+                "./index.html"
+              );
+
+            if (home) {
+
+              return home;
+
+            }
+
+            return new Response(
+              "Team Wolfpack is currently offline.",
+              {
+                status: 503,
+
+                headers: {
+                  "Content-Type":
+                    "text/plain"
+                }
+              }
+            );
+
+          }
+
+        })()
+
+      );
+
+      return;
+
+    }
+
+
+    /* =====================================================
+       IMAGES / STATIC FILES
+    ===================================================== */
 
     event.respondWith(
 
@@ -311,10 +618,9 @@ self.addEventListener("fetch", event => {
             await fetch(
               event.request,
               {
-                cache: "no-store"
+                cache: "no-cache"
               }
             );
-
 
           if (
             response &&
@@ -333,18 +639,14 @@ self.addEventListener("fetch", event => {
 
           }
 
-
           return response;
 
-
         } catch (error) {
-
 
           const cached =
             await caches.match(
               event.request
             );
-
 
           if (cached) {
 
@@ -352,30 +654,7 @@ self.addEventListener("fetch", event => {
 
           }
 
-
-          const home =
-            await caches.match(
-              "./index.html"
-            );
-
-
-          if (home) {
-
-            return home;
-
-          }
-
-
-          return new Response(
-            "Team Wolfpack is currently offline.",
-            {
-              status: 503,
-              headers: {
-                "Content-Type":
-                  "text/plain"
-              }
-            }
-          );
+          throw error;
 
         }
 
@@ -383,73 +662,5 @@ self.addEventListener("fetch", event => {
 
     );
 
-    return;
-
   }
-
-
-  /* =======================================
-     IMAGES / STATIC FILES
-  ======================================= */
-
-  event.respondWith(
-
-    (async () => {
-
-      try {
-
-        const response =
-          await fetch(
-            event.request,
-            {
-              cache: "no-cache"
-            }
-          );
-
-
-        if (
-          response &&
-          response.ok
-        ) {
-
-          const cache =
-            await caches.open(
-              CACHE_NAME
-            );
-
-          await cache.put(
-            event.request,
-            response.clone()
-          );
-
-        }
-
-
-        return response;
-
-
-      } catch (error) {
-
-
-        const cached =
-          await caches.match(
-            event.request
-          );
-
-
-        if (cached) {
-
-          return cached;
-
-        }
-
-
-        throw error;
-
-      }
-
-    })()
-
-  );
-
-});
+);
