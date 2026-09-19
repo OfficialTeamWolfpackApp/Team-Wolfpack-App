@@ -170,7 +170,7 @@ self.addEventListener(
 ========================================================= */
 
 const CACHE_NAME =
-  "team-wolfpack-v20";
+  "team-wolfpack-v21";
 
 
 /* =========================================================
@@ -180,6 +180,7 @@ const CACHE_NAME =
 const APP_FILES = [
   "./",
   "./index.html",
+   "./notifications.js",
   "./chat.html",
   "./fighters.html",
   "./mrs-wolfie.html",
