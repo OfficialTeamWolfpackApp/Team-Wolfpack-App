@@ -132,7 +132,10 @@ self.addEventListener(
   (event) => {
 
     event.notification.close();
-
+console.log(
+  "[Team Wolfpack] Notification clicked:",
+  event.notification.data
+);
     const targetURL =
       event.notification.data?.url ||
       "./index.html";
@@ -194,7 +197,7 @@ self.addEventListener(
 ========================================================= */
 
 const CACHE_NAME =
-  "team-wolfpack-v18";
+  "team-wolfpack-v19";
 
 
 /* =========================================================
