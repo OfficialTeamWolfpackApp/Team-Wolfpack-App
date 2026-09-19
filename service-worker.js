@@ -52,15 +52,7 @@ const messaging =
 /* =========================================================
    FIREBASE BACKGROUND MESSAGES
 ========================================================= */
-self.addEventListener(
-  "push",
-  (event) => {
-    console.log(
-      "[Team Wolfpack] RAW PUSH EVENT RECEIVED",
-      event
-    );
-  }
-);
+
 messaging.onBackgroundMessage(
   (payload) => {
 
