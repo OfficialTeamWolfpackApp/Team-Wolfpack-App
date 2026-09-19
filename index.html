@@ -108,8 +108,37 @@ body.menu-open{overflow:hidden}a{-webkit-tap-highlight-color:transparent}
 <div class="countdown"><div class="count-box"><div class="count-value" id="cdDays">--</div><div class="count-label">DAYS</div></div><div class="count-box"><div class="count-value" id="cdHours">--</div><div class="count-label">HRS</div></div><div class="count-box"><div class="count-value" id="cdMinutes">--</div><div class="count-label">MINS</div></div><div class="count-box"><div class="count-value" id="cdSeconds">--</div><div class="count-label">SECS</div></div></div>
 <a class="fight-button" href="fights.html">VIEW FIGHT DETAILS →</a></div><div class="fighter-name left"><strong id="heroFighterName">GREIG SLOAN</strong><span id="heroFighterTeam">TEAM SLOAN</span></div><div class="fighter-name right"><strong id="heroOpponentName">TBA</strong><span>OPPONENT</span></div></section>
 
-<nav class="quick-grid"><a class="quick-card" href="fights.html"><span class="quick-icon">♜</span>FIGHTS</a><a class="quick-card" href="fighters.html"><span class="quick-icon">♟</span>FIGHTERS</a><a class="quick-card" href="gallery.html"><span class="quick-icon">▣</span>GALLERY</a><a class="quick-card" href="chat.html"><span class="quick-icon">●</span>PACK CHAT</a></nav>
+<nav class="quick-grid">
+  <a class="quick-card" href="fights.html">
+    <span class="quick-icon">♜</span>
+    FIGHTS
+  </a>
 
+  <a class="quick-card" href="fighters.html">
+    <span class="quick-icon">♟</span>
+    FIGHTERS
+  </a>
+
+  <a class="quick-card" href="gallery.html">
+    <span class="quick-icon">▣</span>
+    GALLERY
+  </a>
+
+  <a class="quick-card" href="chat.html">
+    <span class="quick-icon">●</span>
+    PACK CHAT
+  </a>
+
+  <button
+    id="notificationButton"
+    class="quick-card"
+    type="button"
+    style="width:100%;cursor:pointer;font-family:inherit;"
+  >
+    <span class="quick-icon">🔔</span>
+    <span id="notificationButtonText">CHECKING NOTIFICATIONS...</span>
+  </button>
+</nav>
 <div class="section-heading"><div class="section-title"><span class="ice">NEXT</span> <span class="fire">UP</span></div><a class="section-link" href="fights.html">VIEW ALL FIGHTS →</a></div>
 <div class="next-list">
 <a class="next-item" href="fights.html"><div class="date-line"><span class="date-number">19</span><span class="date-month">SEP 2026</span></div><div class="next-fight-label">UPCOMING FIGHT</div><div class="next-name">GREIG SLOAN <span class="versus">VS</span> TBA</div><div class="next-meta">HAMPDEN PARK</div><div class="next-event">UNFINISHED BUSINESS</div></a>
@@ -219,5 +248,195 @@ const q=query(ref(database,"updates"),orderByChild("timestamp"),limitToLast(10))
 onValue(q,s=>{let a=[];s.forEach(c=>{let i=c.val();if(i&&i.published!==false)a.push(i)});a.sort((x,y)=>Number(y.timestamp||0)-Number(x.timestamp||0));render(a.slice(0,3));status.innerHTML='<span class="live-status-dot"></span>LIVE'},e=>{console.error(e);status.textContent="OFFLINE";box.innerHTML='<div class="live-error">LIVE UPDATES ARE CURRENTLY UNAVAILABLE</div>'});
 </script>
 <script>if("serviceWorker"in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("service-worker.js").catch(console.error));</script>
-<script type="module" src="./notifications.js"></script>  
+<script type="module" src="./notifications.js"></script>
+<script>
+(function(){
+
+  const button =
+    document.getElementById("notificationButton");
+
+  const buttonText =
+    document.getElementById("notificationButtonText");
+
+
+  if(
+    !button ||
+    !buttonText
+  ){
+    return;
+  }
+
+
+  async function waitForNotificationSystem(){
+
+    for(
+      let attempt = 0;
+      attempt < 50;
+      attempt++
+    ){
+
+      if(
+        window.TeamWolfpackNotifications &&
+        typeof window.TeamWolfpackNotifications.status === "function"
+      ){
+        return true;
+      }
+
+      await new Promise(
+        resolve => setTimeout(resolve,100)
+      );
+
+    }
+
+    return false;
+
+  }
+
+
+  async function updateNotificationButton(){
+
+    const available =
+      await waitForNotificationSystem();
+
+
+    if(!available){
+
+      buttonText.textContent =
+        "NOTIFICATIONS UNAVAILABLE";
+
+      button.disabled =
+        true;
+
+      return;
+
+    }
+
+
+    try{
+
+      const notificationStatus =
+        await window.TeamWolfpackNotifications.status();
+
+
+      if(
+        notificationStatus.permission === "granted" &&
+        notificationStatus.registered === true
+      ){
+
+        buttonText.textContent =
+          "NOTIFICATIONS ON";
+
+        return;
+
+      }
+
+
+      if(
+        notificationStatus.permission === "denied"
+      ){
+
+        buttonText.textContent =
+          "NOTIFICATIONS BLOCKED";
+
+        return;
+
+      }
+
+
+      buttonText.textContent =
+        "ENABLE NOTIFICATIONS";
+
+
+    }catch(error){
+
+      console.error(
+        "Could not check Team Wolfpack notification status:",
+        error
+      );
+
+      buttonText.textContent =
+        "ENABLE NOTIFICATIONS";
+
+    }
+
+  }
+
+
+  button.addEventListener(
+    "click",
+    async function(){
+
+      const available =
+        await waitForNotificationSystem();
+
+
+      if(!available){
+        return;
+      }
+
+
+      button.disabled =
+        true;
+
+      buttonText.textContent =
+        "SETTING UP...";
+
+
+      try{
+
+        const result =
+          await window.TeamWolfpackNotifications.enable();
+
+
+        if(
+          result &&
+          result.registered === true
+        ){
+
+          buttonText.textContent =
+            "NOTIFICATIONS ON";
+
+        }else{
+
+          await updateNotificationButton();
+
+        }
+
+
+      }catch(error){
+
+        console.error(
+          "Team Wolfpack notifications could not be enabled:",
+          error
+        );
+
+        await updateNotificationButton();
+
+      }finally{
+
+        button.disabled =
+          false;
+
+      }
+
+    }
+  );
+
+
+  window.addEventListener(
+    "teamWolfpackNotificationRegistered",
+    updateNotificationButton
+  );
+
+
+  window.addEventListener(
+    "focus",
+    updateNotificationButton
+  );
+
+
+  updateNotificationButton();
+
+})();
+</script>  
 </body></html>
