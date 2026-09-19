@@ -219,4 +219,5 @@ const q=query(ref(database,"updates"),orderByChild("timestamp"),limitToLast(10))
 onValue(q,s=>{let a=[];s.forEach(c=>{let i=c.val();if(i&&i.published!==false)a.push(i)});a.sort((x,y)=>Number(y.timestamp||0)-Number(x.timestamp||0));render(a.slice(0,3));status.innerHTML='<span class="live-status-dot"></span>LIVE'},e=>{console.error(e);status.textContent="OFFLINE";box.innerHTML='<div class="live-error">LIVE UPDATES ARE CURRENTLY UNAVAILABLE</div>'});
 </script>
 <script>if("serviceWorker"in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("service-worker.js").catch(console.error));</script>
+<script type="module" src="./notifications.js"></script>  
 </body></html>
