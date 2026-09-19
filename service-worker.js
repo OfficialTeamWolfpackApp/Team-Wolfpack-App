@@ -151,64 +151,9 @@ self.addEventListener(
       ).href;
 
     event.waitUntil(
-      (async () => {
-
-        const clientList =
-          await clients.matchAll({
-            type: "window",
-            includeUncontrolled: true
-          });
-
-        /*
-          If the app is already open, navigate that
-          window to the notification destination.
-        */
-
-        for (const client of clientList) {
-
-          if ("navigate" in client) {
-
-            try {
-
-              await client.navigate(
-                absoluteURL
-              );
-
-              if ("focus" in client) {
-
-                await client.focus();
-
-              }
-
-              return;
-
-            } catch (error) {
-
-              console.warn(
-                "[Team Wolfpack] Could not navigate existing window:",
-                error
-              );
-
-            }
-
-          }
-
-        }
-
-        /*
-          If no Team Wolfpack window is open,
-          open the notification destination.
-        */
-
-        if (clients.openWindow) {
-
-          await clients.openWindow(
-            absoluteURL
-          );
-
-        }
-
-      })()
+      clients.openWindow(
+        absoluteURL
+      )
     );
 
   }
