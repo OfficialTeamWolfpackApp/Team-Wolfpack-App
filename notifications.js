@@ -146,9 +146,13 @@ async function getTeamWolfpackServiceWorker() {
 
 
   serviceWorkerRegistration =
-    await navigator.serviceWorker.register(
-      "./service-worker.js"
-    );
+  await navigator.serviceWorker.register(
+    "./service-worker.js",
+    {
+      updateViaCache:
+        "none"
+    }
+  );
 
 
   await navigator.serviceWorker.ready;
