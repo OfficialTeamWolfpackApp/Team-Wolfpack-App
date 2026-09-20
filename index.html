@@ -231,14 +231,163 @@ function applyNextFight(f){
   const t=fightTime(f);
   if(Number.isFinite(t)&&t<Number.MAX_SAFE_INTEGER)fightTarget=new Date(t);
 }
+  
+function renderNextUp(fights){
+
+  const nextUpList =
+    document.getElementById("nextUpList");
+
+  if(!nextUpList){
+    return;
+  }
+
+  if(!fights.length){
+
+    nextUpList.innerHTML =
+      '<div class="live-empty">NO UPCOMING FIGHTS CURRENTLY SCHEDULED</div>';
+
+    return;
+  }
+
+  nextUpList.innerHTML =
+    fights
+      .slice(0,3)
+      .map(f=>{
+
+        const fighterName =
+          firstValue(
+            f.fighterName,
+            f.fighter,
+            "TBA"
+          );
+
+        const opponentName =
+          firstValue(
+            f.opponentName,
+            f.opponent,
+            "TBA"
+          );
+
+        const venue =
+          firstValue(
+            f.venue,
+            "VENUE TBA"
+          );
+
+        const eventName =
+          firstValue(
+            f.eventName,
+            f.event,
+            f.fightType,
+            "FIGHT NIGHT"
+          );
+
+        let dateNumber = "TBA";
+        let dateMonth = "";
+
+        if(f.date){
+
+          const parts =
+            String(f.date).split("-");
+
+          if(parts.length === 3){
+
+            const d =
+              new Date(
+                Number(parts[0]),
+                Number(parts[1]) - 1,
+                Number(parts[2])
+              );
+
+            if(!Number.isNaN(d.getTime())){
+
+              dateNumber =
+                String(
+                  d.getDate()
+                ).padStart(2,"0");
+
+              dateMonth =
+                d.toLocaleDateString(
+                  "en-GB",
+                  {
+                    month:"short",
+                    year:"numeric"
+                  }
+                ).toUpperCase();
+
+            }
+
+          }
+
+        }else if(f.displayDate){
+
+          dateNumber =
+            String(f.displayDate).toUpperCase();
+
+        }
+
+        const label =
+          String(
+            firstValue(
+              f.fightType,
+              "UPCOMING FIGHT"
+            )
+          ).toUpperCase();
+
+        return `
+          <a class="next-item" href="fights.html">
+
+            <div class="date-line">
+              <span class="date-number">${esc(dateNumber)}</span>
+              <span class="date-month">${esc(dateMonth)}</span>
+            </div>
+
+            <div class="next-fight-label">
+              ${esc(label)}
+            </div>
+
+            <div class="next-name">
+              ${esc(String(fighterName).toUpperCase())}
+              <span class="versus">VS</span>
+              ${esc(String(opponentName).toUpperCase())}
+            </div>
+
+            <div class="next-meta">
+              ${esc(String(venue).toUpperCase())}
+            </div>
+
+            <div class="next-event">
+              ${esc(String(eventName).toUpperCase())}
+            </div>
+
+          </a>
+        `;
+
+      })
+      .join("");
+
+}
+  
 onValue(ref(database,"fights"),snapshot=>{
   const fights=[];
   snapshot.forEach(child=>{
     const f=child.val();
-    if(f&&String(f.status||"upcoming").toLowerCase()==="upcoming")fights.push(f);
+  if(
+  f &&
+  String(f.status || "")
+    .trim()
+    .toLowerCase() === "upcoming"
+){
+  fights.push(f);
+}
   });
-  fights.sort((a,b)=>fightTime(a)-fightTime(b));
-  if(fights.length)applyNextFight(fights[0]);
+ fights.sort((a,b)=>fightTime(a)-fightTime(b));
+
+if(fights.length){
+  applyNextFight(fights[0]);
+}
+
+renderNextUp(fights);
 },error=>console.error("Next fight could not be loaded:",error));
 
 const box=document.getElementById("homeLiveUpdates"),status=document.getElementById("homeLiveStatus");
