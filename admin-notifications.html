@@ -724,7 +724,46 @@ select option{
 .history-admin{
   color:#ff751c;
 }
+.history-delete{
+  min-width:72px;
 
+  padding:
+    7px
+    10px;
+
+  border:
+    1px solid rgba(255,90,0,.45);
+
+  border-radius:8px;
+
+  cursor:pointer;
+
+  color:#ff7957;
+
+  background:
+    rgba(255,60,0,.08);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.4px;
+}
+
+.history-delete:hover{
+  border-color:#ff751c;
+
+  background:
+    rgba(255,90,0,.16);
+}
+
+.history-delete:disabled{
+  cursor:not-allowed;
+  opacity:.45;
+}
 
 /* =========================
    NAVIGATION
@@ -1198,7 +1237,10 @@ const firebaseConfig = {
 const NOTIFICATION_URL =
   "https://europe-west1-team-wolfpack-app.cloudfunctions.net/" +
   "sendTeamWolfpackNotification";
-
+  
+const DELETE_HISTORY_URL =
+  "https://europe-west1-team-wolfpack-app.cloudfunctions.net/" +
+  "deleteTeamWolfpackNotificationHistory";
 
 /* =========================
    ADMINS
@@ -1647,18 +1689,25 @@ function renderHistory(snapshot){
 
             </div>
 
-            <div class="history-footer">
+           <div class="history-footer">
 
-              <span>
-                SENT BY
-              </span>
+  <div>
+    SENT BY
+    <span class="history-admin">
+      ${admin}
+    </span>
+  </div>
 
-              <span class="history-admin">
-                ${admin}
-              </span>
+  <button
+    class="history-delete"
+    type="button"
+    data-history-id="${documentSnapshot.id}"
+    data-history-title="${title}"
+  >
+    DELETE
+  </button>
 
-            </div>
-
+</div>
           </div>
         `;
 
@@ -1767,7 +1816,174 @@ function startHistoryListener(){
 
 }
 
+/* =========================
+   DELETE HISTORY
+========================= */
 
+historyList.addEventListener(
+  "click",
+  async function(event){
+
+    const deleteButton =
+      event.target.closest(
+        ".history-delete"
+      );
+
+    if(
+      !deleteButton ||
+      !currentAdmin
+    ){
+      return;
+    }
+
+
+    const historyId =
+      deleteButton.dataset.historyId;
+
+    const historyTitle =
+      deleteButton.dataset.historyTitle ||
+      "this notification";
+
+
+    if(
+      !historyId
+    ){
+      return;
+    }
+
+
+    const confirmed =
+      window.confirm(
+        "DELETE NOTIFICATION HISTORY?\n\n" +
+        historyTitle +
+        "\n\n" +
+        "This permanently removes this notification history record.\n\n" +
+        "This cannot be undone."
+      );
+
+
+    if(
+      !confirmed
+    ){
+      return;
+    }
+
+
+    deleteButton.disabled =
+      true;
+
+
+    deleteButton.textContent =
+      "DELETING...";
+
+
+    try{
+
+      const idToken =
+        await getIdToken(
+          currentAdmin,
+          true
+        );
+
+
+      const response =
+        await fetch(
+          DELETE_HISTORY_URL,
+          {
+            method:
+              "POST",
+
+            headers:{
+              "Content-Type":
+                "application/json",
+
+              "Authorization":
+                "Bearer " +
+                idToken
+            },
+
+            body:
+              JSON.stringify({
+                historyId:
+                  historyId
+              })
+          }
+        );
+
+
+      let result =
+        null;
+
+
+      try{
+
+        result =
+          await response.json();
+
+      }catch(error){
+
+        result =
+          null;
+
+      }
+
+
+      if(
+        !response.ok ||
+        !result ||
+        result.success !== true
+      ){
+
+        const errorCode =
+          result &&
+          result.error ?
+            result.error :
+            "UNKNOWN_ERROR";
+
+
+        throw new Error(
+          errorCode
+        );
+
+      }
+
+
+      /*
+        No manual removal is needed here.
+
+        The existing Firestore onSnapshot
+        listener will automatically remove
+        the deleted record from the screen.
+      */
+
+    }catch(error){
+
+      console.error(
+        "Notification history delete failed:",
+        error
+      );
+
+
+      alert(
+        "DELETE FAILED.\n\n" +
+        "The notification history record could not be deleted.\n\n" +
+        "Error: " +
+        error.message
+      );
+
+
+      deleteButton.disabled =
+        false;
+
+
+      deleteButton.textContent =
+        "DELETE";
+
+    }
+
+  }
+);
+  
 /* =========================
    EVENTS
 ========================= */
