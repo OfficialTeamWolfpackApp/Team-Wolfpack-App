@@ -2478,11 +2478,12 @@ VISIT OFFICIAL WEBSITE
 
 <!-- NEXT FIGHT -->
 
-<section class="next-fight">
+<section id="nextFightCard" class="next-fight">
 
-<div class="fighter-side left">
+<div id="nextFightLeft" class="fighter-side left">
 
 <img
+  id="nextFightImage"
   src="greig-sloan.jpg"
   class="fighter-photo"
   alt="Greig Sloan"
@@ -2490,7 +2491,7 @@ VISIT OFFICIAL WEBSITE
 
 </div>
 
-<div class="fighter-side right">
+<div id="nextFightRight" class="fighter-side right">
 </div>
 
 <div class="fight-centre">
@@ -2499,10 +2500,10 @@ VISIT OFFICIAL WEBSITE
 NEXT FIGHT
 </div>
 
-<div class="promotion">
+<div id="nextFightPromotion" class="promotion">
 FSG PROMOTIONS
 
-<span class="promotion-small">
+<span id="nextFightEvent" class="promotion-small">
 UNFINISHED BUSINESS
 </span>
 
@@ -2512,7 +2513,7 @@ UNFINISHED BUSINESS
 VS
 </div>
 
-<div class="fight-details">
+<div id="nextFightDetails" class="fight-details">
 
 <div class="fight-detail">
 19 SEPTEMBER 2026
@@ -2525,6 +2526,7 @@ HAMPDEN PARK
 </div>
 
 <a
+  id="nextFightButton"
   class="fight-button"
   href="fights.html"
   onclick="gtag('event','home_next_fight_click',{
@@ -2541,7 +2543,7 @@ VIEW FIGHT DETAILS →
 
 <div class="fighter-name left">
 
-<strong>
+<strong id="nextFightFighter">
 GREIG SLOAN
 </strong>
 
@@ -2554,7 +2556,7 @@ TEAM SLOAN
 
 <div class="fighter-name right">
 
-<strong>
+<strong id="nextFightOpponent">
 TBA
 </strong>
 
@@ -2585,7 +2587,7 @@ VIEW ALL FIGHTS →
 </div>
 
 
-<div class="next-list">
+<div id="nextUpList" class="next-list">
 
 
 <!-- FIGHT 1 -->
@@ -3053,6 +3055,247 @@ onAuthStateChanged(
 
     }
 
+  }
+);
+
+
+
+/* =========================================
+   DYNAMIC HOME FIGHTS
+========================================= */
+
+const nextFightImage = document.getElementById("nextFightImage");
+const nextFightPromotion = document.getElementById("nextFightPromotion");
+const nextFightEvent = document.getElementById("nextFightEvent");
+const nextFightDetails = document.getElementById("nextFightDetails");
+const nextFightFighter = document.getElementById("nextFightFighter");
+const nextFightOpponent = document.getElementById("nextFightOpponent");
+const nextFightButton = document.getElementById("nextFightButton");
+const nextUpList = document.getElementById("nextUpList");
+
+function fightTime(f){
+  const timestamp = Number(f.dateTimestamp || 0);
+  if(timestamp){
+    return timestamp;
+  }
+
+  const value = f.date || f.fightDate || "";
+  if(value){
+    const parsed = new Date(value).getTime();
+    if(!Number.isNaN(parsed)){
+      return parsed;
+    }
+  }
+
+  return Number.MAX_SAFE_INTEGER;
+}
+
+function fightDisplayDate(f){
+  if(f.displayDate){
+    return String(f.displayDate).toUpperCase();
+  }
+
+  const value = f.date || f.fightDate || "";
+  if(!value){
+    return "DATE TBA";
+  }
+
+  const parsed = new Date(value + (String(value).length === 10 ? "T12:00:00" : ""));
+  if(Number.isNaN(parsed.getTime())){
+    return String(value).toUpperCase();
+  }
+
+  return parsed.toLocaleDateString("en-GB",{
+    day:"numeric",
+    month:"long",
+    year:"numeric"
+  }).toUpperCase();
+}
+
+function dateBoxParts(f){
+  const value = f.date || f.fightDate || "";
+
+  if(value){
+    const parsed = new Date(value + (String(value).length === 10 ? "T12:00:00" : ""));
+    if(!Number.isNaN(parsed.getTime())){
+      return {
+        top:String(parsed.getDate()).padStart(2,"0"),
+        bottom:parsed.toLocaleDateString("en-GB",{month:"short"}).toUpperCase()
+      };
+    }
+  }
+
+  const display = String(f.displayDate || "TBA").toUpperCase();
+  const yearMatch = display.match(/\b(20\d{2})\b/);
+  const monthMatch = display.match(/\b(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|SEPT|OCT|NOV|DEC)[A-Z]*\b/);
+
+  return {
+    top:monthMatch ? monthMatch[1] : "TBA",
+    bottom:yearMatch ? yearMatch[1] : ""
+  };
+}
+
+function fighterName(f){
+  return String(
+    f.fighterName ||
+    f.fighter ||
+    (f.fighterId === "mrs-wolfie" ? "MRS WOLFIE" : "") ||
+    (f.fighterId === "greig-sloan" ? "GREIG SLOAN" : "") ||
+    "TEAM WOLFPACK"
+  ).toUpperCase();
+}
+
+function fighterTeam(f){
+  return String(
+    f.fighterTeam ||
+    f.team ||
+    (f.fighterId === "mrs-wolfie" ? "TEAM WOLFIE" : "") ||
+    (f.fighterId === "greig-sloan" ? "TEAM SLOAN" : "") ||
+    "TEAM WOLFPACK"
+  ).toUpperCase();
+}
+
+function fighterImage(f){
+  return (
+    f.fighterImage ||
+    f.image ||
+    (f.images && (f.images.fighter || f.images.left)) ||
+    (f.fighterId === "mrs-wolfie" ? "zoey-james.jpg" : "") ||
+    (f.fighterId === "greig-sloan" ? "greig-sloan.jpg" : "") ||
+    ""
+  );
+}
+
+function renderNextFight(f){
+  if(!f){
+    return;
+  }
+
+  const name = fighterName(f);
+  const opponent = String(f.opponent || f.opponentName || "TBA").toUpperCase();
+  const promotion = String(f.promotion || f.promoter || "TEAM WOLFPACK").toUpperCase();
+  const eventName = String(f.event || f.eventName || f.title || "UPCOMING FIGHT").toUpperCase();
+  const venue = String(f.venue || f.location || "VENUE TBA").toUpperCase();
+  const image = fighterImage(f);
+
+  if(nextFightImage && image){
+    nextFightImage.src = image;
+    nextFightImage.alt = name;
+  }
+
+  if(nextFightPromotion){
+    nextFightPromotion.childNodes[0].nodeValue = promotion + "\n";
+  }
+
+  if(nextFightEvent){
+    nextFightEvent.textContent = eventName;
+  }
+
+  if(nextFightDetails){
+    nextFightDetails.innerHTML = `
+      <div class="fight-detail">${fightDisplayDate(f)}</div>
+      <div class="fight-detail">${venue}</div>
+    `;
+  }
+
+  if(nextFightFighter){
+    nextFightFighter.textContent = name;
+  }
+
+  if(nextFightOpponent){
+    nextFightOpponent.textContent = opponent;
+  }
+
+  if(nextFightButton){
+    nextFightButton.onclick = function(){
+      gtag("event","home_next_fight_click",{
+        fighter:name,
+        opponent:opponent,
+        event:eventName
+      });
+    };
+  }
+}
+
+function renderNextUp(fights){
+  if(!nextUpList){
+    return;
+  }
+
+  if(!fights.length){
+    nextUpList.innerHTML = `
+      <div class="live-empty">
+        NO UPCOMING FIGHTS AVAILABLE
+      </div>
+    `;
+    return;
+  }
+
+  nextUpList.innerHTML = fights.slice(0,3).map(function(f){
+    const name = fighterName(f);
+    const opponent = String(f.opponent || f.opponentName || "TBA").toUpperCase();
+    const venue = String(f.venue || f.location || "VENUE TBA").toUpperCase();
+    const eventName = String(f.event || f.eventName || f.title || "UPCOMING FIGHT").toUpperCase();
+    const parts = dateBoxParts(f);
+
+    return `
+      <a class="next-item" href="fights.html">
+        <div class="date-box">
+          <div class="date-number">${escapeHTML(parts.top)}</div>
+          <div class="date-month">${escapeHTML(parts.bottom)}</div>
+        </div>
+
+        <div class="next-info">
+          <div class="next-fight-label">UPCOMING FIGHT</div>
+
+          <div class="next-name">
+            ${escapeHTML(name)}
+            <span class="versus">VS</span>
+            ${escapeHTML(opponent)}
+          </div>
+
+          <div class="next-meta">${escapeHTML(venue)}</div>
+          <div class="next-event">${escapeHTML(eventName)}</div>
+        </div>
+
+        <div class="next-arrow">›</div>
+      </a>
+    `;
+  }).join("");
+}
+
+const fightsRef = ref(database,"fights");
+
+onValue(
+  fightsRef,
+  function(snapshot){
+    const fights = [];
+
+    snapshot.forEach(function(childSnapshot){
+      const f = childSnapshot.val();
+
+      if(
+        f &&
+        String(f.status || "")
+          .trim()
+          .toLowerCase() === "upcoming"
+      ){
+        fights.push({
+          id:childSnapshot.key,
+          ...f
+        });
+      }
+    });
+
+    fights.sort(function(a,b){
+      return fightTime(a) - fightTime(b);
+    });
+
+    renderNextFight(fights[0] || null);
+    renderNextUp(fights);
+  },
+  function(error){
+    console.error("Home fights:",error);
   }
 );
 
