@@ -731,7 +731,23 @@ body.menu-open{
 
   line-height:1.15;
 }
+  
+.update-image{
+  display:block;
+  width:100%;
+  max-height:460px;
+  margin:14px 0;
 
+  object-fit:cover;
+
+  border-radius:12px;
+
+  border:
+    1px solid rgba(255,255,255,.10);
+
+  background:#050505;
+}
+  
 .update-message{
   margin:0;
 
@@ -1623,7 +1639,12 @@ function renderUpdates(){
         document.createElement(
           "h2"
         );
-
+      
+const message =
+  document.createElement(
+    "p"
+  );
+      
       title.className =
         "update-title";
 
@@ -1632,7 +1653,30 @@ function renderUpdates(){
           update.title
         );
 
+const image =
+  document.createElement(
+    "img"
+  );
 
+if(update.image){
+
+  image.className =
+    "update-image";
+
+  image.src =
+    safeText(update.image);
+
+  image.alt =
+    safeText(
+      update.title ||
+      "Team Wolfpack update"
+    );
+
+  image.loading =
+    "lazy";
+
+}
+      
       const message =
         document.createElement(
           "p"
@@ -1647,15 +1691,20 @@ function renderUpdates(){
         );
 
 
-      card.appendChild(top);
-      card.appendChild(title);
-      card.appendChild(message);
+card.appendChild(top);
+card.appendChild(title);
+
+if(update.image){
+  card.appendChild(image);
+}
+
+card.appendChild(message);
 
 
-      if(
-        update.fighter ||
-        update.location
-      ){
+     if(
+  update.fighter ||
+  update.venue
+){
 
         const meta =
           document.createElement(
@@ -1690,9 +1739,9 @@ function renderUpdates(){
         }
 
 
-        if(
-          update.location
-        ){
+       if(
+  update.venue
+){
 
           const location =
             document.createElement(
@@ -1704,7 +1753,7 @@ function renderUpdates(){
 
           location.textContent =
             safeText(
-              update.location
+             update.venue
             );
 
           meta.appendChild(
