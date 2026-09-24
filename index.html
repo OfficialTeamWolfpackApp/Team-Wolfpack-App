@@ -2001,6 +2001,124 @@ body.menu-open{
       rgba(255,90,0,.12)
     );
 }
+
+/* =========================================
+   OUR TEAMS
+========================================= */
+
+.our-teams-card{
+  margin-top:16px;
+  padding:18px;
+
+  border-radius:15px;
+
+  border:
+    1px solid rgba(255,255,255,.13);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0,150,210,.11),
+      rgba(7,7,7,.97) 48%,
+      rgba(255,90,0,.10)
+    );
+
+  box-shadow:
+    0 9px 24px rgba(0,0,0,.28);
+}
+
+.our-teams-label{
+  color:#67dcff;
+
+  font-size:6px;
+  font-weight:900;
+  letter-spacing:1.5px;
+}
+
+.our-teams-title{
+  margin-top:6px;
+
+  color:#fff;
+
+  font-size:15px;
+  font-weight:900;
+}
+
+.our-teams-grid{
+  display:flex;
+  flex-direction:column;
+
+  gap:8px;
+
+  margin-top:14px;
+}
+
+.our-team-link{
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  min-height:58px;
+
+  padding:10px 13px;
+
+  border-radius:9px;
+
+  border:
+    1px solid rgba(255,255,255,.12);
+
+  background:rgba(0,0,0,.28);
+
+  color:#fff;
+
+  text-decoration:none;
+}
+
+.our-team-link > span:first-child{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.our-team-link strong{
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.7px;
+}
+
+.our-team-link small{
+  color:#888;
+
+  font-size:6px;
+  font-weight:900;
+  letter-spacing:.6px;
+}
+
+.our-team-link.wolfie{
+  border-left:3px solid #45d8ff;
+}
+
+.our-team-link.wolfie strong{
+  color:#67dcff;
+}
+
+.our-team-link.sloan{
+  border-left:3px solid #ff701c;
+}
+
+.our-team-link.sloan strong{
+  color:#ff9b59;
+}
+
+.our-team-link:hover{
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,150,210,.14),
+      rgba(255,90,0,.12)
+    );
+}
   
 /* =========================================
    FOOTER
@@ -3026,7 +3144,49 @@ QUICK ACCESS
 </div>
 
 </section>
+  
+<!-- OUR TEAMS -->
 
+<section class="our-teams-card">
+
+<div class="our-teams-label">
+MEET OUR FIGHTERS
+</div>
+
+<div class="our-teams-title">
+OUR TEAMS
+</div>
+
+<div class="our-teams-grid">
+
+<a
+  href="mrs-wolfie.html"
+  class="our-team-link wolfie"
+>
+  <span>
+    <strong>TEAM WOLFIE</strong>
+    <small>MRS WOLFIE</small>
+  </span>
+
+  <span>→</span>
+</a>
+
+<a
+  href="greig-sloan.html"
+  class="our-team-link sloan"
+>
+  <span>
+    <strong>TEAM SLOAN</strong>
+    <small>GREIG SLOAN</small>
+  </span>
+
+  <span>→</span>
+</a>
+
+</div>
+
+</section>
+  
 </div>
 
 </div>
