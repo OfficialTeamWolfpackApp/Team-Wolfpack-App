@@ -786,6 +786,28 @@ Choose a JPG, PNG or WEBP image for this update.
   id="image"
   type="hidden"
 >
+<div
+  id="imagePreviewWrap"
+  style="
+    display:none;
+    margin-top:12px;
+  "
+>
+
+  <img
+    id="imagePreview"
+    alt="Post image preview"
+    style="
+      display:block;
+      width:100%;
+      height:auto;
+      max-height:420px;
+      object-fit:contain;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,.12);
+      background:#050505;
+    "
+  >
 
 </div>
   
@@ -974,6 +996,12 @@ const imageFileInput =
 
 const imageStatus =
   document.getElementById("imageStatus");
+
+const imagePreviewWrap =
+  document.getElementById("imagePreviewWrap");
+
+const imagePreview =
+  document.getElementById("imagePreview");
   
 const publishButton =
   document.getElementById("publishButton");
@@ -1024,6 +1052,37 @@ function escapeHTML(value){
     .replaceAll("'","&#039;");
 
 }
+imageFileInput.addEventListener(
+  "change",
+  function(){
+
+    const file =
+      imageFileInput.files[0];
+
+    if(!file){
+
+      imagePreview.removeAttribute("src");
+
+      imagePreviewWrap.style.display =
+        "none";
+
+      return;
+    }
+
+    const previewURL =
+      URL.createObjectURL(file);
+
+    imagePreview.src =
+      previewURL;
+
+    imagePreviewWrap.style.display =
+      "block";
+
+    imageStatus.textContent =
+      "IMAGE READY TO UPLOAD";
+  }
+);
+  
 async function uploadPostImage(){
 
   const file =
@@ -1387,9 +1446,10 @@ published:
 
 
       updateForm.reset();
-imageInput.value =
-  "";
-
+imageInput.value = "";
+imagePreview.removeAttribute("src");
+imagePreviewWrap.style.display = "none";
+      
 imageFileInput.value =
   "";
 
