@@ -3342,7 +3342,15 @@ onValue(
     });
 
     renderNextFight(fights[0] || null);
-    renderNextUp(fights);
+renderNextUp(fights);
+
+const nextFightCard =
+  document.getElementById("nextFightCard");
+
+if(nextFightCard && fights.length){
+  nextFightCard.style.visibility = "visible";
+}
+    
   },
   function(error){
     console.error("Home fights:",error);
