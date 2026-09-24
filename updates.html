@@ -1836,32 +1836,26 @@ onValue(
 
           }
         )
-        .sort(
-          function(a,b){
+      .sort(
+  function(a, b){
 
-            const aTime =
-              Number(
-                a.timestamp
-              ) ||
-              new Date(
-                a.date || 0
-              ).getTime();
+    const aTime =
+      new Date(
+        a.date || 0
+      ).getTime();
 
-            const bTime =
-              Number(
-                b.timestamp
-              ) ||
-              new Date(
-                b.date || 0
-              ).getTime();
+    const bTime =
+      new Date(
+        b.date || 0
+      ).getTime();
 
-            return (
-              bTime -
-              aTime
-            );
+    return (
+      bTime -
+      aTime
+    );
 
-          }
-        );
+  }
+);
 
 
     renderUpdates();
