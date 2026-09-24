@@ -1,592 +1,3395 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
+<!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-M973P0B4F0"></script>
+
 <script>
-window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}
-gtag("js",new Date());gtag("config","G-M973P0B4F0");
-window.addEventListener("load",()=>gtag("event","home_page_view",{section:"Home"}));
+window.dataLayer = window.dataLayer || [];
+
+function gtag(){
+  dataLayer.push(arguments);
+}
+
+gtag("js", new Date());
+gtag("config", "G-M973P0B4F0");
+
+window.addEventListener("load", function(){
+  gtag("event", "home_page_view", {
+    section:"Home"
+  });
+});
 </script>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
+
 <meta name="theme-color" content="#050505">
 <meta name="apple-mobile-web-app-title" content="Team Wolfpack">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
 <title>TEAM WOLFPACK</title>
+
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
-body{min-height:100dvh;padding-top:calc(66px + env(safe-area-inset-top));color:#fff;font-family:Arial,Helvetica,sans-serif;overflow-x:hidden;background:radial-gradient(circle at 0 18%,rgba(0,191,255,.16),transparent 30%),radial-gradient(circle at 100% 48%,rgba(255,90,0,.16),transparent 34%),linear-gradient(135deg,#02090d,#050505 48%,#140702)}
-body.menu-open{overflow:hidden}a{-webkit-tap-highlight-color:transparent}
-.app-bar{position:fixed;top:0;left:0;right:0;z-index:500;height:calc(66px + env(safe-area-inset-top));padding:env(safe-area-inset-top) 15px 0;display:grid;grid-template-columns:46px 1fr 64px;align-items:center;background:rgba(4,4,4,.97);border-bottom:1px solid rgba(255,255,255,.1);backdrop-filter:blur(18px);box-shadow:0 8px 30px rgba(0,0,0,.38)}
-.menu-button{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid rgba(103,220,255,.22);background:rgba(0,150,210,.07);color:#67dcff;cursor:pointer;font-size:24px}
-.app-bar-brand{display:flex;align-items:center;justify-content:center;gap:9px;min-width:0}.app-bar-logo{width:34px;height:34px;object-fit:contain}
-.app-bar-title{font-size:11px;font-weight:900;letter-spacing:1.8px;background:linear-gradient(90deg,#67dcff,#eafaff 48%,#ff751c);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.app-status{justify-self:end;display:inline-flex;align-items:center;gap:5px;padding:7px 8px;border:1px solid rgba(67,242,123,.18);border-radius:20px;color:#77f39a;font-size:6px;font-weight:900;letter-spacing:1px;background:rgba(67,242,123,.05)}
-.app-status-dot{width:7px;height:7px;border-radius:50%;background:#43f27b;box-shadow:0 0 9px rgba(67,242,123,.75)}
-.menu-backdrop{position:fixed;inset:0;z-index:800;visibility:hidden;opacity:0;background:rgba(0,0,0,.72);backdrop-filter:blur(3px);transition:.25s}.menu-backdrop.show{visibility:visible;opacity:1}
-.side-menu{position:fixed;left:0;top:0;bottom:0;z-index:900;width:min(84vw,340px);transform:translateX(-105%);transition:transform .28s;overflow-y:auto;padding:calc(18px + env(safe-area-inset-top)) 15px calc(25px + env(safe-area-inset-bottom));background:radial-gradient(circle at 0 10%,rgba(0,190,255,.16),transparent 30%),radial-gradient(circle at 100% 80%,rgba(255,90,0,.16),transparent 34%),#080808;border-right:1px solid rgba(103,220,255,.2);box-shadow:20px 0 50px rgba(0,0,0,.55)}.side-menu.show{transform:none}
-.menu-header{position:relative;padding:10px 45px 21px 5px;border-bottom:1px solid rgba(255,255,255,.09)}.menu-logo{width:72px;height:72px;object-fit:contain;margin-bottom:10px}
-.menu-brand{font-size:18px;font-weight:900;letter-spacing:1px;background:linear-gradient(90deg,#67dcff,#fff 50%,#ff751c);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.menu-tagline{margin-top:5px;color:#999;font-size:8px;font-weight:900;letter-spacing:2px}
-.close-menu{position:absolute;right:0;top:5px;width:38px;height:38px;border-radius:10px;border:1px solid rgba(255,117,28,.25);background:rgba(255,90,0,.07);color:#ff751c;font-size:21px}
-.menu-section-label{margin:20px 8px 8px;color:#666;font-size:7px;font-weight:900;letter-spacing:2px}.menu-nav{display:flex;flex-direction:column;gap:4px}
-.menu-link{display:flex;align-items:center;min-height:48px;padding:9px 11px;border-radius:10px;text-decoration:none;color:#d7d7d7;border:1px solid transparent;font-size:10px;font-weight:900}.menu-link.active{color:#67dcff;border-color:rgba(103,220,255,.22);background:rgba(0,160,220,.08)}.menu-link.chat{background:linear-gradient(90deg,rgba(0,160,220,.08),rgba(255,90,0,.08))}.menu-icon{width:34px;text-align:center;color:#67dcff;font-size:17px}.menu-arrow{margin-left:auto;color:#666;font-size:16px}
-#adminMenuSection{display:none}.admin-menu-link{color:#ffb05d;background:linear-gradient(90deg,rgba(255,90,0,.09),rgba(0,160,220,.05))}
-.menu-website{display:block;margin-top:12px;padding:14px;text-align:center;text-decoration:none;border-radius:10px;border:1px solid rgba(103,220,255,.28);background:linear-gradient(90deg,rgba(0,160,220,.09),rgba(255,90,0,.09));color:#fff;font-size:8px;font-weight:900;letter-spacing:1px}
-.home-banner{width:100%;overflow:hidden;background:#020202;border-bottom:1px solid rgba(255,255,255,.1)}.home-banner-image{display:block;width:100%;height:auto;max-height:none}.main{width:100%;max-width:980px;margin:auto;padding:14px 14px calc(45px + env(safe-area-inset-bottom))}
 
-/* Redesigned NEXT FIGHT */
-.next-fight{position:relative;overflow:hidden;min-height:480px;border-radius:22px;border:1px solid rgba(255,255,255,.15);background:#050505;box-shadow:0 18px 45px rgba(0,0,0,.5)}
-.next-fight:before{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(90deg,rgba(0,185,250,.23),rgba(0,0,0,.2) 29%,rgba(0,0,0,.9) 46%,rgba(0,0,0,.9) 54%,rgba(0,0,0,.25) 72%,rgba(255,90,0,.25));pointer-events:none}
-.next-fight:after{content:"";position:absolute;inset:0;z-index:9;box-shadow:inset 4px 0 #38d5ff,inset -4px 0 #ff6a14;pointer-events:none}
-.fighter-side{position:absolute;top:0;bottom:0;width:50%;overflow:hidden}
-.fighter-side.left{left:0}
-.fighter-side.right{right:0;background:radial-gradient(circle at 62% 38%,rgba(255,90,0,.2),transparent 30%),linear-gradient(145deg,#080808,#111 48%,#210a02)}
-.fighter-photo{width:100%;height:100%;object-fit:cover;object-position:38% 16%;transform:scale(.96);transform-origin:center bottom}
-.fighter-side.left:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,125,190,.06),rgba(0,0,0,.08) 45%,rgba(0,0,0,.92))}
-.opponent-silhouette{position:absolute;left:50%;bottom:2%;transform:translateX(-50%);width:76%;height:94%;opacity:.78;filter:grayscale(1) brightness(.52) contrast(1.3) sepia(.15);object-fit:contain;object-position:center top;z-index:1}
-.fighter-side.right:after{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(270deg,rgba(255,90,0,.12),rgba(0,0,0,.04) 42%,rgba(0,0,0,.68))}
-.tba-badge{position:absolute;z-index:4;left:50%;top:36%;transform:translate(-50%,-50%);width:116px;height:116px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:50%;border:1px solid rgba(255,117,28,.38);background:rgba(0,0,0,.55);box-shadow:0 0 34px rgba(255,90,0,.12),inset 0 0 22px rgba(255,90,0,.06)}
-.tba-badge strong{font-size:24px;color:#ffad70;letter-spacing:2px}.tba-badge span{margin-top:5px;color:#888;font-size:6px;font-weight:900;letter-spacing:2px}
-.fight-centre{position:relative;z-index:7;min-height:480px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:25px 18px 112px;pointer-events:none}
-.fight-centre:before{content:"";position:absolute;top:48%;left:50%;width:min(410px,54vw);height:350px;transform:translate(-50%,-54%);border-radius:50%;background:radial-gradient(ellipse,rgba(0,0,0,.96),rgba(0,0,0,.72) 48%,transparent 78%);z-index:-1}
-.next-label{display:inline-flex;align-items:center;gap:8px;color:#63dcff;font-size:8px;font-weight:900;letter-spacing:4px}.next-label:before,.next-label:after{content:"";width:28px;height:1px;background:currentColor;opacity:.55}
-.promotion{margin-top:9px;font-size:clamp(18px,5vw,29px);font-weight:900;text-shadow:0 3px 18px #000}.promotion-small{display:block;margin-top:4px;font-size:10px;font-style:italic;letter-spacing:1.5px;color:#ddd}
-.vs{margin-top:7px;font-size:clamp(43px,11vw,66px);line-height:1;font-weight:900;font-style:italic;background:linear-gradient(90deg,#5fdcff,#fff 48%,#ff6d19);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 5px 12px rgba(0,0,0,.75))}
-.fight-details{margin-top:12px;display:flex;flex-direction:column;gap:6px}.fight-detail{font-size:9px;font-weight:900;letter-spacing:1px}
-.countdown{margin-top:14px;display:grid;grid-template-columns:repeat(4,56px);gap:6px;pointer-events:auto}.count-box{padding:8px 4px;border-radius:8px;border:1px solid rgba(255,255,255,.14);background:rgba(3,3,3,.86);box-shadow:0 7px 16px rgba(0,0,0,.25)}.count-value{font-size:16px;font-weight:900}.count-label{margin-top:3px;color:#777;font-size:5px;font-weight:900}
-.fight-button{margin-top:13px;padding:10px 22px;border-radius:8px;border:1px solid rgba(103,220,255,.55);background:linear-gradient(90deg,rgba(0,165,225,.18),rgba(20,20,20,.8),rgba(255,95,0,.18));color:#fff;text-decoration:none;font-size:7px;font-weight:900;pointer-events:auto}
-.fighter-name{position:absolute;bottom:23px;z-index:8;width:46%;text-align:center}.fighter-name.left{left:2%}.fighter-name.right{right:2%}.fighter-name strong{display:block;font-size:clamp(18px,5vw,29px);font-weight:900}.fighter-name.left strong{color:#86e7ff}.fighter-name.right strong{color:#ffad70}.fighter-name span{display:block;margin-top:4px;color:#ccc;font-size:7px;font-weight:900;letter-spacing:2px}
-.quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:13px}.quick-card{min-height:84px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-decoration:none;color:#fff;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(145deg,rgba(0,170,230,.1),rgba(8,8,8,.96) 52%,rgba(255,90,0,.1));font-size:7px;font-weight:900;letter-spacing:1px}.quick-icon{font-size:22px;color:#67dcff}.quick-card:nth-child(even) .quick-icon{color:#ff8b42}
-.section-heading{display:flex;align-items:center;justify-content:space-between;margin:27px 3px 12px}.section-title{font-size:11px;font-weight:900;letter-spacing:2px}.section-link{color:#ff751c;font-size:7px;font-weight:900;text-decoration:none}.ice{color:#67dcff}.fire{color:#ff751c}
-.next-list{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.next-item{position:relative;overflow:hidden;min-height:145px;padding:14px;text-decoration:none;color:#fff;border-radius:15px;border:1px solid rgba(255,255,255,.13);background:linear-gradient(145deg,rgba(0,150,210,.13),rgba(7,7,7,.97) 48%,rgba(255,90,0,.12))}.next-item:before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:#45d8ff}.next-item:after{content:"";position:absolute;right:0;top:0;bottom:0;width:3px;background:#ff701c}.date-line{display:flex;align-items:baseline;gap:6px}.date-number{font-size:26px;font-weight:900}.date-month{color:#67dcff;font-size:8px;font-weight:900}.next-fight-label{margin-top:12px;color:#67dcff;font-size:6px;font-weight:900}.next-name{margin-top:5px;font-size:11px;font-weight:900}.versus{color:#777;font-size:7px}.next-meta{margin-top:7px;color:#aaa;font-size:7px}.next-event{margin-top:4px;color:#ff9b59;font-size:6px;font-weight:900}
-.fighter-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}.home-fighter-card{position:relative;overflow:hidden;min-height:270px;border-radius:17px;text-decoration:none;color:#fff;border:1px solid rgba(255,255,255,.14);background:#080808}.home-fighter-card:first-child{border-left:3px solid #45d8ff}.home-fighter-card:last-child{border-right:3px solid #ff701c}.home-fighter-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.92}
-.home-fighter-card:first-child .home-fighter-image{object-position:center 18%}.home-fighter-card:last-child .home-fighter-image{object-position:center 20%}
-.home-fighter-card:after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(0deg,rgba(0,0,0,.98),rgba(0,0,0,.84) 23%,rgba(0,0,0,.26) 58%,transparent 80%)}.home-fighter-info{position:absolute;z-index:3;left:16px;bottom:16px}.home-fighter-name{font-size:19px;font-weight:900}.home-fighter-team{display:inline-flex;margin-top:7px;padding:4px 8px;border-radius:5px;font-size:7px;font-weight:900}.home-fighter-card:first-child .home-fighter-team{color:#7ce4ff;background:rgba(0,145,205,.18)}.home-fighter-card:last-child .home-fighter-team{color:#ff9b59;background:rgba(190,55,0,.18)}
-.home-live-updates{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.home-update-card{position:relative;overflow:hidden;min-height:155px;padding:16px;border-radius:15px;border:1px solid rgba(255,255,255,.13);background:linear-gradient(145deg,rgba(0,150,210,.13),rgba(7,7,7,.97) 48%,rgba(255,90,0,.12))}.home-update-top{display:flex;justify-content:space-between;gap:8px}.home-update-type{padding:5px 7px;border-radius:5px;color:#67dcff;border:1px solid rgba(103,220,255,.28);font-size:5px;font-weight:900}.home-update-type.result,.home-update-type.announcement{color:#ff9b59}.home-update-date{color:#888;font-size:6px}.home-update-title{margin-top:10px;font-size:14px;font-weight:900}.home-update-message{margin-top:7px;color:#999;font-size:8px;line-height:1.5}.home-update-meta{display:flex;gap:10px;margin-top:9px;color:#67dcff;font-size:6px;font-weight:900}.home-update-meta .venue{color:#ff9b59}
-.live-loading,.live-empty,.live-error{grid-column:1/-1;min-height:90px;display:flex;align-items:center;justify-content:center;padding:20px;border-radius:15px;border:1px solid rgba(255,255,255,.1);background:#080808;color:#777;font-size:8px;font-weight:900}.live-error{color:#ff9b59}.live-status{display:inline-flex;align-items:center;gap:6px;margin-left:8px;color:#67dcff;font-size:6px}.live-status-dot{width:6px;height:6px;border-radius:50%;background:#67dcff}.live-all-button{display:flex;align-items:center;justify-content:center;min-height:42px;margin-top:11px;padding:11px;border-radius:9px;text-decoration:none;color:#fff;border:1px solid rgba(103,220,255,.3);background:linear-gradient(90deg,rgba(0,160,220,.12),rgba(255,90,0,.12));font-size:7px;font-weight:900}
-.external-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px;margin-top:27px}.website-card{padding:20px;border-radius:16px;border:1px solid rgba(103,220,255,.2);background:linear-gradient(110deg,rgba(0,160,220,.1),rgba(8,8,8,.94) 50%,rgba(255,90,0,.13))}.website-label{color:#67dcff;font-size:7px;font-weight:900;letter-spacing:2px}.website-title{margin-top:7px;font-size:15px;font-weight:900}.website-text{margin-top:6px;color:#888;font-size:9px;line-height:1.5}.website-button{display:flex;align-items:center;justify-content:center;min-height:44px;margin-top:14px;padding:12px;border-radius:9px;text-decoration:none;color:#fff;border:1px solid rgba(103,220,255,.35);background:linear-gradient(90deg,rgba(0,160,220,.14),rgba(255,90,0,.14));font-size:8px;font-weight:900}.website-address{margin-top:10px;text-align:center;color:#666;font-size:7px}
-.app-footer{margin-top:30px;padding-top:20px;border-top:1px solid rgba(255,255,255,.07);text-align:center;color:#777;font-size:7px;font-weight:900}.copyright{text-align:center;margin-top:17px;padding:17px;color:#f1fbff;font-size:8px;font-weight:900}
-@media(max-width:700px){.next-list,.home-live-updates,.external-grid{grid-template-columns:1fr}.next-item{min-height:110px}}
-@media(max-width:520px){.main{padding-left:10px;padding-right:10px}.next-fight,.fight-centre{min-height:445px}.fight-centre{padding-left:7px;padding-right:7px}.countdown{grid-template-columns:repeat(4,46px);gap:4px}.fighter-photo{object-position:34% 16%;transform:scale(1)}.opponent-silhouette{width:90%;height:92%;bottom:4%;opacity:.7}.tba-badge{width:90px;height:90px;top:35%}.tba-badge strong{font-size:18px}.fighter-name strong{font-size:16px}.quick-grid{grid-template-columns:repeat(2,1fr)}.fighter-grid{gap:8px}.home-fighter-card{min-height:205px}.home-fighter-name{font-size:15px}}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  min-height:100vh;
+  min-height:100dvh;
+
+  padding-top:calc(66px + env(safe-area-inset-top));
+
+  color:#fff;
+
+  font-family:Arial,Helvetica,sans-serif;
+
+  overflow-x:hidden;
+
+  background:
+    radial-gradient(
+      circle at 0% 20%,
+      rgba(0,190,255,.17),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 100% 55%,
+      rgba(255,85,0,.18),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #02090d 0%,
+      #050505 48%,
+      #140702 100%
+    );
+}
+
+body.menu-open{
+  overflow:hidden;
+}
+
+
+/* =========================================
+   APP BAR
+========================================= */
+
+.app-bar{
+  position:fixed;
+
+  top:0;
+  left:0;
+  right:0;
+
+  z-index:500;
+
+  height:calc(66px + env(safe-area-inset-top));
+
+  padding:
+    env(safe-area-inset-top)
+    15px
+    0;
+
+  display:grid;
+
+  grid-template-columns:46px 1fr 46px;
+
+  align-items:center;
+
+  background:rgba(4,4,4,.97);
+
+  border-bottom:
+    1px solid rgba(255,255,255,.10);
+
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+
+  box-shadow:
+    0 8px 30px rgba(0,0,0,.38);
+}
+
+.menu-button{
+  width:42px;
+  height:42px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  border-radius:12px;
+
+  border:
+    1px solid rgba(103,220,255,.22);
+
+  background:rgba(0,150,210,.07);
+
+  color:#67dcff;
+
+  cursor:pointer;
+
+  font-size:24px;
+}
+
+.app-bar-brand{
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  gap:9px;
+
+  min-width:0;
+}
+
+.app-bar-logo{
+  width:34px;
+  height:34px;
+
+  object-fit:contain;
+}
+
+.app-bar-title{
+  overflow:hidden;
+
+  white-space:nowrap;
+
+  text-overflow:ellipsis;
+
+  font-size:11px;
+
+  font-weight:900;
+
+  letter-spacing:1.8px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #67dcff,
+      #eafaff 48%,
+      #ff751c
+    );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  background-clip:text;
+}
+
+.app-status{
+  width:42px;
+  height:42px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+}
+
+.app-status-dot{
+  width:8px;
+  height:8px;
+
+  border-radius:50%;
+
+  background:#43f27b;
+
+  box-shadow:
+    0 0 9px rgba(67,242,123,.75);
+}
+
+
+/* =========================================
+   MENU BACKDROP
+========================================= */
+
+.menu-backdrop{
+  position:fixed;
+
+  inset:0;
+
+  z-index:800;
+
+  visibility:hidden;
+
+  opacity:0;
+
+  background:rgba(0,0,0,.72);
+
+  backdrop-filter:blur(3px);
+  -webkit-backdrop-filter:blur(3px);
+
+  transition:
+    opacity .25s ease,
+    visibility .25s ease;
+}
+
+.menu-backdrop.show{
+  visibility:visible;
+  opacity:1;
+}
+
+
+/* =========================================
+   SIDE MENU
+========================================= */
+
+.side-menu{
+  position:fixed;
+
+  left:0;
+  top:0;
+  bottom:0;
+
+  z-index:900;
+
+  width:min(84vw,340px);
+
+  transform:translateX(-105%);
+
+  transition:transform .28s ease;
+
+  overflow-y:auto;
+
+  overscroll-behavior:contain;
+
+  padding:
+    calc(18px + env(safe-area-inset-top))
+    15px
+    calc(25px + env(safe-area-inset-bottom));
+
+  background:
+    radial-gradient(
+      circle at 0% 10%,
+      rgba(0,190,255,.16),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 100% 80%,
+      rgba(255,90,0,.16),
+      transparent 34%
+    ),
+    #080808;
+
+  border-right:
+    1px solid rgba(103,220,255,.20);
+
+  box-shadow:
+    20px 0 50px rgba(0,0,0,.55);
+}
+
+.side-menu.show{
+  transform:translateX(0);
+}
+
+.menu-header{
+  position:relative;
+
+  padding:
+    10px
+    45px
+    21px
+    5px;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.09);
+}
+
+.menu-logo{
+  width:72px;
+  height:72px;
+
+  object-fit:contain;
+
+  margin-bottom:10px;
+}
+
+.menu-brand{
+  font-size:18px;
+
+  font-weight:900;
+
+  letter-spacing:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #67dcff,
+      #fff 50%,
+      #ff751c
+    );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  background-clip:text;
+}
+
+.menu-tagline{
+  margin-top:5px;
+
+  color:#999;
+
+  font-size:8px;
+
+  font-weight:900;
+
+  letter-spacing:2px;
+}
+
+.close-menu{
+  position:absolute;
+
+  right:0;
+  top:5px;
+
+  width:38px;
+  height:38px;
+
+  border-radius:10px;
+
+  border:
+    1px solid rgba(255,117,28,.25);
+
+  background:rgba(255,90,0,.07);
+
+  color:#ff751c;
+
+  cursor:pointer;
+
+  font-size:21px;
+}
+
+.menu-section-label{
+  margin:20px 8px 8px;
+
+  color:#666;
+
+  font-size:7px;
+
+  font-weight:900;
+
+  letter-spacing:2px;
+}
+
+.menu-nav{
+  display:flex;
+
+  flex-direction:column;
+
+  gap:4px;
+}
+
+.menu-link{
+  display:flex;
+
+  align-items:center;
+
+  min-height:48px;
+
+  padding:9px 11px;
+
+  border-radius:10px;
+
+  text-decoration:none;
+
+  color:#d7d7d7;
+
+  border:1px solid transparent;
+
+  font-size:10px;
+
+  font-weight:900;
+
+  letter-spacing:.5px;
+}
+
+.menu-link:active{
+  transform:scale(.985);
+}
+
+.menu-link.active{
+  color:#67dcff;
+
+  border-color:
+    rgba(103,220,255,.22);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,160,220,.12),
+      rgba(0,160,220,.03)
+    );
+}
+
+.menu-link.chat{
+  color:#fff;
+
+  border-color:
+    rgba(103,220,255,.15);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,160,220,.08),
+      rgba(255,90,0,.08)
+    );
+}
+
+.menu-icon{
+  width:34px;
+
+  flex:0 0 34px;
+
+  text-align:center;
+
+  color:#67dcff;
+
+  font-size:17px;
+}
+
+.menu-link.active .menu-icon{
+  color:#ff751c;
+}
+
+.menu-arrow{
+  margin-left:auto;
+
+  color:#666;
+
+  font-size:16px;
+}
+
+
+/* =========================================
+   ADMIN MENU
+========================================= */
+
+#adminMenuSection{
+  display:none;
+}
+
+.admin-menu-link{
+  color:#ffb05d;
+
+  border-color:
+    rgba(255,117,28,.22);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,90,0,.09),
+      rgba(0,160,220,.05)
+    );
+}
+
+.admin-menu-link .menu-icon{
+  color:#ff751c;
+}
+
+.menu-website{
+  display:block;
+
+  margin-top:19px;
+
+  padding:14px;
+
+  text-align:center;
+
+  text-decoration:none;
+
+  border-radius:10px;
+
+  border:
+    1px solid rgba(103,220,255,.28);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,160,220,.09),
+      rgba(255,90,0,.09)
+    );
+
+  color:#fff;
+
+  font-size:8px;
+
+  font-weight:900;
+
+  letter-spacing:1px;
+}
+
+
+/* =========================================
+   TEAM WOLFPACK HOME BANNER
+========================================= */
+
+.home-banner{
+  position:relative;
+
+  width:100%;
+
+  overflow:hidden;
+
+  background:#020202;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.10);
+
+  box-shadow:
+    0 12px 35px rgba(0,0,0,.35);
+}
+
+.home-banner-image{
+  display:block;
+
+  width:100%;
+  height:auto;
+
+  max-height:360px;
+
+  object-fit:cover;
+  object-position:center;
+
+  margin:0 auto;
+}
+
+
+/* =========================================
+   HOME CONTENT
+========================================= */
+
+.main{
+  width:100%;
+
+  max-width:920px;
+
+  margin:auto;
+
+  padding:
+    14px
+    14px
+    calc(45px + env(safe-area-inset-bottom));
+}
+
+
+/* =========================================
+   NEXT FIGHT
+========================================= */
+
+.next-fight{
+  position:relative;
+
+  overflow:hidden;
+
+  min-height:430px;
+
+  border-radius:20px;
+
+  border:
+    1px solid rgba(255,255,255,.14);
+
+  background:#050505;
+
+  box-shadow:
+    0 18px 45px rgba(0,0,0,.50);
+}
+
+.next-fight::before{
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,180,245,.18) 0%,
+      rgba(0,0,0,.12) 23%,
+      rgba(0,0,0,.45) 37%,
+      rgba(0,0,0,.88) 46%,
+      rgba(0,0,0,.94) 50%,
+      rgba(0,0,0,.88) 54%,
+      rgba(0,0,0,.45) 63%,
+      rgba(0,0,0,.12) 77%,
+      rgba(255,90,0,.20) 100%
+    );
+
+  z-index:2;
+
+  pointer-events:none;
+}
+
+.next-fight::after{
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  border-radius:20px;
+
+  box-shadow:
+    inset 4px 0 0 #38d5ff,
+    inset -4px 0 0 #ff6a14,
+    inset 0 0 28px rgba(0,0,0,.42);
+
+  z-index:7;
+
+  pointer-events:none;
+}
+
+.fighter-side{
+  position:absolute;
+
+  top:0;
+  bottom:0;
+
+  width:50%;
+
+  overflow:hidden;
+
+  background:#050505;
+}
+
+.fighter-side.left{
+  left:0;
+}
+
+.fighter-side.right{
+  right:0;
+}
+
+.fighter-photo{
+  width:100%;
+  height:100%;
+
+  display:block;
+
+  object-fit:cover;
+
+  filter:
+    contrast(1.04)
+    saturate(.98);
+}
+
+.fighter-side.left .fighter-photo{
+  object-position:42% 18%;
+}
+
+.fighter-side.right .fighter-photo{
+  object-position:50% 28%;
+}
+
+.fighter-side.left::after{
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,125,190,.07),
+      rgba(0,0,0,.04) 47%,
+      rgba(0,0,0,.82) 100%
+    );
+}
+
+.fighter-side.right::after{
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+    linear-gradient(
+      270deg,
+      rgba(210,60,0,.08),
+      rgba(0,0,0,.04) 47%,
+      rgba(0,0,0,.82) 100%
+    );
+}
+
+.fight-centre{
+  position:relative;
+
+  z-index:6;
+
+  min-height:430px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+  justify-content:center;
+
+  text-align:center;
+
+  padding:
+    28px
+    20px
+    102px;
+
+  pointer-events:none;
+}
+
+.fight-centre::before{
+  content:"";
+
+  position:absolute;
+
+  top:50%;
+  left:50%;
+
+  width:min(360px,48vw);
+
+  height:295px;
+
+  transform:translate(-50%,-54%);
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(0,0,0,.80) 0%,
+      rgba(0,0,0,.58) 43%,
+      rgba(0,0,0,.16) 72%,
+      transparent 100%
+    );
+
+  filter:blur(6px);
+
+  pointer-events:none;
+
+  z-index:-1;
+}
+
+.next-label{
+  color:#63dcff;
+
+  font-size:9px;
+
+  font-weight:900;
+
+  letter-spacing:4px;
+
+  text-shadow:
+    0 2px 10px #000;
+}
+
+.promotion{
+  margin-top:10px;
+
+  font-size:clamp(17px,5vw,27px);
+
+  font-weight:900;
+
+  line-height:1.05;
+
+  text-shadow:
+    0 3px 15px #000,
+    0 0 12px rgba(0,0,0,.85);
+}
+
+.promotion-small{
+  display:block;
+
+  margin-top:3px;
+
+  color:#eee;
+
+  font-size:11px;
+
+  font-style:italic;
+
+  letter-spacing:1px;
+
+  text-shadow:
+    0 2px 8px #000;
+}
+
+.vs{
+  margin-top:14px;
+
+  font-size:clamp(38px,12vw,62px);
+
+  font-weight:900;
+
+  font-style:italic;
+
+  line-height:1;
+
+  background:
+    linear-gradient(
+      90deg,
+      #5fdcff,
+      #fff 48%,
+      #ff6d19
+    );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  background-clip:text;
+
+  filter:
+    drop-shadow(0 3px 8px rgba(0,0,0,.95))
+    drop-shadow(0 0 13px rgba(0,170,255,.25));
+}
+
+.fight-details{
+  margin-top:16px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+  gap:7px;
+}
+
+.fight-detail{
+  color:#f7f7f7;
+
+  font-size:10px;
+
+  font-weight:900;
+
+  letter-spacing:.8px;
+
+  text-shadow:
+    0 2px 8px #000,
+    0 0 5px #000;
+}
+
+.fight-button{
+  margin-top:16px;
+
+  display:inline-flex;
+
+  align-items:center;
+  justify-content:center;
+
+  min-height:40px;
+
+  padding:10px 24px;
+
+  border-radius:8px;
+
+  border:
+    1px solid rgba(103,220,255,.55);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,165,225,.18),
+      rgba(20,20,20,.72),
+      rgba(255,95,0,.18)
+    );
+
+  color:#fff;
+
+  text-decoration:none;
+
+  font-size:8px;
+
+  font-weight:900;
+
+  letter-spacing:1.2px;
+
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+
+  box-shadow:
+    0 5px 18px rgba(0,0,0,.35);
+
+  pointer-events:auto;
+}
+
+.fighter-name{
+  position:absolute;
+
+  bottom:23px;
+
+  z-index:8;
+
+  width:46%;
+
+  text-align:center;
+
+  text-shadow:
+    0 3px 13px #000;
+}
+
+.fighter-name.left{
+  left:2%;
+}
+
+.fighter-name.right{
+  right:2%;
+}
+
+.fighter-name strong{
+  display:block;
+
+  font-size:clamp(19px,5vw,30px);
+
+  font-weight:900;
+}
+
+.fighter-name.left strong{
+  color:#86e7ff;
+}
+
+.fighter-name.right strong{
+  color:#ffad70;
+}
+
+.fighter-name span{
+  display:block;
+
+  margin-top:4px;
+
+  color:#ccc;
+
+  font-size:7px;
+
+  font-weight:900;
+
+  letter-spacing:2px;
+}
+
+
+/* =========================================
+   SECTION TITLES
+========================================= */
+
+.section-heading{
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  margin:
+    27px
+    3px
+    12px;
+}
+
+.section-title{
+  color:#fff;
+
+  font-size:11px;
+
+  font-weight:900;
+
+  letter-spacing:2px;
+}
+
+.section-link{
+  color:#ff751c;
+
+  font-size:7px;
+
+  font-weight:900;
+
+  letter-spacing:1px;
+
+  text-decoration:none;
+}
+
+
+/* =========================================
+   THE PACK - FIGHTER CARDS
+========================================= */
+
+.fighter-grid{
+  display:grid;
+
+  grid-template-columns:repeat(2,1fr);
+
+  gap:11px;
+}
+
+.home-fighter-card{
+  position:relative;
+
+  overflow:hidden;
+
+  min-height:190px;
+
+  border-radius:16px;
+
+  text-decoration:none;
+
+  color:#fff;
+
+  border:
+    1px solid rgba(255,255,255,.14);
+
+  background:#080808;
+
+  box-shadow:
+    0 10px 28px rgba(0,0,0,.32);
+
+  transition:
+    transform .18s ease,
+    border-color .18s ease;
+}
+
+.home-fighter-card:active{
+  transform:scale(.98);
+}
+
+.home-fighter-card:first-child{
+  border-left:
+    3px solid #45d8ff;
+
+  box-shadow:
+    inset 3px 0 14px rgba(0,190,255,.12),
+    0 10px 28px rgba(0,0,0,.32);
+}
+
+.home-fighter-card:last-child{
+  border-right:
+    3px solid #ff701c;
+
+  box-shadow:
+    inset -3px 0 14px rgba(255,90,0,.12),
+    0 10px 28px rgba(0,0,0,.32);
+}
+
+.home-fighter-image{
+  position:absolute;
+
+  inset:0;
+
+  width:100%;
+  height:100%;
+
+  display:block;
+
+  object-fit:cover;
+
+  opacity:.90;
+}
+
+.home-fighter-card:first-child .home-fighter-image{
+  object-position:center 28%;
+}
+
+.home-fighter-card:last-child .home-fighter-image{
+  object-position:center 32%;
+}
+
+.home-fighter-card::after{
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  z-index:1;
+
+  background:
+    linear-gradient(
+      0deg,
+      rgba(0,0,0,.98) 0%,
+      rgba(0,0,0,.90) 20%,
+      rgba(0,0,0,.60) 39%,
+      rgba(0,0,0,.16) 64%,
+      transparent 82%
+    );
+
+  pointer-events:none;
+}
+
+.home-fighter-card:first-child::before{
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  z-index:1;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,180,245,.13),
+      transparent 48%
+    );
+
+  pointer-events:none;
+}
+
+.home-fighter-card:last-child::before{
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  z-index:1;
+
+  background:
+    linear-gradient(
+      270deg,
+      rgba(255,90,0,.13),
+      transparent 48%
+    );
+
+  pointer-events:none;
+}
+
+.home-fighter-info{
+  position:absolute;
+
+  z-index:3;
+
+  left:14px;
+  right:14px;
+  bottom:14px;
+}
+
+.home-fighter-name{
+  color:#fff;
+
+  font-size:16px;
+
+  font-weight:900;
+
+  line-height:1.05;
+
+  letter-spacing:.3px;
+
+  text-shadow:
+    0 2px 6px #000,
+    0 0 12px rgba(0,0,0,.9);
+}
+
+.home-fighter-team{
+  display:inline-flex;
+
+  align-items:center;
+
+  margin-top:7px;
+
+  padding:4px 8px;
+
+  border-radius:5px;
+
+  font-size:8px;
+
+  font-weight:900;
+
+  letter-spacing:1.2px;
+
+  text-shadow:
+    0 1px 4px #000;
+}
+
+.home-fighter-card:first-child .home-fighter-team{
+  color:#7ce4ff;
+
+  border:
+    1px solid rgba(69,216,255,.28);
+
+  background:
+    rgba(0,145,205,.18);
+}
+
+.home-fighter-card:last-child .home-fighter-team{
+  color:#ff9b59;
+
+  border:
+    1px solid rgba(255,112,28,.30);
+
+  background:
+    rgba(190,55,0,.18);
+}
+
+
+/* =========================================
+   NEXT UP - FIGHT EVENT CARDS
+========================================= */
+
+.next-list{
+  display:flex;
+
+  flex-direction:column;
+
+  gap:11px;
+}
+
+.next-item{
+  position:relative;
+
+  display:grid;
+
+  grid-template-columns:
+    72px
+    minmax(0,1fr)
+    32px;
+
+  align-items:stretch;
+
+  min-height:86px;
+
+  overflow:hidden;
+
+  border-radius:15px;
+
+  border:
+    1px solid rgba(255,255,255,.13);
+
+  background:
+    linear-gradient(
+      100deg,
+      rgba(0,150,210,.14) 0%,
+      rgba(7,7,7,.97) 35%,
+      rgba(7,7,7,.97) 68%,
+      rgba(255,90,0,.12) 100%
+    );
+
+  text-decoration:none;
+
+  color:#fff;
+
+  box-shadow:
+    0 9px 24px rgba(0,0,0,.28);
+
+  transition:
+    transform .18s ease,
+    border-color .18s ease,
+    box-shadow .18s ease;
+}
+
+.next-item::before{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  top:0;
+  bottom:0;
+
+  width:3px;
+
+  background:#45d8ff;
+
+  box-shadow:
+    0 0 12px rgba(69,216,255,.42);
+}
+
+.next-item::after{
+  content:"";
+
+  position:absolute;
+
+  right:0;
+  top:0;
+  bottom:0;
+
+  width:3px;
+
+  background:#ff701c;
+
+  box-shadow:
+    0 0 12px rgba(255,112,28,.42);
+}
+
+.next-item:active{
+  transform:scale(.985);
+}
+
+.date-box{
+  position:relative;
+
+  height:100%;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+  justify-content:center;
+
+  padding:10px 5px;
+
+  border-right:
+    1px solid rgba(103,220,255,.18);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0,175,235,.16),
+      rgba(0,90,135,.05)
+    );
+}
+
+.date-number{
+  color:#fff;
+
+  font-size:24px;
+
+  font-weight:900;
+
+  line-height:1;
+}
+
+.date-month{
+  margin-top:6px;
+
+  color:#67dcff;
+
+  font-size:8px;
+
+  font-weight:900;
+
+  letter-spacing:1.4px;
+}
+
+.next-info{
+  min-width:0;
+
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:center;
+
+  padding:
+    13px
+    11px;
+}
+
+.next-fight-label{
+  margin-bottom:5px;
+
+  color:#67dcff;
+
+  font-size:6px;
+
+  font-weight:900;
+
+  letter-spacing:1.6px;
+}
+
+.next-name{
+  color:#fff;
+
+  font-size:12px;
+
+  font-weight:900;
+
+  line-height:1.2;
+}
+
+.next-name .versus{
+  color:#777;
+
+  padding:
+    0
+    3px;
+
+  font-size:8px;
+}
+
+.next-meta{
+  margin-top:6px;
+
+  color:#aaa;
+
+  font-size:8px;
+
+  font-weight:700;
+
+  line-height:1.4;
+}
+
+.next-event{
+  margin-top:4px;
+
+  color:#ff9b59;
+
+  font-size:7px;
+
+  font-weight:900;
+
+  letter-spacing:.7px;
+}
+
+.next-arrow{
+  position:relative;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  color:#ff751c;
+
+  font-size:24px;
+
+  font-weight:400;
+
+  border-left:
+    1px solid rgba(255,117,28,.10);
+}
+
+
+/* =========================================
+   LIVE UPDATES
+========================================= */
+
+.home-live-updates{
+  display:flex;
+  flex-direction:column;
+  gap:11px;
+}
+
+.home-update-card{
+  position:relative;
+  overflow:hidden;
+
+  padding:17px 18px;
+
+  border-radius:15px;
+
+  border:
+    1px solid rgba(255,255,255,.13);
+
+  background:
+    linear-gradient(
+      100deg,
+      rgba(0,150,210,.14) 0%,
+      rgba(7,7,7,.97) 35%,
+      rgba(7,7,7,.97) 68%,
+      rgba(255,90,0,.12) 100%
+    );
+
+  box-shadow:
+    0 9px 24px rgba(0,0,0,.28);
+}
+
+.home-update-card::before{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  top:0;
+  bottom:0;
+
+  width:3px;
+
+  background:#45d8ff;
+
+  box-shadow:
+    0 0 12px rgba(69,216,255,.42);
+}
+
+.home-update-card::after{
+  content:"";
+
+  position:absolute;
+
+  right:0;
+  top:0;
+  bottom:0;
+
+  width:3px;
+
+  background:#ff701c;
+
+  box-shadow:
+    0 0 12px rgba(255,112,28,.42);
+}
+
+.home-update-image-wrap{
+  margin:-17px -18px 14px;
+  overflow:hidden;
+  border-bottom:1px solid rgba(255,255,255,.10);
+  background:#050505;
+}
+
+.home-update-image{
+  display:block;
+  width:100%;
+  height:150px;
+  object-fit:contain;
+  background:#050505;
+}
+
+.home-update-top{
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:10px;
+}
+
+.home-update-type{
+  display:inline-flex;
+
+  align-items:center;
+
+  padding:5px 8px;
+
+  border-radius:5px;
+
+  color:#67dcff;
+
+  border:
+    1px solid rgba(103,220,255,.28);
+
+  background:
+    rgba(0,145,205,.13);
+
+  font-size:6px;
+
+  font-weight:900;
+
+  letter-spacing:1.4px;
+}
+
+.home-update-type.result,
+.home-update-type.announcement{
+  color:#ff9b59;
+
+  border-color:
+    rgba(255,117,28,.28);
+
+  background:
+    rgba(255,90,0,.12);
+}
+
+.home-update-type.fight{
+  color:#fff;
+
+  border-color:
+    rgba(103,220,255,.25);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,145,205,.15),
+      rgba(255,90,0,.15)
+    );
+}
+
+.home-update-date{
+  color:#888;
+
+  font-size:7px;
+
+  font-weight:900;
+
+  letter-spacing:.5px;
+}
+
+.home-update-title{
+  margin-top:10px;
+
+  color:#fff;
+
+  font-size:15px;
+
+  font-weight:900;
+
+  line-height:1.15;
+}
+
+.home-update-message{
+  margin-top:7px;
+
+  color:#999;
+
+  font-size:9px;
+
+  line-height:1.5;
+}
+
+.home-update-meta{
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:6px 12px;
+
+  margin-top:9px;
+
+  color:#67dcff;
+
+  font-size:7px;
+
+  font-weight:900;
+
+  letter-spacing:.5px;
+}
+
+.home-update-meta .venue{
+  color:#ff9b59;
+}
+
+.live-loading,
+.live-empty,
+.live-error{
+  min-height:90px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  padding:20px;
+
+  text-align:center;
+
+  border-radius:15px;
+
+  border:
+    1px solid rgba(255,255,255,.10);
+
+  background:
+    rgba(8,8,8,.78);
+
+  color:#777;
+
+  font-size:8px;
+
+  font-weight:900;
+
+  letter-spacing:1px;
+}
+
+.live-error{
+  color:#ff9b59;
+}
+
+.live-status{
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:6px;
+
+  margin-left:8px;
+
+  color:#67dcff;
+
+  font-size:6px;
+
+  font-weight:900;
+
+  letter-spacing:1px;
+}
+
+.live-status-dot{
+  width:6px;
+  height:6px;
+
+  border-radius:50%;
+
+  background:#67dcff;
+
+  box-shadow:
+    0 0 8px rgba(103,220,255,.75);
+}
+
+.live-all-button{
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  min-height:42px;
+
+  margin-top:11px;
+
+  padding:11px;
+
+  border-radius:9px;
+
+  text-decoration:none;
+
+  color:#fff;
+
+  border:
+    1px solid rgba(103,220,255,.30);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,160,220,.12),
+      rgba(255,90,0,.12)
+    );
+
+  font-size:7px;
+
+  font-weight:900;
+
+  letter-spacing:1px;
+}
+
+
+/* =========================================
+   WEBSITE
+========================================= */
+
+.website-card{
+  position:relative;
+
+  overflow:hidden;
+
+  margin-top:26px;
+
+  padding:19px;
+
+  border-radius:15px;
+
+  border:
+    1px solid rgba(103,220,255,.20);
+
+  background:
+    linear-gradient(
+      110deg,
+      rgba(0,160,220,.10),
+      rgba(8,8,8,.94) 50%,
+      rgba(255,90,0,.13)
+    );
+}
+
+.website-label{
+  color:#67dcff;
+
+  font-size:7px;
+
+  font-weight:900;
+
+  letter-spacing:2px;
+}
+
+.website-title{
+  margin-top:7px;
+
+  font-size:15px;
+
+  font-weight:900;
+}
+
+.website-text{
+  margin-top:6px;
+
+  color:#888;
+
+  font-size:9px;
+
+  line-height:1.5;
+}
+
+.website-button{
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  min-height:44px;
+
+  margin-top:14px;
+
+  padding:12px;
+
+  border-radius:9px;
+
+  text-align:center;
+
+  text-decoration:none;
+
+  color:#fff;
+
+  border:
+    1px solid rgba(103,220,255,.35);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,160,220,.14),
+      rgba(255,90,0,.14)
+    );
+
+  font-size:8px;
+
+  font-weight:900;
+
+  letter-spacing:1px;
+}
+
+.website-address{
+  margin-top:10px;
+
+  text-align:center;
+
+  color:#666;
+
+  font-size:7px;
+
+  letter-spacing:1px;
+}
+
+.ice{
+  color:#67dcff;
+}
+
+.fire{
+  color:#ff751c;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.app-footer{
+  margin-top:30px;
+
+  padding-top:20px;
+
+  border-top:
+    1px solid rgba(255,255,255,.07);
+
+  text-align:center;
+
+  color:#777;
+
+  font-size:7px;
+
+  font-weight:900;
+
+  letter-spacing:1.3px;
+}
+
+
+/* =========================================
+   COPYRIGHT
+========================================= */
+
+.copyright{
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  gap:12px;
+
+  width:100%;
+
+  margin-top:17px;
+
+  padding:
+    17px
+    2px
+    calc(6px + env(safe-area-inset-bottom));
+
+  color:#f1fbff;
+
+  font-size:8px;
+
+  font-weight:900;
+
+  letter-spacing:1.2px;
+
+  line-height:1.5;
+
+  text-align:center;
+}
+
+.copyright span{
+  flex:0 1 auto;
+
+  white-space:nowrap;
+}
+
+.copyright::before,
+.copyright::after{
+  content:"";
+
+  flex:1;
+
+  height:2px;
+
+  max-width:130px;
+  min-width:20px;
+
+  border-radius:20px;
+}
+
+.copyright::before{
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      #003b80 15%,
+      #008cff 45%,
+      #00bfff 72%,
+      #8cecff 100%
+    );
+
+  box-shadow:
+    0 0 5px #00bfff,
+    0 0 12px rgba(0,191,255,.70),
+    0 0 20px rgba(0,140,255,.30);
+}
+
+.copyright::after{
+  background:
+    linear-gradient(
+      90deg,
+      #ffb000 0%,
+      #ff7a00 28%,
+      #ff5a00 55%,
+      #b51a00 85%,
+      transparent 100%
+    );
+
+  box-shadow:
+    0 0 5px #ff5a00,
+    0 0 12px rgba(255,90,0,.70),
+    0 0 20px rgba(255,90,0,.30);
+}
+
+
+/* =========================================
+   TABLET / DESKTOP
+========================================= */
+
+@media(min-width:650px){
+
+  .next-fight{
+    min-height:500px;
+  }
+
+  .fight-centre{
+    min-height:500px;
+  }
+
+  .fighter-name{
+    bottom:27px;
+  }
+
+  .home-fighter-card{
+    min-height:240px;
+  }
+
+  .next-item{
+    grid-template-columns:
+      84px
+      minmax(0,1fr)
+      40px;
+
+    min-height:96px;
+  }
+
+  .date-number{
+    font-size:28px;
+  }
+
+  .next-name{
+    font-size:14px;
+  }
+
+  .latest-card{
+    grid-template-columns:
+      150px
+      minmax(0,1fr);
+
+    min-height:195px;
+  }
+
+  .latest-image{
+    width:112px;
+    height:112px;
+  }
+
+  .latest-content{
+    padding:
+      22px
+      24px;
+  }
+
+  .latest-title{
+    font-size:21px;
+  }
+
+}
+
+
+/* =========================================
+   MOBILE BANNER
+========================================= */
+
+@media(max-width:600px){
+
+  .home-banner-image{
+    width:100%;
+
+    min-height:150px;
+    max-height:210px;
+
+    object-fit:cover;
+    object-position:center;
+  }
+
+}
+
+
+/* =========================================
+   SMALL PHONES
+========================================= */
+
+@media(max-width:430px){
+
+  .next-fight{
+    min-height:410px;
+  }
+
+  .fight-centre{
+    min-height:410px;
+
+    padding-left:8px;
+    padding-right:8px;
+  }
+
+  .fight-centre::before{
+    width:210px;
+    height:260px;
+  }
+
+  .fighter-side{
+    width:50%;
+  }
+
+  .fighter-side.left .fighter-photo{
+    object-position:40% 20%;
+  }
+
+  .fighter-side.right .fighter-photo{
+    object-position:50% 30%;
+  }
+
+  .fighter-name{
+    width:47%;
+  }
+
+  .fighter-name.left{
+    left:1.5%;
+  }
+
+  .fighter-name.right{
+    right:1.5%;
+  }
+
+  .fighter-name strong{
+    font-size:16px;
+  }
+
+  .fighter-name span{
+    font-size:6px;
+  }
+
+  .fight-detail{
+    font-size:9px;
+  }
+
+  .promotion{
+    font-size:17px;
+  }
+
+  .home-fighter-card{
+    min-height:170px;
+  }
+
+  .home-fighter-card:first-child .home-fighter-image{
+    object-position:center 30%;
+  }
+
+  .home-fighter-card:last-child .home-fighter-image{
+    object-position:center 34%;
+  }
+
+  .home-fighter-name{
+    font-size:15px;
+  }
+
+  .home-fighter-team{
+    font-size:7px;
+  }
+
+  .next-item{
+    grid-template-columns:
+      66px
+      minmax(0,1fr)
+      28px;
+
+    min-height:84px;
+  }
+
+  .date-number{
+    font-size:21px;
+  }
+
+  .next-name{
+    font-size:10px;
+  }
+
+  .next-meta{
+    font-size:7px;
+  }
+
+  .next-event{
+    font-size:6px;
+  }
+
+  .latest-card{
+    grid-template-columns:
+      90px
+      minmax(0,1fr);
+
+    min-height:175px;
+  }
+
+  .latest-visual{
+    padding:
+      12px
+      7px;
+  }
+
+  .latest-image{
+    width:70px;
+    height:70px;
+  }
+
+  .latest-content{
+    padding:
+      15px
+      12px;
+  }
+
+  .latest-title{
+    font-size:14px;
+  }
+
+  .latest-text{
+    font-size:8px;
+  }
+
+  .latest-button{
+    font-size:6px;
+
+    padding:
+      8px
+      10px;
+  }
+
+  .copyright{
+    gap:7px;
+
+    font-size:6px;
+
+    letter-spacing:.45px;
+  }
+
+  .copyright span{
+    white-space:normal;
+  }
+
+  .copyright::before,
+  .copyright::after{
+    min-width:16px;
+  }
+
+}
+
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+  .side-menu,
+  .menu-backdrop,
+  .home-fighter-card,
+  .next-item,
+  .latest-button{
+    transition:none;
+  }
+
+}
+
 </style>
+
 </head>
+
 <body>
-<header class="app-bar"><button id="menuButton" class="menu-button" type="button" aria-label="Open navigation menu" aria-expanded="false">☰</button><div class="app-bar-brand"><img src="icon-192.png" class="app-bar-logo" alt=""><div class="app-bar-title">TEAM WOLFPACK</div></div><div class="app-status"><span class="app-status-dot"></span> LIVE</div></header>
-<div id="menuBackdrop" class="menu-backdrop"></div>
-<aside id="sideMenu" class="side-menu">
-<div class="menu-header"><img src="icon-192.png" class="menu-logo" alt="Team Wolfpack"><div class="menu-brand">TEAM WOLFPACK</div><div class="menu-tagline">ONE PACK • ONE PURPOSE</div><button id="closeMenuButton" class="close-menu" type="button">×</button></div>
-<div class="menu-section-label">MAIN</div><nav class="menu-nav">
-<a class="menu-link active" href="index.html"><span class="menu-icon">⌂</span><span>HOME</span><span class="menu-arrow">›</span></a>
-<a class="menu-link" href="fights.html"><span class="menu-icon">♜</span><span>FIGHTS</span><span class="menu-arrow">›</span></a>
-  <a class="menu-link" href="updates.html"><span class="menu-icon">●</span><span>UPDATES</span><span class="menu-arrow">›</span></a>
-<a class="menu-link" href="fighters.html"><span class="menu-icon">♟</span><span>FIGHTERS</span><span class="menu-arrow">›</span></a>
-<a class="menu-link" href="pack.html"><span class="menu-icon">◆</span><span>MEET THE PACK</span><span class="menu-arrow">›</span></a>
-<a class="menu-link chat" href="chat.html"><span class="menu-icon">●</span><span>PACK CHAT</span><span class="menu-arrow">›</span></a></nav>
-<div class="menu-section-label">EXPLORE</div><nav class="menu-nav">
-<a class="menu-link" href="sponsors.html"><span class="menu-icon">★</span><span>SPONSORS &amp; PARTNERS</span><span class="menu-arrow">›</span></a>
-<a class="menu-link" href="gallery.html"><span class="menu-icon">▣</span><span>GALLERY</span><span class="menu-arrow">›</span></a>
-<a class="menu-link" href="https://officialteamwolfpackapp.github.io/Mrs-Wolfie/" target="_blank" rel="noopener noreferrer"><span class="menu-icon">♛</span><span>MRS WOLFIE APP</span><span class="menu-arrow">›</span></a>
-<a class="menu-link" href="merch.html"><span class="menu-icon">◇</span><span>MERCH</span><span class="menu-arrow">›</span></a>
-<a class="menu-link" href="contact.html"><span class="menu-icon">✉</span><span>CONTACT</span><span class="menu-arrow">›</span></a>
-<a class="menu-link" href="socials.html"><span class="menu-icon">◎</span><span>SOCIALS</span><span class="menu-arrow">›</span></a>
-<a class="menu-link" href="about.html"><span class="menu-icon">ⓘ</span><span>ABOUT</span><span class="menu-arrow">›</span></a></nav>
-<div id="adminMenuSection"><div class="menu-section-label">ADMIN</div><nav class="menu-nav"><a class="menu-link admin-menu-link" href="admin-dashboard.html"><span class="menu-icon">⚙</span><span>ADMIN DASHBOARD</span><span class="menu-arrow">›</span></a></nav></div>
-<a class="menu-website" href="https://officialteamwolfpackapp.github.io/Mrs-Wolfie/" target="_blank" rel="noopener noreferrer">VISIT MRS WOLFIE APP</a>
-<a class="menu-website" href="https://officialteamwolfpack.com/boxing" target="_blank" rel="noopener noreferrer">VISIT OFFICIAL WEBSITE</a></aside>
 
-<section class="home-banner"><img src="team-wolfpack-home-welcome-2026.png" class="home-banner-image" alt="Team Wolfpack - One Pack One Purpose"></section>
-<main class="main">
-<section class="next-fight">
-<div class="fighter-side left"><img id="heroFighterImage" src="greig-sloan.jpg" class="fighter-photo" alt="Greig Sloan"></div>
-<div class="fighter-side right">
-  <img id="heroOpponentImage" src="unknown-male-fighter.png" class="opponent-silhouette" alt="">
+
+<!-- APP BAR -->
+
+<header class="app-bar">
+
+<button
+  id="menuButton"
+  class="menu-button"
+  type="button"
+  aria-label="Open navigation menu"
+  aria-expanded="false"
+>
+☰
+</button>
+
+<div class="app-bar-brand">
+
+<img
+  src="icon-192.png"
+  class="app-bar-logo"
+  alt=""
+>
+
+<div class="app-bar-title">
+TEAM WOLFPACK
 </div>
-<div class="fight-centre"><div class="next-label">NEXT FIGHT</div><div class="promotion"><span id="heroPromotion">FSG PROMOTIONS</span><span id="heroEvent" class="promotion-small">UNFINISHED BUSINESS</span></div><div class="vs">VS</div><div class="fight-details"><div id="heroDate" class="fight-detail">19 SEPTEMBER 2026</div><div id="heroVenue" class="fight-detail">HAMPDEN PARK</div></div>
-<div class="countdown"><div class="count-box"><div class="count-value" id="cdDays">--</div><div class="count-label">DAYS</div></div><div class="count-box"><div class="count-value" id="cdHours">--</div><div class="count-label">HRS</div></div><div class="count-box"><div class="count-value" id="cdMinutes">--</div><div class="count-label">MINS</div></div><div class="count-box"><div class="count-value" id="cdSeconds">--</div><div class="count-label">SECS</div></div></div>
-<a class="fight-button" href="fights.html">VIEW FIGHT DETAILS →</a></div><div class="fighter-name left"><strong id="heroFighterName">GREIG SLOAN</strong><span id="heroFighterTeam">TEAM SLOAN</span></div><div class="fighter-name right"><strong id="heroOpponentName">TBA</strong><span>OPPONENT</span></div></section>
 
-<nav class="quick-grid">
-  <a class="quick-card" href="fights.html">
-    <span class="quick-icon">♜</span>
-    FIGHTS
-  </a>
+</div>
 
-  <a class="quick-card" href="fighters.html">
-    <span class="quick-icon">♟</span>
-    FIGHTERS
-  </a>
+<div
+  class="app-status"
+  aria-label="App online"
+>
+<span class="app-status-dot"></span>
+</div>
 
-  <a class="quick-card" href="gallery.html">
-    <span class="quick-icon">▣</span>
-    GALLERY
-  </a>
+</header>
 
-  <a class="quick-card" href="chat.html">
-    <span class="quick-icon">●</span>
-    PACK CHAT
-  </a>
 
-  <button
-    id="notificationButton"
-    class="quick-card"
-    type="button"
-    style="width:100%;cursor:pointer;font-family:inherit;"
-  >
-    <span class="quick-icon">🔔</span>
-    <span id="notificationButtonText">CHECKING NOTIFICATIONS...</span>
-  </button>
+<div
+  id="menuBackdrop"
+  class="menu-backdrop"
+></div>
+
+
+<!-- SIDE MENU -->
+
+<aside
+  id="sideMenu"
+  class="side-menu"
+  aria-label="Team Wolfpack navigation"
+>
+
+<div class="menu-header">
+
+<img
+  src="icon-192.png"
+  class="menu-logo"
+  alt="Team Wolfpack"
+>
+
+<div class="menu-brand">
+TEAM WOLFPACK
+</div>
+
+<div class="menu-tagline">
+ONE PACK • ONE PURPOSE
+</div>
+
+<button
+  id="closeMenuButton"
+  class="close-menu"
+  type="button"
+  aria-label="Close navigation menu"
+>
+×
+</button>
+
+</div>
+
+
+<div class="menu-section-label">
+MAIN
+</div>
+
+<nav class="menu-nav">
+
+<a class="menu-link active" href="index.html">
+<span class="menu-icon">⌂</span>
+<span>HOME</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="fights.html">
+<span class="menu-icon">♜</span>
+<span>FIGHTS</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="fighters.html">
+<span class="menu-icon">♟</span>
+<span>FIGHTERS</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="pack.html">
+<span class="menu-icon">◆</span>
+<span>MEET THE PACK</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link chat" href="chat.html">
+<span class="menu-icon">●</span>
+<span>PACK CHAT</span>
+<span class="menu-arrow">›</span>
+</a>
+
 </nav>
-<div class="section-heading"><div class="section-title"><span class="ice">NEXT</span> <span class="fire">UP</span></div><a class="section-link" href="fights.html">VIEW ALL FIGHTS →</a></div>
-<div id="nextUpList" class="next-list">
-<a class="next-item" href="fights.html"><div class="date-line"><span class="date-number">19</span><span class="date-month">SEP 2026</span></div><div class="next-fight-label">UPCOMING FIGHT</div><div class="next-name">GREIG SLOAN <span class="versus">VS</span> TBA</div><div class="next-meta">HAMPDEN PARK</div><div class="next-event">UNFINISHED BUSINESS</div></a>
-<a class="next-item" href="fights.html"><div class="date-line"><span class="date-number">17</span><span class="date-month">OCT 2026</span></div><div class="next-fight-label">UPCOMING FIGHT</div><div class="next-name">MRS WOLFIE <span class="versus">VS</span> COLLEEN LEYDEN</div><div class="next-meta">AYR RACECOURSE</div><div class="next-event">THE LAUNCH</div></a>
-<a class="next-item" href="fights.html"><div class="date-line"><span class="date-number">NOV</span><span class="date-month">2026</span></div><div class="next-fight-label">TITLE FIGHT</div><div class="next-name">MRS WOLFIE <span class="versus">VS</span> TBA</div><div class="next-meta">EASTHOUSES MINERS CLUB</div><div class="next-event">SUPER MIDDLEWEIGHT TITLE</div></a></div>
 
-<div class="section-heading"><div class="section-title">THE PACK</div><a class="section-link" href="fighters.html">VIEW FIGHTERS →</a></div>
-<div class="fighter-grid"><a class="home-fighter-card" href="mrs-wolfie.html"><img src="zoey-james.jpg" class="home-fighter-image" alt="Mrs Wolfie"><div class="home-fighter-info"><div class="home-fighter-name">MRS WOLFIE</div><div class="home-fighter-team">TEAM WOLFIE</div></div></a><a class="home-fighter-card" href="greig-sloan.html"><img src="greig-sloan.jpg" class="home-fighter-image" alt="Greig Sloan"><div class="home-fighter-info"><div class="home-fighter-name">GREIG SLOAN</div><div class="home-fighter-team">TEAM SLOAN</div></div></a></div>
 
-<div class="section-heading"><div class="section-title"><span class="ice">LIVE</span> <span class="fire">UPDATES</span><span id="homeLiveStatus" class="live-status"><span class="live-status-dot"></span>CONNECTING</span></div><a class="section-link" href="updates.html">VIEW ALL →</a></div>
-<section id="homeLiveUpdates" class="home-live-updates" aria-live="polite"><div class="live-loading">CONNECTING TO LIVE UPDATES...</div></section>
-<a class="live-all-button" href="updates.html">VIEW ALL LIVE UPDATES →</a>
+<div class="menu-section-label">
+EXPLORE
+</div>
 
-<div class="external-grid">
-<section class="website-card"><div class="website-label">TEAM WOLFIE</div><div class="website-title">MRS WOLFIE MOBILE APP</div><div class="website-text">Open the dedicated Mrs Wolfie boxing app for fighter-specific information, updates, fight details and Team Wolfie content.</div><a class="website-button" href="https://officialteamwolfpackapp.github.io/Mrs-Wolfie/" target="_blank" rel="noopener noreferrer">OPEN MRS WOLFIE APP</a><div class="website-address"><span class="ice">MRS WOLFIE</span><span class="fire"> • TEAM WOLFIE</span></div></section>
-<section class="website-card"><div class="website-label">OFFICIAL TEAM WOLFPACK</div><div class="website-title">VISIT OUR OFFICIAL WEBSITE</div><div class="website-text">Visit the full Team Wolfpack boxing website for more information about the Pack.</div><a class="website-button" href="https://officialteamwolfpack.com/boxing" target="_blank" rel="noopener noreferrer">OPEN OFFICIAL WEBSITE</a><div class="website-address"><span class="ice">OFFICIALTEAMWOLFPACK.COM</span><span class="fire">/BOXING</span></div></section></div>
-<footer class="app-footer">TEAM WOLFPACK • STRENGTH IN UNITY</footer><div class="copyright">© 2026 TEAM WOLFPACK • ALL RIGHTS RESERVED</div></main>
+<nav class="menu-nav">
+
+<a class="menu-link" href="sponsors.html">
+<span class="menu-icon">★</span>
+<span>SPONSORS &amp; PARTNERS</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="gallery.html">
+<span class="menu-icon">▣</span>
+<span>GALLERY</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="merch.html">
+<span class="menu-icon">◇</span>
+<span>MERCH</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="contact.html">
+<span class="menu-icon">✉</span>
+<span>CONTACT</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="socials.html">
+<span class="menu-icon">◎</span>
+<span>SOCIALS</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="about.html">
+<span class="menu-icon">ⓘ</span>
+<span>ABOUT</span>
+<span class="menu-arrow">›</span>
+</a>
+
+</nav>
+
+
+<div id="adminMenuSection">
+
+<div class="menu-section-label">
+ADMIN
+</div>
+
+<nav class="menu-nav">
+
+<a
+  class="menu-link admin-menu-link"
+  href="admin-dashboard.html"
+>
+<span class="menu-icon">⚙</span>
+<span>ADMIN DASHBOARD</span>
+<span class="menu-arrow">›</span>
+</a>
+
+</nav>
+
+</div>
+
+
+<a
+  class="menu-website"
+  href="https://officialteamwolfpack.com/boxing"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+VISIT OFFICIAL WEBSITE
+</a>
+
+</aside>
+
+
+<!-- HOME BANNER -->
+
+<section class="home-banner">
+
+<img
+  src="team-wolfpack-banner.png"
+  class="home-banner-image"
+  alt="Team Wolfpack - One Pack One Purpose"
+>
+
+</section>
+
+
+<main class="main">
+
+
+<!-- NEXT FIGHT -->
+
+<section class="next-fight">
+
+<div class="fighter-side left">
+
+<img
+  src="greig-sloan.jpg"
+  class="fighter-photo"
+  alt="Greig Sloan"
+>
+
+</div>
+
+<div class="fighter-side right">
+</div>
+
+<div class="fight-centre">
+
+<div class="next-label">
+NEXT FIGHT
+</div>
+
+<div class="promotion">
+FSG PROMOTIONS
+
+<span class="promotion-small">
+UNFINISHED BUSINESS
+</span>
+
+</div>
+
+<div class="vs">
+VS
+</div>
+
+<div class="fight-details">
+
+<div class="fight-detail">
+19 SEPTEMBER 2026
+</div>
+
+<div class="fight-detail">
+HAMPDEN PARK
+</div>
+
+</div>
+
+<a
+  class="fight-button"
+  href="fights.html"
+  onclick="gtag('event','home_next_fight_click',{
+    fighter:'Greig Sloan',
+    opponent:'TBA',
+    event:'Unfinished Business'
+  });"
+>
+VIEW FIGHT DETAILS →
+</a>
+
+</div>
+
+
+<div class="fighter-name left">
+
+<strong>
+GREIG SLOAN
+</strong>
+
+<span>
+TEAM SLOAN
+</span>
+
+</div>
+
+
+<div class="fighter-name right">
+
+<strong>
+TBA
+</strong>
+
+<span>
+OPPONENT
+</span>
+
+</div>
+
+</section>
+
+
+<!-- NEXT UP -->
+
+<div class="section-heading">
+
+<div class="section-title">
+NEXT UP
+</div>
+
+<a
+  class="section-link"
+  href="fights.html"
+>
+VIEW ALL FIGHTS →
+</a>
+
+</div>
+
+
+<div class="next-list">
+
+
+<!-- FIGHT 1 -->
+
+<a
+  class="next-item"
+  href="fights.html"
+  onclick="gtag('event','home_upcoming_fight_click',{
+    fighter:'Greig Sloan',
+    opponent:'TBA',
+    event:'Unfinished Business'
+  });"
+>
+
+<div class="date-box">
+
+<div class="date-number">
+19
+</div>
+
+<div class="date-month">
+SEPT
+</div>
+
+</div>
+
+<div class="next-info">
+
+<div class="next-fight-label">
+UPCOMING FIGHT
+</div>
+
+<div class="next-name">
+GREIG SLOAN
+<span class="versus">VS</span>
+TBA
+</div>
+
+<div class="next-meta">
+HAMPDEN PARK
+</div>
+
+<div class="next-event">
+UNFINISHED BUSINESS
+</div>
+
+</div>
+
+<div class="next-arrow">
+›
+</div>
+
+</a>
+
+
+<!-- FIGHT 2 -->
+
+<a
+  class="next-item"
+  href="fights.html"
+  onclick="gtag('event','home_upcoming_fight_click',{
+    fighter:'Mrs Wolfie',
+    opponent:'Colleen Leyden',
+    event:'The Launch'
+  });"
+>
+
+<div class="date-box">
+
+<div class="date-number">
+17
+</div>
+
+<div class="date-month">
+OCT
+</div>
+
+</div>
+
+<div class="next-info">
+
+<div class="next-fight-label">
+UPCOMING FIGHT
+</div>
+
+<div class="next-name">
+MRS WOLFIE
+<span class="versus">VS</span>
+COLLEEN LEYDEN
+</div>
+
+<div class="next-meta">
+AYR RACECOURSE
+</div>
+
+<div class="next-event">
+THE LAUNCH
+</div>
+
+</div>
+
+<div class="next-arrow">
+›
+</div>
+
+</a>
+
+
+<!-- FIGHT 3 -->
+
+<a
+  class="next-item"
+  href="fights.html"
+  onclick="gtag('event','home_upcoming_fight_click',{
+    fighter:'Mrs Wolfie',
+    opponent:'TBA',
+    event:'Super Middleweight Title'
+  });"
+>
+
+<div class="date-box">
+
+<div class="date-number">
+NOV
+</div>
+
+<div class="date-month">
+2026
+</div>
+
+</div>
+
+<div class="next-info">
+
+<div class="next-fight-label">
+TITLE FIGHT
+</div>
+
+<div class="next-name">
+MRS WOLFIE
+<span class="versus">VS</span>
+TBA
+</div>
+
+<div class="next-meta">
+EASTHOUSES MINERS CLUB
+</div>
+
+<div class="next-event">
+SUPER MIDDLEWEIGHT TITLE
+</div>
+
+</div>
+
+<div class="next-arrow">
+›
+</div>
+
+</a>
+
+</div>
+
+
+<!-- LIVE UPDATES -->
+
+<div class="section-heading">
+
+  <div class="section-title">
+
+    <span class="ice">
+      LIVE
+    </span>
+
+    <span class="fire">
+      UPDATES
+    </span>
+
+    <span
+      id="homeLiveStatus"
+      class="live-status"
+    >
+      <span class="live-status-dot"></span>
+      CONNECTING
+    </span>
+
+  </div>
+
+  <a
+    class="section-link"
+    href="updates.html"
+    onclick="gtag('event','home_live_updates_click',{
+      source:'Home Heading'
+    });"
+  >
+    VIEW ALL →
+  </a>
+
+</div>
+
+
+<section
+  id="homeLiveUpdates"
+  class="home-live-updates"
+  aria-live="polite"
+>
+
+  <div class="live-loading">
+    CONNECTING TO LIVE UPDATES...
+  </div>
+
+</section>
+
+
+<a
+  class="live-all-button"
+  href="updates.html"
+  onclick="gtag('event','home_live_updates_click',{
+    source:'Home Button'
+  });"
+>
+  VIEW ALL LIVE UPDATES →
+</a>
+
+<!-- WEBSITE -->
+
+<section class="website-card">
+
+<div class="website-label">
+OFFICIAL TEAM WOLFPACK
+</div>
+
+<div class="website-title">
+VISIT OUR OFFICIAL WEBSITE
+</div>
+
+<div class="website-text">
+Visit the full Team Wolfpack boxing website
+for more information about the Pack.
+</div>
+
+<a
+  class="website-button"
+  href="https://officialteamwolfpack.com/boxing"
+  target="_blank"
+  rel="noopener noreferrer"
+  onclick="gtag('event','official_website_click',{
+    source:'App Home'
+  });"
+>
+OPEN OFFICIAL WEBSITE
+</a>
+
+<div class="website-address">
+
+<span class="ice">
+OFFICIALTEAMWOLFPACK.COM
+</span>
+
+<span class="fire">
+/BOXING
+</span>
+
+</div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer class="app-footer">
+TEAM WOLFPACK • STRENGTH IN UNITY
+</footer>
+
+
+<!-- COPYRIGHT -->
+
+<div class="copyright">
+<span>© 2026 TEAM WOLFPACK • ALL RIGHTS RESERVED</span>
+</div>
+
+
+</main>
+
+
+<!-- MENU JAVASCRIPT -->
 
 <script>
-const menuButton=document.getElementById("menuButton"),closeMenuButton=document.getElementById("closeMenuButton"),sideMenu=document.getElementById("sideMenu"),menuBackdrop=document.getElementById("menuBackdrop");
-function openMenu(){sideMenu.classList.add("show");menuBackdrop.classList.add("show");document.body.classList.add("menu-open");menuButton.setAttribute("aria-expanded","true")}
-function closeMenu(){sideMenu.classList.remove("show");menuBackdrop.classList.remove("show");document.body.classList.remove("menu-open");menuButton.setAttribute("aria-expanded","false")}
-menuButton.addEventListener("click",openMenu);closeMenuButton.addEventListener("click",closeMenu);menuBackdrop.addEventListener("click",closeMenu);document.addEventListener("keydown",e=>{if(e.key==="Escape")closeMenu()});
-let fightTarget=new Date(2026,8,19,12,0,0);
-function updateCountdown(){let d=fightTarget-new Date(),els=["cdDays","cdHours","cdMinutes","cdSeconds"].map(id=>document.getElementById(id));if(d<=0){els.forEach(e=>e.textContent="00");return}let days=Math.floor(d/86400000);d%=86400000;let hrs=Math.floor(d/3600000);d%=3600000;let mins=Math.floor(d/60000);d%=60000;let secs=Math.floor(d/1000);[days,hrs,mins,secs].forEach((v,i)=>els[i].textContent=String(v).padStart(2,"0"))}updateCountdown();setInterval(updateCountdown,1000);
+
+const menuButton =
+  document.getElementById("menuButton");
+
+const closeMenuButton =
+  document.getElementById("closeMenuButton");
+
+const sideMenu =
+  document.getElementById("sideMenu");
+
+const menuBackdrop =
+  document.getElementById("menuBackdrop");
+
+
+function openMenu(){
+
+  sideMenu.classList.add("show");
+
+  menuBackdrop.classList.add("show");
+
+  document.body.classList.add("menu-open");
+
+  menuButton.setAttribute(
+    "aria-expanded",
+    "true"
+  );
+
+}
+
+
+function closeMenu(){
+
+  sideMenu.classList.remove("show");
+
+  menuBackdrop.classList.remove("show");
+
+  document.body.classList.remove("menu-open");
+
+  menuButton.setAttribute(
+    "aria-expanded",
+    "false"
+  );
+
+}
+
+
+menuButton.addEventListener(
+  "click",
+  openMenu
+);
+
+closeMenuButton.addEventListener(
+  "click",
+  closeMenu
+);
+
+menuBackdrop.addEventListener(
+  "click",
+  closeMenu
+);
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(event.key === "Escape"){
+      closeMenu();
+    }
+
+  }
+);
+
+document
+  .querySelectorAll(".menu-link")
+  .forEach(function(link){
+
+    link.addEventListener(
+      "click",
+      closeMenu
+    );
+
+  });
+
 </script>
+
+
+<!-- FIREBASE / ADMIN / LIVE UPDATES -->
 
 <script type="module">
-import{initializeApp}from"https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-import{getAuth,onAuthStateChanged}from"https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-import{getDatabase,ref,onValue,query,orderByChild,limitToLast}from"https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
-const firebaseConfig={apiKey:"AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",authDomain:"team-wolfpack-app.firebaseapp.com",databaseURL:"https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",projectId:"team-wolfpack-app",storageBucket:"team-wolfpack-app.firebasestorage.app",messagingSenderId:"1070414578856",appId:"1:1070414578856:web:df14e7d387e658eeae2e9d",measurementId:"G-6JTCE2N9LZ"};
-const app=initializeApp(firebaseConfig),auth=getAuth(app),database=getDatabase(app),ADMIN_UIDS=new Set(["PRGa9TsCW0QDn1QtoUXyYjEi7YB3","SlpEQYl94DaH6j42QUyl8Kv2ujJ3"]),admin=document.getElementById("adminMenuSection");
 
-onAuthStateChanged(auth,u=>admin.style.display=u&&ADMIN_UIDS.has(u.uid)?"block":"none");
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 
-/* NEXT FIGHT — Firebase driven */
-const hero={
-  fighterImage:document.getElementById("heroFighterImage"),
-  opponentImage:document.getElementById("heroOpponentImage"),
-  promotion:document.getElementById("heroPromotion"),
-  event:document.getElementById("heroEvent"),
-  date:document.getElementById("heroDate"),
-  venue:document.getElementById("heroVenue"),
-  fighterName:document.getElementById("heroFighterName"),
-  fighterTeam:document.getElementById("heroFighterTeam"),
-  opponentName:document.getElementById("heroOpponentName")
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+import {
+  getDatabase,
+  ref,
+  onValue,
+  query,
+  orderByChild,
+  limitToLast
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+
+  authDomain:
+    "team-wolfpack-app.firebaseapp.com",
+
+  databaseURL:
+    "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+
+  projectId:
+    "team-wolfpack-app",
+
+  storageBucket:
+    "team-wolfpack-app.firebasestorage.app",
+
+  messagingSenderId:
+    "1070414578856",
+
+  appId:
+    "1:1070414578856:web:df14e7d387e658eeae2e9d",
+
+  measurementId:
+    "G-6JTCE2N9LZ"
+
 };
-function fightTime(f){
-  const n=Number(f?.dateTimestamp||0);
-  if(n>0)return n;
-  if(f?.date){
-    const d=new Date(String(f.date)+"T12:00:00");
-    if(!Number.isNaN(d.getTime()))return d.getTime();
-  }
-  return Number.MAX_SAFE_INTEGER;
-}
-function displayFightDate(f){
-  if(f?.displayDate)return String(f.displayDate).toUpperCase();
-  if(!f?.date)return "DATE TBA";
-  const p=String(f.date).split("-");
-  if(p.length!==3)return String(f.date).toUpperCase();
-  const d=new Date(+p[0],+p[1]-1,+p[2]);
-  return Number.isNaN(d.getTime())?String(f.date).toUpperCase():
-    d.toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"}).toUpperCase();
-}
-function firstValue(...values){
-  return values.find(v=>v!==undefined&&v!==null&&String(v).trim()!=="");
-}
-function applyNextFight(f){
-  const fighterName=firstValue(f.fighterName,f.fighter,"TBA");
-  const opponentName=firstValue(f.opponentName,f.opponent,"TBA");
-  const fighterImage=firstValue(f.fighterImage,f.image,f.images?.fighter);
-  const opponentImage=firstValue(f.opponentImage,f.images?.opponent);
-
-  hero.fighterName.textContent=String(fighterName).toUpperCase();
-  hero.fighterTeam.textContent=String(firstValue(f.team,f.fighterTeam,"TEAM WOLFPACK")).toUpperCase();
-  hero.opponentName.textContent=String(opponentName).toUpperCase();
-  hero.promotion.textContent=String(firstValue(f.promotion,"PROMOTION TBA")).toUpperCase();
-  hero.event.textContent=String(firstValue(f.eventName,f.event,f.fightType,"FIGHT NIGHT")).toUpperCase();
-  hero.date.textContent=displayFightDate(f);
-  hero.venue.textContent=String(firstValue(f.venue,"VENUE TBA")).toUpperCase();
-
-  if(fighterImage)hero.fighterImage.src=String(fighterImage);
-  if(opponentImage)hero.opponentImage.src=String(opponentImage);
-  else hero.opponentImage.src=String(fighterName).toUpperCase().includes("MRS WOLFIE")?
-    "unknown-female-fighter.png":"unknown-male-fighter.png";
-
-  const t=fightTime(f);
-  if(Number.isFinite(t)&&t<Number.MAX_SAFE_INTEGER)fightTarget=new Date(t);
-}
-  
-function renderNextUp(fights){
-
-  const nextUpList =
-    document.getElementById("nextUpList");
-
-  if(!nextUpList){
-    return;
-  }
-
-  if(!fights.length){
-
-    nextUpList.innerHTML =
-      '<div class="live-empty">NO UPCOMING FIGHTS CURRENTLY SCHEDULED</div>';
-
-    return;
-  }
-
-  nextUpList.innerHTML =
-    fights
-      .slice(0,3)
-      .map(f=>{
-
-        const fighterName =
-          firstValue(
-            f.fighterName,
-            f.fighter,
-            "TBA"
-          );
-
-        const opponentName =
-          firstValue(
-            f.opponentName,
-            f.opponent,
-            "TBA"
-          );
-
-        const venue =
-          firstValue(
-            f.venue,
-            "VENUE TBA"
-          );
-
-        const eventName =
-          firstValue(
-            f.eventName,
-            f.event,
-            f.fightType,
-            "FIGHT NIGHT"
-          );
-
-        let dateNumber = "TBA";
-        let dateMonth = "";
-
-        if(f.date){
-
-          const parts =
-            String(f.date).split("-");
-
-          if(parts.length === 3){
-
-            const d =
-              new Date(
-                Number(parts[0]),
-                Number(parts[1]) - 1,
-                Number(parts[2])
-              );
-
-            if(!Number.isNaN(d.getTime())){
-
-              dateNumber =
-                String(
-                  d.getDate()
-                ).padStart(2,"0");
-
-              dateMonth =
-                d.toLocaleDateString(
-                  "en-GB",
-                  {
-                    month:"short",
-                    year:"numeric"
-                  }
-                ).toUpperCase();
-
-            }
-
-          }
-
-        }else if(f.displayDate){
-
-          dateNumber =
-            String(f.displayDate).toUpperCase();
-
-        }
-
-        const label =
-          String(
-            firstValue(
-              f.fightType,
-              "UPCOMING FIGHT"
-            )
-          ).toUpperCase();
-
-        return `
-          <a class="next-item" href="fights.html">
-
-            <div class="date-line">
-              <span class="date-number">${esc(dateNumber)}</span>
-              <span class="date-month">${esc(dateMonth)}</span>
-            </div>
-
-            <div class="next-fight-label">
-              ${esc(label)}
-            </div>
-
-            <div class="next-name">
-              ${esc(String(fighterName).toUpperCase())}
-              <span class="versus">VS</span>
-              ${esc(String(opponentName).toUpperCase())}
-            </div>
-
-            <div class="next-meta">
-              ${esc(String(venue).toUpperCase())}
-            </div>
-
-            <div class="next-event">
-              ${esc(String(eventName).toUpperCase())}
-            </div>
-
-          </a>
-        `;
-
-      })
-      .join("");
-
-}
-  
-onValue(ref(database,"fights"),snapshot=>{
-  const fights=[];
-  snapshot.forEach(child=>{
-    const f=child.val();
-  if(
-  f &&
-  String(f.status || "")
-    .trim()
-    .toLowerCase() === "upcoming"
-){
-  fights.push(f);
-}
-  });
- fights.sort((a,b)=>fightTime(a)-fightTime(b));
-
-if(fights.length){
-  applyNextFight(fights[0]);
-}
-
-renderNextUp(fights);
-},error=>console.error("Next fight could not be loaded:",error));
-
-const box=document.getElementById("homeLiveUpdates"),status=document.getElementById("homeLiveStatus");
-function esc(v){return String(v||"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
-function fmt(v){if(!v)return"";let p=String(v).split("-");if(p.length!==3)return esc(v);let d=new Date(+p[0],+p[1]-1,+p[2]);return Number.isNaN(d.getTime())?esc(v):d.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})}
-function render(items){if(!items.length){box.innerHTML='<div class="live-empty">NO LIVE UPDATES AVAILABLE</div>';return}box.innerHTML=items.map(i=>{let t=esc(i.type||"news").toLowerCase(),title=esc(i.title||"Team Wolfpack Update"),msg=esc(i.message||""),f=esc(i.fighter||""),v=esc(i.venue||"");return`<article class="home-update-card"><div class="home-update-top"><div class="home-update-type ${t}">${t.toUpperCase()}</div><div class="home-update-date">${fmt(i.date)}</div></div><div class="home-update-title">${title}</div>${msg?`<div class="home-update-message">${msg}</div>`:""}${f||v?`<div class="home-update-meta">${f?`<span>${f}</span>`:""}${v?`<span class="venue">${v}</span>`:""}</div>`:""}</article>`}).join("")}
-const q=query(ref(database,"updates"),orderByChild("timestamp"),limitToLast(10));
-onValue(q,s=>{let a=[];s.forEach(c=>{let i=c.val();if(i&&i.published!==false)a.push(i)});a.sort((x,y)=>Number(y.timestamp||0)-Number(x.timestamp||0));render(a.slice(0,3));status.innerHTML='<span class="live-status-dot"></span>LIVE'},e=>{console.error(e);status.textContent="OFFLINE";box.innerHTML='<div class="live-error">LIVE UPDATES ARE CURRENTLY UNAVAILABLE</div>'});
-</script>
-<script>if("serviceWorker"in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("service-worker.js").catch(console.error));</script>
-<script type="module" src="./notifications.js"></script>
-<script>
-(function(){
-
-  const button =
-    document.getElementById("notificationButton");
-
-  const buttonText =
-    document.getElementById("notificationButtonText");
 
 
-  if(
-    !button ||
-    !buttonText
-  ){
-    return;
-  }
+const firebaseApp =
+  initializeApp(firebaseConfig);
+
+const auth =
+  getAuth(firebaseApp);
+
+const database =
+  getDatabase(firebaseApp);
 
 
-  async function waitForNotificationSystem(){
+const ADMIN_UIDS =
+  new Set([
+    "PRGa9TsCW0QDn1QtoUXyYjEi7YB3",
+    "SlpEQYl94DaH6j42QUyl8Kv2ujJ3"
+  ]);
 
-    for(
-      let attempt = 0;
-      attempt < 50;
-      attempt++
+
+const adminMenuSection =
+  document.getElementById(
+    "adminMenuSection"
+  );
+
+
+onAuthStateChanged(
+  auth,
+  function(user){
+
+    if(
+      user &&
+      ADMIN_UIDS.has(user.uid)
     ){
 
-      if(
-        window.TeamWolfpackNotifications &&
-        typeof window.TeamWolfpackNotifications.status === "function"
-      ){
-        return true;
-      }
+      adminMenuSection.style.display =
+        "block";
 
-      await new Promise(
-        resolve => setTimeout(resolve,100)
-      );
+    }else{
 
-    }
-
-    return false;
-
-  }
-
-
-  async function updateNotificationButton(){
-
-    const available =
-      await waitForNotificationSystem();
-
-
-    if(!available){
-
-      buttonText.textContent =
-        "NOTIFICATIONS UNAVAILABLE";
-
-      button.disabled =
-        true;
-
-      return;
-
-    }
-
-
-    try{
-
-      const notificationStatus =
-        await window.TeamWolfpackNotifications.status();
-
-
-      if(
-        notificationStatus.permission === "granted" &&
-        notificationStatus.registered === true
-      ){
-
-        buttonText.textContent =
-          "NOTIFICATIONS ON";
-
-        return;
-
-      }
-
-
-      if(
-        notificationStatus.permission === "denied"
-      ){
-
-        buttonText.textContent =
-          "NOTIFICATIONS BLOCKED";
-
-        return;
-
-      }
-
-
-      buttonText.textContent =
-        "ENABLE NOTIFICATIONS";
-
-
-    }catch(error){
-
-      console.error(
-        "Could not check Team Wolfpack notification status:",
-        error
-      );
-
-      buttonText.textContent =
-        "ENABLE NOTIFICATIONS";
+      adminMenuSection.style.display =
+        "none";
 
     }
 
   }
+);
 
 
-  button.addEventListener(
-    "click",
-    async function(){
+/* =========================================
+   HOME LIVE UPDATES
+========================================= */
 
-      const available =
-        await waitForNotificationSystem();
+const homeLiveUpdates =
+  document.getElementById(
+    "homeLiveUpdates"
+  );
+
+const homeLiveStatus =
+  document.getElementById(
+    "homeLiveStatus"
+  );
 
 
-      if(!available){
-        return;
+function escapeHTML(value){
+
+  return String(value || "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+function formatUpdateDate(value){
+
+  if(!value){
+    return "";
+  }
+
+  const parts =
+    String(value).split("-");
+
+  if(parts.length !== 3){
+    return escapeHTML(value);
+  }
+
+  const date =
+    new Date(
+      Number(parts[0]),
+      Number(parts[1]) - 1,
+      Number(parts[2])
+    );
+
+  if(
+    Number.isNaN(
+      date.getTime()
+    )
+  ){
+    return escapeHTML(value);
+  }
+
+  return date.toLocaleDateString(
+    "en-GB",
+    {
+      day:"numeric",
+      month:"short",
+      year:"numeric"
+    }
+  );
+
+}
+
+
+function renderHomeUpdates(items){
+
+  if(!items.length){
+
+    homeLiveUpdates.innerHTML =
+      `
+        <div class="live-empty">
+          NO LIVE UPDATES AVAILABLE
+        </div>
+      `;
+
+    return;
+
+  }
+
+
+  homeLiveUpdates.innerHTML =
+    items.map(function(item){
+
+      const type =
+        escapeHTML(
+          item.type || "news"
+        )
+        .toLowerCase();
+
+      const title =
+        escapeHTML(
+          item.title || "Team Wolfpack Update"
+        );
+
+      const message =
+        escapeHTML(
+          item.message || ""
+        );
+
+      const fighter =
+        escapeHTML(
+          item.fighter || ""
+        );
+
+      const venue =
+        escapeHTML(
+          item.venue || ""
+        );
+
+      const image =
+        escapeHTML(
+          item.image || item.imageUrl || ""
+        );
+
+      const date =
+        formatUpdateDate(
+          item.date
+        );
+
+
+      let meta =
+        "";
+
+
+      if(
+        fighter ||
+        venue
+      ){
+
+        meta =
+          `
+            <div class="home-update-meta">
+
+              ${
+                fighter
+                  ? `<span>${fighter}</span>`
+                  : ""
+              }
+
+              ${
+                venue
+                  ? `<span class="venue">${venue}</span>`
+                  : ""
+              }
+
+            </div>
+          `;
+
       }
 
 
-      button.disabled =
-        true;
+      return `
+        <article class="home-update-card">
 
-      buttonText.textContent =
-        "SETTING UP...";
+          ${
+            image
+              ? `
+                  <div class="home-update-image-wrap">
+                    <img
+                      class="home-update-image"
+                      src="${image}"
+                      alt="${title}"
+                      loading="lazy"
+                    >
+                  </div>
+                `
+              : ""
+          }
+
+          <div class="home-update-top">
+
+            <div class="home-update-type ${type}">
+              ${type.toUpperCase()}
+            </div>
+
+            <div class="home-update-date">
+              ${date}
+            </div>
+
+          </div>
+
+          <div class="home-update-title">
+            ${title}
+          </div>
+
+          ${
+            message
+              ? `
+                  <div class="home-update-message">
+                    ${message}
+                  </div>
+                `
+              : ""
+          }
+
+          ${meta}
+
+        </article>
+      `;
+
+    })
+    .join("");
+
+}
 
 
-      try{
+const updatesQuery =
+  ref(
+    database,
+    "updates"
+  );
 
-        const result =
-          await window.TeamWolfpackNotifications.enable();
+
+onValue(
+  updatesQuery,
+
+  function(snapshot){
+
+    const items =
+      [];
+
+
+    snapshot.forEach(
+      function(childSnapshot){
+
+        const item =
+          childSnapshot.val();
 
 
         if(
-          result &&
-          result.registered === true
+          item &&
+          item.published !== false
         ){
 
-          buttonText.textContent =
-            "NOTIFICATIONS ON";
-
-        }else{
-
-          await updateNotificationButton();
+          items.push(
+            item
+          );
 
         }
 
+      }
+    );
 
-      }catch(error){
 
-        console.error(
-          "Team Wolfpack notifications could not be enabled:",
-          error
+    items.sort(
+      function(a,b){
+
+        const aTime =
+          new Date(
+            a.date || 0
+          ).getTime();
+
+        const bTime =
+          new Date(
+            b.date || 0
+          ).getTime();
+
+        return (
+          bTime -
+          aTime
         );
 
-        await updateNotificationButton();
-
-      }finally{
-
-        button.disabled =
-          false;
-
       }
+    );
+
+
+    renderHomeUpdates(
+      items.slice(0,3)
+    );
+
+
+    homeLiveStatus.innerHTML =
+      `
+        <span class="live-status-dot"></span>
+        LIVE
+      `;
+
+  },
+
+  function(error){
+
+    console.error(
+      "Home live updates:",
+      error
+    );
+
+
+    homeLiveStatus.textContent =
+      "OFFLINE";
+
+
+    homeLiveUpdates.innerHTML =
+      `
+        <div class="live-error">
+          LIVE UPDATES ARE CURRENTLY UNAVAILABLE
+        </div>
+      `;
+
+  }
+);
+
+</script>
+
+<!-- SERVICE WORKER -->
+
+<script>
+
+if("serviceWorker" in navigator){
+
+  window.addEventListener(
+    "load",
+    function(){
+
+      navigator.serviceWorker
+        .register("service-worker.js")
+        .catch(function(error){
+
+          console.error(
+            "Service worker error:",
+            error
+          );
+
+        });
 
     }
   );
 
+}
 
-  window.addEventListener(
-    "teamWolfpackNotificationRegistered",
-    updateNotificationButton
-  );
+</script>
 
-
-  window.addEventListener(
-    "focus",
-    updateNotificationButton
-  );
-
-
-  updateNotificationButton();
-
-})();
-</script>  
-</body></html>
+</body>
+</html>
