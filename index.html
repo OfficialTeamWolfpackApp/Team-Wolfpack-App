@@ -3166,6 +3166,33 @@ function fighterImage(f){
   );
 }
 
+function opponentImage(f){
+
+  const opponent =
+    String(
+      f.opponent ||
+      f.opponentName ||
+      ""
+    )
+    .trim()
+    .toLowerCase();
+
+  if(
+    opponent === "colleen leyden"
+  ){
+    return "colleen-leyden.jpg";
+  }
+
+  return (
+    f.opponentImage ||
+    (f.images && (
+      f.images.opponent ||
+      f.images.right
+    )) ||
+    ""
+  );
+}
+
 function renderNextFight(f){
   if(!f){
     return;
@@ -3177,12 +3204,35 @@ function renderNextFight(f){
   const eventName = String(f.event || f.eventName || f.title || "UPCOMING FIGHT").toUpperCase();
   const venue = String(f.venue || f.location || "VENUE TBA").toUpperCase();
   const image = fighterImage(f);
-
+  const opponentPhoto = opponentImage(f);
+  
   if(nextFightImage && image){
     nextFightImage.src = image;
     nextFightImage.alt = name;
   }
+const rightSide =
+  document.getElementById("nextFightRight");
 
+if(rightSide){
+
+  if(opponentPhoto){
+
+    rightSide.innerHTML = `
+      <img
+        src="${opponentPhoto}"
+        class="fighter-photo"
+        alt="${opponent}"
+      >
+    `;
+
+  }else{
+
+    rightSide.innerHTML = "";
+
+  }
+
+}
+  
   if(nextFightPromotion){
     nextFightPromotion.childNodes[0].nodeValue = promotion + "\n";
   }
