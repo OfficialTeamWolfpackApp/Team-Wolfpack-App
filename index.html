@@ -1905,7 +1905,103 @@ body.menu-open{
   color:#ff751c;
 }
 
+/* =========================================
+   QUICK ACCESS
+========================================= */
 
+.quick-access-card{
+  margin-top:16px;
+  padding:18px;
+
+  border-radius:15px;
+
+  border:
+    1px solid rgba(255,255,255,.13);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0,150,210,.13),
+      rgba(7,7,7,.97) 48%,
+      rgba(255,90,0,.11)
+    );
+
+  box-shadow:
+    0 9px 24px rgba(0,0,0,.28);
+}
+
+.quick-access-label{
+  color:#67dcff;
+
+  font-size:6px;
+  font-weight:900;
+  letter-spacing:1.5px;
+}
+
+.quick-access-title{
+  margin-top:6px;
+
+  color:#fff;
+
+  font-size:15px;
+  font-weight:900;
+}
+
+.quick-access-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+
+  gap:8px;
+
+  margin-top:14px;
+}
+
+.quick-access-link{
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  min-height:46px;
+
+  padding:0 12px;
+
+  border-radius:9px;
+
+  border:
+    1px solid rgba(255,255,255,.12);
+
+  background:
+    rgba(0,0,0,.28);
+
+  color:#fff;
+
+  text-decoration:none;
+
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:.7px;
+}
+
+.quick-access-link:nth-child(odd){
+  border-left:
+    2px solid #45d8ff;
+}
+
+.quick-access-link:nth-child(even){
+  border-right:
+    2px solid #ff701c;
+}
+
+.quick-access-link:hover{
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,150,210,.14),
+      rgba(255,90,0,.12)
+    );
+}
+  
 /* =========================================
    FOOTER
 ========================================= */
@@ -2888,6 +2984,44 @@ OFFICIALTEAMWOLFPACK.COM
 <span class="fire">
 /BOXING
 </span>
+
+</div>
+
+</section>
+  
+<!-- QUICK ACCESS -->
+
+<section class="quick-access-card">
+
+<div class="quick-access-label">
+TEAM WOLFPACK APP
+</div>
+
+<div class="quick-access-title">
+QUICK ACCESS
+</div>
+
+<div class="quick-access-grid">
+
+<a href="fighters.html" class="quick-access-link">
+<span>FIGHTERS</span>
+<span>→</span>
+</a>
+
+<a href="fights.html" class="quick-access-link">
+<span>FIGHTS</span>
+<span>→</span>
+</a>
+
+<a href="sponsors.html" class="quick-access-link">
+<span>SPONSORS</span>
+<span>→</span>
+</a>
+
+<a href="gallery.html" class="quick-access-link">
+<span>GALLERY</span>
+<span>→</span>
+</a>
 
 </div>
 
