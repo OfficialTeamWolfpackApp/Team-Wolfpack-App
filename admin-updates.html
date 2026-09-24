@@ -1310,7 +1310,10 @@ updateForm.addEventListener(
 
       const existingId =
         editId.value.trim();
-
+      
+const imageURL =
+  await uploadPostImage();
+      
       const updateData = {
 
         type:
@@ -1332,7 +1335,7 @@ updateForm.addEventListener(
   venueInput.value.trim(),
 
 image:
-  imageInput.value.trim(),
+  imageURL,
 
 published:
   true,
@@ -1467,6 +1470,13 @@ updateList.addEventListener(
       
 imageInput.value =
   item.image || "";
+imageFileInput.value =
+  "";
+
+imageStatus.textContent =
+  item.image
+    ? "CURRENT POST IMAGE WILL BE KEPT UNLESS YOU CHOOSE A NEW IMAGE."
+    : "Choose a JPG, PNG or WEBP image for this update.";
       
       publishButton.textContent =
         "SAVE CHANGES";
