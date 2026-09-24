@@ -1759,7 +1759,39 @@ body.menu-open{
 
   letter-spacing:1px;
 }
+  
+/* =========================================
+   HOME DASHBOARD
+========================================= */
 
+.home-dashboard{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:18px;
+  align-items:start;
+}
+
+.home-dashboard-main,
+.home-dashboard-side{
+  min-width:0;
+}
+
+@media(min-width:900px){
+
+  .home-dashboard{
+    grid-template-columns:
+      minmax(0,1.7fr)
+      minmax(260px,.8fr);
+
+    gap:22px;
+  }
+
+  .home-dashboard-side{
+    position:sticky;
+    top:90px;
+  }
+
+}
 
 /* =========================================
    WEBSITE
