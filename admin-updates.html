@@ -760,15 +760,31 @@ VENUE / LOCATION
   
 <div class="field">
 
-<label for="image">
+<label for="imageFile">
 POST IMAGE
 </label>
 
 <input
+  id="imageFile"
+  type="file"
+  accept="image/jpeg,image/png,image/webp"
+>
+
+<div
+  id="imageStatus"
+  style="
+    margin-top:8px;
+    color:#888;
+    font-size:9px;
+    line-height:1.5;
+  "
+>
+Choose a JPG, PNG or WEBP image for this update.
+</div>
+
+<input
   id="image"
-  type="text"
-  maxlength="500"
-  placeholder="Example: updates/images/team-wolfie.jpg"
+  type="hidden"
 >
 
 </div>
