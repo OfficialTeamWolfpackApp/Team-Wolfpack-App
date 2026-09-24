@@ -927,7 +927,9 @@ const auth =
 const database =
   getDatabase(app);
 
-
+const storage =
+  getStorage(app);
+  
 const status =
   document.getElementById("status");
 
@@ -966,6 +968,12 @@ const venueInput =
   
 const imageInput =
   document.getElementById("image");
+
+const imageFileInput =
+  document.getElementById("imageFile");
+
+const imageStatus =
+  document.getElementById("imageStatus");
   
 const publishButton =
   document.getElementById("publishButton");
@@ -1016,7 +1024,73 @@ function escapeHTML(value){
     .replaceAll("'","&#039;");
 
 }
+async function uploadPostImage(){
 
+  const file =
+    imageFileInput.files[0];
+
+  if(!file){
+    return imageInput.value.trim();
+  }
+
+  const allowedTypes = [
+    "image/jpeg",
+    "image/png",
+    "image/webp"
+  ];
+
+  if(!allowedTypes.includes(file.type)){
+    throw new Error(
+      "Please choose a JPG, PNG or WEBP image."
+    );
+  }
+
+  const maxSize =
+    10 * 1024 * 1024;
+
+  if(file.size > maxSize){
+    throw new Error(
+      "Image must be smaller than 10MB."
+    );
+  }
+
+  imageStatus.textContent =
+    "UPLOADING IMAGE...";
+
+  const safeName =
+    file.name
+      .replace(/[^a-zA-Z0-9._-]/g, "-");
+
+  const filePath =
+    "live-updates/" +
+    Date.now() +
+    "-" +
+    safeName;
+
+  const fileRef =
+    storageRef(
+      storage,
+      filePath
+    );
+
+  await uploadBytes(
+    fileRef,
+    file
+  );
+
+  const downloadURL =
+    await getDownloadURL(
+      fileRef
+    );
+
+  imageInput.value =
+    downloadURL;
+
+  imageStatus.textContent =
+    "IMAGE UPLOADED";
+
+  return downloadURL;
+}
 
 function renderUpdates(){
 
