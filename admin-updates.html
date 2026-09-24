@@ -757,7 +757,22 @@ VENUE / LOCATION
 >
 
 </div>
+  
+<div class="field">
 
+<label for="image">
+POST IMAGE
+</label>
+
+<input
+  id="image"
+  type="text"
+  maxlength="500"
+  placeholder="Example: updates/images/team-wolfie.jpg"
+>
+
+</div>
+  
 <button
   id="publishButton"
   class="publish-button"
@@ -926,7 +941,10 @@ const fighterInput =
 
 const venueInput =
   document.getElementById("venue");
-
+  
+const imageInput =
+  document.getElementById("image");
+  
 const publishButton =
   document.getElementById("publishButton");
 
@@ -1027,7 +1045,10 @@ function renderUpdates(){
 
       const message =
         escapeHTML(item.message || "");
-
+      
+const image =
+  escapeHTML(item.image || "");
+      
       const date =
         escapeHTML(item.date || "");
 
@@ -1074,6 +1095,23 @@ function renderUpdates(){
           <div class="update-title">
             ${title}
           </div>
+          
+${
+  image
+    ? `<img
+         src="${image}"
+         alt="${title}"
+         style="
+           width:100%;
+           max-height:320px;
+           object-fit:cover;
+           border-radius:10px;
+           margin-top:12px;
+           border:1px solid rgba(255,255,255,.12);
+         "
+       >`
+    : ""
+}
 
           <div class="update-message">
             ${message}
@@ -1194,11 +1232,14 @@ updateForm.addEventListener(
         fighter:
           fighterInput.value.trim(),
 
-        venue:
-          venueInput.value.trim(),
+    venue:
+  venueInput.value.trim(),
 
-        published:
-          true,
+image:
+  imageInput.value.trim(),
+
+published:
+  true,
 
         timestamp:
           Date.now(),
@@ -1327,7 +1368,10 @@ updateList.addEventListener(
 
       venueInput.value =
         item.venue || "";
-
+      
+imageInput.value =
+  item.image || "";
+      
       publishButton.textContent =
         "SAVE CHANGES";
 
