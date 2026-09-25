@@ -4140,7 +4140,10 @@ const notificationText =
 
 async function updateNotificationUI(){
 
-  if(!notificationButton || !notificationText){
+  if(
+    !notificationButton ||
+    !notificationText
+  ){
     return;
   }
 
@@ -4149,7 +4152,8 @@ async function updateNotificationUI(){
     notificationButton.textContent =
       "NOT SUPPORTED";
 
-    notificationButton.disabled = true;
+    notificationButton.disabled =
+      true;
 
     notificationText.textContent =
       "Notifications are not supported on this device.";
@@ -4158,10 +4162,21 @@ async function updateNotificationUI(){
   }
 
 
-  if(Notification.permission === "granted"){
+  notificationButton.classList.remove(
+    "enabled"
+  );
+
+
+  if(
+    Notification.permission ===
+    "granted"
+  ){
 
     notificationButton.textContent =
       "ENABLED ✓";
+
+    notificationButton.disabled =
+      false;
 
     notificationButton.classList.add(
       "enabled"
@@ -4174,12 +4189,16 @@ async function updateNotificationUI(){
   }
 
 
-  if(Notification.permission === "denied"){
+  if(
+    Notification.permission ===
+    "denied"
+  ){
 
     notificationButton.textContent =
       "BLOCKED";
 
-    notificationButton.disabled = true;
+    notificationButton.disabled =
+      true;
 
     notificationText.textContent =
       "Notifications are blocked in your browser settings.";
@@ -4191,14 +4210,32 @@ async function updateNotificationUI(){
   notificationButton.textContent =
     "ENABLE";
 
+  notificationButton.disabled =
+    false;
+
+  notificationText.textContent =
+    "Enable notifications for Team Wolfpack updates.";
+
 }
 
 
+/* =========================================
+   ENABLE NOTIFICATIONS
+========================================= */
+
 async function enableNotifications(){
+
+  if(
+    !notificationButton ||
+    !notificationText
+  ){
+    return;
+  }
 
   try{
 
-    notificationButton.disabled = true;
+    notificationButton.disabled =
+      true;
 
     notificationButton.textContent =
       "SETTING UP...";
@@ -4207,10 +4244,14 @@ async function enableNotifications(){
     const supported =
       await isSupported();
 
+
     if(!supported){
 
       notificationButton.textContent =
         "NOT SUPPORTED";
+
+      notificationButton.disabled =
+        true;
 
       notificationText.textContent =
         "Firebase notifications are not supported on this device.";
@@ -4223,59 +4264,45 @@ async function enableNotifications(){
       await Notification.requestPermission();
 
 
-    if(permission !== "granted"){
+    if(
+      permission !==
+      "granted"
+    ){
 
-      notificationButton.disabled = false;
-
-async function enableNotifications(){
-
-  try{
-
-    notificationButton.disabled = true;
-    notificationButton.textContent = "SETTING UP...";
-
-    const supported =
-      await isSupported();
-
-    if(!supported){
-
-      notificationButton.textContent =
-        "NOT SUPPORTED";
-
-      notificationText.textContent =
-        "Firebase notifications are not supported on this device.";
-
-      return;
-    }
-
-    const permission =
-      await Notification.requestPermission();
-
-    if(permission !== "granted"){
-
-      notificationButton.disabled = false;
+      notificationButton.disabled =
+        false;
 
       await updateNotificationUI();
 
       return;
     }
 
+
     const registration =
       await navigator.serviceWorker.register(
         "./service-worker.js"
       );
 
+
+    await navigator.serviceWorker.ready;
+
+
     const messaging =
       getMessaging(firebaseApp);
+
 
     const token =
       await getToken(
         messaging,
         {
-          vapidKey:VAPID_KEY,
-          serviceWorkerRegistration:registration
+          vapidKey:
+            VAPID_KEY,
+
+          serviceWorkerRegistration:
+            registration
         }
       );
+
 
     if(!token){
 
@@ -4285,17 +4312,22 @@ async function enableNotifications(){
 
     }
 
+
     console.log(
-      "Team Wolfpack notification token:",
-      token
+      "Team Wolfpack notification token created successfully."
     );
+
 
     window.teamWolfpackFCMToken =
       token;
 
-    notificationButton.disabled = false;
+
+    notificationButton.disabled =
+      false;
+
 
     await updateNotificationUI();
+
 
   }catch(error){
 
@@ -4304,7 +4336,9 @@ async function enableNotifications(){
       error
     );
 
-    notificationButton.disabled = false;
+
+    notificationButton.disabled =
+      false;
 
     notificationButton.textContent =
       "TRY AGAIN";
@@ -4317,21 +4351,35 @@ async function enableNotifications(){
 }
 
 
+/* =========================================
+   RESTORE NOTIFICATIONS
+========================================= */
+
 async function restoreNotifications(){
 
   await updateNotificationUI();
 
+
   if(
-    !("Notification" in window) ||
-    Notification.permission !== "granted"
+    !("Notification" in window)
   ){
     return;
   }
+
+
+  if(
+    Notification.permission !==
+    "granted"
+  ){
+    return;
+  }
+
 
   try{
 
     const supported =
       await isSupported();
+
 
     if(!supported){
 
@@ -4342,27 +4390,38 @@ async function restoreNotifications(){
       return;
     }
 
+
     console.log(
       "Firebase Messaging supported:",
       supported
     );
+
 
     const registration =
       await navigator.serviceWorker.register(
         "./service-worker.js"
       );
 
+
+    await navigator.serviceWorker.ready;
+
+
     const messaging =
       getMessaging(firebaseApp);
+
 
     const token =
       await getToken(
         messaging,
         {
-          vapidKey:VAPID_KEY,
-          serviceWorkerRegistration:registration
+          vapidKey:
+            VAPID_KEY,
+
+          serviceWorkerRegistration:
+            registration
         }
       );
+
 
     if(!token){
 
@@ -4372,13 +4431,18 @@ async function restoreNotifications(){
 
     }
 
+
     console.log(
-      "Team Wolfpack notification token:",
-      token
+      "Team Wolfpack notification token restored successfully."
     );
+
 
     window.teamWolfpackFCMToken =
       token;
+
+
+    await updateNotificationUI();
+
 
   }catch(error){
 
@@ -4392,6 +4456,10 @@ async function restoreNotifications(){
 }
 
 
+/* =========================================
+   NOTIFICATION BUTTON
+========================================= */
+
 if(notificationButton){
 
   notificationButton.addEventListener(
@@ -4401,6 +4469,10 @@ if(notificationButton){
 
 }
 
+
+/* =========================================
+   INITIALISE NOTIFICATIONS
+========================================= */
 
 restoreNotifications();
   
