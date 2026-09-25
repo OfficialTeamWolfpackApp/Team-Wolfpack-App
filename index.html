@@ -4464,7 +4464,58 @@ if(notificationButton){
 
   notificationButton.addEventListener(
     "click",
-    enableNotifications
+    async () => {
+
+      notificationButton.disabled = true;
+      notificationButton.textContent = "SETTING UP...";
+
+      try {
+
+        if (
+          !window.TeamWolfpackNotifications ||
+          typeof window.TeamWolfpackNotifications.enable !== "function"
+        ) {
+          throw new Error(
+            "Notification system is not ready."
+          );
+        }
+
+        const result =
+          await window.TeamWolfpackNotifications.enable();
+
+        if (
+          !result ||
+          result.success !== true
+        ) {
+          throw new Error(
+            result?.reason ||
+            "Notification registration failed."
+          );
+        }
+
+        await updateNotificationUI();
+
+      } catch (error) {
+
+        console.error(
+          "Team Wolfpack notification registration error:",
+          error
+        );
+
+        notificationButton.textContent = "TRY AGAIN";
+
+        if(notificationText){
+          notificationText.textContent =
+            "Notifications could not be registered. Please try again.";
+        }
+
+      } finally {
+
+        notificationButton.disabled = false;
+
+      }
+
+    }
   );
 
 }
