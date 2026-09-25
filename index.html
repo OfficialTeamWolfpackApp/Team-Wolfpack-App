@@ -4556,8 +4556,22 @@ if("serviceWorker" in navigator){
 }
 
 </script>
+
 <!-- TEAM WOLFPACK PUSH NOTIFICATIONS -->
 <script type="module" src="./notifications.js"></script>
-  
+
+<!-- TEAM WOLFPACK FOREGROUND NOTIFICATION BANNER -->
+<script>
+window.addEventListener(
+  "teamWolfpackForegroundNotification",
+  (event) => {
+    console.log(
+      "[Team Wolfpack] Foreground event received by app:",
+      event.detail
+    );
+  }
+);
+</script>
+
 </body>
 </html>
