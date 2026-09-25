@@ -115,7 +115,8 @@ const REGISTRATION_URL =
 
 const LOCAL_TOKEN_KEY =
   "teamWolfpackPushToken";
-
+const INSTALLATION_ID_KEY =
+  "teamWolfpackInstallationId";
 
 /* =========================================================
    STATE
@@ -127,6 +128,24 @@ let serviceWorkerRegistration = null;
 
 let registrationInProgress = false;
 
+function getTeamWolfpackInstallationId() {
+  let installationId =
+    localStorage.getItem(
+      INSTALLATION_ID_KEY
+    );
+
+  if (!installationId) {
+    installationId =
+      crypto.randomUUID();
+
+    localStorage.setItem(
+      INSTALLATION_ID_KEY,
+      installationId
+    );
+  }
+
+  return installationId;
+}
 
 /* =========================================================
    SERVICE WORKER
