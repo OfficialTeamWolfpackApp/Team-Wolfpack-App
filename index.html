@@ -573,7 +573,82 @@ body.menu-open{
   margin:0 auto;
 }
 
+/* =========================================
+   NOTIFICATIONS
+========================================= */
 
+.notification-panel{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:18px;
+  padding:15px 17px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.13);
+  background:
+    linear-gradient(
+      100deg,
+      rgba(0,150,210,.14),
+      rgba(7,7,7,.97) 48%,
+      rgba(255,90,0,.12)
+    );
+  box-shadow:0 9px 24px rgba(0,0,0,.28);
+}
+
+.notification-info{
+  min-width:0;
+}
+
+.notification-label{
+  color:#67dcff;
+  font-size:6px;
+  font-weight:900;
+  letter-spacing:1.5px;
+}
+
+.notification-title{
+  margin-top:5px;
+  color:#fff;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.notification-text{
+  margin-top:5px;
+  color:#999;
+  font-size:7px;
+  font-weight:700;
+  line-height:1.5;
+}
+
+.notification-button{
+  flex:0 0 auto;
+  min-width:90px;
+  min-height:40px;
+  padding:0 14px;
+  border:1px solid rgba(255,117,28,.55);
+  border-radius:9px;
+  background:rgba(255,90,0,.10);
+  color:#ff9b59;
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:1px;
+  cursor:pointer;
+}
+
+.notification-button.enabled{
+  border-color:rgba(69,216,255,.55);
+  background:rgba(0,150,210,.12);
+  color:#67dcff;
+}
+
+.notification-button:disabled{
+  cursor:default;
+  opacity:.75;
+}
+  
 /* =========================================
    HOME CONTENT
 ========================================= */
@@ -2731,6 +2806,43 @@ VISIT OFFICIAL WEBSITE
 <main class="main">
 
 
+<!-- NOTIFICATIONS -->
+
+<section
+  id="notificationPanel"
+  class="notification-panel"
+>
+
+  <div class="notification-info">
+
+    <div class="notification-label">
+      TEAM WOLFPACK ALERTS
+    </div>
+
+    <div class="notification-title">
+      🔔 NOTIFICATIONS
+    </div>
+
+    <div
+      id="notificationText"
+      class="notification-text"
+    >
+      Enable notifications for Team Wolfpack updates.
+    </div>
+
+  </div>
+
+  <button
+    id="notificationButton"
+    class="notification-button"
+    type="button"
+  >
+    ENABLE
+  </button>
+
+</section>
+
+
 <!-- NEXT FIGHT -->
 
 <section id="nextFightCard" class="next-fight" style="visibility:hidden;">
@@ -3328,6 +3440,12 @@ import {
   limitToLast
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
 
+import {
+  getMessaging,
+  getToken,
+  onMessage,
+  isSupported
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-messaging.js";  
 
 const firebaseConfig = {
 
@@ -3367,6 +3485,8 @@ const auth =
 const database =
   getDatabase(firebaseApp);
 
+  const VAPID_KEY =
+  "BFiQ3IfeNlorv_csTQPN0qD7MKDu-98GjjPzxL7x5AK3sJmxlZyA6dGpDD9uEUpkxWlNZv4jQ37QdnvRTQckRrg";
 
 const ADMIN_UIDS =
   new Set([
@@ -4007,6 +4127,184 @@ onValue(
   }
 );
 
+/* =========================================
+   TEAM WOLFPACK NOTIFICATIONS
+========================================= */
+
+const notificationButton =
+  document.getElementById("notificationButton");
+
+const notificationText =
+  document.getElementById("notificationText");
+
+
+async function updateNotificationUI(){
+
+  if(!notificationButton || !notificationText){
+    return;
+  }
+
+  if(!("Notification" in window)){
+
+    notificationButton.textContent =
+      "NOT SUPPORTED";
+
+    notificationButton.disabled = true;
+
+    notificationText.textContent =
+      "Notifications are not supported on this device.";
+
+    return;
+  }
+
+
+  if(Notification.permission === "granted"){
+
+    notificationButton.textContent =
+      "ENABLED ✓";
+
+    notificationButton.classList.add(
+      "enabled"
+    );
+
+    notificationText.textContent =
+      "Team Wolfpack notifications are enabled.";
+
+    return;
+  }
+
+
+  if(Notification.permission === "denied"){
+
+    notificationButton.textContent =
+      "BLOCKED";
+
+    notificationButton.disabled = true;
+
+    notificationText.textContent =
+      "Notifications are blocked in your browser settings.";
+
+    return;
+  }
+
+
+  notificationButton.textContent =
+    "ENABLE";
+
+}
+
+
+async function enableNotifications(){
+
+  try{
+
+    notificationButton.disabled = true;
+
+    notificationButton.textContent =
+      "SETTING UP...";
+
+
+    const supported =
+      await isSupported();
+
+    if(!supported){
+
+      notificationButton.textContent =
+        "NOT SUPPORTED";
+
+      notificationText.textContent =
+        "Firebase notifications are not supported on this device.";
+
+      return;
+    }
+
+
+    const permission =
+      await Notification.requestPermission();
+
+
+    if(permission !== "granted"){
+
+      notificationButton.disabled = false;
+
+      await updateNotificationUI();
+
+      return;
+    }
+
+
+    const registration =
+      await navigator.serviceWorker.register(
+        "./firebase-messaging-sw.js"
+      );
+
+
+    const messaging =
+      getMessaging(firebaseApp);
+
+
+    const token =
+      await getToken(
+        messaging,
+        {
+          vapidKey:VAPID_KEY,
+          serviceWorkerRegistration:registration
+        }
+      );
+
+
+    if(!token){
+
+      throw new Error(
+        "No Firebase messaging token returned."
+      );
+
+    }
+
+
+    console.log(
+      "Team Wolfpack notification token:",
+      token
+    );
+
+
+    notificationButton.disabled = false;
+
+    await updateNotificationUI();
+
+
+  }catch(error){
+
+    console.error(
+      "Notification setup error:",
+      error
+    );
+
+    notificationButton.disabled = false;
+
+    notificationButton.textContent =
+      "TRY AGAIN";
+
+    notificationText.textContent =
+      "Notifications could not be enabled. Please try again.";
+
+  }
+
+}
+
+
+if(notificationButton){
+
+  notificationButton.addEventListener(
+    "click",
+    enableNotifications
+  );
+
+}
+
+
+updateNotificationUI();
+  
 </script>
 
 <!-- SERVICE WORKER -->
