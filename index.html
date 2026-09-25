@@ -4504,10 +4504,14 @@ if(notificationButton){
 
         notificationButton.textContent = "TRY AGAIN";
 
-        if(notificationText){
-          notificationText.textContent =
-            "Notifications could not be registered. Please try again.";
-        }
+      if(notificationText){
+  notificationText.textContent =
+    "ERROR: " +
+    (
+      error?.message ||
+      String(error)
+    );
+}
 
       } finally {
 
