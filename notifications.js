@@ -5,6 +5,7 @@
    Firebase Cloud Messaging
    Firebase App Check
 ========================================================= */
+console.log("[Team Wolfpack] notifications.js STARTED");
 
 import {
   initializeApp
