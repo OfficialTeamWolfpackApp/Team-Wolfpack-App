@@ -4227,7 +4227,65 @@ async function enableNotifications(){
 
       notificationButton.disabled = false;
 
-      await updateNotificationUI();
+      async function restoreNotifications(){
+
+  await updateNotificationUI();
+
+  if(
+    !("Notification" in window) ||
+    Notification.permission !== "granted"
+  ){
+    return;
+  }
+
+  try{
+
+    const supported =
+      await isSupported();
+
+    if(!supported){
+      return;
+    }
+
+    const registration =
+      await navigator.serviceWorker.register(
+        "./firebase-messaging-sw.js"
+      );
+
+    const messaging =
+      getMessaging(firebaseApp);
+
+    const token =
+      await getToken(
+        messaging,
+        {
+          vapidKey:VAPID_KEY,
+          serviceWorkerRegistration:registration
+        }
+      );
+
+    if(token){
+
+      console.log(
+        "Team Wolfpack notification token:",
+        token
+      );
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "Notification restore error:",
+      error
+    );
+
+  }
+
+}
+
+
+restoreNotifications();
 
       return;
     }
