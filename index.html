@@ -4557,6 +4557,47 @@ if("serviceWorker" in navigator){
 
 </script>
 
+<!-- TEAM WOLFPACK IN-APP NOTIFICATION -->
+<div
+  id="teamWolfpackPushBanner"
+  role="alert"
+  aria-live="polite"
+  hidden
+>
+  <div class="team-wolfpack-push-content">
+
+    <div class="team-wolfpack-push-icon">
+      🐺
+    </div>
+
+    <div class="team-wolfpack-push-text">
+      <strong id="teamWolfpackPushTitle">
+        TEAM WOLFPACK
+      </strong>
+
+      <span id="teamWolfpackPushMessage">
+        New Team Wolfpack update.
+      </span>
+    </div>
+
+    <button
+      id="teamWolfpackPushView"
+      type="button"
+    >
+      VIEW
+    </button>
+
+    <button
+      id="teamWolfpackPushClose"
+      type="button"
+      aria-label="Close notification"
+    >
+      ×
+    </button>
+
+  </div>
+</div>  
+  
 <!-- TEAM WOLFPACK PUSH NOTIFICATIONS -->
 <script type="module" src="./notifications.js"></script>
 
