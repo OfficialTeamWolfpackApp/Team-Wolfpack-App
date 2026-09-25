@@ -492,6 +492,52 @@ async function initialiseForegroundMessages() {
           payload
         );
 
+         const data =
+  payload.data || {};
+
+const notification =
+  payload.notification || {};
+
+const title =
+  notification.title ||
+  data.title ||
+  "TEAM WOLFPACK";
+
+const body =
+  notification.body ||
+  data.body ||
+  "A new Team Wolfpack update is available.";
+
+if (
+  Notification.permission === "granted" &&
+  serviceWorkerRegistration
+) {
+  serviceWorkerRegistration.showNotification(
+    title,
+    {
+      body: body,
+
+      icon:
+        "./icon-192.png",
+
+      badge:
+        "./icon-192.png",
+
+      tag:
+        data.tag ||
+        "team-wolfpack-update",
+
+      renotify:
+        true,
+
+      data: {
+        url:
+          data.url ||
+          "./updates.html"
+      }
+    }
+  );
+}
 
         window.dispatchEvent(
           new CustomEvent(
