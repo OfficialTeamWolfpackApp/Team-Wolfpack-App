@@ -4270,7 +4270,9 @@ async function enableNotifications(){
         "Team Wolfpack notification token:",
         token
       );
-
+      
+window.teamWolfpackFCMToken =
+  token;
     }
 
   }catch(error){
@@ -4324,7 +4326,9 @@ restoreNotifications();
       "Team Wolfpack notification token:",
       token
     );
-
+    
+window.teamWolfpackFCMToken =
+  token;
 
     notificationButton.disabled = false;
 
