@@ -131,38 +131,38 @@ messaging.onBackgroundMessage(
    NOTIFICATION CLICK
 ========================================================= */
 
-self.addEventListener(
-  "notificationclick",
-  (event) => {
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
 
-    console.log(
-      "[Team Wolfpack] NOTIFICATION CLICK FIRED",
-      event.notification.data
-    );
+  const notificationData = event.notification.data || {};
 
-    event.notification.close();
+  const targetURL =
+    notificationData.url ||
+    notificationData.FCM_MSG?.data?.url ||
+    notificationData.fcmOptions?.link ||
+    "./updates.html";
 
-    const notificationData =
-      event.notification.data || {};
+  const absoluteURL = new URL(
+    targetURL,
+    self.registration.scope
+  ).href;
 
-    const targetURL =
-      notificationData.url ||
-      "./index.html";
+  event.waitUntil(
+    clients.matchAll({
+      type: "window",
+      includeUncontrolled: true
+    }).then((windowClients) => {
 
-    const absoluteURL =
-      new URL(
-        targetURL,
-        self.registration.scope
-      ).href;
+      for (const client of windowClients) {
+        if ("navigate" in client) {
+          return client.navigate(absoluteURL).then(() => client.focus());
+        }
+      }
 
-    event.waitUntil(
-      clients.openWindow(
-        absoluteURL
-      )
-    );
-
-  }
-);
+      return clients.openWindow(absoluteURL);
+    })
+  );
+});
 
 
 /* =========================================================
