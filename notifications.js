@@ -7,6 +7,8 @@
 ========================================================= */
 console.log("[Team Wolfpack] notifications.js STARTED");
 
+window.TeamWolfpackNotificationDebug = "STARTED";
+
 import {
   initializeApp
 } from
