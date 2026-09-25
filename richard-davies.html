@@ -1,0 +1,2036 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<!-- Google Analytics - Team Wolfpack App -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M973P0B4F0"></script>
+
+<script>
+window.dataLayer = window.dataLayer || [];
+
+function gtag(){
+  dataLayer.push(arguments);
+}
+
+gtag("js", new Date());
+gtag("config", "G-M973P0B4F0");
+
+window.addEventListener("load", function(){
+  gtag("event", "pack_profile_view", {
+    member:"Richard Davies",
+    team:"Team Wolfie",
+    role:"Sponsor"
+  });
+});
+</script>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
+
+<meta name="theme-color" content="#050505">
+<meta name="apple-mobile-web-app-title" content="Team Wolfpack">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<title>Richard Davies | Team Wolfpack</title>
+
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  min-height:100vh;
+  min-height:100dvh;
+
+  padding-top:calc(66px + env(safe-area-inset-top));
+
+  font-family:Arial, Helvetica, sans-serif;
+
+  color:#fff;
+  overflow-x:hidden;
+
+  background:#050505;
+}
+
+body.menu-open{
+  overflow:hidden;
+}
+
+
+/* =========================================
+   APP BAR
+========================================= */
+
+.app-bar{
+  position:fixed;
+
+  top:0;
+  left:0;
+  right:0;
+
+  z-index:500;
+
+  height:calc(66px + env(safe-area-inset-top));
+
+  padding:
+    env(safe-area-inset-top)
+    15px
+    0;
+
+  display:grid;
+  grid-template-columns:46px 1fr 46px;
+
+  align-items:center;
+
+  background:rgba(4,4,4,.94);
+
+  border-bottom:
+    1px solid rgba(255,255,255,.10);
+
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+
+  box-shadow:
+    0 8px 30px rgba(0,0,0,.28);
+}
+
+.menu-button{
+  width:42px;
+  height:42px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:12px;
+
+  border:
+    1px solid rgba(103,220,255,.22);
+
+  background:rgba(0,150,210,.07);
+
+  color:#67dcff;
+
+  cursor:pointer;
+
+  font-size:24px;
+}
+
+.app-bar-brand{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  gap:9px;
+
+  min-width:0;
+}
+
+.app-bar-logo{
+  width:34px;
+  height:34px;
+
+  object-fit:contain;
+}
+
+.app-bar-title{
+  overflow:hidden;
+
+  white-space:nowrap;
+  text-overflow:ellipsis;
+
+  font-size:11px;
+  font-weight:900;
+
+  letter-spacing:1.8px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #67dcff,
+      #eafaff 48%,
+      #ff751c
+    );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+.app-status{
+  width:42px;
+  height:42px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.app-status-dot{
+  width:8px;
+  height:8px;
+
+  border-radius:50%;
+
+  background:#43f27b;
+
+  box-shadow:
+    0 0 9px rgba(67,242,123,.75);
+}
+
+
+/* =========================================
+   MENU
+========================================= */
+
+.menu-backdrop{
+  position:fixed;
+  inset:0;
+
+  z-index:800;
+
+  visibility:hidden;
+  opacity:0;
+
+  background:rgba(0,0,0,.72);
+
+  backdrop-filter:blur(3px);
+  -webkit-backdrop-filter:blur(3px);
+
+  transition:
+    opacity .25s ease,
+    visibility .25s ease;
+}
+
+.menu-backdrop.show{
+  visibility:visible;
+  opacity:1;
+}
+
+.side-menu{
+  position:fixed;
+
+  left:0;
+  top:0;
+  bottom:0;
+
+  z-index:900;
+
+  width:min(84vw,340px);
+
+  transform:translateX(-105%);
+
+  transition:transform .28s ease;
+
+  overflow-y:auto;
+
+  padding:
+    calc(18px + env(safe-area-inset-top))
+    15px
+    calc(25px + env(safe-area-inset-bottom));
+
+  background:
+    radial-gradient(
+      circle at 0% 10%,
+      rgba(0,190,255,.16),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 100% 80%,
+      rgba(255,90,0,.16),
+      transparent 34%
+    ),
+    #080808;
+
+  border-right:
+    1px solid rgba(103,220,255,.20);
+
+  box-shadow:
+    20px 0 50px rgba(0,0,0,.55);
+}
+
+.side-menu.show{
+  transform:translateX(0);
+}
+
+.menu-header{
+  position:relative;
+
+  padding:
+    10px
+    45px
+    21px
+    5px;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.09);
+}
+
+.menu-logo{
+  width:72px;
+  height:72px;
+
+  object-fit:contain;
+
+  margin-bottom:10px;
+}
+
+.menu-brand{
+  font-size:18px;
+  font-weight:900;
+
+  letter-spacing:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #67dcff,
+      #fff 50%,
+      #ff751c
+    );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+.menu-tagline{
+  margin-top:5px;
+
+  color:#999;
+
+  font-size:8px;
+  font-weight:900;
+
+  letter-spacing:2px;
+}
+
+.close-menu{
+  position:absolute;
+
+  right:0;
+  top:5px;
+
+  width:38px;
+  height:38px;
+
+  border-radius:10px;
+
+  border:
+    1px solid rgba(255,117,28,.25);
+
+  background:rgba(255,90,0,.07);
+
+  color:#ff751c;
+
+  cursor:pointer;
+
+  font-size:21px;
+}
+
+.menu-section-label{
+  margin:20px 8px 8px;
+
+  color:#666;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:2px;
+}
+
+.menu-nav{
+  display:flex;
+  flex-direction:column;
+
+  gap:4px;
+}
+
+.menu-link{
+  display:flex;
+  align-items:center;
+
+  min-height:48px;
+
+  padding:9px 11px;
+
+  border-radius:10px;
+
+  text-decoration:none;
+
+  color:#d7d7d7;
+
+  border:1px solid transparent;
+
+  font-size:10px;
+  font-weight:900;
+
+  letter-spacing:.5px;
+}
+
+.menu-link:active{
+  transform:scale(.985);
+}
+
+.menu-link.active{
+  color:#67dcff;
+
+  border-color:rgba(103,220,255,.22);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,160,220,.12),
+      rgba(0,160,220,.03)
+    );
+}
+
+.menu-link.chat{
+  color:#fff;
+
+  border-color:rgba(103,220,255,.15);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,160,220,.08),
+      rgba(255,90,0,.08)
+    );
+}
+
+.menu-icon{
+  width:34px;
+
+  flex:0 0 34px;
+
+  text-align:center;
+
+  color:#67dcff;
+
+  font-size:17px;
+}
+
+.menu-arrow{
+  margin-left:auto;
+
+  color:#666;
+
+  font-size:16px;
+}
+
+
+/* =========================================
+   ADMIN MENU
+========================================= */
+
+#adminMenuSection{
+  display:none;
+}
+
+.admin-menu-link{
+  color:#ffb05d;
+
+  border-color:rgba(255,117,28,.22);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,90,0,.09),
+      rgba(0,160,220,.05)
+    );
+}
+
+.admin-menu-link .menu-icon{
+  color:#ff751c;
+}
+
+.menu-website{
+  display:block;
+
+  margin-top:19px;
+
+  padding:14px;
+
+  text-align:center;
+  text-decoration:none;
+
+  border-radius:10px;
+
+  border:
+    1px solid rgba(103,220,255,.28);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,160,220,.09),
+      rgba(255,90,0,.09)
+    );
+
+  color:#fff;
+
+  font-size:8px;
+  font-weight:900;
+
+  letter-spacing:1px;
+}
+
+
+/* =========================================
+   PROFILE HERO
+========================================= */
+
+.profile-banner{
+  position:relative;
+
+  width:100%;
+
+  min-height:180px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  overflow:hidden;
+
+  padding:35px 20px;
+
+  text-align:center;
+
+  background:
+    radial-gradient(
+      circle at 15% 50%,
+      rgba(0,191,255,.20),
+      transparent 38%
+    ),
+    radial-gradient(
+      circle at 85% 50%,
+      rgba(255,90,0,.20),
+      transparent 38%
+    ),
+    linear-gradient(
+      110deg,
+      #020b10,
+      #050505 50%,
+      #160801
+    );
+
+  border-bottom:
+    1px solid rgba(255,255,255,.10);
+
+  box-shadow:
+    0 12px 35px rgba(0,0,0,.30);
+}
+
+.banner-kicker{
+  color:#67dcff;
+
+  font-size:8px;
+  font-weight:900;
+
+  letter-spacing:3px;
+}
+
+.banner-name{
+  margin-top:8px;
+
+  font-size:clamp(26px,6vw,42px);
+  font-weight:900;
+
+  letter-spacing:1px;
+}
+
+.banner-role{
+  margin-top:8px;
+
+  color:#ff751c;
+
+  font-size:10px;
+  font-weight:900;
+
+  letter-spacing:2px;
+}
+
+
+/* =========================================
+   PROFILE BACKGROUND
+========================================= */
+
+.profile-background{
+  position:relative;
+
+  width:100%;
+
+  background:
+    radial-gradient(
+      circle at 0% 20%,
+      rgba(0,191,255,.10),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 100% 70%,
+      rgba(255,90,0,.10),
+      transparent 34%
+    ),
+    #050505;
+}
+
+.profile-background > *{
+  position:relative;
+  z-index:1;
+}
+
+
+/* =========================================
+   MAIN CONTENT
+========================================= */
+
+.content{
+  width:100%;
+
+  max-width:680px;
+
+  margin:auto;
+
+  padding:
+    25px
+    16px
+    calc(45px + env(safe-area-inset-bottom));
+}
+
+.section{
+  margin-bottom:32px;
+}
+
+.ice{
+  color:#67dcff;
+}
+
+.fire{
+  color:#ff751c;
+}
+
+
+/* =========================================
+   PROFILE PHOTO
+========================================= */
+
+.profile-photo-wrap{
+  position:relative;
+
+  width:100%;
+  height:390px;
+
+  margin-bottom:25px;
+
+  overflow:hidden;
+
+  border-radius:18px;
+
+  border:
+    1px solid rgba(255,255,255,.13);
+
+  border-left:
+    3px solid #4bd8ff;
+
+  border-right:
+    3px solid #ff6500;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(103,220,255,.10),
+      transparent 45%
+    ),
+    #080808;
+
+  box-shadow:
+    0 15px 40px rgba(0,0,0,.55);
+}
+
+.profile-photo{
+  display:block;
+
+  width:100%;
+  height:100%;
+
+  object-fit:contain;
+
+  padding:55px;
+}
+
+.profile-photo-wrap::after{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  right:0;
+  bottom:0;
+
+  height:35%;
+
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      to bottom,
+      transparent,
+      rgba(5,5,5,.88)
+    );
+}
+
+.photo-overlay{
+  position:absolute;
+
+  left:17px;
+  right:17px;
+  bottom:15px;
+
+  z-index:3;
+}
+
+.photo-team{
+  color:#67dcff;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:2px;
+}
+
+.photo-name{
+  margin-top:4px;
+
+  font-size:18px;
+  font-weight:900;
+}
+
+
+/* =========================================
+   SECTION TITLES
+========================================= */
+
+.section-kicker{
+  margin-bottom:5px;
+
+  color:#a5a5a5;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:2px;
+}
+
+.section-title{
+  margin-bottom:14px;
+
+  font-size:20px;
+  font-weight:900;
+
+  letter-spacing:.5px;
+}
+
+
+/* =========================================
+   PROFILE INFORMATION
+========================================= */
+
+.profile-box{
+  position:relative;
+
+  overflow:hidden;
+
+  padding:9px 19px;
+
+  border-radius:15px;
+
+  border:
+    1px solid rgba(255,255,255,.14);
+
+  background:
+    linear-gradient(
+      110deg,
+      rgba(0,30,42,.92),
+      rgba(5,5,5,.96) 50%,
+      rgba(48,15,0,.92)
+    );
+
+  box-shadow:
+    0 14px 32px rgba(0,0,0,.42);
+}
+
+.profile-box::before{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  top:0;
+  bottom:0;
+
+  width:3px;
+
+  background:#4bd8ff;
+}
+
+.profile-box::after{
+  content:"";
+
+  position:absolute;
+
+  right:0;
+  top:0;
+  bottom:0;
+
+  width:3px;
+
+  background:#ff6500;
+}
+
+.info-row{
+  padding:12px 0;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.08);
+}
+
+.info-row:last-child{
+  border-bottom:none;
+}
+
+.label{
+  display:block;
+
+  margin-bottom:4px;
+
+  color:#ff751c;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:1.7px;
+}
+
+.value{
+  color:#f2fbff;
+
+  font-size:13px;
+  font-weight:bold;
+
+  line-height:1.45;
+}
+
+
+/* =========================================
+   ABOUT
+========================================= */
+
+.about-card{
+  position:relative;
+
+  overflow:hidden;
+
+  padding:22px 20px;
+
+  border-radius:15px;
+
+  border:
+    1px solid rgba(255,255,255,.14);
+
+  background:
+    linear-gradient(
+      110deg,
+      rgba(0,30,42,.92),
+      rgba(5,5,5,.96) 50%,
+      rgba(48,15,0,.92)
+    );
+
+  box-shadow:
+    0 14px 32px rgba(0,0,0,.42);
+}
+
+.about-card::before{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  top:0;
+  bottom:0;
+
+  width:3px;
+
+  background:#4bd8ff;
+}
+
+.about-card::after{
+  content:"";
+
+  position:absolute;
+
+  right:0;
+  top:0;
+  bottom:0;
+
+  width:3px;
+
+  background:#ff6500;
+}
+
+.about-card p{
+  margin:0 0 16px;
+
+  color:#e3e7ea;
+
+  font-size:14px;
+
+  line-height:1.7;
+}
+
+.about-card p:last-child{
+  margin-bottom:0;
+}
+
+.highlight{
+  color:#67dcff;
+  font-weight:900;
+}
+
+.highlight-fire{
+  color:#ff751c;
+  font-weight:900;
+}
+
+
+/* =========================================
+   VALUES
+========================================= */
+
+.values-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:10px;
+}
+
+.value-card{
+  padding:20px 12px;
+
+  text-align:center;
+
+  border:
+    1px solid rgba(255,255,255,.14);
+
+  border-radius:13px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(0,30,42,.93),
+      rgba(5,5,5,.96) 50%,
+      rgba(48,15,0,.93)
+    );
+
+  box-shadow:
+    0 12px 28px rgba(0,0,0,.38);
+}
+
+.value-icon{
+  font-size:25px;
+  margin-bottom:8px;
+}
+
+.value-title{
+  color:#fff;
+
+  font-size:15px;
+  font-weight:900;
+
+  letter-spacing:1px;
+}
+
+.value-copy{
+  margin-top:5px;
+
+  color:#aaa;
+
+  font-size:8px;
+  font-weight:900;
+
+  letter-spacing:1.5px;
+}
+
+
+/* =========================================
+   MOTTO
+========================================= */
+
+.motto-card{
+  position:relative;
+
+  overflow:hidden;
+
+  padding:28px 20px;
+
+  text-align:center;
+
+  border-radius:15px;
+
+  border:
+    1px solid rgba(255,255,255,.14);
+
+  background:
+    radial-gradient(
+      circle at left,
+      rgba(0,191,255,.16),
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at right,
+      rgba(255,90,0,.16),
+      transparent 42%
+    ),
+    rgba(5,5,5,.95);
+
+  box-shadow:
+    0 14px 32px rgba(0,0,0,.42);
+}
+
+.motto-main{
+  font-size:20px;
+  font-weight:900;
+
+  line-height:1.4;
+
+  letter-spacing:1px;
+}
+
+.motto-sub{
+  margin-top:10px;
+
+  color:#aaa;
+
+  font-size:8px;
+  font-weight:900;
+
+  letter-spacing:2px;
+}
+
+
+/* =========================================
+   BACK BUTTON
+========================================= */
+
+.back{
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  width:100%;
+
+  padding:14px;
+
+  text-align:center;
+  text-decoration:none;
+
+  color:#fff;
+
+  border:
+    1px solid rgba(91,217,255,.55);
+
+  border-radius:10px;
+
+  font-size:9px;
+  font-weight:900;
+
+  letter-spacing:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,30,42,.94),
+      rgba(5,5,5,.96) 50%,
+      rgba(48,15,0,.94)
+    );
+
+  box-shadow:
+    0 10px 25px rgba(0,0,0,.35);
+}
+
+.back:active{
+  transform:scale(.985);
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.app-footer{
+  margin-top:28px;
+
+  padding-top:20px;
+
+  border-top:
+    1px solid rgba(255,255,255,.10);
+
+  text-align:center;
+
+  color:#aaa;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:1.3px;
+}
+
+.copyright{
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  gap:12px;
+
+  width:100%;
+  max-width:560px;
+
+  margin:
+    17px
+    auto
+    0;
+
+  padding-top:15px;
+
+  border-top:
+    1px solid rgba(255,255,255,.06);
+}
+
+.copyright::before,
+.copyright::after{
+  content:"";
+
+  flex:1;
+
+  max-width:110px;
+  min-width:20px;
+
+  height:2px;
+
+  border-radius:20px;
+}
+
+.copyright::before{
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #008cff,
+      #00bfff,
+      #67dcff
+    );
+}
+
+.copyright::after{
+  background:
+    linear-gradient(
+      90deg,
+      #ff751c,
+      #ff5a00,
+      #ff3d00,
+      transparent
+    );
+}
+
+.copyright-text{
+  flex:0 1 auto;
+
+  color:#eafaff;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:1.1px;
+
+  white-space:nowrap;
+}
+
+.copyright-team{
+  background:
+    linear-gradient(
+      90deg,
+      #67dcff,
+      #eafaff 48%,
+      #ff751c
+    );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+
+/* =========================================
+   TABLET / DESKTOP
+========================================= */
+
+@media(min-width:700px){
+
+  .content{
+    max-width:760px;
+  }
+
+  .profile-photo-wrap{
+    height:470px;
+  }
+
+}
+
+
+/* =========================================
+   SMALL PHONES
+========================================= */
+
+@media(max-width:400px){
+
+  .content{
+    padding:
+      18px
+      12px
+      calc(35px + env(safe-area-inset-bottom));
+  }
+
+  .profile-photo-wrap{
+    height:320px;
+    margin-bottom:22px;
+  }
+
+  .profile-photo{
+    padding:45px;
+  }
+
+  .section{
+    margin-bottom:27px;
+  }
+
+  .section-title{
+    font-size:18px;
+  }
+
+  .about-card{
+    padding:18px 16px;
+  }
+
+  .about-card p{
+    font-size:13px;
+    line-height:1.65;
+  }
+
+  .motto-main{
+    font-size:17px;
+  }
+
+  .copyright{
+    gap:7px;
+  }
+
+  .copyright::before,
+  .copyright::after{
+    min-width:13px;
+    max-width:38px;
+  }
+
+  .copyright-text{
+    font-size:5.8px;
+    letter-spacing:.55px;
+  }
+
+}
+
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+  .side-menu,
+  .menu-backdrop{
+    transition:none;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     APP BAR
+========================================= -->
+
+<header class="app-bar">
+
+<button
+  id="menuButton"
+  class="menu-button"
+  type="button"
+  aria-label="Open navigation menu"
+  aria-expanded="false"
+>
+☰
+</button>
+
+<div class="app-bar-brand">
+
+<img
+  src="icon-192.png"
+  class="app-bar-logo"
+  alt=""
+>
+
+<div class="app-bar-title">
+TEAM WOLFPACK
+</div>
+
+</div>
+
+<div
+  class="app-status"
+  aria-label="App online"
+>
+<span class="app-status-dot"></span>
+</div>
+
+</header>
+
+
+<div
+  id="menuBackdrop"
+  class="menu-backdrop"
+></div>
+
+
+<!-- =========================================
+     SIDE MENU
+========================================= -->
+
+<aside
+  id="sideMenu"
+  class="side-menu"
+  aria-label="Team Wolfpack navigation"
+>
+
+<div class="menu-header">
+
+<img
+  src="icon-192.png"
+  class="menu-logo"
+  alt="Team Wolfpack"
+>
+
+<div class="menu-brand">
+TEAM WOLFPACK
+</div>
+
+<div class="menu-tagline">
+ONE PACK • ONE PURPOSE
+</div>
+
+<button
+  id="closeMenuButton"
+  class="close-menu"
+  type="button"
+  aria-label="Close navigation menu"
+>
+×
+</button>
+
+</div>
+
+
+<div class="menu-section-label">
+MAIN
+</div>
+
+<nav class="menu-nav">
+
+<a class="menu-link" href="index.html">
+<span class="menu-icon">⌂</span>
+<span>HOME</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="fights.html">
+<span class="menu-icon">♜</span>
+<span>FIGHTS</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="fighters.html">
+<span class="menu-icon">♟</span>
+<span>FIGHTERS</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link active" href="pack.html">
+<span class="menu-icon">◆</span>
+<span>MEET THE PACK</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link chat" href="chat.html">
+<span class="menu-icon">●</span>
+<span>PACK CHAT</span>
+<span class="menu-arrow">›</span>
+</a>
+
+</nav>
+
+
+<div class="menu-section-label">
+EXPLORE
+</div>
+
+<nav class="menu-nav">
+
+<a class="menu-link" href="sponsors.html">
+<span class="menu-icon">★</span>
+<span>SPONSORS &amp; PARTNERS</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="gallery.html">
+<span class="menu-icon">▣</span>
+<span>GALLERY</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="merch.html">
+<span class="menu-icon">◇</span>
+<span>MERCH</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="contact.html">
+<span class="menu-icon">✉</span>
+<span>CONTACT</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="socials.html">
+<span class="menu-icon">◎</span>
+<span>SOCIALS</span>
+<span class="menu-arrow">›</span>
+</a>
+
+<a class="menu-link" href="about.html">
+<span class="menu-icon">ⓘ</span>
+<span>ABOUT</span>
+<span class="menu-arrow">›</span>
+</a>
+
+</nav>
+
+
+<!-- ADMIN ONLY -->
+
+<div id="adminMenuSection">
+
+<div class="menu-section-label">
+ADMIN
+</div>
+
+<nav class="menu-nav">
+
+<a
+  class="menu-link admin-menu-link"
+  href="admin-dashboard.html"
+>
+<span class="menu-icon">⚙</span>
+<span>ADMIN DASHBOARD</span>
+<span class="menu-arrow">›</span>
+</a>
+
+</nav>
+
+</div>
+
+
+<a
+  class="menu-website"
+  href="https://officialteamwolfpack.com/boxing"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+VISIT OFFICIAL WEBSITE
+</a>
+
+</aside>
+
+
+<!-- =========================================
+     RICHARD DAVIES PROFILE BANNER
+========================================= -->
+
+<section class="profile-banner">
+
+<div>
+
+<div class="banner-kicker">
+TEAM WOLFIE • SPONSOR
+</div>
+
+<div class="banner-name">
+RICHARD DAVIES
+</div>
+
+<div class="banner-role">
+FORMER MIDLANDS CHAMPION • CEO • FOUNDER
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================
+     PROFILE BACKGROUND
+========================================= -->
+
+<div class="profile-background">
+
+
+<main class="content">
+
+
+<!-- =========================================
+     PROFILE PHOTO
+========================================= -->
+
+<div class="profile-photo-wrap">
+
+<img
+  src="icon-192.png"
+  alt="Richard Davies Team Wolfie sponsor"
+  class="profile-photo"
+>
+
+<div class="photo-overlay">
+
+<div class="photo-team">
+TEAM WOLFIE • SPONSOR
+</div>
+
+<div class="photo-name">
+RICHARD DAVIES
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =========================================
+     PROFILE DETAILS
+========================================= -->
+
+<section class="section">
+
+<div class="section-kicker">
+PACK INFORMATION
+</div>
+
+<h2 class="section-title">
+<span class="ice">PROFILE</span>
+<span class="fire">DETAILS</span>
+</h2>
+
+<div class="profile-box">
+
+<div class="info-row">
+<span class="label">NAME</span>
+<span class="value">Richard Davies</span>
+</div>
+
+<div class="info-row">
+<span class="label">TEAM</span>
+<span class="value">Team Wolfie</span>
+</div>
+
+<div class="info-row">
+<span class="label">ROLE</span>
+<span class="value">Sponsor</span>
+</div>
+
+<div class="info-row">
+<span class="label">BOXING</span>
+<span class="value">Former Midlands Champion</span>
+</div>
+
+<div class="info-row">
+<span class="label">BUSINESS</span>
+<span class="value">CEO of King Clothing</span>
+</div>
+
+<div class="info-row">
+<span class="label">COMMUNITY</span>
+<span class="value">Founder of The Kings Circle</span>
+</div>
+
+<div class="info-row">
+<span class="label">FOCUS</span>
+<span class="value">
+Confidence • Resilience • Support • Positive Impact
+</span>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================
+     ABOUT
+========================================= -->
+
+<section class="section">
+
+<div class="section-kicker">
+THE STORY
+</div>
+
+<h2 class="section-title">
+<span class="ice">ABOUT</span>
+<span class="fire">RICHARD</span>
+</h2>
+
+<div class="about-card">
+
+<p>
+A former boxer and proud
+<span class="highlight">Midlands Champion</span>,
+Richard Davies’ story is one defined by courage, discipline and resilience — both inside and outside the ring.
+</p>
+
+<p>
+Throughout his boxing career, Richard developed the determination and fighting spirit needed to overcome challenges. But one of his greatest battles would come away from the ring when he was
+<span class="highlight-fire">diagnosed with cancer</span>.
+</p>
+
+<p>
+He fought through that chapter of his life with the same strength and determination that defined him as a boxer. Coming through the experience gave Richard a renewed sense of purpose: to use his journey to
+<span class="highlight">inspire others</span>,
+support those facing their own battles and create a positive impact.
+</p>
+
+<p>
+Today, Richard is the
+<span class="highlight-fire">CEO of King Clothing</span>,
+a brand built around confidence, identity and ambition.
+</p>
+
+<p>
+He is also the founder of
+<span class="highlight">The Kings Circle</span>,
+a men’s mental health group dedicated to providing a safe and supportive environment where men can talk openly, support one another and help break the silence surrounding mental health.
+</p>
+
+<p>
+Richard’s journey now extends far beyond boxing and business. It is about
+<span class="highlight-fire">building a legacy</span>,
+giving back and demonstrating that adversity does not have to define your future.
+</p>
+
+<p>
+Through courage, determination and the support of those around you, it is possible to overcome life’s toughest challenges,
+<span class="highlight">rebuild</span>
+and
+<span class="highlight-fire">emerge stronger</span>.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- =========================================
+     VALUES
+========================================= -->
+
+<section class="section">
+
+<div class="section-kicker">
+WHAT DRIVES THE JOURNEY
+</div>
+
+<h2 class="section-title">
+<span class="ice">CORE</span>
+<span class="fire">VALUES</span>
+</h2>
+
+<div class="values-grid">
+
+<div class="value-card">
+
+<div class="value-icon">◆</div>
+
+<div class="value-title">
+COURAGE
+</div>
+
+<div class="value-copy">
+FACE THE CHALLENGE
+</div>
+
+</div>
+
+
+<div class="value-card">
+
+<div class="value-icon">◉</div>
+
+<div class="value-title">
+SUPPORT
+</div>
+
+<div class="value-copy">
+STAND TOGETHER
+</div>
+
+</div>
+
+
+<div class="value-card">
+
+<div class="value-icon">★</div>
+
+<div class="value-title">
+INSPIRE
+</div>
+
+<div class="value-copy">
+CREATE POSITIVE IMPACT
+</div>
+
+</div>
+
+
+<div class="value-card">
+
+<div class="value-icon">▲</div>
+
+<div class="value-title">
+RESILIENCE
+</div>
+
+<div class="value-copy">
+KEEP MOVING FORWARD
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================
+     MOTTO
+========================================= -->
+
+<section class="section">
+
+<div class="motto-card">
+
+<div class="motto-main">
+
+<span class="ice">
+FROM CHAMPION IN THE RING
+</span>
+
+<br>
+
+<span class="fire">
+TO SURVIVOR IN LIFE
+</span>
+
+</div>
+
+<div class="motto-sub">
+THE FIGHT CONTINUES
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================
+     BACK
+========================================= -->
+
+<a
+  class="back"
+  href="pack.html"
+  aria-label="Back to Meet The Pack"
+  onclick="gtag('event','pack_profile_back_click',{
+    member:'Richard Davies',
+    destination:'Meet The Pack',
+    source:'Richard Davies Profile'
+  });"
+>
+‹ &nbsp; BACK TO MEET THE PACK
+</a>
+
+
+<!-- =========================================
+     FOOTER
+========================================= -->
+
+<footer class="app-footer">
+
+<div>
+TEAM WOLFPACK • STRENGTH IN UNITY
+</div>
+
+<div class="copyright">
+
+<span class="copyright-text">
+© <span class="copyright-year">2026</span>
+<span class="copyright-team">TEAM WOLFPACK</span>
+• ALL RIGHTS RESERVED
+</span>
+
+</div>
+
+</footer>
+
+</main>
+
+</div>
+
+
+<!-- =========================================
+     SIDE MENU JAVASCRIPT
+========================================= -->
+
+<script>
+
+const menuButton =
+  document.getElementById("menuButton");
+
+const closeMenuButton =
+  document.getElementById("closeMenuButton");
+
+const sideMenu =
+  document.getElementById("sideMenu");
+
+const menuBackdrop =
+  document.getElementById("menuBackdrop");
+
+
+function openMenu(){
+
+  sideMenu.classList.add("show");
+
+  menuBackdrop.classList.add("show");
+
+  document.body.classList.add("menu-open");
+
+  menuButton.setAttribute(
+    "aria-expanded",
+    "true"
+  );
+
+}
+
+
+function closeMenu(){
+
+  sideMenu.classList.remove("show");
+
+  menuBackdrop.classList.remove("show");
+
+  document.body.classList.remove("menu-open");
+
+  menuButton.setAttribute(
+    "aria-expanded",
+    "false"
+  );
+
+}
+
+
+menuButton.addEventListener(
+  "click",
+  openMenu
+);
+
+closeMenuButton.addEventListener(
+  "click",
+  closeMenu
+);
+
+menuBackdrop.addEventListener(
+  "click",
+  closeMenu
+);
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(event.key === "Escape"){
+      closeMenu();
+    }
+
+  }
+);
+
+document
+  .querySelectorAll(".menu-link")
+  .forEach(function(link){
+
+    link.addEventListener(
+      "click",
+      closeMenu
+    );
+
+  });
+
+</script>
+
+
+<!-- =========================================
+     ADMIN DASHBOARD VISIBILITY
+========================================= -->
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+  authDomain: "team-wolfpack-app.firebaseapp.com",
+  databaseURL: "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "team-wolfpack-app",
+  storageBucket: "team-wolfpack-app.firebasestorage.app",
+  messagingSenderId: "1070414578856",
+  appId: "1:1070414578856:web:df14e7d387e658eeae2e9d",
+  measurementId: "G-6JTCE2N9LZ"
+};
+
+
+const firebaseApp =
+  initializeApp(firebaseConfig);
+
+const auth =
+  getAuth(firebaseApp);
+
+
+const ADMIN_UIDS =
+  new Set([
+    "PRGa9TsCW0QDn1QtoUXyYjEi7YB3",
+    "SlpEQYl94DaH6j42QUyl8Kv2ujJ3"
+  ]);
+
+
+const adminMenuSection =
+  document.getElementById(
+    "adminMenuSection"
+  );
+
+
+onAuthStateChanged(
+  auth,
+  function(user){
+
+    if(
+      user &&
+      ADMIN_UIDS.has(user.uid)
+    ){
+
+      adminMenuSection.style.display =
+        "block";
+
+    }else{
+
+      adminMenuSection.style.display =
+        "none";
+
+    }
+
+  }
+);
+
+</script>
+
+
+<!-- =========================================
+     SERVICE WORKER
+========================================= -->
+
+<script>
+
+if("serviceWorker" in navigator){
+
+  window.addEventListener(
+    "load",
+    function(){
+
+      navigator
+        .serviceWorker
+        .register(
+          "service-worker.js"
+        )
+        .catch(function(error){
+
+          console.error(
+            "Service worker error:",
+            error
+          );
+
+        });
+
+    }
+  );
+
+}
+
+</script>
+
+</body>
+</html>
