@@ -229,11 +229,14 @@ async function registerDeviceWithBackend(
             appCheckResult.token
         },
 
-        body:
-          JSON.stringify({
-            token:
-              fcmToken
-          })
+       body:
+  JSON.stringify({
+    token:
+      fcmToken,
+
+    installationId:
+      getTeamWolfpackInstallationId()
+  })
       }
     );
 
