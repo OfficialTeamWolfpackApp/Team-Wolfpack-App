@@ -4227,35 +4227,38 @@ async function enableNotifications(){
 
       notificationButton.disabled = false;
 
-      async function restoreNotifications(){
-
-  await updateNotificationUI();
-
-  if(
-    !("Notification" in window) ||
-    Notification.permission !== "granted"
-  ){
-    return;
-  }
+async function enableNotifications(){
 
   try{
+
+    notificationButton.disabled = true;
+    notificationButton.textContent = "SETTING UP...";
 
     const supported =
       await isSupported();
 
-   if(!supported){
+    if(!supported){
 
-  console.error(
-    "Firebase Messaging is not supported."
-  );
+      notificationButton.textContent =
+        "NOT SUPPORTED";
 
-  return;
-}
+      notificationText.textContent =
+        "Firebase notifications are not supported on this device.";
 
-console.log(
-  "Firebase Messaging supported:",
-  supported
-);
+      return;
+    }
+
+    const permission =
+      await Notification.requestPermission();
+
+    if(permission !== "granted"){
+
+      notificationButton.disabled = false;
+
+      await updateNotificationUI();
+
+      return;
+    }
 
     const registration =
       await navigator.serviceWorker.register(
@@ -4274,55 +4277,6 @@ console.log(
         }
       );
 
-    if(token){
-
-      console.log(
-        "Team Wolfpack notification token:",
-        token
-      );
-      
-window.teamWolfpackFCMToken =
-  token;
-    }
-
-  }catch(error){
-
-    console.error(
-      "Notification restore error:",
-      error
-    );
-
-  }
-
-}
-
-
-restoreNotifications();
-
-      return;
-    }
-
-
-    const registration =
-      await navigator.serviceWorker.register(
-       "./service-worker.js"
-      );
-
-
-    const messaging =
-      getMessaging(firebaseApp);
-
-
-    const token =
-      await getToken(
-        messaging,
-        {
-          vapidKey:VAPID_KEY,
-          serviceWorkerRegistration:registration
-        }
-      );
-
-
     if(!token){
 
       throw new Error(
@@ -4331,19 +4285,17 @@ restoreNotifications();
 
     }
 
-
     console.log(
       "Team Wolfpack notification token:",
       token
     );
-    
-window.teamWolfpackFCMToken =
-  token;
+
+    window.teamWolfpackFCMToken =
+      token;
 
     notificationButton.disabled = false;
 
     await updateNotificationUI();
-
 
   }catch(error){
 
@@ -4365,6 +4317,81 @@ window.teamWolfpackFCMToken =
 }
 
 
+async function restoreNotifications(){
+
+  await updateNotificationUI();
+
+  if(
+    !("Notification" in window) ||
+    Notification.permission !== "granted"
+  ){
+    return;
+  }
+
+  try{
+
+    const supported =
+      await isSupported();
+
+    if(!supported){
+
+      console.error(
+        "Firebase Messaging is not supported."
+      );
+
+      return;
+    }
+
+    console.log(
+      "Firebase Messaging supported:",
+      supported
+    );
+
+    const registration =
+      await navigator.serviceWorker.register(
+        "./service-worker.js"
+      );
+
+    const messaging =
+      getMessaging(firebaseApp);
+
+    const token =
+      await getToken(
+        messaging,
+        {
+          vapidKey:VAPID_KEY,
+          serviceWorkerRegistration:registration
+        }
+      );
+
+    if(!token){
+
+      throw new Error(
+        "No Firebase messaging token returned."
+      );
+
+    }
+
+    console.log(
+      "Team Wolfpack notification token:",
+      token
+    );
+
+    window.teamWolfpackFCMToken =
+      token;
+
+  }catch(error){
+
+    console.error(
+      "Notification restore error:",
+      error
+    );
+
+  }
+
+}
+
+
 if(notificationButton){
 
   notificationButton.addEventListener(
@@ -4375,7 +4402,7 @@ if(notificationButton){
 }
 
 
-updateNotificationUI();
+restoreNotifications();
   
 </script>
 
