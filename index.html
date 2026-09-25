@@ -4504,13 +4504,20 @@ if(notificationButton){
 
         notificationButton.textContent = "TRY AGAIN";
 
-      if(notificationText){
+     if(notificationText){
+
+  const debugStatus =
+    window.TeamWolfpackNotificationDebug ||
+    "NOT STARTED";
+
   notificationText.textContent =
     "ERROR: " +
     (
       error?.message ||
       String(error)
-    );
+    ) +
+    " | MODULE: " +
+    debugStatus;
 }
 
       } finally {
