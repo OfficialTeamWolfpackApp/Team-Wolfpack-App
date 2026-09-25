@@ -137,10 +137,15 @@ self.addEventListener("notificationclick", (event) => {
   const notificationData = event.notification.data || {};
 
   const targetURL =
-    notificationData.url ||
-    notificationData.FCM_MSG?.data?.url ||
-    notificationData.fcmOptions?.link ||
-    "./updates.html";
+  notificationData.url ||
+  notificationData.Link ||
+  notificationData.link ||
+  notificationData.FCM_MSG?.data?.url ||
+  notificationData.FCM_MSG?.data?.Link ||
+  notificationData.FCM_MSG?.data?.link ||
+  notificationData.FCM_MSG?.fcmOptions?.link ||
+  notificationData.fcmOptions?.link ||
+  "./updates.html";
 
   const absoluteURL = new URL(
     targetURL,
