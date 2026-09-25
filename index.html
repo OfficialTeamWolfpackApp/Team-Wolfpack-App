@@ -4243,9 +4243,19 @@ async function enableNotifications(){
     const supported =
       await isSupported();
 
-    if(!supported){
-      return;
-    }
+   if(!supported){
+
+  console.error(
+    "Firebase Messaging is not supported."
+  );
+
+  return;
+}
+
+console.log(
+  "Firebase Messaging supported:",
+  supported
+);
 
     const registration =
       await navigator.serviceWorker.register(
