@@ -732,46 +732,86 @@ body.menu-open{
   line-height:1.15;
 }
   
-.update-image{
-  /* =========================================
+/* =========================================
    LIVE UPDATE IMAGE / SAVED CROP
 ========================================= */
 
 .update-image-frame{
   position:relative;
-
   width:100%;
   aspect-ratio:16 / 9;
-
   margin:14px 0;
-
   overflow:hidden;
-
   border-radius:12px;
-
-  border:
-    1px solid rgba(255,255,255,.10);
-
+  border:1px solid rgba(255,255,255,.10);
   background:#050505;
+}
+
+.update-image-frame.ratio-16-9{
+  aspect-ratio:16 / 9;
+}
+
+.update-image-frame.ratio-4-5{
+  width:min(72%,520px);
+  margin-left:auto;
+  margin-right:auto;
+  aspect-ratio:4 / 5;
+}
+
+.update-image-frame.ratio-1-1{
+  width:min(82%,580px);
+  margin-left:auto;
+  margin-right:auto;
+  aspect-ratio:1 / 1;
+}
+
+.update-image-frame.ratio-9-16{
+  width:min(58%,400px);
+  margin-left:auto;
+  margin-right:auto;
+  aspect-ratio:9 / 16;
+}
+
+.update-image-frame.ratio-full{
+  width:100%;
+  aspect-ratio:auto;
+  overflow:hidden;
 }
 
 .update-image{
   display:block;
-
   width:100%;
   height:100%;
-
   object-fit:cover;
-
   margin:0;
-
   user-select:none;
   -webkit-user-drag:none;
-
-  transition:
-    transform .2s ease;
+  transition:transform .2s ease;
 }
-  
+
+.update-image-frame.ratio-full .update-image{
+  width:100%;
+  height:auto;
+  object-fit:contain;
+  object-position:center !important;
+  transform:none !important;
+  transform-origin:center !important;
+}
+
+@media(max-width:500px){
+  .update-image-frame.ratio-4-5{
+    width:82%;
+  }
+
+  .update-image-frame.ratio-1-1{
+    width:90%;
+  }
+
+  .update-image-frame.ratio-9-16{
+    width:68%;
+  }
+}
+
 .update-message{
  margin:4px 0 0;
 
@@ -1709,7 +1749,7 @@ if(update.image){
 
   const zoom =
     Math.min(
-      250,
+      300,
       Math.max(
         100,
         Number(
@@ -1718,9 +1758,37 @@ if(update.image){
       )
     );
 
+  const allowedRatios = [
+    "16:9",
+    "4:5",
+    "1:1",
+    "9:16",
+    "full"
+  ];
+
+  const imageRatio =
+    allowedRatios.includes(
+      safeText(
+        update.imageRatio || "16:9"
+      )
+    )
+      ? safeText(
+          update.imageRatio || "16:9"
+        )
+      : "16:9";
+
+  const ratioClasses = {
+    "16:9":"ratio-16-9",
+    "4:5":"ratio-4-5",
+    "1:1":"ratio-1-1",
+    "9:16":"ratio-9-16",
+    "full":"ratio-full"
+  };
+
 
   imageFrame.className =
-    "update-image-frame";
+    "update-image-frame " +
+    ratioClasses[imageRatio];
 
 
   image.className =
@@ -1744,24 +1812,37 @@ if(update.image){
     "lazy";
 
 
-  image.style.objectPosition =
-    positionX +
-    "% " +
-    positionY +
-    "%";
+  if(imageRatio === "full"){
 
+    image.style.objectPosition =
+      "center";
 
-  image.style.transform =
-    "scale(" +
-    (zoom / 100) +
-    ")";
+    image.style.transform =
+      "none";
 
+    image.style.transformOrigin =
+      "center";
 
-  image.style.transformOrigin =
-    positionX +
-    "% " +
-    positionY +
-    "%";
+  }else{
+
+    image.style.objectPosition =
+      positionX +
+      "% " +
+      positionY +
+      "%";
+
+    image.style.transform =
+      "scale(" +
+      (zoom / 100) +
+      ")";
+
+    image.style.transformOrigin =
+      positionX +
+      "% " +
+      positionY +
+      "%";
+
+  }
 
 
   imageFrame.appendChild(
