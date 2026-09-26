@@ -545,6 +545,49 @@ h1 {
 }
 
 
+
+.upload-results {
+  display:none;
+  margin-top:14px;
+  padding:14px;
+  border:1px solid rgba(0,191,255,.24);
+  border-radius:12px;
+  background:rgba(0,191,255,.055);
+}
+.upload-results.visible { display:block; }
+.upload-results-title {
+  margin:0 0 10px;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.5px;
+}
+.upload-results-list { display:grid; gap:7px; }
+.upload-result-item {
+  display:grid;
+  grid-template-columns:24px 1fr;
+  gap:8px;
+  padding:8px;
+  border-radius:8px;
+  background:rgba(255,255,255,.04);
+  font-size:10px;
+  line-height:1.4;
+}
+.upload-result-icon { font-weight:900; text-align:center; }
+.upload-result-name { font-weight:800; overflow-wrap:anywhere; }
+.upload-result-message { margin-top:2px; opacity:.7; }
+.upload-results-close {
+  width:100%;
+  min-height:40px;
+  margin-top:10px;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:8px;
+  background:rgba(255,255,255,.05);
+  color:#fff;
+  font-size:10px;
+  font-weight:900;
+  cursor:pointer;
+}
+
 /* =========================================
    FORM
 ========================================= */
@@ -1847,6 +1890,14 @@ body.edit-open {
 
 
 
+<div id="uploadResults" class="upload-results">
+  <div id="uploadResultsTitle" class="upload-results-title">UPLOAD RESULTS</div>
+  <div id="uploadResultsList" class="upload-results-list"></div>
+  <button id="uploadResultsClose" class="upload-results-close" type="button">
+    CLOSE RESULTS
+  </button>
+</div>
+
 <div
   id="uploadReviewOverlay"
   class="upload-review-overlay"
@@ -2116,6 +2167,18 @@ const uploadReviewConfirm =
   document.getElementById(
     "uploadReviewConfirm"
   );
+
+const uploadResults =
+  document.getElementById("uploadResults");
+
+const uploadResultsTitle =
+  document.getElementById("uploadResultsTitle");
+
+const uploadResultsList =
+  document.getElementById("uploadResultsList");
+
+const uploadResultsClose =
+  document.getElementById("uploadResultsClose");
 
 const uploadButton =
   document.getElementById(
@@ -5065,6 +5128,49 @@ uploadReviewConfirm.addEventListener(
 );
 
 
+function showUploadResults(results) {
+
+  const successful =
+    results.filter(result => result.success).length;
+
+  uploadResultsTitle.textContent =
+    `${successful} OF ${results.length} ${
+      results.length === 1 ? "PHOTO" : "PHOTOS"
+    } UPLOADED SUCCESSFULLY`;
+
+  uploadResultsList.innerHTML =
+    results.map(result => `
+      <div class="upload-result-item">
+        <div class="upload-result-icon">
+          ${result.success ? "✓" : "✕"}
+        </div>
+        <div>
+          <div class="upload-result-name">
+            ${escapeReviewHTML(result.fileName)}
+          </div>
+          <div class="upload-result-message">
+            ${escapeReviewHTML(
+              result.success
+                ? "Uploaded and saved"
+                : result.message || "Upload failed"
+            )}
+          </div>
+        </div>
+      </div>
+    `).join("");
+
+  uploadResults.classList.add("visible");
+  uploadResults.scrollIntoView({
+    behavior: "smooth",
+    block: "nearest"
+  });
+}
+
+uploadResultsClose.addEventListener("click", () => {
+  uploadResults.classList.remove("visible");
+});
+
+
 async function performConfirmedGalleryUpload() {
 
     if (
@@ -5092,6 +5198,8 @@ async function performConfirmedGalleryUpload() {
 
     const items =
       pendingUploadItems.slice();
+
+    const uploadResultsData = [];
 
 
     if (
@@ -5192,6 +5300,11 @@ async function performConfirmedGalleryUpload() {
           result
         );
 
+        uploadResultsData.push({
+          success: true,
+          fileName: item.file.name
+        });
+
       }
 
 
@@ -5211,6 +5324,10 @@ async function performConfirmedGalleryUpload() {
 
 
       resetGalleryUploader();
+
+      showUploadResults(
+        uploadResultsData
+      );
 
 
     } catch (error) {
