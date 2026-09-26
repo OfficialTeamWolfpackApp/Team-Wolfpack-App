@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
+
+<meta name="theme-color" content="#050505">
+
+<meta
+  name="apple-mobile-web-app-capable"
+  content="yes"
+>
+
+<meta
+  name="mobile-web-app-capable"
+  content="yes"
+>
+
+<title>Gallery Manager | Team Wolfpack</title>
+
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: #050505;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(0, 191, 255, 0.15),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at top right,
+      rgba(255, 90, 0, 0.15),
+      transparent 32%
+    ),
+    #050505;
+
+  color: #ffffff;
+}
+
+
+/* =========================================
+   PAGE
+========================================= */
+
+.page {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+
+  padding:
+    max(18px, env(safe-area-inset-top))
+    16px
+    calc(40px + env(safe-area-inset-bottom));
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.header {
+  margin-bottom: 24px;
+}
+
+.brand {
+  margin: 0;
+
+  font-size: 12px;
+  font-weight: 900;
+
+  letter-spacing: 3px;
+
+  color: #00bfff;
+}
+
+h1 {
+  margin:
+    7px
+    0
+    6px;
+
+  font-size: 30px;
+  line-height: 1;
+
+  letter-spacing: 0.5px;
+}
+
+.subtitle {
+  margin: 0;
+
+  color:
+    rgba(255,255,255,0.62);
+
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+
+/* =========================================
+   CARD
+========================================= */
+
+.card {
+  margin-bottom: 18px;
+
+  padding: 18px;
+
+  border:
+    1px solid
+    rgba(255,255,255,0.12);
+
+  border-radius: 18px;
+
+  background:
+    rgba(12,15,18,0.92);
+
+  box-shadow:
+    0 16px 40px
+    rgba(0,0,0,0.35);
+}
+
+
+/* =========================================
+   ADD PHOTO BUTTON
+========================================= */
+
+.add-photo-button {
+  width: 100%;
+
+  min-height: 72px;
+
+  border:
+    1px solid
+    rgba(0,191,255,0.55);
+
+  border-radius: 15px;
+
+  background:
+    linear-gradient(
+      120deg,
+      rgba(0,191,255,0.20),
+      rgba(12,15,18,0.96) 48%,
+      rgba(255,90,0,0.18)
+    );
+
+  color: #ffffff;
+
+  font-size: 16px;
+  font-weight: 900;
+
+  letter-spacing: 1px;
+
+  cursor: pointer;
+}
+
+.add-photo-button:active {
+  transform: scale(0.985);
+}
+
+
+/* =========================================
+   IMAGE PREVIEW
+========================================= */
+
+.preview {
+  display: none;
+
+  margin-top: 16px;
+}
+
+.preview.visible {
+  display: block;
+}
+
+.preview-image {
+  display: block;
+
+  width: 100%;
+  max-height: 420px;
+
+  object-fit: cover;
+
+  border-radius: 14px;
+
+  border:
+    1px solid
+    rgba(255,255,255,0.12);
+}
+
+.preview-info {
+  margin-top: 8px;
+
+  font-size: 12px;
+
+  color:
+    rgba(255,255,255,0.58);
+}
+
+
+/* =========================================
+   FORM
+========================================= */
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color:
+    rgba(255,255,255,0.72);
+
+  font-size: 11px;
+  font-weight: 900;
+
+  letter-spacing: 1px;
+}
+
+input,
+select,
+textarea {
+
+  width: 100%;
+
+  min-height: 48px;
+
+  padding: 12px;
+
+  border:
+    1px solid
+    rgba(255,255,255,0.14);
+
+  border-radius: 11px;
+
+  outline: none;
+
+  background:
+    rgba(0,0,0,0.38);
+
+  color: #ffffff;
+
+  font: inherit;
+}
+
+textarea {
+  min-height: 95px;
+  resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+
+  border-color:
+    rgba(0,191,255,0.75);
+}
+
+
+/* =========================================
+   OPTIONS
+========================================= */
+
+.option {
+  display: flex;
+
+  align-items: center;
+
+  gap: 11px;
+
+  min-height: 48px;
+
+  padding:
+    8px
+    0;
+}
+
+.option input {
+  width: 22px;
+  height: 22px;
+
+  min-height: 0;
+
+  accent-color:
+    #00bfff;
+}
+
+.option span {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+
+/* =========================================
+   UPLOAD BUTTON
+========================================= */
+
+.upload-button {
+
+  width: 100%;
+
+  min-height: 56px;
+
+  margin-top: 8px;
+
+  border: 0;
+
+  border-radius: 13px;
+
+  background:
+    linear-gradient(
+      100deg,
+      #008cff,
+      #00bfff 42%,
+      #ff5a00
+    );
+
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 900;
+
+  letter-spacing: 1px;
+
+  cursor: pointer;
+}
+
+.upload-button:disabled {
+
+  opacity: 0.42;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================================
+   STATUS
+========================================= */
+
+.status {
+
+  display: none;
+
+  margin-top: 14px;
+
+  padding: 12px;
+
+  border-radius: 10px;
+
+  font-size: 13px;
+  line-height: 1.4;
+
+  background:
+    rgba(0,191,255,0.08);
+
+  border:
+    1px solid
+    rgba(0,191,255,0.25);
+}
+
+.status.visible {
+  display: block;
+}
+
+
+/* =========================================
+   RECENT
+========================================= */
+
+.section-title {
+
+  margin:
+    5px
+    0
+    12px;
+
+  font-size: 14px;
+
+  letter-spacing: 1px;
+}
+
+.empty {
+
+  padding:
+    28px
+    12px;
+
+  text-align: center;
+
+  color:
+    rgba(255,255,255,0.45);
+
+  font-size: 13px;
+
+  border:
+    1px dashed
+    rgba(255,255,255,0.13);
+
+  border-radius: 13px;
+}
+
+
+/* =========================================
+   BACK
+========================================= */
+
+.back-button {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  margin-bottom: 20px;
+
+  color:
+    rgba(255,255,255,0.68);
+
+  text-decoration: none;
+
+  font-size: 13px;
+
+  font-weight: 800;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 520px) {
+
+  .page {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  h1 {
+    font-size: 27px;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<main class="page">
+
+  <a
+    class="back-button"
+    href="./index.html"
+  >
+    ← BACK TO TEAM WOLFPACK
+  </a>
+
+
+  <header class="header">
+
+    <p class="brand">
+      TEAM WOLFPACK ADMIN
+    </p>
+
+    <h1>
+      Gallery Manager
+    </h1>
+
+    <p class="subtitle">
+      Upload and manage Team Wolfpack
+      photos directly from your phone.
+    </p>
+
+  </header>
+
+
+  <!-- =====================================
+       PHOTO SELECTION
+  ====================================== -->
+
+  <section class="card">
+
+    <input
+      id="galleryFileInput"
+      type="file"
+      accept="image/*"
+      multiple
+      hidden
+    >
+
+    <button
+      id="addPhotoButton"
+      class="add-photo-button"
+      type="button"
+    >
+      ＋ ADD PHOTOS
+    </button>
+
+
+    <div
+      id="imagePreview"
+      class="preview"
+    >
+
+      <img
+        id="previewImage"
+        class="preview-image"
+        alt="Selected gallery image"
+      >
+
+      <div
+        id="previewInfo"
+        class="preview-info"
+      ></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================
+       PHOTO DETAILS
+  ====================================== -->
+
+  <section class="card">
+
+    <div class="form-group">
+
+      <label for="galleryCategory">
+        GALLERY
+      </label>
+
+      <select id="galleryCategory">
+
+        <option value="fight-night">
+          Fight Night
+        </option>
+
+        <option value="team-wolfie">
+          Team Wolfie
+        </option>
+
+        <option value="greig-sloan">
+          Greig Sloan
+        </option>
+
+        <option value="training">
+          Training
+        </option>
+
+        <option value="events">
+          Events
+        </option>
+
+        <option value="team">
+          Team Wolfpack
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label for="galleryEvent">
+        EVENT / FIGHT
+      </label>
+
+      <input
+        id="galleryEvent"
+        type="text"
+        placeholder="e.g. Fight Night – September 2026"
+      >
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label for="galleryCaption">
+        CAPTION
+      </label>
+
+      <textarea
+        id="galleryCaption"
+        placeholder="Optional photo caption..."
+      ></textarea>
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label for="galleryDate">
+        DATE
+      </label>
+
+      <input
+        id="galleryDate"
+        type="date"
+      >
+
+    </div>
+
+
+    <label class="option">
+
+      <input
+        id="galleryFeatured"
+        type="checkbox"
+      >
+
+      <span>
+        Featured photo
+      </span>
+
+    </label>
+
+
+    <label class="option">
+
+      <input
+        id="galleryPublished"
+        type="checkbox"
+        checked
+      >
+
+      <span>
+        Publish immediately
+      </span>
+
+    </label>
+
+
+    <button
+      id="uploadGalleryButton"
+      class="upload-button"
+      type="button"
+      disabled
+    >
+      UPLOAD TO GALLERY
+    </button>
+
+
+    <div
+      id="galleryStatus"
+      class="status"
+      role="status"
+      aria-live="polite"
+    ></div>
+
+  </section>
+
+
+  <!-- =====================================
+       RECENT UPLOADS
+  ====================================== -->
+
+  <section class="card">
+
+    <h2 class="section-title">
+      RECENT UPLOADS
+    </h2>
+
+    <div class="empty">
+      Uploaded gallery images will appear here.
+    </div>
+
+  </section>
+
+</main>
+
+
+<script>
+
+(() => {
+
+  const fileInput =
+    document.getElementById(
+      "galleryFileInput"
+    );
+
+  const addButton =
+    document.getElementById(
+      "addPhotoButton"
+    );
+
+  const preview =
+    document.getElementById(
+      "imagePreview"
+    );
+
+  const previewImage =
+    document.getElementById(
+      "previewImage"
+    );
+
+  const previewInfo =
+    document.getElementById(
+      "previewInfo"
+    );
+
+  const uploadButton =
+    document.getElementById(
+      "uploadGalleryButton"
+    );
+
+  const dateInput =
+    document.getElementById(
+      "galleryDate"
+    );
+
+  const status =
+    document.getElementById(
+      "galleryStatus"
+    );
+
+
+  /* =====================================
+     DEFAULT DATE
+  ====================================== */
+
+  const today =
+    new Date();
+
+  const localDate =
+    new Date(
+      today.getTime() -
+      today.getTimezoneOffset() * 60000
+    )
+      .toISOString()
+      .split("T")[0];
+
+  dateInput.value =
+    localDate;
+
+
+  /* =====================================
+     OPEN PHONE GALLERY
+  ====================================== */
+
+  addButton.addEventListener(
+    "click",
+    () => {
+
+      fileInput.click();
+
+    }
+  );
+
+
+  /* =====================================
+     PREVIEW SELECTED IMAGE
+  ====================================== */
+
+  fileInput.addEventListener(
+    "change",
+    () => {
+
+      const files =
+        Array.from(
+          fileInput.files || []
+        );
+
+
+      if (
+        files.length === 0
+      ) {
+
+        preview.classList.remove(
+          "visible"
+        );
+
+        uploadButton.disabled =
+          true;
+
+        return;
+
+      }
+
+
+      const firstFile =
+        files[0];
+
+
+      previewImage.src =
+        URL.createObjectURL(
+          firstFile
+        );
+
+
+      if (
+        files.length === 1
+      ) {
+
+        previewInfo.textContent =
+          firstFile.name;
+
+      } else {
+
+        previewInfo.textContent =
+          files.length +
+          " photos selected";
+
+      }
+
+
+      preview.classList.add(
+        "visible"
+      );
+
+
+      uploadButton.disabled =
+        false;
+
+
+      status.classList.remove(
+        "visible"
+      );
+
+    }
+  );
+
+
+  /* =====================================
+     TEMPORARY UPLOAD TEST
+
+     Firebase Storage connection comes next.
+  ====================================== */
+
+  uploadButton.addEventListener(
+    "click",
+    () => {
+
+      const files =
+        Array.from(
+          fileInput.files || []
+        );
+
+
+      if (
+        files.length === 0
+      ) {
+
+        return;
+
+      }
+
+
+      status.textContent =
+        files.length === 1
+          ? "1 photo is ready to upload."
+          : files.length +
+            " photos are ready to upload.";
+
+
+      status.classList.add(
+        "visible"
+      );
+
+    }
+  );
+
+})();
+
+</script>
+
+
+</body>
+
+</html>
