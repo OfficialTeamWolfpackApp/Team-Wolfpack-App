@@ -342,6 +342,36 @@ h1 {
 }
 
 
+
+.multi-reorder-controls {
+  display: none;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.multi-reorder-controls.visible {
+  display: grid;
+}
+
+.multi-reorder-button {
+  min-height: 42px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 9px;
+  background: rgba(255,255,255,.06);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .5px;
+  cursor: pointer;
+}
+
+.multi-reorder-button:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}
+
+
 /* =========================================
    FORM
 ========================================= */
@@ -1171,6 +1201,27 @@ body.edit-open {
         aria-label="Selected photo thumbnails"
       ></div>
 
+      <div
+        id="multiReorderControls"
+        class="multi-reorder-controls"
+      >
+        <button
+          id="moveUploadPhotoLeft"
+          class="multi-reorder-button"
+          type="button"
+        >
+          ← MOVE PHOTO LEFT
+        </button>
+
+        <button
+          id="moveUploadPhotoRight"
+          class="multi-reorder-button"
+          type="button"
+        >
+          MOVE PHOTO RIGHT →
+        </button>
+      </div>
+
     </div>
 
   </section>
@@ -1768,6 +1819,21 @@ const multiThumbnailStrip =
     "multiThumbnailStrip"
   );
 
+const multiReorderControls =
+  document.getElementById(
+    "multiReorderControls"
+  );
+
+const moveUploadPhotoLeft =
+  document.getElementById(
+    "moveUploadPhotoLeft"
+  );
+
+const moveUploadPhotoRight =
+  document.getElementById(
+    "moveUploadPhotoRight"
+  );
+
 const uploadButton =
   document.getElementById(
     "uploadGalleryButton"
@@ -2098,6 +2164,96 @@ addButton.addEventListener(
    PREVIEW / EDIT SELECTED IMAGES
 ========================================================= */
 
+function updateMultiReorderControls() {
+
+  const hasMultiple =
+    pendingUploadItems.length > 1;
+
+  multiReorderControls.classList.toggle(
+    "visible",
+    hasMultiple
+  );
+
+  moveUploadPhotoLeft.disabled =
+    uploadInProgress ||
+    !hasMultiple ||
+    currentUploadItemIndex === 0;
+
+  moveUploadPhotoRight.disabled =
+    uploadInProgress ||
+    !hasMultiple ||
+    currentUploadItemIndex ===
+      pendingUploadItems.length - 1;
+
+}
+
+
+function moveCurrentUploadPhoto(direction) {
+
+  if (
+    uploadInProgress ||
+    pendingUploadItems.length <= 1
+  ) {
+    return;
+  }
+
+  saveCurrentUploadItemDetails();
+
+  const targetIndex =
+    currentUploadItemIndex + direction;
+
+  if (
+    targetIndex < 0 ||
+    targetIndex >= pendingUploadItems.length
+  ) {
+    return;
+  }
+
+  const currentItem =
+    pendingUploadItems[
+      currentUploadItemIndex
+    ];
+
+  pendingUploadItems[
+    currentUploadItemIndex
+  ] =
+    pendingUploadItems[
+      targetIndex
+    ];
+
+  pendingUploadItems[
+    targetIndex
+  ] =
+    currentItem;
+
+  currentUploadItemIndex =
+    targetIndex;
+
+  renderMultiThumbnailStrip();
+
+  loadUploadItem(
+    currentUploadItemIndex
+  );
+
+}
+
+
+moveUploadPhotoLeft.addEventListener(
+  "click",
+  () => {
+    moveCurrentUploadPhoto(-1);
+  }
+);
+
+
+moveUploadPhotoRight.addEventListener(
+  "click",
+  () => {
+    moveCurrentUploadPhoto(1);
+  }
+);
+
+
 function clearMultiThumbnailURLs() {
 
   multiThumbnailURLs.forEach(
@@ -2111,6 +2267,10 @@ function clearMultiThumbnailURLs() {
   multiThumbnailStrip.innerHTML = "";
 
   multiThumbnailStrip.classList.remove(
+    "visible"
+  );
+
+  multiReorderControls.classList.remove(
     "visible"
   );
 
@@ -2360,6 +2520,7 @@ function loadUploadItem(
   );
 
   updateActiveUploadThumbnail();
+  updateMultiReorderControls();
 
 }
 
