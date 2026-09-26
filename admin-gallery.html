@@ -430,6 +430,121 @@ h1 {
 }
 
 
+
+.upload-review-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  padding: 18px;
+  background: rgba(0,0,0,.86);
+  overflow-y: auto;
+}
+
+.upload-review-overlay.visible {
+  display: block;
+}
+
+.upload-review-modal {
+  width: min(760px, 100%);
+  margin: 24px auto;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 14px;
+  background: #0b0b0b;
+  box-shadow: 0 20px 60px rgba(0,0,0,.55);
+  overflow: hidden;
+}
+
+.upload-review-head {
+  padding: 18px;
+  border-bottom: 1px solid rgba(255,255,255,.10);
+}
+
+.upload-review-head h3 {
+  margin: 0 0 5px;
+  font-size: 16px;
+}
+
+.upload-review-head p {
+  margin: 0;
+  opacity: .68;
+  font-size: 11px;
+}
+
+.upload-review-list {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+}
+
+.upload-review-item {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 12px;
+  padding: 10px;
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 10px;
+  background: rgba(255,255,255,.035);
+}
+
+.upload-review-thumb {
+  width: 72px;
+  height: 72px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: #000;
+}
+
+.upload-review-name {
+  margin-bottom: 6px;
+  font-size: 11px;
+  font-weight: 900;
+  overflow-wrap: anywhere;
+}
+
+.upload-review-meta {
+  display: grid;
+  gap: 3px;
+  font-size: 10px;
+  line-height: 1.4;
+  opacity: .82;
+}
+
+.upload-review-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+  padding: 14px;
+  border-top: 1px solid rgba(255,255,255,.10);
+}
+
+.upload-review-actions button {
+  min-height: 46px;
+  border-radius: 9px;
+  font-weight: 900;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.upload-review-back {
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.06);
+  color: #fff;
+}
+
+.upload-review-confirm {
+  border: 1px solid rgba(0,191,255,.45);
+  background: rgba(0,191,255,.14);
+  color: #d8f7ff;
+}
+
+@media (max-width: 520px) {
+  .upload-review-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+
 /* =========================================
    FORM
 ========================================= */
@@ -1731,6 +1846,45 @@ body.edit-open {
 
 
 
+
+<div
+  id="uploadReviewOverlay"
+  class="upload-review-overlay"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="uploadReviewTitle"
+>
+  <div class="upload-review-modal">
+    <div class="upload-review-head">
+      <h3 id="uploadReviewTitle">REVIEW PHOTO SET</h3>
+      <p id="uploadReviewSummary">Check everything before uploading.</p>
+    </div>
+
+    <div
+      id="uploadReviewList"
+      class="upload-review-list"
+    ></div>
+
+    <div class="upload-review-actions">
+      <button
+        id="uploadReviewBack"
+        class="upload-review-back"
+        type="button"
+      >
+        ← BACK TO EDIT
+      </button>
+
+      <button
+        id="uploadReviewConfirm"
+        class="upload-review-confirm"
+        type="button"
+      >
+        CONFIRM &amp; UPLOAD
+      </button>
+    </div>
+  </div>
+</div>
+
 <script type="module">
 
 /* =========================================================
@@ -1936,6 +2090,31 @@ const applyAllRow =
 const applyDetailsToAllPhotos =
   document.getElementById(
     "applyDetailsToAllPhotos"
+  );
+
+const uploadReviewOverlay =
+  document.getElementById(
+    "uploadReviewOverlay"
+  );
+
+const uploadReviewSummary =
+  document.getElementById(
+    "uploadReviewSummary"
+  );
+
+const uploadReviewList =
+  document.getElementById(
+    "uploadReviewList"
+  );
+
+const uploadReviewBack =
+  document.getElementById(
+    "uploadReviewBack"
+  );
+
+const uploadReviewConfirm =
+  document.getElementById(
+    "uploadReviewConfirm"
   );
 
 const uploadButton =
@@ -4737,9 +4916,156 @@ function resetGalleryUploader() {
    UPLOAD TO FIREBASE STORAGE
 ========================================================= */
 
+let uploadReviewObjectURLs = [];
+
+
+function clearUploadReviewObjectURLs() {
+
+  uploadReviewObjectURLs.forEach(
+    url => URL.revokeObjectURL(url)
+  );
+
+  uploadReviewObjectURLs = [];
+
+}
+
+
+function escapeReviewHTML(value) {
+
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+
+}
+
+
+function closeUploadReview() {
+
+  uploadReviewOverlay.classList.remove(
+    "visible"
+  );
+
+  clearUploadReviewObjectURLs();
+
+}
+
+
+function openUploadReview() {
+
+  if (
+    uploadInProgress ||
+    pendingUploadItems.length === 0
+  ) {
+    return;
+  }
+
+  saveCurrentUploadItemDetails();
+  clearUploadReviewObjectURLs();
+
+  uploadReviewSummary.textContent =
+    `${pendingUploadItems.length} ${
+      pendingUploadItems.length === 1
+        ? "PHOTO"
+        : "PHOTOS"
+    } READY • CHECK DETAILS BEFORE UPLOAD`;
+
+  uploadReviewList.innerHTML =
+    pendingUploadItems.map(
+      (item, index) => {
+
+        const details = item.details;
+        const thumbURL =
+          URL.createObjectURL(item.file);
+
+        uploadReviewObjectURLs.push(
+          thumbURL
+        );
+
+        const captionStatus =
+          details.caption
+            ? escapeReviewHTML(details.caption)
+            : "No caption";
+
+        return `
+          <div class="upload-review-item">
+            <img
+              class="upload-review-thumb"
+              src="${thumbURL}"
+              alt=""
+            >
+
+            <div>
+              <div class="upload-review-name">
+                PHOTO ${index + 1} • ${escapeReviewHTML(item.file.name)}
+              </div>
+
+              <div class="upload-review-meta">
+                <div><strong>Gallery:</strong> ${escapeReviewHTML(details.category)}</div>
+                <div><strong>Event:</strong> ${escapeReviewHTML(details.event || "—")}</div>
+                <div><strong>Date:</strong> ${escapeReviewHTML(details.date || "—")}</div>
+                <div><strong>Caption:</strong> ${captionStatus}</div>
+                <div><strong>Status:</strong> ${details.published ? "Published" : "Hidden"}</div>
+                <div><strong>Featured:</strong> ${details.featured ? "Yes" : "No"}</div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+    ).join("");
+
+  uploadReviewOverlay.classList.add(
+    "visible"
+  );
+
+  uploadReviewOverlay.scrollTop = 0;
+
+}
+
+
 uploadButton.addEventListener(
   "click",
+  openUploadReview
+);
+
+
+uploadReviewBack.addEventListener(
+  "click",
+  closeUploadReview
+);
+
+
+uploadReviewOverlay.addEventListener(
+  "click",
+  event => {
+
+    if (event.target === uploadReviewOverlay) {
+      closeUploadReview();
+    }
+
+  }
+);
+
+
+uploadReviewConfirm.addEventListener(
+  "click",
   async () => {
+
+    if (uploadInProgress) {
+      return;
+    }
+
+    closeUploadReview();
+
+    await performConfirmedGalleryUpload();
+
+  }
+);
+
+
+async function performConfirmedGalleryUpload() {
 
     if (
       uploadInProgress
@@ -4947,8 +5273,6 @@ uploadButton.addEventListener(
     }
 
   }
-);
-
 </script>
 
 
