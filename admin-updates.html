@@ -1364,7 +1364,250 @@ let currentUser =
 
 let updates =
   {};
+let cropX = 50;
+let cropY = 50;
+let cropZoom = 100;
 
+let cropDragging = false;
+let cropStartX = 0;
+let cropStartY = 0;
+let cropStartPositionX = 50;
+let cropStartPositionY = 50;
+
+
+function clamp(value,min,max){
+
+  return Math.min(
+    Math.max(value,min),
+    max
+  );
+
+}
+
+
+function updateCropPreview(){
+
+  cropX =
+    Number(imagePositionX.value);
+
+  cropY =
+    Number(imagePositionY.value);
+
+  cropZoom =
+    Number(imageZoom.value);
+
+  imagePreview.style.objectPosition =
+    cropX + "% " + cropY + "%";
+
+  imagePreview.style.transform =
+    "scale(" +
+    (cropZoom / 100) +
+    ")";
+
+  imagePreview.style.transformOrigin =
+    cropX + "% " + cropY + "%";
+
+  imagePositionXValue.textContent =
+    cropX + "%";
+
+  imagePositionYValue.textContent =
+    cropY + "%";
+
+  imageZoomValue.textContent =
+    cropZoom + "%";
+}
+
+
+function setCropValues(x,y,zoom){
+
+  imagePositionX.value =
+    clamp(Number(x) || 50,0,100);
+
+  imagePositionY.value =
+    clamp(Number(y) || 50,0,100);
+
+  imageZoom.value =
+    clamp(Number(zoom) || 100,100,250);
+
+  updateCropPreview();
+}
+
+
+imagePositionX.addEventListener(
+  "input",
+  updateCropPreview
+);
+
+imagePositionY.addEventListener(
+  "input",
+  updateCropPreview
+);
+
+imageZoom.addEventListener(
+  "input",
+  updateCropPreview
+);
+
+
+cropResetButton.addEventListener(
+  "click",
+  function(){
+
+    setCropValues(
+      50,
+      50,
+      100
+    );
+
+  }
+);
+
+
+cropCentreButton.addEventListener(
+  "click",
+  function(){
+
+    setCropValues(
+      50,
+      50,
+      imageZoom.value
+    );
+
+  }
+);
+
+
+cropFaceButton.addEventListener(
+  "click",
+  function(){
+
+    setCropValues(
+      50,
+      25,
+      115
+    );
+
+  }
+);
+
+
+/* DRAG IMAGE */
+
+cropFrame.addEventListener(
+  "pointerdown",
+  function(event){
+
+    if(!imagePreview.src){
+      return;
+    }
+
+    cropDragging = true;
+
+    cropFrame.classList.add(
+      "dragging"
+    );
+
+    cropFrame.setPointerCapture(
+      event.pointerId
+    );
+
+    cropStartX =
+      event.clientX;
+
+    cropStartY =
+      event.clientY;
+
+    cropStartPositionX =
+      Number(
+        imagePositionX.value
+      );
+
+    cropStartPositionY =
+      Number(
+        imagePositionY.value
+      );
+
+  }
+);
+
+
+cropFrame.addEventListener(
+  "pointermove",
+  function(event){
+
+    if(!cropDragging){
+      return;
+    }
+
+    const rect =
+      cropFrame.getBoundingClientRect();
+
+    const deltaX =
+      (
+        event.clientX -
+        cropStartX
+      ) /
+      rect.width *
+      100;
+
+    const deltaY =
+      (
+        event.clientY -
+        cropStartY
+      ) /
+      rect.height *
+      100;
+
+    /*
+      Dragging the picture right means
+      revealing more of its left side.
+    */
+
+    imagePositionX.value =
+      clamp(
+        cropStartPositionX -
+        deltaX,
+        0,
+        100
+      );
+
+    imagePositionY.value =
+      clamp(
+        cropStartPositionY -
+        deltaY,
+        0,
+        100
+      );
+
+    updateCropPreview();
+
+  }
+);
+
+
+function stopCropDrag(){
+
+  cropDragging = false;
+
+  cropFrame.classList.remove(
+    "dragging"
+  );
+
+}
+
+
+cropFrame.addEventListener(
+  "pointerup",
+  stopCropDrag
+);
+
+cropFrame.addEventListener(
+  "pointercancel",
+  stopCropDrag
+);
+
+
+updateCropPreview();
 
 function setToday(){
 
@@ -1407,25 +1650,45 @@ imageFileInput.addEventListener(
 
     if(!file){
 
-      imagePreview.removeAttribute("src");
+      if(!imageInput.value){
 
-      imagePreviewWrap.style.display =
-        "none";
+        imagePreview.removeAttribute(
+          "src"
+        );
+
+        cropEditor.classList.remove(
+          "show"
+        );
+
+      }
 
       return;
     }
 
+
     const previewURL =
       URL.createObjectURL(file);
+
 
     imagePreview.src =
       previewURL;
 
-    imagePreviewWrap.style.display =
-      "block";
+
+    cropEditor.classList.add(
+      "show"
+    );
+
+
+    setCropValues(
+      50,
+      50,
+      100
+    );
+
 
     imageStatus.textContent =
-      "IMAGE READY TO UPLOAD";
+      "IMAGE READY — POSITION THE IMAGE BEFORE PUBLISHING";
+
   }
 );
   
@@ -1550,6 +1813,14 @@ function renderUpdates(){
 const image =
   escapeHTML(item.image || "");
       
+const positionX =
+  Number(item.imagePositionX ?? 50);
+
+const positionY =
+  Number(item.imagePositionY ?? 50);
+
+const zoom =
+  Number(item.imageZoom ?? 100);      
       const date =
         escapeHTML(item.date || "");
 
@@ -1599,18 +1870,35 @@ const image =
           
 ${
   image
-    ? `<img
-         src="${image}"
-         alt="${title}"
-         style="
-           width:100%;
-           max-height:320px;
-           object-fit:cover;
-           border-radius:10px;
-           margin-top:12px;
-           border:1px solid rgba(255,255,255,.12);
-         "
-       >`
+    ? `
+      <div
+        style="
+          width:100%;
+          aspect-ratio:16/9;
+          overflow:hidden;
+          border-radius:10px;
+          margin-top:12px;
+          border:1px solid rgba(255,255,255,.12);
+          background:#050505;
+        "
+      >
+
+        <img
+          src="${image}"
+          alt="${title}"
+          style="
+            display:block;
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            object-position:${positionX}% ${positionY}%;
+            transform:scale(${zoom / 100});
+            transform-origin:${positionX}% ${positionY}%;
+          "
+        >
+
+      </div>
+    `
     : ""
 }
 
@@ -1742,6 +2030,15 @@ const imageURL =
 image:
   imageURL,
 
+imagePositionX:
+  Number(imagePositionX.value),
+
+imagePositionY:
+  Number(imagePositionY.value),
+
+imageZoom:
+  Number(imageZoom.value),
+
 published:
   true,
 
@@ -1793,8 +2090,20 @@ published:
 
       updateForm.reset();
 imageInput.value = "";
-imagePreview.removeAttribute("src");
-imagePreviewWrap.style.display = "none";
+
+imagePreview.removeAttribute(
+  "src"
+);
+
+cropEditor.classList.remove(
+  "show"
+);
+
+setCropValues(
+  50,
+  50,
+  100
+);
       
 imageFileInput.value =
   "";
@@ -1886,7 +2195,40 @@ imageInput.value =
   item.image || "";
 imageFileInput.value =
   "";
+${
+  image
+    ? `
+      <div
+        style="
+          width:100%;
+          aspect-ratio:16/9;
+          overflow:hidden;
+          border-radius:10px;
+          margin-top:12px;
+          border:1px solid rgba(255,255,255,.12);
+          background:#050505;
+        "
+      >
 
+        <img
+          src="${image}"
+          alt="${title}"
+          style="
+            display:block;
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            object-position:${positionX}% ${positionY}%;
+            transform:scale(${zoom / 100});
+            transform-origin:${positionX}% ${positionY}%;
+          "
+        >
+
+      </div>
+    `
+    : ""
+}
+      
 imageStatus.textContent =
   item.image
     ? "CURRENT POST IMAGE WILL BE KEPT UNLESS YOU CHOOSE A NEW IMAGE."
