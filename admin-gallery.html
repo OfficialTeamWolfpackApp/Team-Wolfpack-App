@@ -599,6 +599,44 @@ textarea:focus {
 
 
 
+
+.select-visible-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 0 0 12px;
+}
+
+.select-visible-button {
+  min-height: 42px;
+  padding: 9px 10px;
+  border: 1px solid rgba(0,191,255,.32);
+  border-radius: 9px;
+  background: rgba(0,191,255,.08);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .5px;
+  cursor: pointer;
+}
+
+.select-visible-button.secondary {
+  border-color: rgba(255,255,255,.14);
+  background: rgba(255,255,255,.05);
+}
+
+.select-visible-button:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+@media (max-width: 520px) {
+  .select-visible-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+
 /* =========================================
    BULK PHOTO MANAGEMENT
 ========================================= */
@@ -1159,6 +1197,26 @@ body.edit-open {
 
     <p id="recentResultCount" class="recent-result-count"></p>
 
+    <div class="select-visible-row">
+
+      <button
+        id="selectAllVisible"
+        class="select-visible-button"
+        type="button"
+      >
+        SELECT ALL VISIBLE
+      </button>
+
+      <button
+        id="clearAllVisible"
+        class="select-visible-button secondary"
+        type="button"
+      >
+        CLEAR VISIBLE SELECTION
+      </button>
+
+    </div>
+
     <div id="bulkToolbar" class="bulk-toolbar">
 
       <div class="bulk-toolbar-head">
@@ -1588,6 +1646,16 @@ const loadMoreGallery =
     "loadMoreGallery"
   );
 
+const selectAllVisible =
+  document.getElementById(
+    "selectAllVisible"
+  );
+
+const clearAllVisible =
+  document.getElementById(
+    "clearAllVisible"
+  );
+
 const bulkToolbar =
   document.getElementById(
     "bulkToolbar"
@@ -1990,6 +2058,68 @@ function categoryLabel(value) {
 
 }
 
+function getFilteredRecentItems() {
+
+  const searchText =
+    recentSearch.value
+      .trim()
+      .toLowerCase();
+
+  const categoryValue =
+    recentCategoryFilter.value;
+
+  const statusValue =
+    recentStatusFilter.value;
+
+  return recentGalleryItems.filter(
+    (record) => {
+
+      const item =
+        record.data;
+
+      const matchesSearch =
+        !searchText ||
+        [
+          categoryLabel(item.category),
+          item.event || "",
+          item.caption || "",
+          item.date || "",
+          item.fileName || ""
+        ]
+          .join(" ")
+          .toLowerCase()
+          .includes(searchText);
+
+      const matchesCategory =
+        categoryValue === "all" ||
+        item.category === categoryValue;
+
+      let matchesStatus =
+        true;
+
+      if (statusValue === "published") {
+        matchesStatus =
+          Boolean(item.published);
+      } else if (statusValue === "hidden") {
+        matchesStatus =
+          !Boolean(item.published);
+      } else if (statusValue === "featured") {
+        matchesStatus =
+          Boolean(item.featured);
+      }
+
+      return (
+        matchesSearch &&
+        matchesCategory &&
+        matchesStatus
+      );
+
+    }
+  );
+
+}
+
+
 function renderRecentUploads() {
 
   const searchText =
@@ -2004,51 +2134,7 @@ function renderRecentUploads() {
     recentStatusFilter.value;
 
   const filteredItems =
-    recentGalleryItems.filter(
-      (record) => {
-
-        const item =
-          record.data;
-
-        const matchesSearch =
-          !searchText ||
-          [
-            categoryLabel(item.category),
-            item.event || "",
-            item.caption || "",
-            item.date || "",
-            item.fileName || ""
-          ]
-            .join(" ")
-            .toLowerCase()
-            .includes(searchText);
-
-        const matchesCategory =
-          categoryValue === "all" ||
-          item.category === categoryValue;
-
-        let matchesStatus =
-          true;
-
-        if (statusValue === "published") {
-          matchesStatus =
-            Boolean(item.published);
-        } else if (statusValue === "hidden") {
-          matchesStatus =
-            !Boolean(item.published);
-        } else if (statusValue === "featured") {
-          matchesStatus =
-            Boolean(item.featured);
-        }
-
-        return (
-          matchesSearch &&
-          matchesCategory &&
-          matchesStatus
-        );
-
-      }
-    );
+    getFilteredRecentItems();
 
   recentResultCount.textContent =
     filteredItems.length +
@@ -2227,6 +2313,56 @@ recentStatusFilter.addEventListener(
 
 
 
+selectAllVisible.addEventListener(
+  "click",
+  () => {
+
+    if (bulkActionInProgress) {
+      return;
+    }
+
+    const visibleItems =
+      getFilteredRecentItems();
+
+    visibleItems.forEach(
+      (record) => {
+        selectedGalleryIds.add(
+          record.id
+        );
+      }
+    );
+
+    renderRecentUploads();
+
+  }
+);
+
+
+clearAllVisible.addEventListener(
+  "click",
+  () => {
+
+    if (bulkActionInProgress) {
+      return;
+    }
+
+    const visibleItems =
+      getFilteredRecentItems();
+
+    visibleItems.forEach(
+      (record) => {
+        selectedGalleryIds.delete(
+          record.id
+        );
+      }
+    );
+
+    renderRecentUploads();
+
+  }
+);
+
+
 function updateBulkToolbar() {
 
   const count =
@@ -2367,6 +2503,12 @@ async function runBulkAction(
     }
   );
 
+  selectAllVisible.disabled =
+    true;
+
+  clearAllVisible.disabled =
+    true;
+
   try {
 
     for (
@@ -2478,6 +2620,12 @@ async function runBulkAction(
           false;
       }
     );
+
+    selectAllVisible.disabled =
+      false;
+
+    clearAllVisible.disabled =
+      false;
 
     updateBulkToolbar();
 
