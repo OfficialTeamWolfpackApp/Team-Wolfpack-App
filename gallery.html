@@ -1360,6 +1360,158 @@ button{
 }
 
 
+
+/* ========================================
+   LIVE FIREBASE GALLERY
+======================================== */
+
+.live-gallery-controls{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  padding:18px 18px 0;
+}
+
+.live-filter{
+  min-height:38px;
+  padding:8px 12px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:999px;
+  background:rgba(0,0,0,.32);
+  color:#cfd8dc;
+  cursor:pointer;
+  font-size:9px;
+  font-weight:1000;
+  letter-spacing:.8px;
+  text-transform:uppercase;
+}
+
+.live-filter.active{
+  border-color:rgba(0,191,255,.45);
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,191,255,.16),
+      rgba(255,90,0,.12)
+    );
+  color:#fff;
+}
+
+.live-gallery-grid{
+  position:relative;
+  z-index:2;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+  padding:18px;
+}
+
+.live-gallery-card{
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.11);
+  border-radius:15px;
+  background:#020304;
+  box-shadow:0 14px 30px rgba(0,0,0,.40);
+}
+
+.live-gallery-image{
+  display:block;
+  width:100%;
+  aspect-ratio:4 / 3;
+  object-fit:cover;
+  cursor:pointer;
+  background:#000;
+}
+
+.live-gallery-info{
+  padding:12px;
+}
+
+.live-gallery-category{
+  margin:0 0 5px;
+  color:#fff;
+  font-size:12px;
+  font-weight:1000;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+}
+
+.live-gallery-meta{
+  margin:0;
+  color:#75838a;
+  font-size:10px;
+  line-height:1.5;
+}
+
+.live-gallery-caption{
+  margin:8px 0 0;
+  color:#d8e0e4;
+  font-size:11px;
+  line-height:1.45;
+}
+
+.live-featured{
+  position:absolute;
+  top:10px;
+  left:10px;
+  z-index:3;
+  padding:6px 9px;
+  border:1px solid rgba(255,117,28,.42);
+  border-radius:999px;
+  background:rgba(0,0,0,.72);
+  color:#ff8b38;
+  font-size:8px;
+  font-weight:1000;
+  letter-spacing:1px;
+}
+
+.live-gallery-empty{
+  grid-column:1 / -1;
+  padding:34px 18px;
+  border:1px dashed rgba(255,255,255,.12);
+  border-radius:14px;
+  color:#78868d;
+  text-align:center;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.7px;
+}
+
+.lightbox-details{
+  position:absolute;
+  left:20px;
+  right:20px;
+  bottom:18px;
+  max-width:760px;
+  margin:0 auto;
+  padding:12px 14px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:10px;
+  background:rgba(0,0,0,.76);
+  color:#fff;
+  text-align:center;
+  font-size:11px;
+  line-height:1.5;
+}
+
+@media(max-width:850px){
+  .live-gallery-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:560px){
+  .live-gallery-controls{
+    padding:12px 12px 0;
+  }
+
+  .live-gallery-grid{
+    grid-template-columns:1fr;
+    padding:12px;
+  }
+}
+
 /* ========================================
    RESPONSIVE
 ======================================== */
@@ -1685,6 +1837,56 @@ VISIT OFFICIAL WEBSITE
 
 
 <main class="main-content">
+
+
+<!-- ========================================
+     LIVE GALLERY
+======================================== -->
+
+<section class="gallery-section">
+
+<div class="section-header">
+
+<div class="section-title-wrap">
+
+<span class="section-kicker">
+LATEST FROM THE PACK
+</span>
+
+<h2 class="section-title">
+<span class="ice">LIVE</span>
+GALLERY
+</h2>
+
+</div>
+
+<div class="section-line"></div>
+
+</div>
+
+<div
+  id="liveGalleryFilters"
+  class="live-gallery-controls"
+>
+  <button class="live-filter active" type="button" data-filter="all">ALL</button>
+  <button class="live-filter" type="button" data-filter="fight-night">FIGHT NIGHT</button>
+  <button class="live-filter" type="button" data-filter="team-wolfie">TEAM WOLFIE</button>
+  <button class="live-filter" type="button" data-filter="greig-sloan">GREIG SLOAN</button>
+  <button class="live-filter" type="button" data-filter="training">TRAINING</button>
+  <button class="live-filter" type="button" data-filter="events">EVENTS</button>
+  <button class="live-filter" type="button" data-filter="team">TEAM WOLFPACK</button>
+</div>
+
+<div
+  id="liveGalleryGrid"
+  class="live-gallery-grid"
+>
+  <div class="live-gallery-empty">
+    Loading gallery photos...
+  </div>
+</div>
+
+</section>
 
 
 <!-- ========================================
@@ -2275,6 +2477,12 @@ ONE PACK • ONE PURPOSE
   src=""
   alt=""
 >
+
+<div
+  id="lightboxDetails"
+  class="lightbox-details"
+  hidden
+></div>
 
 </div>
 
@@ -3140,6 +3348,420 @@ onAuthStateChanged(
 );
 
 </script>
+
+
+<script type="module">
+
+/* ========================================
+   LIVE FIREBASE PHOTO GALLERY
+======================================== */
+
+import {
+  initializeApp
+} from
+  "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  onSnapshot
+} from
+  "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+
+const liveFirebaseConfig = {
+  apiKey: "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+  authDomain: "team-wolfpack-app.firebaseapp.com",
+  databaseURL: "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "team-wolfpack-app",
+  storageBucket: "team-wolfpack-app.firebasestorage.app",
+  messagingSenderId: "1070414578856",
+  appId: "1:1070414578856:web:df14e7d387e658eeae2e9d",
+  measurementId: "G-6JTCE2N9LZ"
+};
+
+const liveFirebaseApp =
+  initializeApp(
+    liveFirebaseConfig,
+    "teamWolfpackGallery"
+  );
+
+const liveDb =
+  getFirestore(
+    liveFirebaseApp
+  );
+
+const liveGalleryGrid =
+  document.getElementById(
+    "liveGalleryGrid"
+  );
+
+const liveGalleryFilters =
+  document.getElementById(
+    "liveGalleryFilters"
+  );
+
+const liveLightbox =
+  document.getElementById(
+    "lightbox"
+  );
+
+const liveLightboxImage =
+  document.getElementById(
+    "lightboxImage"
+  );
+
+const liveLightboxDetails =
+  document.getElementById(
+    "lightboxDetails"
+  );
+
+let liveGalleryItems = [];
+let activeGalleryFilter = "all";
+
+
+function liveEscapeHTML(value){
+
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+function liveCategoryLabel(value){
+
+  const labels = {
+    "fight-night":"Fight Night",
+    "team-wolfie":"Team Wolfie",
+    "greig-sloan":"Greig Sloan",
+    "training":"Training",
+    "events":"Events",
+    "team":"Team Wolfpack"
+  };
+
+  return labels[value] || "Gallery";
+
+}
+
+
+function liveSortValue(item){
+
+  if(
+    item.createdAt &&
+    typeof item.createdAt.toMillis === "function"
+  ){
+    return item.createdAt.toMillis();
+  }
+
+  if(item.date){
+    const parsed = Date.parse(item.date);
+    return Number.isNaN(parsed) ? 0 : parsed;
+  }
+
+  return 0;
+
+}
+
+
+function renderLiveGallery(){
+
+  if(!liveGalleryGrid){
+    return;
+  }
+
+  const visibleItems =
+    liveGalleryItems
+      .filter(function(item){
+
+        return (
+          activeGalleryFilter === "all" ||
+          item.category === activeGalleryFilter
+        );
+
+      })
+      .sort(function(a,b){
+
+        if(Boolean(a.featured) !== Boolean(b.featured)){
+          return a.featured ? -1 : 1;
+        }
+
+        return liveSortValue(b) - liveSortValue(a);
+
+      });
+
+  if(visibleItems.length === 0){
+
+    liveGalleryGrid.innerHTML =
+      '<div class="live-gallery-empty">' +
+      'No published photos are available in this gallery yet.' +
+      '</div>';
+
+    return;
+
+  }
+
+  liveGalleryGrid.innerHTML =
+    visibleItems.map(function(item,index){
+
+      const eventText =
+        item.event
+          ? liveEscapeHTML(item.event)
+          : "";
+
+      const dateText =
+        item.date
+          ? liveEscapeHTML(item.date)
+          : "";
+
+      const metaParts =
+        [eventText,dateText]
+          .filter(Boolean);
+
+      const caption =
+        item.caption
+          ? '<p class="live-gallery-caption">' +
+            liveEscapeHTML(item.caption) +
+            '</p>'
+          : "";
+
+      const featured =
+        item.featured
+          ? '<span class="live-featured">FEATURED</span>'
+          : "";
+
+      return (
+        '<article class="live-gallery-card">' +
+
+          featured +
+
+          '<img ' +
+            'class="live-gallery-image" ' +
+            'src="' +
+            liveEscapeHTML(item.imageURL) +
+            '" ' +
+            'alt="' +
+            liveEscapeHTML(
+              item.caption ||
+              item.event ||
+              liveCategoryLabel(item.category)
+            ) +
+            '" ' +
+            'loading="lazy" ' +
+            'data-live-index="' +
+            index +
+            '">' +
+
+          '<div class="live-gallery-info">' +
+
+            '<h3 class="live-gallery-category">' +
+              liveEscapeHTML(
+                liveCategoryLabel(item.category)
+              ) +
+            '</h3>' +
+
+            (
+              metaParts.length
+                ? '<p class="live-gallery-meta">' +
+                  metaParts.join(" • ") +
+                  '</p>'
+                : ''
+            ) +
+
+            caption +
+
+          '</div>' +
+
+        '</article>'
+      );
+
+    }).join("");
+
+  liveGalleryGrid
+    .querySelectorAll(
+      "[data-live-index]"
+    )
+    .forEach(function(image){
+
+      image.addEventListener(
+        "click",
+        function(){
+
+          const item =
+            visibleItems[
+              Number(
+                image.dataset.liveIndex
+              )
+            ];
+
+          if(!item){
+            return;
+          }
+
+          liveLightboxImage.src =
+            item.imageURL;
+
+          liveLightboxImage.alt =
+            item.caption ||
+            item.event ||
+            liveCategoryLabel(item.category);
+
+          const details = [
+            liveCategoryLabel(item.category),
+            item.event || "",
+            item.date || "",
+            item.caption || ""
+          ].filter(Boolean);
+
+          if(details.length){
+
+            liveLightboxDetails.textContent =
+              details.join(" • ");
+
+            liveLightboxDetails.hidden =
+              false;
+
+          }else{
+
+            liveLightboxDetails.textContent =
+              "";
+
+            liveLightboxDetails.hidden =
+              true;
+
+          }
+
+          liveLightbox.classList.add(
+            "show"
+          );
+
+        }
+      );
+
+    });
+
+}
+
+
+if(liveGalleryFilters){
+
+  liveGalleryFilters.addEventListener(
+    "click",
+    function(event){
+
+      const button =
+        event.target.closest(
+          "[data-filter]"
+        );
+
+      if(!button){
+        return;
+      }
+
+      activeGalleryFilter =
+        button.dataset.filter;
+
+      liveGalleryFilters
+        .querySelectorAll(
+          "[data-filter]"
+        )
+        .forEach(function(filterButton){
+
+          filterButton.classList.toggle(
+            "active",
+            filterButton === button
+          );
+
+        });
+
+      renderLiveGallery();
+
+    }
+  );
+
+}
+
+
+const publishedGalleryQuery =
+  query(
+    collection(
+      liveDb,
+      "gallery"
+    ),
+    where(
+      "published",
+      "==",
+      true
+    )
+  );
+
+
+onSnapshot(
+  publishedGalleryQuery,
+  function(snapshot){
+
+    liveGalleryItems =
+      snapshot.docs.map(
+        function(documentSnapshot){
+
+          return {
+            id:documentSnapshot.id,
+            ...documentSnapshot.data()
+          };
+
+        }
+      );
+
+    renderLiveGallery();
+
+  },
+  function(error){
+
+    console.error(
+      "Live gallery load failed:",
+      error
+    );
+
+    liveGalleryGrid.innerHTML =
+      '<div class="live-gallery-empty">' +
+      'Unable to load the live gallery right now.' +
+      '</div>';
+
+  }
+);
+
+
+if(liveLightbox){
+
+  liveLightbox.addEventListener(
+    "click",
+    function(event){
+
+      if(
+        event.target === liveLightbox ||
+        event.target.id === "lightboxClose"
+      ){
+
+        liveLightboxDetails.hidden =
+          true;
+
+        liveLightboxDetails.textContent =
+          "";
+
+      }
+
+    }
+  );
+
+}
+
+</script>
+
 
 </body>
 </html>
