@@ -218,6 +218,65 @@ h1 {
 }
 
 
+
+/* =========================================
+   MULTI-PHOTO UPLOAD EDITOR
+========================================= */
+
+.multi-upload-editor {
+  display: none;
+  margin-top: 14px;
+}
+
+.multi-upload-editor.visible {
+  display: block;
+}
+
+.multi-upload-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.multi-upload-count {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .7px;
+  color: rgba(255,255,255,.72);
+}
+
+.multi-upload-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.multi-upload-nav button {
+  min-height: 42px;
+  border: 1px solid rgba(0,191,255,.28);
+  border-radius: 9px;
+  background: rgba(0,191,255,.08);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.multi-upload-nav button:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}
+
+.multi-upload-hint {
+  margin: 10px 0 0;
+  color: rgba(255,255,255,.52);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
 /* =========================================
    FORM
 ========================================= */
@@ -1004,13 +1063,50 @@ body.edit-open {
         class="preview-info"
       ></div>
 
+      <div
+        id="multiUploadEditor"
+        class="multi-upload-editor"
+      >
+
+        <div class="multi-upload-head">
+          <span
+            id="multiUploadCount"
+            class="multi-upload-count"
+          >
+            PHOTO 1 OF 1
+          </span>
+        </div>
+
+        <div class="multi-upload-nav">
+          <button
+            id="previousUploadPhoto"
+            type="button"
+          >
+            ← PREVIOUS
+          </button>
+
+          <button
+            id="nextUploadPhoto"
+            type="button"
+          >
+            NEXT →
+          </button>
+        </div>
+
+        <p class="multi-upload-hint">
+          Set the details below for this photo, then move to the next photo.
+          Your details are saved automatically as you move between photos.
+        </p>
+
+      </div>
+
     </div>
 
   </section>
 
 
   <!-- =====================================
-       PHOTO DETAILS
+       PHOTO DETAILS / MULTI-PHOTO EDITOR
   ====================================== -->
 
   <section class="card">
@@ -1130,7 +1226,7 @@ body.edit-open {
       type="button"
       disabled
     >
-      UPLOAD TO GALLERY
+      UPLOAD PHOTO SET
     </button>
 
 
@@ -1576,6 +1672,26 @@ const previewInfo =
     "previewInfo"
   );
 
+const multiUploadEditor =
+  document.getElementById(
+    "multiUploadEditor"
+  );
+
+const multiUploadCount =
+  document.getElementById(
+    "multiUploadCount"
+  );
+
+const previousUploadPhoto =
+  document.getElementById(
+    "previousUploadPhoto"
+  );
+
+const nextUploadPhoto =
+  document.getElementById(
+    "nextUploadPhoto"
+  );
+
 const uploadButton =
   document.getElementById(
     "uploadGalleryButton"
@@ -1740,6 +1856,12 @@ let uploadInProgress =
 let previewURL =
   null;
 
+let pendingUploadItems =
+  [];
+
+let currentUploadItemIndex =
+  0;
+
 let galleryItemsById =
   new Map();
 
@@ -1891,8 +2013,180 @@ addButton.addEventListener(
 
 
 /* =========================================================
-   PREVIEW SELECTED IMAGES
+   PREVIEW / EDIT SELECTED IMAGES
 ========================================================= */
+
+function currentUploadFormDetails() {
+
+  return {
+    category:
+      categoryInput.value,
+
+    event:
+      eventInput.value.trim(),
+
+    caption:
+      captionInput.value.trim(),
+
+    date:
+      dateInput.value || "",
+
+    featured:
+      featuredInput.checked,
+
+    published:
+      publishedInput.checked
+  };
+
+}
+
+
+function saveCurrentUploadItemDetails() {
+
+  const item =
+    pendingUploadItems[
+      currentUploadItemIndex
+    ];
+
+  if (!item) {
+    return;
+  }
+
+  item.details =
+    currentUploadFormDetails();
+
+}
+
+
+function loadUploadItem(
+  index
+) {
+
+  if (
+    index < 0 ||
+    index >= pendingUploadItems.length
+  ) {
+    return;
+  }
+
+  saveCurrentUploadItemDetails();
+
+  currentUploadItemIndex =
+    index;
+
+  const item =
+    pendingUploadItems[index];
+
+  if (previewURL) {
+    URL.revokeObjectURL(
+      previewURL
+    );
+  }
+
+  previewURL =
+    URL.createObjectURL(
+      item.file
+    );
+
+  previewImage.src =
+    previewURL;
+
+  previewInfo.textContent =
+    item.file.name;
+
+  multiUploadCount.textContent =
+    "PHOTO " +
+    (index + 1) +
+    " OF " +
+    pendingUploadItems.length;
+
+  previousUploadPhoto.disabled =
+    index === 0;
+
+  nextUploadPhoto.disabled =
+    index ===
+    pendingUploadItems.length - 1;
+
+  const details =
+    item.details;
+
+  categoryInput.value =
+    details.category;
+
+  eventInput.value =
+    details.event;
+
+  captionInput.value =
+    details.caption;
+
+  dateInput.value =
+    details.date;
+
+  featuredInput.checked =
+    Boolean(details.featured);
+
+  publishedInput.checked =
+    Boolean(details.published);
+
+  multiUploadEditor.classList.toggle(
+    "visible",
+    pendingUploadItems.length > 1
+  );
+
+  preview.classList.add(
+    "visible"
+  );
+
+}
+
+
+previousUploadPhoto.addEventListener(
+  "click",
+  () => {
+
+    loadUploadItem(
+      currentUploadItemIndex - 1
+    );
+
+  }
+);
+
+
+nextUploadPhoto.addEventListener(
+  "click",
+  () => {
+
+    loadUploadItem(
+      currentUploadItemIndex + 1
+    );
+
+  }
+);
+
+
+[
+  categoryInput,
+  eventInput,
+  captionInput,
+  dateInput,
+  featuredInput,
+  publishedInput
+].forEach(
+  (element) => {
+
+    element.addEventListener(
+      "input",
+      saveCurrentUploadItemDetails
+    );
+
+    element.addEventListener(
+      "change",
+      saveCurrentUploadItemDetails
+    );
+
+  }
+);
+
 
 fileInput.addEventListener(
   "change",
@@ -1908,7 +2202,14 @@ fileInput.addEventListener(
       files.length === 0
     ) {
 
+      pendingUploadItems =
+        [];
+
       preview.classList.remove(
+        "visible"
+      );
+
+      multiUploadEditor.classList.remove(
         "visible"
       );
 
@@ -1938,6 +2239,9 @@ fileInput.addEventListener(
       fileInput.value =
         "";
 
+      pendingUploadItems =
+        [];
+
       uploadButton.disabled =
         true;
 
@@ -1963,6 +2267,9 @@ fileInput.addEventListener(
       fileInput.value =
         "";
 
+      pendingUploadItems =
+        [];
+
       uploadButton.disabled =
         true;
 
@@ -1971,52 +2278,50 @@ fileInput.addEventListener(
     }
 
 
-    if (previewURL) {
-
-      URL.revokeObjectURL(
-        previewURL
-      );
-
-    }
+    const sharedDefaults =
+      currentUploadFormDetails();
 
 
-    const firstFile =
-      files[0];
-
-
-    previewURL =
-      URL.createObjectURL(
-        firstFile
+    pendingUploadItems =
+      files.map(
+        (file) => ({
+          file,
+          details: {
+            ...sharedDefaults,
+            caption: ""
+          }
+        })
       );
 
 
-    previewImage.src =
-      previewURL;
+    currentUploadItemIndex =
+      0;
 
 
-    if (
-      files.length === 1
-    ) {
-
-      previewInfo.textContent =
-        firstFile.name;
-
-    } else {
-
-      previewInfo.textContent =
-        files.length +
-        " photos selected";
-
-    }
-
-
-    preview.classList.add(
-      "visible"
+    loadUploadItem(
+      0
     );
+
+
+    previewInfo.textContent =
+      files.length === 1
+        ? files[0].name
+        : files[0].name +
+          " • " +
+          files.length +
+          " photos selected";
 
 
     uploadButton.disabled =
       !currentAdmin;
+
+
+    uploadButton.textContent =
+      files.length === 1
+        ? "UPLOAD PHOTO"
+        : "UPLOAD " +
+          files.length +
+          " PHOTOS";
 
 
     status.classList.remove(
@@ -3329,7 +3634,8 @@ recentUploads.addEventListener(
 ========================================================= */
 
 async function saveGalleryRecord(
-  uploadResult
+  uploadResult,
+  details
 ) {
 
   const galleryRecord = {
@@ -3345,22 +3651,22 @@ async function saveGalleryRecord(
       uploadResult.fileName,
 
     category:
-      categoryInput.value,
+      details.category,
 
     event:
-      eventInput.value.trim(),
+      details.event,
 
     caption:
-      captionInput.value.trim(),
+      details.caption,
 
     date:
-      dateInput.value || "",
+      details.date || "",
 
     featured:
-      featuredInput.checked,
+      Boolean(details.featured),
 
     published:
-      publishedInput.checked,
+      Boolean(details.published),
 
     createdAt:
       serverTimestamp(),
@@ -3575,6 +3881,19 @@ function resetGalleryUploader() {
   );
 
 
+  multiUploadEditor.classList.remove(
+    "visible"
+  );
+
+
+  pendingUploadItems =
+    [];
+
+
+  currentUploadItemIndex =
+    0;
+
+
   uploadButton.disabled =
     true;
 
@@ -3592,9 +3911,7 @@ uploadButton.addEventListener(
     if (
       uploadInProgress
     ) {
-
       return;
-
     }
 
 
@@ -3611,14 +3928,15 @@ uploadButton.addEventListener(
     }
 
 
-    const files =
-      Array.from(
-        fileInput.files || []
-      );
+    saveCurrentUploadItemDetails();
+
+
+    const items =
+      pendingUploadItems.slice();
 
 
     if (
-      files.length === 0
+      items.length === 0
     ) {
 
       showStatus(
@@ -3642,6 +3960,14 @@ uploadButton.addEventListener(
       true;
 
 
+    previousUploadPhoto.disabled =
+      true;
+
+
+    nextUploadPhoto.disabled =
+      true;
+
+
     uploadButton.textContent =
       "UPLOADING...";
 
@@ -3654,21 +3980,54 @@ uploadButton.addEventListener(
 
       for (
         let index = 0;
-        index < files.length;
+        index < items.length;
         index++
       ) {
 
+        const item =
+          items[index];
+
+
         const result =
           await uploadGalleryImage(
-            files[index],
+            item.file,
             index,
-            files.length
+            items.length
           );
 
 
-        await saveGalleryRecord(
-          result
-        );
+        try {
+
+          await saveGalleryRecord(
+            result,
+            item.details
+          );
+
+        } catch (recordError) {
+
+          try {
+
+            await deleteObject(
+              ref(
+                storage,
+                "gallery/" +
+                result.fileName
+              )
+            );
+
+          } catch (cleanupError) {
+
+            console.error(
+              "Could not clean up uploaded image after Firestore failure:",
+              cleanupError
+            );
+
+          }
+
+          throw recordError;
+
+        }
+
 
         uploadedImages.push(
           result
@@ -3684,11 +4043,11 @@ uploadButton.addEventListener(
 
 
       showStatus(
-        files.length === 1
+        items.length === 1
           ? "✓ PHOTO UPLOADED AND SAVED SUCCESSFULLY"
           : "✓ " +
-            files.length +
-            " PHOTOS UPLOADED AND SAVED SUCCESSFULLY"
+            items.length +
+            " PHOTOS UPLOADED WITH INDIVIDUAL DETAILS"
       );
 
 
@@ -3723,18 +4082,32 @@ uploadButton.addEventListener(
         !currentAdmin;
 
 
-      uploadButton.textContent =
-        "UPLOAD TO GALLERY";
-
-
       if (
-        fileInput.files &&
-        fileInput.files.length > 0 &&
+        pendingUploadItems.length > 0 &&
         currentAdmin
       ) {
 
         uploadButton.disabled =
           false;
+
+        uploadButton.textContent =
+          pendingUploadItems.length === 1
+            ? "UPLOAD PHOTO"
+            : "UPLOAD " +
+              pendingUploadItems.length +
+              " PHOTOS";
+
+        previousUploadPhoto.disabled =
+          currentUploadItemIndex === 0;
+
+        nextUploadPhoto.disabled =
+          currentUploadItemIndex ===
+          pendingUploadItems.length - 1;
+
+      } else {
+
+        uploadButton.textContent =
+          "UPLOAD PHOTO SET";
 
       }
 
