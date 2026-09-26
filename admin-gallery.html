@@ -372,6 +372,35 @@ h1 {
 }
 
 
+
+.multi-remove-row {
+  display: none;
+  margin-top: 8px;
+}
+
+.multi-remove-row.visible {
+  display: block;
+}
+
+.multi-remove-button {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid rgba(255,90,90,.35);
+  border-radius: 9px;
+  background: rgba(180,25,25,.12);
+  color: #ff9b9b;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .5px;
+  cursor: pointer;
+}
+
+.multi-remove-button:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}
+
+
 /* =========================================
    FORM
 ========================================= */
@@ -1222,6 +1251,19 @@ body.edit-open {
         </button>
       </div>
 
+      <div
+        id="multiRemoveRow"
+        class="multi-remove-row"
+      >
+        <button
+          id="removeCurrentUploadPhoto"
+          class="multi-remove-button"
+          type="button"
+        >
+          REMOVE THIS PHOTO FROM SELECTION
+        </button>
+      </div>
+
     </div>
 
   </section>
@@ -1834,6 +1876,16 @@ const moveUploadPhotoRight =
     "moveUploadPhotoRight"
   );
 
+const multiRemoveRow =
+  document.getElementById(
+    "multiRemoveRow"
+  );
+
+const removeCurrentUploadPhoto =
+  document.getElementById(
+    "removeCurrentUploadPhoto"
+  );
+
 const uploadButton =
   document.getElementById(
     "uploadGalleryButton"
@@ -2185,7 +2237,114 @@ function updateMultiReorderControls() {
     currentUploadItemIndex ===
       pendingUploadItems.length - 1;
 
+  const hasPhotos =
+    pendingUploadItems.length > 0;
+
+  multiRemoveRow.classList.toggle(
+    "visible",
+    hasPhotos
+  );
+
+  removeCurrentUploadPhoto.disabled =
+    uploadInProgress ||
+    !hasPhotos;
+
 }
+
+
+function removeCurrentPhotoFromSelection() {
+
+  if (
+    uploadInProgress ||
+    pendingUploadItems.length === 0
+  ) {
+    return;
+  }
+
+  saveCurrentUploadItemDetails();
+
+  const removedIndex =
+    currentUploadItemIndex;
+
+  pendingUploadItems.splice(
+    removedIndex,
+    1
+  );
+
+  if (pendingUploadItems.length === 0) {
+
+    fileInput.value = "";
+
+    if (previewURL) {
+      URL.revokeObjectURL(previewURL);
+      previewURL = null;
+    }
+
+    previewImage.removeAttribute("src");
+    previewName.textContent = "";
+    previewInfo.textContent = "";
+    previewBox.classList.remove("visible");
+
+    multiUploadEditor.classList.remove(
+      "visible"
+    );
+
+    clearMultiThumbnailURLs();
+
+    currentUploadItemIndex = 0;
+
+    uploadButton.disabled = true;
+    uploadButton.textContent =
+      "UPLOAD PHOTO SET";
+
+    updateMultiReorderControls();
+
+    setStatus(
+      "PHOTO REMOVED. ADD PHOTOS TO CONTINUE.",
+      ""
+    );
+
+    return;
+  }
+
+  if (
+    removedIndex >=
+    pendingUploadItems.length
+  ) {
+    currentUploadItemIndex =
+      pendingUploadItems.length - 1;
+  } else {
+    currentUploadItemIndex =
+      removedIndex;
+  }
+
+  renderMultiThumbnailStrip();
+
+  loadUploadItem(
+    currentUploadItemIndex
+  );
+
+  uploadButton.textContent =
+    pendingUploadItems.length === 1
+      ? "UPLOAD PHOTO"
+      : `UPLOAD ${pendingUploadItems.length} PHOTOS`;
+
+  setStatus(
+    `PHOTO REMOVED • ${pendingUploadItems.length} ${
+      pendingUploadItems.length === 1
+        ? "PHOTO"
+        : "PHOTOS"
+    } REMAINING`,
+    ""
+  );
+
+}
+
+
+removeCurrentUploadPhoto.addEventListener(
+  "click",
+  removeCurrentPhotoFromSelection
+);
 
 
 function moveCurrentUploadPhoto(direction) {
@@ -2271,6 +2430,10 @@ function clearMultiThumbnailURLs() {
   );
 
   multiReorderControls.classList.remove(
+    "visible"
+  );
+
+  multiRemoveRow.classList.remove(
     "visible"
   );
 
