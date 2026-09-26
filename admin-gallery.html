@@ -598,6 +598,129 @@ textarea:focus {
 }
 
 
+
+/* =========================================
+   BULK PHOTO MANAGEMENT
+========================================= */
+
+.bulk-toolbar {
+  display: none;
+  margin: 0 0 14px;
+  padding: 12px;
+  border: 1px solid rgba(0,191,255,.28);
+  border-radius: 12px;
+  background: rgba(0,191,255,.06);
+}
+
+.bulk-toolbar.visible {
+  display: block;
+}
+
+.bulk-toolbar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.bulk-count {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .6px;
+}
+
+.bulk-clear {
+  border: 0;
+  background: transparent;
+  color: rgba(255,255,255,.62);
+  font-size: 11px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.bulk-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.bulk-action {
+  min-height: 42px;
+  padding: 9px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 9px;
+  background: rgba(255,255,255,.06);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .4px;
+  cursor: pointer;
+}
+
+.bulk-action.primary {
+  border-color: rgba(0,191,255,.35);
+  background: rgba(0,191,255,.10);
+}
+
+.bulk-action.warning {
+  border-color: rgba(255,90,0,.38);
+  background: rgba(255,90,0,.10);
+}
+
+.bulk-action.danger {
+  grid-column: 1 / -1;
+  border-color: rgba(255,70,70,.40);
+  background: rgba(255,70,70,.10);
+}
+
+.bulk-action:disabled,
+.bulk-clear:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+.recent-select-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 10px;
+}
+
+.recent-select {
+  width: 21px;
+  height: 21px;
+  min-height: 0;
+  flex: 0 0 21px;
+  accent-color: #00bfff;
+  cursor: pointer;
+}
+
+.recent-select-label {
+  margin: 0;
+  color: rgba(255,255,255,.68);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .6px;
+  cursor: pointer;
+}
+
+.recent-item.selected {
+  border-color: rgba(0,191,255,.62);
+  box-shadow: 0 0 0 1px rgba(0,191,255,.20);
+}
+
+@media (max-width: 520px) {
+  .bulk-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .bulk-action.danger {
+    grid-column: auto;
+  }
+}
+
+
 /* =========================================
    EDIT PHOTO MODAL
 ========================================= */
@@ -1036,6 +1159,66 @@ body.edit-open {
 
     <p id="recentResultCount" class="recent-result-count"></p>
 
+    <div id="bulkToolbar" class="bulk-toolbar">
+
+      <div class="bulk-toolbar-head">
+        <span id="bulkCount" class="bulk-count">0 PHOTOS SELECTED</span>
+
+        <button
+          id="bulkClear"
+          class="bulk-clear"
+          type="button"
+        >
+          CLEAR SELECTION
+        </button>
+      </div>
+
+      <div class="bulk-actions">
+
+        <button
+          class="bulk-action primary"
+          type="button"
+          data-bulk-action="publish"
+        >
+          PUBLISH SELECTED
+        </button>
+
+        <button
+          class="bulk-action"
+          type="button"
+          data-bulk-action="hide"
+        >
+          HIDE SELECTED
+        </button>
+
+        <button
+          class="bulk-action warning"
+          type="button"
+          data-bulk-action="feature"
+        >
+          FEATURE SELECTED
+        </button>
+
+        <button
+          class="bulk-action warning"
+          type="button"
+          data-bulk-action="unfeature"
+        >
+          UNFEATURE SELECTED
+        </button>
+
+        <button
+          class="bulk-action danger"
+          type="button"
+          data-bulk-action="delete"
+        >
+          DELETE SELECTED
+        </button>
+
+      </div>
+
+    </div>
+
     <div id="recentUploads" class="recent-list">
       <div class="empty">
         Uploaded gallery images will appear here.
@@ -1405,6 +1588,21 @@ const loadMoreGallery =
     "loadMoreGallery"
   );
 
+const bulkToolbar =
+  document.getElementById(
+    "bulkToolbar"
+  );
+
+const bulkCount =
+  document.getElementById(
+    "bulkCount"
+  );
+
+const bulkClear =
+  document.getElementById(
+    "bulkClear"
+  );
+
 const editModal =
   document.getElementById(
     "editGalleryModal"
@@ -1497,6 +1695,12 @@ let recentLoadMoreInProgress =
 
 const RECENT_PAGE_SIZE =
   12;
+
+let selectedGalleryIds =
+  new Set();
+
+let bulkActionInProgress =
+  false;
 
 
 /* =========================================================
@@ -1861,6 +2065,8 @@ function renderRecentUploads() {
     recentUploads.innerHTML =
       '<div class="empty">No gallery photos match these filters.</div>';
 
+    updateBulkToolbar();
+
     return;
 
   }
@@ -1907,8 +2113,9 @@ function renderRecentUploads() {
           : "FEATURE";
 
       return (
-        '<article class="recent-item" ' +
-          'data-gallery-id="' +
+        '<article class="recent-item' +
+          (selectedGalleryIds.has(documentId) ? ' selected' : '') +
+          '" data-gallery-id="' +
           escapeHTML(documentId) +
           '">' +
 
@@ -1917,6 +2124,19 @@ function renderRecentUploads() {
             '" alt="Gallery upload" loading="lazy">' +
 
           '<div class="recent-body">' +
+
+            '<div class="recent-select-row">' +
+              '<input class="recent-select" ' +
+                'id="select-' + escapeHTML(documentId) + '" ' +
+                'type="checkbox" ' +
+                'data-select-id="' + escapeHTML(documentId) + '" ' +
+                (selectedGalleryIds.has(documentId) ? 'checked ' : '') +
+                'aria-label="Select gallery photo">' +
+              '<label class="recent-select-label" ' +
+                'for="select-' + escapeHTML(documentId) + '">' +
+                'SELECT PHOTO' +
+              '</label>' +
+            '</div>' +
 
             '<h3 class="recent-heading">' +
               escapeHTML(categoryLabel(item.category)) +
@@ -1985,6 +2205,8 @@ function renderRecentUploads() {
 
     }).join("");
 
+  updateBulkToolbar();
+
 }
 
 
@@ -2001,6 +2223,287 @@ recentCategoryFilter.addEventListener(
 recentStatusFilter.addEventListener(
   "change",
   renderRecentUploads
+);
+
+
+
+function updateBulkToolbar() {
+
+  const count =
+    selectedGalleryIds.size;
+
+  bulkCount.textContent =
+    count +
+    (
+      count === 1
+        ? " PHOTO SELECTED"
+        : " PHOTOS SELECTED"
+    );
+
+  bulkToolbar.classList.toggle(
+    "visible",
+    count > 0
+  );
+
+}
+
+
+function clearBulkSelection() {
+
+  if (bulkActionInProgress) {
+    return;
+  }
+
+  selectedGalleryIds.clear();
+
+  renderRecentUploads();
+
+}
+
+
+bulkClear.addEventListener(
+  "click",
+  clearBulkSelection
+);
+
+
+recentUploads.addEventListener(
+  "change",
+  (event) => {
+
+    const checkbox =
+      event.target.closest(
+        "[data-select-id]"
+      );
+
+    if (!checkbox) {
+      return;
+    }
+
+    const documentId =
+      checkbox.dataset.selectId;
+
+    if (!documentId) {
+      return;
+    }
+
+    if (checkbox.checked) {
+      selectedGalleryIds.add(
+        documentId
+      );
+    } else {
+      selectedGalleryIds.delete(
+        documentId
+      );
+    }
+
+    const card =
+      checkbox.closest(
+        ".recent-item"
+      );
+
+    if (card) {
+      card.classList.toggle(
+        "selected",
+        checkbox.checked
+      );
+    }
+
+    updateBulkToolbar();
+
+  }
+);
+
+
+async function runBulkAction(
+  action
+) {
+
+  if (
+    !currentAdmin ||
+    bulkActionInProgress ||
+    selectedGalleryIds.size === 0
+  ) {
+    return;
+  }
+
+  const selectedIds =
+    Array.from(
+      selectedGalleryIds
+    );
+
+  if (action === "delete") {
+
+    const confirmed =
+      window.confirm(
+        "Delete " +
+        selectedIds.length +
+        (
+          selectedIds.length === 1
+            ? " selected gallery photo permanently?"
+            : " selected gallery photos permanently?"
+        ) +
+        "\n\nThis removes the selected images from Firebase Storage and their Gallery records."
+      );
+
+    if (!confirmed) {
+      return;
+    }
+
+  }
+
+  bulkActionInProgress =
+    true;
+
+  const buttons =
+    bulkToolbar.querySelectorAll(
+      "button"
+    );
+
+  buttons.forEach(
+    (button) => {
+      button.disabled =
+        true;
+    }
+  );
+
+  try {
+
+    for (
+      const documentId
+      of selectedIds
+    ) {
+
+      const item =
+        galleryItemsById.get(
+          documentId
+        );
+
+      if (!item) {
+        continue;
+      }
+
+      if (action === "publish") {
+
+        await updateDoc(
+          doc(db, "gallery", documentId),
+          { published: true }
+        );
+
+      } else if (action === "hide") {
+
+        await updateDoc(
+          doc(db, "gallery", documentId),
+          { published: false }
+        );
+
+      } else if (action === "feature") {
+
+        await updateDoc(
+          doc(db, "gallery", documentId),
+          { featured: true }
+        );
+
+      } else if (action === "unfeature") {
+
+        await updateDoc(
+          doc(db, "gallery", documentId),
+          { featured: false }
+        );
+
+      } else if (action === "delete") {
+
+        if (item.storagePath) {
+          await deleteObject(
+            ref(
+              storage,
+              item.storagePath
+            )
+          );
+        }
+
+        await deleteDoc(
+          doc(
+            db,
+            "gallery",
+            documentId
+          )
+        );
+
+      }
+
+    }
+
+    selectedGalleryIds.clear();
+
+    const actionMessages = {
+      publish: "✓ SELECTED PHOTOS PUBLISHED",
+      hide: "✓ SELECTED PHOTOS HIDDEN",
+      feature: "✓ SELECTED PHOTOS MARKED AS FEATURED",
+      unfeature: "✓ SELECTED PHOTOS REMOVED FROM FEATURED",
+      delete: "✓ SELECTED PHOTOS DELETED"
+    };
+
+    showStatus(
+      actionMessages[action] ||
+      "✓ BULK ACTION COMPLETE"
+    );
+
+    renderRecentUploads();
+
+  } catch (error) {
+
+    console.error(
+      "Bulk gallery action failed:",
+      error
+    );
+
+    showStatus(
+      "BULK ACTION FAILED: " +
+      (
+        error?.message ||
+        error?.code ||
+        "Unknown error"
+      )
+    );
+
+  } finally {
+
+    bulkActionInProgress =
+      false;
+
+    buttons.forEach(
+      (button) => {
+        button.disabled =
+          false;
+      }
+    );
+
+    updateBulkToolbar();
+
+  }
+
+}
+
+
+bulkToolbar.addEventListener(
+  "click",
+  async (event) => {
+
+    const button =
+      event.target.closest(
+        "[data-bulk-action]"
+      );
+
+    if (!button) {
+      return;
+    }
+
+    await runBulkAction(
+      button.dataset.bulkAction
+    );
+
+  }
 );
 
 
@@ -2041,6 +2544,14 @@ function startRecentUploads() {
               id: documentSnapshot.id,
               data: documentSnapshot.data()
             })
+          );
+
+        selectedGalleryIds =
+          new Set(
+            Array.from(selectedGalleryIds).filter(
+              (documentId) =>
+                galleryItemsById.has(documentId)
+            )
           );
 
         recentLastDocument =
