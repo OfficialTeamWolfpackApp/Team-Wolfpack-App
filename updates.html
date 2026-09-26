@@ -733,15 +733,19 @@ body.menu-open{
 }
   
 .update-image{
-  display:block;
+  /* =========================================
+   LIVE UPDATE IMAGE / SAVED CROP
+========================================= */
+
+.update-image-frame{
+  position:relative;
+
   width:100%;
-  height:auto;
-  max-height:none;
+  aspect-ratio:16 / 9;
 
   margin:14px 0;
 
-  object-fit:contain;
-  object-position:center;
+  overflow:hidden;
 
   border-radius:12px;
 
@@ -749,6 +753,23 @@ body.menu-open{
     1px solid rgba(255,255,255,.10);
 
   background:#050505;
+}
+
+.update-image{
+  display:block;
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  margin:0;
+
+  user-select:none;
+  -webkit-user-drag:none;
+
+  transition:
+    transform .2s ease;
 }
   
 .update-message{
@@ -1651,18 +1672,66 @@ function renderUpdates(){
           update.title
         );
 
+const imageFrame =
+  document.createElement(
+    "div"
+  );
+
 const image =
   document.createElement(
     "img"
   );
 
+
 if(update.image){
+
+  const positionX =
+    Math.min(
+      100,
+      Math.max(
+        0,
+        Number(
+          update.imagePositionX ?? 50
+        )
+      )
+    );
+
+  const positionY =
+    Math.min(
+      100,
+      Math.max(
+        0,
+        Number(
+          update.imagePositionY ?? 50
+        )
+      )
+    );
+
+  const zoom =
+    Math.min(
+      250,
+      Math.max(
+        100,
+        Number(
+          update.imageZoom ?? 100
+        )
+      )
+    );
+
+
+  imageFrame.className =
+    "update-image-frame";
+
 
   image.className =
     "update-image";
 
+
   image.src =
-    safeText(update.image);
+    safeText(
+      update.image
+    );
+
 
   image.alt =
     safeText(
@@ -1670,8 +1739,34 @@ if(update.image){
       "Team Wolfpack update"
     );
 
+
   image.loading =
     "lazy";
+
+
+  image.style.objectPosition =
+    positionX +
+    "% " +
+    positionY +
+    "%";
+
+
+  image.style.transform =
+    "scale(" +
+    (zoom / 100) +
+    ")";
+
+
+  image.style.transformOrigin =
+    positionX +
+    "% " +
+    positionY +
+    "%";
+
+
+  imageFrame.appendChild(
+    image
+  );
 
 }
       
@@ -1693,11 +1788,12 @@ card.appendChild(top);
 card.appendChild(title);
 
 if(update.image){
-  card.appendChild(image);
+  card.appendChild(
+    imageFrame
+  );
 }
 
 card.appendChild(message);
-
 
      if(
   update.fighter ||
