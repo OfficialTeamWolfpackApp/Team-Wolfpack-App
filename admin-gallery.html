@@ -401,6 +401,35 @@ h1 {
 }
 
 
+
+.apply-all-row {
+  display: none;
+  margin-top: 10px;
+}
+
+.apply-all-row.visible {
+  display: block;
+}
+
+.apply-all-button {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid rgba(0,191,255,.38);
+  border-radius: 9px;
+  background: rgba(0,191,255,.10);
+  color: #bfefff;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .5px;
+  cursor: pointer;
+}
+
+.apply-all-button:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}
+
+
 /* =========================================
    FORM
 ========================================= */
@@ -1264,6 +1293,19 @@ body.edit-open {
         </button>
       </div>
 
+      <div
+        id="applyAllRow"
+        class="apply-all-row"
+      >
+        <button
+          id="applyDetailsToAllPhotos"
+          class="apply-all-button"
+          type="button"
+        >
+          APPLY DETAILS TO ALL PHOTOS
+        </button>
+      </div>
+
     </div>
 
   </section>
@@ -1886,6 +1928,16 @@ const removeCurrentUploadPhoto =
     "removeCurrentUploadPhoto"
   );
 
+const applyAllRow =
+  document.getElementById(
+    "applyAllRow"
+  );
+
+const applyDetailsToAllPhotos =
+  document.getElementById(
+    "applyDetailsToAllPhotos"
+  );
+
 const uploadButton =
   document.getElementById(
     "uploadGalleryButton"
@@ -2249,7 +2301,65 @@ function updateMultiReorderControls() {
     uploadInProgress ||
     !hasPhotos;
 
+  applyAllRow.classList.toggle(
+    "visible",
+    hasMultiple
+  );
+
+  applyDetailsToAllPhotos.disabled =
+    uploadInProgress ||
+    !hasMultiple;
+
 }
+
+
+function applyCurrentDetailsToAllPhotos() {
+
+  if (
+    uploadInProgress ||
+    pendingUploadItems.length <= 1
+  ) {
+    return;
+  }
+
+  saveCurrentUploadItemDetails();
+
+  const source =
+    pendingUploadItems[
+      currentUploadItemIndex
+    ].details;
+
+  pendingUploadItems.forEach(
+    (item, index) => {
+
+      if (index === currentUploadItemIndex) {
+        return;
+      }
+
+      item.details = {
+        ...item.details,
+        category: source.category,
+        event: source.event,
+        date: source.date,
+        featured: source.featured,
+        published: source.published
+      };
+
+    }
+  );
+
+  setStatus(
+    `DETAILS APPLIED TO ALL ${pendingUploadItems.length} PHOTOS • INDIVIDUAL CAPTIONS KEPT`,
+    "success"
+  );
+
+}
+
+
+applyDetailsToAllPhotos.addEventListener(
+  "click",
+  applyCurrentDetailsToAllPhotos
+);
 
 
 function removeCurrentPhotoFromSelection() {
@@ -2434,6 +2544,10 @@ function clearMultiThumbnailURLs() {
   );
 
   multiRemoveRow.classList.remove(
+    "visible"
+  );
+
+  applyAllRow.classList.remove(
     "visible"
   );
 
