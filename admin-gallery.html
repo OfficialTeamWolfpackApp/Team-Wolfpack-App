@@ -1638,6 +1638,19 @@ function startRecentUploads() {
       recentQuery,
       (snapshot) => {
 
+        galleryItemsById =
+          new Map(
+            snapshot.docs.map(
+              (documentSnapshot) => [
+                documentSnapshot.id,
+                {
+                  id: documentSnapshot.id,
+                  ...documentSnapshot.data()
+                }
+              ]
+            )
+          );
+
         if (snapshot.empty) {
 
           recentUploads.innerHTML =
