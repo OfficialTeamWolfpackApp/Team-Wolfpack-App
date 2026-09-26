@@ -292,8 +292,7 @@ textarea{
 
   color:#fff;
 
-  background:
-    #090b0d;
+  background:#090b0d;
 
   font-family:inherit;
   font-size:12px;
@@ -449,8 +448,7 @@ textarea{
 }
 
 .edit-button{
-  border:
-    1px solid #67dcff;
+  border:1px solid #67dcff;
 
   color:#67dcff;
 
@@ -459,8 +457,7 @@ textarea{
 }
 
 .delete-button{
-  border:
-    1px solid #ff751c;
+  border:1px solid #ff751c;
 
   color:#ff751c;
 
@@ -514,9 +511,73 @@ textarea{
       rgba(255,90,0,.10)
     );
 }
+
+
 /* =========================================
-   IMAGE CROP / POSITION EDITOR
+   IMAGE EDITOR
 ========================================= */
+
+.image-tools{
+  margin-top:14px;
+}
+
+.frame-title{
+  margin-bottom:9px;
+
+  color:#67dcff;
+
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.frame-selector{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:7px;
+}
+
+.frame-button{
+  min-height:45px;
+
+  padding:8px 5px;
+
+  cursor:pointer;
+
+  border-radius:9px;
+
+  border:
+    1px solid rgba(255,255,255,.15);
+
+  color:#aaa;
+
+  background:#080a0c;
+
+  font-size:8px;
+  font-weight:900;
+}
+
+.frame-button.active{
+  color:#050505;
+
+  border-color:#67dcff;
+
+  background:
+    linear-gradient(
+      90deg,
+      #67dcff,
+      #ff751c
+    );
+}
+
+.frame-name{
+  display:block;
+  margin-top:3px;
+
+  font-size:7px;
+  opacity:.8;
+}
+
 
 .crop-editor{
   display:none;
@@ -537,10 +598,18 @@ textarea{
   letter-spacing:1px;
 }
 
+.crop-frame-wrap{
+  display:flex;
+  justify-content:center;
+  width:100%;
+}
+
 .crop-frame{
   position:relative;
 
   width:100%;
+  max-width:100%;
+
   aspect-ratio:16 / 9;
 
   overflow:hidden;
@@ -557,6 +626,30 @@ textarea{
 
   cursor:grab;
   touch-action:none;
+
+  transition:
+    aspect-ratio .2s ease,
+    width .2s ease;
+}
+
+.crop-frame[data-ratio="16:9"]{
+  width:100%;
+  aspect-ratio:16 / 9;
+}
+
+.crop-frame[data-ratio="4:5"]{
+  width:min(72%,420px);
+  aspect-ratio:4 / 5;
+}
+
+.crop-frame[data-ratio="1:1"]{
+  width:min(82%,480px);
+  aspect-ratio:1 / 1;
+}
+
+.crop-frame[data-ratio="9:16"]{
+  width:min(58%,340px);
+  aspect-ratio:9 / 16;
 }
 
 .crop-frame.dragging{
@@ -701,7 +794,70 @@ textarea{
   line-height:1.5;
 }
 
+
+/* SAVED UPDATE IMAGE */
+
+.update-image-shell{
+  display:flex;
+  justify-content:center;
+
+  width:100%;
+  margin-top:12px;
+}
+
+.update-image-frame{
+  position:relative;
+
+  overflow:hidden;
+
+  width:100%;
+
+  border-radius:10px;
+
+  border:
+    1px solid rgba(255,255,255,.12);
+
+  background:#050505;
+}
+
+.update-image-frame.ratio-16-9{
+  aspect-ratio:16 / 9;
+}
+
+.update-image-frame.ratio-4-5{
+  width:min(72%,420px);
+  aspect-ratio:4 / 5;
+}
+
+.update-image-frame.ratio-1-1{
+  width:min(82%,480px);
+  aspect-ratio:1 / 1;
+}
+
+.update-image-frame.ratio-9-16{
+  width:min(58%,340px);
+  aspect-ratio:9 / 16;
+}
+
+.update-image{
+  display:block;
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+}
+
+
 @media(max-width:520px){
+
+  .form-row{
+    grid-template-columns:1fr;
+  }
+
+  .frame-selector{
+    grid-template-columns:repeat(2,1fr);
+  }
 
   .crop-control-row{
     grid-template-columns:
@@ -712,11 +868,28 @@ textarea{
     grid-template-columns:1fr;
   }
 
-}
-@media(max-width:520px){
+  .crop-frame[data-ratio="4:5"]{
+    width:82%;
+  }
 
-  .form-row{
-    grid-template-columns:1fr;
+  .crop-frame[data-ratio="1:1"]{
+    width:90%;
+  }
+
+  .crop-frame[data-ratio="9:16"]{
+    width:68%;
+  }
+
+  .update-image-frame.ratio-4-5{
+    width:82%;
+  }
+
+  .update-image-frame.ratio-1-1{
+    width:90%;
+  }
+
+  .update-image-frame.ratio-9-16{
+    width:68%;
   }
 
 }
@@ -763,6 +936,7 @@ Publish Team Wolfpack news, fight results, fight updates and announcements.
 
 </header>
 
+
 <main class="content">
 
 <div
@@ -771,6 +945,7 @@ Publish Team Wolfpack news, fight results, fight updates and announcements.
 >
 CHECKING ADMIN ACCESS...
 </div>
+
 
 <div
   id="accessDenied"
@@ -805,6 +980,7 @@ HOME
 
 </div>
 
+
 <div
   id="manager"
   class="manager"
@@ -828,6 +1004,7 @@ LIVE CONTROL
 
 </div>
 
+
 <div class="section-title">
 
 <span class="ice">
@@ -840,6 +1017,7 @@ UPDATE
 
 </div>
 
+
 <div class="form-card">
 
 <form id="updateForm">
@@ -848,6 +1026,12 @@ UPDATE
   type="hidden"
   id="editId"
 >
+
+<input
+  type="hidden"
+  id="originalTimestamp"
+>
+
 
 <div class="field">
 
@@ -877,6 +1061,7 @@ ANNOUNCEMENT
 
 </div>
 
+
 <div class="field">
 
 <label for="title">
@@ -893,6 +1078,7 @@ TITLE
 
 </div>
 
+
 <div class="field">
 
 <label for="message">
@@ -907,6 +1093,7 @@ MESSAGE
 ></textarea>
 
 </div>
+
 
 <div class="form-row">
 
@@ -923,6 +1110,7 @@ DATE
 >
 
 </div>
+
 
 <div class="field">
 
@@ -941,6 +1129,7 @@ FIGHTER / TEAM
 
 </div>
 
+
 <div class="field">
 
 <label for="venue">
@@ -955,7 +1144,8 @@ VENUE / LOCATION
 >
 
 </div>
-  
+
+
 <div class="field">
 
 <label for="imageFile">
@@ -984,6 +1174,68 @@ Choose a JPG, PNG or WEBP image for this update.
   id="image"
   type="hidden"
 >
+
+
+<div class="image-tools">
+
+<div class="frame-title">
+IMAGE FRAME
+</div>
+
+<div
+  id="frameSelector"
+  class="frame-selector"
+>
+
+<button
+  class="frame-button active"
+  type="button"
+  data-ratio="16:9"
+>
+16:9
+<span class="frame-name">
+LANDSCAPE
+</span>
+</button>
+
+<button
+  class="frame-button"
+  type="button"
+  data-ratio="4:5"
+>
+4:5
+<span class="frame-name">
+PORTRAIT
+</span>
+</button>
+
+<button
+  class="frame-button"
+  type="button"
+  data-ratio="1:1"
+>
+1:1
+<span class="frame-name">
+SQUARE
+</span>
+</button>
+
+<button
+  class="frame-button"
+  type="button"
+  data-ratio="9:16"
+>
+9:16
+<span class="frame-name">
+STORY
+</span>
+</button>
+
+</div>
+
+</div>
+
+
 <div
   id="cropEditor"
   class="crop-editor"
@@ -993,9 +1245,13 @@ Choose a JPG, PNG or WEBP image for this update.
 IMAGE POSITION &amp; CROP
 </div>
 
+
+<div class="crop-frame-wrap">
+
 <div
   id="cropFrame"
   class="crop-frame"
+  data-ratio="16:9"
 >
 
 <img
@@ -1006,6 +1262,8 @@ IMAGE POSITION &amp; CROP
 >
 
 <div class="crop-guide"></div>
+
+</div>
 
 </div>
 
@@ -1023,7 +1281,7 @@ ZOOM
   class="crop-range"
   type="range"
   min="100"
-  max="250"
+  max="300"
   value="100"
   step="1"
 >
@@ -1103,11 +1361,11 @@ RESET
 </button>
 
 <button
-  id="cropFaceButton"
+  id="cropPortraitButton"
   class="crop-button"
   type="button"
 >
-PORTRAIT PRESET
+PORTRAIT POSITION
 </button>
 
 <button
@@ -1120,13 +1378,17 @@ CENTRE
 
 </div>
 
+
 <div class="crop-help">
 Drag the image inside the preview or use the controls above.
-The original uploaded image is kept unchanged.
+Changing the frame does not alter the original uploaded image.
 </div>
 
 </div>
-  
+
+</div>
+
+
 <button
   id="publishButton"
   class="publish-button"
@@ -1144,6 +1406,7 @@ PUBLISH LIVE UPDATE
 
 </div>
 
+
 <div class="section-title">
 
 <span class="ice">
@@ -1156,6 +1419,7 @@ UPDATES
 
 </div>
 
+
 <div
   id="updateList"
   class="update-list"
@@ -1166,6 +1430,7 @@ LOADING UPDATES...
 </div>
 
 </div>
+
 
 <div class="nav-grid">
 
@@ -1188,6 +1453,7 @@ VIEW LIVE UPDATES
 </div>
 
 </main>
+
 
 <script type="module">
 
@@ -1215,7 +1481,8 @@ import {
   uploadBytes,
   getDownloadURL
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
-  
+
+
 const firebaseConfig = {
 
   apiKey:
@@ -1267,7 +1534,8 @@ const database =
 
 const storage =
   getStorage(app);
-  
+
+
 const status =
   document.getElementById("status");
 
@@ -1286,6 +1554,9 @@ const updateForm =
 const editId =
   document.getElementById("editId");
 
+const originalTimestamp =
+  document.getElementById("originalTimestamp");
+
 const typeInput =
   document.getElementById("type");
 
@@ -1303,7 +1574,7 @@ const fighterInput =
 
 const venueInput =
   document.getElementById("venue");
-  
+
 const imageInput =
   document.getElementById("image");
 
@@ -1343,12 +1614,15 @@ const imagePositionYValue =
 const cropResetButton =
   document.getElementById("cropResetButton");
 
-const cropFaceButton =
-  document.getElementById("cropFaceButton");
+const cropPortraitButton =
+  document.getElementById("cropPortraitButton");
 
 const cropCentreButton =
   document.getElementById("cropCentreButton");
-  
+
+const frameSelector =
+  document.getElementById("frameSelector");
+
 const publishButton =
   document.getElementById("publishButton");
 
@@ -1364,18 +1638,38 @@ let currentUser =
 
 let updates =
   {};
-let cropX = 50;
-let cropY = 50;
-let cropZoom = 100;
 
-let cropDragging = false;
-let cropStartX = 0;
-let cropStartY = 0;
-let cropStartPositionX = 50;
-let cropStartPositionY = 50;
+let selectedRatio =
+  "16:9";
+
+let cropDragging =
+  false;
+
+let cropStartX =
+  0;
+
+let cropStartY =
+  0;
+
+let cropStartPositionX =
+  50;
+
+let cropStartPositionY =
+  50;
+
+let currentObjectURL =
+  null;
 
 
-function clamp(value,min,max){
+/* =========================================
+   GENERAL HELPERS
+========================================= */
+
+function clamp(
+  value,
+  min,
+  max
+){
 
   return Math.min(
     Math.max(value,min),
@@ -1385,19 +1679,158 @@ function clamp(value,min,max){
 }
 
 
+function normaliseRatio(value){
+
+  const allowed = [
+    "16:9",
+    "4:5",
+    "1:1",
+    "9:16"
+  ];
+
+  return allowed.includes(value)
+    ? value
+    : "16:9";
+
+}
+
+
+function ratioClass(value){
+
+  switch(
+    normaliseRatio(value)
+  ){
+
+    case "4:5":
+      return "ratio-4-5";
+
+    case "1:1":
+      return "ratio-1-1";
+
+    case "9:16":
+      return "ratio-9-16";
+
+    default:
+      return "ratio-16-9";
+
+  }
+
+}
+
+
+function setToday(){
+
+  const now =
+    new Date();
+
+  const localDate =
+    new Date(
+      now.getTime() -
+      now.getTimezoneOffset() * 60000
+    )
+    .toISOString()
+    .slice(0,10);
+
+  dateInput.value =
+    localDate;
+
+}
+
+
+function escapeHTML(value){
+
+  return String(value || "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+setToday();
+
+
+/* =========================================
+   FRAME SELECTION
+========================================= */
+
+function setFrameRatio(ratio){
+
+  selectedRatio =
+    normaliseRatio(ratio);
+
+  cropFrame.dataset.ratio =
+    selectedRatio;
+
+  const buttons =
+    frameSelector.querySelectorAll(
+      "[data-ratio]"
+    );
+
+  buttons.forEach(
+    function(button){
+
+      button.classList.toggle(
+        "active",
+        button.dataset.ratio ===
+          selectedRatio
+      );
+
+    }
+  );
+
+}
+
+
+frameSelector.addEventListener(
+  "click",
+  function(event){
+
+    const button =
+      event.target.closest(
+        "[data-ratio]"
+      );
+
+    if(!button){
+      return;
+    }
+
+    setFrameRatio(
+      button.dataset.ratio
+    );
+
+  }
+);
+
+
+/* =========================================
+   CROP CONTROLS
+========================================= */
+
 function updateCropPreview(){
 
-  cropX =
-    Number(imagePositionX.value);
+  const cropX =
+    Number(
+      imagePositionX.value
+    );
 
-  cropY =
-    Number(imagePositionY.value);
+  const cropY =
+    Number(
+      imagePositionY.value
+    );
 
-  cropZoom =
-    Number(imageZoom.value);
+  const cropZoom =
+    Number(
+      imageZoom.value
+    );
 
   imagePreview.style.objectPosition =
-    cropX + "% " + cropY + "%";
+    cropX +
+    "% " +
+    cropY +
+    "%";
 
   imagePreview.style.transform =
     "scale(" +
@@ -1405,31 +1838,55 @@ function updateCropPreview(){
     ")";
 
   imagePreview.style.transformOrigin =
-    cropX + "% " + cropY + "%";
+    cropX +
+    "% " +
+    cropY +
+    "%";
 
   imagePositionXValue.textContent =
-    cropX + "%";
+    Math.round(cropX) +
+    "%";
 
   imagePositionYValue.textContent =
-    cropY + "%";
+    Math.round(cropY) +
+    "%";
 
   imageZoomValue.textContent =
-    cropZoom + "%";
+    Math.round(cropZoom) +
+    "%";
+
 }
 
 
-function setCropValues(x,y,zoom){
+function setCropValues(
+  x,
+  y,
+  zoom
+){
 
   imagePositionX.value =
-    clamp(Number(x) || 50,0,100);
+    clamp(
+      Number(x) || 50,
+      0,
+      100
+    );
 
   imagePositionY.value =
-    clamp(Number(y) || 50,0,100);
+    clamp(
+      Number(y) || 50,
+      0,
+      100
+    );
 
   imageZoom.value =
-    clamp(Number(zoom) || 100,100,250);
+    clamp(
+      Number(zoom) || 100,
+      100,
+      300
+    );
 
   updateCropPreview();
+
 }
 
 
@@ -1477,13 +1934,13 @@ cropCentreButton.addEventListener(
 );
 
 
-cropFaceButton.addEventListener(
+cropPortraitButton.addEventListener(
   "click",
   function(){
 
     setCropValues(
       50,
-      25,
+      30,
       115
     );
 
@@ -1491,17 +1948,22 @@ cropFaceButton.addEventListener(
 );
 
 
-/* DRAG IMAGE */
+/* =========================================
+   DRAG IMAGE
+========================================= */
 
 cropFrame.addEventListener(
   "pointerdown",
   function(event){
 
-    if(!imagePreview.src){
+    if(
+      !imagePreview.getAttribute("src")
+    ){
       return;
     }
 
-    cropDragging = true;
+    cropDragging =
+      true;
 
     cropFrame.classList.add(
       "dragging"
@@ -1542,6 +2004,13 @@ cropFrame.addEventListener(
     const rect =
       cropFrame.getBoundingClientRect();
 
+    if(
+      !rect.width ||
+      !rect.height
+    ){
+      return;
+    }
+
     const deltaX =
       (
         event.clientX -
@@ -1557,11 +2026,6 @@ cropFrame.addEventListener(
       ) /
       rect.height *
       100;
-
-    /*
-      Dragging the picture right means
-      revealing more of its left side.
-    */
 
     imagePositionX.value =
       clamp(
@@ -1587,7 +2051,8 @@ cropFrame.addEventListener(
 
 function stopCropDrag(){
 
-  cropDragging = false;
+  cropDragging =
+    false;
 
   cropFrame.classList.remove(
     "dragging"
@@ -1609,38 +2074,27 @@ cropFrame.addEventListener(
 
 updateCropPreview();
 
-function setToday(){
 
-  const now =
-    new Date();
+/* =========================================
+   IMAGE FILE PREVIEW
+========================================= */
 
-  const localDate =
-    new Date(
-      now.getTime() -
-      now.getTimezoneOffset() * 60000
-    )
-    .toISOString()
-    .slice(0,10);
+function revokeCurrentObjectURL(){
 
-  dateInput.value =
-    localDate;
+  if(currentObjectURL){
 
-}
+    URL.revokeObjectURL(
+      currentObjectURL
+    );
 
+    currentObjectURL =
+      null;
 
-setToday();
-
-
-function escapeHTML(value){
-
-  return String(value || "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+  }
 
 }
+
+
 imageFileInput.addEventListener(
   "change",
   function(){
@@ -1651,6 +2105,8 @@ imageFileInput.addEventListener(
     if(!file){
 
       if(!imageInput.value){
+
+        revokeCurrentObjectURL();
 
         imagePreview.removeAttribute(
           "src"
@@ -1663,21 +2119,44 @@ imageFileInput.addEventListener(
       }
 
       return;
+
     }
 
+    const allowedTypes = [
+      "image/jpeg",
+      "image/png",
+      "image/webp"
+    ];
 
-    const previewURL =
-      URL.createObjectURL(file);
+    if(
+      !allowedTypes.includes(
+        file.type
+      )
+    ){
 
+      imageFileInput.value =
+        "";
+
+      imageStatus.textContent =
+        "PLEASE CHOOSE A JPG, PNG OR WEBP IMAGE.";
+
+      return;
+
+    }
+
+    revokeCurrentObjectURL();
+
+    currentObjectURL =
+      URL.createObjectURL(
+        file
+      );
 
     imagePreview.src =
-      previewURL;
-
+      currentObjectURL;
 
     cropEditor.classList.add(
       "show"
     );
-
 
     setCropValues(
       50,
@@ -1685,20 +2164,26 @@ imageFileInput.addEventListener(
       100
     );
 
-
     imageStatus.textContent =
-      "IMAGE READY — POSITION THE IMAGE BEFORE PUBLISHING";
+      "IMAGE READY — CHOOSE A FRAME AND POSITION THE IMAGE";
 
   }
 );
-  
+
+
+/* =========================================
+   FIREBASE STORAGE UPLOAD
+========================================= */
+
 async function uploadPostImage(){
 
   const file =
     imageFileInput.files[0];
 
   if(!file){
+
     return imageInput.value.trim();
+
   }
 
   const allowedTypes = [
@@ -1707,19 +2192,30 @@ async function uploadPostImage(){
     "image/webp"
   ];
 
-  if(!allowedTypes.includes(file.type)){
+  if(
+    !allowedTypes.includes(
+      file.type
+    )
+  ){
+
     throw new Error(
       "Please choose a JPG, PNG or WEBP image."
     );
+
   }
 
   const maxSize =
     10 * 1024 * 1024;
 
-  if(file.size > maxSize){
+  if(
+    file.size >
+    maxSize
+  ){
+
     throw new Error(
       "Image must be smaller than 10MB."
     );
+
   }
 
   imageStatus.textContent =
@@ -1727,7 +2223,10 @@ async function uploadPostImage(){
 
   const safeName =
     file.name
-      .replace(/[^a-zA-Z0-9._-]/g, "-");
+      .replace(
+        /[^a-zA-Z0-9._-]/g,
+        "-"
+      );
 
   const filePath =
     "live-updates/" +
@@ -1758,31 +2257,49 @@ async function uploadPostImage(){
     "IMAGE UPLOADED";
 
   return downloadURL;
+
 }
+
+
+/* =========================================
+   RENDER LIVE UPDATES
+========================================= */
 
 function renderUpdates(){
 
   const entries =
-    Object.entries(updates || {})
-      .filter(function(entry){
+    Object.entries(
+      updates || {}
+    )
+    .filter(
+      function(entry){
 
         return (
           entry[1] &&
           entry[1].published !== false
         );
 
-      })
-      .sort(function(a,b){
+      }
+    )
+    .sort(
+      function(a,b){
 
         return (
-          Number(b[1].timestamp || 0) -
-          Number(a[1].timestamp || 0)
+          Number(
+            b[1].timestamp || 0
+          ) -
+          Number(
+            a[1].timestamp || 0
+          )
         );
 
-      });
+      }
+    );
 
 
-  if(entries.length === 0){
+  if(
+    entries.length === 0
+  ){
 
     updateList.innerHTML =
       '<div class="empty">NO LIVE UPDATES YET</div>';
@@ -1793,153 +2310,200 @@ function renderUpdates(){
 
 
   updateList.innerHTML =
-    entries.map(function(entry){
+    entries.map(
+      function(entry){
 
-      const id =
-        entry[0];
+        const id =
+          entry[0];
 
-      const item =
-        entry[1];
+        const item =
+          entry[1];
 
-      const type =
-        escapeHTML(item.type || "news");
+        const type =
+          escapeHTML(
+            item.type || "news"
+          );
 
-      const title =
-        escapeHTML(item.title || "Update");
+        const title =
+          escapeHTML(
+            item.title || "Update"
+          );
 
-      const message =
-        escapeHTML(item.message || "");
-      
-const image =
-  escapeHTML(item.image || "");
-      
-const positionX =
-  Number(item.imagePositionX ?? 50);
+        const message =
+          escapeHTML(
+            item.message || ""
+          );
 
-const positionY =
-  Number(item.imagePositionY ?? 50);
+        const image =
+          escapeHTML(
+            item.image || ""
+          );
 
-const zoom =
-  Number(item.imageZoom ?? 100);      
-      const date =
-        escapeHTML(item.date || "");
+        const positionX =
+          clamp(
+            Number(
+              item.imagePositionX ?? 50
+            ),
+            0,
+            100
+          );
 
-      const fighter =
-        escapeHTML(item.fighter || "");
+        const positionY =
+          clamp(
+            Number(
+              item.imagePositionY ?? 50
+            ),
+            0,
+            100
+          );
 
-      const venue =
-        escapeHTML(item.venue || "");
+        const zoom =
+          clamp(
+            Number(
+              item.imageZoom ?? 100
+            ),
+            100,
+            300
+          );
 
-      let meta =
-        "";
+        const imageRatio =
+          normaliseRatio(
+            item.imageRatio || "16:9"
+          );
 
-      if(fighter){
-        meta += fighter;
+        const frameClass =
+          ratioClass(
+            imageRatio
+          );
+
+        const date =
+          escapeHTML(
+            item.date || ""
+          );
+
+        const fighter =
+          escapeHTML(
+            item.fighter || ""
+          );
+
+        const venue =
+          escapeHTML(
+            item.venue || ""
+          );
+
+        let meta =
+          "";
+
+        if(fighter){
+          meta += fighter;
+        }
+
+        if(
+          fighter &&
+          venue
+        ){
+          meta += " • ";
+        }
+
+        if(venue){
+          meta += venue;
+        }
+
+
+        return `
+          <article class="update-card">
+
+            <div class="update-top">
+
+              <span class="update-type ${type}">
+                ${type.toUpperCase()}
+              </span>
+
+              <span class="update-date">
+                ${date}
+              </span>
+
+            </div>
+
+            <div class="update-title">
+              ${title}
+            </div>
+
+            ${
+              image
+                ? `
+                  <div class="update-image-shell">
+
+                    <div
+                      class="update-image-frame ${frameClass}"
+                    >
+
+                      <img
+                        class="update-image"
+                        src="${image}"
+                        alt="${title}"
+                        loading="lazy"
+                        style="
+                          object-position:${positionX}% ${positionY}%;
+                          transform:scale(${zoom / 100});
+                          transform-origin:${positionX}% ${positionY}%;
+                        "
+                      >
+
+                    </div>
+
+                  </div>
+                `
+                : ""
+            }
+
+            <div class="update-message">
+              ${message}
+            </div>
+
+            ${
+              meta
+                ? `
+                  <div class="update-meta">
+                    ${meta}
+                  </div>
+                `
+                : ""
+            }
+
+            <div class="update-actions">
+
+              <button
+                class="small-button edit-button"
+                type="button"
+                data-edit="${escapeHTML(id)}"
+              >
+                EDIT
+              </button>
+
+              <button
+                class="small-button delete-button"
+                type="button"
+                data-delete="${escapeHTML(id)}"
+              >
+                DELETE
+              </button>
+
+            </div>
+
+          </article>
+        `;
+
       }
-
-      if(
-        fighter &&
-        venue
-      ){
-        meta += " • ";
-      }
-
-      if(venue){
-        meta += venue;
-      }
-
-
-      return `
-        <article class="update-card">
-
-          <div class="update-top">
-
-            <span class="update-type ${type}">
-              ${type.toUpperCase()}
-            </span>
-
-            <span class="update-date">
-              ${date}
-            </span>
-
-          </div>
-
-          <div class="update-title">
-            ${title}
-          </div>
-          
-${
-  image
-    ? `
-      <div
-        style="
-          width:100%;
-          aspect-ratio:16/9;
-          overflow:hidden;
-          border-radius:10px;
-          margin-top:12px;
-          border:1px solid rgba(255,255,255,.12);
-          background:#050505;
-        "
-      >
-
-        <img
-          src="${image}"
-          alt="${title}"
-          style="
-            display:block;
-            width:100%;
-            height:100%;
-            object-fit:cover;
-            object-position:${positionX}% ${positionY}%;
-            transform:scale(${zoom / 100});
-            transform-origin:${positionX}% ${positionY}%;
-          "
-        >
-
-      </div>
-    `
-    : ""
-}
-
-          <div class="update-message">
-            ${message}
-          </div>
-
-          ${
-            meta
-              ? `<div class="update-meta">${meta}</div>`
-              : ""
-          }
-
-          <div class="update-actions">
-
-            <button
-              class="small-button edit-button"
-              type="button"
-              data-edit="${escapeHTML(id)}"
-            >
-              EDIT
-            </button>
-
-            <button
-              class="small-button delete-button"
-              type="button"
-              data-delete="${escapeHTML(id)}"
-            >
-              DELETE
-            </button>
-
-          </div>
-
-        </article>
-      `;
-
-    })
+    )
     .join("");
 
 }
 
+
+/* =========================================
+   DATABASE LISTENER
+========================================= */
 
 function listenForUpdates(){
 
@@ -1974,6 +2538,61 @@ function listenForUpdates(){
 }
 
 
+/* =========================================
+   RESET FORM
+========================================= */
+
+function resetUpdateForm(){
+
+  updateForm.reset();
+
+  editId.value =
+    "";
+
+  originalTimestamp.value =
+    "";
+
+  imageInput.value =
+    "";
+
+  imageFileInput.value =
+    "";
+
+  revokeCurrentObjectURL();
+
+  imagePreview.removeAttribute(
+    "src"
+  );
+
+  cropEditor.classList.remove(
+    "show"
+  );
+
+  setFrameRatio(
+    "16:9"
+  );
+
+  setCropValues(
+    50,
+    50,
+    100
+  );
+
+  imageStatus.textContent =
+    "Choose a JPG, PNG or WEBP image for this update.";
+
+  publishButton.textContent =
+    "PUBLISH LIVE UPDATE";
+
+  setToday();
+
+}
+
+
+/* =========================================
+   PUBLISH / SAVE UPDATE
+========================================= */
+
 updateForm.addEventListener(
   "submit",
   async function(event){
@@ -2003,10 +2622,24 @@ updateForm.addEventListener(
 
       const existingId =
         editId.value.trim();
-      
-const imageURL =
-  await uploadPostImage();
-      
+
+      const imageURL =
+        await uploadPostImage();
+
+      const savedOriginalTimestamp =
+        Number(
+          originalTimestamp.value
+        );
+
+      const timestamp =
+        (
+          existingId &&
+          savedOriginalTimestamp
+        )
+          ? savedOriginalTimestamp
+          : Date.now();
+
+
       const updateData = {
 
         type:
@@ -2024,25 +2657,37 @@ const imageURL =
         fighter:
           fighterInput.value.trim(),
 
-    venue:
-  venueInput.value.trim(),
+        venue:
+          venueInput.value.trim(),
 
-image:
-  imageURL,
+        image:
+          imageURL,
 
-imagePositionX:
-  Number(imagePositionX.value),
+        imageRatio:
+          selectedRatio,
 
-imagePositionY:
-  Number(imagePositionY.value),
+        imagePositionX:
+          Number(
+            imagePositionX.value
+          ),
 
-imageZoom:
-  Number(imageZoom.value),
+        imagePositionY:
+          Number(
+            imagePositionY.value
+          ),
 
-published:
-  true,
+        imageZoom:
+          Number(
+            imageZoom.value
+          ),
+
+        published:
+          true,
 
         timestamp:
+          timestamp,
+
+        updatedAt:
           Date.now(),
 
         adminUid:
@@ -2059,7 +2704,8 @@ published:
         await set(
           ref(
             database,
-            "updates/" + existingId
+            "updates/" +
+            existingId
           ),
           updateData
         );
@@ -2088,37 +2734,7 @@ published:
       }
 
 
-      updateForm.reset();
-imageInput.value = "";
-
-imagePreview.removeAttribute(
-  "src"
-);
-
-cropEditor.classList.remove(
-  "show"
-);
-
-setCropValues(
-  50,
-  50,
-  100
-);
-      
-imageFileInput.value =
-  "";
-
-imageStatus.textContent =
-  "Choose a JPG, PNG or WEBP image for this update.";
-      
-      editId.value =
-        "";
-
-      publishButton.textContent =
-        "PUBLISH LIVE UPDATE";
-
-      setToday();
-
+      resetUpdateForm();
 
     }catch(error){
 
@@ -2131,6 +2747,7 @@ imageStatus.textContent =
         "form-message error";
 
       formMessage.textContent =
+        error.message ||
         "UPDATE COULD NOT BE SAVED";
 
     }
@@ -2142,6 +2759,10 @@ imageStatus.textContent =
   }
 );
 
+
+/* =========================================
+   EDIT / DELETE
+========================================= */
 
 updateList.addEventListener(
   "click",
@@ -2158,6 +2779,8 @@ updateList.addEventListener(
       );
 
 
+    /* EDIT */
+
     if(editButton){
 
       const id =
@@ -2170,8 +2793,14 @@ updateList.addEventListener(
         return;
       }
 
+
       editId.value =
         id;
+
+      originalTimestamp.value =
+        Number(
+          item.timestamp || Date.now()
+        );
 
       typeInput.value =
         item.type || "news";
@@ -2190,61 +2819,67 @@ updateList.addEventListener(
 
       venueInput.value =
         item.venue || "";
-      
-imageInput.value =
-  item.image || "";
 
-imageFileInput.value =
-  "";
+      imageInput.value =
+        item.image || "";
 
-if(item.image){
+      imageFileInput.value =
+        "";
 
-  imagePreview.src =
-    item.image;
 
-  cropEditor.classList.add(
-    "show"
-  );
+      setFrameRatio(
+        item.imageRatio ||
+        "16:9"
+      );
 
-  setCropValues(
-    item.imagePositionX ?? 50,
-    item.imagePositionY ?? 50,
-    item.imageZoom ?? 100
-  );
 
-}else{
+      setCropValues(
+        item.imagePositionX ?? 50,
+        item.imagePositionY ?? 50,
+        item.imageZoom ?? 100
+      );
 
-  imagePreview.removeAttribute(
-    "src"
-  );
 
-  cropEditor.classList.remove(
-    "show"
-  );
+      revokeCurrentObjectURL();
 
-  setCropValues(
-    50,
-    50,
-    100
-  );
 
-}
+      if(item.image){
 
-imageStatus.textContent =
-  item.image
-    ? "CURRENT POST IMAGE — ADJUST THE POSITION OR CHOOSE A NEW IMAGE."
-    : "Choose a JPG, PNG or WEBP image for this update.";
-      
-imageStatus.textContent =
-  item.image
-    ? "CURRENT POST IMAGE WILL BE KEPT UNLESS YOU CHOOSE A NEW IMAGE."
-    : "Choose a JPG, PNG or WEBP image for this update.";
-      
+        imagePreview.src =
+          item.image;
+
+        cropEditor.classList.add(
+          "show"
+        );
+
+        imageStatus.textContent =
+          "CURRENT IMAGE LOADED — YOU CAN CHANGE THE FRAME, POSITION OR ZOOM WITHOUT RE-UPLOADING.";
+
+      }else{
+
+        imagePreview.removeAttribute(
+          "src"
+        );
+
+        cropEditor.classList.remove(
+          "show"
+        );
+
+        imageStatus.textContent =
+          "Choose a JPG, PNG or WEBP image for this update.";
+
+      }
+
+
       publishButton.textContent =
         "SAVE CHANGES";
 
+      formMessage.className =
+        "form-message";
+
       formMessage.textContent =
         "EDITING LIVE UPDATE";
+
 
       window.scrollTo({
         top:0,
@@ -2255,6 +2890,8 @@ imageStatus.textContent =
 
     }
 
+
+    /* DELETE */
 
     if(deleteButton){
 
@@ -2287,7 +2924,8 @@ imageStatus.textContent =
         await remove(
           ref(
             database,
-            "updates/" + id
+            "updates/" +
+            id
           )
         );
 
@@ -2309,6 +2947,10 @@ imageStatus.textContent =
   }
 );
 
+
+/* =========================================
+   ADMIN AUTHENTICATION
+========================================= */
 
 onAuthStateChanged(
   auth,
@@ -2376,7 +3018,9 @@ onAuthStateChanged(
 
 <script>
 
-if("serviceWorker" in navigator){
+if(
+  "serviceWorker" in navigator
+){
 
   window.addEventListener(
     "load",
@@ -2386,14 +3030,16 @@ if("serviceWorker" in navigator){
         .register(
           "service-worker.js"
         )
-        .catch(function(error){
+        .catch(
+          function(error){
 
-          console.error(
-            "Service worker error:",
-            error
-          );
+            console.error(
+              "Service worker error:",
+              error
+            );
 
-        });
+          }
+        );
 
     }
   );
@@ -2403,5 +3049,4 @@ if("serviceWorker" in navigator){
 </script>
 
 </body>
-
 </html>
