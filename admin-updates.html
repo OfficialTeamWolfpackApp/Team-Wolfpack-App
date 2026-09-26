@@ -398,32 +398,26 @@ textarea{
 
 .update-title{
   margin-top:10px;
-
   font-size:14px;
   font-weight:900;
 }
 
 .update-date{
   color:#888;
-
   font-size:9px;
   font-weight:900;
 }
 
 .update-message{
   margin-top:8px;
-
   color:#aaa;
-
   font-size:10px;
   line-height:1.55;
 }
 
 .update-meta{
   margin-top:10px;
-
   color:#67dcff;
-
   font-size:9px;
   font-weight:900;
 }
@@ -577,7 +571,6 @@ textarea{
   font-size:7px;
   opacity:.8;
 }
-
 
 .crop-editor{
   display:none;
@@ -795,7 +788,9 @@ textarea{
 }
 
 
-/* SAVED UPDATE IMAGE */
+/* =========================================
+   SAVED UPDATE IMAGE
+========================================= */
 
 .update-image-shell{
   display:flex;
@@ -1864,23 +1859,47 @@ function setCropValues(
   zoom
 ){
 
+  const parsedX =
+    Number(x);
+
+  const parsedY =
+    Number(y);
+
+  const parsedZoom =
+    Number(zoom);
+
+  const safeX =
+    Number.isFinite(parsedX)
+      ? parsedX
+      : 50;
+
+  const safeY =
+    Number.isFinite(parsedY)
+      ? parsedY
+      : 50;
+
+  const safeZoom =
+    Number.isFinite(parsedZoom)
+      ? parsedZoom
+      : 100;
+
   imagePositionX.value =
     clamp(
-      Number(x) || 50,
+      safeX,
       0,
       100
     );
 
   imagePositionY.value =
     clamp(
-      Number(y) || 50,
+      safeY,
       0,
       100
     );
 
   imageZoom.value =
     clamp(
-      Number(zoom) || 100,
+      safeZoom,
       100,
       300
     );
@@ -2139,6 +2158,21 @@ imageFileInput.addEventListener(
 
       imageStatus.textContent =
         "PLEASE CHOOSE A JPG, PNG OR WEBP IMAGE.";
+
+      return;
+
+    }
+
+    const maxSize =
+      10 * 1024 * 1024;
+
+    if(file.size > maxSize){
+
+      imageFileInput.value =
+        "";
+
+      imageStatus.textContent =
+        "IMAGE MUST BE SMALLER THAN 10MB.";
 
       return;
 
