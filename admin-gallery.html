@@ -486,6 +486,47 @@ textarea:focus {
   letter-spacing: .6px;
 }
 
+
+.recent-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.recent-action {
+  min-height: 42px;
+  padding: 9px 10px;
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 9px;
+  background: rgba(255,255,255,0.06);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .5px;
+  cursor: pointer;
+}
+
+.recent-action.primary {
+  border-color: rgba(0,191,255,0.35);
+  background: rgba(0,191,255,0.10);
+}
+
+.recent-action.warning {
+  border-color: rgba(255,90,0,0.38);
+  background: rgba(255,90,0,0.10);
+}
+
+.recent-action.danger {
+  border-color: rgba(255,70,70,0.40);
+  background: rgba(255,70,70,0.10);
+}
+
+.recent-action:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
 /* =========================================
    BACK
 ========================================= */
@@ -787,7 +828,8 @@ import {
   getStorage,
   ref,
   uploadBytesResumable,
-  getDownloadURL
+  getDownloadURL,
+  deleteObject
 } from
   "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
 
@@ -799,7 +841,10 @@ import {
   orderBy,
   limit,
   onSnapshot,
-  serverTimestamp
+  serverTimestamp,
+  doc,
+  updateDoc,
+  deleteDoc
 } from
   "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
@@ -1286,6 +1331,9 @@ function startRecentUploads() {
             const item =
               documentSnapshot.data();
 
+            const documentId =
+              documentSnapshot.id;
+
             const eventText =
               item.event
                 ? escapeHTML(item.event)
@@ -1308,27 +1356,90 @@ function startRecentUploads() {
                 ? '<span class="recent-badge">PUBLISHED</span>'
                 : '<span class="recent-badge">HIDDEN</span>';
 
+            const publishButtonText =
+              item.published
+                ? "HIDE"
+                : "PUBLISH";
+
+            const featureButtonText =
+              item.featured
+                ? "UNFEATURE"
+                : "FEATURE";
+
             return (
-              '<article class="recent-item">' +
+              '<article class="recent-item" ' +
+                'data-gallery-id="' +
+                escapeHTML(documentId) +
+                '">' +
+
                 '<img class="recent-image" src="' +
                   escapeHTML(item.imageURL) +
                   '" alt="Gallery upload" loading="lazy">' +
+
                 '<div class="recent-body">' +
+
                   '<h3 class="recent-heading">' +
                     escapeHTML(categoryLabel(item.category)) +
                   '</h3>' +
+
                   '<p class="recent-meta">' +
                     eventText +
                     (item.date
                       ? ' • ' + escapeHTML(item.date)
                       : '') +
                   '</p>' +
+
                   captionText +
+
                   '<div class="recent-badges">' +
                     publishedBadge +
                     featuredBadge +
                   '</div>' +
+
+                  '<div class="recent-actions">' +
+
+                    '<button class="recent-action primary" ' +
+                      'type="button" ' +
+                      'data-action="edit" ' +
+                      'data-id="' +
+                      escapeHTML(documentId) +
+                      '">EDIT DETAILS</button>' +
+
+                    '<button class="recent-action" ' +
+                      'type="button" ' +
+                      'data-action="publish" ' +
+                      'data-id="' +
+                      escapeHTML(documentId) +
+                      '" data-value="' +
+                      String(Boolean(item.published)) +
+                      '">' +
+                      publishButtonText +
+                    '</button>' +
+
+                    '<button class="recent-action warning" ' +
+                      'type="button" ' +
+                      'data-action="feature" ' +
+                      'data-id="' +
+                      escapeHTML(documentId) +
+                      '" data-value="' +
+                      String(Boolean(item.featured)) +
+                      '">' +
+                      featureButtonText +
+                    '</button>' +
+
+                    '<button class="recent-action danger" ' +
+                      'type="button" ' +
+                      'data-action="delete" ' +
+                      'data-id="' +
+                      escapeHTML(documentId) +
+                      '" data-storage-path="' +
+                      escapeHTML(item.storagePath || "") +
+                      '">DELETE</button>' +
+
+                  '</div>' +
+
                 '</div>' +
+
               '</article>'
             );
 
@@ -1349,6 +1460,366 @@ function startRecentUploads() {
     );
 
 }
+
+
+/* =========================================================
+   GALLERY MANAGEMENT
+========================================================= */
+
+async function updateGalleryPublished(
+  documentId,
+  currentValue
+) {
+
+  await updateDoc(
+    doc(
+      db,
+      "gallery",
+      documentId
+    ),
+    {
+      published:
+        !currentValue
+    }
+  );
+
+}
+
+
+async function updateGalleryFeatured(
+  documentId,
+  currentValue
+) {
+
+  await updateDoc(
+    doc(
+      db,
+      "gallery",
+      documentId
+    ),
+    {
+      featured:
+        !currentValue
+    }
+  );
+
+}
+
+
+async function editGalleryDetails(
+  documentId
+) {
+
+  const card =
+    recentUploads.querySelector(
+      '[data-gallery-id="' +
+      CSS.escape(documentId) +
+      '"]'
+    );
+
+  if (!card) {
+    return;
+  }
+
+  const currentHeading =
+    card.querySelector(
+      ".recent-heading"
+    )?.textContent || "";
+
+  const currentMeta =
+    card.querySelector(
+      ".recent-meta"
+    )?.textContent || "";
+
+  const currentCaption =
+    card.querySelector(
+      ".recent-caption"
+    )?.textContent || "";
+
+  const eventPart =
+    currentMeta
+      .split(" • ")[0]
+      .trim();
+
+  const datePart =
+    currentMeta.includes(" • ")
+      ? currentMeta
+          .split(" • ")
+          .slice(1)
+          .join(" • ")
+          .trim()
+      : "";
+
+  const categoryOptions = {
+    "Fight Night": "fight-night",
+    "Team Wolfie": "team-wolfie",
+    "Greig Sloan": "greig-sloan",
+    "Training": "training",
+    "Events": "events",
+    "Team Wolfpack": "team"
+  };
+
+  const categoryPrompt =
+    window.prompt(
+      "Gallery category:\n" +
+      "fight-night, team-wolfie, greig-sloan, training, events, team",
+      categoryOptions[currentHeading] || "team"
+    );
+
+  if (categoryPrompt === null) {
+    return;
+  }
+
+  const allowedCategories = [
+    "fight-night",
+    "team-wolfie",
+    "greig-sloan",
+    "training",
+    "events",
+    "team"
+  ];
+
+  const newCategory =
+    categoryPrompt.trim();
+
+  if (
+    !allowedCategories.includes(
+      newCategory
+    )
+  ) {
+
+    showStatus(
+      "EDIT FAILED: Invalid gallery category."
+    );
+
+    return;
+
+  }
+
+  const newEvent =
+    window.prompt(
+      "Event / Fight:",
+      eventPart === "No event/fight entered"
+        ? ""
+        : eventPart
+    );
+
+  if (newEvent === null) {
+    return;
+  }
+
+  const newCaption =
+    window.prompt(
+      "Caption:",
+      currentCaption
+    );
+
+  if (newCaption === null) {
+    return;
+  }
+
+  const newDate =
+    window.prompt(
+      "Date (YYYY-MM-DD):",
+      datePart
+    );
+
+  if (newDate === null) {
+    return;
+  }
+
+  if (newEvent.trim().length > 150) {
+
+    showStatus(
+      "EDIT FAILED: Event / Fight must be 150 characters or fewer."
+    );
+
+    return;
+
+  }
+
+  if (newCaption.trim().length > 500) {
+
+    showStatus(
+      "EDIT FAILED: Caption must be 500 characters or fewer."
+    );
+
+    return;
+
+  }
+
+  await updateDoc(
+    doc(
+      db,
+      "gallery",
+      documentId
+    ),
+    {
+      category:
+        newCategory,
+
+      event:
+        newEvent.trim(),
+
+      caption:
+        newCaption.trim(),
+
+      date:
+        newDate.trim()
+    }
+  );
+
+}
+
+
+async function deleteGalleryItem(
+  documentId,
+  storagePath
+) {
+
+  const confirmed =
+    window.confirm(
+      "Delete this gallery photo permanently?\n\n" +
+      "This removes the image from Firebase Storage and the Gallery record."
+    );
+
+  if (!confirmed) {
+    return;
+  }
+
+  if (storagePath) {
+
+    await deleteObject(
+      ref(
+        storage,
+        storagePath
+      )
+    );
+
+  }
+
+  await deleteDoc(
+    doc(
+      db,
+      "gallery",
+      documentId
+    )
+  );
+
+}
+
+
+recentUploads.addEventListener(
+  "click",
+  async (event) => {
+
+    const button =
+      event.target.closest(
+        "[data-action]"
+      );
+
+    if (!button) {
+      return;
+    }
+
+    if (!currentAdmin) {
+
+      showStatus(
+        "ADMIN ACCESS REQUIRED."
+      );
+
+      return;
+
+    }
+
+    const action =
+      button.dataset.action;
+
+    const documentId =
+      button.dataset.id;
+
+    if (!documentId) {
+      return;
+    }
+
+    button.disabled =
+      true;
+
+    try {
+
+      if (action === "publish") {
+
+        await updateGalleryPublished(
+          documentId,
+          button.dataset.value === "true"
+        );
+
+        showStatus(
+          button.dataset.value === "true"
+            ? "✓ PHOTO HIDDEN"
+            : "✓ PHOTO PUBLISHED"
+        );
+
+      } else if (action === "feature") {
+
+        await updateGalleryFeatured(
+          documentId,
+          button.dataset.value === "true"
+        );
+
+        showStatus(
+          button.dataset.value === "true"
+            ? "✓ PHOTO REMOVED FROM FEATURED"
+            : "✓ PHOTO MARKED AS FEATURED"
+        );
+
+      } else if (action === "edit") {
+
+        await editGalleryDetails(
+          documentId
+        );
+
+        showStatus(
+          "✓ PHOTO DETAILS UPDATED"
+        );
+
+      } else if (action === "delete") {
+
+        await deleteGalleryItem(
+          documentId,
+          button.dataset.storagePath || ""
+        );
+
+        showStatus(
+          "✓ PHOTO DELETED"
+        );
+
+      }
+
+    } catch (error) {
+
+      console.error(
+        "Gallery management action failed:",
+        error
+      );
+
+      showStatus(
+        "ACTION FAILED: " +
+        (
+          error?.message ||
+          error?.code ||
+          "Unknown error"
+        )
+      );
+
+      button.disabled =
+        false;
+
+    }
+
+  }
+);
+
 
 
 /* =========================================================
