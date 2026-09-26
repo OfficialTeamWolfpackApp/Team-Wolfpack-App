@@ -1883,6 +1883,9 @@ let recentHasMore =
 let recentLoadMoreInProgress =
   false;
 
+let loadedMoreGalleryItems =
+  new Map();
+
 const RECENT_PAGE_SIZE =
   12;
 
@@ -2991,13 +2994,34 @@ function startRecentUploads() {
             )
           );
 
-        recentGalleryItems =
-          snapshot.docs.map(
-            (documentSnapshot) => ({
-              id: documentSnapshot.id,
-              data: documentSnapshot.data()
-            })
-          );
+        const firstPageItems =
+        snapshot.docs.map(
+          (documentSnapshot) => ({
+            id: documentSnapshot.id,
+            data: documentSnapshot.data(),
+            documentSnapshot
+          })
+        );
+
+      const mergedItems =
+        new Map();
+
+      firstPageItems.forEach(
+        (record) => {
+          mergedItems.set(record.id, record);
+        }
+      );
+
+      loadedMoreGalleryItems.forEach(
+        (record, id) => {
+          if (!mergedItems.has(id)) {
+            mergedItems.set(id, record);
+          }
+        }
+      );
+
+      recentGalleryItems =
+        Array.from(mergedItems.values());
 
         selectedGalleryIds =
           new Set(
@@ -3096,6 +3120,15 @@ loadMoreGallery.addEventListener(
             data: documentSnapshot.data()
           })
         );
+
+      newRecords.forEach(
+        (record) => {
+          loadedMoreGalleryItems.set(
+            record.id,
+            record
+          );
+        }
+      );
 
       newRecords.forEach(
         (record) => {
