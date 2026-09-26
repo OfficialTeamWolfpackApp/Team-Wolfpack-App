@@ -527,6 +527,134 @@ textarea:focus {
   cursor: not-allowed;
 }
 
+
+/* =========================================
+   EDIT PHOTO MODAL
+========================================= */
+
+.edit-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0,0,0,0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.edit-modal.visible {
+  display: flex;
+}
+
+.edit-panel {
+  width: 100%;
+  max-width: 620px;
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  padding: 18px;
+  border: 1px solid rgba(0,191,255,0.30);
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at top left, rgba(0,191,255,.12), transparent 30%),
+    radial-gradient(circle at top right, rgba(255,90,0,.10), transparent 30%),
+    #0b0e11;
+  box-shadow: 0 24px 70px rgba(0,0,0,.65);
+}
+
+.edit-panel-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 18px;
+}
+
+.edit-panel-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.edit-panel-subtitle {
+  margin: 5px 0 0;
+  color: rgba(255,255,255,.55);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.edit-close {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 10px;
+  background: rgba(255,255,255,.06);
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.edit-preview-image {
+  display: block;
+  width: 100%;
+  max-height: 280px;
+  margin-bottom: 18px;
+  object-fit: cover;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 13px;
+  background: #000;
+}
+
+.edit-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.edit-save,
+.edit-cancel {
+  min-height: 52px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .7px;
+  cursor: pointer;
+}
+
+.edit-save {
+  border: 0;
+  background: linear-gradient(100deg,#008cff,#00bfff 45%,#ff5a00);
+  color: #fff;
+}
+
+.edit-cancel {
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.06);
+  color: #fff;
+}
+
+.edit-save:disabled,
+.edit-cancel:disabled,
+.edit-close:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+body.edit-open {
+  overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .edit-modal {
+    align-items: center;
+  }
+}
+
+
 /* =========================================
    BACK
 ========================================= */
@@ -803,7 +931,137 @@ textarea:focus {
 
   </section>
 
+
 </main>
+
+<div
+  id="editGalleryModal"
+  class="edit-modal"
+  aria-hidden="true"
+>
+
+  <section
+    class="edit-panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="editGalleryTitle"
+  >
+
+    <div class="edit-panel-header">
+
+      <div>
+        <h2
+          id="editGalleryTitle"
+          class="edit-panel-title"
+        >
+          Edit Photo
+        </h2>
+
+        <p class="edit-panel-subtitle">
+          Update how this photo appears in the Team Wolfpack Gallery.
+        </p>
+      </div>
+
+      <button
+        id="editGalleryClose"
+        class="edit-close"
+        type="button"
+        aria-label="Close edit photo"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <img
+      id="editGalleryImage"
+      class="edit-preview-image"
+      alt="Gallery photo being edited"
+    >
+
+    <div class="form-group">
+      <label for="editGalleryCategory">GALLERY</label>
+
+      <select id="editGalleryCategory">
+        <option value="fight-night">Fight Night</option>
+        <option value="team-wolfie">Team Wolfie</option>
+        <option value="greig-sloan">Greig Sloan</option>
+        <option value="training">Training</option>
+        <option value="events">Events</option>
+        <option value="team">Team Wolfpack</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="editGalleryEvent">EVENT / FIGHT</label>
+
+      <input
+        id="editGalleryEvent"
+        type="text"
+        maxlength="150"
+        placeholder="Event or fight name"
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="editGalleryCaption">CAPTION</label>
+
+      <textarea
+        id="editGalleryCaption"
+        maxlength="500"
+        placeholder="Optional photo caption..."
+      ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="editGalleryDate">DATE</label>
+
+      <input
+        id="editGalleryDate"
+        type="date"
+      >
+    </div>
+
+    <label class="option">
+      <input
+        id="editGalleryFeatured"
+        type="checkbox"
+      >
+      <span>Featured photo</span>
+    </label>
+
+    <label class="option">
+      <input
+        id="editGalleryPublished"
+        type="checkbox"
+      >
+      <span>Published</span>
+    </label>
+
+    <div class="edit-actions">
+
+      <button
+        id="editGalleryCancel"
+        class="edit-cancel"
+        type="button"
+      >
+        CANCEL
+      </button>
+
+      <button
+        id="editGallerySave"
+        class="edit-save"
+        type="button"
+      >
+        SAVE CHANGES
+      </button>
+
+    </div>
+
+  </section>
+
+</div>
+
 
 
 <script type="module">
@@ -996,6 +1254,61 @@ const recentUploads =
     "recentUploads"
   );
 
+const editModal =
+  document.getElementById(
+    "editGalleryModal"
+  );
+
+const editClose =
+  document.getElementById(
+    "editGalleryClose"
+  );
+
+const editImage =
+  document.getElementById(
+    "editGalleryImage"
+  );
+
+const editCategory =
+  document.getElementById(
+    "editGalleryCategory"
+  );
+
+const editEvent =
+  document.getElementById(
+    "editGalleryEvent"
+  );
+
+const editCaption =
+  document.getElementById(
+    "editGalleryCaption"
+  );
+
+const editDate =
+  document.getElementById(
+    "editGalleryDate"
+  );
+
+const editFeatured =
+  document.getElementById(
+    "editGalleryFeatured"
+  );
+
+const editPublished =
+  document.getElementById(
+    "editGalleryPublished"
+  );
+
+const editCancel =
+  document.getElementById(
+    "editGalleryCancel"
+  );
+
+const editSave =
+  document.getElementById(
+    "editGallerySave"
+  );
+
 
 /* =========================================================
    STATE
@@ -1009,6 +1322,15 @@ let uploadInProgress =
 
 let previewURL =
   null;
+
+let galleryItemsById =
+  new Map();
+
+let editingGalleryId =
+  null;
+
+let editSaveInProgress =
+  false;
 
 
 /* =========================================================
@@ -1506,171 +1828,278 @@ async function updateGalleryFeatured(
 }
 
 
-async function editGalleryDetails(
+function openGalleryEditor(
   documentId
 ) {
 
-  const card =
-    recentUploads.querySelector(
-      '[data-gallery-id="' +
-      CSS.escape(documentId) +
-      '"]'
-    );
-
-  if (!card) {
-    return;
-  }
-
-  const currentHeading =
-    card.querySelector(
-      ".recent-heading"
-    )?.textContent || "";
-
-  const currentMeta =
-    card.querySelector(
-      ".recent-meta"
-    )?.textContent || "";
-
-  const currentCaption =
-    card.querySelector(
-      ".recent-caption"
-    )?.textContent || "";
-
-  const eventPart =
-    currentMeta
-      .split(" • ")[0]
-      .trim();
-
-  const datePart =
-    currentMeta.includes(" • ")
-      ? currentMeta
-          .split(" • ")
-          .slice(1)
-          .join(" • ")
-          .trim()
-      : "";
-
-  const categoryOptions = {
-    "Fight Night": "fight-night",
-    "Team Wolfie": "team-wolfie",
-    "Greig Sloan": "greig-sloan",
-    "Training": "training",
-    "Events": "events",
-    "Team Wolfpack": "team"
-  };
-
-  const categoryPrompt =
-    window.prompt(
-      "Gallery category:\n" +
-      "fight-night, team-wolfie, greig-sloan, training, events, team",
-      categoryOptions[currentHeading] || "team"
-    );
-
-  if (categoryPrompt === null) {
-    return;
-  }
-
-  const allowedCategories = [
-    "fight-night",
-    "team-wolfie",
-    "greig-sloan",
-    "training",
-    "events",
-    "team"
-  ];
-
-  const newCategory =
-    categoryPrompt.trim();
-
-  if (
-    !allowedCategories.includes(
-      newCategory
-    )
-  ) {
-
-    showStatus(
-      "EDIT FAILED: Invalid gallery category."
-    );
-
-    return;
-
-  }
-
-  const newEvent =
-    window.prompt(
-      "Event / Fight:",
-      eventPart === "No event/fight entered"
-        ? ""
-        : eventPart
-    );
-
-  if (newEvent === null) {
-    return;
-  }
-
-  const newCaption =
-    window.prompt(
-      "Caption:",
-      currentCaption
-    );
-
-  if (newCaption === null) {
-    return;
-  }
-
-  const newDate =
-    window.prompt(
-      "Date (YYYY-MM-DD):",
-      datePart
-    );
-
-  if (newDate === null) {
-    return;
-  }
-
-  if (newEvent.trim().length > 150) {
-
-    showStatus(
-      "EDIT FAILED: Event / Fight must be 150 characters or fewer."
-    );
-
-    return;
-
-  }
-
-  if (newCaption.trim().length > 500) {
-
-    showStatus(
-      "EDIT FAILED: Caption must be 500 characters or fewer."
-    );
-
-    return;
-
-  }
-
-  await updateDoc(
-    doc(
-      db,
-      "gallery",
+  const item =
+    galleryItemsById.get(
       documentId
-    ),
-    {
-      category:
-        newCategory,
+    );
 
-      event:
-        newEvent.trim(),
+  if (!item) {
 
-      caption:
-        newCaption.trim(),
+    showStatus(
+      "EDIT FAILED: Gallery photo could not be loaded."
+    );
 
-      date:
-        newDate.trim()
-    }
+    return;
+
+  }
+
+  editingGalleryId =
+    documentId;
+
+  editImage.src =
+    item.imageURL || "";
+
+  editCategory.value =
+    item.category || "team";
+
+  editEvent.value =
+    item.event || "";
+
+  editCaption.value =
+    item.caption || "";
+
+  editDate.value =
+    item.date || "";
+
+  editFeatured.checked =
+    Boolean(item.featured);
+
+  editPublished.checked =
+    Boolean(item.published);
+
+  editModal.classList.add(
+    "visible"
+  );
+
+  editModal.setAttribute(
+    "aria-hidden",
+    "false"
+  );
+
+  document.body.classList.add(
+    "edit-open"
   );
 
 }
 
+
+function closeGalleryEditor() {
+
+  if (editSaveInProgress) {
+    return;
+  }
+
+  editingGalleryId =
+    null;
+
+  editModal.classList.remove(
+    "visible"
+  );
+
+  editModal.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+  document.body.classList.remove(
+    "edit-open"
+  );
+
+  editImage.removeAttribute(
+    "src"
+  );
+
+}
+
+
+editClose.addEventListener(
+  "click",
+  closeGalleryEditor
+);
+
+
+editCancel.addEventListener(
+  "click",
+  closeGalleryEditor
+);
+
+
+editModal.addEventListener(
+  "click",
+  (event) => {
+
+    if (event.target === editModal) {
+      closeGalleryEditor();
+    }
+
+  }
+);
+
+
+document.addEventListener(
+  "keydown",
+  (event) => {
+
+    if (
+      event.key === "Escape" &&
+      editModal.classList.contains("visible")
+    ) {
+
+      closeGalleryEditor();
+
+    }
+
+  }
+);
+
+
+editSave.addEventListener(
+  "click",
+  async () => {
+
+    if (
+      !currentAdmin ||
+      !editingGalleryId ||
+      editSaveInProgress
+    ) {
+      return;
+    }
+
+    const newEvent =
+      editEvent.value.trim();
+
+    const newCaption =
+      editCaption.value.trim();
+
+    if (newEvent.length > 150) {
+
+      showStatus(
+        "EDIT FAILED: Event / Fight must be 150 characters or fewer."
+      );
+
+      return;
+
+    }
+
+    if (newCaption.length > 500) {
+
+      showStatus(
+        "EDIT FAILED: Caption must be 500 characters or fewer."
+      );
+
+      return;
+
+    }
+
+    editSaveInProgress =
+      true;
+
+    editSave.disabled =
+      true;
+
+    editCancel.disabled =
+      true;
+
+    editClose.disabled =
+      true;
+
+    editSave.textContent =
+      "SAVING...";
+
+    try {
+
+      await updateDoc(
+        doc(
+          db,
+          "gallery",
+          editingGalleryId
+        ),
+        {
+          category:
+            editCategory.value,
+
+          event:
+            newEvent,
+
+          caption:
+            newCaption,
+
+          date:
+            editDate.value || "",
+
+          featured:
+            editFeatured.checked,
+
+          published:
+            editPublished.checked
+        }
+      );
+
+      showStatus(
+        "✓ PHOTO DETAILS UPDATED"
+      );
+
+      editModal.classList.remove(
+        "visible"
+      );
+
+      editModal.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+      document.body.classList.remove(
+        "edit-open"
+      );
+
+      editImage.removeAttribute(
+        "src"
+      );
+
+      editingGalleryId =
+        null;
+
+    } catch (error) {
+
+      console.error(
+        "Gallery edit failed:",
+        error
+      );
+
+      showStatus(
+        "EDIT FAILED: " +
+        (
+          error?.message ||
+          error?.code ||
+          "Unknown error"
+        )
+      );
+
+    } finally {
+
+      editSaveInProgress =
+        false;
+
+      editSave.disabled =
+        false;
+
+      editCancel.disabled =
+        false;
+
+      editClose.disabled =
+        false;
+
+      editSave.textContent =
+        "SAVE CHANGES";
+
+    }
+
+  }
+);
 
 async function deleteGalleryItem(
   documentId,
@@ -1775,13 +2204,12 @@ recentUploads.addEventListener(
 
       } else if (action === "edit") {
 
-        await editGalleryDetails(
+        openGalleryEditor(
           documentId
         );
 
-        showStatus(
-          "✓ PHOTO DETAILS UPDATED"
-        );
+        button.disabled =
+          false;
 
       } else if (action === "delete") {
 
