@@ -570,6 +570,34 @@ textarea:focus {
 }
 
 
+
+.load-more-wrap {
+  margin-top: 14px;
+}
+
+.load-more-button {
+  width: 100%;
+  min-height: 50px;
+  border: 1px solid rgba(0,191,255,.35);
+  border-radius: 11px;
+  background: linear-gradient(100deg,rgba(0,140,255,.13),rgba(0,191,255,.10),rgba(255,90,0,.10));
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .8px;
+  cursor: pointer;
+}
+
+.load-more-button:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+.load-more-button[hidden] {
+  display: none;
+}
+
+
 /* =========================================
    EDIT PHOTO MODAL
 ========================================= */
@@ -1014,6 +1042,17 @@ body.edit-open {
       </div>
     </div>
 
+    <div class="load-more-wrap">
+      <button
+        id="loadMoreGallery"
+        class="load-more-button"
+        type="button"
+        hidden
+      >
+        LOAD MORE PHOTOS
+      </button>
+    </div>
+
   </section>
 
 
@@ -1183,6 +1222,8 @@ import {
   query,
   orderBy,
   limit,
+  startAfter,
+  getDocs,
   onSnapshot,
   serverTimestamp,
   doc,
@@ -1359,6 +1400,11 @@ const recentResultCount =
     "recentResultCount"
   );
 
+const loadMoreGallery =
+  document.getElementById(
+    "loadMoreGallery"
+  );
+
 const editModal =
   document.getElementById(
     "editGalleryModal"
@@ -1439,6 +1485,18 @@ let editSaveInProgress =
 
 let recentGalleryItems =
   [];
+
+let recentLastDocument =
+  null;
+
+let recentHasMore =
+  false;
+
+let recentLoadMoreInProgress =
+  false;
+
+const RECENT_PAGE_SIZE =
+  12;
 
 
 /* =========================================================
@@ -1956,7 +2014,7 @@ function startRecentUploads() {
     query(
       collection(db, "gallery"),
       orderBy("createdAt", "desc"),
-      limit(12)
+      limit(RECENT_PAGE_SIZE)
     );
 
   recentUnsubscribe =
@@ -1984,6 +2042,17 @@ function startRecentUploads() {
               data: documentSnapshot.data()
             })
           );
+
+        recentLastDocument =
+          snapshot.docs.length
+            ? snapshot.docs[snapshot.docs.length - 1]
+            : null;
+
+        recentHasMore =
+          snapshot.docs.length === RECENT_PAGE_SIZE;
+
+        loadMoreGallery.hidden =
+          !recentHasMore;
 
         if (snapshot.empty) {
 
@@ -2017,6 +2086,117 @@ function startRecentUploads() {
     );
 
 }
+
+
+
+loadMoreGallery.addEventListener(
+  "click",
+  async () => {
+
+    if (
+      recentLoadMoreInProgress ||
+      !recentLastDocument ||
+      !recentHasMore
+    ) {
+      return;
+    }
+
+    recentLoadMoreInProgress =
+      true;
+
+    loadMoreGallery.disabled =
+      true;
+
+    loadMoreGallery.textContent =
+      "LOADING...";
+
+    try {
+
+      const nextQuery =
+        query(
+          collection(db, "gallery"),
+          orderBy("createdAt", "desc"),
+          startAfter(recentLastDocument),
+          limit(RECENT_PAGE_SIZE)
+        );
+
+      const nextSnapshot =
+        await getDocs(
+          nextQuery
+        );
+
+      const newRecords =
+        nextSnapshot.docs.map(
+          (documentSnapshot) => ({
+            id: documentSnapshot.id,
+            data: documentSnapshot.data()
+          })
+        );
+
+      newRecords.forEach(
+        (record) => {
+          galleryItemsById.set(
+            record.id,
+            {
+              id: record.id,
+              ...record.data
+            }
+          );
+        }
+      );
+
+      recentGalleryItems =
+        recentGalleryItems.concat(
+          newRecords
+        );
+
+      if (nextSnapshot.docs.length) {
+        recentLastDocument =
+          nextSnapshot.docs[
+            nextSnapshot.docs.length - 1
+          ];
+      }
+
+      recentHasMore =
+        nextSnapshot.docs.length ===
+        RECENT_PAGE_SIZE;
+
+      loadMoreGallery.hidden =
+        !recentHasMore;
+
+      renderRecentUploads();
+
+    } catch (error) {
+
+      console.error(
+        "Load more gallery photos failed:",
+        error
+      );
+
+      showStatus(
+        "LOAD MORE FAILED: " +
+        (
+          error?.message ||
+          error?.code ||
+          "Unknown error"
+        )
+      );
+
+    } finally {
+
+      recentLoadMoreInProgress =
+        false;
+
+      loadMoreGallery.disabled =
+        false;
+
+      loadMoreGallery.textContent =
+        "LOAD MORE PHOTOS";
+
+    }
+
+  }
+);
 
 
 /* =========================================================
