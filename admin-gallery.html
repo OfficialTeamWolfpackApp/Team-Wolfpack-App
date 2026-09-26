@@ -528,6 +528,48 @@ textarea:focus {
 }
 
 
+
+/* =========================================
+   RECENT UPLOAD FILTERS
+========================================= */
+
+.recent-tools {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.recent-search {
+  width: 100%;
+  min-height: 48px;
+}
+
+.recent-filter-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+}
+
+.recent-filter {
+  width: 100%;
+  min-height: 46px;
+}
+
+.recent-result-count {
+  margin: 0 0 12px;
+  color: rgba(255,255,255,.52);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .5px;
+}
+
+@media (max-width: 520px) {
+  .recent-filter-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+
 /* =========================================
    EDIT PHOTO MODAL
 ========================================= */
@@ -923,6 +965,49 @@ body.edit-open {
       RECENT UPLOADS
     </h2>
 
+    <div class="recent-tools">
+
+      <input
+        id="recentSearch"
+        class="recent-search"
+        type="search"
+        placeholder="Search event, caption or gallery..."
+        autocomplete="off"
+      >
+
+      <div class="recent-filter-row">
+
+        <select
+          id="recentCategoryFilter"
+          class="recent-filter"
+          aria-label="Filter recent uploads by gallery"
+        >
+          <option value="all">All Galleries</option>
+          <option value="fight-night">Fight Night</option>
+          <option value="team-wolfie">Team Wolfie</option>
+          <option value="greig-sloan">Greig Sloan</option>
+          <option value="training">Training</option>
+          <option value="events">Events</option>
+          <option value="team">Team Wolfpack</option>
+        </select>
+
+        <select
+          id="recentStatusFilter"
+          class="recent-filter"
+          aria-label="Filter recent uploads by status"
+        >
+          <option value="all">All Photos</option>
+          <option value="published">Published</option>
+          <option value="hidden">Hidden</option>
+          <option value="featured">Featured</option>
+        </select>
+
+      </div>
+
+    </div>
+
+    <p id="recentResultCount" class="recent-result-count"></p>
+
     <div id="recentUploads" class="recent-list">
       <div class="empty">
         Uploaded gallery images will appear here.
@@ -1254,6 +1339,26 @@ const recentUploads =
     "recentUploads"
   );
 
+const recentSearch =
+  document.getElementById(
+    "recentSearch"
+  );
+
+const recentCategoryFilter =
+  document.getElementById(
+    "recentCategoryFilter"
+  );
+
+const recentStatusFilter =
+  document.getElementById(
+    "recentStatusFilter"
+  );
+
+const recentResultCount =
+  document.getElementById(
+    "recentResultCount"
+  );
+
 const editModal =
   document.getElementById(
     "editGalleryModal"
@@ -1331,6 +1436,9 @@ let editingGalleryId =
 
 let editSaveInProgress =
   false;
+
+let recentGalleryItems =
+  [];
 
 
 /* =========================================================
@@ -1620,6 +1728,224 @@ function categoryLabel(value) {
 
 }
 
+function renderRecentUploads() {
+
+  const searchText =
+    recentSearch.value
+      .trim()
+      .toLowerCase();
+
+  const categoryValue =
+    recentCategoryFilter.value;
+
+  const statusValue =
+    recentStatusFilter.value;
+
+  const filteredItems =
+    recentGalleryItems.filter(
+      (record) => {
+
+        const item =
+          record.data;
+
+        const matchesSearch =
+          !searchText ||
+          [
+            categoryLabel(item.category),
+            item.event || "",
+            item.caption || "",
+            item.date || "",
+            item.fileName || ""
+          ]
+            .join(" ")
+            .toLowerCase()
+            .includes(searchText);
+
+        const matchesCategory =
+          categoryValue === "all" ||
+          item.category === categoryValue;
+
+        let matchesStatus =
+          true;
+
+        if (statusValue === "published") {
+          matchesStatus =
+            Boolean(item.published);
+        } else if (statusValue === "hidden") {
+          matchesStatus =
+            !Boolean(item.published);
+        } else if (statusValue === "featured") {
+          matchesStatus =
+            Boolean(item.featured);
+        }
+
+        return (
+          matchesSearch &&
+          matchesCategory &&
+          matchesStatus
+        );
+
+      }
+    );
+
+  recentResultCount.textContent =
+    filteredItems.length +
+    " OF " +
+    recentGalleryItems.length +
+    (
+      recentGalleryItems.length === 1
+        ? " PHOTO"
+        : " PHOTOS"
+    );
+
+  if (filteredItems.length === 0) {
+
+    recentUploads.innerHTML =
+      '<div class="empty">No gallery photos match these filters.</div>';
+
+    return;
+
+  }
+
+  recentUploads.innerHTML =
+    filteredItems.map((record) => {
+
+      const item =
+        record.data;
+
+      const documentId =
+        record.id;
+
+      const eventText =
+        item.event
+          ? escapeHTML(item.event)
+          : "No event/fight entered";
+
+      const captionText =
+        item.caption
+          ? '<p class="recent-caption">' +
+            escapeHTML(item.caption) +
+            '</p>'
+          : "";
+
+      const featuredBadge =
+        item.featured
+          ? '<span class="recent-badge">FEATURED</span>'
+          : "";
+
+      const publishedBadge =
+        item.published
+          ? '<span class="recent-badge">PUBLISHED</span>'
+          : '<span class="recent-badge">HIDDEN</span>';
+
+      const publishButtonText =
+        item.published
+          ? "HIDE"
+          : "PUBLISH";
+
+      const featureButtonText =
+        item.featured
+          ? "UNFEATURE"
+          : "FEATURE";
+
+      return (
+        '<article class="recent-item" ' +
+          'data-gallery-id="' +
+          escapeHTML(documentId) +
+          '">' +
+
+          '<img class="recent-image" src="' +
+            escapeHTML(item.imageURL) +
+            '" alt="Gallery upload" loading="lazy">' +
+
+          '<div class="recent-body">' +
+
+            '<h3 class="recent-heading">' +
+              escapeHTML(categoryLabel(item.category)) +
+            '</h3>' +
+
+            '<p class="recent-meta">' +
+              eventText +
+              (item.date
+                ? ' • ' + escapeHTML(item.date)
+                : '') +
+            '</p>' +
+
+            captionText +
+
+            '<div class="recent-badges">' +
+              publishedBadge +
+              featuredBadge +
+            '</div>' +
+
+            '<div class="recent-actions">' +
+
+              '<button class="recent-action primary" ' +
+                'type="button" ' +
+                'data-action="edit" ' +
+                'data-id="' +
+                escapeHTML(documentId) +
+                '">EDIT DETAILS</button>' +
+
+              '<button class="recent-action" ' +
+                'type="button" ' +
+                'data-action="publish" ' +
+                'data-id="' +
+                escapeHTML(documentId) +
+                '" data-value="' +
+                String(Boolean(item.published)) +
+                '">' +
+                publishButtonText +
+              '</button>' +
+
+              '<button class="recent-action warning" ' +
+                'type="button" ' +
+                'data-action="feature" ' +
+                'data-id="' +
+                escapeHTML(documentId) +
+                '" data-value="' +
+                String(Boolean(item.featured)) +
+                '">' +
+                featureButtonText +
+              '</button>' +
+
+              '<button class="recent-action danger" ' +
+                'type="button" ' +
+                'data-action="delete" ' +
+                'data-id="' +
+                escapeHTML(documentId) +
+                '" data-storage-path="' +
+                escapeHTML(item.storagePath || "") +
+                '">DELETE</button>' +
+
+            '</div>' +
+
+          '</div>' +
+
+        '</article>'
+      );
+
+    }).join("");
+
+}
+
+
+recentSearch.addEventListener(
+  "input",
+  renderRecentUploads
+);
+
+recentCategoryFilter.addEventListener(
+  "change",
+  renderRecentUploads
+);
+
+recentStatusFilter.addEventListener(
+  "change",
+  renderRecentUploads
+);
+
+
 function startRecentUploads() {
 
   if (recentUnsubscribe) {
@@ -1651,7 +1977,18 @@ function startRecentUploads() {
             )
           );
 
+        recentGalleryItems =
+          snapshot.docs.map(
+            (documentSnapshot) => ({
+              id: documentSnapshot.id,
+              data: documentSnapshot.data()
+            })
+          );
+
         if (snapshot.empty) {
+
+          recentResultCount.textContent =
+            "0 PHOTOS";
 
           recentUploads.innerHTML =
             '<div class="empty">Uploaded gallery images will appear here.</div>';
@@ -1660,125 +1997,7 @@ function startRecentUploads() {
 
         }
 
-        recentUploads.innerHTML =
-          snapshot.docs.map((documentSnapshot) => {
-
-            const item =
-              documentSnapshot.data();
-
-            const documentId =
-              documentSnapshot.id;
-
-            const eventText =
-              item.event
-                ? escapeHTML(item.event)
-                : "No event/fight entered";
-
-            const captionText =
-              item.caption
-                ? '<p class="recent-caption">' +
-                  escapeHTML(item.caption) +
-                  '</p>'
-                : "";
-
-            const featuredBadge =
-              item.featured
-                ? '<span class="recent-badge">FEATURED</span>'
-                : "";
-
-            const publishedBadge =
-              item.published
-                ? '<span class="recent-badge">PUBLISHED</span>'
-                : '<span class="recent-badge">HIDDEN</span>';
-
-            const publishButtonText =
-              item.published
-                ? "HIDE"
-                : "PUBLISH";
-
-            const featureButtonText =
-              item.featured
-                ? "UNFEATURE"
-                : "FEATURE";
-
-            return (
-              '<article class="recent-item" ' +
-                'data-gallery-id="' +
-                escapeHTML(documentId) +
-                '">' +
-
-                '<img class="recent-image" src="' +
-                  escapeHTML(item.imageURL) +
-                  '" alt="Gallery upload" loading="lazy">' +
-
-                '<div class="recent-body">' +
-
-                  '<h3 class="recent-heading">' +
-                    escapeHTML(categoryLabel(item.category)) +
-                  '</h3>' +
-
-                  '<p class="recent-meta">' +
-                    eventText +
-                    (item.date
-                      ? ' • ' + escapeHTML(item.date)
-                      : '') +
-                  '</p>' +
-
-                  captionText +
-
-                  '<div class="recent-badges">' +
-                    publishedBadge +
-                    featuredBadge +
-                  '</div>' +
-
-                  '<div class="recent-actions">' +
-
-                    '<button class="recent-action primary" ' +
-                      'type="button" ' +
-                      'data-action="edit" ' +
-                      'data-id="' +
-                      escapeHTML(documentId) +
-                      '">EDIT DETAILS</button>' +
-
-                    '<button class="recent-action" ' +
-                      'type="button" ' +
-                      'data-action="publish" ' +
-                      'data-id="' +
-                      escapeHTML(documentId) +
-                      '" data-value="' +
-                      String(Boolean(item.published)) +
-                      '">' +
-                      publishButtonText +
-                    '</button>' +
-
-                    '<button class="recent-action warning" ' +
-                      'type="button" ' +
-                      'data-action="feature" ' +
-                      'data-id="' +
-                      escapeHTML(documentId) +
-                      '" data-value="' +
-                      String(Boolean(item.featured)) +
-                      '">' +
-                      featureButtonText +
-                    '</button>' +
-
-                    '<button class="recent-action danger" ' +
-                      'type="button" ' +
-                      'data-action="delete" ' +
-                      'data-id="' +
-                      escapeHTML(documentId) +
-                      '" data-storage-path="' +
-                      escapeHTML(item.storagePath || "") +
-                      '">DELETE</button>' +
-
-                  '</div>' +
-
-                '</div>' +
-
-              '</article>'
-            );
-
-          }).join("");
+        renderRecentUploads();
 
       },
       (error) => {
@@ -1787,6 +2006,9 @@ function startRecentUploads() {
           "Recent gallery load failed:",
           error
         );
+
+        recentResultCount.textContent =
+          "";
 
         recentUploads.innerHTML =
           '<div class="empty">Unable to load recent uploads.</div>';
