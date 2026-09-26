@@ -423,6 +423,69 @@ textarea:focus {
 }
 
 
+
+.recent-list {
+  display: grid;
+  gap: 14px;
+}
+
+.recent-item {
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  background: rgba(0,0,0,0.28);
+}
+
+.recent-image {
+  display: block;
+  width: 100%;
+  max-height: 360px;
+  object-fit: cover;
+  background: #000000;
+}
+
+.recent-body {
+  padding: 12px;
+}
+
+.recent-heading {
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.recent-meta {
+  margin: 0;
+  color: rgba(255,255,255,0.58);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.recent-caption {
+  margin: 8px 0 0;
+  color: rgba(255,255,255,0.82);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.recent-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.recent-badge {
+  padding: 5px 8px;
+  border: 1px solid rgba(0,191,255,0.28);
+  border-radius: 999px;
+  background: rgba(0,191,255,0.08);
+  color: rgba(255,255,255,0.78);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .6px;
+}
+
 /* =========================================
    BACK
 ========================================= */
@@ -691,8 +754,10 @@ textarea:focus {
       RECENT UPLOADS
     </h2>
 
-    <div class="empty">
-      Uploaded gallery images will appear here.
+    <div id="recentUploads" class="recent-list">
+      <div class="empty">
+        Uploaded gallery images will appear here.
+      </div>
     </div>
 
   </section>
@@ -725,6 +790,18 @@ import {
   getDownloadURL
 } from
   "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  query,
+  orderBy,
+  limit,
+  onSnapshot,
+  serverTimestamp
+} from
+  "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 
 /* =========================================================
@@ -794,6 +871,11 @@ const storage =
     app
   );
 
+const db =
+  getFirestore(
+    app
+  );
+
 
 /* =========================================================
    ELEMENTS
@@ -837,6 +919,36 @@ const dateInput =
 const status =
   document.getElementById(
     "galleryStatus"
+  );
+
+const categoryInput =
+  document.getElementById(
+    "galleryCategory"
+  );
+
+const eventInput =
+  document.getElementById(
+    "galleryEvent"
+  );
+
+const captionInput =
+  document.getElementById(
+    "galleryCaption"
+  );
+
+const featuredInput =
+  document.getElementById(
+    "galleryFeatured"
+  );
+
+const publishedInput =
+  document.getElementById(
+    "galleryPublished"
+  );
+
+const recentUploads =
+  document.getElementById(
+    "recentUploads"
   );
 
 
@@ -924,6 +1036,8 @@ onAuthStateChanged(
         "Gallery Manager admin:",
         ADMINS[user.uid]
       );
+
+      startRecentUploads();
 
       return;
 
@@ -1106,6 +1220,195 @@ fileInput.addEventListener(
 
   }
 );
+
+
+/* =========================================================
+   RECENT UPLOADS
+========================================================= */
+
+let recentUnsubscribe =
+  null;
+
+function escapeHTML(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function categoryLabel(value) {
+
+  const labels = {
+    "fight-night": "Fight Night",
+    "team-wolfie": "Team Wolfie",
+    "greig-sloan": "Greig Sloan",
+    "training": "Training",
+    "events": "Events",
+    "team": "Team Wolfpack"
+  };
+
+  return labels[value] || value || "Gallery";
+
+}
+
+function startRecentUploads() {
+
+  if (recentUnsubscribe) {
+    recentUnsubscribe();
+  }
+
+  const recentQuery =
+    query(
+      collection(db, "gallery"),
+      orderBy("createdAt", "desc"),
+      limit(12)
+    );
+
+  recentUnsubscribe =
+    onSnapshot(
+      recentQuery,
+      (snapshot) => {
+
+        if (snapshot.empty) {
+
+          recentUploads.innerHTML =
+            '<div class="empty">Uploaded gallery images will appear here.</div>';
+
+          return;
+
+        }
+
+        recentUploads.innerHTML =
+          snapshot.docs.map((documentSnapshot) => {
+
+            const item =
+              documentSnapshot.data();
+
+            const eventText =
+              item.event
+                ? escapeHTML(item.event)
+                : "No event/fight entered";
+
+            const captionText =
+              item.caption
+                ? '<p class="recent-caption">' +
+                  escapeHTML(item.caption) +
+                  '</p>'
+                : "";
+
+            const featuredBadge =
+              item.featured
+                ? '<span class="recent-badge">FEATURED</span>'
+                : "";
+
+            const publishedBadge =
+              item.published
+                ? '<span class="recent-badge">PUBLISHED</span>'
+                : '<span class="recent-badge">HIDDEN</span>';
+
+            return (
+              '<article class="recent-item">' +
+                '<img class="recent-image" src="' +
+                  escapeHTML(item.imageURL) +
+                  '" alt="Gallery upload" loading="lazy">' +
+                '<div class="recent-body">' +
+                  '<h3 class="recent-heading">' +
+                    escapeHTML(categoryLabel(item.category)) +
+                  '</h3>' +
+                  '<p class="recent-meta">' +
+                    eventText +
+                    (item.date
+                      ? ' • ' + escapeHTML(item.date)
+                      : '') +
+                  '</p>' +
+                  captionText +
+                  '<div class="recent-badges">' +
+                    publishedBadge +
+                    featuredBadge +
+                  '</div>' +
+                '</div>' +
+              '</article>'
+            );
+
+          }).join("");
+
+      },
+      (error) => {
+
+        console.error(
+          "Recent gallery load failed:",
+          error
+        );
+
+        recentUploads.innerHTML =
+          '<div class="empty">Unable to load recent uploads.</div>';
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   SAVE FIRESTORE RECORD
+========================================================= */
+
+async function saveGalleryRecord(
+  uploadResult
+) {
+
+  const galleryRecord = {
+
+    imageURL:
+      uploadResult.downloadURL,
+
+    storagePath:
+      "gallery/" +
+      uploadResult.fileName,
+
+    fileName:
+      uploadResult.fileName,
+
+    category:
+      categoryInput.value,
+
+    event:
+      eventInput.value.trim(),
+
+    caption:
+      captionInput.value.trim(),
+
+    date:
+      dateInput.value || "",
+
+    featured:
+      featuredInput.checked,
+
+    published:
+      publishedInput.checked,
+
+    createdAt:
+      serverTimestamp(),
+
+    createdBy:
+      currentAdmin.uid,
+
+    createdByName:
+      ADMINS[currentAdmin.uid]
+
+  };
+
+  await addDoc(
+    collection(
+      db,
+      "gallery"
+    ),
+    galleryRecord
+  );
+
+}
 
 
 /* =========================================================
@@ -1390,6 +1693,10 @@ uploadButton.addEventListener(
           );
 
 
+        await saveGalleryRecord(
+          result
+        );
+
         uploadedImages.push(
           result
         );
@@ -1405,10 +1712,10 @@ uploadButton.addEventListener(
 
       showStatus(
         files.length === 1
-          ? "✓ PHOTO UPLOADED SUCCESSFULLY"
+          ? "✓ PHOTO UPLOADED AND SAVED SUCCESSFULLY"
           : "✓ " +
             files.length +
-            " PHOTOS UPLOADED SUCCESSFULLY"
+            " PHOTOS UPLOADED AND SAVED SUCCESSFULLY"
       );
 
 
