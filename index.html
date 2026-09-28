@@ -2555,6 +2555,45 @@ body.menu-open{
     font-size:6px;
   }
 
+.next-ticket{
+  display:inline-flex;
+
+  align-items:center;
+  justify-content:center;
+
+  width:max-content;
+
+  margin-top:7px;
+
+  padding:6px 10px;
+
+  border-radius:6px;
+
+  border:
+    1px solid rgba(255,117,28,.50);
+
+  background:
+    rgba(255,90,0,.10);
+
+  color:#ff9b59;
+
+  text-decoration:none;
+
+  font-size:6px;
+
+  font-weight:900;
+
+  letter-spacing:.8px;
+
+  position:relative;
+
+  z-index:5;
+}
+
+.next-ticket:active{
+  transform:scale(.97);
+}  
+  
   .latest-card{
     grid-template-columns:
       90px
@@ -3892,6 +3931,21 @@ function renderNextUp(fights){
           <div class="next-event">${escapeHTML(eventName)}</div>
         </div>
 
+${
+  String(f.ticketUrl || "").trim()
+    ? `
+        <span
+          class="next-ticket"
+          data-ticket-url="${escapeHTML(
+            String(f.ticketUrl).trim()
+          )}"
+        >
+          🎟 GET TICKETS →
+        </span>
+      `
+    : ""
+}
+
         <div class="next-arrow">›</div>
       </a>
     `;
@@ -4149,7 +4203,37 @@ function renderHomeUpdates(items){
     .join("");
 
 }
+document.addEventListener(
+  "click",
+  function(event){
 
+    const ticketButton =
+      event.target.closest(
+        ".next-ticket"
+      );
+
+    if(!ticketButton){
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    const ticketUrl =
+      ticketButton.dataset.ticketUrl;
+
+    if(!ticketUrl){
+      return;
+    }
+
+    window.open(
+      ticketUrl,
+      "_blank",
+      "noopener,noreferrer"
+    );
+
+  }
+);
 
 const updatesQuery =
   ref(
