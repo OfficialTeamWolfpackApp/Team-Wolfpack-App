@@ -1007,6 +1007,59 @@ body.menu-open{
   pointer-events:auto;
 }
 
+.home-ticket-button{
+  margin-top:8px;
+
+  display:none;
+
+  align-items:center;
+  justify-content:center;
+
+  min-height:40px;
+
+  padding:10px 24px;
+
+  border-radius:8px;
+
+  border:
+    1px solid rgba(255,117,28,.60);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,165,225,.18),
+      rgba(20,20,20,.82),
+      rgba(255,95,0,.28)
+    );
+
+  color:#fff;
+
+  text-decoration:none;
+
+  font-size:8px;
+
+  font-weight:900;
+
+  letter-spacing:1.2px;
+
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+
+  box-shadow:
+    0 5px 18px rgba(0,0,0,.35),
+    0 0 12px rgba(255,90,0,.12);
+
+  pointer-events:auto;
+}
+
+.home-ticket-button.show{
+  display:inline-flex;
+}
+
+.home-ticket-button:active{
+  transform:scale(.985);
+}
+  
 .fighter-name{
   position:absolute;
 
