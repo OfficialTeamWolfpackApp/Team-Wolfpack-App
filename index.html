@@ -485,7 +485,7 @@ body.menu-open{
 ========================================= */
 
 #adminMenuSection{
-  display:none;
+  display:block;
 }
 
 .admin-menu-link{
@@ -1577,6 +1577,29 @@ body.menu-open{
   letter-spacing:.7px;
 }
 
+.next-ticket{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:max-content;
+  margin-top:7px;
+  padding:6px 10px;
+  border-radius:6px;
+  border:1px solid rgba(255,117,28,.50);
+  background:rgba(255,90,0,.10);
+  color:#ff9b59;
+  text-decoration:none;
+  font-size:6px;
+  font-weight:900;
+  letter-spacing:.8px;
+  position:relative;
+  z-index:5;
+}
+
+.next-ticket:active{
+  transform:scale(.97);
+}
+
 .next-arrow{
   position:relative;
 
@@ -2555,45 +2578,6 @@ body.menu-open{
     font-size:6px;
   }
 
-.next-ticket{
-  display:inline-flex;
-
-  align-items:center;
-  justify-content:center;
-
-  width:max-content;
-
-  margin-top:7px;
-
-  padding:6px 10px;
-
-  border-radius:6px;
-
-  border:
-    1px solid rgba(255,117,28,.50);
-
-  background:
-    rgba(255,90,0,.10);
-
-  color:#ff9b59;
-
-  text-decoration:none;
-
-  font-size:6px;
-
-  font-weight:900;
-
-  letter-spacing:.8px;
-
-  position:relative;
-
-  z-index:5;
-}
-
-.next-ticket:active{
-  transform:scale(.97);
-}  
-  
   .latest-card{
     grid-template-columns:
       90px
@@ -3614,27 +3598,8 @@ const adminMenuSection =
   );
 
 
-onAuthStateChanged(
-  auth,
-  function(user){
-
-    if(
-      user &&
-      ADMIN_UIDS.has(user.uid)
-    ){
-
-      adminMenuSection.style.display =
-        "block";
-
-    }else{
-
-      adminMenuSection.style.display =
-        "none";
-
-    }
-
-  }
-);
+// Admin Dashboard link remains visible in the menu.
+// The admin dashboard itself should enforce authorised access.
 
 
 
@@ -3649,10 +3614,7 @@ const nextFightDetails = document.getElementById("nextFightDetails");
 const nextFightFighter = document.getElementById("nextFightFighter");
 const nextFightOpponent = document.getElementById("nextFightOpponent");
 const nextFightButton = document.getElementById("nextFightButton");
-
-const homeTicketButton =
-  document.getElementById("homeTicketButton");
-
+const homeTicketButton = document.getElementById("homeTicketButton");
 const nextUpList = document.getElementById("nextUpList");
 
 function fightTime(f){
@@ -3838,48 +3800,19 @@ if(rightSide){
     nextFightOpponent.textContent = opponent;
   }
 
-if(nextFightOpponent){
-  nextFightOpponent.textContent = opponent;
-}
+  const ticketUrl = String(f.ticketUrl || "").trim();
 
-
-/* GET TICKETS BUTTON */
-
-const ticketUrl =
-  String(f.ticketUrl || "").trim();
-
-if(homeTicketButton){
-
-  if(ticketUrl){
-
-    homeTicketButton.href =
-      ticketUrl;
-
-    homeTicketButton.classList.add(
-      "show"
-    );
-
-  }else{
-
-    homeTicketButton.removeAttribute(
-      "href"
-    );
-
-    homeTicketButton.classList.remove(
-      "show"
-    );
-
+  if(homeTicketButton){
+    if(ticketUrl){
+      homeTicketButton.href = ticketUrl;
+      homeTicketButton.classList.add("show");
+    }else{
+      homeTicketButton.removeAttribute("href");
+      homeTicketButton.classList.remove("show");
+    }
   }
 
-}
-
-
-/* VIEW FIGHT DETAILS BUTTON */
-
-if(nextFightButton){
-  nextFightButton.onclick = function(){
-
-    if(nextFightButton){
+  if(nextFightButton){
     nextFightButton.onclick = function(){
       gtag("event","home_next_fight_click",{
         fighter:name,
@@ -3929,28 +3862,39 @@ function renderNextUp(fights){
 
           <div class="next-meta">${escapeHTML(venue)}</div>
           <div class="next-event">${escapeHTML(eventName)}</div>
-        </div>
 
-${
-  String(f.ticketUrl || "").trim()
-    ? `
-        <span
-          class="next-ticket"
-          data-ticket-url="${escapeHTML(
-            String(f.ticketUrl).trim()
-          )}"
-        >
-          🎟 GET TICKETS →
-        </span>
-      `
-    : ""
-}
+          ${
+            String(f.ticketUrl || "").trim()
+              ? `
+                  <span
+                    class="next-ticket"
+                    data-ticket-url="${escapeHTML(String(f.ticketUrl).trim())}"
+                  >
+                    🎟 GET TICKETS →
+                  </span>
+                `
+              : ""
+          }
+        </div>
 
         <div class="next-arrow">›</div>
       </a>
     `;
   }).join("");
 }
+
+document.addEventListener("click", function(event){
+  const ticketButton = event.target.closest(".next-ticket");
+  if(!ticketButton) return;
+
+  event.preventDefault();
+  event.stopPropagation();
+
+  const ticketUrl = ticketButton.dataset.ticketUrl;
+  if(!ticketUrl) return;
+
+  window.open(ticketUrl,"_blank","noopener,noreferrer");
+});
 
 const fightsRef = ref(database,"fights");
 
@@ -4203,37 +4147,7 @@ function renderHomeUpdates(items){
     .join("");
 
 }
-document.addEventListener(
-  "click",
-  function(event){
 
-    const ticketButton =
-      event.target.closest(
-        ".next-ticket"
-      );
-
-    if(!ticketButton){
-      return;
-    }
-
-    event.preventDefault();
-    event.stopPropagation();
-
-    const ticketUrl =
-      ticketButton.dataset.ticketUrl;
-
-    if(!ticketUrl){
-      return;
-    }
-
-    window.open(
-      ticketUrl,
-      "_blank",
-      "noopener,noreferrer"
-    );
-
-  }
-);
 
 const updatesQuery =
   ref(
