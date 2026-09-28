@@ -1224,7 +1224,80 @@ body.menu-open{
   transform:scale(.985);
 }
 
+.ticket-button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
 
+  min-height:36px;
+  margin-top:8px;
+  padding:9px 17px;
+
+  border-radius:7px;
+
+  border:
+    1px solid rgba(255,117,28,.45);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,160,220,.18),
+      rgba(255,90,0,.22)
+    );
+
+  color:#fff;
+  text-decoration:none;
+
+  font-size:6px;
+  font-weight:900;
+  letter-spacing:1px;
+
+  box-shadow:
+    0 0 12px rgba(0,191,255,.10),
+    0 0 12px rgba(255,90,0,.12);
+}
+
+.ticket-button:active{
+  transform:scale(.985);
+}
+
+  .ticket-button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  min-height:36px;
+  margin-top:8px;
+  padding:9px 17px;
+
+  border-radius:7px;
+
+  border:
+    1px solid rgba(255,117,28,.45);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,160,220,.18),
+      rgba(255,90,0,.22)
+    );
+
+  color:#fff;
+  text-decoration:none;
+
+  font-size:6px;
+  font-weight:900;
+  letter-spacing:1px;
+
+  box-shadow:
+    0 0 12px rgba(0,191,255,.10),
+    0 0 12px rgba(255,90,0,.12);
+}
+
+.ticket-button:active{
+  transform:scale(.985);
+}
+  
 /* =========================================
    FOOTER
 ========================================= */
@@ -2183,7 +2256,9 @@ function renderFightCard(fight){
       .trim()
       .toUpperCase() ===
     "TBA";
-
+  
+const ticketUrl =
+  String(fight.ticketUrl || "").trim();
 
   return `
     <article class="fight-card">
@@ -2283,12 +2358,27 @@ function renderFightCard(fight){
           }
 
 
-          <a
-            class="details-button"
-            href="${escapeHTML(profile)}"
-          >
-            VIEW FIGHT DETAILS →
-          </a>
+<a
+  class="details-button"
+  href="${escapeHTML(profile)}"
+>
+  VIEW FIGHT DETAILS →
+</a>
+
+${
+  ticketUrl
+    ? `
+        <a
+          class="ticket-button"
+          href="${escapeHTML(ticketUrl)}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          🎟 GET TICKETS →
+        </a>
+      `
+    : ""
+}
 
         </div>
 
