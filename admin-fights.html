@@ -1417,6 +1417,21 @@ const opponentImage =
     "opponentImage"
   );
 
+const opponentImage =
+  document.getElementById(
+    "opponentImage"
+  );
+
+const ticketUrl =
+  document.getElementById(
+    "ticketUrl"
+  );
+
+const notes =
+  document.getElementById(
+    "notes"
+  );
+  
 const notes =
   document.getElementById(
     "notes"
@@ -1734,11 +1749,14 @@ fightForm.addEventListener(
         fighterImage.value.trim() ||
         fighterData.image,
 
-      opponentImage:
-        opponentImage.value.trim(),
+     opponentImage:
+  opponentImage.value.trim(),
 
-      notes:
-        notes.value.trim(),
+ticketUrl:
+  ticketUrl.value.trim(),
+
+notes:
+  notes.value.trim(),
 
       updatedAt:
         Date.now(),
@@ -1888,6 +1906,9 @@ window.editFight =
     opponentImage.value =
       data.opponentImage || "";
 
+ticketUrl.value =
+  data.ticketUrl || "";
+    
     notes.value =
       data.notes || "";
 
