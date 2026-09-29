@@ -2106,7 +2106,7 @@ body.menu-open{
 ========================================= */
 
 .quick-access-card{
-  margin-top:16px;
+  margin-top:24px;
   padding:18px;
 
   border-radius:15px;
@@ -2145,9 +2145,11 @@ body.menu-open{
 
 .quick-access-grid{
   display:grid;
-  grid-template-columns:1fr 1fr;
 
-  gap:8px;
+  grid-template-columns:
+    repeat(2,minmax(0,1fr));
+
+  gap:10px;
 
   margin-top:14px;
 }
@@ -2158,7 +2160,7 @@ body.menu-open{
   align-items:center;
   justify-content:space-between;
 
-  min-height:46px;
+  min-height:64px;
 
   padding:0 12px;
 
@@ -3069,6 +3071,47 @@ OPPONENT
 
 </section>
 
+  <!-- QUICK ACCESS -->
+
+<section class="quick-access-card">
+
+<div class="quick-access-label">
+TEAM WOLFPACK APP
+</div>
+
+<div class="quick-access-title">
+QUICK ACCESS
+</div>
+
+<div class="quick-access-grid">
+
+<a href="fighters.html" class="quick-access-link">
+<span>FIGHTERS</span>
+<span>→</span>
+</a>
+
+<a href="fights.html" class="quick-access-link">
+<span>FIGHTS</span>
+<span>→</span>
+</a>
+
+<a href="sponsors.html" class="quick-access-link">
+<span>SPONSORS</span>
+<span>→</span>
+</a>
+
+<a href="gallery.html" class="quick-access-link">
+<span>GALLERY</span>
+<span>→</span>
+</a>
+<a href="https://mrswolfieboxing.com/home" class="quick-access-link" target="_blank" rel="noopener noreferrer">
+<span>MRS WOLFIE APP</span>
+<span>→</span>
+</a>
+
+
+</div>
+
 
 <!-- NEXT UP -->
 
@@ -3357,49 +3400,6 @@ OFFICIALTEAMWOLFPACK.COM
 <span class="fire">
 /BOXING
 </span>
-
-</div>
-
-</section>
-  
-<!-- QUICK ACCESS -->
-
-<section class="quick-access-card">
-
-<div class="quick-access-label">
-TEAM WOLFPACK APP
-</div>
-
-<div class="quick-access-title">
-QUICK ACCESS
-</div>
-
-<div class="quick-access-grid">
-
-<a href="fighters.html" class="quick-access-link">
-<span>FIGHTERS</span>
-<span>→</span>
-</a>
-
-<a href="fights.html" class="quick-access-link">
-<span>FIGHTS</span>
-<span>→</span>
-</a>
-
-<a href="sponsors.html" class="quick-access-link">
-<span>SPONSORS</span>
-<span>→</span>
-</a>
-
-<a href="gallery.html" class="quick-access-link">
-<span>GALLERY</span>
-<span>→</span>
-</a>
-<a href="https://mrswolfieboxing.com/home" class="quick-access-link" target="_blank" rel="noopener noreferrer">
-<span>MRS WOLFIE APP</span>
-<span>→</span>
-</a>
-
 
 </div>
 
