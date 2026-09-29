@@ -398,7 +398,282 @@ body{
   font-weight:900;
 }
 
+/* =========================
+   MRS WOLFIE CONTROL SECTIONS
+========================= */
 
+.control-section{
+  margin-top:18px;
+  padding:16px;
+
+  border-radius:16px;
+
+  border:
+    1px solid rgba(255,255,255,.10);
+
+  background:
+    rgba(5,5,5,.72);
+}
+
+.control-section.primary{
+  border-color:
+    rgba(255,143,211,.28);
+
+  background:
+    linear-gradient(
+      115deg,
+      rgba(103,220,255,.08),
+      rgba(5,5,5,.90) 50%,
+      rgba(255,143,211,.11)
+    );
+}
+
+.control-section.updates{
+  border-color:
+    rgba(103,220,255,.25);
+
+  background:
+    linear-gradient(
+      115deg,
+      rgba(103,220,255,.10),
+      rgba(5,5,5,.90) 55%,
+      rgba(255,143,211,.07)
+    );
+}
+
+.control-section-header{
+  display:flex;
+  align-items:center;
+
+  gap:11px;
+
+  margin-bottom:14px;
+}
+
+.control-section-icon{
+  width:36px;
+  height:36px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  flex-shrink:0;
+
+  border-radius:10px;
+
+  border:
+    1px solid rgba(255,143,211,.25);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(103,220,255,.13),
+      rgba(255,143,211,.15)
+    );
+
+  font-size:17px;
+}
+
+.control-section-name{
+  color:#ff8fd3;
+
+  font-size:12px;
+  font-weight:900;
+
+  letter-spacing:.6px;
+}
+
+.control-section-description{
+  margin-top:3px;
+
+  color:#777;
+
+  font-size:8px;
+  line-height:1.4;
+}
+
+
+/* CONTROL GRID */
+
+.control-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:9px;
+}
+
+
+/* CONTROL CARD */
+
+.control-card{
+  position:relative;
+
+  min-height:105px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+
+  overflow:hidden;
+
+  padding:15px;
+
+  border-radius:12px;
+
+  border:
+    1px solid rgba(255,255,255,.09);
+
+  text-decoration:none;
+
+  color:#fff;
+
+  background:
+    linear-gradient(
+      115deg,
+      rgba(103,220,255,.07),
+      rgba(7,7,7,.94) 50%,
+      rgba(255,143,211,.08)
+    );
+
+  transition:
+    transform .15s ease,
+    border-color .15s ease;
+}
+
+.control-card::before{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  top:0;
+  bottom:0;
+
+  width:3px;
+
+  background:#67dcff;
+}
+
+.control-card::after{
+  content:"";
+
+  position:absolute;
+
+  right:0;
+  top:0;
+  bottom:0;
+
+  width:3px;
+
+  background:#ff8fd3;
+}
+
+.control-card:hover{
+  border-color:
+    rgba(255,143,211,.35);
+}
+
+.control-card:active{
+  transform:scale(.985);
+}
+
+.control-card-name{
+  position:relative;
+
+  z-index:2;
+
+  padding-right:42px;
+
+  font-size:11px;
+  font-weight:900;
+}
+
+.control-card-description{
+  position:relative;
+
+  z-index:2;
+
+  margin-top:6px;
+
+  color:#888;
+
+  font-size:8px;
+  line-height:1.5;
+}
+
+
+/* BADGES */
+
+.control-badge{
+  position:absolute;
+
+  top:11px;
+  right:11px;
+
+  z-index:3;
+
+  padding:
+    4px
+    7px;
+
+  border-radius:20px;
+
+  background:#ff8fd3;
+
+  color:#050505;
+
+  font-size:7px;
+  font-weight:900;
+}
+
+.control-badge.blue{
+  background:#67dcff;
+}
+
+
+/* FUTURE CONTROLS */
+
+.control-card.disabled{
+  opacity:.50;
+
+  cursor:default;
+
+  pointer-events:none;
+}
+
+.control-card.disabled::before,
+.control-card.disabled::after{
+  opacity:.40;
+}
+
+.control-badge.soon{
+  background:#555;
+
+  color:#ccc;
+}
+
+
+/* MOBILE */
+
+@media(max-width:520px){
+
+  .control-section{
+    padding:13px;
+  }
+
+  .control-grid{
+    grid-template-columns:1fr;
+  }
+
+  .control-card{
+    min-height:92px;
+  }
+
+}
+  
 /* =========================
    ACTION CARDS
 ========================= */
