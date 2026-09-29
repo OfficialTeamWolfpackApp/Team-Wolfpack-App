@@ -2216,7 +2216,7 @@ body.menu-open{
 }
 
 /* =========================================
-   OUR TEAMS
+   MEET THE PACK
 ========================================= */
 
 .our-teams-card{
@@ -2258,10 +2258,12 @@ body.menu-open{
 }
 
 .our-teams-grid{
-  display:flex;
-  flex-direction:column;
+  display:grid;
 
-  gap:8px;
+  grid-template-columns:
+    repeat(2,minmax(0,1fr));
+
+  gap:10px;
 
   margin-top:14px;
 }
@@ -2272,11 +2274,11 @@ body.menu-open{
   align-items:center;
   justify-content:space-between;
 
-  min-height:58px;
+  min-height:90px;
 
-  padding:10px 13px;
+  padding:14px;
 
-  border-radius:9px;
+  border-radius:10px;
 
   border:
     1px solid rgba(255,255,255,.12);
@@ -2286,16 +2288,21 @@ body.menu-open{
   color:#fff;
 
   text-decoration:none;
+
+  transition:
+    transform .18s ease,
+    background .18s ease,
+    border-color .18s ease;
 }
 
 .our-team-link > span:first-child{
   display:flex;
   flex-direction:column;
-  gap:4px;
+  gap:5px;
 }
 
 .our-team-link strong{
-  font-size:8px;
+  font-size:9px;
   font-weight:900;
   letter-spacing:.7px;
 }
@@ -2310,6 +2317,13 @@ body.menu-open{
 
 .our-team-link.wolfie{
   border-left:3px solid #45d8ff;
+
+  background:
+    linear-gradient(
+      110deg,
+      rgba(0,150,210,.13),
+      rgba(0,0,0,.30)
+    );
 }
 
 .our-team-link.wolfie strong{
@@ -2317,7 +2331,14 @@ body.menu-open{
 }
 
 .our-team-link.sloan{
-  border-left:3px solid #ff701c;
+  border-right:3px solid #ff701c;
+
+  background:
+    linear-gradient(
+      250deg,
+      rgba(255,90,0,.13),
+      rgba(0,0,0,.30)
+    );
 }
 
 .our-team-link.sloan strong{
@@ -2325,12 +2346,18 @@ body.menu-open{
 }
 
 .our-team-link:hover{
+  transform:translateY(-2px);
+
   background:
     linear-gradient(
       90deg,
       rgba(0,150,210,.14),
       rgba(255,90,0,.12)
     );
+}
+
+.our-team-link:active{
+  transform:scale(.98);
 }
   
 /* =========================================
@@ -3136,7 +3163,7 @@ MEET OUR FIGHTERS
 </div>
 
 <div class="our-teams-title">
-OUR TEAMS
+MEET THE PACK
 </div>
 
 <div class="our-teams-grid">
