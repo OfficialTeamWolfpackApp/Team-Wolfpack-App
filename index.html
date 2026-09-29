@@ -1700,17 +1700,23 @@ text-shadow:
 /* =========================================
    LIVE UPDATES
 ========================================= */
-
+.home-live-updates{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin-top:4px;
+}
+  
 .home-update-card{
   position:relative;
   overflow:hidden;
 
   display:grid;
-  grid-template-columns:150px minmax(0,1fr);
+  grid-template-columns:155px minmax(0,1fr);
   column-gap:18px;
   align-items:center;
 
-  min-height:145px;
+  min-height:155px;
 
   padding:16px 18px 16px 16px;
 
@@ -1770,8 +1776,8 @@ text-shadow:
   grid-column:1;
   grid-row:1 / span 5;
 
-  width:125px;
-  height:115px;
+ width:135px;
+ height:125px;
 
   margin:0;
 
@@ -1891,14 +1897,16 @@ text-shadow:
   }
 
   .home-update-title{
-    margin-top:8px;
+  margin-top:8px;
 
-    font-size:13px;
+  font-size:15px;
+  font-weight:900;
+  line-height:1.2;
+  letter-spacing:.2px;
+  color:#fff;
 
-    line-height:1.15;
-
-    overflow-wrap:anywhere;
-  }
+  overflow-wrap:anywhere;
+}
 
   .home-update-message{
     margin-top:6px;
