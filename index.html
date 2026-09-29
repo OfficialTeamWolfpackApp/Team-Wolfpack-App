@@ -1231,11 +1231,13 @@ body.menu-open{
 .section-title{
   color:#fff;
 
-  font-size:11px;
+  font-size:13px;
 
   font-weight:900;
 
-  letter-spacing:2px;
+  line-height:1.2;
+
+  letter-spacing:1.8px;
 }
 
 .section-link{
@@ -1248,8 +1250,25 @@ body.menu-open{
   letter-spacing:1px;
 
   text-decoration:none;
+
+  transition:
+    color .18s ease,
+    transform .18s ease,
+    text-shadow .18s ease;
 }
 
+.section-link:hover{
+  color:#ff9b59;
+
+  transform:translateX(2px);
+
+  text-shadow:
+    0 0 8px rgba(255,112,28,.35);
+}
+
+.section-link:active{
+  transform:translateX(1px) scale(.98);
+}
 
 /* =========================================
    HOMEPAGE — MEET THE PACK
