@@ -1337,228 +1337,397 @@ REPORTS REQUIRE ATTENTION
 </div>
 
 
-<!-- ACTIONS -->
+<!-- =========================================
+     ADMIN CONTROL CENTRE
+========================================= -->
 
 <div class="section-title">
 
-<span class="ice">
-ADMIN
-</span>
+  <span class="ice">
+    ADMIN
+  </span>
 
-<span class="fire">
-TOOLS
-</span>
+  <span class="fire">
+    CONTROL CENTRE
+  </span>
 
 </div>
 
 
-<div class="action-grid">
+<!-- =========================================
+     CHAT & MEMBERS
+========================================= -->
 
+<section class="control-section chat">
 
-<a
-  class="action-card"
-  href="admin-reports.html"
->
+  <div class="control-section-header">
 
-<div
-  id="openReportsBadge"
-  class="action-count"
->
-0
-</div>
+    <div>
 
-<div class="action-name">
-OPEN REPORTS
-</div>
+      <div class="control-section-title">
 
-<div class="action-description">
-Review reported Pack Chat messages, delete messages, mute members, block members or dismiss reports.
-</div>
+        <div class="control-section-icon">
+          💬
+        </div>
 
-</a>
+        CHAT & MEMBERS
 
+      </div>
 
-<a
-  class="action-card"
-  href="admin-history.html"
->
+      <div class="control-section-subtitle">
+        Pack Chat moderation, reports and member controls.
+      </div>
 
-<div
-  id="resolvedReportsBadge"
-  class="action-count blue"
->
-0
-</div>
+    </div>
 
-<div class="action-name">
-RESOLVED HISTORY
-</div>
-
-<div class="action-description">
-View previous Pack Chat reports and the moderation action taken by Team Wolfpack admins.
-</div>
-
-</a>
-
-
-<a
-  class="action-card"
-  href="admin-members.html"
->
-
-<div
-  id="memberBadge"
-  class="action-count blue"
->
-0
-</div>
-
-<div class="action-name">
-MEMBER MANAGEMENT
-</div>
-
-<div class="action-description">
-View Pack Chat members and manage active, muted and blocked accounts.
-</div>
-
-</a>
-
-
-<!-- LIVE UPDATES -->
-
-<a
-  class="action-card live-updates"
-  href="admin-updates.html"
->
-
-<div class="live-badge">
-LIVE
-</div>
-
-<div class="action-name">
-LIVE UPDATES
-</div>
-
-<div class="action-description">
-Create, publish, edit and manage Team Wolfpack news, fight results, fight updates and announcements.
-</div>
-
-</a>
-<!-- FIGHT MANAGEMENT -->
-
-<a
-  class="action-card"
-  href="admin-fights.html"
->
-
-<div class="live-badge">
-LIVE
-</div>
-
-<div class="action-name">
-FIGHT MANAGEMENT
-</div>
-
-<div class="action-description">
-Create and manage Team Wolfpack fights, opponents, dates, venues, fight titles and completed fight results.
-</div>
-
-</a>
-
-<a
-  class="action-card"
-  href="chat.html"
->
-
-<div class="action-name">
-PACK CHAT
-</div>
-
-<div class="action-description">
-Return directly to the live Team Wolfpack Pack Chat.
-</div>
-
-</a>
-
-
-<a
-  class="action-card"
-  href="updates.html"
->
-
-<div class="action-name">
-VIEW LIVE FEED
-</div>
-
-<div class="action-description">
-Open the public Team Wolfpack Live Updates feed and check published news and fight updates.
-</div>
-
-</a>
-
-<!-- MRS WOLFIE CONTROL -->
-
-<a
-  class="action-card live-updates"
-  href="admin-mrs-wolfie.html"
->
-
-<div class="live-badge">
-LIVE
-</div>
-
-<div class="action-name">
-MRS WOLFIE CONTROL
-</div>
-
-<div class="action-description">
-Manage Mrs Wolfie fights, results and app updates from the Team Wolfpack Admin Dashboard.
-</div>
-
-</a>  
-<!-- NOTIFICATION MANAGER -->
-
-<a
-  class="action-card live-updates"
-  href="admin-notifications.html"
->
-
-  <div class="live-badge">
-    LIVE
   </div>
 
-  <div class="action-name">
-    NOTIFICATION MANAGER
+
+  <div class="control-grid">
+
+
+    <!-- PACK CHAT -->
+
+    <a
+      class="control-card"
+      href="chat.html"
+    >
+
+      <div class="control-card-name">
+        PACK CHAT
+      </div>
+
+      <div class="control-card-description">
+        Open the live Team Wolfpack Pack Chat.
+      </div>
+
+      <div class="control-card-badge live">
+        LIVE
+      </div>
+
+    </a>
+
+
+    <!-- OPEN REPORTS -->
+
+    <a
+      class="control-card"
+      href="admin-reports.html"
+    >
+
+      <div class="control-card-name">
+        OPEN REPORTS
+      </div>
+
+      <div class="control-card-description">
+        Review reported messages and take moderation action.
+      </div>
+
+      <div
+        id="openReportsBadge"
+        class="control-card-badge orange"
+      >
+        0
+      </div>
+
+    </a>
+
+
+    <!-- RESOLVED HISTORY -->
+
+    <a
+      class="control-card"
+      href="admin-history.html"
+    >
+
+      <div class="control-card-name">
+        RESOLVED HISTORY
+      </div>
+
+      <div class="control-card-description">
+        View resolved reports and previous moderation actions.
+      </div>
+
+      <div
+        id="resolvedReportsBadge"
+        class="control-card-badge"
+      >
+        0
+      </div>
+
+    </a>
+
+
+    <!-- MEMBER MANAGEMENT -->
+
+    <a
+      class="control-card"
+      href="admin-members.html"
+    >
+
+      <div class="control-card-name">
+        MEMBER MANAGEMENT
+      </div>
+
+      <div class="control-card-description">
+        Manage active, muted and blocked Pack Chat members.
+      </div>
+
+      <div
+        id="memberBadge"
+        class="control-card-badge"
+      >
+        0
+      </div>
+
+    </a>
+
+
   </div>
 
-  <div class="action-description">
-    Send secure Team Wolfpack push notifications directly to registered devices.
+</section>
+
+
+
+<!-- =========================================
+     NOTIFICATIONS & UPDATES
+========================================= -->
+
+<section class="control-section notifications">
+
+  <div class="control-section-header">
+
+    <div>
+
+      <div class="control-section-title">
+
+        <div class="control-section-icon">
+          🔔
+        </div>
+
+        NOTIFICATIONS & UPDATES
+
+      </div>
+
+      <div class="control-section-subtitle">
+        Publish app updates and communicate with registered devices.
+      </div>
+
+    </div>
+
   </div>
 
-</a>
+
+  <div class="control-grid">
 
 
-<!-- GALLERY MANAGER -->
+    <!-- NOTIFICATION MANAGER -->
 
-<a
-  class="action-card live-updates"
-  href="admin-gallery.html"
->
+    <a
+      class="control-card"
+      href="admin-notifications.html"
+    >
 
-  <div class="live-badge">
-    LIVE
+      <div class="control-card-name">
+        NOTIFICATION MANAGER
+      </div>
+
+      <div class="control-card-description">
+        Send Team Wolfpack push notifications to registered devices.
+      </div>
+
+      <div class="control-card-badge live">
+        LIVE
+      </div>
+
+    </a>
+
+
+    <!-- LIVE UPDATES -->
+
+    <a
+      class="control-card"
+      href="admin-updates.html"
+    >
+
+      <div class="control-card-name">
+        LIVE UPDATES
+      </div>
+
+      <div class="control-card-description">
+        Create and manage news, results, fight updates and announcements.
+      </div>
+
+      <div class="control-card-badge live">
+        LIVE
+      </div>
+
+    </a>
+
+
+    <!-- VIEW LIVE FEED -->
+
+    <a
+      class="control-card"
+      href="updates.html"
+    >
+
+      <div class="control-card-name">
+        VIEW LIVE FEED
+      </div>
+
+      <div class="control-card-description">
+        Preview the public Live Updates feed.
+      </div>
+
+    </a>
+
+
   </div>
 
-  <div class="action-name">
-    GALLERY MANAGER
+</section>
+
+
+
+<!-- =========================================
+     TEAM WOLFPACK APP
+========================================= -->
+
+<section class="control-section wolfpack">
+
+  <div class="control-section-header">
+
+    <div>
+
+      <div class="control-section-title">
+
+        <div class="control-section-icon">
+          🐺
+        </div>
+
+        TEAM WOLFPACK APP
+
+      </div>
+
+      <div class="control-section-subtitle">
+        Manage Team Wolfpack fights, media and app content.
+      </div>
+
+    </div>
+
   </div>
 
-  <div class="action-description">
-    Upload and manage Team Wolfpack gallery photos directly from your phone, including fight nights, training and events.
+
+  <div class="control-grid">
+
+
+    <!-- FIGHT MANAGEMENT -->
+
+    <a
+      class="control-card"
+      href="admin-fights.html"
+    >
+
+      <div class="control-card-name">
+        FIGHT MANAGEMENT
+      </div>
+
+      <div class="control-card-description">
+        Manage fights, opponents, dates, venues, tickets and results.
+      </div>
+
+      <div class="control-card-badge live">
+        LIVE
+      </div>
+
+    </a>
+
+
+    <!-- GALLERY MANAGER -->
+
+    <a
+      class="control-card"
+      href="admin-gallery.html"
+    >
+
+      <div class="control-card-name">
+        GALLERY MANAGER
+      </div>
+
+      <div class="control-card-description">
+        Upload and manage Team Wolfpack gallery photos.
+      </div>
+
+      <div class="control-card-badge live">
+        LIVE
+      </div>
+
+    </a>
+
+
   </div>
 
-</a>
-</div>
+</section>
+
+
+
+<!-- =========================================
+     MRS WOLFIE APP
+========================================= -->
+
+<section class="control-section mrs-wolfie">
+
+  <div class="control-section-header">
+
+    <div>
+
+      <div class="control-section-title">
+
+        <div class="control-section-icon">
+          🩷
+        </div>
+
+        MRS WOLFIE APP
+
+      </div>
+
+      <div class="control-section-subtitle">
+        Dedicated management controls for the Mrs Wolfie app.
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="control-grid">
+
+
+    <!-- MRS WOLFIE CONTROL -->
+
+    <a
+      class="control-card"
+      href="admin-mrs-wolfie.html"
+    >
+
+      <div class="control-card-name">
+        MRS WOLFIE CONTROL
+      </div>
+
+      <div class="control-card-description">
+        Manage Mrs Wolfie fights, results and app updates.
+      </div>
+
+      <div class="control-card-badge pink">
+        LIVE
+      </div>
+
+    </a>
+
+
+  </div>
+
+</section>
 
 
 <!-- SYSTEM -->
