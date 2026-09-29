@@ -1154,213 +1154,250 @@ body.menu-open{
 
 
 /* =========================================
-   THE PACK - FIGHTER CARDS
+   HOMEPAGE — MEET THE PACK
 ========================================= */
 
-.fighter-grid{
-  display:grid;
-
-  grid-template-columns:repeat(2,1fr);
-
-  gap:11px;
+.home-pack-section{
+  margin-top:24px;
 }
 
-.home-fighter-card{
-  position:relative;
+.home-pack-label{
+  margin-bottom:5px;
+  color:#67dcff;
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:1.5px;
+}
 
+.home-pack-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:12px;
+  margin-top:14px;
+}
+
+.home-pack-member{
+  position:relative;
+  display:block;
   overflow:hidden;
 
+  width:100%;
   min-height:190px;
 
-  border-radius:16px;
+  padding:20px 135px 20px 18px;
 
-  text-decoration:none;
+  border-radius:15px;
+  border:1px solid rgba(255,255,255,.12);
 
   color:#fff;
+  text-decoration:none;
 
-  border:
-    1px solid rgba(255,255,255,.14);
+  background:
+    linear-gradient(
+      110deg,
+      rgba(20,150,205,.17),
+      rgba(8,8,8,.96) 50%,
+      rgba(220,70,0,.18)
+    );
 
-  background:#080808;
-
-  box-shadow:
-    0 10px 28px rgba(0,0,0,.32);
-
-  transition:
-    transform .18s ease,
-    border-color .18s ease;
+  box-shadow:0 10px 26px rgba(0,0,0,.30);
 }
 
-.home-fighter-card:active{
-  transform:scale(.98);
-}
+/* BLUE LEFT EDGE */
 
-.home-fighter-card:first-child{
-  border-left:
-    3px solid #45d8ff;
-
-  box-shadow:
-    inset 3px 0 14px rgba(0,190,255,.12),
-    0 10px 28px rgba(0,0,0,.32);
-}
-
-.home-fighter-card:last-child{
-  border-right:
-    3px solid #ff701c;
-
-  box-shadow:
-    inset -3px 0 14px rgba(255,90,0,.12),
-    0 10px 28px rgba(0,0,0,.32);
-}
-
-.home-fighter-image{
+.home-pack-member::before{
+  content:"";
   position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:3px;
+  background:#45d8ff;
+  z-index:3;
+}
 
-  inset:0;
+/* ORANGE RIGHT EDGE */
 
-  width:100%;
+.home-pack-member::after{
+  content:"";
+  position:absolute;
+  right:0;
+  top:0;
+  bottom:0;
+  width:3px;
+  background:#ff701c;
+  z-index:3;
+}
+
+/* TEAM WOLFIE */
+
+.home-pack-member.wolfie{
+  background:
+    linear-gradient(
+      110deg,
+      rgba(0,150,210,.18),
+      rgba(8,8,8,.97) 52%,
+      rgba(0,80,120,.12)
+    );
+}
+
+.home-pack-member.wolfie::after{
+  background:#45d8ff;
+}
+
+/* TEAM SLOAN */
+
+.home-pack-member.sloan{
+  background:
+    linear-gradient(
+      110deg,
+      rgba(255,90,0,.16),
+      rgba(8,8,8,.97) 52%,
+      rgba(180,45,0,.15)
+    );
+}
+
+.home-pack-member.sloan::before,
+.home-pack-member.sloan::after{
+  background:#ff701c;
+}
+
+/* MEMBER PHOTO */
+
+.home-pack-photo{
+  position:absolute;
+  right:0;
+  top:0;
+
+  width:130px;
   height:100%;
 
   display:block;
-
   object-fit:cover;
-
-  opacity:.90;
-}
-
-.home-fighter-card:first-child .home-fighter-image{
-  object-position:center 28%;
-}
-
-.home-fighter-card:last-child .home-fighter-image{
-  object-position:center 32%;
-}
-
-.home-fighter-card::after{
-  content:"";
-
-  position:absolute;
-
-  inset:0;
+  object-position:center top;
 
   z-index:1;
 
-  background:
+  -webkit-mask-image:
     linear-gradient(
-      0deg,
-      rgba(0,0,0,.98) 0%,
-      rgba(0,0,0,.90) 20%,
-      rgba(0,0,0,.60) 39%,
-      rgba(0,0,0,.16) 64%,
-      transparent 82%
+      to right,
+      transparent 0%,
+      rgba(0,0,0,.45) 20%,
+      #000 48%
     );
 
-  pointer-events:none;
-}
-
-.home-fighter-card:first-child::before{
-  content:"";
-
-  position:absolute;
-
-  inset:0;
-
-  z-index:1;
-
-  background:
+  mask-image:
     linear-gradient(
-      90deg,
-      rgba(0,180,245,.13),
-      transparent 48%
+      to right,
+      transparent 0%,
+      rgba(0,0,0,.45) 20%,
+      #000 48%
     );
-
-  pointer-events:none;
 }
 
-.home-fighter-card:last-child::before{
-  content:"";
-
-  position:absolute;
-
-  inset:0;
-
-  z-index:1;
-
-  background:
-    linear-gradient(
-      270deg,
-      rgba(255,90,0,.13),
-      transparent 48%
-    );
-
-  pointer-events:none;
+.home-pack-content{
+  position:relative;
+  z-index:2;
 }
 
-.home-fighter-info{
-  position:absolute;
+.home-pack-status{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
 
-  z-index:3;
+  margin-bottom:11px;
+  padding:5px 8px;
 
-  left:14px;
-  right:14px;
-  bottom:14px;
+  border-radius:999px;
+
+  background:rgba(0,0,0,.48);
+  border:1px solid rgba(255,255,255,.12);
+
+  color:#ddd;
+
+  font-size:6px;
+  font-weight:900;
+  letter-spacing:.7px;
 }
 
-.home-fighter-name{
+.home-pack-status-dot{
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:#35e777;
+  box-shadow:0 0 7px rgba(53,231,119,.7);
+}
+
+.home-pack-team{
+  margin-bottom:5px;
+
+  color:#67dcff;
+
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:.8px;
+}
+
+.home-pack-member.sloan .home-pack-team{
+  color:#ff9b59;
+}
+
+.home-pack-name{
+  margin-bottom:8px;
+
   color:#fff;
 
-  font-size:16px;
-
-  font-weight:900;
-
-  line-height:1.05;
-
-  letter-spacing:.3px;
-
-  text-shadow:
-    0 2px 6px #000,
-    0 0 12px rgba(0,0,0,.9);
+  font-size:17px;
+  line-height:1.08;
+  font-weight:950;
+  letter-spacing:.2px;
 }
 
-.home-fighter-team{
-  display:inline-flex;
-
-  align-items:center;
-
-  margin-top:7px;
-
-  padding:4px 8px;
-
-  border-radius:5px;
+.home-pack-role{
+  color:#aaa;
 
   font-size:8px;
+  line-height:1.55;
+  font-weight:700;
+}
 
+.home-pack-view{
+  margin-top:13px;
+
+  color:#67dcff;
+
+  font-size:7px;
   font-weight:900;
-
-  letter-spacing:1.2px;
-
-  text-shadow:
-    0 1px 4px #000;
+  letter-spacing:.7px;
 }
 
-.home-fighter-card:first-child .home-fighter-team{
-  color:#7ce4ff;
-
-  border:
-    1px solid rgba(69,216,255,.28);
-
-  background:
-    rgba(0,145,205,.18);
-}
-
-.home-fighter-card:last-child .home-fighter-team{
+.home-pack-member.sloan .home-pack-view{
   color:#ff9b59;
+}
 
-  border:
-    1px solid rgba(255,112,28,.30);
+.home-pack-view span{
+  margin-left:4px;
+  font-size:13px;
+  vertical-align:-1px;
+}
 
-  background:
-    rgba(190,55,0,.18);
+/* CLICKABLE CARD EFFECT */
+
+a.home-pack-member{
+  transition:
+    transform .18s ease,
+    border-color .18s ease,
+    box-shadow .18s ease;
+}
+
+a.home-pack-member:hover{
+  transform:translateY(-2px);
+  border-color:rgba(255,255,255,.22);
+  box-shadow:0 14px 32px rgba(0,0,0,.38);
+}
+
+a.home-pack-member:active{
+  transform:scale(.99);
 }
 
 
@@ -3154,44 +3191,277 @@ QUICK ACCESS
 
 </div>
 
-<!-- OUR TEAMS -->
+<!-- =========================================
+     MEET THE PACK
+========================================= -->
 
-<section class="our-teams-card">
+<section class="home-pack-section">
 
-<div class="our-teams-label">
-MEET OUR FIGHTERS
-</div>
+  <div class="section-heading">
 
-<div class="our-teams-title">
-MEET THE PACK
-</div>
+    <div>
+      <div class="home-pack-label">
+        OUR PACK
+      </div>
 
-<div class="our-teams-grid">
+      <div class="section-title">
+        MEET THE PACK
+      </div>
+    </div>
+
+    <a
+      href="pack.html"
+      class="section-link"
+    >
+      VIEW ALL →
+    </a>
+
+  </div>
+
+  <div class="home-pack-grid">
+
+ <!-- MR WOLFIE -->
 
 <a
+  class="home-pack-member wolfie"
+  href="mr-wolfie.html"
+  aria-label="View Mr Wolfie profile"
+>
+
+  <img
+    class="home-pack-photo"
+    src="mr-wolfie.jpg"
+    alt="Chris Mr Wolfie James"
+  >
+
+  <div class="home-pack-content">
+
+    <div class="home-pack-status">
+      <span class="home-pack-status-dot"></span>
+      CO-FOUNDER • MANAGER
+    </div>
+
+    <div class="home-pack-team">
+      TEAM WOLFPACK • TEAM WOLFIE
+    </div>
+
+    <div class="home-pack-name">
+      CHRIS “MR WOLFIE” JAMES
+    </div>
+
+    <div class="home-pack-role">
+      Co-Founder &amp; Joint Owner of Team Wolfpack
+      <br>
+      Manager to Team Wolfie
+    </div>
+
+    <div class="home-pack-view">
+      VIEW PROFILE
+      <span>›</span>
+    </div>
+
+  </div>
+
+</a>
+
+<!-- MRS WOLFIE -->
+
+<a
+  class="home-pack-member wolfie"
   href="mrs-wolfie.html"
-  class="our-team-link wolfie"
+  aria-label="View Mrs Wolfie fighter profile"
 >
-  <span>
-    <strong>TEAM WOLFIE</strong>
-    <small>MRS WOLFIE</small>
-  </span>
 
-  <span>→</span>
+  <img
+    class="home-pack-photo"
+    src="zoey-james.jpg"
+    alt="Zoey Mrs Wolfie James"
+  >
+
+  <div class="home-pack-content">
+
+    <div class="home-pack-status">
+      <span class="home-pack-status-dot"></span>
+      CO-FOUNDER • FIGHTER
+    </div>
+
+    <div class="home-pack-team">
+      TEAM WOLFPACK • TEAM WOLFIE
+    </div>
+
+    <div class="home-pack-name">
+      ZOEY “MRS WOLFIE” JAMES
+    </div>
+
+    <div class="home-pack-role">
+      Co-Founder &amp; Joint Owner of Team Wolfpack
+      <br>
+      Boxer • Team Wolfie
+    </div>
+
+    <div class="home-pack-view">
+      VIEW FIGHTER PROFILE
+      <span>›</span>
+    </div>
+
+  </div>
+
 </a>
+
+<!-- GREIG SLOAN -->
 
 <a
+  class="home-pack-member sloan"
   href="greig-sloan.html"
-  class="our-team-link sloan"
+  aria-label="View Greig Sloan fighter profile"
 >
-  <span>
-    <strong>TEAM SLOAN</strong>
-    <small>GREIG SLOAN</small>
-  </span>
 
-  <span>→</span>
+  <img
+    class="home-pack-photo"
+    src="greig-sloan.jpg"
+    alt="Greig Sloan"
+  >
+
+  <div class="home-pack-content">
+
+    <div class="home-pack-status">
+      <span class="home-pack-status-dot"></span>
+      FIGHTER
+    </div>
+
+    <div class="home-pack-team">
+      TEAM SLOAN
+    </div>
+
+    <div class="home-pack-name">
+      GREIG SLOAN
+    </div>
+
+    <div class="home-pack-role">
+      Boxer • Team Sloan
+    </div>
+
+    <div class="home-pack-view">
+      VIEW FIGHTER PROFILE
+      <span>›</span>
+    </div>
+
+  </div>
+
 </a>
 
+<!-- BRY KELLY -->
+
+<div class="home-pack-member wolfie">
+
+  <img
+    class="home-pack-photo"
+    src="bry-kelly.jpg"
+    alt="Bry Kelly"
+  >
+
+  <div class="home-pack-content">
+
+    <div class="home-pack-status">
+      <span class="home-pack-status-dot"></span>
+      CORNER TEAM
+    </div>
+
+    <div class="home-pack-team">
+      TEAM WOLFIE
+    </div>
+
+    <div class="home-pack-name">
+      BRY KELLY
+    </div>
+
+    <div class="home-pack-role">
+      Corner Team • Boxer
+    </div>
+
+  </div>
+
+</div>
+
+<!-- BILLY BOSSMAN BURTON -->
+
+<div class="home-pack-member wolfie">
+
+  <img
+    class="home-pack-photo"
+    src="billy-burton.jpg"
+    alt="Billy Bossman Burton"
+  >
+
+  <div class="home-pack-content">
+
+    <div class="home-pack-status">
+      <span class="home-pack-status-dot"></span>
+      CORNER TEAM
+    </div>
+
+    <div class="home-pack-team">
+      TEAM WOLFIE
+    </div>
+
+    <div class="home-pack-name">
+      BILLY “BOSSMAN” BURTON
+    </div>
+
+    <div class="home-pack-role">
+      Corner Team • Boxer
+    </div>
+
+  </div>
+
+</div>
+
+<!-- RICHARD DAVIES -->
+
+<a
+  class="home-pack-member wolfie"
+  href="richard-davies.html"
+  aria-label="View Richard Davies sponsor profile"
+>
+
+  <img
+    class="home-pack-photo"
+    src="richard-davies.jpeg"
+    alt="Richard Davies"
+  >
+
+  <div class="home-pack-content">
+
+    <div class="home-pack-status">
+      <span class="home-pack-status-dot"></span>
+      SPONSOR
+    </div>
+
+    <div class="home-pack-team">
+      TEAM WOLFIE
+    </div>
+
+    <div class="home-pack-name">
+      RICHARD DAVIES
+    </div>
+
+    <div class="home-pack-role">
+      Former Midlands Champion
+      <br>
+      CEO of King Clothing
+      <br>
+      Founder of The Kings Circle
+    </div>
+
+    <div class="home-pack-view">
+      VIEW SPONSOR PROFILE
+      <span>›</span>
+    </div>
+
+  </div>
+
+</a>
+    
 </div>
 
 </section>
