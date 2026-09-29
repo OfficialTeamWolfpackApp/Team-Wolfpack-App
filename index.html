@@ -1704,7 +1704,7 @@ text-shadow:
   display:flex;
   flex-direction:column;
   gap:12px;
-  margin-top:4px;
+  margin-top:8px;
 }
   
 .home-update-card{
@@ -2167,7 +2167,13 @@ text-shadow:
   border-radius:15px;
 
   border:
-    1px solid rgba(103,220,255,.20);
+  1px solid rgba(255,255,255,.12);
+
+  border-left:
+    3px solid #45d8ff;
+
+  border-right:
+    3px solid #ff701c;
 
   background:
     linear-gradient(
@@ -2189,21 +2195,23 @@ text-shadow:
 }
 
 .website-title{
-  margin-top:7px;
+  margin-top:8px;
 
-  font-size:15px;
-
+  color:#fff;
+  font-size:17px;
   font-weight:900;
+  line-height:1.15;
+  letter-spacing:.2px;
 }
 
 .website-text{
-  margin-top:6px;
+  margin-top:8px;
 
-  color:#888;
+  color:#b5b5b5;
 
   font-size:9px;
-
-  line-height:1.5;
+  font-weight:600;
+  line-height:1.55;
 }
 
 .website-button{
@@ -2212,7 +2220,7 @@ text-shadow:
   align-items:center;
   justify-content:center;
 
-  min-height:44px;
+  min-height:48px;
 
   margin-top:14px;
 
@@ -2229,14 +2237,14 @@ text-shadow:
   border:
     1px solid rgba(103,220,255,.35);
 
-  background:
-    linear-gradient(
-      90deg,
-      rgba(0,160,220,.14),
-      rgba(255,90,0,.14)
-    );
-
-  font-size:8px;
+background:
+  linear-gradient(
+    90deg,
+    rgba(0,175,235,.20),
+    rgba(8,8,8,.65) 50%,
+    rgba(255,90,0,.20)
+  );
+  font-size:9px;
 
   font-weight:900;
 
@@ -2244,15 +2252,18 @@ text-shadow:
 }
 
 .website-address{
-  margin-top:10px;
+  margin-top:12px;
 
   text-align:center;
 
-  color:#666;
+  color:#8a8a8a;
 
   font-size:7px;
+  font-weight:700;
+  line-height:1.4;
+  letter-spacing:.8px;
 
-  letter-spacing:1px;
+  overflow-wrap:anywhere;
 }
 
 .ice{
@@ -2263,6 +2274,36 @@ text-shadow:
   color:#ff751c;
 }
 
+.website-button{
+  transition:
+    transform .18s ease,
+    border-color .18s ease,
+    box-shadow .18s ease,
+    background .18s ease;
+}
+
+.website-button:hover{
+  transform:translateY(-2px);
+
+  border-color:rgba(103,220,255,.60);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,180,245,.28),
+      rgba(8,8,8,.72) 50%,
+      rgba(255,90,0,.28)
+    );
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,.32),
+    0 0 14px rgba(69,216,255,.10);
+}
+
+.website-button:active{
+  transform:translateY(0) scale(.99);
+}
+  
 /* =========================================
    QUICK ACCESS
 ========================================= */
