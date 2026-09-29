@@ -1806,6 +1806,32 @@ text-shadow:
   background:#050505;
 }
 
+.home-update-message{
+  margin-top:7px;
+
+  color:#c7c7c7;
+  font-size:10px;
+  font-weight:600;
+  line-height:1.5;
+
+  overflow-wrap:anywhere;
+}
+
+.home-update-meta{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+
+  gap:5px 12px;
+
+  margin-top:9px;
+
+  color:#999;
+  font-size:8px;
+  font-weight:700;
+  line-height:1.4;
+}
+  
 @media(max-width:600px){
 
   .home-update-card{
@@ -1908,19 +1934,20 @@ text-shadow:
   overflow-wrap:anywhere;
 }
 
-  .home-update-message{
-    margin-top:6px;
+.home-update-message{
+  margin-top:7px;
 
-    font-size:8px;
+  color:#c7c7c7;
+  font-size:9px;
+  font-weight:600;
+  line-height:1.5;
 
-    line-height:1.45;
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
 
-    display:-webkit-box;
-    -webkit-line-clamp:3;
-    -webkit-box-orient:vertical;
-
-    overflow:hidden;
-  }
+  overflow:hidden;
+}
 
   .home-update-meta{
     display:flex;
@@ -1939,7 +1966,9 @@ text-shadow:
 }
 
 .home-update-meta .venue{
-  color:#ff9b59;
+  color:#ffad70;
+  font-weight:900;
+  letter-spacing:.2px;
 }
 
 .live-loading,
@@ -1996,15 +2025,32 @@ text-shadow:
 }
 
 .live-status-dot{
-  width:6px;
-  height:6px;
+  width:7px;
+  height:7px;
+
+  flex:0 0 7px;
 
   border-radius:50%;
 
   background:#67dcff;
 
   box-shadow:
-    0 0 8px rgba(103,220,255,.75);
+    0 0 6px rgba(103,220,255,.95),
+    0 0 12px rgba(103,220,255,.55);
+
+  animation:liveStatusPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes liveStatusPulse{
+  0%,100%{
+    opacity:1;
+    transform:scale(1);
+  }
+
+  50%{
+    opacity:.45;
+    transform:scale(.78);
+  }
 }
 
 .live-all-button{
@@ -2013,7 +2059,7 @@ text-shadow:
   align-items:center;
   justify-content:center;
 
-  min-height:42px;
+  min-height:46px;
 
   margin-top:11px;
 
@@ -2035,11 +2081,40 @@ text-shadow:
       rgba(255,90,0,.12)
     );
 
-  font-size:7px;
+  font-size:8px;
 
   font-weight:900;
 
   letter-spacing:1px;
+}
+
+.live-all-button{
+  transition:
+    transform .18s ease,
+    border-color .18s ease,
+    box-shadow .18s ease,
+    background .18s ease;
+}
+
+.live-all-button:hover{
+  transform:translateY(-2px);
+
+  border-color:rgba(103,220,255,.55);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,170,235,.20),
+      rgba(255,90,0,.20)
+    );
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,.30),
+    0 0 14px rgba(69,216,255,.10);
+}
+
+.live-all-button:active{
+  transform:translateY(0) scale(.99);
 }
   
 /* =========================================
