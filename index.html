@@ -586,6 +586,8 @@ body.menu-open{
   padding:15px 17px;
   border-radius:14px;
   border:1px solid rgba(255,255,255,.13);
+  border-left:3px solid #45d8ff;
+  border-right:3px solid #ff701c;
   background:
     linear-gradient(
       100deg,
@@ -608,45 +610,77 @@ body.menu-open{
 }
 
 .notification-title{
-  margin-top:5px;
+  margin-top:6px;
   color:#fff;
-  font-size:11px;
+  font-size:13px;
   font-weight:900;
-  letter-spacing:1px;
+  line-height:1.2;
+  letter-spacing:.8px;
 }
 
 .notification-text{
-  margin-top:5px;
-  color:#999;
-  font-size:7px;
-  font-weight:700;
+  margin-top:6px;
+  color:#b5b5b5;
+  font-size:8px;
+  font-weight:600;
   line-height:1.5;
 }
 
 .notification-button{
   flex:0 0 auto;
-  min-width:90px;
-  min-height:40px;
+  min-width:100px;
+  min-height:44px;
   padding:0 14px;
   border:1px solid rgba(255,117,28,.55);
   border-radius:9px;
   background:rgba(255,90,0,.10);
   color:#ff9b59;
-  font-size:7px;
+  font-size:8px;
   font-weight:900;
   letter-spacing:1px;
   cursor:pointer;
 }
 
 .notification-button.enabled{
-  border-color:rgba(69,216,255,.55);
-  background:rgba(0,150,210,.12);
-  color:#67dcff;
+  border-color:rgba(69,216,255,.65);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,175,235,.18),
+      rgba(0,110,165,.10)
+    );
+
+  color:#8be6ff;
+
+  box-shadow:
+    0 0 12px rgba(69,216,255,.12),
+    inset 0 0 10px rgba(69,216,255,.05);
 }
 
 .notification-button:disabled{
   cursor:default;
   opacity:.75;
+}
+
+.notification-button{
+  transition:
+    transform .18s ease,
+    border-color .18s ease,
+    background .18s ease,
+    box-shadow .18s ease;
+}
+
+.notification-button:not(:disabled):hover{
+  transform:translateY(-2px);
+
+  box-shadow:
+    0 7px 16px rgba(0,0,0,.28),
+    0 0 12px rgba(255,112,28,.12);
+}
+
+.notification-button:not(:disabled):active{
+  transform:translateY(0) scale(.98);
 }
   
 /* =========================================
@@ -2586,25 +2620,51 @@ background:
 ========================================= */
 
 .app-footer{
-  margin-top:30px;
+  margin-top:32px;
 
-  padding-top:20px;
+  padding:22px 12px 6px;
 
   border-top:
-    1px solid rgba(255,255,255,.07);
+    1px solid rgba(255,255,255,.10);
 
   text-align:center;
 
-  color:#777;
+  color:#999;
 
-  font-size:7px;
+  font-size:8px;
 
   font-weight:900;
 
-  letter-spacing:1.3px;
+  line-height:1.5;
+
+  letter-spacing:1.2px;
 }
 
+.app-footer::before{
+  content:"";
 
+  display:block;
+
+  width:90px;
+  height:2px;
+
+  margin:0 auto 16px;
+
+  border-radius:999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #45d8ff 0%,
+      rgba(255,255,255,.30) 50%,
+      #ff701c 100%
+    );
+
+  box-shadow:
+    -12px 0 14px rgba(69,216,255,.22),
+    12px 0 14px rgba(255,112,28,.22);
+}
+  
 /* =========================================
    COPYRIGHT
 ========================================= */
