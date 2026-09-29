@@ -1579,58 +1579,93 @@ a.home-pack-member:active{
 .next-name{
   color:#fff;
 
-  font-size:14px;
+  font-size:15px;
 
   font-weight:900;
 
   line-height:1.2;
+
+  letter-spacing:.2px;
 }
 
 .next-name .versus{
-  color:#777;
+  display:inline-block;
 
-  padding:0 3px;
+  margin:0 5px;
+  padding:2px 5px;
+
+  border-radius:4px;
+
+  color:#fff;
 
   font-size:8px;
+  font-weight:900;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,191,255,.22),
+      rgba(255,255,255,.08) 50%,
+      rgba(255,90,0,.22)
+    );
+
+  border:1px solid rgba(255,255,255,.10);
 }
 
 .next-meta{
-  margin-top:6px;
+  margin-top:7px;
 
-  color:#aaa;
+  color:#bbb;
 
-  font-size:8px;
+  font-size:9px;
 
   font-weight:700;
 
-  line-height:1.4;
+  line-height:1.45;
+
+  letter-spacing:.1px;
 }
-
+  
 .next-event{
-  margin-top:4px;
+  margin-top:6px;
 
-  color:#ff9b59;
+  width:max-content;
+
+  padding:3px 7px;
+
+  border-radius:4px;
+
+  color:#ffad70;
 
   font-size:7px;
-
   font-weight:900;
+  letter-spacing:.8px;
 
-  letter-spacing:.7px;
+  border-left:2px solid #45d8ff;
+  border-right:2px solid #ff701c;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,150,210,.10),
+      rgba(0,0,0,.22) 50%,
+      rgba(255,90,0,.10)
+    );
 }
-
+  
 .next-ticket{
   display:inline-flex;
   align-items:center;
   justify-content:center;
   width:max-content;
   margin-top:7px;
-  padding:6px 10px;
+  padding:7px 12px;
   border-radius:6px;
   border:1px solid rgba(255,117,28,.50);
   background:rgba(255,90,0,.10);
   color:#ff9b59;
   text-decoration:none;
-  font-size:6px;
+  font-size:7px;
   font-weight:900;
   letter-spacing:.8px;
   position:relative;
@@ -1649,11 +1684,14 @@ a.home-pack-member:active{
   align-items:center;
   justify-content:center;
 
-  color:#ff751c;
+color:#ff9b59;
 
-  font-size:24px;
+font-size:28px;
 
-  font-weight:400;
+font-weight:700;
+
+text-shadow:
+  0 0 8px rgba(255,112,28,.45);
 
   border-left:
     1px solid rgba(255,117,28,.10);
