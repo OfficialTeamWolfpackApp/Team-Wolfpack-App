@@ -426,7 +426,336 @@ body{
   line-height:1.5;
 }
 
+/* =========================
+   ADMIN CONTROL SECTIONS
+========================= */
 
+.control-section{
+  margin-top:18px;
+  padding:16px;
+  border-radius:16px;
+
+  border:
+    1px solid rgba(255,255,255,.10);
+
+  background:
+    rgba(5,5,5,.65);
+}
+
+.control-section-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:12px;
+
+  margin-bottom:14px;
+}
+
+.control-section-title{
+  display:flex;
+  align-items:center;
+
+  gap:9px;
+
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.7px;
+}
+
+.control-section-icon{
+  width:31px;
+  height:31px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  flex-shrink:0;
+
+  border-radius:9px;
+
+  font-size:15px;
+
+  background:
+    rgba(103,220,255,.10);
+
+  border:
+    1px solid rgba(103,220,255,.22);
+}
+
+.control-section-subtitle{
+  margin-top:3px;
+
+  color:#777;
+
+  font-size:8px;
+  line-height:1.4;
+}
+
+
+/* CHAT */
+
+.control-section.chat{
+  border-color:
+    rgba(103,220,255,.20);
+
+  background:
+    linear-gradient(
+      115deg,
+      rgba(0,160,220,.08),
+      rgba(5,5,5,.82)
+    );
+}
+
+.control-section.chat
+.control-section-title{
+  color:#67dcff;
+}
+
+
+/* NOTIFICATIONS */
+
+.control-section.notifications{
+  border-color:
+    rgba(255,117,28,.22);
+
+  background:
+    linear-gradient(
+      115deg,
+      rgba(255,90,0,.08),
+      rgba(5,5,5,.82)
+    );
+}
+
+.control-section.notifications
+.control-section-title{
+  color:#ff751c;
+}
+
+
+/* TEAM WOLFPACK */
+
+.control-section.wolfpack{
+  border-color:
+    rgba(103,220,255,.20);
+
+  background:
+    linear-gradient(
+      115deg,
+      rgba(0,191,255,.08),
+      rgba(5,5,5,.88) 50%,
+      rgba(255,90,0,.08)
+    );
+}
+
+.control-section.wolfpack
+.control-section-title{
+  color:#fff;
+}
+
+
+/* MRS WOLFIE */
+
+.control-section.mrs-wolfie{
+  border-color:
+    rgba(255,0,128,.35);
+
+  background:
+    linear-gradient(
+      115deg,
+      rgba(0,191,255,.10),
+      rgba(5,5,5,.88) 48%,
+      rgba(255,0,128,.13)
+    );
+}
+
+.control-section.mrs-wolfie
+.control-section-title{
+  color:#ff4faf;
+}
+
+.control-section.mrs-wolfie
+.control-section-icon{
+  border-color:
+    rgba(255,0,128,.30);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0,191,255,.14),
+      rgba(255,0,128,.18)
+    );
+}
+
+
+/* SYSTEM */
+
+.control-section.system{
+  border-color:
+    rgba(255,255,255,.10);
+
+  background:
+    rgba(8,8,8,.78);
+}
+
+.control-section.system
+.control-section-title{
+  color:#aaa;
+}
+
+
+/* SECTION GRID */
+
+.control-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:9px;
+}
+
+
+/* SMALL CONTROL CARDS */
+
+.control-card{
+  position:relative;
+
+  min-height:96px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+
+  padding:
+    15px
+    14px;
+
+  overflow:hidden;
+
+  border-radius:12px;
+
+  text-decoration:none;
+
+  color:#fff;
+
+  border:
+    1px solid rgba(255,255,255,.09);
+
+  background:
+    rgba(5,5,5,.72);
+
+  transition:
+    transform .15s ease,
+    border-color .15s ease,
+    background .15s ease;
+}
+
+.control-card:hover{
+  border-color:
+    rgba(103,220,255,.35);
+
+  background:
+    rgba(15,15,15,.90);
+}
+
+.control-card:active{
+  transform:
+    scale(.985);
+}
+
+.control-card-name{
+  padding-right:45px;
+
+  font-size:11px;
+  font-weight:900;
+  line-height:1.25;
+}
+
+.control-card-description{
+  margin-top:6px;
+
+  color:#777;
+
+  font-size:8px;
+  line-height:1.45;
+}
+
+.control-card-badge{
+  position:absolute;
+
+  top:11px;
+  right:11px;
+
+  min-width:25px;
+
+  padding:
+    4px
+    7px;
+
+  border-radius:20px;
+
+  text-align:center;
+
+  color:#050505;
+
+  background:#67dcff;
+
+  font-size:8px;
+  font-weight:900;
+}
+
+.control-card-badge.orange{
+  background:#ff751c;
+}
+
+.control-card-badge.pink{
+  background:#ff4faf;
+}
+
+.control-card-badge.live{
+  background:#67dcff;
+}
+
+
+/* MRS WOLFIE CARDS */
+
+.mrs-wolfie .control-card{
+  background:
+    linear-gradient(
+      115deg,
+      rgba(0,191,255,.08),
+      rgba(8,8,8,.92) 50%,
+      rgba(255,0,128,.10)
+    );
+}
+
+.mrs-wolfie .control-card:hover{
+  border-color:
+    rgba(255,79,175,.40);
+}
+
+
+/* MOBILE */
+
+@media(max-width:520px){
+
+  .control-section{
+    padding:13px;
+  }
+
+  .control-grid{
+    grid-template-columns:
+      1fr;
+  }
+
+  .control-card{
+    min-height:88px;
+  }
+
+}
+  
 /* =========================
    ADMIN ACTION CARDS
 ========================= */
