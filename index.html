@@ -582,6 +582,7 @@ body.menu-open{
   align-items:center;
   justify-content:space-between;
   gap:16px;
+  margin-top:14px;
   margin-bottom:18px;
   padding:15px 17px;
   border-radius:14px;
@@ -990,7 +991,9 @@ body.menu-open{
 
   font-weight:900;
 
-  letter-spacing:.8px;
+  line-height:1.35;
+  
+  letter-spacing:1px;
 
   text-shadow:
     0 2px 8px #000,
@@ -1041,6 +1044,36 @@ body.menu-open{
   pointer-events:auto;
 }
 
+.fight-button{
+  transition:
+    transform .18s ease,
+    border-color .18s ease,
+    background .18s ease,
+    box-shadow .18s ease;
+}
+
+.fight-button:hover{
+  transform:translateY(-2px);
+
+  border-color:rgba(103,220,255,.75);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,175,235,.26),
+      rgba(20,20,20,.78) 50%,
+      rgba(255,95,0,.26)
+    );
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,.40),
+    0 0 14px rgba(69,216,255,.12);
+}
+
+.fight-button:active{
+  transform:translateY(0) scale(.985);
+}
+  
 .home-ticket-button{
   margin-top:8px;
 
@@ -1090,8 +1123,34 @@ body.menu-open{
   display:inline-flex;
 }
 
+.home-ticket-button{
+  transition:
+    transform .18s ease,
+    border-color .18s ease,
+    background .18s ease,
+    box-shadow .18s ease;
+}
+
+.home-ticket-button:hover{
+  transform:translateY(-2px);
+
+  border-color:rgba(255,117,28,.80);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,175,235,.22),
+      rgba(20,20,20,.84) 50%,
+      rgba(255,95,0,.36)
+    );
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,.40),
+    0 0 15px rgba(255,90,0,.18);
+}
+
 .home-ticket-button:active{
-  transform:scale(.985);
+  transform:translateY(0) scale(.985);
 }
   
 .fighter-name{
@@ -1136,17 +1195,22 @@ body.menu-open{
 .fighter-name span{
   display:block;
 
-  margin-top:4px;
+  margin-top:5px;
 
-  color:#ccc;
+  color:#e2e2e2;
 
-  font-size:7px;
+  font-size:8px;
 
   font-weight:900;
 
-  letter-spacing:2px;
-}
+  line-height:1.2;
 
+  letter-spacing:1.8px;
+
+  text-shadow:
+    0 2px 7px #000,
+    0 0 5px rgba(0,0,0,.85);
+}
 
 /* =========================================
    SECTION TITLES
@@ -2443,13 +2507,34 @@ background:
     );
 }
   
+.quick-access-link{
+  transition:
+    transform .18s ease,
+    border-color .18s ease,
+    background .18s ease,
+    box-shadow .18s ease;
+}
+
 .quick-access-link:hover{
+  transform:translateY(-2px);
+
   background:
     linear-gradient(
       90deg,
-      rgba(0,150,210,.14),
-      rgba(255,90,0,.12)
+      rgba(0,170,230,.17),
+      rgba(8,8,8,.38) 50%,
+      rgba(255,90,0,.15)
     );
+
+  border-color:
+    rgba(255,255,255,.20);
+
+  box-shadow:
+    0 7px 18px rgba(0,0,0,.30);
+}
+
+.quick-access-link:active{
+  transform:translateY(0) scale(.985);
 }
 
 /* =========================================
