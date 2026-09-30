@@ -565,7 +565,7 @@ body.menu-open{
   width:100%;
   height:auto;
 
-  max-height:240px;
+  max-height:280px;
 
   object-fit:cover;
   object-position:center;
@@ -2253,18 +2253,17 @@ text-shadow:
 
 @media(min-width:900px){
 
-  .home-dashboard{
-    grid-template-columns:
-      minmax(0,1.7fr)
-      minmax(260px,.8fr);
+.home-dashboard{
+  grid-template-columns:
+    minmax(0,1.55fr)
+    minmax(280px,.9fr);
 
-    gap:22px;
-  }
+  gap:22px;
+}
 
-  .home-dashboard-side{
-    position:sticky;
-    top:90px;
-  }
+.home-dashboard-side{
+  position:static;
+}
 
 }
 
@@ -2726,7 +2725,7 @@ background:
 .app-footer{
   margin-top:32px;
 
-  padding:22px 12px 6px;
+  padding:16px 12px 4px;
 
   border-top:
     1px solid rgba(255,255,255,.10);
@@ -2743,32 +2742,7 @@ background:
 
   letter-spacing:1.2px;
 }
-
-.app-footer::before{
-  content:"";
-
-  display:block;
-
-  width:90px;
-  height:2px;
-
-  margin:0 auto 16px;
-
-  border-radius:999px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #45d8ff 0%,
-      rgba(255,255,255,.30) 50%,
-      #ff701c 100%
-    );
-
-  box-shadow:
-    -12px 0 14px rgba(69,216,255,.22),
-    12px 0 14px rgba(255,112,28,.22);
-}
-  
+ 
 /* =========================================
    COPYRIGHT
 ========================================= */
@@ -2783,7 +2757,7 @@ background:
 
   width:100%;
 
-  margin-top:17px;
+  margin-top:8px;
 
   padding:
     17px
