@@ -2254,11 +2254,8 @@ text-shadow:
 @media(min-width:900px){
 
 .home-dashboard{
-  grid-template-columns:
-    minmax(0,1.55fr)
-    minmax(280px,.9fr);
-
-  gap:22px;
+  grid-template-columns:minmax(0,1fr);
+  gap:18px;
 }
 
 .home-dashboard-side{
@@ -2278,12 +2275,12 @@ text-shadow:
 
   margin-top:0;
 
-  padding:19px;
+  padding:22px 24px;
 
   border-radius:15px;
 
   border:
-  1px solid rgba(255,255,255,.12);
+    1px solid rgba(255,255,255,.12);
 
   border-left:
     3px solid #45d8ff;
@@ -2293,13 +2290,22 @@ text-shadow:
 
   background:
     linear-gradient(
-      110deg,
-      rgba(0,160,220,.10),
-      rgba(8,8,8,.94) 50%,
-      rgba(255,90,0,.13)
+      100deg,
+      rgba(0,160,220,.14) 0%,
+      rgba(8,8,8,.96) 48%,
+      rgba(255,90,0,.15) 100%
     );
+
+  box-shadow:
+    0 9px 24px rgba(0,0,0,.28);
 }
 
+.website-label,
+.website-title,
+.website-text{
+  text-align:center;
+}
+  
 .website-label{
   color:#67dcff;
 
@@ -2331,17 +2337,17 @@ text-shadow:
 }
 
 .website-button{
-  display:flex;
+ display:flex;
 
-  align-items:center;
-  justify-content:center;
+align-items:center;
+justify-content:center;
 
-  min-height:48px;
+width:min(100%,320px);
+min-height:48px;
 
-  margin-top:14px;
+margin:16px auto 0;
 
-  padding:12px;
-
+padding:12px 18px;
   border-radius:9px;
 
   text-align:center;
