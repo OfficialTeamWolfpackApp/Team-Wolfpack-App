@@ -4419,6 +4419,7 @@ function renderNextFight(f){
   }
 
   const name = fighterName(f);
+  const team = fighterTeam(f);
   const opponent = String(f.opponent || f.opponentName || "TBA").toUpperCase();
   const promotion = String(f.promotion || f.promoter || "TEAM WOLFPACK").toUpperCase();
   const eventName = String(f.event || f.eventName || f.title || "UPCOMING FIGHT").toUpperCase();
@@ -4472,6 +4473,13 @@ if(rightSide){
     nextFightFighter.textContent = name;
   }
 
+  const nextFightFighterTeam =
+  document.getElementById("nextFightFighterTeam");
+
+if(nextFightFighterTeam){
+  nextFightFighterTeam.textContent = team;
+}
+  
   if(nextFightOpponent){
     nextFightOpponent.textContent = opponent;
   }
