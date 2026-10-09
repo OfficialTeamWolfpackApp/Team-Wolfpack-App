@@ -800,18 +800,74 @@ MESSAGE
 
 </div>
 
-<!-- UPDATE IMAGE -->
+<!-- UPDATE IMAGE UPLOAD -->
 
 <div class="field full">
 
-  <label for="updateImage">
-    UPDATE IMAGE URL — OPTIONAL
+  <label for="updateImageFile">
+    POST IMAGE — OPTIONAL
   </label>
 
   <input
+    id="updateImageFile"
+    type="file"
+    accept="image/jpeg,image/png,image/webp"
+  >
+
+  <div
+    id="updateImageStatus"
+    style="
+      margin-top:8px;
+      color:#aaa;
+      font-size:10px;
+  >
+    Choose a JPG, PNG or WEBP image.
+  </div>
+
+  <!-- MRS WOLFIE IMAGE PREVIEW -->
+
+  <div
+    id="updateImagePreviewBox"
+    style="display:none;margin-top:15px;"
+  >
+
+    <img
+      id="updateImagePreview"
+      alt="Mrs Wolfie announcement image preview"
+      style="
+        display:block;
+        width:100%;
+        max-height:350px;
+        object-fit:contain;
+        border-radius:12px;
+        background:#080808;
+      "
+    >
+
+  </div>
+
+  <!-- MRS WOLFIE IMAGE FRAME OPTIONS -->
+
+<div
+  class="field"
+  style="margin-top:15px;"
+>
+  <label for="updateImageRatio">
+    IMAGE FRAME
+  </label>
+
+  <select id="updateImageRatio">
+    <option value="16:9">16:9 — LANDSCAPE</option>
+    <option value="4:5">4:5 — PORTRAIT</option>
+    <option value="1:1">1:1 — SQUARE</option>
+    <option value="9:16">9:16 — STORY</option>
+    <option value="full">FULL IMAGE — NO CROPPING</option>
+  </select>
+</div>
+  
+  <input
     id="updateImage"
-    type="url"
-    placeholder="https://example.com/update-image.jpg"
+    type="hidden"
   >
 
 </div>
@@ -968,6 +1024,17 @@ import {
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
+/* =========================================
+   FIREBASE IMAGE STORAGE
+========================================= */
+
+import {
+  getStorage,
+  ref as storageRef,
+  uploadBytes,
+  getDownloadURL
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
+  
 const firebaseConfig = {
 
   apiKey:
@@ -1025,6 +1092,15 @@ const db =
     app
   );
 
+ /* =========================================
+   FIREBASE IMAGE STORAGE
+========================================= */
+
+const storage =
+  getStorage(
+    app
+  );
+  
 const updatesCollection =
   collection(
     db,
@@ -1080,6 +1156,162 @@ const updateMessage =
   document.getElementById(
     "updateImage"
   );
+
+  /* =========================================
+   MRS WOLFIE IMAGE UPLOAD FIELDS
+========================================= */
+
+const updateImageFile =
+  document.getElementById("updateImageFile");
+
+const updateImageStatus =
+  document.getElementById("updateImageStatus");
+
+ /* =========================================
+   MRS WOLFIE IMAGE PREVIEW
+========================================= */
+
+const updateImagePreviewBox =
+  document.getElementById("updateImagePreviewBox");
+
+const updateImagePreview =
+  document.getElementById("updateImagePreview");
+
+/* =========================================
+   MRS WOLFIE IMAGE FRAME SELECTOR
+========================================= */
+
+const updateImageRatio =
+  document.getElementById("updateImageRatio");
+
+function updateImageFrame() {
+
+  const ratio = updateImageRatio.value;
+
+  updateImagePreview.style.width = "100%";
+  updateImagePreview.style.maxHeight = "none";
+  updateImagePreview.style.objectPosition = "center";
+
+  if (ratio === "full") {
+
+    updateImagePreview.style.aspectRatio = "auto";
+    updateImagePreview.style.height = "auto";
+    updateImagePreview.style.objectFit = "contain";
+
+  } else {
+
+    updateImagePreview.style.aspectRatio =
+      ratio.replace(":", " / ");
+
+    updateImagePreview.style.height = "auto";
+    updateImagePreview.style.objectFit = "cover";
+
+  }
+
+}
+
+updateImageRatio.addEventListener(
+  "change",
+  updateImageFrame
+);
+
+updateImageFrame();
+
+let currentPreviewURL = null;
+
+updateImageFile.addEventListener("change", function() {
+
+  const file = updateImageFile.files[0];
+
+  if (currentPreviewURL) {
+    URL.revokeObjectURL(currentPreviewURL);
+    currentPreviewURL = null;
+  }
+
+  if (!file) {
+    updateImagePreview.removeAttribute("src");
+    updateImagePreviewBox.style.display = "none";
+    return;
+  }
+
+  if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+    updateImageFile.value = "";
+    updateImageStatus.textContent =
+      "PLEASE CHOOSE A JPG, PNG OR WEBP IMAGE.";
+    updateImagePreviewBox.style.display = "none";
+    return;
+  }
+
+  if (file.size > 10 * 1024 * 1024) {
+    updateImageFile.value = "";
+    updateImageStatus.textContent =
+      "IMAGE MUST BE SMALLER THAN 10MB.";
+    updateImagePreviewBox.style.display = "none";
+    return;
+  }
+
+  currentPreviewURL = URL.createObjectURL(file);
+
+  updateImagePreview.src = currentPreviewURL;
+  updateImagePreviewBox.style.display = "block";
+
+  updateImageStatus.textContent =
+    "IMAGE READY — PREVIEW SHOWN BELOW.";
+
+});
+  
+ /* =========================================
+   MRS WOLFIE IMAGE UPLOAD
+========================================= */
+
+async function uploadMrsWolfieImage() {
+
+  const file = updateImageFile.files[0];
+
+  // Keep the existing image when editing.
+  if (!file) {
+    return updateImage.value.trim();
+  }
+
+  const allowedTypes = [
+    "image/jpeg",
+    "image/png",
+    "image/webp"
+  ];
+
+  if (!allowedTypes.includes(file.type)) {
+    throw new Error("Please choose a JPG, PNG or WEBP image.");
+  }
+
+  if (file.size > 10 * 1024 * 1024) {
+    throw new Error("Image must be smaller than 10MB.");
+  }
+
+  updateImageStatus.textContent = "UPLOADING IMAGE...";
+
+  const safeName = file.name.replace(
+    /[^a-zA-Z0-9._-]/g,
+    "-"
+  );
+
+  const filePath =
+    "mrs-wolfie-updates/" +
+    Date.now() +
+    "-" +
+    safeName;
+
+  const fileRef = storageRef(storage, filePath);
+
+  await uploadBytes(fileRef, file);
+
+  const imageURL = await getDownloadURL(fileRef);
+
+  updateImage.value = imageURL;
+
+  updateImageStatus.textContent = "IMAGE UPLOADED";
+
+  return imageURL;
+}
   
 const buttonText =
   document.getElementById(
@@ -1249,8 +1481,30 @@ function resetForm(){
   editingId =
     null;
 
-  updateForm.reset();
+   updateForm.reset();
 
+  // Clear the selected image and saved image URL
+  updateImageFile.value = "";
+  updateImage.value = "";
+
+  // Reset image frame to the default
+updateImageRatio.value = "full";
+updateImageFrame();
+  
+  updateImageStatus.textContent =
+    "Choose a JPG, PNG or WEBP image.";
+
+    // Clear the image preview
+  updateImagePreview.removeAttribute("src");
+
+  updateImagePreviewBox.style.display =
+    "none";
+
+  if (currentPreviewURL) {
+    URL.revokeObjectURL(currentPreviewURL);
+    currentPreviewURL = null;
+  }
+  
   updateType.value =
     "NEWS";
 
@@ -1491,8 +1745,33 @@ function editUpdate(
   updateMessage.value =
     item.message || "";
 
+   // Restore the existing announcement image
   updateImage.value =
-  item.imageUrl || "";
+    item.imageUrl || "";
+
+  // Show the existing announcement image
+if (item.imageUrl) {
+  updateImagePreview.src = item.imageUrl;
+  updateImagePreviewBox.style.display = "block";
+} else {
+  updateImagePreview.removeAttribute("src");
+  updateImagePreviewBox.style.display = "none";
+}
+  
+  // Restore the saved image frame
+updateImageRatio.value = item.imageRatio || "full";
+
+// Apply the selected frame to the preview
+updateImageFrame();
+  
+  // Clear any previously selected replacement image
+  updateImageFile.value = "";
+
+  // Display the current image status
+  updateImageStatus.textContent =
+    item.imageUrl
+      ? "EXISTING IMAGE SAVED — CHOOSE A NEW IMAGE TO REPLACE IT."
+      : "NO IMAGE ADDED — CHOOSE A JPG, PNG OR WEBP IMAGE.";
   
   buttonText.value =
     item.buttonText || "";
@@ -1940,7 +2219,14 @@ updateForm.addEventListener(
 
     }
 
-    const data = {
+       saveButton.disabled = true;
+
+    try {
+
+      const uploadedImageURL =
+        await uploadMrsWolfieImage();
+
+      const data = {
 
       type:
         updateType.value,
@@ -1958,8 +2244,10 @@ updateForm.addEventListener(
     .trim(),
 
 imageUrl:
-  updateImage.value
-    .trim(),
+  uploadedImageURL,
+
+imageRatio:
+  updateImageRatio.value,
 
 buttonText:
   cleanButtonText
@@ -1981,17 +2269,11 @@ buttonText:
         ADMINS[currentUser.uid] ||
         "TEAM WOLFPACK ADMIN"
 
-    };
-
-    saveButton.disabled =
-      true;
-
-    try{
+      };
 
       if(
         editingId
       ){
-
         await updateDoc(
           doc(
             db,
@@ -2044,9 +2326,10 @@ buttonText:
       );
 
       showMessage(
-        "APP UPDATE COULD NOT BE SAVED. CHECK FIRESTORE PERMISSIONS.",
-        "error"
-      );
+  error.message ||
+  "APP UPDATE COULD NOT BE SAVED.",
+  "error"
+);
 
     }
 
