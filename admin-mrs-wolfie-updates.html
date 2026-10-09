@@ -1299,7 +1299,9 @@ const updateImagePositionY =
 ========================================= */
 
 const updateImageZoom =
-  do/* =========================================
+  document.getElementById("updateImageZoom");
+
+/* =========================================
    MRS WOLFIE IMAGE ZOOM PREVIEW
 ========================================= */
 
@@ -1358,8 +1360,6 @@ updateImagePositionY.addEventListener(
   "input",
   updateImagePosition
 );
-  ument.getElementById("updateImageZoom");
-  
 
 updateImageFrame();
 
@@ -1946,7 +1946,7 @@ updateImagePositionY.value =
 ========================================= */
 
 updateImageZoom.value =
-  data.imageZoom ?? 100;
+  item.imageZoom ?? 100;
 
 updateImageZoomPreview();
 
@@ -2447,17 +2447,6 @@ imagePositionX:
 
 imagePositionY:
   Number(updateImagePositionY.value),
-
-/* =========================================
-   IMAGE ZOOM SETTING
-========================================= */
-
-imageZoom:
-  Number(updateImageZoom.value),
-
-buttonText:
-  cleanButtonText
-    .toUpperCase(),
 
 /* =========================================
    IMAGE ZOOM SETTING
