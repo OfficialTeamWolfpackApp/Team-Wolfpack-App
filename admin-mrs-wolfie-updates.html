@@ -1245,7 +1245,38 @@ updateImageRatio.addEventListener(
   "change",
   updateImageFrame
 );
+/* =========================================
+   MRS WOLFIE IMAGE POSITION CONTROLS
+========================================= */
 
+const updateImagePositionX =
+  document.getElementById("updateImagePositionX");
+
+const updateImagePositionY =
+  document.getElementById("updateImagePositionY");
+
+function updateImagePosition() {
+
+  const positionX =
+    updateImagePositionX.value;
+
+  const positionY =
+    updateImagePositionY.value;
+
+  updateImagePreview.style.objectPosition =
+    positionX + "% " + positionY + "%";
+
+}
+
+updateImagePositionX.addEventListener(
+  "input",
+  updateImagePosition
+);
+
+updateImagePositionY.addEventListener(
+  "input",
+  updateImagePosition
+);
 updateImageFrame();
 
 let currentPreviewURL = null;
