@@ -1551,6 +1551,15 @@ function resetForm(){
   // Reset image frame to the default
 updateImageRatio.value = "full";
 updateImageFrame();
+
+ /* =========================================
+   RESET IMAGE POSITION
+========================================= */
+
+updateImagePositionX.value = 50;
+updateImagePositionY.value = 50;
+
+updateImagePosition();
   
   updateImageStatus.textContent =
     "Choose a JPG, PNG or WEBP image.";
@@ -1824,6 +1833,19 @@ updateImageRatio.value = item.imageRatio || "full";
 
 // Apply the selected frame to the preview
 updateImageFrame();
+
+  /* =========================================
+   RESTORE SAVED IMAGE POSITION
+========================================= */
+
+updateImagePositionX.value =
+  item.imagePositionX ?? 50;
+
+updateImagePositionY.value =
+  item.imagePositionY ?? 50;
+
+// Apply saved position to image preview
+updateImagePosition();
   
   // Clear any previously selected replacement image
   updateImageFile.value = "";
