@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050505">
+
+<title>Team Wolfpack LIVE</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #050505;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.page {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px 15px 50px;
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: 25px;
+  color: #00bfff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.header {
+  text-align: center;
+  padding: 25px 10px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: clamp(30px, 7vw, 55px);
+  font-weight: 900;
+}
+
+.ice {
+  color: #00bfff;
+}
+
+.fire {
+  color: #ff5a00;
+}
+
+.subtitle {
+  color: #aaa;
+  font-size: 14px;
+}
+
+.live-status {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 25px;
+  border-radius: 30px;
+  background: #202020;
+  border: 1px solid #555;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.player {
+  margin-top: 25px;
+  aspect-ratio: 16 / 9;
+  background:
+    linear-gradient(120deg,
+      rgba(0,191,255,.12),
+      #080808 45%,
+      rgba(255,90,0,.12));
+  border: 1px solid #333;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.off-air {
+  padding: 20px;
+}
+
+.off-air h2 {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.off-air p {
+  color: #aaa;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.section {
+  margin-top: 25px;
+  padding: 20px;
+  border: 1px solid #252525;
+  border-radius: 15px;
+  background: #101010;
+}
+
+.section h2 {
+  margin-top: 0;
+  font-size: 17px;
+}
+
+.event {
+  padding: 15px;
+  border-left: 3px solid #ff5a00;
+  background: #181818;
+  border-radius: 8px;
+}
+
+.event p {
+  color: #aaa;
+  font-size: 13px;
+}
+
+.notice {
+  margin-top: 25px;
+  text-align: center;
+  color: #777;
+  font-size: 12px;
+}
+</style>
+</head>
+
+<body>
+
+<main class="page">
+
+<a class="back" href="index.html">
+  ← BACK TO TEAM WOLFPACK
+</a>
+
+<header class="header">
+  <h1>
+    <span class="ice">TEAM WOLFPACK</span>
+    <span class="fire">LIVE</span>
+  </h1>
+
+  <p class="subtitle">
+    Watch Team Wolfpack events as they happen.
+  </p>
+
+  <div class="live-status" id="liveStatus">
+    ⚫ OFF AIR
+  </div>
+</header>
+
+<section class="player" id="livePlayer">
+  <div class="off-air">
+    <h2>
+      <span class="ice">WE ARE</span>
+      <span class="fire">OFF AIR</span>
+    </h2>
+
+    <p>
+      Team Wolfpack is not currently broadcasting.
+      Check back for our next live event.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <h2>
+    <span class="ice">UPCOMING</span>
+    <span class="fire">LIVE EVENTS</span>
+  </h2>
+
+  <div class="event">
+    <strong>Next Live Broadcast</strong>
+    <p>Details will be announced soon.</p>
+  </div>
+</section>
+
+<section class="section">
+  <h2>
+    <span class="ice">ABOUT</span>
+    <span class="fire">WOLFPACK LIVE</span>
+  </h2>
+
+  <p style="color:#aaa;font-size:14px;line-height:1.7">
+    Join Team Wolfpack for live announcements,
+    training sessions, behind-the-scenes updates
+    and special events.
+  </p>
+</section>
+
+<p class="notice">
+  ONE PACK • ONE PURPOSE
+</p>
+
+</main>
+
+</body>
+</html>
