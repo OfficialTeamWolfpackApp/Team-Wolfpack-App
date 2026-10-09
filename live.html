@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#050505">
 
-<title>Team Wolfpack LIVE</title>
+<title>Team Wolfpack LIVE — Coming Soon</title>
 
 <style>
+
+/* =========================================
+   GLOBAL
+========================================= */
+
 * {
   box-sizing: border-box;
 }
@@ -25,6 +32,10 @@ body {
   padding: 20px 15px 50px;
 }
 
+/* =========================================
+   BACK BUTTON
+========================================= */
+
 .back {
   display: inline-block;
   margin-bottom: 25px;
@@ -33,6 +44,10 @@ body {
   font-size: 13px;
   font-weight: bold;
 }
+
+/* =========================================
+   HEADER
+========================================= */
 
 .header {
   text-align: center;
@@ -56,56 +71,81 @@ body {
 .subtitle {
   color: #aaa;
   font-size: 14px;
+  line-height: 1.7;
 }
 
-.live-status {
+/* =========================================
+   COMING SOON STATUS
+========================================= */
+
+.coming-status {
   display: inline-block;
   margin-top: 20px;
-  padding: 10px 25px;
+  padding: 11px 28px;
   border-radius: 30px;
-  background: #202020;
-  border: 1px solid #555;
+
+  background: linear-gradient(
+    90deg,
+    rgba(0,191,255,.15),
+    rgba(255,90,0,.15)
+  );
+
+  border: 1px solid rgba(255,255,255,.25);
+
+  color: white;
+  font-size: 13px;
   font-weight: 900;
   letter-spacing: 2px;
 }
 
-.player {
+/* =========================================
+   COMING SOON POSTER
+========================================= */
+
+.poster-container {
   margin-top: 25px;
-  aspect-ratio: 16 / 9;
-  background:
-    linear-gradient(120deg,
-      rgba(0,191,255,.12),
-      #080808 45%,
-      rgba(255,90,0,.12));
-  border: 1px solid #333;
+  padding: 10px;
+
+  background: linear-gradient(
+    120deg,
+    rgba(0,191,255,.15),
+    #080808 50%,
+    rgba(255,90,0,.15)
+  );
+
+  border: 1px solid rgba(255,255,255,.15);
+  border-left: 3px solid #00bfff;
+  border-right: 3px solid #ff5a00;
+
   border-radius: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
   overflow: hidden;
+
+  box-shadow: 0 15px 40px rgba(0,0,0,.5);
 }
 
-.off-air {
-  padding: 20px;
+.live-poster {
+  display: block;
+
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+
+  margin: 0 auto;
+
+  border-radius: 12px;
 }
 
-.off-air h2 {
-  font-size: 30px;
-  margin-bottom: 10px;
-}
-
-.off-air p {
-  color: #aaa;
-  font-size: 14px;
-  line-height: 1.6;
-}
+/* =========================================
+   INFORMATION SECTIONS
+========================================= */
 
 .section {
   margin-top: 25px;
   padding: 20px;
+
   border: 1px solid #252525;
   border-radius: 15px;
+
   background: #101010;
 }
 
@@ -116,86 +156,182 @@ body {
 
 .event {
   padding: 15px;
+
   border-left: 3px solid #ff5a00;
   background: #181818;
+
   border-radius: 8px;
 }
 
 .event p {
   color: #aaa;
   font-size: 13px;
+  line-height: 1.6;
 }
 
+.section-description {
+  color: #aaa;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
 .notice {
-  margin-top: 25px;
+  margin-top: 30px;
   text-align: center;
   color: #777;
   font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 2px;
 }
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+  .page {
+    padding: 15px 12px 40px;
+  }
+
+  .header {
+    padding: 20px 5px;
+  }
+
+  .header h1 {
+    font-size: 30px;
+  }
+
+  .poster-container {
+    padding: 6px;
+  }
+
+  .live-poster {
+    width: 100%;
+  }
+
+  .section {
+    padding: 16px;
+  }
+
+}
+
 </style>
+
 </head>
 
 <body>
 
 <main class="page">
 
+<!-- =========================================
+     BACK BUTTON
+========================================= -->
+
 <a class="back" href="index.html">
   ← BACK TO TEAM WOLFPACK
 </a>
 
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
 <header class="header">
+
   <h1>
     <span class="ice">TEAM WOLFPACK</span>
     <span class="fire">LIVE</span>
   </h1>
 
   <p class="subtitle">
-    Watch Team Wolfpack events as they happen.
+    Exclusive broadcasts, special events
+    and behind-the-scenes action.
   </p>
 
-  <div class="live-status" id="liveStatus">
-    ⚫ OFF AIR
+  <div class="coming-status">
+    <span class="ice">COMING</span>
+    <span class="fire">SOON</span>
   </div>
+
 </header>
 
-<section class="player" id="livePlayer">
-  <div class="off-air">
-    <h2>
-      <span class="ice">WE ARE</span>
-      <span class="fire">OFF AIR</span>
-    </h2>
 
-    <p>
-      Team Wolfpack is not currently broadcasting.
-      Check back for our next live event.
-    </p>
-  </div>
+<!-- =========================================
+     COMING SOON POSTER
+========================================= -->
+
+<section class="poster-container">
+
+  <img
+    src="wolfpack-live-coming-soon.png"
+    alt="Team Wolfpack LIVE Coming Soon"
+    class="live-poster"
+    loading="eager"
+  >
+
 </section>
 
+
+<!-- =========================================
+     UPCOMING LIVE EVENTS
+========================================= -->
+
 <section class="section">
+
   <h2>
     <span class="ice">UPCOMING</span>
     <span class="fire">LIVE EVENTS</span>
   </h2>
 
   <div class="event">
+
     <strong>Next Live Broadcast</strong>
-    <p>Details will be announced soon.</p>
+
+    <p>
+      TEAM WOLFPACK LIVE is coming soon.
+      Broadcast dates and details will be
+      announced when the service launches.
+    </p>
+
   </div>
+
 </section>
 
+
+<!-- =========================================
+     ABOUT WOLFPACK LIVE
+========================================= -->
+
 <section class="section">
+
   <h2>
     <span class="ice">ABOUT</span>
     <span class="fire">WOLFPACK LIVE</span>
   </h2>
 
-  <p style="color:#aaa;font-size:14px;line-height:1.7">
-    Join Team Wolfpack for live announcements,
-    training sessions, behind-the-scenes updates
-    and special events.
+  <p class="section-description">
+    Something exciting is coming to Team Wolfpack!
+    Get ready for exclusive live broadcasts,
+    special announcements, training sessions,
+    behind-the-scenes coverage and fight-night action.
   </p>
+
+  <p class="section-description">
+    Stay connected with Team Wolfpack for future
+    announcements about our LIVE broadcasting service.
+  </p>
+
 </section>
+
+
+<!-- =========================================
+     FOOTER
+========================================= -->
 
 <p class="notice">
   ONE PACK • ONE PURPOSE
@@ -204,4 +340,5 @@ body {
 </main>
 
 </body>
+
 </html>
