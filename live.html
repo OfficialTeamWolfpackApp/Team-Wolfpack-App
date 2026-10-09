@@ -220,6 +220,32 @@ body {
 
 }
 
+/* =========================================
+   TEAM WOLFPACK LIVE BANNER
+========================================= */
+
+.live-banner-container {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 14px;
+  border-left: 3px solid #00bfff;
+  border-right: 3px solid #ff5a00;
+  background: #050505;
+}
+
+.live-banner {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 600px) {
+  .live-banner-container {
+    border-radius: 10px;
+  }
+}
+   
 </style>
 
 </head>
@@ -238,20 +264,20 @@ body {
 
 
 <!-- =========================================
-     HEADER
+     TEAM WOLFPACK LIVE BANNER
 ========================================= -->
 
 <header class="header">
 
-  <h1>
-    <span class="ice">TEAM WOLFPACK</span>
-    <span class="fire">LIVE</span>
-  </h1>
+  <div class="live-banner-container">
 
-  <p class="subtitle">
-    Exclusive broadcasts, special events
-    and behind-the-scenes action.
-  </p>
+    <img
+      src="wolfpack-live-banner.png"
+      alt="Team Wolfpack Live"
+      class="live-banner"
+    >
+
+  </div>
 
   <div class="coming-status">
     <span class="ice">COMING</span>
