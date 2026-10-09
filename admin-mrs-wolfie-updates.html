@@ -896,6 +896,31 @@ MESSAGE
   >
 
 </div>
+  <!-- =========================================
+     MRS WOLFIE IMAGE ZOOM
+========================================= -->
+
+<div style="margin-top:15px;">
+
+  <label for="updateImageZoom">
+    IMAGE ZOOM
+  </label>
+
+  <input
+    type="range"
+    id="updateImageZoom"
+    min="100"
+    max="200"
+    step="5"
+    value="100"
+    style="width:100%;"
+  >
+
+  <div style="font-size:12px; opacity:0.7; margin-top:5px;">
+    100% = Normal Size | 200% = Maximum Zoom
+  </div>
+
+</div>
   <input
     id="updateImage"
     type="hidden"
@@ -1253,7 +1278,14 @@ const updateImagePositionX =
 
 const updateImagePositionY =
   document.getElementById("updateImagePositionY");
+  
+/* =========================================
+   MRS WOLFIE IMAGE ZOOM CONTROL
+========================================= */
 
+const updateImageZoom =
+  document.getElementById("updateImageZoom");
+  
 function updateImagePosition() {
 
   const positionX =
