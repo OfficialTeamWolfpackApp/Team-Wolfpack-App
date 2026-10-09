@@ -759,7 +759,21 @@
               required
             >
           </div>
+          
+<!-- TICKET BOOKING LINK -->
+<div class="field full">
 
+  <label for="ticketUrl">
+    🎟 TICKET LINK / BOOKING URL — OPTIONAL
+  </label>
+
+  <input
+    id="ticketUrl"
+    type="url"
+    placeholder="https://example.com/tickets"
+  >
+
+</div>
 
           <div class="field">
             <label for="fightStatus">STATUS</label>
@@ -1016,6 +1030,9 @@ const endDate =
 const venue =
   document.getElementById("venue");
 
+ const ticketUrl =
+  document.getElementById("ticketUrl"); 
+  
 const fightStatus =
   document.getElementById("fightStatus");
 
@@ -1114,6 +1131,8 @@ function resetForm() {
   loadingPrivateNote = false;
 
   fightForm.reset();
+
+  ticketUrl.value = "";
 
   fightType.value =
     "FIGHT NIGHT";
@@ -1791,6 +1810,9 @@ async function editFight(id) {
   venue.value =
     fight.venue || "";
 
+  ticketUrl.value =
+  fight.ticketUrl || "";
+
   fightStatus.value =
     fight.status || "UPCOMING";
 
@@ -2126,7 +2148,10 @@ fightForm.addEventListener(
         venue.value
           .trim()
           .toUpperCase(),
-
+      
+     ticketUrl:
+  ticketUrl.value.trim(),
+      
       status:
         fightStatus.value,
 
