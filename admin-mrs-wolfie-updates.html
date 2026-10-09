@@ -1221,8 +1221,7 @@ function updateImageFrame() {
 
   updateImagePreview.style.width = "100%";
   updateImagePreview.style.maxHeight = "none";
-  updateImagePreview.style.objectPosition = "center";
-
+ 
   if (ratio === "full") {
 
     updateImagePreview.style.aspectRatio = "auto";
@@ -2310,7 +2309,17 @@ imageUrl:
 
 imageRatio:
   updateImageRatio.value,
+        
+/* =========================================
+   IMAGE POSITION SETTINGS
+========================================= */
 
+imagePositionX:
+  Number(updateImagePositionX.value),
+
+imagePositionY:
+  Number(updateImagePositionY.value),
+        
 buttonText:
   cleanButtonText
     .toUpperCase(),
