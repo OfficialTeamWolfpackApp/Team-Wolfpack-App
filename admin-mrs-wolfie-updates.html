@@ -1299,11 +1299,7 @@ const updateImagePositionY =
 ========================================= */
 
 const updateImageZoom =
-  document.getElementById("updateImageZoom");
-  
-function updateImagePosition() {
-
-  /* =========================================
+  do/* =========================================
    MRS WOLFIE IMAGE ZOOM PREVIEW
 ========================================= */
 
@@ -1321,11 +1317,13 @@ function updateImageZoomPreview() {
 
 }
 
-updateImageZoom.addEventListener(
-  "input",
-  updateImageZoomPreview
-);
-  
+
+/* =========================================
+   MRS WOLFIE IMAGE POSITION
+========================================= */
+
+function updateImagePosition() {
+
   const positionX =
     updateImagePositionX.value;
 
@@ -1335,7 +1333,21 @@ updateImageZoom.addEventListener(
   updateImagePreview.style.objectPosition =
     positionX + "% " + positionY + "%";
 
+  /* Update zoom origin when position changes */
+
+  updateImageZoomPreview();
+
 }
+
+
+/* =========================================
+   IMAGE CONTROL LISTENERS
+========================================= */
+
+updateImageZoom.addEventListener(
+  "input",
+  updateImageZoomPreview
+);
 
 updateImagePositionX.addEventListener(
   "input",
@@ -1346,6 +1358,9 @@ updateImagePositionY.addEventListener(
   "input",
   updateImagePosition
 );
+  ument.getElementById("updateImageZoom");
+  
+
 updateImageFrame();
 
 let currentPreviewURL = null;
@@ -1617,12 +1632,13 @@ function resetForm(){
   // Clear the selected image and saved image URL
   updateImageFile.value = "";
   updateImage.value = "";
+/* =========================================
+   RESET IMAGE FRAME
+========================================= */
 
-  // Reset image frame to the default
 updateImageRatio.value = "full";
-updateImageFrame();
 
- /* =========================================
+/* =========================================
    RESET IMAGE POSITION
 ========================================= */
 
@@ -1633,11 +1649,13 @@ updateImagePositionY.value = 50;
    RESET IMAGE ZOOM
 ========================================= */
 
-updateImageZoom.value =
-  100;
+updateImageZoom.value = 100;
 
-updateImageZoomPreview();
-  
+/* =========================================
+   REFRESH IMAGE PREVIEW
+========================================= */
+
+updateImageFrame();
 updateImagePosition();
   
   updateImageStatus.textContent =
