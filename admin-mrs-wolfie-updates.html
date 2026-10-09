@@ -864,7 +864,38 @@ MESSAGE
     <option value="full">FULL IMAGE — NO CROPPING</option>
   </select>
 </div>
-  
+  <!-- MRS WOLFIE IMAGE POSITION CONTROLS -->
+
+<div class="field full" style="margin-top:15px;">
+
+  <label for="updateImagePositionX">
+    IMAGE POSITION — LEFT / RIGHT
+  </label>
+
+  <input
+    type="range"
+    id="updateImagePositionX"
+    min="0"
+    max="100"
+    value="50"
+  >
+
+  <label
+    for="updateImagePositionY"
+    style="margin-top:12px;display:block;"
+  >
+    IMAGE POSITION — UP / DOWN
+  </label>
+
+  <input
+    type="range"
+    id="updateImagePositionY"
+    min="0"
+    max="100"
+    value="50"
+  >
+
+</div>
   <input
     id="updateImage"
     type="hidden"
