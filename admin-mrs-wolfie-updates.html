@@ -800,7 +800,9 @@ MESSAGE
 
 </div>
 
-<!-- UPDATE IMAGE UPLOAD -->
+<!-- =========================================
+     MRS WOLFIE — UPDATE IMAGE UPLOAD
+========================================= -->
 
 <div class="field full">
 
@@ -814,21 +816,33 @@ MESSAGE
     accept="image/jpeg,image/png,image/webp"
   >
 
+  <!-- IMAGE UPLOAD STATUS -->
+
   <div
     id="updateImageStatus"
     style="
       margin-top:8px;
       color:#aaa;
       font-size:10px;
+    "
   >
     Choose a JPG, PNG or WEBP image.
   </div>
 
-  <!-- MRS WOLFIE IMAGE PREVIEW -->
+
+  <!-- =========================================
+       MRS WOLFIE IMAGE PREVIEW
+  ========================================= -->
 
   <div
     id="updateImagePreviewBox"
-    style="display:none;margin-top:15px;"
+    style="
+      display:none;
+      margin-top:15px;
+      overflow:hidden;
+      border-radius:12px;
+      background:#080808;
+    "
   >
 
     <img
@@ -839,6 +853,7 @@ MESSAGE
         width:100%;
         max-height:350px;
         object-fit:contain;
+        object-position:center;
         border-radius:12px;
         background:#080808;
       "
@@ -1288,6 +1303,29 @@ const updateImageZoom =
   
 function updateImagePosition() {
 
+  /* =========================================
+   MRS WOLFIE IMAGE ZOOM PREVIEW
+========================================= */
+
+function updateImageZoomPreview() {
+
+  const zoom =
+    Number(updateImageZoom.value) / 100;
+
+  updateImagePreview.style.transform =
+    `scale(${zoom})`;
+
+  updateImagePreview.style.transformOrigin =
+    updateImagePositionX.value + "% " +
+    updateImagePositionY.value + "%";
+
+}
+
+updateImageZoom.addEventListener(
+  "input",
+  updateImageZoomPreview
+);
+  
   const positionX =
     updateImagePositionX.value;
 
@@ -1591,6 +1629,15 @@ updateImageFrame();
 updateImagePositionX.value = 50;
 updateImagePositionY.value = 50;
 
+/* =========================================
+   RESET IMAGE ZOOM
+========================================= */
+
+updateImageZoom.value =
+  100;
+
+updateImageZoomPreview();
+  
 updateImagePosition();
   
   updateImageStatus.textContent =
@@ -1875,6 +1922,15 @@ updateImagePositionX.value =
 
 updateImagePositionY.value =
   item.imagePositionY ?? 50;
+
+  /* =========================================
+   RESTORE SAVED IMAGE ZOOM
+========================================= */
+
+updateImageZoom.value =
+  data.imageZoom ?? 100;
+
+updateImageZoomPreview();
 
 // Apply saved position to image preview
 updateImagePosition();
@@ -2373,11 +2429,28 @@ imagePositionX:
 
 imagePositionY:
   Number(updateImagePositionY.value),
-        
+
+/* =========================================
+   IMAGE ZOOM SETTING
+========================================= */
+
+imageZoom:
+  Number(updateImageZoom.value),
+
 buttonText:
   cleanButtonText
     .toUpperCase(),
 
+/* =========================================
+   IMAGE ZOOM SETTING
+========================================= */
+
+imageZoom:
+  Number(updateImageZoom.value),
+
+buttonText:
+  cleanButtonText
+    .toUpperCase(),
       link:
         cleanButtonLink,
 
