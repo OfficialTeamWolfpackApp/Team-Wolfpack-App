@@ -3102,6 +3102,230 @@ background:
 
 }
 
+/* =========================================
+   TEAM WOLFPACK — FIGHTER STATUS CARDS
+========================================= */
+
+.fighter-status-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 0 15px;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.fighter-status-container[hidden] {
+  display: none !important;
+}
+
+/* MAIN CARD */
+
+.fighter-status-card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+
+  min-height: 440px;
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      115deg,
+      #06334b 0%,
+      #080b10 48%,
+      #411b09 100%
+    );
+
+  border: 1px solid rgba(80, 210, 255, 0.55);
+
+  box-shadow:
+    0 0 25px rgba(0, 191, 255, 0.15),
+    0 15px 40px rgba(0, 0, 0, 0.6);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.fighter-status-card:hover {
+  transform: translateY(-5px);
+
+  box-shadow:
+    0 0 35px rgba(0, 191, 255, 0.3),
+    0 20px 50px rgba(0, 0, 0, 0.7);
+}
+
+/* FIGHTER PHOTOGRAPH */
+
+.fighter-status-photo {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center top;
+
+  opacity: 0.4;
+  z-index: -2;
+}
+
+/* ICE & FIRE OVERLAY */
+
+.fighter-status-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 191, 255, 0.28),
+      rgba(0, 0, 0, 0.55) 50%,
+      rgba(255, 90, 0, 0.3)
+    ),
+    linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.95),
+      transparent 75%
+    );
+
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* CARD CONTENT */
+
+.fighter-status-content {
+  min-height: 440px;
+  padding: 35px 25px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+
+  text-align: center;
+}
+
+.fighter-status-team {
+  color: #8ce9ff;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
+
+.fighter-status-name {
+  margin: 12px 0;
+
+  color: #fff;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 900;
+  line-height: 1.1;
+
+  text-shadow:
+    0 0 15px rgba(0, 191, 255, 0.5);
+}
+
+.fighter-status-label {
+  margin: 10px 0;
+
+  color: #ff8b42;
+  font-size: clamp(16px, 2vw, 22px);
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.fighter-status-message {
+  max-width: 430px;
+
+  color: #eee;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.fighter-status-motto {
+  margin-top: 12px;
+
+  color: #8ce9ff;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+/* PROFILE BUTTON */
+
+.fighter-status-button {
+  display: inline-block;
+
+  margin-top: 20px;
+  padding: 13px 26px;
+
+  border-radius: 8px;
+  border: 1px solid #7ce4ff;
+
+  background:
+    linear-gradient(
+      90deg,
+      #007ca8,
+      #121820 50%,
+      #bd4b12
+    );
+
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-decoration: none;
+
+  transition: filter 0.3s ease;
+}
+
+.fighter-status-button:hover {
+  filter: brightness(1.3);
+}
+
+/* ANNOUNCEMENT STATUS */
+
+.fighter-status-card.incoming {
+  border-color: #ff7a00;
+
+  box-shadow:
+    0 0 30px rgba(255, 90, 0, 0.25);
+}
+
+.fighter-status-card.incoming .fighter-status-label {
+  color: #ffb000;
+}
+
+/* MOBILE RESPONSIVE */
+
+@media (max-width: 750px) {
+
+  .fighter-status-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .fighter-status-card,
+  .fighter-status-content {
+    min-height: 400px;
+  }
+
+  .fighter-status-content {
+    padding: 25px 18px;
+  }
+
+  .fighter-status-name {
+    font-size: 32px;
+  }
+
+}
+  
 </style>
 
 </head>
@@ -3362,7 +3586,7 @@ FSG PROMOTIONS
 <span id="nextFightEvent" class="promotion-small">
 UNFINISHED BUSINESS
 </span>
-
+  
 </div>
 
 <div class="vs">
