@@ -5677,8 +5677,10 @@ onValue(
       return fightTime(a) - fightTime(b);
     });
 
-    renderNextFight(fights[0] || null);
-renderNextUp(fights);
+  latestFights = fights;
+fightsLoaded = true;
+
+updateHomepageFights();
 
 const nextFightCard =
   document.getElementById("nextFightCard");
