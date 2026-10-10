@@ -5570,7 +5570,15 @@ onValue(
     const statuses =
       snapshot.val() || {};
 
+    // Update promotional cards
     renderFighterStatuses(statuses);
+
+    // Store latest fighter statuses
+    latestFighterStatuses = statuses;
+    fighterStatusesLoaded = true;
+
+    // Update NEXT FIGHT and NEXT UP
+    updateHomepageFights();
 
   },
 
