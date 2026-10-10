@@ -4395,6 +4395,222 @@ const auth =
 const database =
   getDatabase(firebaseApp);
 
+  /* =========================================
+   TEAM WOLFPACK — LIKE SYSTEM
+========================================= */
+
+const wolfpackLikeButton =
+  document.getElementById("wolfpackLikeButton");
+
+const wolfpackLikeCount =
+  document.getElementById("wolfpackLikeCount");
+
+const wolfpackSupportMessage =
+  document.getElementById("wolfpackSupportMessage");
+
+const wolfpackLikesRef =
+  ref(database, "wolfpackLikes");
+
+let currentLikeUser = null;
+let wolfpackLikes = {};
+let likesLoaded = false;
+let likeInProgress = false;
+
+
+/* =========================================
+   DISPLAY LIKE COUNT
+========================================= */
+
+function updateWolfpackLikes() {
+
+  if (!likesLoaded) return;
+
+  const totalLikes =
+    Object.keys(wolfpackLikes).length;
+
+  if (wolfpackLikeCount) {
+    wolfpackLikeCount.textContent = totalLikes;
+  }
+
+  if (!wolfpackLikeButton) return;
+
+  const alreadyLiked =
+    currentLikeUser &&
+    wolfpackLikes[currentLikeUser.uid] === true;
+
+  if (alreadyLiked) {
+
+    wolfpackLikeButton.textContent =
+      "❤️ LIKED";
+
+    wolfpackLikeButton.disabled = true;
+
+    wolfpackLikeButton.style.opacity = "0.7";
+
+  } else {
+
+    wolfpackLikeButton.textContent =
+      "❤️ LIKE TEAM WOLFPACK";
+
+    wolfpackLikeButton.disabled = false;
+
+    wolfpackLikeButton.style.opacity = "1";
+
+  }
+
+}
+
+
+/* =========================================
+   LISTEN FOR LIKE UPDATES
+========================================= */
+
+onValue(
+  wolfpackLikesRef,
+
+  function(snapshot) {
+
+    wolfpackLikes = snapshot.val() || {};
+
+    likesLoaded = true;
+
+    updateWolfpackLikes();
+
+  },
+
+  function(error) {
+
+    console.error(
+      "Unable to load Team Wolfpack likes:",
+      error
+    );
+
+    if (wolfpackLikeCount) {
+      wolfpackLikeCount.textContent = "—";
+    }
+
+  }
+);
+
+
+/* =========================================
+   CHECK SIGNED-IN USER
+========================================= */
+
+onAuthStateChanged(
+  auth,
+
+  function(user) {
+
+    currentLikeUser = user;
+
+    updateWolfpackLikes();
+
+  }
+);
+
+
+/* =========================================
+   SAVE LIKE
+========================================= */
+
+if (wolfpackLikeButton) {
+
+  wolfpackLikeButton.addEventListener(
+    "click",
+
+    async function() {
+
+      if (likeInProgress) return;
+
+      if (!likesLoaded) {
+
+        wolfpackSupportMessage.textContent =
+          "Please wait while likes load.";
+
+        return;
+      }
+
+      if (!currentLikeUser) {
+
+        wolfpackSupportMessage.textContent =
+          "Please sign in to like Team Wolfpack.";
+
+        return;
+      }
+
+      if (
+        wolfpackLikes[currentLikeUser.uid] === true
+      ) {
+        return;
+      }
+
+      likeInProgress = true;
+
+      wolfpackLikeButton.disabled = true;
+
+      wolfpackSupportMessage.textContent =
+        "Saving your like...";
+
+      try {
+
+        const userLikeRef = ref(
+          database,
+          "wolfpackLikes/" + currentLikeUser.uid
+        );
+
+        const result = await runTransaction(
+          userLikeRef,
+
+          function(currentValue) {
+
+            if (currentValue === null) {
+              return true;
+            }
+
+            return;
+          },
+
+          {
+            applyLocally: false
+          }
+        );
+
+        if (result.committed) {
+
+          wolfpackSupportMessage.textContent =
+            "❤️ Thank you for supporting Team Wolfpack!";
+
+        } else {
+
+          wolfpackSupportMessage.textContent =
+            "You've already liked Team Wolfpack.";
+
+        }
+
+      } catch (error) {
+
+        console.error(
+          "Unable to save Team Wolfpack like:",
+          error
+        );
+
+        wolfpackSupportMessage.textContent =
+          "Unable to save your like. Please try again.";
+
+      } finally {
+
+        likeInProgress = false;
+
+        updateWolfpackLikes();
+
+      }
+
+    }
+  );
+
+}
+
   const VAPID_KEY =
   "BFiQ3IfeNlorv_csTQPN0qD7MKDu-98GjjPzxL7x5AK3sJmxlZyA6dGpDD9uEUpkxWlNZv4jQ37QdnvRTQckRrg";
 
