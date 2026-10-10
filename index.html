@@ -4630,6 +4630,107 @@ function updateWolfpackLikes() {
   const totalLikes =
     Object.keys(wolfpackLikes).length;
 
+  /* =========================================
+   WOLFPACK SUPPORTER MILESTONES
+========================================= */
+
+const wolfpackMilestones = [
+  { target: 10, name: "PACK STARTER" },
+  { target: 25, name: "PACK GROWING" },
+  { target: 50, name: "WOLFPACK STRONG" },
+  { target: 100, name: "ONE PACK • ONE PURPOSE" },
+  { target: 250, name: "PACK LEGENDS" },
+  { target: 500, name: "WOLFPACK ELITE" },
+  { target: 1000, name: "WOLFPACK FAMILY" }
+];
+
+const nextMilestone =
+  wolfpackMilestones.find(
+    milestone => totalLikes < milestone.target
+  );
+
+const milestoneName =
+  document.getElementById("wolfpackMilestoneName");
+
+const milestoneProgress =
+  document.getElementById("wolfpackMilestoneProgress");
+
+const milestoneFill =
+  document.getElementById("wolfpackMilestoneFill");
+
+const milestoneTrack =
+  document.getElementById("wolfpackMilestoneTrack");
+
+const milestoneFooter =
+  document.getElementById("wolfpackMilestoneFooter");
+
+if (nextMilestone) {
+
+  const progress =
+    Math.min(
+      100,
+      Math.round(
+        (totalLikes / nextMilestone.target) * 100
+      )
+    );
+
+  if (milestoneName) {
+    milestoneName.textContent =
+      "🐺 NEXT MILESTONE: " + nextMilestone.name;
+  }
+
+  if (milestoneProgress) {
+    milestoneProgress.textContent =
+      totalLikes + " / " +
+      nextMilestone.target + " SUPPORTERS";
+  }
+
+  if (milestoneFill) {
+    milestoneFill.style.width = progress + "%";
+  }
+
+  if (milestoneTrack) {
+    milestoneTrack.setAttribute(
+      "aria-valuenow",
+      progress
+    );
+  }
+
+  if (milestoneFooter) {
+    milestoneFooter.textContent =
+      progress + "% COMPLETE • ONE PACK • ONE PURPOSE";
+  }
+
+} else {
+
+  if (milestoneName) {
+    milestoneName.textContent =
+      "🏆 WOLFPACK FAMILY — LEGENDARY!";
+  }
+
+  if (milestoneProgress) {
+    milestoneProgress.textContent =
+      totalLikes + " SUPPORTERS";
+  }
+
+  if (milestoneFill) {
+    milestoneFill.style.width = "100%";
+  }
+
+  if (milestoneTrack) {
+    milestoneTrack.setAttribute(
+      "aria-valuenow",
+      "100"
+    );
+  }
+
+  if (milestoneFooter) {
+    milestoneFooter.textContent =
+      "ALL MILESTONES ACHIEVED!";
+  }
+
+}
+
   if (wolfpackLikeCount) {
     wolfpackLikeCount.textContent = totalLikes;
   }
