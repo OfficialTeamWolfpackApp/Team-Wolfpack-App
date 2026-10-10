@@ -3781,6 +3781,95 @@ background:
   }
 
 }
+
+/* =========================================
+   TEAM WOLFPACK
+   FINAL CINEMATIC BANNER ENHANCEMENTS
+========================================= */
+
+/* ENHANCED ICE & FIRE BANNER */
+
+.fighter-status-card {
+  box-shadow:
+    -15px 0 45px rgba(0,191,255,0.28),
+    15px 0 45px rgba(255,90,0,0.28),
+    0 20px 60px rgba(0,0,0,0.8);
+}
+
+/* STRONGER FIGHTER LIGHTING */
+
+.fighter-status-card::after {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,191,255,0.22) 0%,
+      rgba(0,0,0,0.05) 30%,
+      rgba(0,0,0,0.88) 58%,
+      rgba(255,90,0,0.3) 100%
+    ),
+    radial-gradient(
+      circle at 5% 45%,
+      rgba(0,191,255,0.3),
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 95% 50%,
+      rgba(255,90,0,0.35),
+      transparent 50%
+    );
+}
+
+/* ONE-LINE FIGHTER NAME */
+
+.fighter-status-name {
+  font-size: clamp(24px, 2.8vw, 46px);
+  letter-spacing: -1px;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+/* STRONGER STATUS HEADLINE */
+
+.fighter-status-label {
+  color: #ff9a45;
+
+  text-shadow:
+    0 0 12px rgba(255,90,0,0.65),
+    0 0 25px rgba(255,90,0,0.35);
+}
+
+/* MOBILE OPTIMISATION */
+
+@media (max-width: 750px) {
+
+  .fighter-status-card::after {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(0,191,255,0.2) 0%,
+        rgba(0,0,0,0.1) 30%,
+        rgba(0,0,0,0.96) 68%,
+        rgba(255,90,0,0.3) 100%
+      );
+  }
+
+  .fighter-status-name {
+    font-size: clamp(20px, 6vw, 34px);
+    letter-spacing: -0.5px;
+    white-space: nowrap;
+  }
+
+}
+
+/* EXTRA SMALL PHONES */
+
+@media (max-width: 380px) {
+
+  .fighter-status-name {
+    font-size: 22px;
+  }
+
+}
   
 </style>
 
