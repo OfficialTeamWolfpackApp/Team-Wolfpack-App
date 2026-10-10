@@ -5393,6 +5393,184 @@ document.addEventListener("click", function(event){
   window.open(ticketUrl,"_blank","noopener,noreferrer");
 });
 
+/* =========================================
+   TEAM WOLFPACK — FIGHTER STATUS SYSTEM
+========================================= */
+
+const fighterStatusContainer =
+  document.getElementById("fighterStatusCards");
+
+const fighterStatusesRef =
+  ref(database, "fighterStatuses");
+
+const fighterStatusLabels = {
+  hunt: "THE HUNT CONTINUES",
+  incoming: "FIGHT ANNOUNCEMENT INCOMING"
+};
+
+const fighterStatusDefaults = {
+  "mrs-wolfie": {
+    name: "MRS WOLFIE",
+    team: "TEAM WOLFIE",
+    image: "zoey-james.jpg",
+    profile: "mrs-wolfie.html",
+    motto: "HUNT WITHOUT FEAR"
+  },
+
+  "greig-sloan": {
+    name: "GREIG SLOAN",
+    team: "TEAM SLOAN",
+    image: "greig-sloan.jpg",
+    profile: "greig-sloan.html",
+    motto: "THE AWAKENING"
+  }
+};
+
+
+/* =========================================
+   RENDER FIGHTER STATUS CARDS
+========================================= */
+
+function renderFighterStatuses(statuses) {
+
+  if (!fighterStatusContainer) {
+    return;
+  }
+
+  const cards = [];
+
+  Object.entries(fighterStatusDefaults)
+    .forEach(function([fighterId, defaults]) {
+
+      const data = statuses[fighterId];
+
+      if (!data) {
+        return;
+      }
+
+      const status = String(
+        data.status || ""
+      ).toLowerCase();
+
+      // Confirmed fighters use normal fight cards.
+      if (
+        status !== "hunt" &&
+        status !== "incoming"
+      ) {
+        return;
+      }
+
+      const name = escapeHTML(
+        data.name || defaults.name
+      );
+
+      const team = escapeHTML(
+        data.team || defaults.team
+      );
+
+      const message = escapeHTML(
+        data.message ||
+        "The work doesn't stop when the ring is quiet."
+      );
+
+      const motto = escapeHTML(
+        data.motto || defaults.motto
+      );
+
+      const image = escapeHTML(
+        data.image || defaults.image
+      );
+
+      const profile = escapeHTML(
+        data.profile || defaults.profile
+      );
+
+      const label =
+        fighterStatusLabels[status];
+
+      cards.push(`
+        <article
+          class="fighter-status-card ${status}"
+        >
+
+          <img
+            class="fighter-status-photo"
+            src="${image}"
+            alt="${name}"
+            loading="lazy"
+          >
+
+          <div class="fighter-status-content">
+
+            <div class="fighter-status-team">
+              ${team}
+            </div>
+
+            <h2 class="fighter-status-name">
+              ${name}
+            </h2>
+
+            <div class="fighter-status-label">
+              ${label}
+            </div>
+
+            <p class="fighter-status-message">
+              ${message}
+            </p>
+
+            <div class="fighter-status-motto">
+              ${motto}
+            </div>
+
+            <a
+              class="fighter-status-button"
+              href="${profile}"
+            >
+              VIEW FIGHTER PROFILE →
+            </a>
+
+          </div>
+
+        </article>
+      `);
+
+    });
+
+  fighterStatusContainer.innerHTML =
+    cards.join("");
+
+  fighterStatusContainer.hidden =
+    cards.length === 0;
+
+}
+
+
+/* =========================================
+   LIVE FIREBASE STATUS UPDATES
+========================================= */
+
+onValue(
+  fighterStatusesRef,
+
+  function(snapshot) {
+
+    const statuses =
+      snapshot.val() || {};
+
+    renderFighterStatuses(statuses);
+
+  },
+
+  function(error) {
+
+    console.error(
+      "Unable to load fighter statuses:",
+      error
+    );
+
+  }
+);
+  
 const fightsRef = ref(database,"fights");
 
 onValue(
