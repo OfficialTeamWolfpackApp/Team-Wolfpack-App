@@ -4633,6 +4633,209 @@ let wolfpackLikes = {};
 let likesLoaded = false;
 let likeInProgress = false;
 
+/* =========================================
+   TEAM WOLFPACK — MILESTONE CELEBRATIONS
+========================================= */
+
+const wolfpackCelebrationMilestones = [
+  { target: 10, name: "PACK STARTER" },
+  { target: 25, name: "PACK GROWING" },
+  { target: 50, name: "WOLFPACK STRONG" },
+  { target: 100, name: "ONE PACK • ONE PURPOSE" },
+  { target: 250, name: "PACK LEGENDS" },
+  { target: 500, name: "WOLFPACK ELITE" },
+  { target: 1000, name: "WOLFPACK FAMILY" }
+];
+
+let wolfpackCelebrationChecked = false;
+
+function checkWolfpackCelebration(totalLikes) {
+
+  const reachedMilestones =
+    wolfpackCelebrationMilestones.filter(
+      milestone => totalLikes >= milestone.target
+    );
+
+  if (!reachedMilestones.length) return;
+
+  const latestMilestone =
+    reachedMilestones[reachedMilestones.length - 1];
+
+  const storageKey =
+    "wolfpackCelebrated_" + latestMilestone.target;
+
+  try {
+
+    if (localStorage.getItem(storageKey)) return;
+
+    /*
+      Avoid showing old celebrations to people
+      who open the app after a milestone has
+      already been reached.
+    */
+
+    if (!wolfpackCelebrationChecked) {
+
+      wolfpackCelebrationChecked = true;
+
+      localStorage.setItem(storageKey, "seen");
+
+      return;
+    }
+
+    localStorage.setItem(storageKey, "seen");
+
+  } catch (error) {
+
+    console.warn("Celebration storage unavailable:", error);
+
+  }
+
+  showWolfpackCelebration(latestMilestone);
+}
+
+function showWolfpackCelebration(milestone) {
+
+  const overlay = document.createElement("div");
+
+  overlay.style.cssText = `
+    position:fixed;
+    inset:0;
+    z-index:99999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:rgba(0,0,0,.82);
+    backdrop-filter:blur(8px);
+  `;
+
+  const panel = document.createElement("div");
+
+  panel.style.cssText = `
+    position:relative;
+    width:min(100%,420px);
+    padding:38px 24px;
+    border-radius:20px;
+    border-left:4px solid #00bfff;
+    border-right:4px solid #ff5a00;
+    background:linear-gradient(
+      135deg,
+      #071b27,
+      #080808 50%,
+      #281006
+    );
+    box-shadow:
+      0 0 45px rgba(0,191,255,.25),
+      0 0 45px rgba(255,90,0,.2);
+    color:white;
+    text-align:center;
+    overflow:hidden;
+  `;
+
+  const title = document.createElement("h2");
+
+  title.textContent = "🏆 MILESTONE UNLOCKED!";
+
+  title.style.cssText = `
+    margin:0 0 18px;
+    font-size:24px;
+    font-weight:900;
+    color:#fff;
+  `;
+
+  const achievement = document.createElement("div");
+
+  achievement.textContent = milestone.name;
+
+  achievement.style.cssText = `
+    font-size:22px;
+    font-weight:900;
+    color:#00bfff;
+    margin-bottom:12px;
+  `;
+
+  const supporters = document.createElement("div");
+
+  supporters.textContent =
+    milestone.target + " TEAM WOLFPACK SUPPORTERS!";
+
+  supporters.style.cssText = `
+    font-size:14px;
+    font-weight:800;
+    color:#ff5a00;
+    margin-bottom:18px;
+  `;
+
+  const motto = document.createElement("div");
+
+  motto.textContent = "🐺 ONE PACK • ONE PURPOSE";
+
+  motto.style.cssText = `
+    font-size:12px;
+    font-weight:900;
+    letter-spacing:1px;
+    color:#fff;
+  `;
+
+  panel.append(title, achievement, supporters, motto);
+
+  overlay.appendChild(panel);
+
+  document.body.appendChild(overlay);
+
+  /* ICE & FIRE CONFETTI */
+
+  for (let i = 0; i < 36; i++) {
+
+    const confetti = document.createElement("span");
+
+    const color =
+      i % 2 === 0 ? "#00bfff" : "#ff5a00";
+
+    confetti.style.cssText = `
+      position:absolute;
+      top:-20px;
+      left:${Math.random() * 100}%;
+      width:7px;
+      height:12px;
+      background:${color};
+      border-radius:2px;
+      pointer-events:none;
+      animation:wolfpackConfettiFall
+        ${2 + Math.random() * 2}s linear forwards;
+      animation-delay:${Math.random()}s;
+    `;
+
+    overlay.appendChild(confetti);
+  }
+
+  const style = document.createElement("style");
+
+  style.textContent = `
+    @keyframes wolfpackConfettiFall {
+      from {
+        transform:translateY(-20px) rotate(0deg);
+        opacity:1;
+      }
+      to {
+        transform:translateY(110vh) rotate(720deg);
+        opacity:0;
+      }
+    }
+  `;
+
+  document.head.appendChild(style);
+
+  const closeCelebration = () => {
+    overlay.remove();
+    style.remove();
+  };
+
+  overlay.addEventListener("click", closeCelebration);
+
+  setTimeout(closeCelebration, 6000);
+}  
 
 /* =========================================
    DISPLAY LIKE COUNT
@@ -4645,6 +4848,8 @@ function updateWolfpackLikes() {
   const totalLikes =
     Object.keys(wolfpackLikes).length;
 
+  checkWolfpackCelebration(totalLikes);
+ 
   /* =========================================
    WOLFPACK SUPPORTER MILESTONES
 ========================================= */
