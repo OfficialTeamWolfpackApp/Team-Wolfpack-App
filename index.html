@@ -5227,8 +5227,21 @@ function opponentImage(f){
 }
 
 function renderNextFight(f){
+
+  const nextFightCard =
+    document.getElementById("nextFightCard");
+
   if(!f){
+
+    if(nextFightCard){
+      nextFightCard.style.display = "none";
+    }
+
     return;
+  }
+
+  if(nextFightCard){
+    nextFightCard.style.display = "";
   }
 
   const name = fighterName(f);
