@@ -3325,6 +3325,283 @@ background:
   }
 
 }
+
+  /* =========================================
+   TEAM WOLFPACK
+   CINEMATIC FIGHTER STATUS BANNERS
+========================================= */
+
+/* FULL-WIDTH LAYOUT */
+
+.fighter-status-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 35px auto;
+  padding: 0 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* CINEMATIC BANNER */
+
+.fighter-status-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  width: 100%;
+  min-height: 520px;
+
+  border-radius: 20px;
+
+  border: 1px solid rgba(100, 220, 255, 0.65);
+
+  background:
+    radial-gradient(
+      circle at 15% 50%,
+      rgba(0, 191, 255, 0.35),
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 85% 50%,
+      rgba(255, 90, 0, 0.35),
+      transparent 45%
+    ),
+    #05080d;
+
+  box-shadow:
+    0 0 30px rgba(0, 191, 255, 0.2),
+    0 20px 60px rgba(0, 0, 0, 0.7);
+}
+
+/* LARGE FIGHTER PORTRAIT */
+
+.fighter-status-photo {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 52%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center top;
+
+  opacity: 0.9;
+
+  z-index: -2;
+}
+
+/* ICE & FIRE OVERLAY */
+
+.fighter-status-card::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 191, 255, 0.1) 0%,
+      rgba(0, 0, 0, 0.2) 30%,
+      rgba(0, 0, 0, 0.92) 58%,
+      rgba(255, 90, 0, 0.2) 100%
+    );
+
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* CONTENT ON RIGHT */
+
+.fighter-status-content {
+  position: relative;
+
+  width: 52%;
+  min-height: 520px;
+
+  margin-left: auto;
+  padding: 50px 45px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+  justify-content: center;
+
+  text-align: left;
+}
+
+/* TEAM NAME */
+
+.fighter-status-team {
+  color: #80e4ff;
+
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 4px;
+}
+
+/* FIGHTER NAME */
+
+.fighter-status-name {
+  margin: 15px 0;
+
+  font-size: clamp(36px, 5vw, 65px);
+  font-weight: 900;
+  line-height: 1.05;
+
+  color: #fff;
+
+  text-shadow:
+    0 0 20px rgba(0, 191, 255, 0.5);
+}
+
+/* MAIN STATUS HEADLINE */
+
+.fighter-status-label {
+  margin: 15px 0;
+
+  font-size: clamp(20px, 3vw, 34px);
+  font-weight: 900;
+  line-height: 1.2;
+
+  letter-spacing: 2px;
+
+  color: #ff8b42;
+
+  text-shadow:
+    0 0 18px rgba(255, 90, 0, 0.35);
+}
+
+/* PROMOTIONAL MESSAGE */
+
+.fighter-status-message {
+  max-width: 500px;
+
+  font-size: 16px;
+  line-height: 1.7;
+
+  color: #e5e5e5;
+}
+
+/* FIGHTER MOTTO */
+
+.fighter-status-motto {
+  margin-top: 15px;
+
+  color: #83e5ff;
+
+  font-size: 14px;
+  font-weight: 900;
+
+  letter-spacing: 3px;
+}
+
+/* PROFILE BUTTON */
+
+.fighter-status-button {
+  margin-top: 28px;
+
+  padding: 15px 30px;
+
+  font-size: 13px;
+  font-weight: 900;
+
+  border-radius: 9px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #007ca8,
+      #101820 50%,
+      #c04b10
+    );
+
+  border: 1px solid #79e2ff;
+
+  color: #fff;
+  text-decoration: none;
+
+  box-shadow:
+    0 0 18px rgba(0, 191, 255, 0.2);
+}
+
+/* ANNOUNCEMENT INCOMING */
+
+.fighter-status-card.incoming {
+  border-color: #ff7a00;
+
+  box-shadow:
+    0 0 35px rgba(255, 90, 0, 0.3);
+}
+
+.fighter-status-card.incoming
+.fighter-status-label {
+  color: #ffb000;
+}
+
+/* MOBILE CINEMATIC LAYOUT */
+
+@media (max-width: 750px) {
+
+  .fighter-status-container {
+    padding: 0 12px;
+    gap: 22px;
+  }
+
+  .fighter-status-card {
+    min-height: 600px;
+  }
+
+  .fighter-status-photo {
+    width: 100%;
+    height: 65%;
+
+    object-position: center top;
+  }
+
+  .fighter-status-card::after {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(0, 191, 255, 0.12) 0%,
+        rgba(0, 0, 0, 0.3) 30%,
+        rgba(0, 0, 0, 0.95) 65%,
+        rgba(255, 90, 0, 0.2) 100%
+      );
+  }
+
+  .fighter-status-content {
+    width: 100%;
+    min-height: 600px;
+
+    margin: 0;
+    padding: 30px 22px;
+
+    align-items: center;
+    justify-content: flex-end;
+
+    text-align: center;
+  }
+
+  .fighter-status-name {
+    font-size: 36px;
+  }
+
+  .fighter-status-label {
+    font-size: 23px;
+  }
+
+  .fighter-status-message {
+    font-size: 14px;
+  }
+
+}
   
 </style>
 
