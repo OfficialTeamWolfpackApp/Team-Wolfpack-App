@@ -5583,6 +5583,72 @@ onValue(
 
   }
 );
+
+/* =========================================
+   TEAM WOLFPACK — AUTOMATIC STATUS CONTROL
+========================================= */
+
+let latestFights = [];
+let latestFighterStatuses = {};
+let fightsLoaded = false;
+let fighterStatusesLoaded = false;
+
+function getFightFighterId(f) {
+
+  const id = String(f.fighterId || "")
+    .trim()
+    .toLowerCase();
+
+  if (
+    id === "mrs-wolfie" ||
+    id === "greig-sloan"
+  ) {
+    return id;
+  }
+
+  const name = fighterName(f)
+    .trim()
+    .toLowerCase();
+
+  if (
+    name.includes("mrs wolfie") ||
+    name.includes("zoey james")
+  ) {
+    return "mrs-wolfie";
+  }
+
+  if (name.includes("greig sloan")) {
+    return "greig-sloan";
+  }
+
+  return id;
+}
+
+function updateHomepageFights() {
+
+  if (!fightsLoaded || !fighterStatusesLoaded) {
+    return;
+  }
+
+  const visibleFights = latestFights.filter(function(f) {
+
+    const fighterId = getFightFighterId(f);
+
+    const fighterStatus =
+      latestFighterStatuses[fighterId];
+
+    if (!fighterStatus) {
+      return true;
+    }
+
+    return fighterStatus.status === "confirmed";
+
+  });
+
+  renderNextFight(visibleFights[0] || null);
+  renderNextUp(visibleFights);
+
+}
   
 const fightsRef = ref(database,"fights");
 
