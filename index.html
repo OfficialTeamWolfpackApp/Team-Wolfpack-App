@@ -4649,41 +4649,73 @@ const wolfpackCelebrationMilestones = [
 
 let wolfpackCelebrationChecked = false;
 
+/* =========================================
+   WOLFPACK — AUTOMATIC MILESTONE DETECTION
+========================================= */
+
+let wolfpackPreviousLikeCount = null;
+
 function checkWolfpackCelebration(totalLikes) {
 
-  const reachedMilestones =
+  if (!Number.isFinite(totalLikes)) return;
+
+  const storageKey = "wolfpackLastSupporterCount";
+
+  let previousCount = wolfpackPreviousLikeCount;
+
+  if (previousCount === null) {
+
+    try {
+
+      const savedCount = localStorage.getItem(storageKey);
+
+      previousCount =
+        savedCount === null
+          ? totalLikes
+          : Number(savedCount);
+
+    } catch (error) {
+
+      previousCount = totalLikes;
+
+    }
+
+  }
+
+  if (!Number.isFinite(previousCount)) {
+    previousCount = totalLikes;
+  }
+
+  wolfpackPreviousLikeCount = totalLikes;
+
+  try {
+    localStorage.setItem(storageKey, String(totalLikes));
+  } catch (error) {
+    console.warn("Unable to save supporter count:", error);
+  }
+
+  if (totalLikes <= previousCount) return;
+
+  const newlyReached =
     wolfpackCelebrationMilestones.filter(
-      milestone => totalLikes >= milestone.target
+      milestone =>
+        previousCount < milestone.target &&
+        totalLikes >= milestone.target
     );
 
-  if (!reachedMilestones.length) return;
+  if (!newlyReached.length) return;
 
-  const latestMilestone =
-    reachedMilestones[reachedMilestones.length - 1];
+  const milestone =
+    newlyReached[newlyReached.length - 1];
 
-  const storageKey =
-    "wolfpackCelebrated_" + latestMilestone.target;
+  const celebrationKey =
+    "wolfpackCelebrated_" + milestone.target;
 
   try {
 
-    if (localStorage.getItem(storageKey)) return;
+    if (localStorage.getItem(celebrationKey)) return;
 
-    /*
-      Avoid showing old celebrations to people
-      who open the app after a milestone has
-      already been reached.
-    */
-
-    if (!wolfpackCelebrationChecked) {
-
-      wolfpackCelebrationChecked = true;
-
-      localStorage.setItem(storageKey, "seen");
-
-      return;
-    }
-
-    localStorage.setItem(storageKey, "seen");
+    localStorage.setItem(celebrationKey, "seen");
 
   } catch (error) {
 
@@ -4691,7 +4723,8 @@ function checkWolfpackCelebration(totalLikes) {
 
   }
 
-  showWolfpackCelebration(latestMilestone);
+  showWolfpackCelebration(milestone);
+
 }
   
 function showWolfpackCelebration(milestone) {
