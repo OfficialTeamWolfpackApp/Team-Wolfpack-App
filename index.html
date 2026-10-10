@@ -5789,6 +5789,66 @@ if("serviceWorker" in navigator){
   );
 })();
 </script>
+<!-- =========================================
+     TEAM WOLFPACK — SHARE APP
+========================================= -->
 
+<script>
+
+(function () {
+
+  const shareButton =
+    document.getElementById("wolfpackShareButton");
+
+  const supportMessage =
+    document.getElementById("wolfpackSupportMessage");
+
+  if (!shareButton) return;
+
+  shareButton.addEventListener("click", async function () {
+
+    const shareData = {
+      title: "Team Wolfpack App",
+      text: "Join Team Wolfpack! ONE PACK • ONE PURPOSE 🐺",
+      url: "https://app.officialteamwolfpack.com/"
+    };
+
+    try {
+
+      if (navigator.share) {
+
+        await navigator.share(shareData);
+
+        if (supportMessage) {
+          supportMessage.textContent = "Thanks for sharing Team Wolfpack!";
+        }
+
+      } else {
+
+        await navigator.clipboard.writeText(shareData.url);
+
+        if (supportMessage) {
+          supportMessage.textContent = "App link copied! Share it with your friends.";
+        }
+
+      }
+
+    } catch (error) {
+
+      if (error.name === "AbortError") return;
+
+      if (supportMessage) {
+        supportMessage.textContent =
+          "Unable to share automatically. Please copy the app link from your browser.";
+      }
+
+    }
+
+  });
+
+})();
+
+</script>
+  
 </body>
 </html>
