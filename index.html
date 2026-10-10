@@ -3333,92 +3333,273 @@ ADMIN
 <main class="main">
 
 <!-- =========================================
-     SUPPORT TEAM WOLFPACK — LIKE & SHARE
+     TEAM WOLFPACK — SUPPORT & MILESTONES
 ========================================= -->
 
-<section
-  id="wolfpackSupportCard"
-  class="wolfpack-support-card"
-  style="
-    margin-bottom:18px;
-    padding:22px 18px;
-    border-radius:16px;
-    border:1px solid rgba(255,255,255,.15);
-    border-left:3px solid #00bfff;
-    border-right:3px solid #ff5a00;
-    background:linear-gradient(
-      110deg,
-      rgba(0,191,255,.14),
-      #080808 50%,
-      rgba(255,90,0,.14)
-    );
-    text-align:center;
-    box-shadow:0 12px 30px rgba(0,0,0,.35);
-  "
->
+<section id="wolfpackSupportCard" class="wolfpack-support-card">
 
-  <div
-    style="
-      color:#ff5a00;
-      font-size:10px;
-      font-weight:900;
-      letter-spacing:2px;
-    "
-  >
+  <style>
+
+    /* MAIN SUPPORT CARD */
+
+    .wolfpack-support-card {
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 20px;
+      padding: 28px 20px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.15);
+      border-left: 3px solid #00bfff;
+      border-right: 3px solid #ff5a00;
+      background:
+        radial-gradient(
+          circle at top left,
+          rgba(0,191,255,.17),
+          transparent 48%
+        ),
+        radial-gradient(
+          circle at bottom right,
+          rgba(255,90,0,.15),
+          transparent 48%
+        ),
+        #080a0e;
+      box-shadow: 0 15px 35px rgba(0,0,0,.4);
+      text-align: center;
+    }
+
+    .wolfpack-support-kicker {
+      color: #ff5a00;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 2px;
+    }
+
+    .wolfpack-support-title {
+      margin: 12px 0;
+      color: #fff;
+      font-size: clamp(20px, 5vw, 28px);
+      font-weight: 900;
+      line-height: 1.2;
+    }
+
+    .wolfpack-support-title .ice {
+      color: #00bfff;
+    }
+
+    .wolfpack-support-title .fire {
+      color: #ff5a00;
+    }
+
+    .wolfpack-support-description {
+      max-width: 430px;
+      margin: 0 auto 22px;
+      color: #bbb;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    /* LIVE LIKE COUNTER */
+
+    .wolfpack-support-count-box {
+      max-width: 320px;
+      margin: 0 auto 22px;
+      padding: 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(0,191,255,.25);
+      background: rgba(0,0,0,.35);
+    }
+
+    .wolfpack-support-count-number {
+      display: block;
+      color: #fff;
+      font-size: 44px;
+      font-weight: 900;
+      line-height: 1.1;
+      text-shadow: 0 0 20px rgba(0,191,255,.3);
+    }
+
+    .wolfpack-support-count-label {
+      display: block;
+      margin-top: 7px;
+      color: #aaa;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+    }
+
+    /* BUTTONS */
+
+    .wolfpack-support-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .wolfpack-support-buttons button {
+      min-height: 48px;
+      padding: 13px 20px;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    #wolfpackLikeButton {
+      border: 1px solid #00bfff;
+      background: linear-gradient(
+        135deg,
+        #006fa0,
+        #00bfff
+      );
+      box-shadow: 0 5px 18px rgba(0,191,255,.2);
+    }
+
+    #wolfpackShareButton {
+      border: 1px solid #ff5a00;
+      background: linear-gradient(
+        135deg,
+        #a93400,
+        #ff5a00
+      );
+      box-shadow: 0 5px 18px rgba(255,90,0,.2);
+    }
+
+    .wolfpack-support-buttons button:not(:disabled):hover {
+      transform: translateY(-2px);
+    }
+
+    .wolfpack-support-buttons button:disabled {
+      cursor: default;
+    }
+
+    /* MILESTONE SECTION */
+
+    .wolfpack-milestone {
+      margin-top: 26px;
+      padding: 20px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.25);
+      text-align: left;
+    }
+
+    .wolfpack-milestone-heading {
+      margin-bottom: 15px;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-align: center;
+    }
+
+    .wolfpack-milestone-name {
+      color: #ff5a00;
+      font-size: 12px;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .wolfpack-milestone-progress-text {
+      margin: 14px 0 8px;
+      color: #ccc;
+      font-size: 11px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .wolfpack-milestone-track {
+      height: 12px;
+      overflow: hidden;
+      border-radius: 20px;
+      background: rgba(255,255,255,.12);
+    }
+
+    .wolfpack-milestone-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: 20px;
+      background: linear-gradient(
+        90deg,
+        #00bfff,
+        #ff5a00
+      );
+      transition: width .5s ease;
+    }
+
+    .wolfpack-milestone-footer {
+      margin-top: 12px;
+      color: #999;
+      font-size: 10px;
+      text-align: center;
+    }
+
+    #wolfpackSupportMessage {
+      margin: 12px 0 0;
+      color: #00bfff;
+      font-size: 11px;
+    }
+
+    @media (max-width: 480px) {
+
+      .wolfpack-support-card {
+        padding: 24px 14px;
+      }
+
+      .wolfpack-support-buttons button {
+        width: 100%;
+      }
+
+    }
+
+  </style>
+
+
+  <!-- HEADING -->
+
+  <div class="wolfpack-support-kicker">
     ONE PACK • ONE PURPOSE
   </div>
 
-  <h2
-    style="
-      margin:12px 0;
-      font-size:22px;
-      font-weight:900;
-      color:#fff;
-    "
-  >
-    <span style="color:#00bfff;">SUPPORT TEAM</span>
-    <span style="color:#ff5a00;">WOLFPACK</span>
+  <h2 class="wolfpack-support-title">
+    <span class="ice">SUPPORT TEAM</span>
+    <span class="fire">WOLFPACK</span>
   </h2>
 
-  <p
-    style="
-      margin:0 auto 18px;
-      max-width:420px;
-      color:#bbb;
-      font-size:12px;
-      line-height:1.7;
-    "
-  >
-    Show your support for Team Wolfpack!
-    Like our team and share our app with
-    friends, family and fellow supporters.
+  <p class="wolfpack-support-description">
+    Be part of the pack! Show your support for Team Wolfpack
+    and help our boxing family grow.
+    Every like and share makes a difference.
   </p>
+
+
+  <!-- LIVE SUPPORTER COUNT -->
+
+  <div class="wolfpack-support-count-box">
+
+    <span
+      id="wolfpackLikeCount"
+      class="wolfpack-support-count-number"
+    >
+      —
+    </span>
+
+    <span class="wolfpack-support-count-label">
+      ❤️ TEAM WOLFPACK SUPPORTERS
+    </span>
+
+  </div>
+
 
   <!-- LIKE & SHARE BUTTONS -->
 
-  <div
-    style="
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:center;
-      gap:12px;
-    "
-  >
+  <div class="wolfpack-support-buttons">
 
     <button
       id="wolfpackLikeButton"
       type="button"
-      style="
-        min-height:46px;
-        padding:12px 20px;
-        border-radius:9px;
-        border:1px solid rgba(0,191,255,.55);
-        background:rgba(0,191,255,.15);
-        color:#fff;
-        font-size:12px;
-        font-weight:900;
-        cursor:pointer;
-      "
     >
       ❤️ LIKE TEAM WOLFPACK
     </button>
@@ -3426,50 +3607,71 @@ ADMIN
     <button
       id="wolfpackShareButton"
       type="button"
-      style="
-        min-height:46px;
-        padding:12px 20px;
-        border-radius:9px;
-        border:1px solid rgba(255,90,0,.55);
-        background:rgba(255,90,0,.15);
-        color:#fff;
-        font-size:12px;
-        font-weight:900;
-        cursor:pointer;
-      "
     >
       ↗ SHARE OUR APP
     </button>
 
   </div>
 
-  <!-- LIKE COUNTER -->
 
-  <div
-    style="
-      margin-top:17px;
-      color:#aaa;
-      font-size:12px;
-      font-weight:700;
-    "
-  >
-    ❤️ <span id="wolfpackLikeCount">—</span>
-    TEAM WOLFPACK LIKES
-  </div>
+  <!-- SUPPORT MESSAGE -->
 
   <p
     id="wolfpackSupportMessage"
     role="status"
     aria-live="polite"
-    style="
-      margin:10px 0 0;
-      color:#00bfff;
-      font-size:11px;
-    "
   ></p>
 
-</section>
 
+  <!-- SUPPORTER MILESTONE TRACKER -->
+
+  <div class="wolfpack-milestone">
+
+    <div class="wolfpack-milestone-heading">
+      🏆 WOLFPACK SUPPORTER MILESTONES
+    </div>
+
+    <div
+      id="wolfpackMilestoneName"
+      class="wolfpack-milestone-name"
+    >
+      🐺 NEXT MILESTONE: PACK STARTER
+    </div>
+
+    <div
+      id="wolfpackMilestoneProgress"
+      class="wolfpack-milestone-progress-text"
+    >
+      Loading supporter progress...
+    </div>
+
+    <div
+      class="wolfpack-milestone-track"
+      role="progressbar"
+      aria-label="Progress towards next supporter milestone"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="0"
+      id="wolfpackMilestoneTrack"
+    >
+
+      <div
+        id="wolfpackMilestoneFill"
+        class="wolfpack-milestone-fill"
+      ></div>
+
+    </div>
+
+    <div
+      id="wolfpackMilestoneFooter"
+      class="wolfpack-milestone-footer"
+    >
+      ONE PACK • ONE PURPOSE
+    </div>
+
+  </div>
+
+</section>
 
 <!-- NOTIFICATIONS -->
 
