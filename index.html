@@ -3602,6 +3602,185 @@ background:
   }
 
 }
+
+/* =========================================
+   TEAM WOLFPACK
+   PREMIUM CINEMATIC FIGHTER BANNERS
+========================================= */
+
+/* PREMIUM BANNER */
+
+.fighter-status-card {
+  min-height: 550px;
+
+  border: 2px solid transparent;
+
+  background:
+    linear-gradient(#05080d, #05080d) padding-box,
+    linear-gradient(
+      110deg,
+      #00bfff 0%,
+      #a9f0ff 25%,
+      #101820 50%,
+      #ff5a00 75%,
+      #ffb000 100%
+    ) border-box;
+
+  box-shadow:
+    -12px 0 35px rgba(0, 191, 255, 0.18),
+    12px 0 35px rgba(255, 90, 0, 0.18),
+    0 20px 55px rgba(0, 0, 0, 0.75);
+}
+
+/* LARGER FIGHTER PHOTOGRAPH */
+
+.fighter-status-photo {
+  width: 58%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center top;
+
+  opacity: 1;
+}
+
+/* STRONGER ICE & FIRE LIGHTING */
+
+.fighter-status-card::after {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 191, 255, 0.13) 0%,
+      rgba(0, 0, 0, 0.08) 30%,
+      rgba(0, 0, 0, 0.92) 58%,
+      rgba(255, 90, 0, 0.22) 100%
+    ),
+    radial-gradient(
+      circle at 0% 50%,
+      rgba(0, 191, 255, 0.3),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 100% 50%,
+      rgba(255, 90, 0, 0.25),
+      transparent 55%
+    );
+}
+
+/* IMPROVED CONTENT POSITION */
+
+.fighter-status-content {
+  width: 50%;
+  min-height: 550px;
+
+  padding: 40px 30px;
+
+  align-items: flex-start;
+  justify-content: center;
+  text-align: left;
+}
+
+/* METALLIC-STYLE FIGHTER NAME */
+
+.fighter-status-name {
+  font-size: clamp(30px, 3.4vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -1px;
+
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #eafbff 30%,
+    #80dfff 65%,
+    #ffffff 100%
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  filter: drop-shadow(
+    0 0 10px rgba(0, 191, 255, 0.35)
+  );
+}
+
+/* STRONGER STATUS HEADLINE */
+
+.fighter-status-label {
+  font-size: clamp(21px, 2.8vw, 34px);
+  line-height: 1.15;
+
+  color: #ff8b42;
+
+  text-shadow:
+    0 0 12px rgba(255, 90, 0, 0.4),
+    0 0 25px rgba(255, 90, 0, 0.2);
+}
+
+/* PROMOTIONAL MESSAGE */
+
+.fighter-status-message {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ENHANCED PROFILE BUTTON */
+
+.fighter-status-button {
+  border: 1px solid #8ce9ff;
+
+  box-shadow:
+    0 0 15px rgba(0, 191, 255, 0.2),
+    0 0 20px rgba(255, 90, 0, 0.12);
+}
+
+/* MOBILE OPTIMISATION */
+
+@media (max-width: 750px) {
+
+  .fighter-status-card {
+    min-height: 620px;
+  }
+
+  .fighter-status-photo {
+    width: 100%;
+    height: 68%;
+
+    object-position: center top;
+  }
+
+  .fighter-status-card::after {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(0, 191, 255, 0.08) 0%,
+        rgba(0, 0, 0, 0.1) 30%,
+        rgba(0, 0, 0, 0.96) 68%,
+        rgba(255, 90, 0, 0.2) 100%
+      );
+  }
+
+  .fighter-status-content {
+    width: 100%;
+    min-height: 620px;
+
+    padding: 28px 20px;
+
+    align-items: center;
+    justify-content: flex-end;
+    text-align: center;
+  }
+
+  .fighter-status-name {
+    font-size: clamp(30px, 8vw, 40px);
+    letter-spacing: 0;
+  }
+
+  .fighter-status-label {
+    font-size: clamp(20px, 5vw, 26px);
+  }
+
+}
   
 </style>
 
