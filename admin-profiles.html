@@ -287,25 +287,66 @@ body{
   </section>
 
 
-  <!-- FIGHTER PROFILES -->
+ <!-- =========================================
+     FIGHTER PROFILES
+========================================= -->
 
-  <section class="admin-section">
+<section class="admin-section">
 
-    <h2 class="section-title">
-      🥊 FIGHTER PROFILES
-    </h2>
+  <h2 class="section-title">
+    🥊 FIGHTER PROFILES
+  </h2>
 
-    <p class="section-description">
-      Manage fighter names, teams, roles, photographs
-      and biographies.
-    </p>
+  <p class="section-description">
+    Select a fighter to manage their profile information,
+    photographs, team details and biography.
+  </p>
 
-    <span class="status-badge">
-      COMING SOON
-    </span>
+  <div style="margin-top:20px;">
 
-  </section>
+    <label
+      for="fighterSelect"
+      style="
+        display:block;
+        margin-bottom:10px;
+        color:#67dcff;
+        font-size:11px;
+        font-weight:900;
+      "
+    >
+      SELECT FIGHTER
+    </label>
 
+    <select
+      id="fighterSelect"
+      style="
+        width:100%;
+        padding:14px;
+        border-radius:10px;
+        border:1px solid rgba(103,220,255,.3);
+        background:#090909;
+        color:#ffffff;
+        font-size:12px;
+      "
+    >
+
+      <option value="">
+        SELECT A FIGHTER
+      </option>
+
+      <option value="mrs-wolfie">
+        MRS WOLFIE
+      </option>
+
+    </select>
+
+  </div>
+
+  <span class="status-badge">
+    EDITOR SETUP IN PROGRESS
+  </span>
+
+</section>
 
   <!-- TEAM MEMBER PROFILES -->
 
