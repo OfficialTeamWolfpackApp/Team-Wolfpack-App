@@ -2280,6 +2280,34 @@ onValue(
       publicProfileRepresenting: profile.representing
     };
 
+    /* =========================================
+   LIVE PROFILE PHOTOGRAPH
+========================================= */
+
+const profilePhoto =
+  document.getElementById("publicProfilePhoto");
+
+if(
+  profilePhoto &&
+  typeof profile.photo === "string" &&
+  profile.photo.trim()
+){
+
+  const photoPath = profile.photo.trim();
+
+  // Only accept image files stored in our app.
+  if(
+    !photoPath.startsWith("/") &&
+    !photoPath.includes("..") &&
+    /^[a-zA-Z0-9/_-]+\.(jpg|jpeg|png|webp)$/i.test(photoPath)
+  ){
+
+    profilePhoto.src = photoPath;
+
+  }
+
+}
+    
     Object.entries(fields).forEach(
       function([id, value]){
 
