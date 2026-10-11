@@ -6021,6 +6021,9 @@ if(nextFightFighterTeam){
 
   const ticketUrl = String(f.ticketUrl || "").trim();
 
+  const ticketPrice = f.ticketPrice;
+const ticketStatus = String(f.ticketStatus || "").trim();
+
   const homeTicketInfo = document.getElementById("homeTicketInfo");
 const homeTicketPrice = document.getElementById("homeTicketPrice");
 const homeTicketStatus = document.getElementById("homeTicketStatus");
@@ -6051,9 +6054,6 @@ if(homeTicketInfo && homeTicketPrice && homeTicketStatus){
       ? "block"
       : "none";
 }
-
-const ticketPrice = f.ticketPrice;
-const ticketStatus = String(f.ticketStatus || "").trim();  
   
 if(homeTicketButton){
 
