@@ -809,6 +809,88 @@ onAuthStateChanged(
 );
 
 /* =========================================
+   LOAD FIGHTER PROFILE FROM FIREBASE
+========================================= */
+
+async function loadFighterProfile(profileId){
+
+  if(!auth.currentUser || !ADMINS[auth.currentUser.uid]){
+    return;
+  }
+
+  try{
+
+    const profileRef = ref(
+      database,
+      "profiles/" + profileId
+    );
+
+    const snapshot = await get(profileRef);
+
+    if(!snapshot.exists()){
+      console.log("No saved profile found:", profileId);
+      return;
+    }
+
+    const profile = snapshot.val();
+
+    document.getElementById("profileName").value =
+      profile.name ?? "";
+
+    document.getElementById("profileTeam").value =
+      profile.team ?? "";
+
+    document.getElementById("profileRole").value =
+      profile.role ?? "";
+
+    document.getElementById("profileRepresenting").value =
+      profile.representing ?? "";
+
+    document.getElementById("profileBiography").value =
+      profile.biography ?? "";
+
+    document.getElementById("profilePhoto").value =
+      profile.photo ?? "";
+
+    document.getElementById("profileBanner").value =
+      profile.banner ?? "";
+
+    const photoImage =
+      document.getElementById("profilePhotoImage");
+
+    const bannerImage =
+      document.getElementById("profileBannerImage");
+
+    if(photoImage){
+      if(profile.photo){
+        photoImage.src = profile.photo;
+      }else{
+        photoImage.removeAttribute("src");
+      }
+    }
+
+    if(bannerImage){
+      if(profile.banner){
+        bannerImage.src = profile.banner;
+      }else{
+        bannerImage.removeAttribute("src");
+      }
+    }
+
+    console.log("Fighter profile loaded:", profileId);
+
+  }catch(error){
+
+    console.error(
+      "Unable to load fighter profile:",
+      error
+    );
+
+  }
+
+}
+  
+/* =========================================
    FIGHTER PROFILE SELECTION
 ========================================= */
 
