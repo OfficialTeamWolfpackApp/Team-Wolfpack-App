@@ -175,7 +175,7 @@ self.addEventListener("notificationclick", (event) => {
 ========================================================= */
 
 const CACHE_NAME =
-  "team-wolfpack-v25";
+  "team-wolfpack-v26";
 
 
 /* =========================================================
@@ -350,86 +350,6 @@ self.addEventListener(
       requestURL.origin !==
       self.location.origin
     ) {
-
-      return;
-
-    }
-
-
-    /* =====================================================
-       PACK CHAT
-       Always load latest version.
-    ===================================================== */
-
-    if (
-      requestURL.pathname.endsWith(
-        "/chat.html"
-      )
-    ) {
-
-      event.respondWith(
-
-        (async () => {
-
-          try {
-
-            const response =
-              await fetch(
-                event.request,
-                {
-                  cache: "no-store"
-                }
-              );
-
-            if (
-              response &&
-              response.ok
-            ) {
-
-              const cache =
-                await caches.open(
-                  CACHE_NAME
-                );
-
-              await cache.put(
-                event.request,
-                response.clone()
-              );
-
-            }
-
-            return response;
-
-          } catch (error) {
-
-            const cached =
-              await caches.match(
-                event.request
-              );
-
-            if (cached) {
-
-              return cached;
-
-            }
-
-            return new Response(
-              "Pack Chat is currently unavailable while offline.",
-              {
-                status: 503,
-
-                headers: {
-                  "Content-Type":
-                    "text/plain"
-                }
-              }
-            );
-
-          }
-
-        })()
-
-      );
 
       return;
 
