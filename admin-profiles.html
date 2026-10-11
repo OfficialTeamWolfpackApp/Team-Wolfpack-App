@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<meta name="theme-color" content="#050505">
+
+<title>Profile Manager | Team Wolfpack</title>
+
+<style>
+
+/* =========================================
+   GLOBAL
+========================================= */
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  min-height:100vh;
+  background:#050505;
+  color:#ffffff;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.admin-header{
+  padding:25px 16px;
+  text-align:center;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,191,255,.15),
+      #050505 50%,
+      rgba(255,90,0,.15)
+    );
+
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+
+.admin-header h1{
+  font-size:23px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.ice{
+  color:#00bfff;
+}
+
+.fire{
+  color:#ff751c;
+}
+
+.admin-subtitle{
+  margin-top:10px;
+  color:#aaaaaa;
+  font-size:11px;
+  letter-spacing:1px;
+}
+
+/* =========================================
+   MAIN CONTENT
+========================================= */
+
+.admin-container{
+  width:100%;
+  max-width:900px;
+  margin:0 auto;
+  padding:25px 15px 50px;
+}
+
+/* =========================================
+   SECTION
+========================================= */
+
+.admin-section{
+  margin-bottom:25px;
+  padding:22px 18px;
+
+  border-radius:16px;
+  border:1px solid rgba(0,191,255,.22);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0,35,50,.55),
+      rgba(10,10,10,.95) 55%,
+      rgba(50,20,0,.35)
+    );
+}
+
+.section-title{
+  font-size:16px;
+  font-weight:900;
+  margin-bottom:12px;
+}
+
+.section-description{
+  color:#aaaaaa;
+  font-size:12px;
+  line-height:1.6;
+}
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.admin-button{
+  display:block;
+  width:100%;
+  margin-top:15px;
+  padding:15px;
+
+  border-radius:10px;
+  border:1px solid rgba(0,191,255,.4);
+
+  background:rgba(0,191,255,.10);
+
+  color:#ffffff;
+  text-align:center;
+  text-decoration:none;
+
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.admin-button:hover{
+  background:rgba(0,191,255,.20);
+}
+
+/* =========================================
+   STATUS BADGE
+========================================= */
+
+.status-badge{
+  display:inline-block;
+  margin-top:12px;
+  padding:7px 12px;
+
+  border-radius:20px;
+  background:rgba(255,117,28,.12);
+  border:1px solid rgba(255,117,28,.35);
+
+  color:#ff751c;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:600px){
+
+  .admin-header h1{
+    font-size:20px;
+  }
+
+  .admin-container{
+    padding:18px 12px 40px;
+  }
+
+  .admin-section{
+    padding:18px 15px;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header class="admin-header">
+
+  <h1>
+    <span class="ice">TEAM WOLFPACK</span>
+    <span class="fire">PROFILE MANAGER</span>
+  </h1>
+
+  <div class="admin-subtitle">
+    ADMIN CONTROL CENTRE
+  </div>
+
+</header>
+
+
+<!-- MAIN -->
+
+<main class="admin-container">
+
+  <!-- PROFILE MANAGEMENT -->
+
+  <section class="admin-section">
+
+    <h2 class="section-title">
+      🐺 PROFILE MANAGEMENT
+    </h2>
+
+    <p class="section-description">
+      Manage Team Wolfpack fighter and team member profiles.
+    </p>
+
+    <span class="status-badge">
+      SETUP IN PROGRESS
+    </span>
+
+  </section>
+
+
+  <!-- FIGHTER PROFILES -->
+
+  <section class="admin-section">
+
+    <h2 class="section-title">
+      🥊 FIGHTER PROFILES
+    </h2>
+
+    <p class="section-description">
+      Manage fighter names, teams, roles, photographs
+      and biographies.
+    </p>
+
+    <span class="status-badge">
+      COMING SOON
+    </span>
+
+  </section>
+
+
+  <!-- TEAM MEMBER PROFILES -->
+
+  <section class="admin-section">
+
+    <h2 class="section-title">
+      👥 TEAM MEMBER PROFILES
+    </h2>
+
+    <p class="section-description">
+      Manage managers, corner teams and other
+      Team Wolfpack members.
+    </p>
+
+    <span class="status-badge">
+      COMING SOON
+    </span>
+
+  </section>
+
+
+  <!-- BACK BUTTON -->
+
+  <a
+    href="admin-dashboard.html"
+    class="admin-button"
+  >
+    ← BACK TO ADMIN DASHBOARD
+  </a>
+
+</main>
+
+</body>
+</html>
