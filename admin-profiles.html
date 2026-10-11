@@ -298,6 +298,118 @@ body{
 </div>
 
 </main>
+<!-- =========================================
+     FIREBASE ADMIN AUTHENTICATION
+========================================= -->
 
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+
+/* =========================================
+   FIREBASE CONFIGURATION
+========================================= */
+
+const firebaseConfig = {
+
+  apiKey:"AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+
+  authDomain:"team-wolfpack-app.firebaseapp.com",
+
+  databaseURL:
+    "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+
+  projectId:"team-wolfpack-app",
+
+  storageBucket:"team-wolfpack-app.firebasestorage.app",
+
+  messagingSenderId:"1070414578856",
+
+  appId:"1:1070414578856:web:df14e7d387e658eeae2e9d"
+
+};
+
+
+/* =========================================
+   INITIALISE FIREBASE
+========================================= */
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+
+/* =========================================
+   AUTHORISED ADMINISTRATORS
+========================================= */
+
+const ADMINS = {
+
+  "PRGa9TsCW0QDn1QtoUXyYjEi7YB3":
+    "MR WOLFIE",
+
+  "SlpEQYl94DaH6j42QUyl8Kv2ujJ3":
+    "MRS WOLFIE"
+
+};
+
+
+/* =========================================
+   PAGE ELEMENTS
+========================================= */
+
+const authStatus =
+  document.getElementById("authStatus");
+
+const managerContent =
+  document.getElementById("managerContent");
+
+
+/* =========================================
+   CHECK ADMIN ACCESS
+========================================= */
+
+onAuthStateChanged(
+  auth,
+  function(user){
+
+    if(user && ADMINS[user.uid]){
+
+      authStatus.textContent =
+        ADMINS[user.uid] +
+        " • PROFILE ADMIN";
+
+      authStatus.className =
+        "auth-status authorised";
+
+      managerContent.style.display =
+        "block";
+
+    }else{
+
+      authStatus.textContent =
+        "ADMIN ACCESS REQUIRED";
+
+      authStatus.className =
+        "auth-status denied";
+
+      managerContent.style.display =
+        "none";
+
+    }
+
+  }
+);
+
+</script>
+  
 </body>
 </html>
