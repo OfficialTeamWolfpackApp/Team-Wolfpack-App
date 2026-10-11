@@ -6008,6 +6008,9 @@ if(nextFightFighterTeam){
 
   const ticketUrl = String(f.ticketUrl || "").trim();
 
+const ticketPrice = f.ticketPrice;
+const ticketStatus = String(f.ticketStatus || "").trim();  
+  
   if(homeTicketButton){
     if(ticketUrl){
       homeTicketButton.href = ticketUrl;
