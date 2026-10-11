@@ -6021,6 +6021,37 @@ if(nextFightFighterTeam){
 
   const ticketUrl = String(f.ticketUrl || "").trim();
 
+  const homeTicketInfo = document.getElementById("homeTicketInfo");
+const homeTicketPrice = document.getElementById("homeTicketPrice");
+const homeTicketStatus = document.getElementById("homeTicketStatus");
+
+const ticketStatusLabels = {
+  "available": "🟢 TICKETS AVAILABLE",
+  "limited": "🟠 LIMITED AVAILABILITY",
+  "sold-out": "🔴 SOLD OUT",
+  "coming-soon": "🔵 COMING SOON"
+};
+
+if(homeTicketInfo && homeTicketPrice && homeTicketStatus){
+
+  const hasTicketPrice =
+    ticketPrice !== undefined &&
+    ticketPrice !== null &&
+    String(ticketPrice).trim() !== "";
+
+  homeTicketPrice.textContent = hasTicketPrice
+    ? `🎟 TICKETS £${ticketPrice}`
+    : "";
+
+  homeTicketStatus.textContent =
+    ticketStatusLabels[ticketStatus] || "";
+
+  homeTicketInfo.style.display =
+    hasTicketPrice || ticketStatusLabels[ticketStatus]
+      ? "block"
+      : "none";
+}
+
 const ticketPrice = f.ticketPrice;
 const ticketStatus = String(f.ticketStatus || "").trim();  
   
