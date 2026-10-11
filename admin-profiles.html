@@ -996,6 +996,125 @@ function validateFighterProfile(){
 
   return true;
 }
+
+/* =========================================
+   SAVE FIGHTER PROFILE TO FIREBASE
+========================================= */
+
+const saveFighterProfileButton =
+  document.getElementById("saveFighterProfile");
+
+saveFighterProfileButton.addEventListener(
+  "click",
+  async function(){
+
+    const status =
+      document.getElementById("profileSaveStatus");
+
+    const selectedFighter =
+      document.getElementById("fighterSelect").value;
+
+    // Only authorised administrators can save.
+    if(
+      !auth.currentUser ||
+      !ADMINS[auth.currentUser.uid]
+    ){
+
+      status.textContent =
+        "❌ Administrator access required.";
+
+      status.style.color = "#ff755f";
+
+      return;
+    }
+
+    // Only allow the configured fighter.
+    if(selectedFighter !== "mrs-wolfie"){
+
+      status.textContent =
+        "❌ Please select Mrs Wolfie.";
+
+      status.style.color = "#ff755f";
+
+      return;
+    }
+
+    // Check required fields and biography.
+    if(!validateFighterProfile()){
+      return;
+    }
+
+    const profile = {
+
+      name:
+        document.getElementById("profileName")
+          .value.trim(),
+
+      team:
+        document.getElementById("profileTeam")
+          .value.trim(),
+
+      role:
+        document.getElementById("profileRole")
+          .value.trim(),
+
+      representing:
+        document.getElementById("profileRepresenting")
+          .value.trim(),
+
+      biography:
+        document.getElementById("profileBiography")
+          .value.trim(),
+
+      photo:
+        document.getElementById("profilePhoto")
+          .value.trim(),
+
+      banner:
+        document.getElementById("profileBanner")
+          .value.trim()
+
+    };
+
+    saveFighterProfileButton.disabled = true;
+
+    status.textContent =
+      "⏳ Saving fighter profile...";
+
+    status.style.color = "#67dcff";
+
+    try{
+
+      await set(
+        ref(database, "profiles/" + selectedFighter),
+        profile
+      );
+
+      status.textContent =
+        "✅ Mrs Wolfie's profile saved successfully!";
+
+      status.style.color = "#43f27b";
+
+    }catch(error){
+
+      console.error(
+        "Unable to save fighter profile:",
+        error
+      );
+
+      status.textContent =
+        "❌ Unable to save profile. Check Firebase permissions.";
+
+      status.style.color = "#ff755f";
+
+    }finally{
+
+      saveFighterProfileButton.disabled = false;
+
+    }
+
+  }
+);
   
 /* =========================================
    LOAD FIGHTER PROFILE FROM FIREBASE
