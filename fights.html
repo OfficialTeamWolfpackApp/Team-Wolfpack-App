@@ -2370,6 +2370,31 @@ function renderFightCard(fight){
 const ticketUrl =
   String(fight.ticketUrl || "").trim();
 
+ /* =========================================
+   FIREBASE TICKET INFORMATION
+========================================= */
+
+const ticketPrice =
+  fight.ticketPrice !== undefined &&
+  fight.ticketPrice !== null &&
+  fight.ticketPrice !== "" &&
+  Number.isFinite(Number(fight.ticketPrice))
+    ? "£" + Number(fight.ticketPrice).toFixed(2)
+    : "";
+
+const ticketStatus =
+  String(fight.ticketStatus || "").trim();
+
+const ticketStatusLabels = {
+  "available":"TICKETS AVAILABLE",
+  "limited":"LIMITED AVAILABILITY",
+  "sold-out":"SOLD OUT",
+  "coming-soon":"COMING SOON"
+};
+
+const ticketStatusLabel =
+  ticketStatusLabels[ticketStatus] || "";
+  
   return `
     <article class="fight-card">
 
