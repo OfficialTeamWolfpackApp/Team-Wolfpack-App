@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<meta name="theme-color" content="#050505">
+
+<title>Admin Login | Team Wolfpack</title>
+
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+
+<style>
+
+/* =========================================
+   TEAM WOLFPACK ADMIN LOGIN
+   ICE & FIRE DESIGN
+========================================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  min-height:100vh;
+  min-height:100dvh;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:24px 16px;
+
+  font-family:Arial,Helvetica,sans-serif;
+  color:#fff;
+
+  background:
+    radial-gradient(
+      circle at 10% 20%,
+      rgba(0,191,255,.22),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 90% 80%,
+      rgba(255,90,0,.22),
+      transparent 40%
+    ),
+    linear-gradient(
+      135deg,
+      #02090d,
+      #050505 50%,
+      #170800
+    );
+}
+
+/* LOGIN CONTAINER */
+
+.login-container{
+  width:100%;
+  max-width:420px;
+
+  padding:35px 28px;
+
+  border-radius:20px;
+
+  border:1px solid rgba(255,255,255,.12);
+
+  background:rgba(5,5,5,.90);
+
+  box-shadow:
+    -12px 0 35px rgba(0,191,255,.12),
+    12px 0 35px rgba(255,90,0,.12),
+    0 20px 60px rgba(0,0,0,.60);
+
+  text-align:center;
+}
+
+/* LOGO */
+
+.login-logo{
+  width:105px;
+  height:105px;
+
+  object-fit:contain;
+
+  margin-bottom:12px;
+}
+
+/* BRAND */
+
+.brand{
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:4px;
+
+  color:#67dcff;
+}
+
+/* TITLE */
+
+.login-title{
+  margin-top:22px;
+
+  font-size:28px;
+  font-weight:900;
+}
+
+.ice{
+  color:#67dcff;
+}
+
+.fire{
+  color:#ff751c;
+}
+
+/* SUBTITLE */
+
+.login-subtitle{
+  margin-top:10px;
+
+  color:#999;
+
+  font-size:11px;
+  line-height:1.6;
+}
+
+/* DIVIDER */
+
+.login-divider{
+  height:2px;
+  margin:24px 0;
+
+  background:linear-gradient(
+    90deg,
+    #00bfff,
+    transparent,
+    #ff5a00
+  );
+}
+
+/* FORM */
+
+.login-form{
+  text-align:left;
+}
+
+.form-group{
+  margin-bottom:18px;
+}
+
+.form-label{
+  display:block;
+
+  margin-bottom:8px;
+
+  color:#aaa;
+
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.form-input{
+  width:100%;
+
+  padding:15px 14px;
+
+  border-radius:10px;
+
+  border:1px solid rgba(255,255,255,.15);
+
+  background:#101010;
+
+  color:#fff;
+
+  font-size:14px;
+
+  outline:none;
+}
+
+.form-input:focus{
+  border-color:#67dcff;
+
+  box-shadow:
+    0 0 12px rgba(0,191,255,.20);
+}
+
+/* LOGIN BUTTON */
+
+.login-button{
+  width:100%;
+
+  margin-top:8px;
+  padding:16px;
+
+  border:none;
+  border-radius:11px;
+
+  background:linear-gradient(
+    90deg,
+    #00bfff,
+    #67dcff 45%,
+    #ff751c
+  );
+
+  color:#050505;
+
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:1px;
+
+  cursor:pointer;
+}
+
+.login-button:disabled{
+  opacity:.6;
+  cursor:wait;
+}
+
+/* MESSAGE */
+
+.login-message{
+  min-height:20px;
+
+  margin-top:18px;
+
+  text-align:center;
+
+  font-size:11px;
+  line-height:1.5;
+}
+
+.login-message.error{
+  color:#ff6540;
+}
+
+.login-message.success{
+  color:#67dcff;
+}
+
+/* HOME LINK */
+
+.home-link{
+  display:block;
+
+  margin-top:22px;
+
+  color:#888;
+
+  font-size:11px;
+  font-weight:900;
+
+  text-decoration:none;
+}
+
+.home-link:hover{
+  color:#67dcff;
+}
+
+/* FOOTER */
+
+.login-footer{
+  margin-top:28px;
+
+  color:#555;
+
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:2px;
+}
+
+/* MOBILE */
+
+@media(max-width:480px){
+
+  .login-container{
+    padding:28px 20px;
+  }
+
+  .login-title{
+    font-size:24px;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="login-container">
+
+  <img
+    src="icon-512.png"
+    class="login-logo"
+    alt="Team Wolfpack"
+  >
+
+  <div class="brand">
+    TEAM WOLFPACK
+  </div>
+
+  <h1 class="login-title">
+    <span class="ice">ADMIN</span>
+    <span class="fire">LOGIN</span>
+  </h1>
+
+  <p class="login-subtitle">
+    Authorised Team Wolfpack administrators only.
+  </p>
+
+  <div class="login-divider"></div>
+
+  <form
+    id="loginForm"
+    class="login-form"
+  >
+
+    <div class="form-group">
+
+      <label
+        for="email"
+        class="form-label"
+      >
+        EMAIL ADDRESS
+      </label>
+
+      <input
+        type="email"
+        id="email"
+        class="form-input"
+        autocomplete="username"
+        required
+      >
+
+    </div>
+
+    <div class="form-group">
+
+      <label
+        for="password"
+        class="form-label"
+      >
+        PASSWORD
+      </label>
+
+      <input
+        type="password"
+        id="password"
+        class="form-input"
+        autocomplete="current-password"
+        required
+      >
+
+    </div>
+
+    <button
+      type="submit"
+      id="loginButton"
+      class="login-button"
+    >
+      SECURE ADMIN LOGIN
+    </button>
+
+    <div
+      id="loginMessage"
+      class="login-message"
+      role="status"
+      aria-live="polite"
+    ></div>
+
+  </form>
+
+  <a
+    href="index.html"
+    class="home-link"
+  >
+    ← BACK TO TEAM WOLFPACK
+  </a>
+
+  <div class="login-footer">
+    ONE PACK • ONE PURPOSE
+  </div>
+
+</div>
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+/* =========================================
+   FIREBASE CONFIGURATION
+========================================= */
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+
+  authDomain:
+    "team-wolfpack-app.firebaseapp.com",
+
+  databaseURL:
+    "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+
+  projectId:
+    "team-wolfpack-app",
+
+  storageBucket:
+    "team-wolfpack-app.firebasestorage.app",
+
+  messagingSenderId:
+    "1070414578856",
+
+  appId:
+    "1:1070414578856:web:df14e7d387e658eeae2e9d"
+
+};
+
+/* =========================================
+   AUTHORISED ADMINISTRATORS
+========================================= */
+
+const ADMINS = {
+
+  "PRGa9TsCW0QDn1QtoUXyYjEi7YB3":
+    "MR WOLFIE",
+
+  "SlpEQYl94DaH6j42QUyl8Kv2ujJ3":
+    "MRS WOLFIE"
+
+};
+
+/* =========================================
+   INITIALISE FIREBASE
+========================================= */
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const loginForm =
+  document.getElementById("loginForm");
+
+const emailInput =
+  document.getElementById("email");
+
+const passwordInput =
+  document.getElementById("password");
+
+const loginButton =
+  document.getElementById("loginButton");
+
+const loginMessage =
+  document.getElementById("loginMessage");
+
+/* =========================================
+   DISPLAY MESSAGE
+========================================= */
+
+function showMessage(message,type=""){
+
+  loginMessage.textContent = message;
+
+  loginMessage.className =
+    "login-message " + type;
+
+}
+
+/* =========================================
+   EXISTING ADMIN SESSION
+========================================= */
+
+onAuthStateChanged(auth,function(user){
+
+  if(user && ADMINS[user.uid]){
+
+    window.location.replace(
+      "admin-dashboard.html"
+    );
+
+  }
+
+});
+
+/* =========================================
+   ADMIN LOGIN
+========================================= */
+
+loginForm.addEventListener(
+  "submit",
+  async function(event){
+
+    event.preventDefault();
+
+    const email =
+      emailInput.value.trim();
+
+    const password =
+      passwordInput.value;
+
+    loginButton.disabled = true;
+
+    showMessage(
+      "VERIFYING ADMINISTRATOR..."
+    );
+
+    try{
+
+      const credential =
+        await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+
+      const user =
+        credential.user;
+
+      if(!ADMINS[user.uid]){
+
+        await signOut(auth);
+
+        showMessage(
+          "ACCESS DENIED. AUTHORISED ADMINISTRATORS ONLY.",
+          "error"
+        );
+
+        return;
+
+      }
+
+      showMessage(
+        "ADMINISTRATOR VERIFIED. OPENING DASHBOARD...",
+        "success"
+      );
+
+      window.location.replace(
+        "admin-dashboard.html"
+      );
+
+    }catch(error){
+
+      console.error(
+        "Admin login failed:",
+        error.code
+      );
+
+      showMessage(
+        "LOGIN FAILED. CHECK YOUR EMAIL AND PASSWORD.",
+        "error"
+      );
+
+    }finally{
+
+      loginButton.disabled = false;
+
+    }
+
+  }
+);
+
+</script>
+
+</body>
+</html>
