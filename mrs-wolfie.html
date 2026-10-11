@@ -2327,7 +2327,7 @@ if(
   if(
     !bannerPath.startsWith("/") &&
     !bannerPath.includes("..") &&
-    /^[a-zA-Z0-9/_-]+\.(jpg|jpeg|png|webp)$/i.test(bannerPath)
+   /^[a-zA-Z0-9/_-]+(?:\.(?:jpg|jpeg|png|webp))+$/i.test(bannerPath)
   ){
 
     profileBanner.src = bannerPath;
