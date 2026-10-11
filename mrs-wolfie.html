@@ -2365,9 +2365,26 @@ if(
 
     // Display edited biography safely as plain text.
     // Never interpret database content as HTML.
-    biographyContainer.textContent = savedBiography;
+   // Display each biography paragraph separately.
+// Treat all saved content as text, never HTML.
 
-    biographyContainer.style.whiteSpace = "pre-line";
+const paragraphs = savedBiography
+  .split(/\n\s*\n/)
+  .map(text => text.trim())
+  .filter(Boolean);
+
+biographyContainer.replaceChildren();
+
+paragraphs.forEach(function(text){
+
+  const paragraph = document.createElement("p");
+
+  paragraph.textContent = text;
+  paragraph.style.whiteSpace = "pre-line";
+
+  biographyContainer.appendChild(paragraph);
+
+});
 
   }
 
