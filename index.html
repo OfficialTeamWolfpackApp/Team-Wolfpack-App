@@ -6187,18 +6187,32 @@ ${
     : ""
 }
 
+        ${
+  ticketStatus === "sold-out" ||
+  ticketStatus === "coming-soon"
+    ? `
+        <span
+          class="next-ticket"
+          style="opacity:0.7;cursor:not-allowed;"
+        >
           ${
-            String(f.ticketUrl || "").trim()
-              ? `
-                  <span
-                    class="next-ticket"
-                    data-ticket-url="${escapeHTML(String(f.ticketUrl).trim())}"
-                  >
-                    🎟 GET TICKETS →
-                  </span>
-                `
-              : ""
+            ticketStatus === "sold-out"
+              ? "🔴 SOLD OUT"
+              : "🔵 COMING SOON"
           }
+        </span>
+      `
+    : ticketUrl
+      ? `
+          <span
+            class="next-ticket"
+            data-ticket-url="${escapeHTML(ticketUrl)}"
+          >
+            🎟 GET TICKETS →
+          </span>
+        `
+      : ""
+}
         </div>
 
         <div class="next-arrow">›</div>
