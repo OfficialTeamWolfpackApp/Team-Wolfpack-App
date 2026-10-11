@@ -911,16 +911,18 @@ fighterSelect.addEventListener(
 
     const selectedFighter =
       fighterSelect.value;
+if(selectedFighter === "mrs-wolfie"){
 
-    if(selectedFighter === "mrs-wolfie"){
+  fighterEditor.style.display = "block";
 
-      fighterEditor.style.display = "block";
+  // Load saved fighter information from Firebase
+  loadFighterProfile(selectedFighter);
 
-    }else{
+}else{
 
-      fighterEditor.style.display = "none";
+  fighterEditor.style.display = "none";
 
-    }
+}
 
   }
 );
