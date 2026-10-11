@@ -213,6 +213,35 @@ body{
     font-size:10px;
   }
 
+  #fighterEditor textarea{
+  display:block;
+
+  width:100%;
+  min-height:220px;
+
+  padding:15px;
+
+  border-radius:10px;
+  border:1px solid rgba(103,220,255,.3);
+
+  background:#090909;
+  color:#ffffff;
+
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:13px;
+  line-height:1.7;
+
+  resize:vertical;
+  outline:none;
+}
+
+#fighterEditor textarea:focus{
+  border-color:#00bfff;
+
+  box-shadow:
+    0 0 12px rgba(0,191,255,.15);
+}
+  
   #fighterEditor input{
     font-size:12px;
   }
@@ -470,6 +499,26 @@ body{
       value="Team Wolfpack"
     >
 
+  <!-- =========================================
+     FIGHTER BIOGRAPHY
+========================================= -->
+
+<label for="profileBiography">
+  FIGHTER BIOGRAPHY
+</label>
+
+<textarea
+  id="profileBiography"
+  rows="10"
+  placeholder="Enter the fighter's biography here..."
+></textarea>
+
+<p class="section-description" style="margin-top:10px;">
+  Edit the fighter's biography and personal story.
+  Changes will not appear publicly until the
+  profile saving system is connected.
+</p>
+    
   </div>
 
   <span class="status-badge">
