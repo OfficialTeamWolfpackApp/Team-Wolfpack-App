@@ -939,6 +939,63 @@ async function loadOriginalMrsWolfieBiography(){
   }
 
 }
+
+ /* =========================================
+   VALIDATE FIGHTER PROFILE BEFORE SAVING
+========================================= */
+
+function validateFighterProfile(){
+
+  const name =
+    document.getElementById("profileName").value.trim();
+
+  const team =
+    document.getElementById("profileTeam").value.trim();
+
+  const role =
+    document.getElementById("profileRole").value.trim();
+
+  const representing =
+    document.getElementById("profileRepresenting").value.trim();
+
+  const biography =
+    document.getElementById("profileBiography").value.trim();
+
+  const status =
+    document.getElementById("profileSaveStatus");
+
+  if(!name || !team || !role || !representing){
+
+    status.textContent =
+      "❌ Please complete all required fighter details.";
+
+    status.style.color = "#ff755f";
+
+    return false;
+  }
+
+  if(!biography){
+
+    status.textContent =
+      "❌ Biography cannot be empty. Original biography must be preserved.";
+
+    status.style.color = "#ff755f";
+
+    return false;
+  }
+
+  if(biography.length > 10000){
+
+    status.textContent =
+      "❌ Biography exceeds the 10,000 character limit.";
+
+    status.style.color = "#ff755f";
+
+    return false;
+  }
+
+  return true;
+}
   
 /* =========================================
    LOAD FIGHTER PROFILE FROM FIREBASE
