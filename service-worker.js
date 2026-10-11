@@ -175,7 +175,7 @@ self.addEventListener("notificationclick", (event) => {
 ========================================================= */
 
 const CACHE_NAME =
-  "team-wolfpack-v24";
+  "team-wolfpack-v25";
 
 
 /* =========================================================
@@ -185,8 +185,8 @@ const CACHE_NAME =
 const APP_FILES = [
   "./",
   "./index.html",
-   "./notifications.js",
-  "./chat.html",
+  "./notifications.js",
+  "./admin-login.html",
   "./fighters.html",
   "./mrs-wolfie.html",
   "./mr-wolfie.html",
@@ -200,13 +200,9 @@ const APP_FILES = [
   "./socials.html",
   "./about.html",
   "./updates.html",
-  "./chat-rules.html",
   "./admin-dashboard.html",
   "./admin-fights.html",
   "./admin-updates.html",
-  "./admin-reports.html",
-  "./admin-members.html",
-  "./admin-history.html",
   "./icon-192.png",
   "./icon-512.png",
   "./manifest.json"
