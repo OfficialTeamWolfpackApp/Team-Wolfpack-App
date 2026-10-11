@@ -2531,7 +2531,35 @@ ${
 }
 
 ${
-  ticketUrl
+  ticketStatus === "sold-out"
+    ? `
+        <span
+          class="ticket-button"
+          style="
+            background:rgba(150,20,20,.25);
+            border-color:#ff755f;
+            color:#ff755f;
+            cursor:not-allowed;
+          "
+        >
+          🔴 SOLD OUT
+        </span>
+      `
+    : ticketStatus === "coming-soon"
+    ? `
+        <span
+          class="ticket-button"
+          style="
+            background:rgba(0,120,180,.15);
+            border-color:#67dcff;
+            color:#67dcff;
+            cursor:not-allowed;
+          "
+        >
+          🔵 COMING SOON
+        </span>
+      `
+    : ticketUrl
     ? `
         <a
           class="ticket-button"
