@@ -6166,6 +6166,28 @@ const ticketStatusLabels = {
           <div class="next-event">${escapeHTML(eventName)}</div>
 
           ${
+  ticketPrice !== undefined &&
+  ticketPrice !== null &&
+  String(ticketPrice).trim() !== ""
+    ? `
+        <div class="next-ticket-price">
+          🎟 TICKETS £${escapeHTML(String(ticketPrice))}
+        </div>
+      `
+    : ""
+}
+
+${
+  ticketStatusLabels[ticketStatus]
+    ? `
+        <div class="next-ticket-status">
+          ${ticketStatusLabels[ticketStatus]}
+        </div>
+      `
+    : ""
+}
+
+          ${
             String(f.ticketUrl || "").trim()
               ? `
                   <span
