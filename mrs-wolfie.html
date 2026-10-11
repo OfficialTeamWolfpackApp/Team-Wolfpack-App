@@ -2299,7 +2299,7 @@ if(
   if(
     !photoPath.startsWith("/") &&
     !photoPath.includes("..") &&
-    /^[a-zA-Z0-9/_-]+\.(jpg|jpeg|png|webp)$/i.test(photoPath)
+   /^[a-zA-Z0-9/_-]+(?:\.(?:jpg|jpeg|png|webp))+$/i.test(photoPath)
   ){
 
     profilePhoto.src = photoPath;
