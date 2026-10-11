@@ -559,6 +559,41 @@ onAuthStateChanged(
   }
 );
 
+/* =========================================
+   FIGHTER PROFILE SELECTION
+========================================= */
+
+const fighterSelect =
+  document.getElementById("fighterSelect");
+
+const fighterEditor =
+  document.getElementById("fighterEditor");
+
+
+/* =========================================
+   SHOW SELECTED FIGHTER
+========================================= */
+
+fighterSelect.addEventListener(
+  "change",
+  function(){
+
+    const selectedFighter =
+      fighterSelect.value;
+
+    if(selectedFighter === "mrs-wolfie"){
+
+      fighterEditor.style.display = "block";
+
+    }else{
+
+      fighterEditor.style.display = "none";
+
+    }
+
+  }
+);
+  
 </script>
   
 </body>
