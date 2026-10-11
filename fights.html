@@ -1297,6 +1297,132 @@ body.menu-open{
 .ticket-button:active{
   transform:scale(.985);
 }
+
+/* =========================================
+   LIVE TICKET INFORMATION
+========================================= */
+
+.ticket-info{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+
+  gap:7px;
+
+  width:100%;
+  margin-top:12px;
+  padding:10px 6px;
+
+  border-radius:9px;
+
+  border:
+    1px solid rgba(103,220,255,.20);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0,160,220,.10),
+      rgba(255,90,0,.08)
+    );
+
+  text-align:center;
+}
+
+/* TICKET PRICE */
+
+.ticket-price{
+  color:#fff;
+
+  font-size:12px;
+  font-weight:900;
+
+  letter-spacing:.5px;
+}
+
+.ticket-price span{
+  color:#67dcff;
+}
+
+/* TICKET AVAILABILITY */
+
+.ticket-availability{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:5px 9px;
+
+  border-radius:20px;
+
+  font-size:7px;
+  font-weight:900;
+
+  letter-spacing:.5px;
+
+  color:#43f27b;
+
+  background:
+    rgba(0,80,35,.20);
+
+  border:
+    1px solid rgba(67,242,123,.25);
+}
+
+/* LIMITED AVAILABILITY */
+
+.ticket-availability.limited{
+  color:#ffb000;
+
+  background:
+    rgba(120,80,0,.18);
+
+  border-color:
+    rgba(255,176,0,.30);
+}
+
+/* SOLD OUT */
+
+.ticket-availability.sold-out{
+  color:#ff755f;
+
+  background:
+    rgba(100,15,10,.20);
+
+  border-color:
+    rgba(255,80,60,.30);
+}
+
+/* COMING SOON */
+
+.ticket-availability.coming-soon{
+  color:#67dcff;
+
+  background:
+    rgba(0,100,150,.15);
+
+  border-color:
+    rgba(103,220,255,.25);
+}
+
+/* SMALL PHONE ADJUSTMENTS */
+
+@media(max-width:430px){
+
+  .ticket-info{
+    padding:8px 4px;
+    gap:6px;
+  }
+
+  .ticket-price{
+    font-size:10px;
+  }
+
+  .ticket-availability{
+    font-size:6px;
+    padding:4px 6px;
+  }
+
+}
   
 /* =========================================
    FOOTER
