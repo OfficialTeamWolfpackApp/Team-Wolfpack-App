@@ -883,6 +883,64 @@ onAuthStateChanged(
 );
 
 /* =========================================
+   LOAD ORIGINAL MRS WOLFIE BIOGRAPHY
+========================================= */
+
+async function loadOriginalMrsWolfieBiography(){
+
+  const biographyField =
+    document.getElementById("profileBiography");
+
+  if(!biographyField){
+    return;
+  }
+
+  try{
+
+    const response = await fetch(
+      "mrs-wolfie.html",
+      {cache:"no-store"}
+    );
+
+    if(!response.ok){
+      throw new Error("Unable to retrieve public profile");
+    }
+
+    const html = await response.text();
+
+    const documentCopy =
+      new DOMParser().parseFromString(
+        html,
+        "text/html"
+      );
+
+    const aboutCard =
+      documentCopy.querySelector(".about-card");
+
+    if(!aboutCard){
+      throw new Error("Original biography not found");
+    }
+
+    biographyField.value =
+      aboutCard.innerText ||
+      aboutCard.textContent.trim();
+
+    console.log(
+      "Original Mrs Wolfie biography retrieved"
+    );
+
+  }catch(error){
+
+    console.error(
+      "Unable to retrieve original biography:",
+      error
+    );
+
+  }
+
+}
+  
+/* =========================================
    LOAD FIGHTER PROFILE FROM FIREBASE
 ========================================= */
 
