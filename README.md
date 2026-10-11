@@ -13,13 +13,34 @@ The Team Wolfpack App provides access to:
 - Upcoming fights and events
 - Fighter profiles
 - Meet the Pack
-- Pack Chat
+- Live Updates and Announcements
+- Fighter Status Updates
 - Sponsors & Partners
-- Gallery
-- Merch
-- Contact information
-- Social media
-- Team Wolfpack information
+- Photo and Video Galleries
+- Merchandise
+- Contact Information
+- Social Media
+- Team Wolfpack Information
+
+## Administration
+
+The Team Wolfpack App includes a dedicated administration system for authorised team administrators.
+
+### Admin Login
+
+https://app.officialteamwolfpack.com/admin-login.html
+
+### Admin Features
+
+- Admin Dashboard
+- Fight Management
+- Fighter Status Manager
+- Live Updates Manager
+- Notifications Manager
+- Gallery Management
+- Mrs Wolfie App Management
+
+Administrator access is protected using Firebase Authentication.
 
 ## Team Wolfpack
 
