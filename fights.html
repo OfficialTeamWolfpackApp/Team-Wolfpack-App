@@ -2501,6 +2501,36 @@ const ticketStatusLabel =
 </a>
 
 ${
+  ticketPrice || ticketStatusLabel
+    ? `
+        <div class="ticket-info">
+
+          ${
+            ticketPrice
+              ? `
+                  <div class="ticket-price">
+                    🎟 TICKETS <span>${ticketPrice}</span>
+                  </div>
+                `
+              : ""
+          }
+
+          ${
+            ticketStatusLabel
+              ? `
+                  <div class="ticket-availability ${ticketStatus}">
+                    ${ticketStatusLabel}
+                  </div>
+                `
+              : ""
+          }
+
+        </div>
+      `
+    : ""
+}
+
+${
   ticketUrl
     ? `
         <a
