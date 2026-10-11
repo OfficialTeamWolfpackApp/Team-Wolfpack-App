@@ -831,6 +831,64 @@ fighterSelect.addEventListener(
 
   }
 );
+
+/* =========================================
+   LIVE FIGHTER IMAGE PREVIEWS
+========================================= */
+
+const profilePhoto =
+  document.getElementById("profilePhoto");
+
+const profileBanner =
+  document.getElementById("profileBanner");
+
+const profilePhotoImage =
+  document.getElementById("profilePhotoImage");
+
+const profileBannerImage =
+  document.getElementById("profileBannerImage");
+
+
+/* =========================================
+   UPDATE PHOTOGRAPH PREVIEW
+========================================= */
+
+profilePhoto.addEventListener("input", function(){
+
+  const imagePath = profilePhoto.value.trim();
+
+  if(imagePath){
+
+    profilePhotoImage.src = imagePath;
+
+  }else{
+
+    profilePhotoImage.removeAttribute("src");
+
+  }
+
+});
+
+
+/* =========================================
+   UPDATE BANNER PREVIEW
+========================================= */
+
+profileBanner.addEventListener("input", function(){
+
+  const imagePath = profileBanner.value.trim();
+
+  if(imagePath){
+
+    profileBannerImage.src = imagePath;
+
+  }else{
+
+    profileBannerImage.removeAttribute("src");
+
+  }
+
+});
   
 </script>
   
