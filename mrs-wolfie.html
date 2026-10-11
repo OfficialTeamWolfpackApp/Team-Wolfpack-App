@@ -2257,7 +2257,60 @@ const drawsCount =
     "drawsCount"
   );
 
+/* =========================================
+   LIVE FIGHTER PROFILE DETAILS
+========================================= */
 
+onValue(
+  ref(database, "profiles/mrs-wolfie"),
+
+  function(snapshot){
+
+    if(!snapshot.exists()){
+      console.log("Using original Mrs Wolfie profile");
+      return;
+    }
+
+    const profile = snapshot.val();
+
+    const fields = {
+      publicProfileName: profile.name,
+      publicProfileTeam: profile.team,
+      publicProfileRole: profile.role,
+      publicProfileRepresenting: profile.representing
+    };
+
+    Object.entries(fields).forEach(
+      function([id, value]){
+
+        const element =
+          document.getElementById(id);
+
+        if(
+          element &&
+          typeof value === "string" &&
+          value.trim()
+        ){
+          element.textContent = value;
+        }
+
+      }
+    );
+
+    console.log("Mrs Wolfie profile details updated");
+
+  },
+
+  function(error){
+
+    console.error(
+      "Unable to load fighter profile:",
+      error
+    );
+
+  }
+);
+  
 /* =========================================
    ADMIN VISIBILITY
 ========================================= */
