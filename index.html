@@ -6055,15 +6055,49 @@ if(homeTicketInfo && homeTicketPrice && homeTicketStatus){
 const ticketPrice = f.ticketPrice;
 const ticketStatus = String(f.ticketStatus || "").trim();  
   
-  if(homeTicketButton){
-    if(ticketUrl){
-      homeTicketButton.href = ticketUrl;
-      homeTicketButton.classList.add("show");
-    }else{
-      homeTicketButton.removeAttribute("href");
-      homeTicketButton.classList.remove("show");
-    }
+if(homeTicketButton){
+
+  const ticketsUnavailable =
+    ticketStatus === "sold-out" ||
+    ticketStatus === "coming-soon";
+
+  if(ticketsUnavailable){
+
+    homeTicketButton.removeAttribute("href");
+    homeTicketButton.removeAttribute("target");
+
+    homeTicketButton.textContent =
+      ticketStatus === "sold-out"
+        ? "🔴 SOLD OUT"
+        : "🔵 COMING SOON";
+
+    homeTicketButton.classList.add("show");
+
+    homeTicketButton.style.pointerEvents = "none";
+    homeTicketButton.style.opacity = "0.7";
+    homeTicketButton.style.cursor = "not-allowed";
+
+  }else if(ticketUrl){
+
+    homeTicketButton.href = ticketUrl;
+    homeTicketButton.target = "_blank";
+
+    homeTicketButton.textContent = "🎟 GET TICKETS →";
+
+    homeTicketButton.classList.add("show");
+
+    homeTicketButton.style.pointerEvents = "auto";
+    homeTicketButton.style.opacity = "1";
+    homeTicketButton.style.cursor = "pointer";
+
+  }else{
+
+    homeTicketButton.removeAttribute("href");
+    homeTicketButton.classList.remove("show");
+
   }
+
+}
 
   if(nextFightButton){
     nextFightButton.onclick = function(){
