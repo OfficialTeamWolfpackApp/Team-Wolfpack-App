@@ -2307,6 +2307,34 @@ if(
   }
 
 }
+
+    /* =========================================
+   LIVE PROFILE BANNER
+========================================= */
+
+const profileBanner =
+  document.getElementById("publicProfileBanner");
+
+if(
+  profileBanner &&
+  typeof profile.banner === "string" &&
+  profile.banner.trim()
+){
+
+  const bannerPath = profile.banner.trim();
+
+  // Only accept image files stored in our app.
+  if(
+    !bannerPath.startsWith("/") &&
+    !bannerPath.includes("..") &&
+    /^[a-zA-Z0-9/_-]+\.(jpg|jpeg|png|webp)$/i.test(bannerPath)
+  ){
+
+    profileBanner.src = bannerPath;
+
+  }
+
+}
     
     Object.entries(fields).forEach(
       function([id, value]){
