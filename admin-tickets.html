@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
+
+<meta name="theme-color" content="#050505">
+
+<title>Ticket Manager | Team Wolfpack</title>
+
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  min-height:100vh;
+  font-family:Arial,Helvetica,sans-serif;
+  color:#fff;
+
+  background:
+    radial-gradient(circle at 0% 15%,rgba(0,190,255,.18),transparent 32%),
+    radial-gradient(circle at 100% 70%,rgba(255,90,0,.18),transparent 35%),
+    linear-gradient(115deg,#02090d,#050505 50%,#150802);
+}
+
+.page{
+  width:100%;
+  max-width:900px;
+  margin:auto;
+  padding:28px 16px 60px;
+}
+
+.header{
+  text-align:center;
+  padding:20px 0 25px;
+}
+
+.logo{
+  width:90px;
+  height:90px;
+  object-fit:contain;
+  margin-bottom:12px;
+}
+
+.header-label{
+  color:#888;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:3px;
+}
+
+.header h1{
+  margin-top:8px;
+  font-size:28px;
+  font-weight:900;
+}
+
+.ice{
+  color:#67dcff;
+}
+
+.fire{
+  color:#ff751c;
+}
+
+.header p{
+  margin-top:12px;
+  color:#999;
+  font-size:11px;
+  line-height:1.6;
+}
+
+.auth-status{
+  margin-bottom:20px;
+  padding:14px;
+  text-align:center;
+  border-radius:10px;
+  border:1px solid rgba(103,220,255,.2);
+  background:rgba(0,0,0,.5);
+  color:#aaa;
+  font-size:10px;
+  font-weight:900;
+}
+
+.auth-status.authorised{
+  color:#43f27b;
+}
+
+.auth-status.denied{
+  color:#ff755f;
+}
+
+.card{
+  margin-bottom:20px;
+  padding:22px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(5,5,5,.9);
+  box-shadow:0 14px 35px rgba(0,0,0,.35);
+}
+
+.card-title{
+  margin-bottom:20px;
+  font-size:19px;
+  font-weight:900;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.field.full{
+  grid-column:1 / -1;
+}
+
+label{
+  color:#aaa;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  padding:13px;
+  border-radius:9px;
+  border:1px solid rgba(255,255,255,.15);
+  background:#090909;
+  color:#fff;
+  font-size:12px;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  outline:none;
+  border-color:#67dcff;
+}
+
+textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+.help{
+  color:#777;
+  font-size:10px;
+  line-height:1.5;
+}
+
+.button-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:22px;
+}
+
+.button{
+  min-height:44px;
+  padding:12px 20px;
+  border-radius:9px;
+  border:1px solid rgba(103,220,255,.3);
+  background:linear-gradient(
+    90deg,
+    rgba(0,160,220,.2),
+    rgba(255,90,0,.18)
+  );
+  color:#fff;
+  font-size:11px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.button:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+}
+
+.button.secondary{
+  background:#101010;
+  color:#bbb;
+  border-color:rgba(255,255,255,.15);
+}
+
+.message{
+  margin-top:18px;
+  padding:13px;
+  border-radius:9px;
+  font-size:11px;
+  font-weight:900;
+  display:none;
+}
+
+.message.success{
+  display:block;
+  color:#43f27b;
+  background:rgba(0,80,35,.2);
+}
+
+.message.error{
+  display:block;
+  color:#ff755f;
+  background:rgba(100,15,10,.2);
+}
+
+.ticket-summary{
+  margin-top:18px;
+  padding:16px;
+  border-radius:10px;
+  border:1px solid rgba(103,220,255,.15);
+  background:#080808;
+  color:#aaa;
+  font-size:12px;
+  line-height:1.8;
+}
+
+.bottom-links{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:25px;
+}
+
+.bottom-link{
+  padding:12px 18px;
+  border-radius:9px;
+  border:1px solid rgba(103,220,255,.2);
+  background:#080808;
+  color:#67dcff;
+  font-size:11px;
+  font-weight:900;
+  text-decoration:none;
+}
+
+.footer{
+  margin-top:35px;
+  padding-top:20px;
+  border-top:1px solid rgba(255,255,255,.08);
+  text-align:center;
+  color:#777;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+@media(max-width:620px){
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .field.full{
+    grid-column:auto;
+  }
+
+  .card{
+    padding:16px;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<main class="page">
+
+<header class="header">
+
+<img
+  src="icon-512.png"
+  class="logo"
+  alt="Team Wolfpack"
+>
+
+<div class="header-label">
+TEAM WOLFPACK ADMIN
+</div>
+
+<h1>
+<span class="ice">TICKET</span>
+<span class="fire">MANAGER</span>
+</h1>
+
+<p>
+Manage fight ticket prices, booking links and availability.
+</p>
+
+</header>
+
+<div
+  id="authStatus"
+  class="auth-status"
+>
+CHECKING ADMIN ACCESS...
+</div>
+
+<section
+  id="managerContent"
+  style="display:none;"
+>
+
+<div class="card">
+
+<h2 class="card-title">
+<span class="ice">MANAGE</span>
+<span class="fire">TICKETS</span>
+</h2>
+
+<form id="ticketForm">
+
+<div class="form-grid">
+
+<div class="field full">
+
+<label for="fightSelect">
+SELECT FIGHT
+</label>
+
+<select id="fightSelect" required>
+
+<option value="">
+SELECT A FIGHT
+</option>
+
+</select>
+
+</div>
+
+<div class="field">
+
+<label for="ticketPrice">
+TICKET PRICE (£)
+</label>
+
+<input
+  id="ticketPrice"
+  type="number"
+  min="0"
+  step="0.01"
+  placeholder="e.g. 25.00"
+>
+
+</div>
+
+<div class="field">
+
+<label for="ticketStatus">
+TICKET AVAILABILITY
+</label>
+
+<select id="ticketStatus">
+
+<option value="coming-soon">
+COMING SOON
+</option>
+
+<option value="available">
+AVAILABLE
+</option>
+
+<option value="limited">
+LIMITED AVAILABILITY
+</option>
+
+<option value="sold-out">
+SOLD OUT
+</option>
+
+</select>
+
+</div>
+
+<div class="field full">
+
+<label for="ticketUrl">
+BOOKING / TICKET LINK
+</label>
+
+<input
+  id="ticketUrl"
+  type="url"
+  placeholder="https://example.com/tickets"
+>
+
+<div class="help">
+Leave blank if there is no booking link.
+</div>
+
+</div>
+
+<div class="field full">
+
+<label for="ticketInfo">
+TICKET INFORMATION
+</label>
+
+<textarea
+  id="ticketInfo"
+  placeholder="Enter booking instructions or ticket information..."
+></textarea>
+
+</div>
+
+</div>
+
+<div class="button-row">
+
+<button
+  id="saveButton"
+  class="button"
+  type="submit"
+>
+SAVE TICKET INFORMATION
+</button>
+
+<button
+  id="resetButton"
+  class="button secondary"
+  type="button"
+>
+RESET FORM
+</button>
+
+</div>
+
+<div
+  id="formMessage"
+  class="message"
+  role="status"
+  aria-live="polite"
+></div>
+
+</form>
+
+</div>
+
+<div class="card">
+
+<h2 class="card-title">
+<span class="ice">TICKET</span>
+<span class="fire">SUMMARY</span>
+</h2>
+
+<div
+  id="ticketSummary"
+  class="ticket-summary"
+>
+Select a fight to view its ticket information.
+</div>
+
+</div>
+
+<div class="bottom-links">
+
+<a
+  class="bottom-link"
+  href="admin-dashboard.html"
+>
+‹ ADMIN DASHBOARD
+</a>
+
+<a
+  class="bottom-link"
+  href="admin-fights.html"
+>
+FIGHT MANAGER →
+</a>
+
+</div>
+
+</section>
+
+<footer class="footer">
+TEAM WOLFPACK • STRENGTH IN UNITY • ONE PACK • ONE PURPOSE
+</footer>
+
+</main>
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+import {
+  getDatabase,
+  ref,
+  onValue,
+  update
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+
+const firebaseConfig = {
+
+  apiKey:"AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+  authDomain:"team-wolfpack-app.firebaseapp.com",
+  databaseURL:"https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId:"team-wolfpack-app",
+  storageBucket:"team-wolfpack-app.firebasestorage.app",
+  messagingSenderId:"1070414578856",
+  appId:"1:1070414578856:web:df14e7d387e658eeae2e9d",
+  measurementId:"G-6JTCE2N9LZ"
+
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const database = getDatabase(app);
+
+const ADMINS = {
+  "PRGa9TsCW0QDn1QtoUXyYjEi7YB3":"MR WOLFIE",
+  "SlpEQYl94DaH6j42QUyl8Kv2ujJ3":"MRS WOLFIE"
+};
+
+const authStatus = document.getElementById("authStatus");
+const managerContent = document.getElementById("managerContent");
+const ticketForm = document.getElementById("ticketForm");
+const fightSelect = document.getElementById("fightSelect");
+const ticketPrice = document.getElementById("ticketPrice");
+const ticketStatus = document.getElementById("ticketStatus");
+const ticketUrl = document.getElementById("ticketUrl");
+const ticketInfo = document.getElementById("ticketInfo");
+const saveButton = document.getElementById("saveButton");
+const resetButton = document.getElementById("resetButton");
+const formMessage = document.getElementById("formMessage");
+const ticketSummary = document.getElementById("ticketSummary");
+
+let currentUser = null;
+let fightsCache = {};
+
+function isAdmin(user){
+  return Boolean(user && ADMINS[user.uid]);
+}
+
+function showMessage(message,type){
+  formMessage.className = "message " + type;
+  formMessage.textContent = message;
+}
+
+function clearMessage(){
+  formMessage.className = "message";
+  formMessage.textContent = "";
+}
+
+function formatPrice(value){
+  if(value === "" || value === null || value === undefined){
+    return "NOT SET";
+  }
+
+  const amount = Number(value);
+
+  if(!Number.isFinite(amount)){
+    return "NOT SET";
+  }
+
+  return "£" + amount.toFixed(2);
+}
+
+function formatStatus(value){
+  const labels = {
+    "coming-soon":"COMING SOON",
+    "available":"AVAILABLE",
+    "limited":"LIMITED AVAILABILITY",
+    "sold-out":"SOLD OUT"
+  };
+
+  return labels[value] || "NOT SET";
+}
+
+function showSummary(data){
+
+  if(!data){
+    ticketSummary.textContent =
+      "Select a fight to view its ticket information.";
+    return;
+  }
+
+  const lines = [
+    data.fighterName + " VS " + data.opponent,
+    "EVENT: " + (data.eventName || "NOT SET"),
+    "DATE: " + (data.displayDate || data.fightDate || "NOT SET"),
+    "PRICE: " + formatPrice(data.ticketPrice),
+    "STATUS: " + formatStatus(data.ticketStatus),
+    "BOOKING LINK: " + (data.ticketUrl || "NOT SET"),
+    "INFORMATION: " + (data.ticketInfo || "NOT SET")
+  ];
+
+  ticketSummary.textContent = lines.join("\n");
+  ticketSummary.style.whiteSpace = "pre-line";
+}
+
+function loadSelectedFight(){
+
+  clearMessage();
+
+  const data = fightsCache[fightSelect.value];
+
+  if(!data){
+    ticketForm.reset();
+    showSummary(null);
+    return;
+  }
+
+  ticketPrice.value =
+    data.ticketPrice ?? "";
+
+  ticketStatus.value =
+    data.ticketStatus || "coming-soon";
+
+  ticketUrl.value =
+    data.ticketUrl || "";
+
+  ticketInfo.value =
+    data.ticketInfo || "";
+
+  showSummary(data);
+}
+
+fightSelect.addEventListener(
+  "change",
+  loadSelectedFight
+);
+
+resetButton.addEventListener(
+  "click",
+  loadSelectedFight
+);
+
+ticketForm.addEventListener(
+  "submit",
+  async function(event){
+
+    event.preventDefault();
+
+    if(!isAdmin(currentUser)){
+      showMessage("ADMIN ACCESS REQUIRED","error");
+      return;
+    }
+
+    const fightId = fightSelect.value;
+    const fight = fightsCache[fightId];
+
+    if(!fight){
+      showMessage("SELECT A VALID FIGHT","error");
+      return;
+    }
+
+    const priceText = ticketPrice.value.trim();
+    const price = priceText === "" ? null : Number(priceText);
+
+    if(
+      price !== null &&
+      (!Number.isFinite(price) || price < 0)
+    ){
+      showMessage("ENTER A VALID TICKET PRICE","error");
+      return;
+    }
+
+    const allowedStatuses = [
+      "coming-soon",
+      "available",
+      "limited",
+      "sold-out"
+    ];
+
+    if(!allowedStatuses.includes(ticketStatus.value)){
+      showMessage("SELECT A VALID TICKET STATUS","error");
+      return;
+    }
+
+    const bookingLink = ticketUrl.value.trim();
+
+    if(bookingLink){
+      try{
+        const url = new URL(bookingLink);
+
+        if(!["https:","http:"].includes(url.protocol)){
+          throw new Error("Invalid protocol");
+        }
+      }catch(error){
+        showMessage("ENTER A VALID BOOKING LINK","error");
+        return;
+      }
+    }
+
+    saveButton.disabled = true;
+
+    try{
+
+      await update(
+        ref(database,"fights/" + fightId),
+        {
+          ticketPrice:price,
+          ticketStatus:ticketStatus.value,
+          ticketUrl:bookingLink,
+          ticketInfo:ticketInfo.value.trim(),
+          ticketUpdatedAt:Date.now(),
+          ticketUpdatedBy:currentUser.uid
+        }
+      );
+
+      showMessage(
+        "TICKET INFORMATION SAVED SUCCESSFULLY",
+        "success"
+      );
+
+    }catch(error){
+
+      console.error("Ticket save error:",error);
+
+      showMessage(
+        "TICKET INFORMATION COULD NOT BE SAVED",
+        "error"
+      );
+
+    }finally{
+      saveButton.disabled = false;
+    }
+
+  }
+);
+
+onValue(
+  ref(database,"fights"),
+  function(snapshot){
+
+    const selectedId = fightSelect.value;
+
+    fightsCache = snapshot.val() || {};
+
+    const entries = Object.entries(fightsCache)
+      .sort(function(a,b){
+        return Number(a[1].dateTimestamp || 0) -
+               Number(b[1].dateTimestamp || 0);
+      });
+
+    fightSelect.innerHTML =
+      '<option value="">SELECT A FIGHT</option>';
+
+    entries.forEach(function(entry){
+
+      const id = entry[0];
+      const data = entry[1] || {};
+
+      const option = document.createElement("option");
+
+      option.value = id;
+
+      option.textContent =
+        (data.fighterName || "FIGHTER") +
+        " VS " +
+        (data.opponent || "TBA") +
+        " — " +
+        (data.displayDate || data.fightDate || "DATE TBA");
+
+      fightSelect.appendChild(option);
+
+    });
+
+    if(fightsCache[selectedId]){
+      fightSelect.value = selectedId;
+    }
+
+    loadSelectedFight();
+
+  },
+  function(error){
+
+    console.error("Fight loading error:",error);
+
+    showMessage(
+      "FIGHT DATABASE COULD NOT BE LOADED",
+      "error"
+    );
+
+  }
+);
+
+onAuthStateChanged(
+  auth,
+  function(user){
+
+    currentUser = user;
+
+    if(isAdmin(user)){
+
+      authStatus.className =
+        "auth-status authorised";
+
+      authStatus.textContent =
+        ADMINS[user.uid] + " • TICKET ADMIN";
+
+      managerContent.style.display = "block";
+
+    }else{
+
+      authStatus.className =
+        "auth-status denied";
+
+      authStatus.textContent =
+        "ADMIN ACCESS REQUIRED";
+
+      managerContent.style.display = "none";
+
+    }
+
+  }
+);
+
+</script>
+
+</body>
+</html>
