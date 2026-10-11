@@ -493,27 +493,6 @@ body{
   line-height:1.4;
 }
 
-
-/* CHAT */
-
-.control-section.chat{
-  border-color:
-    rgba(103,220,255,.20);
-
-  background:
-    linear-gradient(
-      115deg,
-      rgba(0,160,220,.08),
-      rgba(5,5,5,.82)
-    );
-}
-
-.control-section.chat
-.control-section-title{
-  color:#67dcff;
-}
-
-
 /* NOTIFICATIONS */
 
 .control-section.notifications{
@@ -1147,18 +1126,11 @@ ADMIN ACCESS REQUIRED
 </div>
 
 <div class="access-text">
-Sign into Pack Chat using an authorised Team Wolfpack administrator account before opening the Admin Dashboard.
+Please sign in using an authorised Team Wolfpack administrator account to access the Admin Dashboard.
 </div>
 
 <div class="nav-grid">
-
-<a
-  class="nav-button"
-  href="chat.html"
->
-PACK CHAT
-</a>
-
+  
 <a
   class="nav-button"
   href="index.html"
@@ -1202,141 +1174,6 @@ CONTROL CENTRE
   class="dashboard"
 >
 
-
-<div class="section-title">
-
-<span class="ice">
-PACK CHAT
-</span>
-
-<span class="fire">
-OVERVIEW
-</span>
-
-</div>
-
-
-<div class="stats">
-
-
-<div class="stat-card">
-
-<div
-  id="openReports"
-  class="stat-number"
->
-0
-</div>
-
-<div class="stat-label">
-OPEN REPORTS
-</div>
-
-</div>
-
-
-<div class="stat-card blue">
-
-<div
-  id="resolvedReports"
-  class="stat-number"
->
-0
-</div>
-
-<div class="stat-label">
-RESOLVED REPORTS
-</div>
-
-</div>
-
-
-<div class="stat-card blue">
-
-<div
-  id="totalMembers"
-  class="stat-number"
->
-0
-</div>
-
-<div class="stat-label">
-PACK MEMBERS
-</div>
-
-</div>
-
-
-<div class="stat-card blue">
-
-<div
-  id="activeMembers"
-  class="stat-number"
->
-0
-</div>
-
-<div class="stat-label">
-ACTIVE
-</div>
-
-</div>
-
-
-<div class="stat-card warning">
-
-<div
-  id="mutedMembers"
-  class="stat-number"
->
-0
-</div>
-
-<div class="stat-label">
-MUTED
-</div>
-
-</div>
-
-
-<div class="stat-card danger">
-
-<div
-  id="blockedMembers"
-  class="stat-number"
->
-0
-</div>
-
-<div class="stat-label">
-BLOCKED
-</div>
-
-</div>
-
-
-</div>
-
-
-<!-- ALERT -->
-
-<div
-  id="reportAlert"
-  class="alert-panel"
->
-
-<div class="alert-title">
-REPORTS REQUIRE ATTENTION
-</div>
-
-<div
-  id="reportAlertText"
-  class="alert-text"
-></div>
-
-</div>
-
-
 <!-- =========================================
      ADMIN CONTROL CENTRE
 ========================================= -->
@@ -1352,142 +1189,6 @@ REPORTS REQUIRE ATTENTION
   </span>
 
 </div>
-
-
-<!-- =========================================
-     CHAT & MEMBERS
-========================================= -->
-
-<section class="control-section chat">
-
-  <div class="control-section-header">
-
-    <div>
-
-      <div class="control-section-title">
-
-        <div class="control-section-icon">
-          💬
-        </div>
-
-        CHAT & MEMBERS
-
-      </div>
-
-      <div class="control-section-subtitle">
-        Pack Chat moderation, reports and member controls.
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="control-grid">
-
-
-    <!-- PACK CHAT -->
-
-    <a
-      class="control-card"
-      href="chat.html"
-    >
-
-      <div class="control-card-name">
-        PACK CHAT
-      </div>
-
-      <div class="control-card-description">
-        Open the live Team Wolfpack Pack Chat.
-      </div>
-
-      <div class="control-card-badge live">
-        LIVE
-      </div>
-
-    </a>
-
-
-    <!-- OPEN REPORTS -->
-
-    <a
-      class="control-card"
-      href="admin-reports.html"
-    >
-
-      <div class="control-card-name">
-        OPEN REPORTS
-      </div>
-
-      <div class="control-card-description">
-        Review reported messages and take moderation action.
-      </div>
-
-      <div
-        id="openReportsBadge"
-        class="control-card-badge orange"
-      >
-        0
-      </div>
-
-    </a>
-
-
-    <!-- RESOLVED HISTORY -->
-
-    <a
-      class="control-card"
-      href="admin-history.html"
-    >
-
-      <div class="control-card-name">
-        RESOLVED HISTORY
-      </div>
-
-      <div class="control-card-description">
-        View resolved reports and previous moderation actions.
-      </div>
-
-      <div
-        id="resolvedReportsBadge"
-        class="control-card-badge"
-      >
-        0
-      </div>
-
-    </a>
-
-
-    <!-- MEMBER MANAGEMENT -->
-
-    <a
-      class="control-card"
-      href="admin-members.html"
-    >
-
-      <div class="control-card-name">
-        MEMBER MANAGEMENT
-      </div>
-
-      <div class="control-card-description">
-        Manage active, muted and blocked Pack Chat members.
-      </div>
-
-      <div
-        id="memberBadge"
-        class="control-card-badge"
-      >
-        0
-      </div>
-
-    </a>
-
-
-  </div>
-
-</section>
-
-
 
 <!-- =========================================
      NOTIFICATIONS & UPDATES
@@ -1800,20 +1501,6 @@ ADMIN ACCOUNT
 
 </div>
 
-
-<div class="system-row">
-
-<div class="system-label">
-PACK CHAT
-</div>
-
-<div class="system-value online">
-ONLINE
-</div>
-
-</div>
-
-
 <div class="system-row">
 
 <div class="system-label">
@@ -1832,12 +1519,6 @@ ONLINE
 
 <div class="nav-grid">
 
-<a
-  class="nav-button"
-  href="chat.html"
->
-‹ PACK CHAT
-</a>
 
 <a
   class="nav-button"
@@ -1866,13 +1547,6 @@ import {
   getAuth,
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-
-
-import {
-  getFirestore,
-  collection,
-  onSnapshot
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 
 /* =========================
@@ -1935,317 +1609,37 @@ const auth =
   );
 
 
-const db =
-  getFirestore(
-    app
-  );
-
-
 /* =========================
    ELEMENTS
 ========================= */
 
 const status =
-  document.getElementById(
-    "status"
-  );
+  document.getElementById("status");
 
 const accessDenied =
-  document.getElementById(
-    "accessDenied"
-  );
+  document.getElementById("accessDenied");
 
 const adminBar =
-  document.getElementById(
-    "adminBar"
-  );
+  document.getElementById("adminBar");
 
 const adminName =
-  document.getElementById(
-    "adminName"
-  );
+  document.getElementById("adminName");
 
 const dashboard =
-  document.getElementById(
-    "dashboard"
-  );
-
-const openReports =
-  document.getElementById(
-    "openReports"
-  );
-
-const resolvedReports =
-  document.getElementById(
-    "resolvedReports"
-  );
-
-const totalMembers =
-  document.getElementById(
-    "totalMembers"
-  );
-
-const activeMembers =
-  document.getElementById(
-    "activeMembers"
-  );
-
-const mutedMembers =
-  document.getElementById(
-    "mutedMembers"
-  );
-
-const blockedMembers =
-  document.getElementById(
-    "blockedMembers"
-  );
-
-const openReportsBadge =
-  document.getElementById(
-    "openReportsBadge"
-  );
-
-const resolvedReportsBadge =
-  document.getElementById(
-    "resolvedReportsBadge"
-  );
-
-const memberBadge =
-  document.getElementById(
-    "memberBadge"
-  );
-
-const reportAlert =
-  document.getElementById(
-    "reportAlert"
-  );
-
-const reportAlertText =
-  document.getElementById(
-    "reportAlertText"
-  );
+  document.getElementById("dashboard");
 
 const firebaseStatus =
-  document.getElementById(
-    "firebaseStatus"
-  );
+  document.getElementById("firebaseStatus");
 
 const systemAdmin =
-  document.getElementById(
-    "systemAdmin"
-  );
+  document.getElementById("systemAdmin");
 
 
 /* =========================
    STATE
 ========================= */
 
-let currentAdmin =
-  null;
-
-let messages =
-  [];
-
-let moderation =
-  {};
-
-let openReportCount =
-  0;
-
-let resolvedReportCount =
-  0;
-
-let unsubscribeMessages =
-  null;
-
-let unsubscribeModeration =
-  null;
-
-let unsubscribeReports =
-  null;
-
-let unsubscribeResolved =
-  null;
-
-
-/* =========================
-   UPDATE MEMBERS
-========================= */
-
-function updateMemberStats(){
-
-  const memberMap =
-    {};
-
-
-  messages.forEach(
-    function(message){
-
-      if(
-        !message.uid ||
-        ADMINS[
-          message.uid
-        ]
-      ){
-
-        return;
-
-      }
-
-
-      if(
-        !memberMap[
-          message.uid
-        ]
-      ){
-
-        memberMap[
-          message.uid
-        ] = true;
-
-      }
-
-    }
-  );
-
-
-  Object.keys(
-    moderation
-  )
-  .forEach(
-    function(uid){
-
-      if(
-        ADMINS[
-          uid
-        ]
-      ){
-
-        return;
-
-      }
-
-      memberMap[
-        uid
-      ] = true;
-
-    }
-  );
-
-
-  const memberIds =
-    Object.keys(
-      memberMap
-    );
-
-
-  let muted =
-    0;
-
-  let blocked =
-    0;
-
-
-  memberIds.forEach(
-    function(uid){
-
-      const record =
-        moderation[
-          uid
-        ];
-
-
-      if(
-        record &&
-        record.blocked === true
-      ){
-
-        blocked++;
-
-        return;
-
-      }
-
-
-      if(
-        record &&
-        record.muted === true
-      ){
-
-        muted++;
-
-      }
-
-    }
-  );
-
-
-  const total =
-    memberIds.length;
-
-
-  const active =
-    Math.max(
-      0,
-      total -
-      muted -
-      blocked
-    );
-
-
-  totalMembers.textContent =
-    total;
-
-  activeMembers.textContent =
-    active;
-
-  mutedMembers.textContent =
-    muted;
-
-  blockedMembers.textContent =
-    blocked;
-
-  memberBadge.textContent =
-    total;
-
-}
-
-
-/* =========================
-   REPORT ALERT
-========================= */
-
-function updateReportAlert(){
-
-  if(
-    openReportCount > 0
-  ){
-
-    reportAlert.classList.add(
-      "show"
-    );
-
-
-    reportAlertText.textContent =
-
-      openReportCount === 1
-
-        ? "There is 1 Pack Chat report waiting for administrator review."
-
-        : "There are " +
-          openReportCount +
-          " Pack Chat reports waiting for administrator review.";
-
-
-  }else{
-
-    reportAlert.classList.remove(
-      "show"
-    );
-
-  }
-
-}
+let currentAdmin = null;
 
 
 /* =========================
@@ -2256,245 +1650,7 @@ function startDashboard(){
 
   stopDashboard();
 
-
-  /* CHAT MESSAGES */
-
-  unsubscribeMessages =
-    onSnapshot(
-
-      collection(
-        db,
-        "messages"
-      ),
-
-      function(snapshot){
-
-        messages =
-          [];
-
-
-        snapshot.forEach(
-          function(item){
-
-            messages.push(
-              item.data()
-            );
-
-          }
-        );
-
-
-        updateMemberStats();
-
-      },
-
-      function(error){
-
-        console.error(
-          "Messages:",
-          error
-        );
-
-        firebaseStatus.textContent =
-          "ERROR";
-
-      }
-
-    );
-
-
-  /* MODERATION */
-
-  unsubscribeModeration =
-    onSnapshot(
-
-      collection(
-        db,
-        "moderation"
-      ),
-
-      function(snapshot){
-
-        moderation =
-          {};
-
-
-        snapshot.forEach(
-          function(item){
-
-            moderation[
-              item.id
-            ] =
-              item.data();
-
-          }
-        );
-
-
-        updateMemberStats();
-
-      },
-
-      function(error){
-
-        console.error(
-          "Moderation:",
-          error
-        );
-
-        firebaseStatus.textContent =
-          "ERROR";
-
-      }
-
-    );
-
-
-  /* OPEN REPORTS */
-
-  unsubscribeReports =
-    onSnapshot(
-
-      collection(
-        db,
-        "reports"
-      ),
-
-      function(snapshot){
-
-        openReportCount =
-          snapshot.size;
-
-
-        openReports.textContent =
-          openReportCount;
-
-
-        openReportsBadge.textContent =
-          openReportCount;
-
-
-        updateReportAlert();
-
-      },
-
-      function(error){
-
-        console.error(
-          "Reports:",
-          error
-        );
-
-        firebaseStatus.textContent =
-          "ERROR";
-
-      }
-
-    );
-
-
-  /* RESOLVED REPORTS */
-
-  unsubscribeResolved =
-    onSnapshot(
-
-      collection(
-        db,
-        "resolvedReports"
-      ),
-
-      function(snapshot){
-
-        resolvedReportCount =
-          snapshot.size;
-
-
-        resolvedReports.textContent =
-          resolvedReportCount;
-
-
-        resolvedReportsBadge.textContent =
-          resolvedReportCount;
-
-      },
-
-      function(error){
-
-        console.error(
-          "Resolved reports:",
-          error
-        );
-
-
-        resolvedReports.textContent =
-          "—";
-
-        resolvedReportsBadge.textContent =
-          "—";
-
-      }
-
-    );
-
-}
-
-
-/* =========================
-   STOP LISTENERS
-========================= */
-
-function stopDashboard(){
-
-  if(
-    unsubscribeMessages
-  ){
-
-    unsubscribeMessages();
-
-    unsubscribeMessages =
-      null;
-
-  }
-
-
-  if(
-    unsubscribeModeration
-  ){
-
-    unsubscribeModeration();
-
-    unsubscribeModeration =
-      null;
-
-  }
-
-
-  if(
-    unsubscribeReports
-  ){
-
-    unsubscribeReports();
-
-    unsubscribeReports =
-      null;
-
-  }
-
-
-  if(
-    unsubscribeResolved
-  ){
-
-    unsubscribeResolved();
-
-    unsubscribeResolved =
-      null;
-
-  }
-
-}
-
-
+  
 /* =========================
    AUTH
 ========================= */
