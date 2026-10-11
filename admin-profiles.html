@@ -1037,9 +1037,7 @@ const fighterEditor =
    SHOW SELECTED FIGHTER
 ========================================= */
 
-fighterSelect.addEventListener(
-  "change",
-  function(){
+fighterSelect.addEventListener("change", async function(){
 
     const selectedFighter =
       fighterSelect.value;
@@ -1047,8 +1045,11 @@ if(selectedFighter === "mrs-wolfie"){
 
   fighterEditor.style.display = "block";
 
-  // Load saved fighter information from Firebase
-  loadFighterProfile(selectedFighter);
+  // Retrieve original biography first.
+  await loadOriginalMrsWolfieBiography();
+
+  // Load any saved profile from Firebase.
+  await loadFighterProfile(selectedFighter);
 
 }else{
 
