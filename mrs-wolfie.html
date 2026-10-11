@@ -2335,7 +2335,43 @@ if(
   }
 
 }
-    
+
+/* =========================================
+   LIVE PROFILE BIOGRAPHY
+========================================= */
+
+const biographyContainer =
+  document.getElementById("publicProfileBiography");
+
+if(
+  biographyContainer &&
+  typeof profile.biography === "string" &&
+  profile.biography.trim()
+){
+
+  const savedBiography = profile.biography.trim();
+
+  // Compare the saved text with the original biography.
+  // If unchanged, preserve the existing styled HTML.
+  const originalBiography =
+    biographyContainer.textContent
+      .replace(/\s+/g, " ")
+      .trim();
+
+  const normalizedSaved =
+    savedBiography.replace(/\s+/g, " ").trim();
+
+  if(normalizedSaved !== originalBiography){
+
+    // Display edited biography safely as plain text.
+    // Never interpret database content as HTML.
+    biographyContainer.textContent = savedBiography;
+
+    biographyContainer.style.whiteSpace = "pre-line";
+
+  }
+
+}    
     Object.entries(fields).forEach(
       function([id, value]){
 
