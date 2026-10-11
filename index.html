@@ -6131,6 +6131,21 @@ function renderNextUp(fights){
     const eventName = String(f.event || f.eventName || f.title || "UPCOMING FIGHT").toUpperCase();
     const parts = dateBoxParts(f);
 
+    const ticketUrl = String(f.ticketUrl || "").trim();
+
+const ticketPrice = f.ticketPrice;
+
+const ticketStatus = String(
+  f.ticketStatus || ""
+).trim().toLowerCase();
+
+const ticketStatusLabels = {
+  "available": "🟢 TICKETS AVAILABLE",
+  "limited": "🟠 LIMITED AVAILABILITY",
+  "sold-out": "🔴 SOLD OUT",
+  "coming-soon": "🔵 COMING SOON"
+};
+    
     return `
       <a class="next-item" href="fights.html">
         <div class="date-box">
