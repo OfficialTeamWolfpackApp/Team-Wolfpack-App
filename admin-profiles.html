@@ -325,6 +325,55 @@ body{
 
 }
 
+/* =========================================
+   SAVE FIGHTER PROFILE
+========================================= */
+
+.profile-save-section{
+  margin-top:25px;
+  padding-top:20px;
+  border-top:1px solid rgba(255,255,255,.15);
+}
+
+.profile-save-button{
+  display:block;
+  width:100%;
+  padding:16px 20px;
+
+  background:linear-gradient(
+    135deg,
+    #00BFFF,
+    #0077CC
+  );
+
+  color:#fff;
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:12px;
+
+  font-size:15px;
+  font-weight:900;
+  letter-spacing:1px;
+
+  cursor:pointer;
+  transition:.2s ease;
+}
+
+.profile-save-button:hover{
+  background:linear-gradient(
+    135deg,
+    #FF7A00,
+    #FF4500
+  );
+  transform:translateY(-2px);
+}
+
+.profile-save-status{
+  margin-top:12px;
+  text-align:center;
+  color:#aaa;
+  font-size:12px;
+}
+  
 </style>
 
 </head>
@@ -1009,56 +1058,7 @@ profileBanner.addEventListener("input", function(){
   }
 
 });
-
-/* =========================================
-   SAVE FIGHTER PROFILE
-========================================= */
-
-.profile-save-section{
-  margin-top:25px;
-  padding-top:20px;
-  border-top:1px solid rgba(255,255,255,.15);
-}
-
-.profile-save-button{
-  display:block;
-  width:100%;
-  padding:16px 20px;
-
-  background:linear-gradient(
-    135deg,
-    #00BFFF,
-    #0077CC
-  );
-
-  color:#fff;
-  border:1px solid rgba(255,255,255,.25);
-  border-radius:12px;
-
-  font-size:15px;
-  font-weight:900;
-  letter-spacing:1px;
-
-  cursor:pointer;
-  transition:.2s ease;
-}
-
-.profile-save-button:hover{
-  background:linear-gradient(
-    135deg,
-    #FF7A00,
-    #FF4500
-  );
-  transform:translateY(-2px);
-}
-
-.profile-save-status{
-  margin-top:12px;
-  text-align:center;
-  color:#aaa;
-  font-size:12px;
-}
-  
+ 
 </script>
   
 </body>
