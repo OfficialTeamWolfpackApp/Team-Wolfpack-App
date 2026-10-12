@@ -1939,14 +1939,20 @@ teamMemberSelect.addEventListener("change", function(){
   document.getElementById("memberName").value =
     memberNames[selectedMember] || "";
 
-  // Show the setup status.
-  const status =
-    document.getElementById("memberSaveStatus");
+  /* =========================================
+   LOAD SELECTED TEAM MEMBER FROM FIREBASE
+========================================= */
 
-  status.textContent =
-    "Team member selected. Firebase connection coming next.";
+const status =
+  document.getElementById("memberSaveStatus");
 
-  status.style.color = "#67dcff";
+status.textContent =
+  "⏳ Loading team member profile...";
+
+status.style.color = "#67dcff";
+
+// Retrieve saved information from Firebase.
+loadTeamMemberProfile(selectedMember);
 
 });
   
