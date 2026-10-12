@@ -257,6 +257,84 @@ body{
   box-shadow:
     0 0 12px rgba(0,191,255,.15);
 }
+
+/* =========================================
+   TEAM MEMBER PROFILE EDITOR
+========================================= */
+
+#teamMemberEditor .team-member-fields{
+  margin-top:20px;
+}
+
+#teamMemberEditor label{
+  display:block;
+  margin-top:18px;
+  margin-bottom:8px;
+
+  color:#67dcff;
+
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+#teamMemberEditor input,
+#teamMemberEditor textarea{
+  display:block;
+
+  width:100%;
+  min-width:0;
+
+  padding:13px 15px;
+
+  border-radius:10px;
+  border:1px solid rgba(103,220,255,.3);
+
+  background:#090909;
+  color:#ffffff;
+
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:13px;
+
+  outline:none;
+  box-sizing:border-box;
+}
+
+#teamMemberEditor input{
+  min-height:46px;
+}
+
+#teamMemberEditor textarea{
+  min-height:250px;
+  line-height:1.7;
+  resize:vertical;
+}
+
+#teamMemberEditor input:focus,
+#teamMemberEditor textarea:focus{
+  border-color:#00bfff;
+
+  box-shadow:
+    0 0 12px rgba(0,191,255,.15);
+}
+
+#teamMemberEditor input::placeholder,
+#teamMemberEditor textarea::placeholder{
+  color:#777777;
+}
+
+@media(max-width:600px){
+
+  #teamMemberEditor label{
+    font-size:10px;
+  }
+
+  #teamMemberEditor input,
+  #teamMemberEditor textarea{
+    font-size:12px;
+  }
+
+}
   
 /* =========================================
    BUTTONS
