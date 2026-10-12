@@ -944,6 +944,74 @@ async function loadOriginalMrsWolfieBiography(){
 
 }
 
+/* =========================================
+   LOAD ORIGINAL GREIG SLOAN BIOGRAPHY
+========================================= */
+
+async function loadOriginalGreigSloanBiography(){
+
+  const biographyField =
+    document.getElementById("profileBiography");
+
+  if(!biographyField){
+    return;
+  }
+
+  try{
+
+    const response = await fetch(
+      "greig-sloan.html",
+      {cache:"no-store"}
+    );
+
+    if(!response.ok){
+      throw new Error("Unable to retrieve Greig Sloan profile");
+    }
+
+    const html = await response.text();
+
+    const documentCopy =
+      new DOMParser().parseFromString(
+        html,
+        "text/html"
+      );
+
+    const aboutCard =
+      documentCopy.querySelector(".about-card");
+
+    if(!aboutCard){
+      throw new Error("Greig Sloan biography not found");
+    }
+
+    // Convert the existing biography into editable text.
+    // Preserve paragraph breaks from the original HTML.
+    const biographyCopy = aboutCard.cloneNode(true);
+
+    biographyCopy.querySelectorAll("br").forEach(function(br){
+      br.replaceWith("\n");
+    });
+
+    biographyField.value =
+      biographyCopy.textContent
+        .replace(/[ \t]+/g, " ")
+        .replace(/\n[ \t]*\n[ \t]*\n+/g, "\n\n")
+        .trim();
+
+    console.log(
+      "Original Greig Sloan biography retrieved"
+    );
+
+  }catch(error){
+
+    console.error(
+      "Unable to retrieve Greig Sloan biography:",
+      error
+    );
+
+  }
+
+}
+  
  /* =========================================
    VALIDATE FIGHTER PROFILE BEFORE SAVING
 ========================================= */
