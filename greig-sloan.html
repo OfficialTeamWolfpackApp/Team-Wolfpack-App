@@ -2216,6 +2216,44 @@ onValue(
 
   },
 
+  /* =========================================
+   LIVE PROFILE IMAGES
+========================================= */
+
+function updateProfileImage(id, filename){
+
+  const image = document.getElementById(id);
+
+  if(!image || typeof filename !== "string"){
+    return;
+  }
+
+  const cleanFilename = filename.trim();
+
+  if(
+    !/^[a-zA-Z0-9/_-]+\.(jpg|jpeg|png|webp|gif)$/i.test(
+      cleanFilename
+    )
+  ){
+    return;
+  }
+
+  if(image.getAttribute("src") !== cleanFilename){
+    image.src = cleanFilename;
+  }
+
+}
+
+updateProfileImage(
+  "publicProfilePhoto",
+  profile.photo
+);
+
+updateProfileImage(
+  "publicProfileBanner",
+  profile.banner
+);
+  
   function(error){
     console.error(
       "Unable to load Greig Sloan profile:",
