@@ -2013,6 +2013,13 @@ const auth =
   getAuth(firebaseApp);
 
 /* =========================================
+   DATABASE CONNECTION
+========================================= */
+
+const database =
+  getDatabase(firebaseApp);  
+  
+/* =========================================
    MR WOLFIE LIVE PROFILE
 ========================================= */
 
@@ -2153,13 +2160,6 @@ onValue(
 
 );  
   
-/* =========================================
-   DATABASE CONNECTION
-========================================= */
-
-const database =
-  getDatabase(firebaseApp);  
-
 const ADMIN_UIDS =
   new Set([
     "PRGa9TsCW0QDn1QtoUXyYjEi7YB3",
