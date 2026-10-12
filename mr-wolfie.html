@@ -1985,6 +1985,15 @@ import {
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
+/* =========================================
+   FIREBASE REALTIME DATABASE
+========================================= */
+
+import {
+  getDatabase,
+  ref,
+  onValue
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";  
 
 const firebaseConfig = {
   apiKey: "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
@@ -1997,13 +2006,18 @@ const firebaseConfig = {
   measurementId: "G-6JTCE2N9LZ"
 };
 
-
 const firebaseApp =
   initializeApp(firebaseConfig);
 
 const auth =
   getAuth(firebaseApp);
 
+/* =========================================
+   DATABASE CONNECTION
+========================================= */
+
+const database =
+  getDatabase(firebaseApp);  
 
 const ADMIN_UIDS =
   new Set([
