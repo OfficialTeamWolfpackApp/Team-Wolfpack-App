@@ -1868,22 +1868,28 @@ async function loadOriginalMrWolfieProfile(){
 
     if(aboutCard){
 
-      const biographyCopy =
-        aboutCard.cloneNode(true);
+  const paragraphs =
+  Array.from(aboutCard.querySelectorAll("p"));
 
-      biographyCopy.querySelectorAll("br").forEach(function(br){
-        br.replaceWith("\n");
-      });
+const biographyText = paragraphs.map(function(p){
 
-      biographyCopy.querySelectorAll("p").forEach(function(p){
-        p.append("\n\n");
-      });
+  const paragraphCopy = p.cloneNode(true);
 
-      document.getElementById("memberBiography").value =
-        biographyCopy.textContent
-          .replace(/[ \t]+/g, " ")
-          .replace(/\n[ \t]*\n[ \t]*\n+/g, "\n\n")
-          .trim();
+  // Preserve intentional line breaks.
+  paragraphCopy.querySelectorAll("br").forEach(function(br){
+    br.replaceWith("\n");
+  });
+
+  // Remove formatting whitespace from the original HTML.
+  return paragraphCopy.textContent
+    .replace(/[ \t]*\n[ \t]*/g, " ")
+    .replace(/[ \t]+/g, " ")
+    .trim();
+
+}).filter(Boolean).join("\n\n");
+
+document.getElementById("memberBiography").value =
+  biographyText;
 
     }
 
