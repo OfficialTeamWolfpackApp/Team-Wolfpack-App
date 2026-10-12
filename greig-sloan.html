@@ -2182,46 +2182,20 @@ const drawsCount =
    GREIG SLOAN LIVE PROFILE
 ========================================= */
 
-onValue(
-  ref(database, "profiles/greig-sloan"),
+const biographyElement =
+  document.getElementById("publicProfileBiographyText");
 
-  function(snapshot){
+const originalBiographyHTML =
+  biographyElement ? biographyElement.innerHTML : "";
 
-    const profile = snapshot.val();
+const originalBiographyText =
+  biographyElement ? biographyElement.textContent : "";
 
-    if(!profile){
-      return;
-    }
-
-    const fields = {
-      publicProfileName: profile.name,
-      publicProfileTeam: profile.team,
-      publicProfileRole: profile.role,
-      publicProfileRepresenting: profile.representing
-    };
-
-    Object.entries(fields).forEach(
-      function([id, value]){
-
-        const element =
-          document.getElementById(id);
-
-        if(
-          element &&
-          typeof value === "string" &&
-          value.trim()
-        ){
-          element.textContent = value.trim();
-        }
-
-      }
-    );
-
-  },
-
-  /* =========================================
-   LIVE PROFILE IMAGES
-========================================= */
+function normalizeBiography(value){
+  return String(value || "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
 
 function updateProfileImage(id, filename){
 
@@ -2247,63 +2221,98 @@ function updateProfileImage(id, filename){
 
 }
 
-updateProfileImage(
-  "publicProfilePhoto",
-  profile.photo
-);
+onValue(
+  ref(database, "profiles/greig-sloan"),
 
-updateProfileImage(
-  "publicProfileBanner",
-  profile.banner
-);
-  
+  function(snapshot){
+
+    const profile = snapshot.val();
+
+    if(!profile){
+      return;
+    }
+
+    /* PROFILE DETAILS */
+
+    const fields = {
+      publicProfileName: profile.name,
+      publicProfileTeam: profile.team,
+      publicProfileRole: profile.role,
+      publicProfileRepresenting: profile.representing
+    };
+
+    Object.entries(fields).forEach(
+      function([id, value]){
+
+        const element = document.getElementById(id);
+
+        if(
+          element &&
+          typeof value === "string" &&
+          value.trim()
+        ){
+          element.textContent = value.trim();
+        }
+
+      }
+    );
+
+    /* PROFILE IMAGES */
+
+    updateProfileImage(
+      "publicProfilePhoto",
+      profile.photo
+    );
+
+    updateProfileImage(
+      "publicProfileBanner",
+      profile.banner
+    );
+
+    /* PROFILE BIOGRAPHY */
+
+    if(
+      biographyElement &&
+      typeof profile.biography === "string" &&
+      profile.biography.trim()
+    ){
+
+      const savedBiography =
+        normalizeBiography(profile.biography);
+
+      const originalBiography =
+        normalizeBiography(originalBiographyText);
+
+      if(savedBiography === originalBiography){
+
+        biographyElement.innerHTML =
+          originalBiographyHTML;
+
+        biographyElement.style.whiteSpace = "";
+
+      }else{
+
+        biographyElement.textContent =
+          profile.biography.trim();
+
+        biographyElement.style.whiteSpace =
+          "pre-line";
+
+      }
+
+    }
+
+  },
+
   function(error){
+
     console.error(
       "Unable to load Greig Sloan profile:",
       error
     );
+
   }
 );
-
-/* =========================================
-   GREIG SLOAN LIVE BIOGRAPHY
-========================================= */
-
-const biographyElement =
-  document.getElementById(
-    "publicProfileBiographyText"
-  );
-
-if(
-  biographyElement &&
-  typeof profile.biography === "string" &&
-  profile.biography.trim()
-){
-
-  const normalizeBiography = (value) =>
-    String(value)
-      .replace(/\s+/g, " ")
-      .trim();
-
-  const savedBiography =
-    normalizeBiography(profile.biography);
-
-  const originalBiography =
-    normalizeBiography(
-      biographyElement.textContent
-    );
-
-  if(savedBiography !== originalBiography){
-
-    biographyElement.textContent =
-      profile.biography.trim();
-
-    biographyElement.style.whiteSpace =
-      "pre-line";
-
-  }
-
-}
   
 /* =========================================
    ADMIN VISIBILITY
