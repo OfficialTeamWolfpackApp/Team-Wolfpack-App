@@ -1579,7 +1579,77 @@ profileBanner.addEventListener("input", function(){
   }
 
 });
- 
+ /* =========================================
+   TEAM MEMBER PROFILE SELECTION
+========================================= */
+
+const teamMemberSelect =
+  document.getElementById("teamMemberSelect");
+
+const teamMemberEditor =
+  document.getElementById("teamMemberEditor");
+
+/* =========================================
+   SHOW SELECTED TEAM MEMBER
+========================================= */
+
+teamMemberSelect.addEventListener("change", function(){
+
+  const selectedMember = teamMemberSelect.value;
+
+  // Hide the editor if no member is selected.
+  if(!selectedMember){
+
+    teamMemberEditor.style.display = "none";
+    return;
+
+  }
+
+  // Display the Team Member Editor.
+  teamMemberEditor.style.display = "block";
+
+  // Clear information from the previous member.
+  [
+    "memberName",
+    "memberTeam",
+    "memberRole",
+    "memberRepresenting",
+    "memberPhoto",
+    "memberBanner",
+    "memberBiography"
+  ].forEach(function(id){
+
+    document.getElementById(id).value = "";
+
+  });
+
+  // Set the selected member's name.
+  const memberNames = {
+
+    "mr-wolfie": "Mr Wolfie",
+
+    "bry-kelly": "Bry Kelly",
+
+    "billy-burton": "Billy \"Bossman\" Burton",
+
+    "kelly-mcsporran": "Kelly \"Bossgal\" McSporran"
+
+  };
+
+  document.getElementById("memberName").value =
+    memberNames[selectedMember] || "";
+
+  // Show the setup status.
+  const status =
+    document.getElementById("memberSaveStatus");
+
+  status.textContent =
+    "Team member selected. Firebase connection coming next.";
+
+  status.style.color = "#67dcff";
+
+});
+  
 </script>
   
 </body>
