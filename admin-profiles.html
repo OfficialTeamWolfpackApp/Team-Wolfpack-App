@@ -1332,12 +1332,19 @@ fighterSelect.addEventListener("change", async function(){
   document.getElementById("profileBannerImage")
     .removeAttribute("src");
 
-  // Mrs Wolfie has an existing biography.
-  if(selectedFighter === "mrs-wolfie"){
+/* =========================================
+   LOAD ORIGINAL FIGHTER BIOGRAPHY
+========================================= */
 
-    await loadOriginalMrsWolfieBiography();
+if(selectedFighter === "mrs-wolfie"){
 
-  }
+  await loadOriginalMrsWolfieBiography();
+
+}else if(selectedFighter === "greig-sloan"){
+
+  await loadOriginalGreigSloanBiography();
+
+}
 
   // Load the selected fighter's saved Firebase profile.
   await loadFighterProfile(selectedFighter);
