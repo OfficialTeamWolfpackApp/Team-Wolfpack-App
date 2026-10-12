@@ -2005,7 +2005,7 @@ const teamMemberEditor =
    SHOW SELECTED TEAM MEMBER
 ========================================= */
 
-teamMemberSelect.addEventListener("change", function(){
+teamMemberSelect.addEventListener("change", async function(){
 
   const selectedMember = teamMemberSelect.value;
 
@@ -2063,8 +2063,16 @@ status.textContent =
 
 status.style.color = "#67dcff";
 
-// Retrieve saved information from Firebase.
-loadTeamMemberProfile(selectedMember);
+// Load the selected team member's profile.
+if(selectedMember === "mr-wolfie"){
+
+  // Retrieve Mr Wolfie's original public profile first.
+  await loadOriginalMrWolfieProfile();
+
+}
+
+// Then retrieve any previously saved Firebase information.
+await loadTeamMemberProfile(selectedMember);
 
 });
   
