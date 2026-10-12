@@ -1657,7 +1657,140 @@ profileBanner.addEventListener("input", function(){
   }
 
 });
- /* =========================================
+
+/* =========================================
+   SAVE TEAM MEMBER PROFILE TO FIREBASE
+========================================= */
+
+const saveTeamMemberButton =
+  document.getElementById("saveTeamMemberProfile");
+
+const allowedTeamMembers = [
+  "mr-wolfie",
+  "bry-kelly",
+  "billy-burton",
+  "kelly-mcsporran"
+];
+
+saveTeamMemberButton.addEventListener("click", async function(){
+
+  const selectedMember =
+    document.getElementById("teamMemberSelect").value;
+
+  const status =
+    document.getElementById("memberSaveStatus");
+
+  // Check administrator access.
+  if(!auth.currentUser || !ADMINS[auth.currentUser.uid]){
+
+    status.textContent =
+      "❌ Administrator access required.";
+
+    status.style.color = "#ff755f";
+    return;
+
+  }
+
+  // Validate selected team member.
+  if(!allowedTeamMembers.includes(selectedMember)){
+
+    status.textContent =
+      "❌ Please select a valid team member.";
+
+    status.style.color = "#ff755f";
+    return;
+
+  }
+
+  const profile = {
+
+    name:
+      document.getElementById("memberName").value.trim(),
+
+    team:
+      document.getElementById("memberTeam").value.trim(),
+
+    role:
+      document.getElementById("memberRole").value.trim(),
+
+    representing:
+      document.getElementById("memberRepresenting").value.trim(),
+
+    photo:
+      document.getElementById("memberPhoto").value.trim(),
+
+    banner:
+      document.getElementById("memberBanner").value.trim(),
+
+    biography:
+      document.getElementById("memberBiography").value.trim()
+
+  };
+
+  // Check required fields.
+  if(
+    !profile.name ||
+    !profile.team ||
+    !profile.role ||
+    !profile.representing ||
+    !profile.biography
+  ){
+
+    status.textContent =
+      "❌ Please complete all required profile fields.";
+
+    status.style.color = "#ff755f";
+    return;
+
+  }
+
+  if(profile.biography.length > 10000){
+
+    status.textContent =
+      "❌ Biography exceeds the 10,000 character limit.";
+
+    status.style.color = "#ff755f";
+    return;
+
+  }
+
+  saveTeamMemberButton.disabled = true;
+
+  status.textContent =
+    "⏳ Saving team member profile...";
+
+  status.style.color = "#67dcff";
+
+  try{
+
+    await set(
+      ref(database, "teamMembers/" + selectedMember),
+      profile
+    );
+
+    status.textContent =
+      "✅ " + profile.name + "'s profile saved successfully!";
+
+    status.style.color = "#43f27b";
+
+  }catch(error){
+
+    console.error("Team member save failed:", error);
+
+    status.textContent =
+      "❌ Unable to save team member profile. Check Firebase permissions.";
+
+    status.style.color = "#ff755f";
+
+  }finally{
+
+    saveTeamMemberButton.disabled = false;
+
+  }
+
+});  
+  
+  /* =========================================
    TEAM MEMBER PROFILE SELECTION
 ========================================= */
 
