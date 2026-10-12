@@ -1919,6 +1919,9 @@ async function loadOriginalMrWolfieProfile(){
     document.getElementById("memberBanner").value =
       banner?.getAttribute("src") || "";
 
+// Display the original photograph and banner.
+updateTeamMemberPreviews();
+    
     // Retrieve the original biography.
     const aboutCard =
       documentCopy.querySelector(".about-card");
@@ -1964,6 +1967,62 @@ document.getElementById("memberBiography").value =
   }
 
 }
+
+/* =========================================
+   TEAM MEMBER IMAGE PREVIEWS
+========================================= */
+
+function updateTeamMemberPreviews(){
+
+  const photoInput =
+    document.getElementById("memberPhoto");
+
+  const bannerInput =
+    document.getElementById("memberBanner");
+
+  const photoPreview =
+    document.getElementById("memberPhotoPreview");
+
+  const bannerPreview =
+    document.getElementById("memberBannerPreview");
+
+  // Only allow image filenames from the app.
+  const safeImage =
+    /^(?!\/)(?!.*(?:^|\/)\.\.(?:\/|$))[a-zA-Z0-9/_-]+\.(jpg|jpeg|png|webp|gif)$/i;
+
+  function updatePreview(input, preview){
+
+    if(!input || !preview){
+      return;
+    }
+
+    const filename = input.value.trim();
+
+    if(!filename || !safeImage.test(filename)){
+
+      preview.removeAttribute("src");
+      preview.style.display = "none";
+      return;
+
+    }
+
+    preview.src = filename;
+    preview.style.display = "block";
+
+  }
+
+  updatePreview(photoInput, photoPreview);
+  updatePreview(bannerInput, bannerPreview);
+
+}
+
+/* Update previews when image filenames change. */
+
+document.getElementById("memberPhoto")
+  ?.addEventListener("input", updateTeamMemberPreviews);
+
+document.getElementById("memberBanner")
+  ?.addEventListener("input", updateTeamMemberPreviews);
   
 /* =========================================
    LOAD TEAM MEMBER PROFILE FROM FIREBASE
@@ -2030,6 +2089,9 @@ async function loadTeamMemberProfile(memberId){
     document.getElementById("memberBanner").value =
       profile.banner ?? "";
 
+    // Display the saved photograph and banner.
+updateTeamMemberPreviews();
+    
     document.getElementById("memberBiography").value =
       profile.biography ?? "";
 
