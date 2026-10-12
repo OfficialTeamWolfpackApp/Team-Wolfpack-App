@@ -1790,6 +1790,119 @@ saveTeamMemberButton.addEventListener("click", async function(){
 });  
 
 /* =========================================
+   LOAD ORIGINAL MR WOLFIE PROFILE
+========================================= */
+
+async function loadOriginalMrWolfieProfile(){
+
+  const selectedMember =
+    document.getElementById("teamMemberSelect").value;
+
+  if(selectedMember !== "mr-wolfie"){
+    return;
+  }
+
+  try{
+
+    const response = await fetch(
+      "mr-wolfie.html",
+      {cache:"no-store"}
+    );
+
+    if(!response.ok){
+      throw new Error("Unable to retrieve Mr Wolfie's profile");
+    }
+
+    const html = await response.text();
+
+    const documentCopy =
+      new DOMParser().parseFromString(
+        html,
+        "text/html"
+      );
+
+    // Stop if another member has been selected.
+    if(
+      document.getElementById("teamMemberSelect").value
+      !== "mr-wolfie"
+    ){
+      return;
+    }
+
+    // Retrieve existing profile details.
+    const values =
+      documentCopy.querySelectorAll(".profile-box .value");
+
+    if(values.length >= 4){
+
+      document.getElementById("memberName").value =
+        values[0].textContent.trim();
+
+      document.getElementById("memberTeam").value =
+        values[1].textContent.trim();
+
+      document.getElementById("memberRole").value =
+        values[2].textContent.replace(/\s+/g, " ").trim();
+
+      document.getElementById("memberRepresenting").value =
+        values[3].textContent.trim();
+
+    }
+
+    // Retrieve existing photograph and banner.
+    const photo =
+      documentCopy.querySelector(".profile-photo");
+
+    const banner =
+      documentCopy.querySelector(".profile-banner img");
+
+    document.getElementById("memberPhoto").value =
+      photo?.getAttribute("src") || "";
+
+    document.getElementById("memberBanner").value =
+      banner?.getAttribute("src") || "";
+
+    // Retrieve the original biography.
+    const aboutCard =
+      documentCopy.querySelector(".about-card");
+
+    if(aboutCard){
+
+      const biographyCopy =
+        aboutCard.cloneNode(true);
+
+      biographyCopy.querySelectorAll("br").forEach(function(br){
+        br.replaceWith("\n");
+      });
+
+      biographyCopy.querySelectorAll("p").forEach(function(p){
+        p.append("\n\n");
+      });
+
+      document.getElementById("memberBiography").value =
+        biographyCopy.textContent
+          .replace(/[ \t]+/g, " ")
+          .replace(/\n[ \t]*\n[ \t]*\n+/g, "\n\n")
+          .trim();
+
+    }
+
+    console.log(
+      "Original Mr Wolfie profile retrieved successfully"
+    );
+
+  }catch(error){
+
+    console.error(
+      "Unable to retrieve original Mr Wolfie profile:",
+      error
+    );
+
+  }
+
+}
+  
+/* =========================================
    LOAD TEAM MEMBER PROFILE FROM FIREBASE
 ========================================= */
 
