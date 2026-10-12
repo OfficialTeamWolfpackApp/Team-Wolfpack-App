@@ -1789,6 +1789,95 @@ saveTeamMemberButton.addEventListener("click", async function(){
   }
 
 });  
+
+/* =========================================
+   LOAD TEAM MEMBER PROFILE FROM FIREBASE
+========================================= */
+
+async function loadTeamMemberProfile(memberId){
+
+  const status =
+    document.getElementById("memberSaveStatus");
+
+  // Only authorised administrators can load profiles.
+  if(
+    !auth.currentUser ||
+    !ADMINS[auth.currentUser.uid]
+  ){
+    return;
+  }
+
+  try{
+
+    const memberRef = ref(
+      database,
+      "teamMembers/" + memberId
+    );
+
+    const snapshot = await get(memberRef);
+
+    // Prevent an older request from filling
+    // the editor after another member is selected.
+    if(
+      document.getElementById("teamMemberSelect").value
+      !== memberId
+    ){
+      return;
+    }
+
+    if(!snapshot.exists()){
+
+      status.textContent =
+        "No saved profile found. Enter this member's details.";
+
+      status.style.color = "#67dcff";
+
+      return;
+    }
+
+    const profile = snapshot.val();
+
+    document.getElementById("memberName").value =
+      profile.name ?? "";
+
+    document.getElementById("memberTeam").value =
+      profile.team ?? "";
+
+    document.getElementById("memberRole").value =
+      profile.role ?? "";
+
+    document.getElementById("memberRepresenting").value =
+      profile.representing ?? "";
+
+    document.getElementById("memberPhoto").value =
+      profile.photo ?? "";
+
+    document.getElementById("memberBanner").value =
+      profile.banner ?? "";
+
+    document.getElementById("memberBiography").value =
+      profile.biography ?? "";
+
+    status.textContent =
+      "✅ Saved team member profile loaded successfully.";
+
+    status.style.color = "#43f27b";
+
+  }catch(error){
+
+    console.error(
+      "Unable to load team member profile:",
+      error
+    );
+
+    status.textContent =
+      "❌ Unable to load profile. Check Firebase permissions.";
+
+    status.style.color = "#ff755f";
+
+  }
+
+}
   
   /* =========================================
    TEAM MEMBER PROFILE SELECTION
