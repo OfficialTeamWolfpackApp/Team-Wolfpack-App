@@ -805,6 +805,123 @@ body{
 
 </section>
 
+<!-- =========================================
+     TEAM MEMBER PROFILE EDITOR
+========================================= -->
+
+<section
+  id="teamMemberEditor"
+  class="admin-section"
+  style="display:none;"
+>
+
+  <h2 class="section-title">
+    🐺 EDIT TEAM MEMBER PROFILE
+  </h2>
+
+  <p class="section-description">
+    Manage the selected Team Wolfpack member's
+    profile information, photographs and biography.
+  </p>
+
+  <div class="team-member-fields">
+
+    <label for="memberName">
+      MEMBER NAME
+    </label>
+
+    <input
+      id="memberName"
+      type="text"
+      placeholder="Enter team member name"
+    >
+
+    <label for="memberTeam">
+      TEAM
+    </label>
+
+    <input
+      id="memberTeam"
+      type="text"
+      placeholder="Enter team name"
+    >
+
+    <label for="memberRole">
+      ROLE
+    </label>
+
+    <input
+      id="memberRole"
+      type="text"
+      placeholder="Enter team member role"
+    >
+
+    <label for="memberRepresenting">
+      REPRESENTING
+    </label>
+
+    <input
+      id="memberRepresenting"
+      type="text"
+      placeholder="Enter representing team"
+    >
+
+    <label for="memberPhoto">
+      PROFILE PHOTOGRAPH
+    </label>
+
+    <input
+      id="memberPhoto"
+      type="text"
+      placeholder="Enter photograph filename"
+    >
+
+    <label for="memberBanner">
+      PROFILE BANNER
+    </label>
+
+    <input
+      id="memberBanner"
+      type="text"
+      placeholder="Enter banner filename"
+    >
+
+    <label for="memberBiography">
+      MEMBER BIOGRAPHY
+    </label>
+
+    <textarea
+      id="memberBiography"
+      rows="14"
+      placeholder="Enter team member biography"
+    ></textarea>
+
+  </div>
+
+  <div class="profile-save-section">
+
+    <button
+      type="button"
+      id="saveTeamMemberProfile"
+      class="profile-save-button"
+      disabled
+    >
+      💾 SAVE TEAM MEMBER PROFILE
+    </button>
+
+    <div
+      id="memberSaveStatus"
+      class="profile-save-status"
+      role="status"
+      aria-live="polite"
+    >
+      Saving will be enabled after Firebase
+      is connected.
+    </div>
+
+  </div>
+
+</section>  
 
   <!-- BACK BUTTON -->
 
