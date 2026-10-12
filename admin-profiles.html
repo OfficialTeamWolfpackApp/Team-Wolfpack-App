@@ -1099,8 +1099,13 @@ if(!allowedFighters.includes(selectedFighter)){
         profile
       );
 
-      status.textContent =
-        "✅ Mrs Wolfie's profile saved successfully!";
+     const fighterName =
+  selectedFighter === "mrs-wolfie"
+    ? "Mrs Wolfie"
+    : "Greig Sloan";
+
+status.textContent =
+  "✅ " + fighterName + "'s profile saved successfully!";
 
       status.style.color = "#43f27b";
 
