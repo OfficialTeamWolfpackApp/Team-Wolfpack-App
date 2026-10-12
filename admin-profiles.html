@@ -2006,10 +2006,14 @@ function updateTeamMemberPreviews(){
 
     }
 
-    preview.src = filename;
-    preview.style.display = "block";
+  // Load images from the Team Wolfpack app root.
+const imagePath = new URL(
+  filename,
+  window.location.origin + "/"
+);
 
-  }
+preview.src = imagePath.href;
+preview.style.display = "block";
 
   updatePreview(photoInput, photoPreview);
   updatePreview(bannerInput, bannerPreview);
