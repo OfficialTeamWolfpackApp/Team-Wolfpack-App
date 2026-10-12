@@ -1850,21 +1850,21 @@ saveTeamMemberButton.addEventListener("click", async function(){
    LOAD ORIGINAL MR WOLFIE PROFILE
 ========================================= */
 
-async function loadOriginalMrWolfieProfile(){
+async function loadOriginalTeamMemberProfile(){
 
   const selectedMember =
     document.getElementById("teamMemberSelect").value;
 
-  if(selectedMember !== "mr-wolfie"){
-    return;
-  }
+ if(!allowedTeamMembers.includes(selectedMember)){
+  return;
+}
 
   try{
 
     const response = await fetch(
-      "mr-wolfie.html",
-      {cache:"no-store"}
-    );
+  selectedMember + ".html",
+  {cache:"no-store"}
+);
 
     if(!response.ok){
       throw new Error("Unable to retrieve Mr Wolfie's profile");
@@ -1879,12 +1879,12 @@ async function loadOriginalMrWolfieProfile(){
       );
 
     // Stop if another member has been selected.
-    if(
-      document.getElementById("teamMemberSelect").value
-      !== "mr-wolfie"
-    ){
-      return;
-    }
+ if(
+  document.getElementById("teamMemberSelect").value
+  !== selectedMember
+){
+  return;
+}
 
     // Retrieve existing profile details.
     const values =
@@ -2189,12 +2189,8 @@ status.textContent =
 status.style.color = "#67dcff";
 
 // Load the selected team member's profile.
-if(selectedMember === "mr-wolfie"){
-
-  // Retrieve Mr Wolfie's original public profile first.
-  await loadOriginalMrWolfieProfile();
-
-}
+// Retrieve the selected member's original public profile.
+await loadOriginalTeamMemberProfile();
 
 // Then retrieve any previously saved Firebase information.
 await loadTeamMemberProfile(selectedMember);
