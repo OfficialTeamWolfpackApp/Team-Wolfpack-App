@@ -2175,7 +2175,55 @@ const drawsCount =
     "drawsCount"
   );
 
+/* =========================================
+   GREIG SLOAN LIVE PROFILE
+========================================= */
 
+onValue(
+  ref(database, "profiles/greig-sloan"),
+
+  function(snapshot){
+
+    const profile = snapshot.val();
+
+    if(!profile){
+      return;
+    }
+
+    const fields = {
+      publicProfileName: profile.name,
+      publicProfileTeam: profile.team,
+      publicProfileRole: profile.role,
+      publicProfileRepresenting: profile.representing
+    };
+
+    Object.entries(fields).forEach(
+      function([id, value]){
+
+        const element =
+          document.getElementById(id);
+
+        if(
+          element &&
+          typeof value === "string" &&
+          value.trim()
+        ){
+          element.textContent = value.trim();
+        }
+
+      }
+    );
+
+  },
+
+  function(error){
+    console.error(
+      "Unable to load Greig Sloan profile:",
+      error
+    );
+  }
+);
+  
 /* =========================================
    ADMIN VISIBILITY
 ========================================= */
