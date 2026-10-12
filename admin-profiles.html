@@ -1219,26 +1219,52 @@ const fighterEditor =
 
 fighterSelect.addEventListener("change", async function(){
 
-    const selectedFighter =
-      fighterSelect.value;
-if(selectedFighter === "mrs-wolfie"){
+  const selectedFighter = fighterSelect.value;
 
-  fighterEditor.style.display = "block";
+  // Hide the editor when no fighter is selected.
+  if(!selectedFighter){
 
-  // Retrieve original biography first.
-  await loadOriginalMrsWolfieBiography();
-
-  // Load any saved profile from Firebase.
-  await loadFighterProfile(selectedFighter);
-
-}else{
-
-  fighterEditor.style.display = "none";
-
-}
+    fighterEditor.style.display = "none";
+    return;
 
   }
-);
+
+  // Show the editor for the selected fighter.
+  fighterEditor.style.display = "block";
+
+  // Clear the previous fighter's information.
+  [
+    "profileName",
+    "profileTeam",
+    "profileRole",
+    "profileRepresenting",
+    "profilePhoto",
+    "profileBanner",
+    "profileBiography"
+  ].forEach(function(id){
+
+    document.getElementById(id).value = "";
+
+  });
+
+  // Clear previous image previews.
+  document.getElementById("profilePhotoImage")
+    .removeAttribute("src");
+
+  document.getElementById("profileBannerImage")
+    .removeAttribute("src");
+
+  // Mrs Wolfie has an existing biography.
+  if(selectedFighter === "mrs-wolfie"){
+
+    await loadOriginalMrsWolfieBiography();
+
+  }
+
+  // Load the selected fighter's saved Firebase profile.
+  await loadFighterProfile(selectedFighter);
+
+});
 
 /* =========================================
    LIVE FIGHTER IMAGE PREVIEWS
