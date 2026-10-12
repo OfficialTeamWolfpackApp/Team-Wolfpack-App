@@ -2015,11 +2015,12 @@ const imagePath = new URL(
 preview.src = imagePath.href;
 preview.style.display = "block";
 
+  } // Close updatePreview function
+
   updatePreview(photoInput, photoPreview);
   updatePreview(bannerInput, bannerPreview);
 
-}
-
+} // Close updateTeamMemberPreviews function
 /* Update previews when image filenames change. */
 
 document.getElementById("memberPhoto")
