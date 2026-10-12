@@ -2013,6 +2013,147 @@ const auth =
   getAuth(firebaseApp);
 
 /* =========================================
+   MR WOLFIE LIVE PROFILE
+========================================= */
+
+const originalMemberBiography =
+  document.getElementById("publicMemberBiography")?.innerHTML || "";
+
+const originalMemberBiographyText =
+  document.getElementById("publicMemberBiography")?.textContent || "";
+
+/* Normalise text for comparison. */
+
+function normaliseMemberText(value){
+
+  return String(value || "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+}
+
+/* Update images safely. */
+
+function updateMemberImage(elementId, filename){
+
+  const image =
+    document.getElementById(elementId);
+
+  if(!image || !filename){
+    return;
+  }
+
+  const safeFilename =
+    /^[a-zA-Z0-9/_-]+\.(jpg|jpeg|png|webp|gif)$/i;
+
+  if(safeFilename.test(filename)){
+    image.src = filename;
+  }
+
+}
+
+/* Listen for saved changes. */
+
+onValue(
+
+  ref(database, "teamMembers/mr-wolfie"),
+
+  function(snapshot){
+
+    if(!snapshot.exists()){
+      return;
+    }
+
+    const profile = snapshot.val();
+
+    /* Profile information */
+
+    const fields = {
+
+      publicMemberName: profile.name,
+
+      publicMemberTeam: profile.team,
+
+      publicMemberRole: profile.role,
+
+      publicMemberRepresenting: profile.representing
+
+    };
+
+    Object.entries(fields).forEach(function([id, value]){
+
+      const element =
+        document.getElementById(id);
+
+      if(element && typeof value === "string"){
+        element.textContent = value;
+      }
+
+    });
+
+    /* Profile photograph */
+
+    updateMemberImage(
+      "publicMemberPhoto",
+      profile.photo
+    );
+
+    /* Profile banner */
+
+    updateMemberImage(
+      "publicMemberBanner",
+      profile.banner
+    );
+
+    /* Biography */
+
+    const biography =
+      document.getElementById("publicMemberBiography");
+
+    if(
+      biography &&
+      typeof profile.biography === "string"
+    ){
+
+      const savedText =
+        normaliseMemberText(profile.biography);
+
+      const originalText =
+        normaliseMemberText(originalMemberBiographyText);
+
+      if(savedText === originalText){
+
+        // Preserve the original blue/orange highlights.
+        biography.innerHTML =
+          originalMemberBiography;
+
+      }else{
+
+        // Display edited biographies as plain text.
+        biography.textContent =
+          profile.biography;
+
+        biography.style.whiteSpace =
+          "pre-line";
+
+      }
+
+    }
+
+  },
+
+  function(error){
+
+    console.error(
+      "Unable to load Mr Wolfie's public profile:",
+      error
+    );
+
+  }
+
+);  
+  
+/* =========================================
    DATABASE CONNECTION
 ========================================= */
 
