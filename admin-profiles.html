@@ -1032,17 +1032,22 @@ saveFighterProfileButton.addEventListener(
       return;
     }
 
-    // Only allow the configured fighter.
-    if(selectedFighter !== "mrs-wolfie"){
+  // Only allow configured fighters.
+const allowedFighters = [
+  "mrs-wolfie",
+  "greig-sloan"
+];
 
-      status.textContent =
-        "❌ Please select Mrs Wolfie.";
+if(!allowedFighters.includes(selectedFighter)){
 
-      status.style.color = "#ff755f";
+  status.textContent =
+    "❌ Please select a valid fighter.";
 
-      return;
-    }
+  status.style.color = "#ff755f";
 
+  return;
+}
+    
     // Check required fields and biography.
     if(!validateFighterProfile()){
       return;
