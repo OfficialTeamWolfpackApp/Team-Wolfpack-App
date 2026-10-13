@@ -1059,6 +1059,77 @@ deleteButton.textContent = "🗑️ DELETE";
 
 deleteButton.dataset.sponsorId = sponsorId;
 
+/* =========================================
+   DELETE SPONSOR FROM FIREBASE
+========================================= */
+
+deleteButton.addEventListener("click", async function(){
+
+  // Check administrator access.
+  const user = auth.currentUser;
+
+  if(!user || !ADMINS[user.uid]){
+    alert("Administrator access required.");
+    return;
+  }
+
+  // Confirm deletion.
+  const confirmed = confirm(
+    "Are you sure you want to permanently delete:\n\n" +
+    sponsor.name +
+    "\n\nThis action cannot be undone."
+  );
+
+  if(!confirmed){
+    return;
+  }
+
+  // Prevent repeated clicks.
+  deleteButton.disabled = true;
+
+  deleteButton.textContent = "⏳ DELETING...";
+
+  try{
+
+    // Delete this sponsor's Firebase record.
+    await remove(
+      ref(database, "sponsors/" + sponsorId)
+    );
+
+    // Reset the editor if this sponsor was being edited.
+    if(editingSponsorId === sponsorId){
+
+      editingSponsorId = null;
+
+      sponsorEditor.dataset.category = "";
+
+      sponsorEditor.style.display = "none";
+
+      saveSponsorButton.textContent =
+        "💾 SAVE SPONSOR";
+
+    }
+
+    // The Firebase listener automatically updates the lists.
+    alert("✅ Sponsor deleted successfully.");
+
+  }catch(error){
+
+    console.error("Sponsor deletion failed:", error);
+
+    alert(
+      "❌ Unable to delete sponsor: " +
+      error.message
+    );
+
+    deleteButton.disabled = false;
+
+    deleteButton.textContent = "🗑️ DELETE";
+
+  }
+
+});
+  
 /* ADD BUTTONS TO CARD */
 
 actions.appendChild(editButton);
