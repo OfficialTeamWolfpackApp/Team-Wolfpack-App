@@ -1678,8 +1678,11 @@ TEAM WOLFIE SPONSORS
 
 </div>
 
-<div class="team-count">
-1 SPONSOR
+<div
+  class="team-count"
+  id="teamWolfieSponsorCount"
+>
+2 MAIN SPONSORS
 </div>
 
 </div>
@@ -2338,6 +2341,26 @@ onValue(
     // Firebase has returned valid sponsor records.
     teamWolfieSponsorGrid.replaceChildren(fragment);
 
+    /* =========================================
+   UPDATE LIVE SPONSOR COUNTER
+========================================= */
+
+const teamWolfieSponsorCount =
+  document.getElementById("teamWolfieSponsorCount");
+
+if(teamWolfieSponsorCount){
+
+  const count = wolfieMainSponsors.length;
+
+  teamWolfieSponsorCount.textContent =
+    count + (
+      count === 1
+        ? " MAIN SPONSOR"
+        : " MAIN SPONSORS"
+    );
+
+}
+    
     console.log(
       "🐺 Team Wolfie live sponsors displayed:",
       wolfieMainSponsors.length
