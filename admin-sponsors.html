@@ -1543,6 +1543,14 @@ body{
   >
 
 </div>
+
+    <button
+  id="refreshSponsorLogo"
+  class="admin-button"
+  type="button"
+>
+  🔄 REFRESH LOGO PREVIEW
+</button>
     
     <label for="sponsorDescription">
       SPONSOR DESCRIPTION
@@ -1850,7 +1858,14 @@ function updateSponsorLogoPreview(){
 
   };
 
-  sponsorEditorLogoImage.src = filename;
+ const previewUrl = new URL(filename, window.location.href);
+
+previewUrl.searchParams.set(
+  "_preview",
+  Date.now().toString()
+);
+
+sponsorEditorLogoImage.src = previewUrl.href;
 
 }
 
@@ -1858,6 +1873,17 @@ sponsorLogoInput.addEventListener(
   "input",
   updateSponsorLogoPreview
 );
+
+/* =========================================
+   REFRESH SPONSOR LOGO PREVIEW
+========================================= */
+
+document.getElementById("refreshSponsorLogo")
+  .addEventListener("click", function(){
+
+    updateSponsorLogoPreview();
+
+  });
   
 /* =========================================
    OPEN MAIN SPONSOR EDITOR
