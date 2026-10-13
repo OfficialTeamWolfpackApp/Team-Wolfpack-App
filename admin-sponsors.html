@@ -935,6 +935,27 @@ body{
   visibility:visible;
   transform:translate(-50%,0);
 }
+
+/* =========================================
+   SPONSOR RESULTS COUNTER
+========================================= */
+
+.sponsor-results-count{
+  margin-top:18px;
+  padding:14px 18px;
+
+  border:1px solid rgba(103,220,255,.25);
+  border-radius:10px;
+
+  background:rgba(0,191,255,.06);
+
+  color:#67dcff;
+
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:1px;
+  text-align:center;
+}
   
 </style>
 
@@ -1199,6 +1220,19 @@ body{
 >
   ↺ RESET SEARCH & FILTERS
 </button>
+
+<!-- =========================================
+     SPONSOR SEARCH RESULTS COUNTER
+========================================= -->
+
+<div
+  id="sponsorResultsCount"
+  class="sponsor-results-count"
+  role="status"
+  aria-live="polite"
+>
+  🐺 LOADING SPONSORS...
+</div>
   
 </section>
   
