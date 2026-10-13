@@ -888,13 +888,71 @@ body{
 
   transform:translateY(-2px);
 }
+
+/* =========================================
+   SPONSOR SUCCESS NOTIFICATION
+========================================= */
+
+.sponsor-toast{
+  position:fixed;
+  top:20px;
+  left:50%;
+
+  transform:translate(-50%,-20px);
+
+  width:calc(100% - 30px);
+  max-width:420px;
+
+  padding:16px 22px;
+
+  border:1px solid rgba(67,242,123,.5);
+  border-radius:12px;
+
+  background:#07170d;
+  color:#43f27b;
+
+  font-size:12px;
+  font-weight:900;
+  text-align:center;
+  line-height:1.6;
+
+  box-shadow:0 12px 35px rgba(0,0,0,.5);
+
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+
+  z-index:9999;
+
+  transition:
+    opacity .25s ease,
+    transform .25s ease,
+    visibility .25s ease;
+}
+
+.sponsor-toast.show{
+  opacity:1;
+  visibility:visible;
+  transform:translate(-50%,0);
+}
   
 </style>
 
 </head>
 
 <body>
+<!-- =========================================
+     SPONSOR SUCCESS NOTIFICATION
+========================================= -->
 
+<div
+  id="sponsorToast"
+  class="sponsor-toast"
+  role="status"
+  aria-live="polite"
+  aria-atomic="true"
+></div>
+  
 <!-- =========================================
      FIREBASE ADMIN ACCESS STATUS
 ========================================= -->
@@ -1693,6 +1751,31 @@ cancelSponsorEditButton.addEventListener("click", function(){
 ========================================= */
 
 let editingSponsorId = null;
+
+/* =========================================
+   SPONSOR SUCCESS NOTIFICATION
+========================================= */
+
+const sponsorToast =
+  document.getElementById("sponsorToast");
+
+let sponsorToastTimeout;
+
+function showSponsorToast(message){
+
+  clearTimeout(sponsorToastTimeout);
+
+  sponsorToast.textContent = message;
+
+  sponsorToast.classList.add("show");
+
+  sponsorToastTimeout = setTimeout(function(){
+
+    sponsorToast.classList.remove("show");
+
+  },4000);
+
+}
   
 /* =========================================
    SAVE SPONSOR TO FIREBASE
@@ -1783,6 +1866,8 @@ if(editingSponsorId){
   sponsorSaveStatus.textContent =
     "✅ Sponsor saved successfully!";
 
+showSponsorToast("✅ NEW SPONSOR SAVED SUCCESSFULLY!");
+  
 }
 
 // Keep the editor visible so the result can be checked.
