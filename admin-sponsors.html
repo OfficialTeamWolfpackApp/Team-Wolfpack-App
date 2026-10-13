@@ -1105,6 +1105,40 @@ body{
   border-color:#67dcff;
   transform:translateY(-2px);
 }
+
+/* =========================================
+   CLEAR SPONSOR LOGO BUTTON
+========================================= */
+
+.clear-sponsor-logo{
+  margin-left:10px;
+
+  border:1px solid rgba(255,90,0,.45);
+
+  background:rgba(255,90,0,.08);
+
+  color:#ff8a45;
+}
+
+.clear-sponsor-logo:hover{
+  border-color:#ff751c;
+
+  background:rgba(255,90,0,.18);
+
+  color:#fff;
+}
+
+@media(max-width:600px){
+
+  #refreshSponsorLogo,
+  #clearSponsorLogo{
+    display:block;
+    width:100%;
+    margin-left:0;
+    margin-top:10px;
+  }
+
+}
   
 </style>
 
@@ -1551,6 +1585,16 @@ body{
 >
   🔄 REFRESH LOGO PREVIEW
 </button>
+
+<!-- CLEAR SPONSOR LOGO -->
+
+<button
+  id="clearSponsorLogo"
+  class="admin-button clear-sponsor-logo"
+  type="button"
+>
+  ✖ CLEAR LOGO
+</button>
     
     <label for="sponsorDescription">
       SPONSOR DESCRIPTION
@@ -1882,6 +1926,24 @@ document.getElementById("refreshSponsorLogo")
   .addEventListener("click", function(){
 
     updateSponsorLogoPreview();
+
+  });
+
+/* =========================================
+   CLEAR SPONSOR LOGO
+========================================= */
+
+document.getElementById("clearSponsorLogo")
+  .addEventListener("click", function(){
+
+    // Clear the logo filename.
+    sponsorLogoInput.value = "";
+
+    // Reset the live preview.
+    updateSponsorLogoPreview();
+
+    // Return focus to the logo field.
+    sponsorLogoInput.focus();
 
   });
   
