@@ -528,7 +528,6 @@ body{
       id="saveSponsor"
       class="admin-button"
       type="button"
-      disabled
     >
       💾 SAVE SPONSOR
     </button>
@@ -749,6 +748,98 @@ sponsorEditor.style.display = "block";
   });
 
 });  
+
+/* =========================================
+   SAVE SPONSOR TO FIREBASE
+========================================= */
+
+const saveSponsorButton =
+  document.getElementById("saveSponsor");
+
+const sponsorSaveStatus =
+  document.getElementById("sponsorSaveStatus");
+
+saveSponsorButton.addEventListener("click", async function(){
+
+  // Check administrator access.
+  const user = auth.currentUser;
+
+  if(!user || !ADMINS[user.uid]){
+    sponsorSaveStatus.textContent =
+      "❌ Administrator access required.";
+    return;
+  }
+
+  // Read sponsor information.
+  const getValue = (id) =>
+    document.getElementById(id).value.trim();
+
+  const sponsor = {
+    name: getValue("sponsorName"),
+    team: getValue("sponsorTeam"),
+    category: sponsorEditor.dataset.category,
+    logo: getValue("sponsorLogo"),
+    description: getValue("sponsorDescription"),
+    website: getValue("sponsorWebsite"),
+    facebook: getValue("sponsorFacebook"),
+    instagram: getValue("sponsorInstagram"),
+    tiktok: getValue("sponsorTikTok")
+  };
+
+  // Validate required information.
+  if(!sponsor.name){
+    sponsorSaveStatus.textContent =
+      "❌ Please enter the sponsor name.";
+    return;
+  }
+
+  if(!["main", "supporter"].includes(sponsor.category)){
+    sponsorSaveStatus.textContent =
+      "❌ Please select Main Sponsor or Supporter.";
+    return;
+  }
+
+  if(!sponsor.logo){
+    sponsorSaveStatus.textContent =
+      "❌ Please enter the sponsor logo filename.";
+    return;
+  }
+
+  // Prevent duplicate clicks.
+  saveSponsorButton.disabled = true;
+
+  sponsorSaveStatus.textContent =
+    "⏳ Saving sponsor to Firebase...";
+
+  try{
+
+    // Generate a unique sponsor record.
+    const newSponsorRef =
+      push(ref(database, "sponsors"));
+
+    // Save sponsor information.
+    await set(newSponsorRef, sponsor);
+
+    sponsorSaveStatus.textContent =
+      "✅ Sponsor saved successfully!";
+
+    // Keep the editor visible so the result can be checked.
+    sponsorEditor.dataset.category = "";
+
+  }catch(error){
+
+    console.error("Sponsor save failed:", error);
+
+    sponsorSaveStatus.textContent =
+      "❌ Unable to save sponsor: " + error.message;
+
+  }finally{
+
+    saveSponsorButton.disabled = false;
+
+  }
+
+});
   
 </script>
 
