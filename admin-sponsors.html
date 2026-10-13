@@ -323,6 +323,121 @@ body{
 }
 
 /* =========================================
+   SPONSOR DASHBOARD OVERVIEW
+========================================= */
+
+.sponsor-overview-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+  margin-top:20px;
+}
+
+.sponsor-stat-card{
+  padding:22px 14px;
+  text-align:center;
+
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.12);
+
+  background:#090909;
+
+  box-shadow:
+    0 10px 25px rgba(0,0,0,.25);
+}
+
+.sponsor-stat-icon{
+  font-size:26px;
+  margin-bottom:12px;
+}
+
+.sponsor-stat-number{
+  font-size:36px;
+  font-weight:900;
+  line-height:1.2;
+}
+
+.sponsor-stat-label{
+  margin-top:9px;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1px;
+  color:#aaa;
+}
+
+/* MAIN SPONSORS */
+
+.main-stat{
+  border-color:rgba(255,190,70,.35);
+}
+
+.main-stat .sponsor-stat-number{
+  color:#ffc247;
+}
+
+/* SUPPORTERS */
+
+.supporter-stat{
+  border-color:rgba(255,255,255,.2);
+}
+
+.supporter-stat .sponsor-stat-number{
+  color:#fff;
+}
+
+/* TEAM WOLFIE */
+
+.wolfie-stat{
+  border-color:rgba(0,191,255,.35);
+}
+
+.wolfie-stat .sponsor-stat-number{
+  color:#67dcff;
+}
+
+/* TEAM SLOAN */
+
+.sloan-stat{
+  border-color:rgba(255,117,28,.35);
+}
+
+.sloan-stat .sponsor-stat-number{
+  color:#ff751c;
+}
+
+/* DESKTOP */
+
+@media(min-width:720px){
+
+  .sponsor-overview-grid{
+    grid-template-columns:repeat(4,minmax(0,1fr));
+  }
+
+}
+
+/* SMALL PHONES */
+
+@media(max-width:380px){
+
+  .sponsor-overview-grid{
+    gap:10px;
+  }
+
+  .sponsor-stat-card{
+    padding:18px 8px;
+  }
+
+  .sponsor-stat-number{
+    font-size:30px;
+  }
+
+  .sponsor-stat-label{
+    font-size:9px;
+  }
+
+}
+  
+/* =========================================
    SPONSOR EDIT AND DELETE BUTTONS
 ========================================= */
 
@@ -446,6 +561,113 @@ body{
 
   <div class="admin-divider"></div>
 
+<!-- =========================================
+     LIVE SPONSOR DASHBOARD OVERVIEW
+========================================= -->
+
+<section
+  class="admin-section"
+  id="sponsorOverview"
+>
+
+  <h2 class="section-title">
+    🐺 SPONSOR DASHBOARD OVERVIEW
+  </h2>
+
+  <p class="section-description">
+    Live sponsorship statistics across Team Wolfpack.
+  </p>
+
+  <div class="sponsor-overview-grid">
+
+    <!-- MAIN SPONSORS -->
+
+    <div class="sponsor-stat-card main-stat">
+
+      <div class="sponsor-stat-icon">
+        🏆
+      </div>
+
+      <div
+        id="totalMainSponsors"
+        class="sponsor-stat-number"
+      >
+        —
+      </div>
+
+      <div class="sponsor-stat-label">
+        MAIN SPONSORS
+      </div>
+
+    </div>
+
+    <!-- SUPPORTERS -->
+
+    <div class="sponsor-stat-card supporter-stat">
+
+      <div class="sponsor-stat-icon">
+        🤝
+      </div>
+
+      <div
+        id="totalSupporters"
+        class="sponsor-stat-number"
+      >
+        —
+      </div>
+
+      <div class="sponsor-stat-label">
+        SUPPORTERS
+      </div>
+
+    </div>
+
+    <!-- TEAM WOLFIE -->
+
+    <div class="sponsor-stat-card wolfie-stat">
+
+      <div class="sponsor-stat-icon">
+        🧊
+      </div>
+
+      <div
+        id="totalWolfieSponsors"
+        class="sponsor-stat-number"
+      >
+        —
+      </div>
+
+      <div class="sponsor-stat-label">
+        TEAM WOLFIE
+      </div>
+
+    </div>
+
+    <!-- TEAM SLOAN -->
+
+    <div class="sponsor-stat-card sloan-stat">
+
+      <div class="sponsor-stat-icon">
+        🔥
+      </div>
+
+      <div
+        id="totalSloanSponsors"
+        class="sponsor-stat-number"
+      >
+        —
+      </div>
+
+      <div class="sponsor-stat-label">
+        TEAM SLOAN
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+  
 <!-- =========================================
      SPONSOR MANAGEMENT NAVIGATION
 ========================================= -->
