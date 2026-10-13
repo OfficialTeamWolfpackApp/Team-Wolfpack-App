@@ -768,6 +768,10 @@ const sponsorEditor =
 
 addMainSponsorButton.addEventListener("click", function(){
 
+editingSponsorId = null;
+
+saveSponsorButton.textContent = "💾 SAVE SPONSOR";
+  
   // Only authorised administrators can open the editor.
   if(
     !auth.currentUser ||
@@ -813,6 +817,12 @@ sponsorEditor.style.display = "block";
 
 });  
 
+/* =========================================
+   SPONSOR EDITING STATE
+========================================= */
+
+let editingSponsorId = null;
+  
 /* =========================================
    SAVE SPONSOR TO FIREBASE
 ========================================= */
@@ -877,12 +887,38 @@ saveSponsorButton.addEventListener("click", async function(){
 
   try{
 
-    // Generate a unique sponsor record.
-    const newSponsorRef =
-      push(ref(database, "sponsors"));
+   /* =========================================
+   CREATE OR UPDATE SPONSOR
+========================================= */
 
-    // Save sponsor information.
-    await set(newSponsorRef, sponsor);
+if(editingSponsorId){
+
+  // Update the existing sponsor.
+  await set(
+    ref(database, "sponsors/" + editingSponsorId),
+    sponsor
+  );
+
+  sponsorSaveStatus.textContent =
+    "✅ Sponsor updated successfully!";
+
+  editingSponsorId = null;
+
+  saveSponsorButton.textContent =
+    "💾 SAVE SPONSOR";
+
+}else{
+
+  // Create a new sponsor.
+  const newSponsorRef =
+    push(ref(database, "sponsors"));
+
+  await set(newSponsorRef, sponsor);
+
+  sponsorSaveStatus.textContent =
+    "✅ Sponsor saved successfully!";
+
+}
 
     sponsorSaveStatus.textContent =
       "✅ Sponsor saved successfully!";
@@ -960,6 +996,60 @@ editButton.textContent = "✏️ EDIT";
 
 editButton.dataset.sponsorId = sponsorId;
 
+/* OPEN EXISTING SPONSOR FOR EDITING */
+
+editButton.addEventListener("click", function(){
+
+  if(!auth.currentUser || !ADMINS[auth.currentUser.uid]){
+    return;
+  }
+
+  editingSponsorId = sponsorId;
+
+  document.getElementById("sponsorName").value =
+    sponsor.name || "";
+
+  document.getElementById("sponsorTeam").value =
+    sponsor.team || "wolfie";
+
+  document.getElementById("sponsorLogo").value =
+    sponsor.logo || "";
+
+  document.getElementById("sponsorDescription").value =
+    sponsor.description || "";
+
+  document.getElementById("sponsorWebsite").value =
+    sponsor.website || "";
+
+  document.getElementById("sponsorFacebook").value =
+    sponsor.facebook || "";
+
+  document.getElementById("sponsorInstagram").value =
+    sponsor.instagram || "";
+
+  document.getElementById("sponsorTikTok").value =
+    sponsor.tiktok || "";
+
+  sponsorEditor.dataset.category = sponsor.category;
+
+  sponsorEditor.querySelector(".section-title").textContent =
+    "✏️ EDIT SPONSOR";
+
+  sponsorSaveStatus.textContent =
+    "Editing " + sponsor.name;
+
+  saveSponsorButton.textContent =
+    "💾 UPDATE SPONSOR";
+
+  sponsorEditor.style.display = "block";
+
+  sponsorEditor.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+
+});
+  
 /* DELETE BUTTON */
 
 const deleteButton = document.createElement("button");
