@@ -322,6 +322,61 @@ body{
 
 }
 
+/* =========================================
+   SPONSOR EDIT AND DELETE BUTTONS
+========================================= */
+
+.sponsor-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:15px;
+}
+
+.sponsor-edit-button,
+.sponsor-delete-button{
+  padding:10px 18px;
+
+  border-radius:8px;
+
+  font-size:12px;
+  font-weight:900;
+
+  letter-spacing:1px;
+
+  cursor:pointer;
+
+  transition:all .2s ease;
+}
+
+.sponsor-edit-button{
+  background:rgba(0,191,255,.12);
+
+  border:1px solid #00bfff;
+
+  color:#00bfff;
+}
+
+.sponsor-edit-button:hover{
+  background:#00bfff;
+
+  color:#000;
+}
+
+.sponsor-delete-button{
+  background:rgba(255,90,0,.12);
+
+  border:1px solid #ff5a00;
+
+  color:#ff5a00;
+}
+
+.sponsor-delete-button:hover{
+  background:#ff5a00;
+
+  color:#000;
+}
+  
 </style>
 
 </head>
@@ -885,11 +940,53 @@ card.dataset.sponsorId = sponsorId;
   const logo = document.createElement("p");
   logo.textContent = "Logo: " + (sponsor.logo || "Not set");
 
-  card.appendChild(name);
-  card.appendChild(details);
-  card.appendChild(logo);
+/* =========================================
+   SPONSOR MANAGEMENT BUTTONS
+========================================= */
 
-  return card;
+const actions = document.createElement("div");
+
+actions.className = "sponsor-actions";
+
+/* EDIT BUTTON */
+
+const editButton = document.createElement("button");
+
+editButton.type = "button";
+
+editButton.className = "sponsor-edit-button";
+
+editButton.textContent = "✏️ EDIT";
+
+editButton.dataset.sponsorId = sponsorId;
+
+/* DELETE BUTTON */
+
+const deleteButton = document.createElement("button");
+
+deleteButton.type = "button";
+
+deleteButton.className = "sponsor-delete-button";
+
+deleteButton.textContent = "🗑️ DELETE";
+
+deleteButton.dataset.sponsorId = sponsorId;
+
+/* ADD BUTTONS TO CARD */
+
+actions.appendChild(editButton);
+
+actions.appendChild(deleteButton);
+
+card.appendChild(name);
+
+card.appendChild(details);
+
+card.appendChild(logo);
+
+card.appendChild(actions);
+
+return card;
 
 }
 
