@@ -1065,6 +1065,46 @@ body{
   }
 
 }
+
+/* =========================================
+   BACK TO TOP BUTTON
+========================================= */
+
+.back-to-top-wrap{
+  display:flex;
+  justify-content:center;
+  margin:30px 0;
+}
+
+.back-to-top-button{
+  width:100%;
+  max-width:280px;
+
+  padding:15px 20px;
+
+  border:1px solid rgba(103,220,255,.4);
+  border-radius:12px;
+
+  background:linear-gradient(
+    135deg,
+    rgba(0,191,255,.15),
+    rgba(255,90,0,.12)
+  );
+
+  color:#fff;
+
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:1px;
+
+  cursor:pointer;
+  transition:.2s ease;
+}
+
+.back-to-top-button:hover{
+  border-color:#67dcff;
+  transform:translateY(-2px);
+}
   
 </style>
 
@@ -1615,6 +1655,22 @@ body{
     
   </section>
 
+<!-- =========================================
+     BACK TO TOP BUTTON
+========================================= -->
+
+<div class="back-to-top-wrap">
+
+  <button
+    id="backToTop"
+    class="admin-button back-to-top-button"
+    type="button"
+  >
+    ↑ BACK TO TOP
+  </button>
+
+</div>
+  
   <footer class="admin-footer">
     TEAM WOLFPACK • ONE PACK • ONE PURPOSE
   </footer>
@@ -2556,6 +2612,22 @@ resetSponsorFiltersButton.addEventListener("click", function(){
 
   // Display all sponsor cards.
   applySponsorTeamFilter();
+
+});
+
+/* =========================================
+   BACK TO TOP NAVIGATION
+========================================= */
+
+const backToTopButton =
+  document.getElementById("backToTop");
+
+backToTopButton.addEventListener("click", function(){
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 
 });
   
