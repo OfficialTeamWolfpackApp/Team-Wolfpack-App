@@ -2145,10 +2145,13 @@ if(editingSponsorId){
     sponsor
   );
 
-  sponsorSaveStatus.textContent =
-    "✅ Sponsor updated successfully!";
+ sponsorSaveStatus.textContent =
+  "✅ Sponsor updated successfully!";
 
-  editingSponsorId = null;
+// Display success notification.
+showSponsorToast("✅ SPONSOR UPDATED SUCCESSFULLY!");
+
+editingSponsorId = null;
 
   saveSponsorButton.textContent =
     "💾 SAVE SPONSOR";
