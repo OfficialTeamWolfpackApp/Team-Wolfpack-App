@@ -2020,6 +2020,20 @@ const cancelSponsorEditButton =
 
 cancelSponsorEditButton.addEventListener("click", function(){
 
+/* =========================================
+   CONFIRM BEFORE CLOSING SPONSOR EDITOR
+========================================= */
+
+const confirmClose = confirm(
+  "⚠️ CLOSE SPONSOR EDITOR?\n\n" +
+  "Any unsaved changes will be lost.\n\n" +
+  "Click OK to close or Cancel to continue editing."
+);
+
+if(!confirmClose){
+  return;
+}
+  
   // Close the sponsor editor.
   sponsorEditor.style.display = "none";
 
