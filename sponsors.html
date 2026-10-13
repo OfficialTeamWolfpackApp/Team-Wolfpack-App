@@ -2171,12 +2171,185 @@ const sponsorDatabase =
   getDatabase(firebaseApp);
 
 /* =========================================
-   TEST LIVE SPONSOR DATABASE
+   LIVE TEAM WOLFIE SPONSORS
 ========================================= */
 
-const sponsorsRef =
-  ref(sponsorDatabase, "sponsors");
+const teamWolfieSponsorGrid =
+  document.getElementById("teamWolfieSponsorGrid");
 
+function createPublicSponsorCard(sponsor){
+
+  const card = document.createElement("div");
+  card.className = "sponsor-card wolfie";
+
+  // Sponsor logo
+  if(sponsor.logo){
+
+    const logoBox = document.createElement("div");
+    logoBox.className = "sponsor-logo-box";
+
+    const logo = document.createElement("img");
+    logo.src = sponsor.logo;
+    logo.alt = sponsor.name || "Sponsor logo";
+    logo.loading = "lazy";
+
+    logoBox.appendChild(logo);
+    card.appendChild(logoBox);
+  }
+
+  // Sponsor name
+  const name = document.createElement("div");
+  name.className = "sponsor-name";
+  name.textContent = sponsor.name || "";
+
+  card.appendChild(name);
+
+  // Sponsor category
+  const type = document.createElement("div");
+  type.className = "sponsor-type";
+  type.textContent = "OFFICIAL TEAM WOLFIE MAIN SPONSOR";
+
+  card.appendChild(type);
+
+  // Sponsor description
+  if(sponsor.description){
+
+    const info = document.createElement("div");
+    info.className = "sponsor-info";
+    info.textContent = sponsor.description;
+
+    card.appendChild(info);
+  }
+
+  // Social media and website links
+  const links = [
+    ["website", "VISIT WEBSITE"],
+    ["facebook", "FACEBOOK"],
+    ["instagram", "INSTAGRAM"],
+    ["tiktok", "TIKTOK"]
+  ];
+
+  links.forEach(function([platform, label]){
+
+    const url = sponsor[platform];
+
+    if(!url){
+      return;
+    }
+
+    // Only allow standard website links.
+    let safeUrl;
+
+    try{
+      safeUrl = new URL(url);
+
+      if(
+        safeUrl.protocol !== "https:" &&
+        safeUrl.protocol !== "http:"
+      ){
+        return;
+      }
+
+    }catch(error){
+      return;
+    }
+
+    const button = document.createElement("a");
+
+    button.className = "social-button";
+    button.href = safeUrl.href;
+    button.target = "_blank";
+    button.rel = "noopener noreferrer";
+    button.textContent = label + " ›";
+
+    button.addEventListener("click", function(){
+
+      if(typeof gtag === "function"){
+
+        gtag("event", "sponsor_click", {
+          sponsor: sponsor.name,
+          team: "Team Wolfie",
+          platform: platform,
+          source: "Sponsors Page"
+        });
+      }
+    });
+
+    card.appendChild(button);
+  });
+
+  return card;
+}
+
+/* =========================================
+   LOAD SPONSORS FROM FIREBASE
+========================================= */
+
+onValue(
+
+  sponsorsRef,
+
+  function(snapshot){
+
+    if(!teamWolfieSponsorGrid){
+      console.error("Team Wolfie sponsor grid not found.");
+      return;
+    }
+
+    if(!snapshot.exists()){
+      console.log("No Firebase sponsors available.");
+      return;
+    }
+
+    const sponsors = Object.values(snapshot.val());
+
+    const wolfieMainSponsors = sponsors.filter(
+      function(sponsor){
+
+        return (
+          sponsor.team === "wolfie" &&
+          sponsor.category === "main"
+        );
+      }
+    );
+
+    if(wolfieMainSponsors.length === 0){
+      return;
+    }
+
+    // Build the new cards before replacing the old ones.
+    const fragment = document.createDocumentFragment();
+
+    wolfieMainSponsors.forEach(function(sponsor){
+
+      fragment.appendChild(
+        createPublicSponsorCard(sponsor)
+      );
+    });
+
+    // Replace static Team Wolfie cards only after
+    // Firebase has returned valid sponsor records.
+    teamWolfieSponsorGrid.replaceChildren(fragment);
+
+    console.log(
+      "🐺 Team Wolfie live sponsors displayed:",
+      wolfieMainSponsors.length
+    );
+
+  },
+
+  function(error){
+
+    console.error(
+      "Unable to load live sponsors:",
+      error
+    );
+
+    // Existing static sponsor cards remain visible
+    // if the Firebase request fails.
+  }
+
+);
 onValue(
   sponsorsRef,
 
