@@ -820,6 +820,43 @@ body{
   border-color:#ff751c;
   color:#fff;
 }
+
+/* =========================================
+   SPONSOR SEARCH BAR
+========================================= */
+
+#sponsorSearchInput{
+  display:block;
+
+  width:100%;
+  min-height:50px;
+
+  margin-top:18px;
+  padding:14px 16px;
+
+  border:1px solid rgba(103,220,255,.35);
+  border-radius:12px;
+
+  background:#090909;
+  color:#fff;
+
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:13px;
+
+  outline:none;
+  box-sizing:border-box;
+}
+
+#sponsorSearchInput:focus{
+  border-color:#00bfff;
+
+  box-shadow:
+    0 0 15px rgba(0,191,255,.15);
+}
+
+#sponsorSearchInput::placeholder{
+  color:#777;
+}
   
 </style>
 
@@ -1041,6 +1078,30 @@ body{
     </button>
 
   </div>
+
+</section>
+
+<!-- =========================================
+     SPONSOR SEARCH
+========================================= -->
+
+<section class="admin-section">
+
+  <h2 class="section-title">
+    🔍 SEARCH SPONSORS
+  </h2>
+
+  <p class="section-description">
+    Find sponsors by name across Team Wolfpack.
+  </p>
+
+  <input
+    id="sponsorSearchInput"
+    type="search"
+    placeholder="Search sponsor names..."
+    aria-label="Search sponsors by name"
+    autocomplete="off"
+  >
 
 </section>
   
@@ -2083,15 +2144,25 @@ function applySponsorTeamFilter(){
 
   sponsorCards.forEach(function(card){
 
-    const sponsorTeam = card.dataset.team;
+   const sponsorTeam = card.dataset.team;
 
-    const shouldShow =
-      activeSponsorTeam === "all" ||
-      sponsorTeam === activeSponsorTeam;
+const searchTerm =
+  document.getElementById("sponsorSearchInput")
+    .value.trim().toLowerCase();
 
-    card.style.display =
-      shouldShow ? "" : "none";
+const sponsorName =
+  card.querySelector("strong")
+    ?.textContent.toLowerCase() || "";
 
+const matchesTeam =
+  activeSponsorTeam === "all" ||
+  sponsorTeam === activeSponsorTeam;
+
+const matchesSearch =
+  sponsorName.includes(searchTerm);
+
+card.style.display =
+  matchesTeam && matchesSearch ? "" : "none";
   });
 
 }
@@ -2126,6 +2197,18 @@ sponsorTeamFilterButtons.forEach(function(button){
   });
 
 });
+
+/* =========================================
+   LIVE SPONSOR SEARCH
+========================================= */
+
+const sponsorSearchInput =
+  document.getElementById("sponsorSearchInput");
+
+sponsorSearchInput.addEventListener(
+  "input",
+  applySponsorTeamFilter
+);
   
 /* =========================================
    ACTIVATE ADD SUPPORTER
