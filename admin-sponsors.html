@@ -1192,6 +1192,14 @@ body{
     autocomplete="off"
   >
 
+<button
+  id="resetSponsorFilters"
+  class="admin-button"
+  type="button"
+>
+  ↺ RESET SEARCH & FILTERS
+</button>
+  
 </section>
   
 <!-- =========================================
@@ -2337,6 +2345,41 @@ sponsorSearchInput.addEventListener(
   "input",
   applySponsorTeamFilter
 );
+
+/* =========================================
+   RESET SPONSOR SEARCH AND FILTERS
+========================================= */
+
+const resetSponsorFiltersButton =
+  document.getElementById("resetSponsorFilters");
+
+resetSponsorFiltersButton.addEventListener("click", function(){
+
+  // Clear the search field.
+  sponsorSearchInput.value = "";
+
+  // Return to all sponsors.
+  activeSponsorTeam = "all";
+
+  // Reset the team filter buttons.
+  sponsorTeamFilterButtons.forEach(function(button){
+
+    const isActive =
+      button.dataset.team === "all";
+
+    button.classList.toggle("active", isActive);
+
+    button.setAttribute(
+      "aria-pressed",
+      String(isActive)
+    );
+
+  });
+
+  // Display all sponsor cards.
+  applySponsorTeamFilter();
+
+});
   
 /* =========================================
    ACTIVATE ADD SUPPORTER
