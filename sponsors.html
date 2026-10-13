@@ -2381,6 +2381,21 @@ if(!snapshot.exists()){
 }
     const sponsors = Object.values(snapshot.val());
 
+/* =========================================
+   FILTER TEAM WOLFIE SUPPORTERS
+========================================= */
+
+const wolfieSupporters = sponsors.filter(
+  function(sponsor){
+
+    return (
+      sponsor.team === "wolfie" &&
+      sponsor.category === "supporter"
+    );
+
+  }
+);
+    
     const wolfieMainSponsors = sponsors.filter(
       function(sponsor){
 
@@ -2460,6 +2475,69 @@ if(teamWolfieSponsorCount){
       wolfieMainSponsors.length
     );
 
+/* =========================================
+   DISPLAY LIVE TEAM WOLFIE SUPPORTERS
+========================================= */
+
+const supporterGrid =
+  document.getElementById("teamWolfieSupporterGrid");
+
+const supporterCount =
+  document.getElementById("teamWolfieSupporterCount");
+
+if(supporterGrid){
+
+  const supporterFragment =
+    document.createDocumentFragment();
+
+  if(wolfieSupporters.length > 0){
+
+    wolfieSupporters.forEach(function(sponsor){
+
+      const card = createPublicSponsorCard(sponsor);
+
+      // Correct the category label.
+      const type = card.querySelector(".sponsor-type");
+
+      if(type){
+        type.textContent = "OFFICIAL TEAM WOLFIE SUPPORTER";
+      }
+
+      supporterFragment.appendChild(card);
+
+    });
+
+  }else{
+
+    const emptyMessage =
+      document.createElement("div");
+
+    emptyMessage.className = "sponsor-info";
+
+    emptyMessage.textContent =
+      "No Team Wolfie supporters are currently listed.";
+
+    supporterFragment.appendChild(emptyMessage);
+
+  }
+
+  supporterGrid.replaceChildren(supporterFragment);
+
+}
+
+if(supporterCount){
+
+  const count = wolfieSupporters.length;
+
+  supporterCount.textContent =
+    count + (
+      count === 1
+        ? " SUPPORTER"
+        : " SUPPORTERS"
+    );
+
+}
+    
   },
 
   function(error){
