@@ -717,8 +717,11 @@ addMainSponsorButton.addEventListener("click", function(){
   document.getElementById("sponsorTeam").value =
     "wolfie";
 
-  // Display the sponsor editor.
-  sponsorEditor.style.display = "block";
+// Record the selected category for Firebase saving.
+sponsorEditor.dataset.category = "main";
+
+// Display the sponsor editor.
+sponsorEditor.style.display = "block";
 
   // Update the editor heading.
   sponsorEditor.querySelector(".section-title").textContent =
