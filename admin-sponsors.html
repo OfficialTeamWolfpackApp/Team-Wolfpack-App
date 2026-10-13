@@ -623,6 +623,57 @@ body{
 .sponsor-logo-preview{
   border-color:rgba(255,90,0,.25);
 }
+
+/* =========================================
+   LIVE SPONSOR EDITOR LOGO PREVIEW
+========================================= */
+
+.sponsor-editor-logo-preview{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  width:100%;
+  min-height:170px;
+
+  margin-top:15px;
+  padding:20px;
+
+  border:1px dashed rgba(103,220,255,.4);
+  border-radius:14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0,191,255,.06),
+      #080808
+    );
+
+  overflow:hidden;
+}
+
+.sponsor-editor-logo-preview img{
+  display:block;
+
+  max-width:100%;
+  max-height:150px;
+
+  width:auto;
+  height:auto;
+
+  object-fit:contain;
+}
+
+.sponsor-editor-logo-preview span{
+  color:#888;
+
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:1px;
+
+  text-align:center;
+  line-height:1.6;
+}
   
 /* =========================================
    SPONSOR EDIT AND DELETE BUTTONS
@@ -1087,6 +1138,28 @@ body{
       placeholder="Example: king-clothing.jpeg"
     >
 
+<!-- =========================================
+     LIVE SPONSOR LOGO PREVIEW
+========================================= -->
+
+<div
+  id="sponsorEditorLogoPreview"
+  class="sponsor-editor-logo-preview"
+  aria-live="polite"
+>
+
+  <span id="sponsorEditorLogoPlaceholder">
+    ENTER A LOGO FILENAME TO PREVIEW
+  </span>
+
+  <img
+    id="sponsorEditorLogoImage"
+    alt="Sponsor logo preview"
+    style="display:none;"
+  >
+
+</div>
+    
     <label for="sponsorDescription">
       SPONSOR DESCRIPTION
     </label>
@@ -1310,6 +1383,70 @@ onAuthStateChanged(auth, function(user){
 
 });
 
+/* =========================================
+   LIVE SPONSOR LOGO PREVIEW
+========================================= */
+
+const sponsorLogoInput =
+  document.getElementById("sponsorLogo");
+
+const sponsorEditorLogoImage =
+  document.getElementById("sponsorEditorLogoImage");
+
+const sponsorEditorLogoPlaceholder =
+  document.getElementById("sponsorEditorLogoPlaceholder");
+
+function updateSponsorLogoPreview(){
+
+  const filename = sponsorLogoInput.value.trim();
+
+  sponsorEditorLogoImage.style.display = "none";
+
+  sponsorEditorLogoImage.removeAttribute("src");
+
+  if(!filename){
+
+    sponsorEditorLogoPlaceholder.textContent =
+      "ENTER A LOGO FILENAME TO PREVIEW";
+
+    sponsorEditorLogoPlaceholder.style.display = "block";
+
+    return;
+  }
+
+  sponsorEditorLogoPlaceholder.textContent =
+    "LOADING LOGO...";
+
+  sponsorEditorLogoPlaceholder.style.display = "block";
+
+  sponsorEditorLogoImage.onload = function(){
+
+    sponsorEditorLogoPlaceholder.style.display = "none";
+
+    sponsorEditorLogoImage.style.display = "block";
+
+  };
+
+  sponsorEditorLogoImage.onerror = function(){
+
+    sponsorEditorLogoImage.style.display = "none";
+
+    sponsorEditorLogoPlaceholder.textContent =
+      "❌ LOGO NOT FOUND — CHECK THE FILENAME";
+
+    sponsorEditorLogoPlaceholder.style.display = "block";
+
+  };
+
+  sponsorEditorLogoImage.src = filename;
+
+}
+
+sponsorLogoInput.addEventListener(
+  "input",
+  updateSponsorLogoPreview
+);
+  
 /* =========================================
    OPEN MAIN SPONSOR EDITOR
 ========================================= */
@@ -1601,8 +1738,12 @@ editButton.addEventListener("click", function(){
   document.getElementById("sponsorTeam").value =
     sponsor.team || "wolfie";
 
+  updateSponsorLogoPreview();
+  
   document.getElementById("sponsorLogo").value =
     sponsor.logo || "";
+
+  updateSponsorLogoPreview();
 
   document.getElementById("sponsorDescription").value =
     sponsor.description || "";
