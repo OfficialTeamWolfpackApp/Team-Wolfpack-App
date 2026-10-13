@@ -436,6 +436,129 @@ body{
   }
 
 }
+
+/* =========================================
+   PROFESSIONAL SPONSOR MANAGEMENT CARDS
+========================================= */
+
+.sponsor-list{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+  margin-top:20px;
+}
+
+.saved-sponsor-card{
+  position:relative;
+
+  min-width:0;
+  padding:22px;
+
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:16px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.04),
+      rgba(0,0,0,.85)
+    );
+
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.3);
+
+  transition:
+    border-color .2s ease,
+    transform .2s ease;
+}
+
+.saved-sponsor-card:hover{
+  transform:translateY(-3px);
+}
+
+/* SPONSOR NAME */
+
+.saved-sponsor-card > strong{
+  display:block;
+
+  margin-bottom:12px;
+
+  font-size:17px;
+  font-weight:900;
+  line-height:1.4;
+
+  color:#fff;
+}
+
+/* TEAM AND CATEGORY */
+
+.saved-sponsor-card > p{
+  margin:8px 0;
+
+  font-size:11px;
+  line-height:1.7;
+
+  color:#aaa;
+
+  overflow-wrap:anywhere;
+}
+
+/* TEAM WOLFIE */
+
+.saved-sponsor-card[data-team="wolfie"]{
+  border-color:rgba(0,191,255,.4);
+}
+
+.saved-sponsor-card[data-team="wolfie"] > strong{
+  color:#67dcff;
+}
+
+/* TEAM SLOAN */
+
+.saved-sponsor-card[data-team="sloan"]{
+  border-color:rgba(255,90,0,.4);
+}
+
+.saved-sponsor-card[data-team="sloan"] > strong{
+  color:#ff751c;
+}
+
+/* TEAM WOLFPACK */
+
+.saved-sponsor-card[data-team="wolfpack"]{
+  border-color:rgba(255,255,255,.3);
+}
+
+/* ACTION BUTTON LAYOUT */
+
+.saved-sponsor-card .sponsor-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+
+  gap:10px;
+  margin-top:20px;
+}
+
+.saved-sponsor-card .sponsor-actions button{
+  width:100%;
+  min-height:42px;
+
+  padding:10px 8px;
+}
+
+/* TABLET AND MOBILE */
+
+@media(max-width:650px){
+
+  .sponsor-list{
+    grid-template-columns:1fr;
+  }
+
+  .saved-sponsor-card{
+    padding:18px;
+  }
+
+}  
   
 /* =========================================
    SPONSOR EDIT AND DELETE BUTTONS
