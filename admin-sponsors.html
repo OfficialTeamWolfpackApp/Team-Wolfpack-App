@@ -491,6 +491,66 @@ body{
 
   color:#000;
 }
+
+/* =========================================
+   SPONSOR TEAM FILTER BUTTONS
+========================================= */
+
+.sponsor-team-filters{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+  margin-top:20px;
+}
+
+.sponsor-team-filter{
+  min-height:48px;
+  padding:12px 8px;
+
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:12px;
+
+  background:#090909;
+  color:#aaa;
+
+  font-size:11px;
+  font-weight:900;
+
+  cursor:pointer;
+  transition:.2s ease;
+}
+
+.sponsor-team-filter:hover{
+  border-color:#fff;
+  color:#fff;
+}
+
+.sponsor-team-filter.active{
+  background:rgba(255,255,255,.12);
+  border-color:#fff;
+  color:#fff;
+}
+
+.sponsor-team-filter[data-team="wolfie"].active{
+  background:rgba(0,191,255,.15);
+  border-color:#00bfff;
+  color:#67dcff;
+}
+
+.sponsor-team-filter[data-team="sloan"].active{
+  background:rgba(255,90,0,.15);
+  border-color:#ff5a00;
+  color:#ff751c;
+}
+
+@media(max-width:600px){
+
+  .sponsor-team-filters{
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+
+}
   
 </style>
 
@@ -663,6 +723,53 @@ body{
       </div>
 
     </div>
+
+  </div>
+
+</section>
+
+<!-- =========================================
+     SPONSOR TEAM FILTERS
+========================================= -->
+
+<section class="admin-section">
+
+  <h2 class="section-title">
+    🐺 FILTER SPONSORS BY TEAM
+  </h2>
+
+  <p class="section-description">
+    Select a team to view its sponsors.
+  </p>
+
+  <div class="sponsor-team-filters">
+
+    <button
+      type="button"
+      class="sponsor-team-filter active"
+      data-team="all"
+      aria-pressed="true"
+    >
+      🐺 ALL SPONSORS
+    </button>
+
+    <button
+      type="button"
+      class="sponsor-team-filter"
+      data-team="wolfie"
+      aria-pressed="false"
+    >
+      🧊 TEAM WOLFIE
+    </button>
+
+    <button
+      type="button"
+      class="sponsor-team-filter"
+      data-team="sloan"
+      aria-pressed="false"
+    >
+      🔥 TEAM SLOAN
+    </button>
 
   </div>
 
