@@ -956,6 +956,115 @@ body{
   letter-spacing:1px;
   text-align:center;
 }
+
+/* =========================================
+   MOBILE SPONSOR DASHBOARD IMPROVEMENTS
+========================================= */
+
+@media(max-width:600px){
+
+  /* PAGE SPACING */
+
+  body{
+    padding:15px 10px;
+  }
+
+  .admin-container{
+    width:100%;
+  }
+
+  .admin-header{
+    padding:20px 0;
+  }
+
+  .admin-section{
+    padding:16px 12px;
+    margin-bottom:16px;
+  }
+
+  /* DASHBOARD STATISTICS */
+
+  .sponsor-overview-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+  }
+
+  .sponsor-stat-card{
+    padding:18px 10px;
+  }
+
+  .sponsor-stat-number{
+    font-size:30px;
+  }
+
+  .sponsor-stat-label{
+    font-size:9px;
+    letter-spacing:.5px;
+  }
+
+  /* TEAM FILTERS */
+
+  .sponsor-team-filters{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:6px;
+  }
+
+  .sponsor-team-filter{
+    min-height:46px;
+    padding:10px 5px;
+    font-size:9px;
+    line-height:1.4;
+  }
+
+  /* SPONSOR CARDS */
+
+  .sponsor-list{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  .saved-sponsor-card{
+    padding:16px;
+  }
+
+  .saved-sponsor-card > strong{
+    font-size:16px;
+  }
+
+  /* SPONSOR LOGOS */
+
+  .sponsor-logo-preview{
+    height:130px;
+    padding:12px;
+  }
+
+  /* EDIT AND DELETE BUTTONS */
+
+  .saved-sponsor-card .sponsor-actions{
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+  }
+
+  .saved-sponsor-card .sponsor-actions button{
+    min-height:44px;
+    font-size:11px;
+  }
+
+  /* SPONSOR EDITOR */
+
+  .sponsor-fields input,
+  .sponsor-fields select,
+  .sponsor-fields textarea{
+    font-size:16px;
+  }
+
+  /* SEARCH */
+
+  #sponsorSearchInput{
+    font-size:16px;
+  }
+
+}
   
 </style>
 
