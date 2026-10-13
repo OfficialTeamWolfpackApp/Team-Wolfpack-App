@@ -411,6 +411,10 @@ body{
 >
   ➕ ADD MAIN SPONSOR
 </button>
+
+<div id="mainSponsorsList" class="sponsor-list">
+  <p>Loading main sponsors...</p>
+</div>    
     
   </section>
 
@@ -532,6 +536,10 @@ body{
       💾 SAVE SPONSOR
     </button>
 
+   <div id="supportersList" class="sponsor-list">
+  <p>Loading supporters...</p>
+</div> 
+    
     <p
       id="sponsorSaveStatus"
       class="section-description"
@@ -603,7 +611,8 @@ import {
   push,
   set,
   get,
-  remove
+  remove,
+  onValue
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
   
 /* =========================================
@@ -840,6 +849,112 @@ saveSponsorButton.addEventListener("click", async function(){
   }
 
 });
+
+/* =========================================
+   DISPLAY SAVED SPONSORS
+========================================= */
+
+const mainSponsorsList =
+  document.getElementById("mainSponsorsList");
+
+const supportersList =
+  document.getElementById("supportersList");
+
+function createSponsorCard(sponsor){
+
+  const card = document.createElement("div");
+  card.className = "saved-sponsor-card";
+
+  const name = document.createElement("strong");
+  name.textContent = sponsor.name || "Unnamed Sponsor";
+
+  const details = document.createElement("p");
+
+  const teamNames = {
+    wolfie: "TEAM WOLFIE",
+    sloan: "TEAM SLOAN",
+    wolfpack: "TEAM WOLFPACK"
+  };
+
+  details.textContent =
+    (teamNames[sponsor.team] || sponsor.team || "UNKNOWN TEAM") +
+    " • " +
+    (sponsor.category === "main" ? "MAIN SPONSOR" : "SUPPORTER");
+
+  const logo = document.createElement("p");
+  logo.textContent = "Logo: " + (sponsor.logo || "Not set");
+
+  card.appendChild(name);
+  card.appendChild(details);
+  card.appendChild(logo);
+
+  return card;
+
+}
+
+onValue(
+  ref(database, "sponsors"),
+
+  function(snapshot){
+
+    mainSponsorsList.replaceChildren();
+    supportersList.replaceChildren();
+
+    let mainCount = 0;
+    let supporterCount = 0;
+
+    snapshot.forEach(function(childSnapshot){
+
+      const sponsor = childSnapshot.val();
+
+      if(!sponsor || typeof sponsor !== "object"){
+        return;
+      }
+
+      if(sponsor.category === "main"){
+
+        mainSponsorsList.appendChild(
+          createSponsorCard(sponsor)
+        );
+
+        mainCount++;
+
+      }else if(sponsor.category === "supporter"){
+
+        supportersList.appendChild(
+          createSponsorCard(sponsor)
+        );
+
+        supporterCount++;
+
+      }
+
+    });
+
+    if(mainCount === 0){
+      mainSponsorsList.textContent =
+        "No main sponsors saved yet.";
+    }
+
+    if(supporterCount === 0){
+      supportersList.textContent =
+        "No supporters saved yet.";
+    }
+
+  },
+
+  function(error){
+
+    console.error("Unable to load sponsors:", error);
+
+    mainSponsorsList.textContent =
+      "Unable to load main sponsors.";
+
+    supportersList.textContent =
+      "Unable to load supporters.";
+
+  }
+);
   
 </script>
 
