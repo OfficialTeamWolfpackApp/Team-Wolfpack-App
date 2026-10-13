@@ -2311,7 +2311,8 @@ function applySponsorTeamFilter(){
       "#mainSponsorsList .saved-sponsor-card, " +
       "#supportersList .saved-sponsor-card"
     );
-
+  
+let visibleSponsorCount = 0;
   sponsorCards.forEach(function(card){
 
    const sponsorTeam = card.dataset.team;
@@ -2334,7 +2335,20 @@ const matchesSearch =
 card.style.display =
   matchesTeam && matchesSearch ? "" : "none";
   });
+if(matchesTeam && matchesSearch){
+  visibleSponsorCount++;
+}
+/* UPDATE SPONSOR RESULTS COUNTER */
 
+const sponsorResultsCount =
+  document.getElementById("sponsorResultsCount");
+
+sponsorResultsCount.textContent =
+  "🐺 SHOWING " +
+  visibleSponsorCount +
+  " OF " +
+  sponsorCards.length +
+  " SPONSORS";  
 }
 
 /* HANDLE FILTER BUTTON CLICKS */
