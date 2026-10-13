@@ -275,6 +275,139 @@ body{
 
   </section>
 
+<!-- =========================================
+     SPONSOR EDITOR
+========================================= -->
+
+<section
+  id="sponsorEditor"
+  class="admin-section"
+  style="display:none;"
+>
+
+  <h2 class="section-title">
+    🏆 SPONSOR EDITOR
+  </h2>
+
+  <p class="section-description">
+    Add or edit sponsor information.
+  </p>
+
+  <div class="sponsor-fields">
+
+    <label for="sponsorName">
+      SPONSOR NAME
+    </label>
+
+    <input
+      id="sponsorName"
+      type="text"
+      placeholder="Enter sponsor name"
+    >
+
+    <label for="sponsorTeam">
+      TEAM
+    </label>
+
+    <select id="sponsorTeam">
+
+      <option value="wolfie">
+        TEAM WOLFIE
+      </option>
+
+      <option value="sloan">
+        TEAM SLOAN
+      </option>
+
+      <option value="wolfpack">
+        TEAM WOLFPACK
+      </option>
+
+    </select>
+
+    <label for="sponsorLogo">
+      SPONSOR LOGO
+    </label>
+
+    <input
+      id="sponsorLogo"
+      type="text"
+      placeholder="Example: king-clothing.jpeg"
+    >
+
+    <label for="sponsorDescription">
+      SPONSOR DESCRIPTION
+    </label>
+
+    <textarea
+      id="sponsorDescription"
+      rows="5"
+      placeholder="Enter sponsor information"
+    ></textarea>
+
+    <label for="sponsorWebsite">
+      WEBSITE
+    </label>
+
+    <input
+      id="sponsorWebsite"
+      type="url"
+      placeholder="https://"
+    >
+
+    <label for="sponsorFacebook">
+      FACEBOOK
+    </label>
+
+    <input
+      id="sponsorFacebook"
+      type="url"
+      placeholder="https://"
+    >
+
+    <label for="sponsorInstagram">
+      INSTAGRAM
+    </label>
+
+    <input
+      id="sponsorInstagram"
+      type="url"
+      placeholder="https://"
+    >
+
+    <label for="sponsorTikTok">
+      TIKTOK
+    </label>
+
+    <input
+      id="sponsorTikTok"
+      type="url"
+      placeholder="https://"
+    >
+
+    <button
+      id="saveSponsor"
+      class="admin-button"
+      type="button"
+      disabled
+    >
+      💾 SAVE SPONSOR
+    </button>
+
+    <p
+      id="sponsorSaveStatus"
+      class="section-description"
+      role="status"
+      aria-live="polite"
+      style="margin-top:12px;"
+    >
+      Firebase saving will be connected next.
+    </p>
+
+  </div>
+
+</section>
+
   <!-- SUPPORTERS -->
 
   <section class="admin-section" id="supporters">
