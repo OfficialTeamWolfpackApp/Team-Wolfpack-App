@@ -595,6 +595,19 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 /* =========================================
+   FIREBASE REALTIME DATABASE
+========================================= */
+
+import {
+  getDatabase,
+  ref,
+  push,
+  set,
+  get,
+  remove
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+  
+/* =========================================
    FIREBASE CONFIGURATION
 ========================================= */
 
@@ -624,6 +637,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
+
+const database = getDatabase(app);
 
 /* =========================================
    AUTHORISED ADMINISTRATORS
