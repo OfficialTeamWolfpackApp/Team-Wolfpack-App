@@ -2511,6 +2511,130 @@ if(teamWolfieSponsorCount){
       wolfieMainSponsors.length
     );
 
+    /* =========================================
+   DISPLAY LIVE TEAM SLOAN MAIN SPONSORS
+========================================= */
+
+const teamSloanSponsorGrid =
+  document.getElementById("teamSloanSponsorGrid");
+
+const teamSloanSponsorCount =
+  document.getElementById("teamSloanSponsorCount");
+
+// Filter Team Sloan Main Sponsors.
+const sloanMainSponsors = sponsors.filter(function(sponsor){
+
+  return (
+    sponsor.team === "sloan" &&
+    sponsor.category === "main"
+  );
+
+});
+
+if(teamSloanSponsorGrid){
+
+  const sloanFragment =
+    document.createDocumentFragment();
+
+  if(sloanMainSponsors.length > 0){
+
+    sloanMainSponsors.forEach(function(sponsor){
+
+      // Reuse the existing sponsor card creator.
+      const card = createPublicSponsorCard(sponsor);
+
+      // Apply Team Sloan's orange styling.
+      card.classList.remove("wolfie");
+      card.classList.add("sloan");
+
+      // Correct the sponsor category label.
+      const type = card.querySelector(".sponsor-type");
+
+      if(type){
+        type.textContent =
+          "OFFICIAL TEAM SLOAN MAIN SPONSOR";
+      }
+
+      // Add Team Sloan's representation label.
+      const info = card.querySelector(".sponsor-info");
+
+      if(info){
+
+        const representing =
+          document.createElement("span");
+
+        representing.className = "representing";
+
+        representing.textContent =
+          "TEAM SLOAN • REPRESENTING TEAM WOLFPACK";
+
+        info.appendChild(representing);
+
+      }
+
+      // Correct the team name in analytics.
+      card.querySelectorAll(".social-button").forEach(
+        function(button){
+
+          button.addEventListener("click", function(){
+
+            if(typeof gtag === "function"){
+
+              gtag("event", "sponsor_click", {
+                sponsor: sponsor.name,
+                team: "Team Sloan",
+                source: "Sponsors Page"
+              });
+
+            }
+
+          });
+
+        }
+      );
+
+      sloanFragment.appendChild(card);
+
+    });
+
+  }else{
+
+    const emptyMessage =
+      document.createElement("div");
+
+    emptyMessage.className = "sponsor-info";
+
+    emptyMessage.textContent =
+      "No Team Sloan Main Sponsors are currently listed.";
+
+    sloanFragment.appendChild(emptyMessage);
+
+  }
+
+  // Replace the static cards with Firebase records.
+  teamSloanSponsorGrid.replaceChildren(sloanFragment);
+
+}
+
+// Update Team Sloan's sponsor counter.
+if(teamSloanSponsorCount){
+
+  const count = sloanMainSponsors.length;
+
+  teamSloanSponsorCount.textContent =
+    count + (
+      count === 1
+        ? " MAIN SPONSOR"
+        : " MAIN SPONSORS"
+    );
+
+}
+
+console.log(
+  "🦁 Team Sloan live sponsors displayed:",
+  sloanMainSponsors.length
+);
+    
 /* =========================================
    DISPLAY LIVE TEAM WOLFIE SUPPORTERS
 ========================================= */
