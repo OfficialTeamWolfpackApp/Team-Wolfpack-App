@@ -2026,9 +2026,6 @@ cancelSponsorEditButton.addEventListener("click", function(){
   // Clear the current editing record.
   editingSponsorId = null;
 
-  // Reset the selected category.
-  sponsorEditor.dataset.category = "";
-
   // Reset the save button.
   saveSponsorButton.textContent =
     "💾 SAVE SPONSOR";
@@ -2036,12 +2033,20 @@ cancelSponsorEditButton.addEventListener("click", function(){
   // Clear the editor message.
   sponsorSaveStatus.textContent = "";
 
-  // Return to the sponsor management list.
-  document.getElementById("mainSponsors").scrollIntoView({
-    behavior:"smooth",
-    block:"start"
-  });
+ // Return to the correct sponsor section.
+const returnSection =
+  sponsorEditor.dataset.category === "supporter"
+    ? "supporters"
+    : "mainSponsors";
 
+document.getElementById(returnSection).scrollIntoView({
+  behavior:"smooth",
+  block:"start"
+});
+
+  // Reset the selected category.
+  sponsorEditor.dataset.category = "";
+  
 });
   
 /* =========================================
