@@ -618,14 +618,14 @@ body{
       and organisations.
     </p>
 
-    <button
-      class="admin-button"
-      type="button"
-      disabled
-    >
-      ADD SUPPORTER
-    </button>
-
+   <button
+  id="addSupporter"
+  class="admin-button"
+  type="button"
+>
+  ➕ ADD SUPPORTER
+</button>
+    
 <div id="supportersList" class="sponsor-list">
   <p>Loading supporters...</p>
 </div>
@@ -1140,6 +1140,67 @@ onValue(
 
   }
 );
+
+/* =========================================
+   ACTIVATE ADD SUPPORTER
+========================================= */
+
+const addSupporterButton =
+  document.getElementById("addSupporter");
+
+addSupporterButton.addEventListener("click", function(){
+
+  // Check administrator access.
+  if(!auth.currentUser || !ADMINS[auth.currentUser.uid]){
+    return;
+  }
+
+  // Start a new sponsor record.
+  editingSponsorId = null;
+
+  saveSponsorButton.textContent =
+    "💾 SAVE SPONSOR";
+
+  // Clear existing information.
+  [
+    "sponsorName",
+    "sponsorLogo",
+    "sponsorDescription",
+    "sponsorWebsite",
+    "sponsorFacebook",
+    "sponsorInstagram",
+    "sponsorTikTok"
+  ].forEach(function(id){
+
+    document.getElementById(id).value = "";
+
+  });
+
+  // Default to Team Wolfie.
+  document.getElementById("sponsorTeam").value =
+    "wolfie";
+
+  // Set category to Supporter.
+  sponsorEditor.dataset.category =
+    "supporter";
+
+  // Update heading.
+  sponsorEditor.querySelector(".section-title").textContent =
+    "🤝 ADD SUPPORTER";
+
+  // Clear previous messages.
+  sponsorSaveStatus.textContent =
+    "Enter the new supporter information.";
+
+  // Open editor.
+  sponsorEditor.style.display = "block";
+
+  sponsorEditor.scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+
+});
   
 </script>
 
