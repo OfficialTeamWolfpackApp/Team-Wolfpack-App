@@ -155,6 +155,145 @@ body{
   cursor:not-allowed;
 }
 
+/* =========================================
+   SPONSOR MANAGEMENT EDITOR
+========================================= */
+
+.sponsor-fields{
+  margin-top:20px;
+}
+
+.sponsor-fields label{
+  display:block;
+
+  margin-top:18px;
+  margin-bottom:8px;
+
+  color:#67dcff;
+
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+/* INPUT FIELDS */
+
+.sponsor-fields input,
+.sponsor-fields select,
+.sponsor-fields textarea{
+  display:block;
+
+  width:100%;
+  min-width:0;
+
+  padding:13px 15px;
+
+  border-radius:10px;
+  border:1px solid rgba(103,220,255,.3);
+
+  background:#090909;
+  color:#ffffff;
+
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:13px;
+
+  outline:none;
+  box-sizing:border-box;
+}
+
+/* INPUT HEIGHT */
+
+.sponsor-fields input,
+.sponsor-fields select{
+  min-height:46px;
+}
+
+/* DESCRIPTION */
+
+.sponsor-fields textarea{
+  min-height:150px;
+  line-height:1.7;
+  resize:vertical;
+}
+
+/* FIELD FOCUS */
+
+.sponsor-fields input:focus,
+.sponsor-fields select:focus,
+.sponsor-fields textarea:focus{
+  border-color:#00bfff;
+
+  box-shadow:
+    0 0 12px rgba(0,191,255,.15);
+}
+
+/* PLACEHOLDER TEXT */
+
+.sponsor-fields input::placeholder,
+.sponsor-fields textarea::placeholder{
+  color:#777777;
+}
+
+/* SAVE BUTTON */
+
+#saveSponsor{
+  display:block;
+
+  width:100%;
+  margin-top:25px;
+
+  padding:16px 20px;
+
+  background:linear-gradient(
+    135deg,
+    #00bfff,
+    #0077cc
+  );
+
+  color:#ffffff;
+
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:12px;
+
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:1px;
+
+  cursor:pointer;
+  transition:.2s ease;
+}
+
+#saveSponsor:hover:not(:disabled){
+  background:linear-gradient(
+    135deg,
+    #ff7a00,
+    #ff4500
+  );
+
+  transform:translateY(-2px);
+}
+
+#saveSponsor:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+  .sponsor-fields label{
+    font-size:10px;
+  }
+
+  .sponsor-fields input,
+  .sponsor-fields select,
+  .sponsor-fields textarea{
+    font-size:12px;
+  }
+
+}  
+  
 .admin-footer{
   margin-top:35px;
   text-align:center;
