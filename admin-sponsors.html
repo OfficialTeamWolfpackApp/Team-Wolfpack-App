@@ -1335,6 +1335,12 @@ card.dataset.sponsorId = sponsorId;
   logo.textContent = "Logo: " + (sponsor.logo || "Not set");
 
 /* =========================================
+   STORE SPONSOR TEAM FOR FILTERING
+========================================= */
+
+card.dataset.team = sponsor.team || "";
+  
+/* =========================================
    SPONSOR MANAGEMENT BUTTONS
 ========================================= */
 
@@ -1594,6 +1600,10 @@ document.getElementById("totalWolfieSponsors").textContent =
 
 document.getElementById("totalSloanSponsors").textContent =
   sloanCount;
+
+/* REAPPLY FILTER AFTER FIREBASE UPDATES */
+
+applySponsorTeamFilter();    
     
   },
 
@@ -1610,6 +1620,71 @@ document.getElementById("totalSloanSponsors").textContent =
   }
 );
 
+/* =========================================
+   SPONSOR TEAM FILTERING
+========================================= */
+
+let activeSponsorTeam = "all";
+
+const sponsorTeamFilterButtons =
+  document.querySelectorAll(".sponsor-team-filter");
+
+/* APPLY SELECTED TEAM FILTER */
+
+function applySponsorTeamFilter(){
+
+  const sponsorCards =
+    document.querySelectorAll(
+      "#mainSponsorsList .saved-sponsor-card, " +
+      "#supportersList .saved-sponsor-card"
+    );
+
+  sponsorCards.forEach(function(card){
+
+    const sponsorTeam = card.dataset.team;
+
+    const shouldShow =
+      activeSponsorTeam === "all" ||
+      sponsorTeam === activeSponsorTeam;
+
+    card.style.display =
+      shouldShow ? "" : "none";
+
+  });
+
+}
+
+/* HANDLE FILTER BUTTON CLICKS */
+
+sponsorTeamFilterButtons.forEach(function(button){
+
+  button.addEventListener("click", function(){
+
+    activeSponsorTeam = button.dataset.team;
+
+    sponsorTeamFilterButtons.forEach(function(filterButton){
+
+      const isActive =
+        filterButton === button;
+
+      filterButton.classList.toggle(
+        "active",
+        isActive
+      );
+
+      filterButton.setAttribute(
+        "aria-pressed",
+        String(isActive)
+      );
+
+    });
+
+    applySponsorTeamFilter();
+
+  });
+
+});
+  
 /* =========================================
    ACTIVATE ADD SUPPORTER
 ========================================= */
