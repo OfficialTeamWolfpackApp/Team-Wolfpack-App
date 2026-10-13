@@ -2434,6 +2434,36 @@ if(wolfieMainSponsors.length === 0){
     sponsorCount.textContent = "0 MAIN SPONSORS";
   }
 
+/* =========================================
+   RESET SUPPORTERS WHEN DATABASE IS EMPTY
+========================================= */
+
+const emptySupporterGrid =
+  document.getElementById("teamWolfieSupporterGrid");
+
+const emptySupporterCount =
+  document.getElementById("teamWolfieSupporterCount");
+
+if(emptySupporterGrid){
+
+  const emptyMessage =
+    document.createElement("div");
+
+  emptyMessage.className = "sponsor-info";
+
+  emptyMessage.textContent =
+    "No Team Wolfie supporters are currently listed.";
+
+  emptySupporterGrid.replaceChildren(emptyMessage);
+
+}
+
+if(emptySupporterCount){
+
+  emptySupporterCount.textContent = "0 SUPPORTERS";
+
+}
+  
   return;
 }
     // Build the new cards before replacing the old ones.
