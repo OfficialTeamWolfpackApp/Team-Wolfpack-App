@@ -2171,9 +2171,31 @@ showSponsorToast("✅ NEW SPONSOR SAVED SUCCESSFULLY!");
   
 }
 
-// Keep the editor visible so the result can be checked.
+/* =========================================
+   RESET EDITOR AFTER SUCCESSFUL SAVE
+========================================= */
+
+// Clear the editing state.
+editingSponsorId = null;
+
+// Reset the selected category.
 sponsorEditor.dataset.category = "";
 
+// Close the sponsor editor.
+sponsorEditor.style.display = "none";
+
+// Reset the save button.
+saveSponsorButton.textContent = "💾 SAVE SPONSOR";
+
+// Clear the logo preview.
+sponsorLogoInput.value = "";
+updateSponsorLogoPreview();
+
+// Return to the sponsor list.
+document.getElementById("mainSponsors").scrollIntoView({
+  behavior:"smooth",
+  block:"start"
+});
   }catch(error){
 
     console.error("Sponsor save failed:", error);
