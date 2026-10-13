@@ -873,12 +873,6 @@ saveSponsorButton.addEventListener("click", async function(){
     return;
   }
 
-  if(!sponsor.logo){
-    sponsorSaveStatus.textContent =
-      "❌ Please enter the sponsor logo filename.";
-    return;
-  }
-
   // Prevent duplicate clicks.
   saveSponsorButton.disabled = true;
 
