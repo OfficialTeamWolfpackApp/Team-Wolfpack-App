@@ -857,6 +857,37 @@ body{
 #sponsorSearchInput::placeholder{
   color:#777;
 }
+
+/* =========================================
+   VIEW PUBLIC SPONSORS BUTTON
+========================================= */
+
+.public-sponsors-button{
+  border:1px solid rgba(255,255,255,.35);
+
+  background:linear-gradient(
+    135deg,
+    rgba(0,191,255,.12),
+    rgba(255,90,0,.12)
+  );
+
+  color:#fff;
+
+  text-align:center;
+  transition:.2s ease;
+}
+
+.public-sponsors-button:hover{
+  border-color:#67dcff;
+
+  background:linear-gradient(
+    135deg,
+    rgba(0,191,255,.22),
+    rgba(255,90,0,.22)
+  );
+
+  transform:translateY(-2px);
+}
   
 </style>
 
@@ -1141,6 +1172,18 @@ body{
     🤝 SUPPORTERS
   </a>
 
+<!-- VIEW PUBLIC SPONSORS PAGE -->
+
+<a
+  href="sponsors.html"
+  class="admin-button public-sponsors-button"
+  target="_blank"
+  rel="noopener noreferrer"
+  style="margin-top:0;"
+>
+  👁 VIEW PUBLIC SPONSORS
+</a>
+  
 </nav>
 
   <!-- MAIN SPONSORS -->
