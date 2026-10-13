@@ -2128,8 +2128,19 @@ import {
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
+/* =========================================
+   FIREBASE REALTIME DATABASE
+========================================= */
+
+import {
+  getDatabase,
+  ref,
+  onValue
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+
 
 const firebaseConfig = {
+  
   apiKey: "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
   authDomain: "team-wolfpack-app.firebaseapp.com",
   databaseURL: "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
@@ -2147,6 +2158,12 @@ const firebaseApp =
 const auth =
   getAuth(firebaseApp);
 
+  /* =========================================
+   SPONSOR DATABASE CONNECTION
+========================================= */
+
+const sponsorDatabase =
+  getDatabase(firebaseApp);
 
 const ADMIN_UIDS =
   new Set([
