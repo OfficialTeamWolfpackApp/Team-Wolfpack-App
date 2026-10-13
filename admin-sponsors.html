@@ -860,11 +860,12 @@ const mainSponsorsList =
 const supportersList =
   document.getElementById("supportersList");
 
-function createSponsorCard(sponsor){
+function createSponsorCard(sponsor, sponsorId){
 
   const card = document.createElement("div");
   card.className = "saved-sponsor-card";
-
+card.dataset.sponsorId = sponsorId;
+  
   const name = document.createElement("strong");
   name.textContent = sponsor.name || "Unnamed Sponsor";
 
@@ -914,7 +915,7 @@ onValue(
       if(sponsor.category === "main"){
 
         mainSponsorsList.appendChild(
-          createSponsorCard(sponsor)
+         createSponsorCard(sponsor, childSnapshot.key)
         );
 
         mainCount++;
