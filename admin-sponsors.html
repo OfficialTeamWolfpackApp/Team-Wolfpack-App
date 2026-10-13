@@ -404,14 +404,14 @@ body{
       Team Sloan and Team Wolfpack.
     </p>
 
-    <button
-      class="admin-button"
-      type="button"
-      disabled
-    >
-      ADD MAIN SPONSOR
-    </button>
-
+  <button
+  id="addMainSponsor"
+  class="admin-button"
+  type="button"
+>
+  ➕ ADD MAIN SPONSOR
+</button>
+    
   </section>
 
 <!-- =========================================
@@ -678,6 +678,60 @@ onAuthStateChanged(auth, function(user){
 
 });
 
+/* =========================================
+   OPEN MAIN SPONSOR EDITOR
+========================================= */
+
+const addMainSponsorButton =
+  document.getElementById("addMainSponsor");
+
+const sponsorEditor =
+  document.getElementById("sponsorEditor");
+
+addMainSponsorButton.addEventListener("click", function(){
+
+  // Only authorised administrators can open the editor.
+  if(
+    !auth.currentUser ||
+    !ADMINS[auth.currentUser.uid]
+  ){
+    return;
+  }
+
+  // Clear previous sponsor information.
+  [
+    "sponsorName",
+    "sponsorLogo",
+    "sponsorDescription",
+    "sponsorWebsite",
+    "sponsorFacebook",
+    "sponsorInstagram",
+    "sponsorTikTok"
+  ].forEach(function(id){
+
+    document.getElementById(id).value = "";
+
+  });
+
+  // Default to Team Wolfie.
+  document.getElementById("sponsorTeam").value =
+    "wolfie";
+
+  // Display the sponsor editor.
+  sponsorEditor.style.display = "block";
+
+  // Update the editor heading.
+  sponsorEditor.querySelector(".section-title").textContent =
+    "🏆 ADD MAIN SPONSOR";
+
+  // Scroll to the editor.
+  sponsorEditor.scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+
+});  
+  
 </script>
 
 </body>
