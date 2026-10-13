@@ -2180,6 +2180,12 @@ showSponsorToast("✅ NEW SPONSOR SAVED SUCCESSFULLY!");
    RESET EDITOR AFTER SUCCESSFUL SAVE
 ========================================= */
 
+// Remember which section to return to.
+const savedSponsorSection =
+  sponsorEditor.dataset.category === "supporter"
+    ? "supporters"
+    : "mainSponsors";
+
 // Clear the editing state.
 editingSponsorId = null;
 
@@ -2196,8 +2202,8 @@ saveSponsorButton.textContent = "💾 SAVE SPONSOR";
 sponsorLogoInput.value = "";
 updateSponsorLogoPreview();
 
-// Return to the sponsor list.
-document.getElementById("mainSponsors").scrollIntoView({
+// Return to the correct sponsor section.
+document.getElementById(savedSponsorSection).scrollIntoView({
   behavior:"smooth",
   block:"start"
 });
