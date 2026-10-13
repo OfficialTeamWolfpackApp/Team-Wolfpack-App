@@ -1410,8 +1410,11 @@ onValue(
     mainSponsorsList.replaceChildren();
     supportersList.replaceChildren();
 
-    let mainCount = 0;
-    let supporterCount = 0;
+   let mainCount = 0;
+let supporterCount = 0;
+
+let wolfieCount = 0;
+let sloanCount = 0;
 
     snapshot.forEach(function(childSnapshot){
 
@@ -1421,6 +1424,24 @@ onValue(
         return;
       }
 
+/* =========================================
+   COUNT SPONSORS BY TEAM
+========================================= */
+
+if(
+  sponsor.team === "wolfie" &&
+  ["main", "supporter"].includes(sponsor.category)
+){
+  wolfieCount++;
+}
+
+if(
+  sponsor.team === "sloan" &&
+  ["main", "supporter"].includes(sponsor.category)
+){
+  sloanCount++;
+}
+      
       if(sponsor.category === "main"){
 
         mainSponsorsList.appendChild(
@@ -1451,6 +1472,22 @@ onValue(
         "No supporters saved yet.";
     }
 
+/* =========================================
+   UPDATE LIVE DASHBOARD STATISTICS
+========================================= */
+
+document.getElementById("totalMainSponsors").textContent =
+  mainCount;
+
+document.getElementById("totalSupporters").textContent =
+  supporterCount;
+
+document.getElementById("totalWolfieSponsors").textContent =
+  wolfieCount;
+
+document.getElementById("totalSloanSponsors").textContent =
+  sloanCount;
+    
   },
 
   function(error){
