@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<meta name="theme-color" content="#050505">
+
+<title>Sponsor Management | Team Wolfpack</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  padding:25px 15px;
+
+  font-family:Arial,Helvetica,sans-serif;
+  color:#fff;
+
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(0,191,255,.15),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(255,90,0,.15),
+      transparent 40%
+    ),
+    #050505;
+}
+
+.admin-container{
+  width:100%;
+  max-width:950px;
+  margin:0 auto;
+}
+
+.admin-header{
+  text-align:center;
+  padding:25px 0;
+}
+
+.admin-logo{
+  width:75px;
+  height:75px;
+  object-fit:contain;
+}
+
+.admin-label{
+  margin-top:12px;
+  color:#67dcff;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:2px;
+}
+
+.admin-title{
+  margin:12px 0;
+  font-size:28px;
+  font-weight:900;
+}
+
+.ice{
+  color:#67dcff;
+}
+
+.fire{
+  color:#ff751c;
+}
+
+.admin-subtitle{
+  color:#999;
+  font-size:12px;
+  line-height:1.6;
+}
+
+.admin-divider{
+  height:2px;
+  margin:20px 0 30px;
+
+  background:linear-gradient(
+    90deg,
+    #00bfff,
+    #fff,
+    #ff5a00
+  );
+}
+
+.admin-section{
+  margin-bottom:25px;
+  padding:20px;
+
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:16px;
+
+  background:linear-gradient(
+    115deg,
+    rgba(0,191,255,.08),
+    rgba(5,5,5,.95) 50%,
+    rgba(255,90,0,.08)
+  );
+}
+
+.section-title{
+  margin:0 0 8px;
+  font-size:17px;
+  font-weight:900;
+}
+
+.section-description{
+  color:#999;
+  font-size:11px;
+  line-height:1.6;
+}
+
+.admin-button{
+  display:inline-block;
+
+  margin-top:18px;
+  padding:13px 20px;
+
+  border:1px solid rgba(103,220,255,.4);
+  border-radius:10px;
+
+  background:rgba(0,191,255,.08);
+
+  color:#fff;
+  font-size:11px;
+  font-weight:900;
+  text-decoration:none;
+
+  cursor:pointer;
+}
+
+.admin-button:hover{
+  border-color:#67dcff;
+  background:rgba(0,191,255,.15);
+}
+
+.admin-button:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+.admin-footer{
+  margin-top:35px;
+  text-align:center;
+  color:#777;
+  font-size:10px;
+}
+
+.back-button{
+  display:inline-block;
+  margin-bottom:20px;
+  color:#67dcff;
+  text-decoration:none;
+  font-size:11px;
+  font-weight:900;
+}
+
+@media(max-width:600px){
+
+  .admin-title{
+    font-size:23px;
+  }
+
+  .admin-section{
+    padding:16px;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="admin-container">
+
+  <a
+    href="admin-dashboard.html"
+    class="back-button"
+  >
+    ← BACK TO ADMIN DASHBOARD
+  </a>
+
+  <header class="admin-header">
+
+    <img
+      src="icon-192.png"
+      class="admin-logo"
+      alt="Team Wolfpack"
+    >
+
+    <div class="admin-label">
+      TEAM WOLFPACK
+    </div>
+
+    <h1 class="admin-title">
+      <span class="ice">SPONSOR</span>
+      <span class="fire">MANAGEMENT</span>
+    </h1>
+
+    <p class="admin-subtitle">
+      Manage sponsors, partnerships and supporters
+      across Team Wolfpack.
+    </p>
+
+  </header>
+
+  <div class="admin-divider"></div>
+
+  <!-- MAIN SPONSORS -->
+
+  <section class="admin-section" id="mainSponsors">
+
+    <h2 class="section-title">
+      🏆 MAIN SPONSORS
+    </h2>
+
+    <p class="section-description">
+      Manage official sponsors for Team Wolfie,
+      Team Sloan and Team Wolfpack.
+    </p>
+
+    <button
+      class="admin-button"
+      type="button"
+      disabled
+    >
+      ADD MAIN SPONSOR
+    </button>
+
+  </section>
+
+  <!-- SUPPORTERS -->
+
+  <section class="admin-section" id="supporters">
+
+    <h2 class="section-title">
+      🤝 SUPPORTERS
+    </h2>
+
+    <p class="section-description">
+      Manage supporting businesses, individuals
+      and organisations.
+    </p>
+
+    <button
+      class="admin-button"
+      type="button"
+      disabled
+    >
+      ADD SUPPORTER
+    </button>
+
+  </section>
+
+  <footer class="admin-footer">
+    TEAM WOLFPACK • ONE PACK • ONE PURPOSE
+  </footer>
+
+</div>
+
+</body>
+</html>
