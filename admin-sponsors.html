@@ -1996,6 +1996,22 @@ sponsorEditor.dataset.category = "main";
 // Reset the logo preview for the new sponsor.
 updateSponsorLogoPreview();
 
+// Remember the original sponsor details.
+sponsorEditor.dataset.originalValues = JSON.stringify(
+  [
+    "sponsorName",
+    "sponsorTeam",
+    "sponsorLogo",
+    "sponsorDescription",
+    "sponsorWebsite",
+    "sponsorFacebook",
+    "sponsorInstagram",
+    "sponsorTikTok"
+  ].map(function(id){
+    return document.getElementById(id).value;
+  })
+);  
+  
 // Display the sponsor editor.
 sponsorEditor.style.display = "block";
 
@@ -2021,17 +2037,47 @@ const cancelSponsorEditButton =
 cancelSponsorEditButton.addEventListener("click", function(){
 
 /* =========================================
-   CONFIRM BEFORE CLOSING SPONSOR EDITOR
+   CHECK FOR UNSAVED SPONSOR CHANGES
 ========================================= */
 
-const confirmClose = confirm(
-  "⚠️ CLOSE SPONSOR EDITOR?\n\n" +
-  "Any unsaved changes will be lost.\n\n" +
-  "Click OK to close or Cancel to continue editing."
-);
+const sponsorFieldIds = [
+  "sponsorName",
+  "sponsorTeam",
+  "sponsorLogo",
+  "sponsorDescription",
+  "sponsorWebsite",
+  "sponsorFacebook",
+  "sponsorInstagram",
+  "sponsorTikTok"
+];
 
-if(!confirmClose){
-  return;
+// Compare current values with the values when
+// the editor was last opened.
+const currentValues = sponsorFieldIds.map(function(id){
+  return document.getElementById(id).value;
+});
+
+const originalValues =
+  sponsorEditor.dataset.originalValues
+    ? JSON.parse(sponsorEditor.dataset.originalValues)
+    : currentValues;
+
+const hasUnsavedChanges =
+  JSON.stringify(currentValues) !==
+  JSON.stringify(originalValues);
+
+if(hasUnsavedChanges){
+
+  const confirmClose = confirm(
+    "⚠️ UNSAVED SPONSOR CHANGES\n\n" +
+    "You have made changes that have not been saved.\n\n" +
+    "Click OK to discard changes or Cancel to continue editing."
+  );
+
+  if(!confirmClose){
+    return;
+  }
+
 }
   
   // Close the sponsor editor.
@@ -2382,6 +2428,22 @@ updateSponsorLogoPreview();
   saveSponsorButton.textContent =
     "💾 UPDATE SPONSOR";
 
+  // Remember the original sponsor details.
+sponsorEditor.dataset.originalValues = JSON.stringify(
+  [
+    "sponsorName",
+    "sponsorTeam",
+    "sponsorLogo",
+    "sponsorDescription",
+    "sponsorWebsite",
+    "sponsorFacebook",
+    "sponsorInstagram",
+    "sponsorTikTok"
+  ].map(function(id){
+    return document.getElementById(id).value;
+  })
+);
+  
   sponsorEditor.style.display = "block";
 
   sponsorEditor.scrollIntoView({
