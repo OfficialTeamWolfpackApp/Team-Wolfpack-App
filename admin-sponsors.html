@@ -789,6 +789,37 @@ body{
   }
 
 }
+
+/* =========================================
+   CANCEL SPONSOR EDITOR BUTTON
+========================================= */
+
+#cancelSponsorEdit{
+  display:block;
+
+  width:100%;
+  margin-top:12px;
+  padding:14px 20px;
+
+  border:1px solid rgba(255,90,0,.5);
+  border-radius:12px;
+
+  background:rgba(255,90,0,.08);
+  color:#ff8a45;
+
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:1px;
+
+  cursor:pointer;
+  transition:.2s ease;
+}
+
+#cancelSponsorEdit:hover{
+  background:rgba(255,90,0,.18);
+  border-color:#ff751c;
+  color:#fff;
+}
   
 </style>
 
@@ -1217,7 +1248,19 @@ body{
     >
       💾 SAVE SPONSOR
     </button>
-   
+
+<!-- =========================================
+     CANCEL SPONSOR EDITING
+========================================= -->
+
+<button
+  id="cancelSponsorEdit"
+  class="admin-button"
+  type="button"
+>
+  ✖ CANCEL / CLOSE EDITOR
+</button>
+    
     <p
       id="sponsorSaveStatus"
       class="section-description"
@@ -1508,6 +1551,39 @@ sponsorEditor.style.display = "block";
 
 });  
 
+/* =========================================
+   CANCEL SPONSOR EDITING
+========================================= */
+
+const cancelSponsorEditButton =
+  document.getElementById("cancelSponsorEdit");
+
+cancelSponsorEditButton.addEventListener("click", function(){
+
+  // Close the sponsor editor.
+  sponsorEditor.style.display = "none";
+
+  // Clear the current editing record.
+  editingSponsorId = null;
+
+  // Reset the selected category.
+  sponsorEditor.dataset.category = "";
+
+  // Reset the save button.
+  saveSponsorButton.textContent =
+    "💾 SAVE SPONSOR";
+
+  // Clear the editor message.
+  sponsorSaveStatus.textContent = "";
+
+  // Return to the sponsor management list.
+  document.getElementById("mainSponsors").scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+
+});
+  
 /* =========================================
    SPONSOR EDITING STATE
 ========================================= */
