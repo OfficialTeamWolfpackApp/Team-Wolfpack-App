@@ -2323,10 +2323,36 @@ onValue(
       }
     );
 
-    if(wolfieMainSponsors.length === 0){
-      return;
-    }
+   /* =========================================
+   HANDLE NO MAIN SPONSORS
+========================================= */
 
+if(wolfieMainSponsors.length === 0){
+
+  // Remove outdated sponsor cards.
+  teamWolfieSponsorGrid.replaceChildren();
+
+  // Display an informative message.
+  const emptyMessage =
+    document.createElement("div");
+
+  emptyMessage.className = "sponsor-info";
+
+  emptyMessage.textContent =
+    "No Team Wolfie Main Sponsors are currently listed.";
+
+  teamWolfieSponsorGrid.appendChild(emptyMessage);
+
+  // Update the sponsor counter.
+  const sponsorCount =
+    document.getElementById("teamWolfieSponsorCount");
+
+  if(sponsorCount){
+    sponsorCount.textContent = "0 MAIN SPONSORS";
+  }
+
+  return;
+}
     // Build the new cards before replacing the old ones.
     const fragment = document.createDocumentFragment();
 
