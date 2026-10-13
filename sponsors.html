@@ -2165,6 +2165,57 @@ const auth =
 const sponsorDatabase =
   getDatabase(firebaseApp);
 
+/* =========================================
+   TEST LIVE SPONSOR DATABASE
+========================================= */
+
+const sponsorsRef =
+  ref(sponsorDatabase, "sponsors");
+
+onValue(
+  sponsorsRef,
+
+  function(snapshot){
+
+    if(!snapshot.exists()){
+      console.log("🐺 No sponsors found in Firebase.");
+      return;
+    }
+
+    const sponsors = snapshot.val();
+
+    console.log(
+      "🐺 TEAM WOLFPACK — LIVE SPONSORS:",
+      sponsors
+    );
+
+    Object.entries(sponsors).forEach(
+      function([sponsorId, sponsor]){
+
+        console.log(
+          "🏆 SPONSOR:",
+          sponsor.name,
+          "| TEAM:",
+          sponsor.team,
+          "| CATEGORY:",
+          sponsor.category
+        );
+
+      }
+    );
+
+  },
+
+  function(error){
+
+    console.error(
+      "❌ Unable to load sponsors:",
+      error
+    );
+
+  }
+);
+  
 const ADMIN_UIDS =
   new Set([
     "PRGa9TsCW0QDn1QtoUXyYjEi7YB3",
