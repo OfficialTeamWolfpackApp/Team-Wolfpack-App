@@ -2304,6 +2304,10 @@ const sponsorTeamFilterButtons =
 
 /* APPLY SELECTED TEAM FILTER */
 
+/* =========================================
+   SPONSOR TEAM FILTER AND LIVE RESULTS
+========================================= */
+
 function applySponsorTeamFilter(){
 
   const sponsorCards =
@@ -2311,32 +2315,61 @@ function applySponsorTeamFilter(){
       "#mainSponsorsList .saved-sponsor-card, " +
       "#supportersList .saved-sponsor-card"
     );
-  
-let visibleSponsorCount = 0;
+
+  const searchInput =
+    document.getElementById("sponsorSearchInput");
+
+  const searchTerm =
+    searchInput
+      ? searchInput.value.trim().toLowerCase()
+      : "";
+
+  let visibleSponsorCount = 0;
+
   sponsorCards.forEach(function(card){
 
-   const sponsorTeam = card.dataset.team;
+    const sponsorTeam =
+      card.dataset.team || "";
 
-const searchTerm =
-  document.getElementById("sponsorSearchInput")
-    .value.trim().toLowerCase();
+    const sponsorName =
+      card.querySelector("strong")
+        ?.textContent.toLowerCase() || "";
 
-const sponsorName =
-  card.querySelector("strong")
-    ?.textContent.toLowerCase() || "";
+    const matchesTeam =
+      activeSponsorTeam === "all" ||
+      sponsorTeam === activeSponsorTeam;
 
-const matchesTeam =
-  activeSponsorTeam === "all" ||
-  sponsorTeam === activeSponsorTeam;
+    const matchesSearch =
+      sponsorName.includes(searchTerm);
 
-const matchesSearch =
-  sponsorName.includes(searchTerm);
+    const shouldShow =
+      matchesTeam && matchesSearch;
 
-card.style.display =
-  matchesTeam && matchesSearch ? "" : "none";
+    card.style.display =
+      shouldShow ? "" : "none";
+
+    if(shouldShow){
+      visibleSponsorCount++;
+    }
+
   });
-if(matchesTeam && matchesSearch){
-  visibleSponsorCount++;
+
+  /* UPDATE RESULTS COUNTER */
+
+  const resultsCounter =
+    document.getElementById("sponsorResultsCount");
+
+  if(resultsCounter){
+
+    resultsCounter.textContent =
+      "🐺 SHOWING " +
+      visibleSponsorCount +
+      " OF " +
+      sponsorCards.length +
+      " SPONSORS";
+
+  }
+
 }
 /* UPDATE SPONSOR RESULTS COUNTER */
 
