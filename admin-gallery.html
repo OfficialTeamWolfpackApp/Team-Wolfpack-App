@@ -116,6 +116,35 @@ h1 {
   line-height: 1.5;
 }
 
+/* =========================================
+   GALLERY MANAGER BANNER
+========================================= */
+
+.gallery-manager-banner {
+  width: 100%;
+  max-width: 720px;
+
+  margin: 0 auto 24px;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(0,191,255,0.25);
+  border-radius: 16px;
+
+  background: #050505;
+
+  box-shadow:
+    0 12px 35px rgba(0,0,0,0.45);
+}
+
+.gallery-manager-banner img {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  object-fit: contain;
+}  
 
 /* =========================================
    CARD
@@ -1327,12 +1356,27 @@ body.edit-open {
       Gallery Manager
     </h1>
 
-    <p class="subtitle">
+        <p class="subtitle">
       Upload and manage Team Wolfpack
       photos directly from your phone.
     </p>
 
   </header>
+
+
+  <!-- =====================================
+       GALLERY MANAGER BANNER
+  ====================================== -->
+
+  <div class="gallery-manager-banner">
+
+    <img
+      src="admin-gallery-banner.png"
+      alt="Team Wolfpack Gallery Manager"
+      loading="eager"
+    >
+
+  </div>
 
 
   <!-- =====================================
