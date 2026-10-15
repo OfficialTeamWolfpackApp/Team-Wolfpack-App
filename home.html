@@ -4314,6 +4314,296 @@ background:
   }
 
 }
+
+/* =========================================
+   TEAM WOLFPACK
+   THREE-CARD CHAMPIONSHIP FIGHT LAYOUT
+========================================= */
+
+/* MAIN THREE-CARD CONTAINER */
+
+.next-fight.wolfpack-three-card{
+  display:grid;
+  grid-template-columns:
+    minmax(0,1fr)
+    minmax(0,1.15fr)
+    minmax(0,1fr);
+
+  align-items:stretch;
+  gap:16px;
+
+  width:100%;
+  min-height:0;
+  padding:0;
+
+  overflow:visible;
+  border:0;
+  border-radius:0;
+  background:transparent;
+
+  box-shadow:none;
+}
+
+/* DISABLE OLD FULL-CARD OVERLAYS */
+
+.next-fight.wolfpack-three-card::before,
+.next-fight.wolfpack-three-card::after{
+  content:none;
+}
+
+/* SHARED CHAMPIONSHIP CARD */
+
+.wolfpack-three-card .wolfpack-fighter-card,
+.wolfpack-three-card .wolfpack-fight-centre{
+  position:relative;
+  min-width:0;
+  min-height:420px;
+
+  overflow:hidden;
+  border-radius:18px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #111b29 0%,
+      #080d15 55%,
+      #030508 100%
+    );
+
+  box-shadow:
+    0 15px 35px rgba(0,0,0,.5);
+}
+
+/* LEFT FIGHTER — ICE BLUE */
+
+.wolfpack-three-card .wolfpack-fighter-left{
+  border:2px solid #39d7ff;
+
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.5),
+    0 0 22px rgba(0,191,255,.22),
+    inset 0 0 20px rgba(0,191,255,.08);
+}
+
+/* RIGHT FIGHTER — FIERY ORANGE */
+
+.wolfpack-three-card .wolfpack-fighter-right{
+  border:2px solid #ff751c;
+
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.5),
+    0 0 22px rgba(255,101,0,.22),
+    inset 0 0 20px rgba(255,101,0,.08);
+}
+
+/* FIGHTER PHOTOGRAPHS */
+
+.wolfpack-three-card .wolfpack-fighter-card
+.fighter-photo{
+  position:absolute;
+  inset:0;
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+  object-position:center top;
+}
+
+/* DARK GRADIENT BEHIND FIGHTER NAMES */
+
+.wolfpack-three-card .wolfpack-fighter-card::after{
+  content:"";
+  position:absolute;
+  inset:35% 0 0;
+
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      180deg,
+      transparent,
+      rgba(0,0,0,.45) 45%,
+      rgba(0,0,0,.94) 100%
+    );
+}
+
+/* FIGHTER NAME POSITION */
+
+.wolfpack-three-card .wolfpack-fighter-card
+.fighter-name{
+  position:absolute;
+  left:10px;
+  right:10px;
+  bottom:20px;
+
+  z-index:3;
+
+  width:auto;
+  margin:0;
+
+  text-align:center;
+}
+
+/* CENTRE FIGHT INFORMATION */
+
+.wolfpack-three-card .wolfpack-fight-centre{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+
+  gap:10px;
+  padding:24px 18px;
+
+  text-align:center;
+
+  border:1px solid rgba(220,230,240,.45);
+
+  background:
+    linear-gradient(
+      145deg,
+      #18212d,
+      #080c13 45%,
+      #121923
+    );
+
+  box-shadow:
+    0 15px 35px rgba(0,0,0,.55),
+    inset 0 0 25px rgba(255,255,255,.035);
+}
+
+/* SILVER CHAMPIONSHIP ACCENT */
+
+.wolfpack-three-card .wolfpack-fight-centre::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:15%;
+  right:15%;
+
+  height:3px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #00bfff,
+      #ffffff,
+      #ff751c
+    );
+
+  box-shadow:
+    0 0 14px rgba(255,255,255,.25);
+}
+
+/* CENTRE CONTENT */
+
+.wolfpack-three-card .wolfpack-fight-centre
+.next-label{
+  font-size:12px;
+  letter-spacing:3px;
+  color:#a5edff;
+}
+
+.wolfpack-three-card .wolfpack-fight-centre
+.promotion{
+  font-size:clamp(16px,2vw,25px);
+  line-height:1.2;
+  color:#f2f5f8;
+}
+
+.wolfpack-three-card .wolfpack-fight-centre
+.vs{
+  font-size:clamp(44px,5vw,72px);
+  line-height:1;
+}
+
+.wolfpack-three-card .wolfpack-fight-centre
+.fight-detail{
+  font-size:12px;
+  line-height:1.5;
+}
+
+/* BUTTONS INSIDE CENTRE CARD */
+
+.wolfpack-three-card .wolfpack-fight-centre
+.fight-button,
+.wolfpack-three-card .wolfpack-fight-centre
+.home-ticket-button{
+  width:100%;
+  max-width:250px;
+  min-height:44px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  text-align:center;
+}
+
+/* =========================================
+   MOBILE RESPONSIVE LAYOUT
+========================================= */
+
+@media(max-width:700px){
+
+  .next-fight.wolfpack-three-card{
+    grid-template-columns:
+      minmax(0,1fr)
+      minmax(0,1fr);
+
+    gap:10px;
+  }
+
+  .wolfpack-three-card .wolfpack-fighter-card{
+    min-height:280px;
+  }
+
+  .wolfpack-three-card .wolfpack-fight-centre{
+    grid-column:1 / -1;
+    grid-row:2;
+
+    min-height:0;
+    padding:22px 16px;
+  }
+
+  .wolfpack-three-card .wolfpack-fighter-card
+  .fighter-name{
+    bottom:12px;
+    left:6px;
+    right:6px;
+  }
+
+  .wolfpack-three-card .wolfpack-fight-centre
+  .promotion{
+    font-size:20px;
+  }
+
+  .wolfpack-three-card .wolfpack-fight-centre
+  .vs{
+    font-size:54px;
+  }
+
+  .wolfpack-three-card .wolfpack-fight-centre
+  .fight-detail{
+    font-size:11px;
+  }
+
+}
+
+/* SMALL PHONES */
+
+@media(max-width:380px){
+
+  .wolfpack-three-card .wolfpack-fighter-card{
+    min-height:230px;
+  }
+
+  .wolfpack-three-card .wolfpack-fight-centre{
+    padding:18px 12px;
+  }
+
+}
   
 </style>
 
