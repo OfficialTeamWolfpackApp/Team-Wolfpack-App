@@ -779,22 +779,46 @@ box-shadow:
 }
   
 /* =========================================
-   HOME CONTENT
+   TEAM WOLFPACK PREMIUM HOMEPAGE WIDTH
 ========================================= */
 
 .main{
   width:100%;
+  max-width:1180px;
 
-  max-width:920px;
+  margin:0 auto;
 
-  margin:auto;
-
- padding:
-  18px
-  14px
-  calc(45px + env(safe-area-inset-bottom));
+  padding:
+    24px
+    24px
+    calc(55px + env(safe-area-inset-bottom));
 }
 
+/* TABLET LAYOUT */
+
+@media(max-width:900px){
+
+  .main{
+    padding:
+      20px
+      18px
+      calc(50px + env(safe-area-inset-bottom));
+  }
+
+}
+
+/* MOBILE LAYOUT */
+
+@media(max-width:600px){
+
+  .main{
+    padding:
+      16px
+      12px
+      calc(45px + env(safe-area-inset-bottom));
+  }
+
+}
 
 /* =========================================
    NEXT FIGHT
