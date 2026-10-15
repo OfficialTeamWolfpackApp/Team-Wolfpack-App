@@ -175,7 +175,7 @@ self.addEventListener("notificationclick", (event) => {
 ========================================================= */
 
 const CACHE_NAME =
-  "team-wolfpack-v28";
+  "team-wolfpack-v29";
 
 
 /* =========================================================
@@ -504,6 +504,51 @@ self.addEventListener(
 
     }
 
+     /* =====================================================
+   TEAM WOLFPACK FAST WELCOME ASSETS
+   Cache-first for welcome artwork and wolf howl
+===================================================== */
+
+const FAST_WELCOME_FILES = [
+  "/team-wolfpack-welcome.png",
+  "/wolf-howl.mp3"
+];
+
+if (
+  FAST_WELCOME_FILES.includes(requestURL.pathname)
+) {
+
+  event.respondWith(
+
+    (async () => {
+
+      const cache = await caches.open(CACHE_NAME);
+
+      // Check the local cache first.
+      const cached = await cache.match(event.request);
+
+      if (cached) {
+        return cached;
+      }
+
+      // Download the file if it isn't cached.
+      const response = await fetch(event.request);
+
+      if (response.ok) {
+        await cache.put(
+          event.request,
+          response.clone()
+        );
+      }
+
+      return response;
+
+    })()
+
+  );
+
+  return;
+}
 
     /* =====================================================
        IMAGES / STATIC FILES
