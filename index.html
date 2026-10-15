@@ -338,6 +338,14 @@ body {
 
 </main>
 
+<!-- TEAM WOLFPACK CINEMATIC WOLF HOWL -->
+
+<audio
+  id="wolfHowl"
+  src="wolf-howl.mp3"
+  preload="auto"
+></audio>
+  
 <!-- ICE & FIRE TRANSITION -->
 
 <div
@@ -366,6 +374,9 @@ const enterButton =
 const transition =
   document.getElementById("wolfpackTransition");
 
+const wolfHowl =
+  document.getElementById("wolfHowl");  
+  
 let isEntering = false;
 
 enterButton.addEventListener("click", function(event) {
@@ -388,7 +399,15 @@ enterButton.addEventListener("click", function(event) {
   }
 
   isEntering = true;
+// Play cinematic wolf howl when ENTER is pressed.
 
+wolfHowl.volume = 0.65;
+
+wolfHowl.currentTime = 0;
+
+wolfHowl.play().catch(function(error) {
+  console.warn("Wolf howl could not play:", error);
+});  
   const destination = enterButton.href;
 
   // Respect the user's reduced-motion preference.
