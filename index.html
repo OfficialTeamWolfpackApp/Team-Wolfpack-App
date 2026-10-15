@@ -422,10 +422,54 @@ wolfHowl.play().catch(function(error) {
 
   transition.classList.add("active");
 
-  // Navigate after the cinematic transition.
-  window.setTimeout(function() {
-    window.location.assign(destination);
-  }, 1200);
+ // Wait for the cinematic transition and wolf howl
+// before opening the Team Wolfpack homepage.
+
+const minimumTransitionTime = 1200;
+const maximumWaitTime = 10000;
+
+const transitionStart = Date.now();
+
+let hasNavigated = false;
+
+function openWolfpackHome() {
+  if (hasNavigated) return;
+
+  hasNavigated = true;
+
+  window.location.assign(destination);
+}
+
+function finishWolfpackEntrance() {
+  const elapsed = Date.now() - transitionStart;
+
+  const remaining = Math.max(
+    0,
+    minimumTransitionTime - elapsed
+  );
+
+  window.setTimeout(openWolfpackHome, remaining);
+}
+
+// Navigate once the howl finishes.
+wolfHowl.addEventListener(
+  "ended",
+  finishWolfpackEntrance,
+  { once: true }
+);
+
+// Safety fallback if the audio fails or never ends.
+window.setTimeout(
+  openWolfpackHome,
+  maximumWaitTime
+);
+
+// If the audio fails, continue after the animation.
+wolfHowl.addEventListener(
+  "error",
+  finishWolfpackEntrance,
+  { once: true }
+);
 
 });
 
