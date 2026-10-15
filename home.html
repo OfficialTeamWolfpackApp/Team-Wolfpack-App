@@ -7246,6 +7246,129 @@ span:last-child{
   }
 
 }
+
+/* =========================================
+   TEAM WOLFPACK CHAMPIONSHIP FOOTER
+   STEP 266
+========================================= */
+
+.championship-footer{
+  position:relative;
+  margin-top:36px;
+  padding:30px 16px 18px;
+  text-align:center;
+
+  border-top:1px solid rgba(255,255,255,.12);
+
+  background:
+    radial-gradient(
+      ellipse at 15% 100%,
+      rgba(0,191,255,.10),
+      transparent 45%
+    ),
+    radial-gradient(
+      ellipse at 85% 100%,
+      rgba(255,101,0,.10),
+      transparent 45%
+    );
+}
+
+/* METALLIC TEAM WOLFPACK LETTERING */
+
+.championship-footer .footer-brand{
+  font-size:clamp(18px,3vw,27px);
+  font-weight:900;
+  letter-spacing:2px;
+
+  background:linear-gradient(
+    90deg,
+    #67dcff 0%,
+    #ffffff 35%,
+    #aab9c5 50%,
+    #ffffff 65%,
+    #ff852e 100%
+  );
+
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  filter:drop-shadow(0 3px 8px rgba(0,0,0,.6));
+}
+
+/* STRENGTH IN UNITY */
+
+.championship-footer .footer-tagline{
+  margin-top:8px;
+
+  color:#aebcc7;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:2.5px;
+}
+
+/* ONE PACK ONE PURPOSE */
+
+.championship-footer .footer-motto{
+  margin-top:17px;
+
+  color:#ffffff;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:2px;
+
+  text-shadow:0 0 12px rgba(255,255,255,.12);
+}
+
+.championship-footer .footer-motto span{
+  color:#ff852e;
+  padding:0 5px;
+}
+
+/* COPYRIGHT REFINEMENT */
+
+.championship-footer + .copyright{
+  margin-top:4px;
+  padding-top:18px;
+  padding-bottom:14px;
+  font-size:9px;
+  letter-spacing:1px;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+  .championship-footer{
+    padding:25px 10px 15px;
+  }
+
+  .championship-footer .footer-brand{
+    font-size:20px;
+    letter-spacing:1px;
+  }
+
+  .championship-footer .footer-tagline{
+    font-size:9px;
+    letter-spacing:1.5px;
+  }
+
+  .championship-footer .footer-motto{
+    font-size:10px;
+    letter-spacing:1px;
+  }
+
+  .championship-footer + .copyright{
+    gap:7px;
+    font-size:7px;
+    letter-spacing:.2px;
+  }
+
+  .championship-footer + .copyright span{
+    white-space:normal;
+  }
+
+}
   
 </style>
 
@@ -8314,17 +8437,28 @@ QUICK ACCESS
 </section>
 
 
-<!-- FOOTER -->
+<!-- PREMIUM TEAM WOLFPACK FOOTER -->
 
-<footer class="app-footer">
-TEAM WOLFPACK • STRENGTH IN UNITY
+<footer class="app-footer championship-footer">
+
+  <div class="footer-brand">
+    TEAM WOLFPACK
+  </div>
+
+  <div class="footer-tagline">
+    STRENGTH IN UNITY
+  </div>
+
+  <div class="footer-motto">
+    ONE PACK <span>•</span> ONE PURPOSE
+  </div>
+
 </footer>
-
 
 <!-- COPYRIGHT -->
 
 <div class="copyright">
-<span>© 2026 TEAM WOLFPACK • ALL RIGHTS RESERVED</span>
+  <span>© 2026 TEAM WOLFPACK • ALL RIGHTS RESERVED</span>
 </div>
 
 
