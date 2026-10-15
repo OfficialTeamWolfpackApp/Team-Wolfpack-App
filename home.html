@@ -4704,6 +4704,89 @@ grid-template-columns:
   }
 
 }
+
+/* =========================================
+   TEAM WOLFPACK
+   MATCHING CHAMPIONSHIP FIGHTER PHOTOGRAPHS
+========================================= */
+
+/* IDENTICAL FIGHTER CARD DIMENSIONS */
+
+.next-fight.wolfpack-three-card
+.wolfpack-fighter-card{
+  position:relative;
+
+  width:100%;
+  min-width:0;
+
+  height:420px;
+  min-height:0;
+
+  padding:0;
+  margin:0;
+
+  overflow:hidden;
+
+  border-radius:18px;
+}
+
+/* BOTH FIGHTER IMAGES */
+
+.next-fight.wolfpack-three-card
+.wolfpack-fighter-card img{
+  position:absolute;
+
+  top:0;
+  left:0;
+
+  width:100%;
+  height:100%;
+
+  max-width:none;
+  max-height:none;
+
+  display:block;
+
+  object-fit:cover;
+  object-position:center top;
+
+  border-radius:0;
+}
+
+/* KEEP NAMES ABOVE THE PHOTOGRAPHS */
+
+.next-fight.wolfpack-three-card
+.wolfpack-fighter-card .fighter-name{
+  position:absolute;
+
+  left:0;
+  right:0;
+  bottom:0;
+
+  z-index:20;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+  .next-fight.wolfpack-three-card
+  .wolfpack-fighter-card{
+    height:280px;
+  }
+
+}
+
+/* SMALL MOBILE */
+
+@media(max-width:380px){
+
+  .next-fight.wolfpack-three-card
+  .wolfpack-fighter-card{
+    height:230px;
+  }
+
+}
   
 </style>
 
