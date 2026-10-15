@@ -570,6 +570,104 @@ box-shadow:
 }
 
 /* =========================================
+   TEAM WOLFPACK PREMIUM CINEMATIC BANNER
+========================================= */
+
+.home-banner{
+  position:relative;
+  isolation:isolate;
+
+  width:100%;
+  overflow:hidden;
+
+  background:#020202;
+
+  border-top:1px solid rgba(255,255,255,.08);
+  border-bottom:2px solid transparent;
+
+  border-image:
+    linear-gradient(
+      90deg,
+      #00bfff 0%,
+      #67dcff 25%,
+      #ffffff 50%,
+      #ff9b36 75%,
+      #ff6500 100%
+    ) 1;
+
+  box-shadow:
+    0 12px 35px rgba(0,0,0,.45),
+    0 0 22px rgba(0,191,255,.08),
+    0 0 22px rgba(255,101,0,.08);
+}
+
+/* KEEP THE COMPLETE ORIGINAL ARTWORK */
+
+.home-banner-image{
+  display:block;
+
+  width:100%;
+  height:auto;
+
+  object-fit:contain;
+
+  margin:0 auto;
+}
+
+/* SUBTLE ICE AND FIRE EDGE LIGHTING */
+
+.home-banner::before{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  z-index:1;
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,191,255,.15) 0%,
+      transparent 9%,
+      transparent 91%,
+      rgba(255,101,0,.15) 100%
+    );
+}
+
+/* PREMIUM CINEMATIC FINISH */
+
+.home-banner::after{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  z-index:2;
+  pointer-events:none;
+
+  box-shadow:
+    inset 0 0 16px rgba(0,191,255,.12),
+    inset 0 0 16px rgba(255,101,0,.10);
+}
+
+/* MOBILE OPTIMISATION */
+
+@media(max-width:600px){
+
+  .home-banner{
+    box-shadow:
+      0 8px 24px rgba(0,0,0,.42);
+  }
+
+  .home-banner-image{
+    width:100%;
+    height:auto;
+  }
+
+}
+  
+/* =========================================
    NOTIFICATIONS
 ========================================= */
 
