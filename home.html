@@ -1331,6 +1331,171 @@ box-shadow:
 }
 
 /* =========================================
+   TEAM WOLFPACK — CHAMPIONSHIP PREMIUM
+   FEATURED FIGHT CARD
+========================================= */
+
+/* PREMIUM CHAMPIONSHIP CARD */
+
+.next-fight{
+  border-radius:20px;
+
+  border:1px solid rgba(210,225,235,.30);
+
+  box-shadow:
+    0 18px 45px rgba(0,0,0,.55),
+    -7px 0 24px rgba(0,191,255,.13),
+    7px 0 24px rgba(255,101,0,.13),
+    inset 0 0 18px rgba(255,255,255,.035);
+}
+
+/* REFINED ICE AND FIRE EDGES */
+
+.next-fight::after{
+  border-radius:20px;
+
+  box-shadow:
+    inset 3px 0 0 #45d8ff,
+    inset -3px 0 0 #ff701c,
+    inset 0 2px 0 rgba(230,240,245,.22),
+    inset 0 -2px 0 rgba(230,240,245,.12),
+    inset 0 0 28px rgba(0,0,0,.38);
+}
+
+/* CHAMPIONSHIP EVENT LABEL */
+
+.next-label{
+  color:#9eeaff;
+
+  font-size:10px;
+  font-weight:900;
+
+  letter-spacing:3px;
+
+  text-shadow:
+    0 2px 8px #000,
+    0 0 10px rgba(0,191,255,.30);
+}
+
+/* PREMIUM METALLIC EVENT TITLE */
+
+.promotion{
+  color:#f5f7fa;
+
+  font-weight:900;
+
+  letter-spacing:.3px;
+
+  text-shadow:
+    0 3px 12px #000,
+    0 0 18px rgba(255,255,255,.12);
+}
+
+/* METALLIC VS LETTERING */
+
+.vs{
+  background:
+    linear-gradient(
+      135deg,
+      #8deaff 0%,
+      #ffffff 30%,
+      #aebbc5 50%,
+      #ffffff 68%,
+      #ffad70 100%
+    );
+
+  -webkit-background-clip:text;
+  background-clip:text;
+
+  -webkit-text-fill-color:transparent;
+
+  filter:
+    drop-shadow(0 3px 8px rgba(0,0,0,.95))
+    drop-shadow(0 0 10px rgba(255,255,255,.12));
+}
+
+/* IMPROVED FIGHT DETAILS */
+
+.fight-detail{
+  color:#f5f7fa;
+
+  font-size:11px;
+
+  line-height:1.45;
+
+  letter-spacing:.7px;
+
+  text-shadow:
+    0 2px 8px #000;
+}
+
+/* PROFESSIONAL BUTTONS */
+
+.fight-button,
+.home-ticket-button{
+  min-height:44px;
+
+  padding:11px 20px;
+
+  border-radius:9px;
+
+  font-size:9px;
+
+  letter-spacing:.8px;
+
+  font-weight:900;
+
+  box-shadow:
+    0 7px 18px rgba(0,0,0,.40),
+    inset 0 1px 0 rgba(255,255,255,.10);
+}
+
+/* VIEW FIGHT DETAILS */
+
+.fight-button{
+  border-color:rgba(103,220,255,.55);
+}
+
+/* GET TICKETS */
+
+.home-ticket-button{
+  border-color:rgba(255,117,28,.65);
+}
+
+/* FIGHTER NAMES */
+
+.fighter-name strong{
+  letter-spacing:.3px;
+
+  text-shadow:
+    0 3px 12px #000,
+    0 0 12px rgba(0,0,0,.75);
+}
+
+/* MOBILE REFINEMENTS */
+
+@media(max-width:600px){
+
+  .next-label{
+    font-size:8px;
+    letter-spacing:2px;
+  }
+
+  .fight-detail{
+    font-size:9px;
+    line-height:1.4;
+  }
+
+  .fight-button,
+  .home-ticket-button{
+    min-height:42px;
+    padding:9px 13px;
+    font-size:8px;
+  }
+
+}
+  
+/* =========================================
    SECTION TITLES
 ========================================= */
 
