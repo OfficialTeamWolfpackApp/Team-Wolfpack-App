@@ -4829,119 +4829,163 @@ ADMIN
 
 <main class="main">
 
-<!-- NEXT FIGHT -->
+<!-- =========================================
+     TEAM WOLFPACK
+     THREE-CARD CHAMPIONSHIP NEXT FIGHT
+========================================= -->
 
-<section id="nextFightCard" class="next-fight">
-
-<div id="nextFightLeft" class="fighter-side left">
-
-<img
-  id="nextFightImage"
-  src="greig-sloan.jpg"
-  class="fighter-photo"
-  alt="Greig Sloan"
+<section
+  id="nextFightCard"
+  class="next-fight wolfpack-three-card"
 >
 
-</div>
+  <!-- =====================================
+       LEFT CARD — MRS WOLFIE
+  ====================================== -->
 
-<div id="nextFightRight" class="fighter-side right">
-</div>
+  <div
+    id="nextFightLeft"
+    class="fighter-side left wolfpack-fighter-card wolfpack-fighter-left"
+  >
 
-<div class="fight-centre">
+    <img
+      id="nextFightImage"
+      src="greig-sloan.jpg"
+      class="fighter-photo"
+      alt="Featured fighter"
+    >
 
-<div class="next-label">
-NEXT FIGHT
-</div>
+    <div class="fighter-name left">
 
-<div id="nextFightPromotion" class="promotion">
-FSG PROMOTIONS
+      <strong id="nextFightFighter">
+        MRS WOLFIE
+      </strong>
 
-<span id="nextFightEvent" class="promotion-small">
-UNFINISHED BUSINESS
-</span>
-  
-</div>
+      <span id="nextFightFighterTeam">
+        TEAM WOLFIE
+      </span>
 
-<div class="vs">
-VS
-</div>
+    </div>
 
-<div id="nextFightDetails" class="fight-details">
-
-<div class="fight-detail">
-19 SEPTEMBER 2026
-</div>
-
-<div class="fight-detail">
-HAMPDEN PARK
-</div>
-
-</div>
-
-<a
-  id="nextFightButton"
-  class="fight-button"
-  href="fights.html"
-  onclick="gtag('event','home_next_fight_click',{
-    fighter:'Greig Sloan',
-    opponent:'TBA',
-    event:'Unfinished Business'
-  });"
->
-VIEW FIGHT DETAILS →
-</a>
-
-<!-- LIVE TICKET INFORMATION -->
-
-<div
-  id="homeTicketInfo"
-  class="home-ticket-info"
-  style="display:none;"
->
-  <div id="homeTicketPrice"></div>
-  <div id="homeTicketStatus"></div>
-</div>
-
-<!-- GET TICKETS BUTTON -->
-
-<a
-  id="homeTicketButton"
-  class="home-ticket-button"
-  href="#"
-  target="_blank"
-  rel="noopener noreferrer"
->
-  🎟 GET TICKETS →
-</a>
-
-</div>
+  </div>
 
 
-<div class="fighter-name left">
+  <!-- =====================================
+       CENTRE CARD — FIGHT INFORMATION
+  ====================================== -->
 
-<strong id="nextFightFighter">
-GREIG SLOAN
-</strong>
+  <div class="fight-centre wolfpack-fight-centre">
 
-<span id="nextFightFighterTeam">
-TEAM SLOAN
-</span>
-</div>
+    <div class="next-label">
+      NEXT FIGHT
+    </div>
+
+    <div
+      id="nextFightPromotion"
+      class="promotion"
+    >
+      TRAIN 4 FIGHT PROMOTIONS
+
+      <span
+        id="nextFightEvent"
+        class="promotion-small"
+      >
+        TBA
+      </span>
+
+    </div>
+
+    <div class="vs">
+      VS
+    </div>
+
+    <div
+      id="nextFightDetails"
+      class="fight-details"
+    >
+
+      <div class="fight-detail">
+        DATE TBA
+      </div>
+
+      <div class="fight-detail">
+        VENUE TBA
+      </div>
+
+    </div>
+
+    <!-- VIEW FIGHT DETAILS -->
+
+    <a
+      id="nextFightButton"
+      class="fight-button"
+      href="fights.html"
+      onclick="gtag('event','home_next_fight_click',{
+        fighter:'Mrs Wolfie',
+        opponent:'TBA',
+        event:'TBA'
+      });"
+    >
+      VIEW FIGHT DETAILS →
+    </a>
 
 
-<div class="fighter-name right">
+    <!-- LIVE TICKET INFORMATION -->
 
-<strong id="nextFightOpponent">
-TBA
-</strong>
+    <div
+      id="homeTicketInfo"
+      class="home-ticket-info"
+      style="display:none;"
+    >
 
-<span>
-OPPONENT
-</span>
+      <div id="homeTicketPrice"></div>
 
-</div>
+      <div id="homeTicketStatus"></div>
+
+    </div>
+
+
+    <!-- GET TICKETS BUTTON -->
+
+    <a
+      id="homeTicketButton"
+      class="home-ticket-button"
+      href="#"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      🎟 GET TICKETS →
+    </a>
+
+  </div>
+
+
+  <!-- =====================================
+       RIGHT CARD — OPPONENT
+  ====================================== -->
+
+  <div
+    id="nextFightRight"
+    class="fighter-side right wolfpack-fighter-card wolfpack-fighter-right"
+  >
+
+    <div class="fighter-name right">
+
+      <strong id="nextFightOpponent">
+        TBA
+      </strong>
+
+      <span>
+        OPPONENT
+      </span>
+
+    </div>
+
+  </div>
 
 </section>
+
+<!-- END THREE-CARD CHAMPIONSHIP NEXT FIGHT -->
 
 <!-- =========================================
      TEAM WOLFPACK — FIGHTER STATUS CARDS
