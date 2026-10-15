@@ -82,6 +82,99 @@ body {
 }
 
 /* =====================================
+   TEAM WOLFPACK GLOWING WOLF EYES
+===================================== */
+
+/* Match the proportions of the welcome artwork */
+
+.wolf-eye-effects {
+  position: absolute;
+
+  width: min(100vw, 56.25dvh);
+  height: min(177.7778vw, 100dvh);
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 5;
+}
+
+/* SHARED EYE EFFECT */
+
+.wolf-eye {
+  position: absolute;
+
+  width: 3.5%;
+  aspect-ratio: 1;
+
+  border-radius: 50%;
+
+  filter: blur(6px);
+
+  opacity: 0.65;
+
+  animation: wolfEyePulse 2.5s ease-in-out infinite alternate;
+}
+
+/* LEFT — ELECTRIC ICE */
+
+.wolf-eye-ice {
+  left: 43.6%;
+  top: 37.5%;
+
+  background: #00bfff;
+
+  box-shadow:
+    0 0 12px #00bfff,
+    0 0 25px #00bfff,
+    0 0 45px rgba(0,191,255,.8);
+}
+
+/* RIGHT — FIERY ORANGE */
+
+.wolf-eye-fire {
+  left: 55.5%;
+  top: 37.5%;
+
+  background: #ff6500;
+
+  box-shadow:
+    0 0 12px #ff6500,
+    0 0 25px #ff6500,
+    0 0 45px rgba(255,100,0,.8);
+}
+
+/* SUBTLE BREATHING EFFECT */
+
+@keyframes wolfEyePulse {
+
+  0% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+
+  100% {
+    opacity: 0.85;
+    transform: scale(1.2);
+  }
+
+}
+
+/* ACCESSIBILITY */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .wolf-eye {
+    animation: none;
+  }
+
+}
+  
+/* =====================================
    ENTER BUTTON
 ===================================== */
 
@@ -327,6 +420,18 @@ body {
     class="welcome-image"
   >
 
+  <!-- TEAM WOLFPACK GLOWING WOLF EYES -->
+
+<div class="wolf-eye-effects" aria-hidden="true">
+
+  <!-- ELECTRIC ICE BLUE EYE -->
+  <span class="wolf-eye wolf-eye-ice"></span>
+
+  <!-- FIERY ORANGE EYE -->
+  <span class="wolf-eye wolf-eye-fire"></span>
+
+</div>
+  
   <!-- ENTER BUTTON -->
 
   <a
