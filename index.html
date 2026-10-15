@@ -383,6 +383,127 @@ body {
 }
 
 /* =====================================
+   TEAM WOLFPACK ICE & FIRE PARTICLES
+===================================== */
+
+.wolfpack-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+
+  left: var(--x);
+  top: var(--y);
+
+  width: 7px;
+  height: 7px;
+
+  opacity: 0;
+
+  will-change: transform, opacity;
+}
+
+/* ELECTRIC ICE CRYSTALS */
+
+.ice-particle {
+  background: #b9f6ff;
+
+  transform: rotate(45deg);
+
+  box-shadow:
+    0 0 8px #ffffff,
+    0 0 15px #00bfff,
+    0 0 25px rgba(0,191,255,.8);
+}
+
+/* FIERY ORANGE EMBERS */
+
+.fire-particle {
+  background: #ffb347;
+
+  border-radius: 50%;
+
+  box-shadow:
+    0 0 8px #ffffff,
+    0 0 15px #ff6500,
+    0 0 25px rgba(255,100,0,.8);
+}
+
+/* ACTIVATE PARTICLES WHEN ENTER IS PRESSED */
+
+.transition-overlay.active .ice-particle {
+  animation: iceParticleSweep 1.2s ease-out var(--delay) both;
+}
+
+.transition-overlay.active .fire-particle {
+  animation: fireParticleSweep 1.2s ease-out var(--delay) both;
+}
+
+/* ICE MOVES FROM LEFT TOWARDS CENTRE */
+
+@keyframes iceParticleSweep {
+
+  0% {
+    opacity: 0;
+    transform: translateX(-40px) rotate(0deg) scale(.5);
+  }
+
+  25% {
+    opacity: 1;
+  }
+
+  75% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(45vw) rotate(360deg) scale(1.5);
+  }
+
+}
+
+/* FIRE MOVES FROM RIGHT TOWARDS CENTRE */
+
+@keyframes fireParticleSweep {
+
+  0% {
+    opacity: 0;
+    transform: translateX(40px) scale(.5);
+  }
+
+  25% {
+    opacity: 1;
+  }
+
+  75% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-45vw) scale(1.5);
+  }
+
+}
+
+/* REDUCED MOTION SUPPORT */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .transition-overlay.active .ice-particle,
+  .transition-overlay.active .fire-particle {
+    animation: none;
+  }
+
+}
+  
+/* =====================================
    DESKTOP ADJUSTMENTS
 ===================================== */
 
@@ -477,6 +598,30 @@ body {
 
   <div class="transition-fire"></div>
 
+<!-- ANIMATED ICE & FIRE PARTICLES -->
+
+<div class="wolfpack-particles" aria-hidden="true">
+
+  <!-- ELECTRIC ICE CRYSTALS -->
+
+  <div class="particle ice-particle" style="--x:8%;--y:12%;--delay:0s"></div>
+  <div class="particle ice-particle" style="--x:18%;--y:28%;--delay:.1s"></div>
+  <div class="particle ice-particle" style="--x:6%;--y:45%;--delay:.2s"></div>
+  <div class="particle ice-particle" style="--x:24%;--y:62%;--delay:.05s"></div>
+  <div class="particle ice-particle" style="--x:12%;--y:78%;--delay:.15s"></div>
+  <div class="particle ice-particle" style="--x:32%;--y:88%;--delay:.25s"></div>
+
+  <!-- FIERY ORANGE EMBERS -->
+
+  <div class="particle fire-particle" style="--x:92%;--y:15%;--delay:0s"></div>
+  <div class="particle fire-particle" style="--x:82%;--y:32%;--delay:.1s"></div>
+  <div class="particle fire-particle" style="--x:94%;--y:48%;--delay:.2s"></div>
+  <div class="particle fire-particle" style="--x:76%;--y:65%;--delay:.05s"></div>
+  <div class="particle fire-particle" style="--x:88%;--y:82%;--delay:.15s"></div>
+  <div class="particle fire-particle" style="--x:68%;--y:92%;--delay:.25s"></div>
+
+</div>
+  
   <div class="transition-flash"></div>
 
 </div>
