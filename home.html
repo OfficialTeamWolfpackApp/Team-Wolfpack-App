@@ -6770,26 +6770,45 @@ function renderNextFight(f){
     nextFightImage.src = image;
     nextFightImage.alt = name;
   }
+/* =========================================
+   TEAM WOLFPACK
+   OPPONENT PHOTO AND NAMEPLATE FIX
+========================================= */
+
 const rightSide =
   document.getElementById("nextFightRight");
 
 if(rightSide){
 
+  // Find or create the opponent photograph.
+
+  let opponentImg =
+    rightSide.querySelector("img.fighter-photo");
+
   if(opponentPhoto){
 
-    rightSide.innerHTML = `
-      <img
-        src="${opponentPhoto}"
-        class="fighter-photo"
-        alt="${opponent}"
-      >
-    `;
+    if(!opponentImg){
 
-  }else{
+      opponentImg = document.createElement("img");
 
-    rightSide.innerHTML = "";
+      opponentImg.className = "fighter-photo";
+
+      rightSide.prepend(opponentImg);
+
+    }
+
+    opponentImg.src = opponentPhoto;
+    opponentImg.alt = opponent;
+
+  }else if(opponentImg){
+
+    opponentImg.remove();
 
   }
+
+  // Keep the existing nameplate intact.
+  // The fighter-management code below
+  // updates nextFightOpponent automatically.
 
 }
   
