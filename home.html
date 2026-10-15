@@ -4787,6 +4787,67 @@ grid-template-columns:
   }
 
 }
+
+/* =========================================
+   TEAM WOLFPACK
+   CHAMPIONSHIP CARD HEIGHT ALIGNMENT
+========================================= */
+
+/* DESKTOP — THREE MATCHING CARDS */
+
+@media(min-width:701px){
+
+  .next-fight.wolfpack-three-card{
+    align-items:stretch;
+  }
+
+  .next-fight.wolfpack-three-card
+  .wolfpack-fighter-card,
+
+  .next-fight.wolfpack-three-card
+  .wolfpack-fight-centre{
+    height:440px;
+    min-height:440px;
+    max-height:none;
+  }
+
+  .next-fight.wolfpack-three-card
+  .wolfpack-fight-centre{
+    padding:18px 14px;
+    gap:8px;
+  }
+
+}
+
+/* MOBILE — MATCHING FIGHTER CARDS */
+
+@media(max-width:700px){
+
+  .next-fight.wolfpack-three-card
+  .wolfpack-fighter-card{
+    height:280px;
+    min-height:280px;
+  }
+
+  .next-fight.wolfpack-three-card
+  .wolfpack-fight-centre{
+    height:auto;
+    min-height:0;
+  }
+
+}
+
+/* SMALL PHONES */
+
+@media(max-width:380px){
+
+  .next-fight.wolfpack-three-card
+  .wolfpack-fighter-card{
+    height:230px;
+    min-height:230px;
+  }
+
+}
   
 </style>
 
