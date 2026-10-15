@@ -394,44 +394,78 @@ body {
   overflow: hidden;
 }
 
+/* =====================================
+   BRIGHTER ICE & FIRE PARTICLES
+===================================== */
+
+/* SHARED PARTICLE SETTINGS */
+
 .particle {
   position: absolute;
 
   left: var(--x);
   top: var(--y);
 
-  width: 7px;
-  height: 7px;
+  width: 12px;
+  height: 12px;
 
   opacity: 0;
+
+  z-index: 10;
 
   will-change: transform, opacity;
 }
 
-/* ELECTRIC ICE CRYSTALS */
+/* =====================================
+   ELECTRIC ICE CRYSTALS
+===================================== */
 
 .ice-particle {
-  background: #b9f6ff;
+  background: #e8fcff;
 
-  transform: rotate(45deg);
+  border: 2px solid #ffffff;
+
+  clip-path: polygon(
+    50% 0%,
+    100% 50%,
+    50% 100%,
+    0% 50%
+  );
+
+  filter:
+    drop-shadow(0 0 5px #ffffff)
+    drop-shadow(0 0 12px #00bfff)
+    drop-shadow(0 0 20px #008cff);
 
   box-shadow:
-    0 0 8px #ffffff,
-    0 0 15px #00bfff,
-    0 0 25px rgba(0,191,255,.8);
+    0 0 15px 5px #00bfff,
+    0 0 30px 10px rgba(0,191,255,.9);
 }
 
-/* FIERY ORANGE EMBERS */
+/* =====================================
+   FIERY ORANGE EMBERS
+===================================== */
 
 .fire-particle {
-  background: #ffb347;
+  background:
+    radial-gradient(
+      circle,
+      #ffffff 0%,
+      #fff2a0 25%,
+      #ff9a00 55%,
+      #ff4500 100%
+    );
 
   border-radius: 50%;
 
+  filter:
+    drop-shadow(0 0 6px #ffffff)
+    drop-shadow(0 0 14px #ff6500)
+    drop-shadow(0 0 22px #ff3300);
+
   box-shadow:
-    0 0 8px #ffffff,
-    0 0 15px #ff6500,
-    0 0 25px rgba(255,100,0,.8);
+    0 0 15px 5px #ff6500,
+    0 0 30px 10px rgba(255,100,0,.9);
 }
 
 /* ACTIVATE PARTICLES WHEN ENTER IS PRESSED */
