@@ -5705,6 +5705,279 @@ grid-template-columns:
   }
 
 }
+
+/* =========================================
+   TEAM WOLFPACK
+   PREMIUM QUICK ACCESS CHAMPIONSHIP CARDS
+   STEP 247
+========================================= */
+
+/* MAIN QUICK ACCESS CONTAINER */
+
+.quick-access-card{
+  padding:24px;
+
+  border:1px solid rgba(220,235,245,.18);
+  border-radius:18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0c1b27 0%,
+      #070d15 48%,
+      #1b100d 100%
+    );
+
+  box-shadow:
+    0 14px 35px rgba(0,0,0,.45),
+    inset 0 1px 0 rgba(255,255,255,.05);
+}
+
+/* SECTION LABEL */
+
+.quick-access-card .quick-access-label{
+  margin-bottom:6px;
+
+  color:#70e2ff;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:2px;
+}
+
+/* SECTION TITLE */
+
+.quick-access-card .quick-access-title{
+  margin-bottom:20px;
+
+  color:#ffffff;
+  font-size:clamp(19px,2.4vw,26px);
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+/* THREE-CARD GRID */
+
+.quick-access-card .quick-access-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+}
+
+/* SHARED CARD DESIGN */
+
+.quick-access-card .quick-access-link{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:12px;
+  min-width:0;
+  min-height:105px;
+  padding:20px 16px;
+
+  border:2px solid rgba(220,235,245,.25);
+  border-radius:14px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #142332,
+      #080d15
+    );
+
+  color:#ffffff;
+  text-decoration:none;
+
+  box-shadow:
+    0 10px 24px rgba(0,0,0,.35);
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease;
+}
+
+/* CARD TITLES */
+
+.quick-access-card .quick-access-link span:first-child{
+  min-width:0;
+
+  font-size:clamp(12px,1.5vw,17px);
+  font-weight:900;
+  line-height:1.35;
+  letter-spacing:.5px;
+
+  overflow-wrap:anywhere;
+}
+
+/* NAVIGATION ARROWS */
+
+.quick-access-card .quick-access-link span:last-child{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  flex:0 0 34px;
+
+  width:34px;
+  height:34px;
+
+  border-radius:9px;
+  border:1px solid currentColor;
+
+  font-size:21px;
+  font-weight:900;
+}
+
+/* =========================================
+   CARD 1 — MEET THE PACK
+   ELECTRIC ICY BLUE
+========================================= */
+
+.quick-access-card .quick-access-link:nth-child(1){
+  border-color:#42d9ff;
+
+  background:
+    linear-gradient(
+      145deg,
+      #102d41,
+      #07111d
+    );
+
+  box-shadow:
+    0 10px 24px rgba(0,0,0,.35),
+    0 0 16px rgba(0,191,255,.15);
+}
+
+.quick-access-card .quick-access-link:nth-child(1)
+span:last-child{
+  color:#70e2ff;
+}
+
+/* =========================================
+   CARD 2 — GALLERY
+   FIERY ORANGE
+========================================= */
+
+.quick-access-card .quick-access-link:nth-child(2){
+  border-color:#ff852e;
+
+  background:
+    linear-gradient(
+      145deg,
+      #382015,
+      #120b09
+    );
+
+  box-shadow:
+    0 10px 24px rgba(0,0,0,.35),
+    0 0 16px rgba(255,101,0,.15);
+}
+
+.quick-access-card .quick-access-link:nth-child(2)
+span:last-child{
+  color:#ffb36b;
+}
+
+/* =========================================
+   CARD 3 — MRS WOLFIE APP
+   ELECTRIC BLUE + NEON PINK
+========================================= */
+
+.quick-access-card .quick-access-link:nth-child(3){
+  border-color:#ff3fae;
+
+  background:
+    linear-gradient(
+      135deg,
+      #10283b 0%,
+      #111323 50%,
+      #35122e 100%
+    );
+
+  box-shadow:
+    0 10px 24px rgba(0,0,0,.35),
+    -3px 0 12px rgba(0,191,255,.12),
+    3px 0 12px rgba(255,0,128,.18);
+}
+
+.quick-access-card .quick-access-link:nth-child(3)
+span:last-child{
+  color:#ff8fd3;
+}
+
+/* =========================================
+   DESKTOP HOVER EFFECTS
+========================================= */
+
+@media(hover:hover) and (pointer:fine){
+
+  .quick-access-card .quick-access-link:hover{
+    transform:translateY(-4px);
+  }
+
+  .quick-access-card .quick-access-link:nth-child(1):hover{
+    box-shadow:
+      0 16px 30px rgba(0,0,0,.45),
+      0 0 24px rgba(0,191,255,.3);
+  }
+
+  .quick-access-card .quick-access-link:nth-child(2):hover{
+    box-shadow:
+      0 16px 30px rgba(0,0,0,.45),
+      0 0 24px rgba(255,101,0,.3);
+  }
+
+  .quick-access-card .quick-access-link:nth-child(3):hover{
+    box-shadow:
+      0 16px 30px rgba(0,0,0,.45),
+      0 0 24px rgba(255,0,128,.3);
+  }
+
+}
+
+/* KEYBOARD ACCESSIBILITY */
+
+.quick-access-card .quick-access-link:focus-visible{
+  outline:3px solid #ffffff;
+  outline-offset:4px;
+}
+
+/* =========================================
+   MOBILE — STACKED NAVIGATION CARDS
+========================================= */
+
+@media(max-width:700px){
+
+  .quick-access-card{
+    padding:18px 14px;
+  }
+
+  .quick-access-card .quick-access-grid{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  .quick-access-card .quick-access-link{
+    min-height:75px;
+    padding:16px;
+  }
+
+  .quick-access-card .quick-access-link span:first-child{
+    font-size:15px;
+  }
+
+}
+
+/* REDUCED MOTION */
+
+@media(prefers-reduced-motion:reduce){
+
+  .quick-access-card .quick-access-link{
+    transition:none;
+  }
+
+}
   
 </style>
 
