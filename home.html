@@ -4604,6 +4604,106 @@ grid-template-columns:
   }
 
 }
+
+/* =========================================
+   TEAM WOLFPACK — FIGHTER NAMEPLATES
+========================================= */
+
+.wolfpack-three-card .wolfpack-fighter-card
+.fighter-name{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+
+  z-index:10;
+
+  width:100%;
+  margin:0;
+  padding:16px 8px 14px;
+
+  text-align:center;
+
+  background:
+    linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(0,0,0,.82) 30%,
+      rgba(0,0,0,.98) 100%
+    );
+}
+
+/* FIGHTER NAME */
+
+.wolfpack-three-card .wolfpack-fighter-card
+.fighter-name strong{
+  display:block;
+
+  color:#ffffff;
+
+  font-size:clamp(14px,1.8vw,23px);
+  font-weight:900;
+  line-height:1.15;
+
+  letter-spacing:.5px;
+
+  overflow-wrap:anywhere;
+
+  text-shadow:
+    0 2px 8px #000;
+}
+
+/* TEAM / OPPONENT LABEL */
+
+.wolfpack-three-card .wolfpack-fighter-card
+.fighter-name span{
+  display:block;
+
+  margin-top:6px;
+
+  font-size:10px;
+  font-weight:900;
+
+  letter-spacing:1.5px;
+
+  color:#dce8ef;
+}
+
+/* MRS WOLFIE — ICY BLUE NAME */
+
+.wolfpack-three-card .wolfpack-fighter-left
+.fighter-name strong{
+  color:#67dcff;
+}
+
+/* OPPONENT — FIERY ORANGE NAME */
+
+.wolfpack-three-card .wolfpack-fighter-right
+.fighter-name strong{
+  color:#ff9b36;
+}
+
+/* MOBILE NAMEPLATES */
+
+@media(max-width:700px){
+
+  .wolfpack-three-card .wolfpack-fighter-card
+  .fighter-name{
+    padding:12px 5px 10px;
+  }
+
+  .wolfpack-three-card .wolfpack-fighter-card
+  .fighter-name strong{
+    font-size:clamp(12px,3.2vw,17px);
+  }
+
+  .wolfpack-three-card .wolfpack-fighter-card
+  .fighter-name span{
+    font-size:8px;
+    letter-spacing:1px;
+  }
+
+}
   
 </style>
 
