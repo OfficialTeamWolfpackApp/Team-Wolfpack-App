@@ -4,8 +4,10 @@
 <head>
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
 <meta name="theme-color" content="#050505">
 
@@ -13,21 +15,31 @@ content="width=device-width, initial-scale=1.0">
 
 <style>
 
+/* =====================================
+   RESET
+===================================== */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   min-height: 100%;
   background: #050505;
   font-family: Arial, sans-serif;
 }
 
+/* =====================================
+   WELCOME SCREEN
+===================================== */
+
 .welcome-screen {
   position: relative;
+
   width: 100%;
   min-height: 100vh;
   min-height: 100dvh;
@@ -37,16 +49,41 @@ html, body {
   align-items: center;
 
   overflow: hidden;
+
   background: #050505;
 }
 
+/* =====================================
+   WELCOME ARTWORK
+===================================== */
+
 .welcome-image {
   display: block;
+
   width: 100%;
   height: 100vh;
   height: 100dvh;
+
   object-fit: contain;
+
+  animation: welcomeFade 1s ease-out both;
 }
+
+@keyframes welcomeFade {
+  from {
+    opacity: 0;
+    transform: scale(1.025);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* =====================================
+   ENTER BUTTON
+===================================== */
 
 .enter-button {
   position: absolute;
@@ -58,7 +95,6 @@ html, body {
 
   width: min(76%, 400px);
   height: 8%;
-
   min-height: 45px;
 
   z-index: 10;
@@ -69,14 +105,179 @@ html, body {
   border: none;
 
   cursor: pointer;
-
   text-decoration: none;
+
+  -webkit-tap-highlight-color: transparent;
 }
 
 .enter-button:focus-visible {
   outline: 3px solid #67dcff;
   outline-offset: 5px;
 }
+
+/* =====================================
+   ICE & FIRE TRANSITION
+===================================== */
+
+.transition-overlay {
+  position: fixed;
+  inset: 0;
+
+  z-index: 100;
+
+  display: flex;
+
+  overflow: hidden;
+
+  pointer-events: none;
+
+  visibility: hidden;
+}
+
+/* ICE — LEFT */
+
+.transition-ice {
+  position: absolute;
+
+  top: 0;
+  left: -55%;
+
+  width: 55%;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      110deg,
+      #001b35 0%,
+      #006fa8 35%,
+      #00bfff 70%,
+      #b8f5ff 100%
+    );
+
+  box-shadow:
+    0 0 60px rgba(0,191,255,.85),
+    0 0 120px rgba(0,191,255,.45);
+
+  transform: translateX(0);
+}
+
+/* FIRE — RIGHT */
+
+.transition-fire {
+  position: absolute;
+
+  top: 0;
+  right: -55%;
+
+  width: 55%;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      250deg,
+      #350500 0%,
+      #a82a00 35%,
+      #ff6500 70%,
+      #ffd080 100%
+    );
+
+  box-shadow:
+    0 0 60px rgba(255,100,0,.85),
+    0 0 120px rgba(255,100,0,.45);
+
+  transform: translateX(0);
+}
+
+/* CENTRE ENERGY FLASH */
+
+.transition-flash {
+  position: absolute;
+
+  inset: 0;
+
+  opacity: 0;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(255,255,255,.95) 0%,
+      rgba(150,230,255,.65) 12%,
+      rgba(255,130,30,.35) 28%,
+      transparent 65%
+    );
+}
+
+/* =====================================
+   ACTIVATE TRANSITION
+===================================== */
+
+.transition-overlay.active {
+  visibility: visible;
+}
+
+.transition-overlay.active .transition-ice {
+  animation: iceSweep 1.2s ease-in-out forwards;
+}
+
+.transition-overlay.active .transition-fire {
+  animation: fireSweep 1.2s ease-in-out forwards;
+}
+
+.transition-overlay.active .transition-flash {
+  animation: energyFlash 1.2s ease-in-out forwards;
+}
+
+/* ICE SWEEP */
+
+@keyframes iceSweep {
+  0% {
+    transform: translateX(0);
+  }
+
+  65% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* FIRE SWEEP */
+
+@keyframes fireSweep {
+  0% {
+    transform: translateX(0);
+  }
+
+  65% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* ENERGY FLASH */
+
+@keyframes energyFlash {
+  0%, 45% {
+    opacity: 0;
+  }
+
+  65% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+/* =====================================
+   DESKTOP ADJUSTMENTS
+===================================== */
 
 @media (min-aspect-ratio: 9/16) {
 
@@ -93,6 +294,24 @@ html, body {
 
 }
 
+/* =====================================
+   ACCESSIBILITY
+===================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .welcome-image {
+    animation: none;
+  }
+
+  .transition-overlay.active .transition-ice,
+  .transition-overlay.active .transition-fire,
+  .transition-overlay.active .transition-flash {
+    animation: none;
+  }
+
+}
+
 </style>
 </head>
 
@@ -100,19 +319,98 @@ html, body {
 
 <main class="welcome-screen">
 
+  <!-- WELCOME ARTWORK -->
+
   <img
     src="team-wolfpack-welcome.png"
     alt="Team Wolfpack — One Pack, One Purpose"
     class="welcome-image"
   >
 
-<a
-  href="home.html"
-  class="enter-button"
-  aria-label="Enter Team Wolfpack App"
-></a>
+  <!-- ENTER BUTTON -->
+
+  <a
+    href="home.html"
+    class="enter-button"
+    id="enterWolfpack"
+    aria-label="Enter Team Wolfpack App"
+  ></a>
 
 </main>
+
+<!-- ICE & FIRE TRANSITION -->
+
+<div
+  class="transition-overlay"
+  id="wolfpackTransition"
+  aria-hidden="true"
+>
+
+  <div class="transition-ice"></div>
+
+  <div class="transition-fire"></div>
+
+  <div class="transition-flash"></div>
+
+</div>
+
+<script>
+
+/* =====================================
+   TEAM WOLFPACK ENTER TRANSITION
+===================================== */
+
+const enterButton =
+  document.getElementById("enterWolfpack");
+
+const transition =
+  document.getElementById("wolfpackTransition");
+
+let isEntering = false;
+
+enterButton.addEventListener("click", function(event) {
+
+  // Allow modified clicks to behave normally.
+  if (
+    event.ctrlKey ||
+    event.metaKey ||
+    event.shiftKey ||
+    event.altKey ||
+    event.button !== 0
+  ) {
+    return;
+  }
+
+  event.preventDefault();
+
+  if (isEntering) {
+    return;
+  }
+
+  isEntering = true;
+
+  const destination = enterButton.href;
+
+  // Respect the user's reduced-motion preference.
+  if (
+    window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches
+  ) {
+    window.location.assign(destination);
+    return;
+  }
+
+  transition.classList.add("active");
+
+  // Navigate after the cinematic transition.
+  window.setTimeout(function() {
+    window.location.assign(destination);
+  }, 1200);
+
+});
+
+</script>
 
 </body>
 </html>
