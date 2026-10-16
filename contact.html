@@ -1084,6 +1084,211 @@ body.menu-open{
 
 }
 
+/* =========================================
+   TEAM WOLFPACK CONTACT ENQUIRY FORM
+========================================= */
+
+.enquiry-section{
+  width:100%;
+  margin:35px 0 25px;
+  padding:25px;
+
+  border:1px solid rgba(103,220,255,.18);
+  border-radius:18px;
+
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(0,190,255,.10),
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(255,90,0,.10),
+      transparent 45%
+    ),
+    #080b0e;
+
+  box-shadow:0 15px 45px rgba(0,0,0,.35);
+}
+
+.enquiry-section .content-heading{
+  margin-bottom:25px;
+}
+
+.enquiry-section h2{
+  margin:8px 0;
+  font-size:clamp(22px,3vw,30px);
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+#wolfpackEnquiryForm{
+  width:100%;
+}
+
+.enquiry-fields{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px;
+}
+
+.enquiry-field{
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+  min-width:0;
+}
+
+.enquiry-field label{
+  color:#dceef5;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.enquiry-field input,
+.enquiry-field select,
+.enquiry-field textarea{
+  box-sizing:border-box;
+  display:block;
+  width:100%;
+  min-width:0;
+
+  padding:14px 15px;
+
+  border-radius:10px;
+  border:1px solid rgba(103,220,255,.22);
+
+  background:#101820;
+  color:#fff;
+
+  font-family:inherit;
+  font-size:14px;
+
+  outline:none;
+
+  transition:
+    border-color .2s ease,
+    box-shadow .2s ease;
+}
+
+.enquiry-field input:focus,
+.enquiry-field select:focus,
+.enquiry-field textarea:focus{
+  border-color:#67dcff;
+  box-shadow:0 0 0 3px rgba(103,220,255,.12);
+}
+
+.enquiry-field select{
+  cursor:pointer;
+}
+
+.enquiry-field select option{
+  background:#101820;
+  color:#fff;
+}
+
+.enquiry-field textarea{
+  resize:vertical;
+  min-height:160px;
+  line-height:1.6;
+}
+
+.enquiry-full{
+  grid-column:1 / -1;
+}
+
+.enquiry-notice{
+  margin:20px 0;
+
+  color:#9caeb8;
+  font-size:11px;
+  line-height:1.7;
+}
+
+.enquiry-submit{
+  display:block;
+  width:100%;
+
+  padding:17px 20px;
+
+  border-radius:11px;
+  border:1px solid rgba(103,220,255,.35);
+
+  background:linear-gradient(
+    90deg,
+    rgba(0,160,220,.22),
+    rgba(255,90,0,.22)
+  );
+
+  color:#fff;
+
+  font-family:inherit;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:1.5px;
+
+  cursor:pointer;
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+.enquiry-submit:not(:disabled):hover{
+  transform:translateY(-2px);
+
+  box-shadow:
+    0 0 20px rgba(0,190,255,.15),
+    0 0 20px rgba(255,90,0,.12);
+}
+
+.enquiry-submit:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+}
+
+#enquiryStatus{
+  margin-top:15px;
+  text-align:center;
+  font-size:12px;
+  font-weight:800;
+}
+
+/* =========================================
+   MOBILE CONTACT FORM
+========================================= */
+
+@media(max-width:600px){
+
+  .enquiry-section{
+    padding:18px 14px;
+    margin-top:25px;
+  }
+
+  .enquiry-fields{
+    grid-template-columns:1fr;
+    gap:15px;
+  }
+
+  .enquiry-full{
+    grid-column:auto;
+  }
+
+  .enquiry-field input,
+  .enquiry-field select,
+  .enquiry-field textarea{
+    font-size:16px;
+  }
+
+  .enquiry-submit{
+    font-size:11px;
+    padding:16px 12px;
+  }
+
+}
+  
 </style>
 
 </head>
