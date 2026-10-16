@@ -2020,6 +2020,21 @@ const appCheck = initializeAppCheck(firebaseApp, {
   ),
   isTokenAutoRefreshEnabled: true
 });
+
+// TEMPORARY APP CHECK DIAGNOSTIC
+getToken(appCheck)
+  .then((result) => {
+    console.log(
+      "TEAM WOLFPACK APP CHECK:",
+      result.token ? "TOKEN GENERATED SUCCESSFULLY" : "NO TOKEN"
+    );
+  })
+  .catch((error) => {
+    console.error(
+      "TEAM WOLFPACK APP CHECK FAILED:",
+      error.code || error.message
+    );
+  });
   
 const auth =
   getAuth(firebaseApp);
