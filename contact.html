@@ -2013,6 +2013,14 @@ const firebaseConfig = {
 const firebaseApp =
   initializeApp(firebaseConfig);
 
+// Firebase App Check - Fraud Defense
+const appCheck = initializeAppCheck(firebaseApp, {
+  provider: new ReCaptchaEnterpriseProvider(
+    "6LfYlcItAAAAAGQtEJFKYH6fyERwXiAfVeBqJhOR"
+  ),
+  isTokenAutoRefreshEnabled: true
+});
+  
 const auth =
   getAuth(firebaseApp);
 
