@@ -1016,9 +1016,80 @@ statusSelect.value =
     ? enquiry.status
     : "new";
 
-// Status saving will be connected later
-statusSelect.disabled = true;
-statusSelect.title = "Status updates are not enabled yet.";
+// ==========================================
+// SAVE ENQUIRY STATUS TO FIREBASE
+// ==========================================
+
+statusSelect.disabled = false;
+statusSelect.title = "Change enquiry status";
+
+statusSelect.addEventListener("change", async () => {
+
+  const previousStatus = enquiry.status;
+  const selectedStatus = statusSelect.value;
+
+  const allowedStatuses = [
+    "new",
+    "in_progress",
+    "completed"
+  ];
+
+  if (!allowedStatuses.includes(selectedStatus)) {
+    statusSelect.value = previousStatus;
+    return;
+  }
+
+  // Confirm administrator is still signed in
+  const currentUser = auth.currentUser;
+
+  if (!currentUser || !ADMINS[currentUser.uid]) {
+
+    alert("Administrator access is required.");
+
+    statusSelect.value = previousStatus;
+    return;
+  }
+
+  if (!enquiry.id) {
+    alert("Unable to identify this enquiry.");
+    statusSelect.value = previousStatus;
+    return;
+  }
+
+  statusSelect.disabled = true;
+
+  try {
+
+    const enquiryRef = ref(
+      database,
+      "contactEnquiries/" + enquiry.id
+    );
+
+    await update(enquiryRef, {
+      status: selectedStatus
+    });
+
+    // Firebase onValue listener refreshes the dashboard
+    // automatically after the update succeeds.
+
+  } catch (error) {
+
+    console.error(
+      "Failed to update enquiry status:",
+      error
+    );
+
+    alert("Unable to save enquiry status. Please try again.");
+
+    statusSelect.value = previousStatus;
+
+  } finally {
+
+    statusSelect.disabled = false;
+
+  }
+
+});
 
 statusLabel.appendChild(statusSelect);
 statusControl.appendChild(statusLabel);
