@@ -139,6 +139,80 @@ body{
   background:rgba(0,160,220,.1);
 }
 
+/* =========================================
+   CONTACT ENQUIRY STATISTICS
+========================================= */
+
+.enquiry-stats{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:15px;
+  margin-top:25px;
+  margin-bottom:25px;
+}
+
+.enquiry-stat-card{
+  padding:25px 15px;
+  border-radius:14px;
+  text-align:center;
+
+  border:1px solid rgba(103,220,255,.2);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0,190,255,.09),
+      rgba(255,90,0,.09)
+    ),
+    #080808;
+}
+
+.enquiry-stat-icon{
+  font-size:24px;
+  margin-bottom:12px;
+}
+
+.enquiry-stat-number{
+  font-size:36px;
+  font-weight:900;
+  color:#67dcff;
+  line-height:1.2;
+}
+
+.enquiry-stat-card:nth-child(3)
+.enquiry-stat-number{
+  color:#ff751c;
+}
+
+.enquiry-stat-card:nth-child(4)
+.enquiry-stat-number{
+  color:#65e0a3;
+}
+
+.enquiry-stat-label{
+  margin-top:10px;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1px;
+  color:#aaa;
+}
+
+@media(max-width:750px){
+
+  .enquiry-stats{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+}
+
+@media(max-width:380px){
+
+  .enquiry-stats{
+    grid-template-columns:1fr;
+  }
+
+}
+  
 </style>
 </head>
 
@@ -195,10 +269,77 @@ body{
       <span class="fire">ADMIN ACCESS REQUIRED</span>
     </h2>
 
-    <p class="admin-placeholder">
-      You must sign in using an authorised Team Wolfpack
-      administrator account to access contact enquiries.
-    </p>
+  <!-- =========================================
+     CONTACT ENQUIRY STATISTICS
+========================================= -->
+
+<div class="enquiry-stats">
+
+  <div class="enquiry-stat-card">
+
+    <div class="enquiry-stat-icon">📩</div>
+
+    <div class="enquiry-stat-number" id="totalEnquiries">
+      —
+    </div>
+
+    <div class="enquiry-stat-label">
+      TOTAL ENQUIRIES
+    </div>
+
+  </div>
+
+
+  <div class="enquiry-stat-card">
+
+    <div class="enquiry-stat-icon">🔵</div>
+
+    <div class="enquiry-stat-number" id="newEnquiries">
+      —
+    </div>
+
+    <div class="enquiry-stat-label">
+      NEW ENQUIRIES
+    </div>
+
+  </div>
+
+
+  <div class="enquiry-stat-card">
+
+    <div class="enquiry-stat-icon">🟠</div>
+
+    <div class="enquiry-stat-number" id="progressEnquiries">
+      —
+    </div>
+
+    <div class="enquiry-stat-label">
+      IN PROGRESS
+    </div>
+
+  </div>
+
+
+  <div class="enquiry-stat-card">
+
+    <div class="enquiry-stat-icon">🟢</div>
+
+    <div class="enquiry-stat-number" id="completedEnquiries">
+      —
+    </div>
+
+    <div class="enquiry-stat-label">
+      COMPLETED
+    </div>
+
+  </div>
+
+</div>
+
+
+<p class="admin-placeholder" id="enquiryLoadingStatus">
+  Enquiry statistics are not connected yet.
+</p>
 
     <a
       href="admin-login.html"
