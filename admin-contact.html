@@ -485,6 +485,115 @@ const contactEnquiriesRef = ref(
   database,
   "contactEnquiries"
 );
+
+// ==========================================
+// LIVE CONTACT ENQUIRY STATISTICS
+// ==========================================
+
+let stopContactEnquiriesListener = null;
+
+function startContactEnquiriesListener() {
+
+  if (stopContactEnquiriesListener) {
+    return;
+  }
+
+  const loadingStatus =
+    document.getElementById("enquiryLoadingStatus");
+
+  if (loadingStatus) {
+    loadingStatus.textContent = "Loading enquiry statistics...";
+  }
+
+  stopContactEnquiriesListener = onValue(
+
+    contactEnquiriesRef,
+
+    (snapshot) => {
+
+      let total = 0;
+      let newCount = 0;
+      let progressCount = 0;
+      let completedCount = 0;
+
+      snapshot.forEach((childSnapshot) => {
+
+        const enquiry = childSnapshot.val();
+
+        if (!enquiry || typeof enquiry !== "object") {
+          return;
+        }
+
+        total++;
+
+        switch (enquiry.status) {
+
+          case "new":
+            newCount++;
+            break;
+
+          case "in_progress":
+            progressCount++;
+            break;
+
+          case "completed":
+            completedCount++;
+            break;
+
+        }
+
+      });
+
+      document.getElementById("totalEnquiries").textContent =
+        total;
+
+      document.getElementById("newEnquiries").textContent =
+        newCount;
+
+      document.getElementById("progressEnquiries").textContent =
+        progressCount;
+
+      document.getElementById("completedEnquiries").textContent =
+        completedCount;
+
+      if (loadingStatus) {
+        loadingStatus.textContent =
+          "Enquiry statistics are live and connected.";
+      }
+
+    },
+
+    (error) => {
+
+      console.error(
+        "Contact enquiries Firebase error:",
+        error
+      );
+
+      if (loadingStatus) {
+        loadingStatus.textContent =
+          "Unable to load enquiry statistics.";
+      }
+
+      stopContactEnquiriesListener = null;
+
+    }
+
+  );
+
+}
+
+function stopContactEnquiries() {
+
+  if (stopContactEnquiriesListener) {
+
+    stopContactEnquiriesListener();
+
+    stopContactEnquiriesListener = null;
+
+  }
+
+}  
   
 /* =========================================
    PAGE ELEMENTS
