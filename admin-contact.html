@@ -863,49 +863,7 @@ renderContactEnquiries(enquiries);
 
 }
 
-// ==========================================
-// ENQUIRY STATUS CONTROL
-// ==========================================
 
-const statusControl = document.createElement("div");
-statusControl.className = "enquiry-status-control";
-
-const statusLabel = document.createElement("label");
-statusLabel.textContent = "UPDATE STATUS";
-
-const statusSelect = document.createElement("select");
-statusSelect.className = "enquiry-status-select";
-
-const statusOptions = [
-  { value: "new", label: "🔵 NEW" },
-  { value: "in_progress", label: "🟠 IN PROGRESS" },
-  { value: "completed", label: "🟢 COMPLETED" }
-];
-
-statusOptions.forEach((option) => {
-
-  const optionElement = document.createElement("option");
-
-  optionElement.value = option.value;
-  optionElement.textContent = option.label;
-
-  statusSelect.appendChild(optionElement);
-
-});
-
-statusSelect.value =
-  ["new", "in_progress", "completed"].includes(enquiry.status)
-    ? enquiry.status
-    : "new";
-
-// Status saving will be connected in STEP 410B
-statusSelect.disabled = true;
-statusSelect.title = "Status updates are not enabled yet.";
-
-statusLabel.appendChild(statusSelect);
-statusControl.appendChild(statusLabel);
-
-footer.appendChild(statusControl);
   
 // ==========================================
 // RENDER CONTACT ENQUIRIES
@@ -1023,6 +981,50 @@ function renderContactEnquiries(enquiries) {
         ? "📅 " + new Date(timestamp).toLocaleString("en-GB")
         : "📅 Date unavailable";
 
+// ==========================================
+// ENQUIRY STATUS CONTROL
+// ==========================================
+
+const statusControl = document.createElement("div");
+statusControl.className = "enquiry-status-control";
+
+const statusLabel = document.createElement("label");
+statusLabel.textContent = "UPDATE STATUS";
+
+const statusSelect = document.createElement("select");
+statusSelect.className = "enquiry-status-select";
+
+const statusOptions = [
+  { value: "new", label: "🔵 NEW" },
+  { value: "in_progress", label: "🟠 IN PROGRESS" },
+  { value: "completed", label: "🟢 COMPLETED" }
+];
+
+statusOptions.forEach((option) => {
+
+  const optionElement = document.createElement("option");
+
+  optionElement.value = option.value;
+  optionElement.textContent = option.label;
+
+  statusSelect.appendChild(optionElement);
+
+});
+
+statusSelect.value =
+  ["new", "in_progress", "completed"].includes(enquiry.status)
+    ? enquiry.status
+    : "new";
+
+// Status saving will be connected later
+statusSelect.disabled = true;
+statusSelect.title = "Status updates are not enabled yet.";
+
+statusLabel.appendChild(statusSelect);
+statusControl.appendChild(statusLabel);
+
+footer.appendChild(statusControl);
+    
     footer.appendChild(date);
 
     card.append(header, details, message, footer);
