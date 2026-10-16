@@ -257,107 +257,141 @@ body{
   </div>
 
 
-  <!-- ACCESS DENIED -->
-
-  <section
-    id="accessDenied"
-    class="admin-panel"
-    hidden
-  >
-
-    <h2>
-      <span class="fire">ADMIN ACCESS REQUIRED</span>
-    </h2>
-
-  <!-- =========================================
-     CONTACT ENQUIRY STATISTICS
+ <!-- =========================================
+     ACCESS DENIED
 ========================================= -->
 
-<div class="enquiry-stats">
+<section
+  id="accessDenied"
+  class="admin-panel"
+  hidden
+>
 
-  <div class="enquiry-stat-card">
+  <h2>
+    <span class="fire">ADMIN ACCESS REQUIRED</span>
+  </h2>
 
-    <div class="enquiry-stat-icon">📩</div>
+  <p class="admin-placeholder">
+    You must be an authorised Team Wolfpack
+    administrator to access Contact Enquiries.
+  </p>
 
-    <div class="enquiry-stat-number" id="totalEnquiries">
-      —
-    </div>
-
-    <div class="enquiry-stat-label">
-      TOTAL ENQUIRIES
-    </div>
-
-  </div>
-
-
-  <div class="enquiry-stat-card">
-
-    <div class="enquiry-stat-icon">🔵</div>
-
-    <div class="enquiry-stat-number" id="newEnquiries">
-      —
-    </div>
-
-    <div class="enquiry-stat-label">
-      NEW ENQUIRIES
-    </div>
-
-  </div>
-
-
-  <div class="enquiry-stat-card">
-
-    <div class="enquiry-stat-icon">🟠</div>
-
-    <div class="enquiry-stat-number" id="progressEnquiries">
-      —
-    </div>
-
-    <div class="enquiry-stat-label">
-      IN PROGRESS
-    </div>
-
-  </div>
-
-
-  <div class="enquiry-stat-card">
-
-    <div class="enquiry-stat-icon">🟢</div>
-
-    <div class="enquiry-stat-number" id="completedEnquiries">
-      —
-    </div>
-
-    <div class="enquiry-stat-label">
-      COMPLETED
-    </div>
-
-  </div>
-
-</div>
-
-
-<p class="admin-placeholder" id="enquiryLoadingStatus">
-  Enquiry statistics are not connected yet.
-</p>
-
-    <a
-      href="admin-login.html"
-      class="admin-back"
-    >
-      ADMIN LOGIN
-    </a>
-
-  </section>
-
-
-  <!-- AUTHORISED ADMIN MANAGER -->
-
-  <section
-    id="contactManager"
-    class="admin-panel"
-    hidden
+  <a
+    href="admin-login.html"
+    class="admin-back"
   >
+    ADMIN LOGIN
+  </a>
+
+</section>
+
+
+<!-- =========================================
+     AUTHORISED ADMIN MANAGER
+========================================= -->
+
+<section
+  id="contactManager"
+  class="admin-panel"
+  hidden
+>
+
+  <!-- =========================================
+       CONTACT ENQUIRY STATISTICS
+  ========================================= -->
+
+  <div class="enquiry-stats">
+
+    <!-- TOTAL ENQUIRIES -->
+
+    <div class="enquiry-stat-card">
+
+      <div class="enquiry-stat-icon">📩</div>
+
+      <div
+        class="enquiry-stat-number"
+        id="totalEnquiries"
+      >
+        —
+      </div>
+
+      <div class="enquiry-stat-label">
+        TOTAL ENQUIRIES
+      </div>
+
+    </div>
+
+
+    <!-- NEW ENQUIRIES -->
+
+    <div class="enquiry-stat-card">
+
+      <div class="enquiry-stat-icon">🔵</div>
+
+      <div
+        class="enquiry-stat-number"
+        id="newEnquiries"
+      >
+        —
+      </div>
+
+      <div class="enquiry-stat-label">
+        NEW ENQUIRIES
+      </div>
+
+    </div>
+
+
+    <!-- IN PROGRESS -->
+
+    <div class="enquiry-stat-card">
+
+      <div class="enquiry-stat-icon">🟠</div>
+
+      <div
+        class="enquiry-stat-number"
+        id="progressEnquiries"
+      >
+        —
+      </div>
+
+      <div class="enquiry-stat-label">
+        IN PROGRESS
+      </div>
+
+    </div>
+
+
+    <!-- COMPLETED -->
+
+    <div class="enquiry-stat-card">
+
+      <div class="enquiry-stat-icon">🟢</div>
+
+      <div
+        class="enquiry-stat-number"
+        id="completedEnquiries"
+      >
+        —
+      </div>
+
+      <div class="enquiry-stat-label">
+        COMPLETED
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- FIREBASE CONNECTION STATUS -->
+
+  <p
+    class="admin-placeholder"
+    id="enquiryLoadingStatus"
+  >
+    Enquiry statistics are not connected yet.
+  </p>
 
     <h2>
       <span class="ice">ENQUIRY</span>
