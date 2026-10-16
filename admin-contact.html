@@ -363,6 +363,58 @@ body{
   color: #888;
   font-size: 11px;
 }
+
+/* =========================================
+   ENQUIRY STATUS CONTROLS
+========================================= */
+
+.enquiry-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.enquiry-status-control label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #67dcff;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.enquiry-status-select {
+  min-width: 170px;
+  padding: 11px 14px;
+  border-radius: 9px;
+  border: 1px solid rgba(103,220,255,.35);
+  background: #101820;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.enquiry-status-select:focus {
+  outline: 2px solid #67dcff;
+  outline-offset: 2px;
+}
+
+.enquiry-status-select:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+@media(max-width:600px) {
+
+  .enquiry-status-control,
+  .enquiry-status-select {
+    width: 100%;
+  }
+
+}
   
 </style>
 </head>
@@ -811,6 +863,50 @@ renderContactEnquiries(enquiries);
 
 }
 
+// ==========================================
+// ENQUIRY STATUS CONTROL
+// ==========================================
+
+const statusControl = document.createElement("div");
+statusControl.className = "enquiry-status-control";
+
+const statusLabel = document.createElement("label");
+statusLabel.textContent = "UPDATE STATUS";
+
+const statusSelect = document.createElement("select");
+statusSelect.className = "enquiry-status-select";
+
+const statusOptions = [
+  { value: "new", label: "🔵 NEW" },
+  { value: "in_progress", label: "🟠 IN PROGRESS" },
+  { value: "completed", label: "🟢 COMPLETED" }
+];
+
+statusOptions.forEach((option) => {
+
+  const optionElement = document.createElement("option");
+
+  optionElement.value = option.value;
+  optionElement.textContent = option.label;
+
+  statusSelect.appendChild(optionElement);
+
+});
+
+statusSelect.value =
+  ["new", "in_progress", "completed"].includes(enquiry.status)
+    ? enquiry.status
+    : "new";
+
+// Status saving will be connected in STEP 410B
+statusSelect.disabled = true;
+statusSelect.title = "Status updates are not enabled yet.";
+
+statusLabel.appendChild(statusSelect);
+statusControl.appendChild(statusLabel);
+
+footer.appendChild(statusControl);
+  
 // ==========================================
 // RENDER CONTACT ENQUIRIES
 // ==========================================
