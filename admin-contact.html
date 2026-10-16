@@ -212,6 +212,71 @@ body{
   }
 
 }
+
+/* =========================================
+   INCOMING ENQUIRIES
+========================================= */
+
+.enquiries-section {
+  margin-top: 35px;
+  padding-top: 25px;
+  border-top: 1px solid rgba(103,220,255,.2);
+}
+
+.enquiries-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.enquiries-header h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.enquiries-count {
+  padding: 9px 15px;
+  border-radius: 20px;
+  background: rgba(0,191,255,.1);
+  border: 1px solid rgba(0,191,255,.3);
+  color: #67dcff;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.enquiries-list {
+  display: grid;
+  gap: 15px;
+}
+
+.enquiries-empty {
+  text-align: center;
+  padding: 45px 20px;
+  border-radius: 14px;
+  border: 1px dashed rgba(103,220,255,.25);
+  background: rgba(0,191,255,.03);
+}
+
+.enquiries-empty-icon {
+  font-size: 42px;
+  margin-bottom: 15px;
+}
+
+.enquiries-empty h3 {
+  color: #67dcff;
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+
+.enquiries-empty p {
+  color: #999;
+  font-size: 13px;
+  line-height: 1.7;
+}
   
 </style>
 </head>
@@ -393,6 +458,46 @@ body{
     Enquiry statistics are not connected yet.
   </p>
 
+<!-- =========================================
+     INCOMING CONTACT ENQUIRIES
+========================================= -->
+
+<div class="enquiries-section">
+
+  <div class="enquiries-header">
+
+    <h2>
+      <span class="ice">INCOMING</span>
+      <span class="fire">ENQUIRIES</span>
+    </h2>
+
+    <span class="enquiries-count" id="enquiriesCount">
+      0 ENQUIRIES
+    </span>
+
+  </div>
+
+  <div class="enquiries-list" id="enquiriesList">
+
+    <div class="enquiries-empty">
+
+      <div class="enquiries-empty-icon">
+        📭
+      </div>
+
+      <h3>NO ENQUIRIES YET</h3>
+
+      <p>
+        New contact enquiries will appear here
+        when someone submits the contact form.
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+  
     <h2>
       <span class="ice">ENQUIRY</span>
       <span class="fire">DASHBOARD</span>
