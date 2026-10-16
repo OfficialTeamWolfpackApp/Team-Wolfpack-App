@@ -608,19 +608,20 @@ const contactManager = document.getElementById("contactManager");
 const adminName = document.getElementById("adminName");
 
 
-/* =========================================
-   AUTHENTICATION CHECK
-========================================= */
+// ==========================================
+// ADMIN AUTHENTICATION CHECK
+// ==========================================
 
 onAuthStateChanged(
+
   auth,
 
-  function(user){
+  function(user) {
 
     const authorisedName =
       user ? ADMINS[user.uid] : null;
 
-    if(authorisedName){
+    if (authorisedName) {
 
       adminStatus.textContent =
         "● " + authorisedName + " • ADMIN CONNECTED";
@@ -631,18 +632,19 @@ onAuthStateChanged(
 
       accessDenied.hidden = true;
 
-     contactManager.hidden = false;
+      contactManager.hidden = false;
 
-// Start live Firebase enquiry statistics
-startContactEnquiriesListener();
+      // Start Firebase enquiry statistics
+      startContactEnquiriesListener();
 
-return;
+      return;
     }
-    
-// Stop reading enquiries when admin access ends
-stopContactEnquiries();
-    
-    adminStatus.textContent = "ADMIN ACCESS REQUIRED";
+
+    // Stop Firebase listener if access ends
+    stopContactEnquiries();
+
+    adminStatus.textContent =
+      "ADMIN ACCESS REQUIRED";
 
     adminStatus.style.color = "#ff7957";
 
@@ -653,24 +655,31 @@ stopContactEnquiries();
     accessDenied.hidden = false;
 
   },
-  
-// Stop reading enquiries when admin access ends
-stopContactEnquiries();
-  function(error){
 
-    console.error("Admin authentication failed:", error);
+  function(error) {
 
-    adminStatus.textContent = "AUTHENTICATION ERROR";
+    // Stop Firebase listener on authentication error
+    stopContactEnquiries();
+
+    console.error(
+      "Admin authentication failed:",
+      error
+    );
+
+    adminStatus.textContent =
+      "AUTHENTICATION ERROR";
 
     adminStatus.style.color = "#ff7957";
+
+    adminName.textContent = "";
 
     contactManager.hidden = true;
 
     accessDenied.hidden = false;
 
   }
-);
 
+);
 </script>
 
 </body>
