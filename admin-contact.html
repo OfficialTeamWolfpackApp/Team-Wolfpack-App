@@ -260,7 +260,13 @@ import {
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
-
+import {
+  getDatabase,
+  ref,
+  onValue,
+  off
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+  
 /* =========================================
    FIREBASE CONFIGURATION
 ========================================= */
@@ -294,7 +300,17 @@ const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 
+/* =========================================
+   FIREBASE REALTIME DATABASE
+========================================= */
 
+const database = getDatabase(app);
+
+const contactEnquiriesRef = ref(
+  database,
+  "contactEnquiries"
+);
+  
 /* =========================================
    PAGE ELEMENTS
 ========================================= */
