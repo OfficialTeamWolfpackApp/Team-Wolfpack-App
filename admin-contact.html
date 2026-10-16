@@ -631,11 +631,17 @@ onAuthStateChanged(
 
       accessDenied.hidden = true;
 
-      contactManager.hidden = false;
+     contactManager.hidden = false;
 
-      return;
+// Start live Firebase enquiry statistics
+startContactEnquiriesListener();
+
+return;
     }
-
+    
+// Stop reading enquiries when admin access ends
+stopContactEnquiries();
+    
     adminStatus.textContent = "ADMIN ACCESS REQUIRED";
 
     adminStatus.style.color = "#ff7957";
@@ -647,7 +653,9 @@ onAuthStateChanged(
     accessDenied.hidden = false;
 
   },
-
+  
+// Stop reading enquiries when admin access ends
+stopContactEnquiries();
   function(error){
 
     console.error("Admin authentication failed:", error);
