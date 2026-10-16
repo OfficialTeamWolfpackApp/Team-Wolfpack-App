@@ -277,6 +277,92 @@ body{
   font-size: 13px;
   line-height: 1.7;
 }
+
+/* =========================================
+   INDIVIDUAL ENQUIRY CARDS
+========================================= */
+
+.enquiry-card {
+  padding: 22px;
+  border-radius: 14px;
+  border: 1px solid rgba(103,220,255,.2);
+  background: rgba(0,191,255,.04);
+}
+
+.enquiry-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.enquiry-sender {
+  margin: 0;
+  color: #67dcff;
+  font-size: 18px;
+}
+
+.enquiry-status {
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.status-new {
+  color: #67dcff;
+  background: rgba(0,191,255,.12);
+}
+
+.status-in_progress {
+  color: #ff9b52;
+  background: rgba(255,117,28,.12);
+}
+
+.status-completed {
+  color: #65e0a3;
+  background: rgba(101,224,163,.12);
+}
+
+.enquiry-details p {
+  margin: 9px 0;
+  color: #ccc;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.enquiry-details strong {
+  color: #fff;
+}
+
+.enquiry-message {
+  margin-top: 20px;
+  padding: 17px;
+  border-radius: 10px;
+  background: rgba(0,0,0,.3);
+}
+
+.enquiry-message strong {
+  color: #ff9b52;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.enquiry-message p {
+  color: #ddd;
+  font-size: 13px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.enquiry-card-footer {
+  margin-top: 18px;
+  color: #888;
+  font-size: 11px;
+}
   
 </style>
 </head>
@@ -691,6 +777,12 @@ enquiries.sort((a, b) => {
   return Number(b.createdAt || 0) -
          Number(a.createdAt || 0);
 });
+
+// ==========================================
+// DISPLAY INCOMING CONTACT ENQUIRIES
+// ==========================================
+
+renderContactEnquiries(enquiries);
      
       if (loadingStatus) {
         loadingStatus.textContent =
@@ -719,6 +811,132 @@ enquiries.sort((a, b) => {
 
 }
 
+// ==========================================
+// RENDER CONTACT ENQUIRIES
+// ==========================================
+
+function renderContactEnquiries(enquiries) {
+
+  const enquiriesList =
+    document.getElementById("enquiriesList");
+
+  if (!enquiriesList) return;
+
+  // Clear previously displayed enquiries
+  enquiriesList.replaceChildren();
+
+  // Display empty inbox when no records exist
+  if (enquiries.length === 0) {
+
+    const empty = document.createElement("div");
+    empty.className = "enquiries-empty";
+
+    const icon = document.createElement("div");
+    icon.className = "enquiries-empty-icon";
+    icon.textContent = "📭";
+
+    const heading = document.createElement("h3");
+    heading.textContent = "NO ENQUIRIES YET";
+
+    const message = document.createElement("p");
+    message.textContent =
+      "New contact enquiries will appear here when someone submits the contact form.";
+
+    empty.append(icon, heading, message);
+    enquiriesList.appendChild(empty);
+
+    return;
+  }
+
+  // Create an individual card for each enquiry
+  enquiries.forEach((enquiry) => {
+
+    const card = document.createElement("article");
+    card.className = "enquiry-card";
+
+    const header = document.createElement("div");
+    header.className = "enquiry-card-header";
+
+    const name = document.createElement("h3");
+    name.className = "enquiry-sender";
+    name.textContent = enquiry.name || "Unknown sender";
+
+    const status = document.createElement("span");
+    status.className =
+      "enquiry-status status-" +
+      (["new", "in_progress", "completed"].includes(enquiry.status)
+        ? enquiry.status
+        : "new");
+
+    const statusLabels = {
+      new: "🔵 NEW",
+      in_progress: "🟠 IN PROGRESS",
+      completed: "🟢 COMPLETED"
+    };
+
+    status.textContent =
+      statusLabels[enquiry.status] || "STATUS UNKNOWN";
+
+    header.append(name, status);
+
+    const details = document.createElement("div");
+    details.className = "enquiry-details";
+
+    function addDetail(label, value) {
+
+      if (value === undefined || value === null || value === "") {
+        return;
+      }
+
+      const row = document.createElement("p");
+
+      const strong = document.createElement("strong");
+      strong.textContent = label + ": ";
+
+      const text = document.createTextNode(String(value));
+
+      row.append(strong, text);
+      details.appendChild(row);
+    }
+
+    addDetail("📧 Email", enquiry.email);
+    addDetail("📞 Phone", enquiry.phone);
+    addDetail("🏷️ Category", enquiry.category);
+    addDetail("📝 Subject", enquiry.subject);
+
+    const message = document.createElement("div");
+    message.className = "enquiry-message";
+
+    const messageHeading = document.createElement("strong");
+    messageHeading.textContent = "MESSAGE";
+
+    const messageText = document.createElement("p");
+    messageText.textContent = enquiry.message || "No message provided.";
+
+    message.append(messageHeading, messageText);
+
+    const footer = document.createElement("div");
+    footer.className = "enquiry-card-footer";
+
+    const date = document.createElement("span");
+
+    const timestamp = Number(enquiry.createdAt);
+
+    date.textContent =
+      Number.isFinite(timestamp) && timestamp > 0
+        ? "📅 " + new Date(timestamp).toLocaleString("en-GB")
+        : "📅 Date unavailable";
+
+    footer.appendChild(date);
+
+    card.append(header, details, message, footer);
+
+    enquiriesList.appendChild(card);
+
+  });
+
+}
+  
 function stopContactEnquiries() {
 
   if (stopContactEnquiriesListener) {
