@@ -1669,6 +1669,141 @@ body.menu-open{
 
 }
 
+/* =========================================
+   TEAM WOLFPACK
+   THREE-CARD CHAMPIONSHIP FIGHT LAYOUT
+   STEP 275
+========================================= */
+
+.fight-card{
+  overflow:visible;
+  border:none;
+  background:transparent;
+  box-shadow:none;
+}
+
+.fight-card::before,
+.fight-card::after{
+  display:none;
+}
+
+.fight-layout{
+  display:grid;
+  grid-template-columns:
+    minmax(0,1fr)
+    minmax(0,.88fr)
+    minmax(0,1fr);
+
+  gap:10px;
+  min-height:320px;
+  overflow:visible;
+  align-items:stretch;
+}
+
+/* LEFT FIGHTER — ICE */
+
+.fight-person.left{
+  border:2px solid #00bfff;
+  border-radius:13px;
+  overflow:hidden;
+
+  background:#07111c;
+
+  box-shadow:
+    0 0 20px rgba(0,191,255,.22);
+}
+
+/* CENTRE — FIGHT INFORMATION */
+
+.fight-centre{
+  border:1px solid rgba(190,220,245,.22);
+  border-radius:13px;
+
+  padding:18px 10px;
+
+  background:
+    linear-gradient(
+      160deg,
+      #101e2d,
+      #080c14 65%,
+      #16110f
+    );
+
+  box-shadow:
+    0 10px 25px rgba(0,0,0,.4);
+
+  min-width:0;
+}
+
+/* RIGHT FIGHTER — FIRE */
+
+.fight-person.right{
+  border:2px solid #ff751c;
+  border-radius:13px;
+  overflow:hidden;
+
+  background:#150c09;
+
+  box-shadow:
+    0 0 20px rgba(255,100,0,.22);
+}
+
+/* KEEP PHOTOGRAPHS INSIDE CARDS */
+
+.fight-person img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* IMPROVE CENTRE CONTENT */
+
+.fight-centre .event-name{
+  font-size:clamp(11px,1.7vw,16px);
+  line-height:1.2;
+}
+
+.fight-centre .card-vs{
+  font-size:clamp(30px,4vw,48px);
+}
+
+.fight-centre .matchup-row{
+  gap:4px;
+}
+
+.fight-centre .card-fighter-name{
+  font-size:clamp(9px,1.2vw,13px);
+  overflow-wrap:anywhere;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+  .fight-layout{
+    grid-template-columns:
+      minmax(0,1fr)
+      minmax(0,.9fr)
+      minmax(0,1fr);
+
+    gap:6px;
+    min-height:255px;
+  }
+
+  .fight-centre{
+    padding:12px 5px;
+  }
+
+  .fight-centre .event-name{
+    font-size:10px;
+  }
+
+  .fight-centre .card-fighter-name{
+    font-size:9px;
+  }
+
+}
+  
 </style>
 
 </head>
