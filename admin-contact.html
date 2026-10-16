@@ -614,12 +614,15 @@ function startContactEnquiriesListener() {
 
     contactEnquiriesRef,
 
-    (snapshot) => {
+   (snapshot) => {
 
-      let total = 0;
-      let newCount = 0;
-      let progressCount = 0;
-      let completedCount = 0;
+  let total = 0;
+  let newCount = 0;
+  let progressCount = 0;
+  let completedCount = 0;
+
+  // Store enquiries for the inbox
+  const enquiries = [];
 
       snapshot.forEach((childSnapshot) => {
 
@@ -629,9 +632,15 @@ function startContactEnquiriesListener() {
           return;
         }
 
-        total++;
+       total++;
 
-        switch (enquiry.status) {
+// Add enquiry to the inbox collection
+enquiries.push({
+  id: childSnapshot.key,
+  ...enquiry
+});
+
+switch (enquiry.status) {
 
           case "new":
             newCount++;
@@ -661,6 +670,28 @@ function startContactEnquiriesListener() {
       document.getElementById("completedEnquiries").textContent =
         completedCount;
 
+// ==========================================
+// UPDATE INCOMING ENQUIRIES COUNT
+// ==========================================
+
+const enquiriesCount =
+  document.getElementById("enquiriesCount");
+
+if (enquiriesCount) {
+
+  enquiriesCount.textContent =
+    total === 1
+      ? "1 ENQUIRY"
+      : total + " ENQUIRIES";
+
+}
+
+// Prepare enquiries for inbox rendering
+enquiries.sort((a, b) => {
+  return Number(b.createdAt || 0) -
+         Number(a.createdAt || 0);
+});
+     
       if (loadingStatus) {
         loadingStatus.textContent =
           "Enquiry statistics are live and connected.";
