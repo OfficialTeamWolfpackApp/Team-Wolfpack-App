@@ -171,11 +171,52 @@ body{
 
   </header>
 
-  <div class="admin-status">
-    ADMIN AUTHENTICATION — NOT YET CONNECTED
+  <!-- ADMIN AUTHENTICATION STATUS -->
+
+  <div
+    id="adminStatus"
+    class="admin-status"
+    role="status"
+    aria-live="polite"
+  >
+    CHECKING ADMIN ACCESS...
   </div>
 
-  <section class="admin-panel">
+
+  <!-- ACCESS DENIED -->
+
+  <section
+    id="accessDenied"
+    class="admin-panel"
+    hidden
+  >
+
+    <h2>
+      <span class="fire">ADMIN ACCESS REQUIRED</span>
+    </h2>
+
+    <p class="admin-placeholder">
+      You must sign in using an authorised Team Wolfpack
+      administrator account to access contact enquiries.
+    </p>
+
+    <a
+      href="admin-login.html"
+      class="admin-back"
+    >
+      ADMIN LOGIN
+    </a>
+
+  </section>
+
+
+  <!-- AUTHORISED ADMIN MANAGER -->
+
+  <section
+    id="contactManager"
+    class="admin-panel"
+    hidden
+  >
 
     <h2>
       <span class="ice">ENQUIRY</span>
@@ -183,9 +224,13 @@ body{
     </h2>
 
     <p class="admin-placeholder">
-      The Contact Enquiries Manager is being prepared.
-      Administrator authentication and Firebase enquiries
-      will be connected in the next stages.
+      Administrator connected:
+      <strong id="adminName"></strong>
+    </p>
+
+    <p class="admin-placeholder">
+      The secure Contact Enquiries Manager is ready.
+      Firebase enquiry records will be connected next.
     </p>
 
   </section>
@@ -198,6 +243,127 @@ body{
   </a>
 
 </main>
+
+
+<!-- =========================================
+     TEAM WOLFPACK ADMIN AUTHENTICATION
+========================================= -->
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+
+/* =========================================
+   FIREBASE CONFIGURATION
+========================================= */
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+  authDomain: "team-wolfpack-app.firebaseapp.com",
+  databaseURL: "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "team-wolfpack-app",
+  storageBucket: "team-wolfpack-app.firebasestorage.app",
+  messagingSenderId: "1070414578856",
+  appId: "1:1070414578856:web:df14e7d387e658eeae2e9d"
+};
+
+
+/* =========================================
+   AUTHORISED ADMINISTRATORS
+========================================= */
+
+const ADMINS = {
+  "PRGa9TsCW0QDn1QtoUXyYjEi7YB3": "MR WOLFIE",
+  "SlpEQYl94DaH6j42QUyl8Kv2ujJ3": "MRS WOLFIE"
+};
+
+
+/* =========================================
+   INITIALISE FIREBASE
+========================================= */
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+
+/* =========================================
+   PAGE ELEMENTS
+========================================= */
+
+const adminStatus = document.getElementById("adminStatus");
+
+const accessDenied = document.getElementById("accessDenied");
+
+const contactManager = document.getElementById("contactManager");
+
+const adminName = document.getElementById("adminName");
+
+
+/* =========================================
+   AUTHENTICATION CHECK
+========================================= */
+
+onAuthStateChanged(
+  auth,
+
+  function(user){
+
+    const authorisedName =
+      user ? ADMINS[user.uid] : null;
+
+    if(authorisedName){
+
+      adminStatus.textContent =
+        "● " + authorisedName + " • ADMIN CONNECTED";
+
+      adminStatus.style.color = "#67dcff";
+
+      adminName.textContent = authorisedName;
+
+      accessDenied.hidden = true;
+
+      contactManager.hidden = false;
+
+      return;
+    }
+
+    adminStatus.textContent = "ADMIN ACCESS REQUIRED";
+
+    adminStatus.style.color = "#ff7957";
+
+    adminName.textContent = "";
+
+    contactManager.hidden = true;
+
+    accessDenied.hidden = false;
+
+  },
+
+  function(error){
+
+    console.error("Admin authentication failed:", error);
+
+    adminStatus.textContent = "AUTHENTICATION ERROR";
+
+    adminStatus.style.color = "#ff7957";
+
+    contactManager.hidden = true;
+
+    accessDenied.hidden = false;
+
+  }
+);
+
+</script>
 
 </body>
 </html>
