@@ -1484,7 +1484,157 @@ Choose the type of enquiry below and contact Team Wolfpack directly.
 
 </div>
 <!-- END CONTACT GRID -->
+<!-- =========================================
+     TEAM WOLFPACK CONTACT ENQUIRY FORM
+========================================= -->
 
+<section id="contact-form" class="enquiry-section">
+
+  <div class="content-heading">
+
+    <div class="content-label">
+      CONTACT TEAM WOLFPACK
+    </div>
+
+    <h2>
+      <span class="ice">SEND AN</span>
+      <span class="fire">ENQUIRY</span>
+    </h2>
+
+    <p>
+      Complete the form below to contact
+      Team Wolfpack management.
+    </p>
+
+  </div>
+
+  <form id="wolfpackEnquiryForm">
+
+    <div class="enquiry-fields">
+
+      <!-- FULL NAME -->
+
+      <div class="enquiry-field">
+        <label for="enquiryName">FULL NAME *</label>
+
+        <input
+          type="text"
+          id="enquiryName"
+          name="name"
+          maxlength="100"
+          autocomplete="name"
+          required
+        >
+      </div>
+
+      <!-- EMAIL -->
+
+      <div class="enquiry-field">
+        <label for="enquiryEmail">EMAIL ADDRESS *</label>
+
+        <input
+          type="email"
+          id="enquiryEmail"
+          name="email"
+          maxlength="254"
+          autocomplete="email"
+          required
+        >
+      </div>
+
+      <!-- PHONE -->
+
+      <div class="enquiry-field">
+        <label for="enquiryPhone">CONTACT NUMBER</label>
+
+        <input
+          type="tel"
+          id="enquiryPhone"
+          name="phone"
+          maxlength="30"
+          autocomplete="tel"
+        >
+      </div>
+
+      <!-- CATEGORY -->
+
+      <div class="enquiry-field">
+        <label for="enquiryCategory">ENQUIRY CATEGORY *</label>
+
+        <select
+          id="enquiryCategory"
+          name="category"
+          required
+        >
+          <option value="">SELECT CATEGORY</option>
+          <option value="general">GENERAL ENQUIRIES</option>
+          <option value="sponsorship">SPONSORSHIP</option>
+          <option value="fight">FIGHT / EVENT ENQUIRIES</option>
+          <option value="join">JOIN THE PACK</option>
+          <option value="tickets">TICKETS & EVENTS</option>
+          <option value="media">MEDIA & COLLABORATIONS</option>
+        </select>
+      </div>
+
+      <!-- SUBJECT -->
+
+      <div class="enquiry-field enquiry-full">
+        <label for="enquirySubject">SUBJECT *</label>
+
+        <input
+          type="text"
+          id="enquirySubject"
+          name="subject"
+          maxlength="150"
+          required
+        >
+      </div>
+
+      <!-- MESSAGE -->
+
+      <div class="enquiry-field enquiry-full">
+        <label for="enquiryMessage">YOUR MESSAGE *</label>
+
+        <textarea
+          id="enquiryMessage"
+          name="message"
+          rows="7"
+          maxlength="3000"
+          required
+        ></textarea>
+      </div>
+
+    </div>
+
+    <p class="enquiry-notice">
+      Your enquiry will be handled by Team Wolfpack
+      management. Please do not include sensitive
+      personal information.
+    </p>
+
+    <!-- SUBMISSION DISABLED UNTIL FIREBASE IS READY -->
+
+    <button
+      type="submit"
+      id="sendEnquiryButton"
+      class="enquiry-submit"
+      disabled
+    >
+      SEND ENQUIRY — COMING SOON
+    </button>
+
+    <p
+      id="enquiryStatus"
+      role="status"
+      aria-live="polite"
+    ></p>
+
+  </form>
+
+</section>
+
+<!-- END CONTACT ENQUIRY FORM -->
+  
 <!-- =========================================
      EMAIL PANEL
 ========================================= -->
