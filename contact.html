@@ -2080,5 +2080,66 @@ if("serviceWorker" in navigator){
 
 </script>
 
+<!-- =========================================
+     CONTACT CENTRE CATEGORY SELECTION
+========================================= -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function(){
+
+  const enquiryButtons = document.querySelectorAll(
+    ".contact-button[data-enquiry]"
+  );
+
+  const categorySelect = document.getElementById(
+    "enquiryCategory"
+  );
+
+  const enquiryForm = document.getElementById(
+    "contact-form"
+  );
+
+  if(!categorySelect || !enquiryForm){
+    return;
+  }
+
+  enquiryButtons.forEach(function(button){
+
+    button.addEventListener("click", function(event){
+
+      event.preventDefault();
+
+      const selectedCategory = button.dataset.enquiry;
+
+      const validOption = Array.from(
+        categorySelect.options
+      ).some(function(option){
+        return option.value === selectedCategory;
+      });
+
+      if(validOption){
+
+        categorySelect.value = selectedCategory;
+
+        categorySelect.dispatchEvent(
+          new Event("change", { bubbles:true })
+        );
+
+      }
+
+      enquiryForm.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+      });
+
+    });
+
+  });
+
+});
+
+</script>  
+  
 </body>
 </html>
