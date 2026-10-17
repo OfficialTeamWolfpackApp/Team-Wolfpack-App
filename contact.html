@@ -2024,6 +2024,45 @@ const appCheck = initializeAppCheck(firebaseApp, {
 const auth =
   getAuth(firebaseApp);
 
+// TEMPORARY CONTACT SUBMISSION TEST
+window.testWolfpackContact = async function() {
+  const confirmed = window.confirm(
+    "Send ONE test enquiry to Team Wolfpack?"
+  );
+
+  if (!confirmed) return;
+
+  try {
+    const result = await getToken(appCheck);
+
+    const response = await fetch(
+      "https://submitcontactenquiry-5oy33g26dq-ew.a.run.app",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Firebase-AppCheck": result.token
+        },
+        body: JSON.stringify({
+          name: "Team Wolfpack Test",
+          email: "test@example.com",
+          category: "general",
+          subject: "Contact System Test",
+          message:
+            "This is a controlled test of the Team Wolfpack contact enquiry system."
+        })
+      }
+    );
+
+    const data = await response.json();
+
+    console.log("CONTACT TEST STATUS:", response.status);
+    console.log("CONTACT TEST RESULT:", data);
+
+  } catch (error) {
+    console.error("CONTACT TEST FAILED:", error);
+  }
+};  
 
 const ADMIN_UIDS =
   new Set([
