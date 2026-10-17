@@ -1602,9 +1602,9 @@ import {
   push,
   set,
   remove,
-  onValue
+  onValue,
+  get
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
-
 import {
   getStorage,
   ref as storageRef,
@@ -2611,14 +2611,21 @@ async function deleteUnusedUpdateVideo(videoURL, deletedUpdateId){
     return;
   }
 
-  // Never delete a video used by another update.
-  const usedElsewhere =
-    Object.entries(updates || {}).some(
-      ([id, item]) =>
-        id !== deletedUpdateId &&
-        item &&
-        item.video === videoURL
-    );
+ // Check the latest updates directly from Firebase.
+const updatesSnapshot =
+  await get(ref(database, "updates"));
+
+const latestUpdates =
+  updatesSnapshot.val() || {};
+
+// Never delete a video referenced by another update.
+const usedElsewhere =
+  Object.entries(latestUpdates).some(
+    ([id, item]) =>
+      id !== deletedUpdateId &&
+      item &&
+      item.video === videoURL
+  );
 
   if(usedElsewhere){
     console.log(
