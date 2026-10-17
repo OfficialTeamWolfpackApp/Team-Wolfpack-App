@@ -513,14 +513,13 @@ body.menu-open{
   width:100%;
   height:auto;
 
-  max-height:390px;
+  max-height:none;
 
-  object-fit:cover;
+  object-fit:contain;
   object-position:center;
 
   margin:0 auto;
 }
-
 
 /* =========================================
    INTRO
@@ -1540,14 +1539,19 @@ body.menu-open{
 
 @media(max-width:600px){
 
-  .fights-banner-image{
-    min-height:190px;
-    max-height:260px;
+ .fights-banner-image{
+  display:block;
 
-    object-fit:cover;
-    object-position:center;
-  }
+  width:100%;
+  height:auto;
 
+  min-height:0;
+  max-height:none;
+
+  object-fit:contain;
+  object-position:center;
+}
+  
   .fights-intro{
     padding:
       21px
