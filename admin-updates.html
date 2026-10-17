@@ -1204,7 +1204,97 @@ Choose a JPG, PNG or WEBP image for this update.
   type="hidden"
 >
 
+<!-- =====================================
+     TEAM WOLFPACK VIDEO UPLOAD
+===================================== -->
 
+<div class="field">
+
+  <label for="videoFile">
+    POST VIDEO
+  </label>
+
+  <input
+    id="videoFile"
+    type="file"
+    accept="video/mp4,video/webm"
+  >
+
+  <div
+    id="videoStatus"
+    style="
+      margin-top:8px;
+      color:#888;
+      font-size:9px;
+      line-height:1.5;
+    "
+  >
+    Choose an MP4 or WEBM video.
+  </div>
+
+  <input
+    id="video"
+    type="hidden"
+  >
+
+</div>  
+
+<!-- =====================================
+     TEAM WOLFPACK CLICKABLE URL LINKS
+===================================== -->
+
+<div class="field">
+
+  <label for="linkURL">
+    WEBSITE / URL LINK
+  </label>
+
+  <input
+    id="linkURL"
+    type="url"
+    placeholder="https://example.com"
+    autocomplete="url"
+  >
+
+  <div
+    style="
+      margin-top:7px;
+      color:#888;
+      font-size:9px;
+      line-height:1.5;
+    "
+  >
+    Optional: Add a website link to this update.
+  </div>
+
+</div>
+
+<div class="field">
+
+  <label for="linkText">
+    LINK BUTTON TEXT
+  </label>
+
+  <input
+    id="linkText"
+    type="text"
+    maxlength="50"
+    placeholder="Example: GET TICKETS"
+  >
+
+  <div
+    style="
+      margin-top:7px;
+      color:#888;
+      font-size:9px;
+      line-height:1.5;
+    "
+  >
+    Choose the text visitors will see on the button.
+  </div>
+
+</div>
+  
 <div class="image-tools">
 
 <div class="frame-title">
@@ -1624,6 +1714,25 @@ const imageFileInput =
 const imageStatus =
   document.getElementById("imageStatus");
 
+/* =========================================
+   VIDEO UPLOAD & CLICKABLE URL FIELDS
+========================================= */
+
+const videoFileInput =
+  document.getElementById("videoFile");
+
+const videoInput =
+  document.getElementById("video");
+
+const videoStatus =
+  document.getElementById("videoStatus");
+
+const linkURLInput =
+  document.getElementById("linkURL");
+
+const linkTextInput =
+  document.getElementById("linkText");  
+  
 const cropEditor =
   document.getElementById("cropEditor");
 
@@ -2418,6 +2527,78 @@ async function uploadPostImage(){
 
 }
 
+/* =========================================
+   TEAM WOLFPACK VIDEO UPLOAD
+========================================= */
+
+async function uploadPostVideo() {
+
+  const file = videoFileInput.files[0];
+
+  // Keep the existing video when editing a post.
+  if (!file) {
+    return videoInput.value.trim();
+  }
+
+  // Only allow supported video formats.
+  const allowedTypes = [
+    "video/mp4",
+    "video/webm"
+  ];
+
+  if (!allowedTypes.includes(file.type)) {
+    throw new Error(
+      "Please choose an MP4 or WEBM video."
+    );
+  }
+
+  // Maximum video size: 100 MB.
+  const maxSize = 100 * 1024 * 1024;
+
+  if (file.size > maxSize) {
+    throw new Error(
+      "Video must be smaller than 100MB."
+    );
+  }
+
+  videoStatus.textContent = "UPLOADING VIDEO...";
+
+  const safeName = file.name.replace(
+    /[^a-zA-Z0-9._-]/g,
+    "-"
+  );
+
+  const filePath =
+    "live-updates/videos/" +
+    Date.now() +
+    "-" +
+    safeName;
+
+  const fileRef = storageRef(
+    storage,
+    filePath
+  );
+
+  await uploadBytes(
+    fileRef,
+    file,
+    {
+      contentType: file.type
+    }
+  );
+
+  const downloadURL = await getDownloadURL(
+    fileRef
+  );
+
+  videoInput.value = downloadURL;
+
+  videoStatus.textContent =
+    "VIDEO UPLOADED SUCCESSFULLY";
+
+  return downloadURL;
+
+}  
 
 /* =========================================
    RENDER LIVE UPDATES
