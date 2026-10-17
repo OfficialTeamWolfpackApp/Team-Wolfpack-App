@@ -1096,10 +1096,32 @@ statusLabel.appendChild(statusSelect);
 statusControl.appendChild(statusLabel);
 
 footer.appendChild(statusControl);
-    
-    footer.appendChild(date);
 
-    card.append(header, details, message, footer);
+footer.appendChild(date);
+
+// ==========================================
+// TEAM WOLFPACK - DELETE ENQUIRY BUTTON
+// ==========================================
+
+const deleteButton = document.createElement("button");
+
+deleteButton.type = "button";
+deleteButton.className = "enquiry-delete-button";
+deleteButton.textContent = "🗑️ DELETE ENQUIRY";
+deleteButton.title = "Permanently delete this enquiry";
+
+deleteButton.style.padding = "11px 16px";
+deleteButton.style.borderRadius = "9px";
+deleteButton.style.border = "1px solid #ff4d4d";
+deleteButton.style.background = "rgba(255,77,77,.12)";
+deleteButton.style.color = "#ff7070";
+deleteButton.style.fontSize = "11px";
+deleteButton.style.fontWeight = "900";
+deleteButton.style.cursor = "pointer";
+
+footer.appendChild(deleteButton);
+
+card.append(header, details, message, footer);
 
     enquiriesList.appendChild(card);
 
