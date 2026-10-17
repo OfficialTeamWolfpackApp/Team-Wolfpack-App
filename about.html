@@ -1195,6 +1195,18 @@ body.menu-open{
 .wolfpack-story .story-promise .story-final{font-size:clamp(22px,5vw,30px);font-weight:900;line-height:1.4;margin:18px 0 7px}
 .wolfpack-story .story-promise .story-est{font-size:10px;font-weight:900;letter-spacing:1.4px;color:#aaa}
 
+
+/* Full poster: responsive, uncropped, no horizontal overflow */
+.values-poster{
+  display:block;
+  width:100%;
+  max-width:100%;
+  height:auto;
+  object-fit:contain;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.12);
+}
+
 </style>
 
 </head>
@@ -1581,156 +1593,22 @@ Strength. Loyalty. Unity. Purpose.
 
 
 <!-- =========================================
-     OUR VALUES
+     OUR VALUES — WOLF PAW POSTER
 ========================================= -->
 
-<section class="card">
-
-<div class="card-label">
-OUR VALUES
-</div>
-
-<h2 class="section-title">
-
-<span class="ice">
-WHAT
-</span>
-
-<span class="fire">
-WE STAND FOR
-</span>
-
-</h2>
-
-
-<div class="values">
-
-
-<!-- STRENGTH -->
-
-<div class="value-card">
-
-<div class="value-number">
-01
-</div>
-
-<div class="value-icon">
-◆
-</div>
-
-<div class="value-title">
-STRENGTH
-</div>
-
-<div class="value-text">
-Finding the strength to keep moving forward, inside and outside the ring.
-</div>
-
-</div>
-
-
-<!-- LOYALTY -->
-
-<div class="value-card">
-
-<div class="value-number">
-02
-</div>
-
-<div class="value-icon">
-∞
-</div>
-
-<div class="value-title">
-LOYALTY
-</div>
-
-<div class="value-text">
-Standing beside the people who represent and support the pack.
-</div>
-
-</div>
-
-
-<!-- UNITY -->
-
-<div class="value-card">
-
-<div class="value-number">
-03
-</div>
-
-<div class="value-icon">
-●
-</div>
-
-<div class="value-title">
-UNITY
-</div>
-
-<div class="value-text">
-Different fighters and teams, brought together as one Team Wolfpack.
-</div>
-
-</div>
-
-
-<!-- PURPOSE -->
-
-<div class="value-card">
-
-<div class="value-number">
-04
-</div>
-
-<div class="value-icon">
-◎
-</div>
-
-<div class="value-title">
-PURPOSE
-</div>
-
-<div class="value-text">
-Using boxing to build confidence, discipline and something worth fighting for.
-</div>
-
-</div>
-
-
-</div>
-
+<section class="card" aria-labelledby="values-poster-heading">
+  <div class="card-label">OUR VALUES</div>
+  <h2 class="section-title" id="values-poster-heading">
+    <span class="ice">WHAT</span> <span class="fire">WE STAND FOR</span>
+  </h2>
+  <img
+    src="what-we-stand-for.png"
+    alt="Team Wolfpack four values: Strength, Loyalty, Unity and Purpose. One Pack, One Purpose."
+    class="values-poster"
+    loading="lazy"
+    decoding="async"
+  >
 </section>
-
-
-<!-- =========================================
-     MOTTO
-========================================= -->
-
-<section class="card motto-card">
-
-<div class="motto-small">
-OUR PACK • OUR PURPOSE
-</div>
-
-<div class="quote">
-
-<span class="ice">
-ONE PACK.
-</span>
-
-<br>
-
-<span class="fire">
-ONE PURPOSE.
-</span>
-
-</div>
-
-<div class="motto-line"></div>
-
-</section>
-
 
 <!-- =========================================
      FOOTER + COPYRIGHT
