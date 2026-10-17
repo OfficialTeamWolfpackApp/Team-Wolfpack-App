@@ -1852,8 +1852,106 @@ if(update.image){
   );
 }
 
+/* =========================================
+   TEAM WOLFPACK VIDEO PLAYER
+========================================= */
+
+if(update.video){
+
+  const video =
+    document.createElement("video");
+
+  video.src =
+    safeText(update.video);
+
+  video.controls = true;
+
+  video.playsInline = true;
+
+  video.preload = "metadata";
+
+  video.style.cssText = `
+    display:block;
+    width:100%;
+    max-height:550px;
+    margin:14px 0;
+    border-radius:12px;
+    background:#000;
+    border:1px solid rgba(103,220,255,.25);
+  `;
+
+  card.appendChild(video);
+
+}      
+      
 card.appendChild(message);
 
+/* =========================================
+   TEAM WOLFPACK WEBSITE LINK BUTTON
+========================================= */
+
+if(update.linkURL){
+
+  let validLink = "";
+
+  try{
+
+    const parsedURL =
+      new URL(update.linkURL);
+
+    if(
+      parsedURL.protocol === "https:" ||
+      parsedURL.protocol === "http:"
+    ){
+      validLink = parsedURL.href;
+    }
+
+  }catch(error){
+    console.warn("Invalid update link:", error);
+  }
+
+  if(validLink){
+
+    const linkButton =
+      document.createElement("a");
+
+    linkButton.href =
+      validLink;
+
+    linkButton.target =
+      "_blank";
+
+    linkButton.rel =
+      "noopener noreferrer";
+
+    linkButton.textContent =
+      safeText(update.linkText || "VIEW LINK");
+
+    linkButton.style.cssText = `
+      display:block;
+      margin-top:16px;
+      padding:14px 18px;
+      border-radius:10px;
+      text-align:center;
+      text-decoration:none;
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:1px;
+      color:#050505;
+      background:linear-gradient(
+        90deg,
+        #67dcff,
+        #ff751c
+      );
+      transition:opacity .2s ease;
+    `;
+
+    card.appendChild(linkButton);
+
+  }
+
+}
+      
      if(
   update.fighter ||
   update.venue
