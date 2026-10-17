@@ -3427,63 +3427,95 @@ linkTextInput.value =
     }
 
 
-    /* DELETE */
+   /* =========================================
+   DELETE UPDATE AND ASSOCIATED VIDEO
+========================================= */
 
-    if(deleteButton){
+if(deleteButton){
 
-      const id =
-        deleteButton.dataset.delete;
+  const id =
+    deleteButton.dataset.delete;
 
-      const item =
-        updates[id];
+  const item =
+    updates[id];
 
-      if(!item){
-        return;
-      }
+  if(!item){
+    return;
+  }
 
+  const confirmed =
+    window.confirm(
+      'Delete "' +
+      (item.title || "this update") +
+      '"?'
+    );
 
-      const confirmed =
-        window.confirm(
-          'Delete "' +
-          (item.title || "this update") +
-          '"?'
-        );
+  if(!confirmed){
+    return;
+  }
 
+  // Save the video URL before deleting the update.
+  const videoURL =
+    item.video || "";
 
-      if(!confirmed){
-        return;
-      }
+  try{
 
+    // First delete the update from Firebase Database.
+    await remove(
+      ref(
+        database,
+        "updates/" + id
+      )
+    );
 
-      try{
+  }catch(error){
 
-        await remove(
-          ref(
-            database,
-            "updates/" +
-            id
-          )
-        );
+    console.error(
+      "Delete update:",
+      error
+    );
 
-      }catch(error){
+    window.alert(
+      "The update could not be deleted."
+    );
 
-        console.error(
-          "Delete update:",
-          error
-        );
+    return;
+  }
 
-        window.alert(
-          "The update could not be deleted."
-        );
+  // Only attempt video cleanup after the update
+  // has been successfully deleted.
+  if(videoURL){
 
-      }
+    try{
+
+      await deleteUnusedUpdateVideo(
+        videoURL,
+        id
+      );
+
+    }catch(error){
+
+      console.error(
+        "Video cleanup:",
+        error
+      );
+
+      window.alert(
+        "The update was deleted successfully, " +
+        "but its video could not be removed " +
+        "from Firebase Storage. " +
+        "Please check Storage manually."
+      );
 
     }
 
   }
+
+}
+
+  }
 );
-
-
+  
 /* =========================================
    ADMIN AUTHENTICATION
 ========================================= */
