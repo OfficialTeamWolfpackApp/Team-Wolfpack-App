@@ -2807,6 +2807,40 @@ function renderUpdates(){
                 : ""
             }
 
+${
+  item.video
+    ? `
+      <div
+        class="update-video-shell"
+        style="margin-top:14px;"
+      >
+
+        <video
+          controls
+          playsinline
+          preload="metadata"
+          style="
+            display:block;
+            width:100%;
+            max-height:500px;
+            border-radius:12px;
+            background:#000;
+          "
+        >
+
+          <source
+            src="${escapeHTML(item.video)}"
+          >
+
+          Your browser does not support video playback.
+
+        </video>
+
+      </div>
+    `
+    : ""
+}
+  
             <div class="update-message">
               ${message}
             </div>
@@ -2820,6 +2854,38 @@ function renderUpdates(){
                 `
                 : ""
             }
+
+${
+  item.linkURL &&
+  /^https?:\/\//i.test(item.linkURL)
+    ? `
+      <a
+        href="${escapeHTML(item.linkURL)}"
+        target="_blank"
+        rel="noopener noreferrer"
+        style="
+          display:block;
+          margin-top:14px;
+          padding:13px 18px;
+          border-radius:10px;
+          text-align:center;
+          text-decoration:none;
+          font-size:11px;
+          font-weight:900;
+          letter-spacing:1px;
+          color:#050505;
+          background:linear-gradient(
+            90deg,
+            #67dcff,
+            #ff751c
+          );
+        "
+      >
+        ${escapeHTML(item.linkText || "VIEW LINK")}
+      </a>
+    `
+    : ""
+}
 
             <div class="update-actions">
 
@@ -2976,6 +3042,9 @@ updateForm.addEventListener(
       const imageURL =
         await uploadPostImage();
 
+      const videoURL =
+  await uploadPostVideo();
+
       const savedOriginalTimestamp =
         Number(
           originalTimestamp.value
@@ -3010,11 +3079,23 @@ updateForm.addEventListener(
         venue:
           venueInput.value.trim(),
 
-        image:
-          imageURL,
+       image:
+  imageURL,
 
-        imageRatio:
-          selectedRatio,
+// Uploaded video
+video:
+  videoURL,
+
+// Clickable website link
+linkURL:
+  linkURLInput.value.trim(),
+
+// Text displayed on the link button
+linkText:
+  linkTextInput.value.trim(),
+
+imageRatio:
+  selectedRatio,
 
         imagePositionX:
           Number(
@@ -3176,7 +3257,49 @@ updateList.addEventListener(
       imageFileInput.value =
         "";
 
+/* =========================================
+   RESET VIDEO AND URL FIELDS
+========================================= */
 
+videoInput.value =
+  "";
+
+videoFileInput.value =
+  "";
+
+videoStatus.textContent =
+  "Choose an MP4 or WEBM video.";
+
+linkURLInput.value =
+  "";
+
+linkTextInput.value =
+  "";      
+      
+/* =========================================
+   RESTORE VIDEO AND URL DETAILS
+========================================= */
+
+// Restore existing video
+videoInput.value =
+  item.video || "";
+
+videoFileInput.value =
+  "";
+
+videoStatus.textContent =
+  item.video
+    ? "EXISTING VIDEO LOADED"
+    : "Choose an MP4 or WEBM video.";
+
+// Restore website URL
+linkURLInput.value =
+  item.linkURL || "";
+
+// Restore link button text
+linkTextInput.value =
+  item.linkText || "";
+      
       setFrameRatio(
         item.imageRatio ||
         "16:9"
