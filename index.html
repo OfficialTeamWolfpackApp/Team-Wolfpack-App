@@ -602,16 +602,19 @@ body {
   visibility: visible;
 }
 
+/* CINEMATIC WOLF IMAGE — DESKTOP & MOBILE */
+
 .wolf-entrance-image {
+  display: block;
+
   width: 100%;
   height: 100%;
 
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
 
   transform: scale(1);
 }
-
 .wolf-entrance.active .wolf-entrance-image {
   animation: wolfCinematicZoom var(--wolf-animation-duration, 6s) ease-in-out forwards;
 }
