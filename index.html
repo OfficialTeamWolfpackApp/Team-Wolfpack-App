@@ -705,7 +705,9 @@ wolfHowl.currentTime = 0;
 
 wolfHowl.play().catch(function(error) {
   console.warn("Wolf howl could not play:", error);
-});  
+
+  window.location.assign(enterButton.href);
+});
   const destination = enterButton.href;
 
   // Respect the user's reduced-motion preference.
@@ -718,12 +720,10 @@ wolfHowl.play().catch(function(error) {
     return;
   }
 
-  transition.classList.add("active");
-
- // Wait for the cinematic transition and wolf howl
+  // Wait for the cinematic transition and wolf howl
 // before opening the Team Wolfpack homepage.
 
-const minimumTransitionTime = 1200;
+const minimumTransitionTime = 0;
 const maximumWaitTime = 10000;
 
 const transitionStart = Date.now();
