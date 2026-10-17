@@ -1119,6 +1119,75 @@ deleteButton.style.fontSize = "11px";
 deleteButton.style.fontWeight = "900";
 deleteButton.style.cursor = "pointer";
 
+// ==========================================
+// TEAM WOLFPACK - SECURE ENQUIRY DELETION
+// ==========================================
+
+deleteButton.addEventListener("click", async () => {
+
+  // Check administrator authentication
+  const currentUser = auth.currentUser;
+
+  if (!currentUser || !ADMINS[currentUser.uid]) {
+    alert("Administrator access is required.");
+    return;
+  }
+
+  // Check enquiry ID
+  if (!enquiry.id) {
+    alert("Unable to identify this enquiry.");
+    return;
+  }
+
+  // Ask for confirmation
+  const confirmed = confirm(
+    "DELETE CONTACT ENQUIRY?\n\n" +
+    "From: " + (enquiry.name || "Unknown sender") + "\n" +
+    "Subject: " + (enquiry.subject || "No subject") + "\n\n" +
+    "This action is permanent and cannot be undone.\n\n" +
+    "Are you sure you want to delete this enquiry?"
+  );
+
+  if (!confirmed) {
+    return;
+  }
+
+  // Prevent repeated deletion attempts
+  deleteButton.disabled = true;
+  deleteButton.textContent = "DELETING...";
+
+  try {
+
+    // Target this enquiry only
+    const enquiryRef = ref(
+      database,
+      "contactEnquiries/" + enquiry.id
+    );
+
+    // Permanently delete from Firebase
+    await remove(enquiryRef);
+
+    // The existing Firebase onValue listener
+    // automatically refreshes the enquiry list.
+
+  } catch (error) {
+
+    console.error(
+      "Failed to delete contact enquiry:",
+      error
+    );
+
+    alert(
+      "Unable to delete this enquiry. Please try again."
+    );
+
+    deleteButton.disabled = false;
+    deleteButton.textContent = "🗑️ DELETE ENQUIRY";
+
+  }
+
+});
+    
 footer.appendChild(deleteButton);
 
 card.append(header, details, message, footer);
