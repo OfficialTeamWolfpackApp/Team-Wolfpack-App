@@ -1207,6 +1207,44 @@ body.menu-open{
   border:1px solid rgba(255,255,255,.12);
 }
 
+
+/* Accessible one-at-a-time expandable story sections */
+.wolfpack-story details.story-accordion{
+  border:1px solid rgba(103,220,255,.24);
+  border-radius:12px;
+  overflow:hidden;
+  margin-top:13px;
+  padding:0;
+  background:rgba(0,155,220,.045);
+}
+.wolfpack-story details.story-accordion:nth-of-type(even){
+  border-color:rgba(255,117,28,.25);
+  background:rgba(255,117,28,.045);
+}
+.wolfpack-story .story-accordion-toggle{
+  list-style:none;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:17px 14px;
+  cursor:pointer;
+  min-height:56px;
+}
+.wolfpack-story .story-accordion-toggle::-webkit-details-marker{display:none}
+.wolfpack-story .story-accordion-toggle:focus-visible{outline:2px solid #67dcff;outline-offset:-3px}
+.wolfpack-story .story-accordion-heading{color:#67dcff;font-weight:900;font-size:14px;line-height:1.45;letter-spacing:.5px}
+.wolfpack-story details.story-accordion:nth-of-type(even) .story-accordion-heading{color:#ff751c}
+.wolfpack-story .story-accordion-indicator{flex:0 0 25px;width:25px;height:25px;border-radius:7px;border:1px solid currentColor;color:#67dcff;display:grid;place-items:center;font-size:21px;font-weight:700}
+.wolfpack-story details.story-accordion:nth-of-type(even) .story-accordion-indicator{color:#ff751c}
+.wolfpack-story .story-accordion-indicator::before{content:"+"}
+.wolfpack-story details.story-accordion[open] .story-accordion-indicator::before{content:"−"}
+.wolfpack-story .story-accordion-content{padding:0 15px 18px;border-top:1px solid rgba(255,255,255,.08)}
+.wolfpack-story .story-accordion-content .story-tagline{margin-top:16px}
+.wolfpack-story details.story-accordion[open] .story-accordion-content{animation:wolfpack-reveal .2s ease-out}
+@keyframes wolfpack-reveal{from{opacity:.5;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.wolfpack-story details.story-accordion[open] .story-accordion-content{animation:none}}
+
 </style>
 
 </head>
@@ -1455,8 +1493,10 @@ Strength. Loyalty. Unity. Purpose.
     <p>We are united by one belief:</p>
     <p class="story-statement">Different journeys. Different challenges. One family. One pack.</p>
 
-    <section class="story-part" aria-labelledby="story-01">
-      <h3 id="story-01"><span class="story-number">01</span> OUR STORY</h3>
+    <details class="story-part story-accordion" name="wolfpack-story" aria-label="Team Wolfpack story section">
+      <summary class="story-accordion-toggle"><span class="story-accordion-heading"><span class="story-number">01</span> OUR STORY</span><span class="story-accordion-indicator" aria-hidden="true"></span></summary>
+      <div class="story-accordion-content">
+
       <div class="story-tagline">BUILT ON STRENGTH. DRIVEN BY PURPOSE.</div>
       <p>Team Wolfpack was co-founded by <strong>Chris “Mr Wolfie” James</strong> and <strong>Zoey “Mrs Wolfie” James</strong>, with a shared vision of creating a team where people could come together, support one another and work towards something bigger than themselves.</p>
       <p>What began as a passion for boxing has grown into a team identity built around determination, respect, commitment and the belief that nobody should have to face their journey alone.</p>
@@ -1465,10 +1505,13 @@ Strength. Loyalty. Unity. Purpose.
       <p>We want it to represent the hard work that happens behind the scenes, the sacrifices made during training, the people who stand in the corners and the supporters who believe in our fighters.</p>
       <p>Every achievement, no matter how big or small, is another chapter in our story.</p>
       <p class="story-statement">Our journey started in 2025. Our ambition is to keep moving forward.</p>
-    </section>
+      </div>
+    </details>
 
-    <section class="story-part" aria-labelledby="story-02">
-      <h3 id="story-02"><span class="story-number">02</span> THE PEOPLE BEHIND THE PACK</h3>
+    <details class="story-part story-accordion" name="wolfpack-story" aria-label="Team Wolfpack story section">
+      <summary class="story-accordion-toggle"><span class="story-accordion-heading"><span class="story-number">02</span> THE PEOPLE BEHIND THE PACK</span><span class="story-accordion-indicator" aria-hidden="true"></span></summary>
+      <div class="story-accordion-content">
+
       <div class="story-tagline">TWO PEOPLE. ONE SHARED VISION.</div>
       <p>At the heart of Team Wolfpack are its co-founders, <strong>Chris “Mr Wolfie” James</strong> and <strong>Zoey “Mrs Wolfie” James</strong>.</p>
       <p>Together, they share a commitment to supporting fighters, strengthening the team and creating an environment where everyone feels valued.</p>
@@ -1485,10 +1528,13 @@ Strength. Loyalty. Unity. Purpose.
       <p>Through her journey, we want to demonstrate the importance of believing in yourself, working towards your goals and never giving up when challenges arise.</p>
       <p>Together, Chris and Zoey are working to build a team that stands for something meaningful.</p>
       <p class="story-statement">Two different roles. One shared commitment. One Wolfpack.</p>
-    </section>
+      </div>
+    </details>
 
-    <section class="story-part" aria-labelledby="story-03">
-      <h3 id="story-03"><span class="story-number">03</span> BUILT THROUGH BOXING</h3>
+    <details class="story-part story-accordion" name="wolfpack-story" aria-label="Team Wolfpack story section">
+      <summary class="story-accordion-toggle"><span class="story-accordion-heading"><span class="story-number">03</span> BUILT THROUGH BOXING</span><span class="story-accordion-indicator" aria-hidden="true"></span></summary>
+      <div class="story-accordion-content">
+
       <div class="story-tagline">MORE THAN A SPORT. A WAY OF LIFE.</div>
       <p>Boxing is at the heart of Team Wolfpack.</p>
       <p>But to us, boxing represents far more than punches, rounds and victories.</p>
@@ -1502,10 +1548,13 @@ Strength. Loyalty. Unity. Purpose.
       <p>From corner teams providing guidance to family members and supporters offering encouragement, nobody reaches their goals entirely alone.</p>
       <p>Our aim is to create a supportive environment where fighters can continue developing, challenging themselves and working towards their ambitions.</p>
       <p class="story-statement">We don’t measure strength only by victories. We measure it by the courage to keep going.</p>
-    </section>
+      </div>
+    </details>
 
-    <section class="story-part" aria-labelledby="story-04">
-      <h3 id="story-04"><span class="story-number">04</span> UNITED AS ONE PACK</h3>
+    <details class="story-part story-accordion" name="wolfpack-story" aria-label="Team Wolfpack story section">
+      <summary class="story-accordion-toggle"><span class="story-accordion-heading"><span class="story-number">04</span> UNITED AS ONE PACK</span><span class="story-accordion-indicator" aria-hidden="true"></span></summary>
+      <div class="story-accordion-content">
+
       <div class="story-tagline">DIFFERENT FIGHTERS. ONE IDENTITY.</div>
       <p>One of the foundations of Team Wolfpack is the belief that individual fighters and teams can maintain their own identities while remaining united by a common purpose.</p>
       <p>Within the wider Wolfpack, we recognise the different journeys represented by <strong>Team Wolfie and Team Sloan</strong>.</p>
@@ -1518,10 +1567,13 @@ Strength. Loyalty. Unity. Purpose.
       <p>It’s about knowing that when one member faces a challenge, they have people standing behind them.</p>
       <p>When one member achieves something special, the entire pack has a reason to celebrate.</p>
       <p class="story-statement">We may follow different paths, but we stand together as one pack.</p>
-    </section>
+      </div>
+    </details>
 
-    <section class="story-part" aria-labelledby="story-05">
-      <h3 id="story-05"><span class="story-number">05</span> OUR SPONSORS & SUPPORTERS</h3>
+    <details class="story-part story-accordion" name="wolfpack-story" aria-label="Team Wolfpack story section">
+      <summary class="story-accordion-toggle"><span class="story-accordion-heading"><span class="story-number">05</span> OUR SPONSORS & SUPPORTERS</span><span class="story-accordion-indicator" aria-hidden="true"></span></summary>
+      <div class="story-accordion-content">
+
       <div class="story-tagline">THE PEOPLE WHO HELP MAKE IT POSSIBLE.</div>
       <p>Behind every fighter is a network of people who believe in their journey.</p>
       <p>At Team Wolfpack, our sponsors and supporters are an important part of everything we’re building.</p>
@@ -1536,10 +1588,13 @@ Strength. Loyalty. Unity. Purpose.
       <p>We believe that supporting a fighter should mean more than simply having your name displayed.</p>
       <p>It should mean becoming part of their journey, sharing in their progress and knowing that your support is genuinely appreciated.</p>
       <p class="story-statement">Our fighters may be the ones stepping into the ring, but our supporters help make the journey possible.</p>
-    </section>
+      </div>
+    </details>
 
-    <section class="story-part" aria-labelledby="story-06">
-      <h3 id="story-06"><span class="story-number">06</span> CONNECTING THE WOLFPACK</h3>
+    <details class="story-part story-accordion" name="wolfpack-story" aria-label="Team Wolfpack story section">
+      <summary class="story-accordion-toggle"><span class="story-accordion-heading"><span class="story-number">06</span> CONNECTING THE WOLFPACK</span><span class="story-accordion-indicator" aria-hidden="true"></span></summary>
+      <div class="story-accordion-content">
+
       <div class="story-tagline">OUR TEAM. OUR COMMUNITY. OUR APP.</div>
       <p>Team Wolfpack is about more than the people who can attend a fight night.</p>
       <p>We want to bring our entire community together, wherever they may be.</p>
@@ -1556,10 +1611,13 @@ Strength. Loyalty. Unity. Purpose.
       <p>Both apps are part of our commitment to building a stronger connection between the team and the people who support us.</p>
       <p>We want Team Wolfpack to be accessible, engaging and connected both inside and outside the boxing community.</p>
       <p class="story-statement">One team. One community. Connected through the Wolfpack.</p>
-    </section>
+      </div>
+    </details>
 
-    <section class="story-part" aria-labelledby="story-07">
-      <h3 id="story-07"><span class="story-number">07</span> OUR FUTURE</h3>
+    <details class="story-part story-accordion" name="wolfpack-story" aria-label="Team Wolfpack story section">
+      <summary class="story-accordion-toggle"><span class="story-accordion-heading"><span class="story-number">07</span> OUR FUTURE</span><span class="story-accordion-indicator" aria-hidden="true"></span></summary>
+      <div class="story-accordion-content">
+
       <div class="story-tagline">THE JOURNEY IS ONLY BEGINNING.</div>
       <p>Team Wolfpack was established with a vision, but we believe that what we’re building is only the beginning.</p>
       <p>Our ambition is to continue growing into a recognised and respected team within boxing.</p>
@@ -1573,7 +1631,8 @@ Strength. Loyalty. Unity. Purpose.
       <p>Our future isn’t defined by one fight, one result or one individual.</p>
       <p>It’s defined by the commitment we share and the progress we make together.</p>
       <p class="story-statement">We are not just building a boxing team. We are building something that people can be proud to belong to.</p>
-    </section>
+      </div>
+    </details>
 
     <section class="story-part story-promise" aria-labelledby="story-promise-title">
       <h3 id="story-promise-title">OUR PROMISE</h3>
@@ -1609,6 +1668,36 @@ Strength. Loyalty. Unity. Purpose.
     decoding="async"
   >
 </section>
+
+
+<!-- =========================================
+     MOTTO
+========================================= -->
+
+<section class="card motto-card">
+
+<div class="motto-small">
+OUR PACK • OUR PURPOSE
+</div>
+
+<div class="quote">
+
+<span class="ice">
+ONE PACK.
+</span>
+
+<br>
+
+<span class="fire">
+ONE PURPOSE.
+</span>
+
+</div>
+
+<div class="motto-line"></div>
+
+</section>
+
 
 <!-- =========================================
      FOOTER + COPYRIGHT
@@ -1828,6 +1917,19 @@ if("serviceWorker" in navigator){
 
 }
 
+</script>
+
+
+<script>
+/* Keep at most one Team Wolfpack story section expanded. */
+document.querySelectorAll('.wolfpack-story details.story-accordion').forEach(function(section){
+  section.addEventListener('toggle', function(){
+    if (!section.open) return;
+    document.querySelectorAll('.wolfpack-story details.story-accordion').forEach(function(other){
+      if (other !== section && other.open) other.open = false;
+    });
+  });
+});
 </script>
 
 </body>
