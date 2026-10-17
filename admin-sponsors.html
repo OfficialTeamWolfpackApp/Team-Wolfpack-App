@@ -1140,6 +1140,11 @@ body{
 
 }
   
+/* PC and mobile logo upload controls */
+.sponsor-fields #sponsorLogoFile{padding:12px;cursor:pointer;border-style:dashed;background:rgba(0,191,255,.07)}
+.sponsor-fields #sponsorLogoFile::file-selector-button{margin-right:12px;padding:10px 13px;border:1px solid #00bfff;border-radius:8px;background:#08202c;color:#fff;font-weight:900;cursor:pointer}
+.logo-upload-hint{color:#aaa;font-size:11px;line-height:1.6;margin:9px 0}
+.logo-upload-label{color:#67dcff}
 </style>
 
 </head>
@@ -1579,11 +1584,15 @@ body{
       SPONSOR LOGO
     </label>
 
-    <input
-      id="sponsorLogo"
-      type="text"
-      placeholder="Example: king-clothing.jpeg"
-    >
+    <!-- Preserve the existing logo URL for previously saved profiles. -->
+    <input id="sponsorLogo" type="hidden">
+
+    <label for="sponsorLogoFile" class="logo-upload-label">
+      📁 CHOOSE LOGO FROM PC OR MOBILE
+    </label>
+    <input id="sponsorLogoFile" type="file" accept="image/jpeg,image/png,image/webp,image/gif">
+    <p class="logo-upload-hint">JPG, PNG, WebP or GIF • Under 5 MB. Choose a file, preview it, then press SAVE SPONSOR.</p>
+    <div id="logoUploadFileName" class="logo-upload-hint" role="status" aria-live="polite">No new image selected. Existing logo will be kept when editing.</div>
 
 <!-- =========================================
      LIVE SPONSOR LOGO PREVIEW
@@ -1596,7 +1605,7 @@ body{
 >
 
   <span id="sponsorEditorLogoPlaceholder">
-    ENTER A LOGO FILENAME TO PREVIEW
+    SELECT AN IMAGE TO PREVIEW
   </span>
 
   <img
@@ -1789,6 +1798,13 @@ import {
   remove,
   onValue
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+
+import {
+  getStorage,
+  ref as storageRef,
+  uploadBytes,
+  getDownloadURL
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
   
 /* =========================================
    FIREBASE CONFIGURATION
@@ -1822,6 +1838,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 const database = getDatabase(app);
+const storage = getStorage(app);
 
 /* =========================================
    AUTHORISED ADMINISTRATORS
@@ -1889,93 +1906,78 @@ const sponsorEditorLogoImage =
 const sponsorEditorLogoPlaceholder =
   document.getElementById("sponsorEditorLogoPlaceholder");
 
-function updateSponsorLogoPreview(){
+const sponsorLogoFileInput = document.getElementById("sponsorLogoFile");
+const logoUploadFileName = document.getElementById("logoUploadFileName");
+let selectedSponsorLogoFile = null;
+let sponsorLogoObjectURL = null;
 
-  const filename = sponsorLogoInput.value.trim();
-
-  sponsorEditorLogoImage.style.display = "none";
-
-  sponsorEditorLogoImage.removeAttribute("src");
-
-  if(!filename){
-
-    sponsorEditorLogoPlaceholder.textContent =
-      "ENTER A LOGO FILENAME TO PREVIEW";
-
-    sponsorEditorLogoPlaceholder.style.display = "block";
-
-    return;
+function resetSelectedLogoFile(){
+  selectedSponsorLogoFile = null;
+  sponsorLogoFileInput.value = "";
+  logoUploadFileName.textContent = "No new image selected. Existing logo will be kept when editing.";
+  if(sponsorLogoObjectURL){
+    URL.revokeObjectURL(sponsorLogoObjectURL);
+    sponsorLogoObjectURL = null;
   }
-
-  sponsorEditorLogoPlaceholder.textContent =
-    "LOADING LOGO...";
-
-  sponsorEditorLogoPlaceholder.style.display = "block";
-
-  sponsorEditorLogoImage.onload = function(){
-
-    sponsorEditorLogoPlaceholder.style.display = "none";
-
-    sponsorEditorLogoImage.style.display = "block";
-
-  };
-
-  sponsorEditorLogoImage.onerror = function(){
-
-    sponsorEditorLogoImage.style.display = "none";
-
-    sponsorEditorLogoPlaceholder.textContent =
-      "❌ LOGO NOT FOUND — CHECK THE FILENAME";
-
-    sponsorEditorLogoPlaceholder.style.display = "block";
-
-  };
-
- const previewUrl = new URL(filename, window.location.href);
-
-previewUrl.searchParams.set(
-  "_preview",
-  Date.now().toString()
-);
-
-sponsorEditorLogoImage.src = previewUrl.href;
-
 }
 
-sponsorLogoInput.addEventListener(
-  "input",
-  updateSponsorLogoPreview
-);
+function updateSponsorLogoPreview(){
+  if(sponsorLogoObjectURL){
+    URL.revokeObjectURL(sponsorLogoObjectURL);
+    sponsorLogoObjectURL = null;
+  }
+  sponsorEditorLogoImage.style.display = "none";
+  sponsorEditorLogoImage.removeAttribute("src");
+  const filename = sponsorLogoInput.value.trim();
+  const file = selectedSponsorLogoFile;
+  if(!file && !filename){
+    sponsorEditorLogoPlaceholder.textContent = "NO LOGO SELECTED";
+    sponsorEditorLogoPlaceholder.style.display = "block";
+    return;
+  }
+  sponsorEditorLogoPlaceholder.textContent = "LOADING LOGO...";
+  sponsorEditorLogoPlaceholder.style.display = "block";
+  sponsorEditorLogoImage.onload = function(){
+    sponsorEditorLogoPlaceholder.style.display = "none";
+    sponsorEditorLogoImage.style.display = "block";
+  };
+  sponsorEditorLogoImage.onerror = function(){
+    sponsorEditorLogoImage.style.display = "none";
+    sponsorEditorLogoPlaceholder.textContent = "❌ UNABLE TO DISPLAY LOGO";
+    sponsorEditorLogoPlaceholder.style.display = "block";
+  };
+  if(file){
+    sponsorLogoObjectURL = URL.createObjectURL(file);
+    sponsorEditorLogoImage.src = sponsorLogoObjectURL;
+  }else{
+    // Existing logos may be GitHub filenames or Firebase Storage URLs.
+    sponsorEditorLogoImage.src = new URL(filename, window.location.href).href;
+  }
+}
 
-/* =========================================
-   REFRESH SPONSOR LOGO PREVIEW
-========================================= */
-
-document.getElementById("refreshSponsorLogo")
-  .addEventListener("click", function(){
-
+sponsorLogoFileInput.addEventListener("change", function(){
+  const file = sponsorLogoFileInput.files[0];
+  if(!file){ resetSelectedLogoFile(); updateSponsorLogoPreview(); return; }
+  const allowed = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+  if(!allowed.includes(file.type) || file.size >= 5 * 1024 * 1024){
+    alert("Please select a JPG, PNG, WebP or GIF image smaller than 5 MB.");
+    resetSelectedLogoFile();
     updateSponsorLogoPreview();
+    return;
+  }
+  selectedSponsorLogoFile = file;
+  logoUploadFileName.textContent = "READY TO UPLOAD: " + file.name;
+  updateSponsorLogoPreview();
+});
 
-  });
+document.getElementById("refreshSponsorLogo").addEventListener("click", updateSponsorLogoPreview);
+document.getElementById("clearSponsorLogo").addEventListener("click", function(){
+  resetSelectedLogoFile();
+  sponsorLogoInput.value = "";
+  logoUploadFileName.textContent = "Logo cleared. Save to remove it from this profile.";
+  updateSponsorLogoPreview();
+});
 
-/* =========================================
-   CLEAR SPONSOR LOGO
-========================================= */
-
-document.getElementById("clearSponsorLogo")
-  .addEventListener("click", function(){
-
-    // Clear the logo filename.
-    sponsorLogoInput.value = "";
-
-    // Reset the live preview.
-    updateSponsorLogoPreview();
-
-    // Return focus to the logo field.
-    sponsorLogoInput.focus();
-
-  });
-  
 /* =========================================
    OPEN MAIN SPONSOR EDITOR
 ========================================= */
@@ -2023,6 +2025,7 @@ saveSponsorButton.textContent = "💾 SAVE SPONSOR";
 sponsorEditor.dataset.category = "main";
 
 // Reset the logo preview for the new sponsor.
+resetSelectedLogoFile();
 updateSponsorLogoPreview();
 
 // Remember the original sponsor details.
@@ -2093,7 +2096,7 @@ const originalValues =
 
 const hasUnsavedChanges =
   JSON.stringify(currentValues) !==
-  JSON.stringify(originalValues);
+  JSON.stringify(originalValues) || !!selectedSponsorLogoFile;
 
 if(hasUnsavedChanges){
 
@@ -2110,6 +2113,7 @@ if(hasUnsavedChanges){
 }
   
   // Close the sponsor editor.
+  resetSelectedLogoFile();
   sponsorEditor.style.display = "none";
 
   // Clear the current editing record.
@@ -2227,6 +2231,18 @@ saveSponsorButton.addEventListener("click", async function(){
 
   try{
 
+    if(selectedSponsorLogoFile){
+      // Upload before saving the database record. If upload fails, no record changes.
+      const file = selectedSponsorLogoFile;
+      const extension = ({"image/jpeg":"jpg","image/png":"png","image/webp":"webp","image/gif":"gif"})[file.type];
+      const uniqueName = (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + "-" + Math.random().toString(36).slice(2)) + "." + extension;
+      sponsorSaveStatus.textContent = "⏳ Uploading logo to Firebase Storage...";
+      const logoReference = storageRef(storage, "sponsor-logos/" + uniqueName);
+      await uploadBytes(logoReference, file, {contentType:file.type});
+      sponsor.logo = await getDownloadURL(logoReference);
+      sponsorSaveStatus.textContent = "⏳ Saving sponsor profile...";
+    }
+
    /* =========================================
    CREATE OR UPDATE SPONSOR
 ========================================= */
@@ -2288,6 +2304,7 @@ sponsorEditor.style.display = "none";
 saveSponsorButton.textContent = "💾 SAVE SPONSOR";
 
 // Clear the logo preview.
+resetSelectedLogoFile();
 sponsorLogoInput.value = "";
 updateSponsorLogoPreview();
 
@@ -2429,6 +2446,7 @@ editButton.addEventListener("click", function(){
 document.getElementById("sponsorLogo").value =
   sponsor.logo || "";
 
+resetSelectedLogoFile();
 updateSponsorLogoPreview();
 
   document.getElementById("sponsorDescription").value =
