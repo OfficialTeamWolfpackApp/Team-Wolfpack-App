@@ -2024,6 +2024,148 @@ const appCheck = initializeAppCheck(firebaseApp, {
 const auth =
   getAuth(firebaseApp);
 
+// =========================================
+// TEAM WOLFPACK - SECURE CONTACT SUBMISSION
+// =========================================
+
+const CONTACT_FUNCTION_URL =
+  "https://submitcontactenquiry-5oy33g26dq-ew.a.run.app";
+
+const wolfpackEnquiryForm =
+  document.getElementById("wolfpackEnquiryForm");
+
+const sendEnquiryButton =
+  document.getElementById("sendEnquiryButton");
+
+const enquiryStatus =
+  document.getElementById("enquiryStatus");
+
+let enquirySubmitting = false;
+
+if (
+  wolfpackEnquiryForm &&
+  sendEnquiryButton &&
+  enquiryStatus
+) {
+
+  wolfpackEnquiryForm.addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+      if (enquirySubmitting) {
+        return;
+      }
+
+      if (!wolfpackEnquiryForm.reportValidity()) {
+        return;
+      }
+
+      const enquiryData = {
+        name: document.getElementById(
+          "enquiryName"
+        ).value.trim(),
+
+        email: document.getElementById(
+          "enquiryEmail"
+        ).value.trim(),
+
+        phone: document.getElementById(
+          "enquiryPhone"
+        ).value.trim(),
+
+        category: document.getElementById(
+          "enquiryCategory"
+        ).value,
+
+        subject: document.getElementById(
+          "enquirySubject"
+        ).value.trim(),
+
+        message: document.getElementById(
+          "enquiryMessage"
+        ).value.trim()
+      };
+
+      enquirySubmitting = true;
+
+      sendEnquiryButton.disabled = true;
+      sendEnquiryButton.textContent =
+        "SENDING ENQUIRY...";
+
+      enquiryStatus.textContent =
+        "Sending your enquiry securely...";
+
+      try {
+
+        // Generate a valid Firebase App Check token
+        const appCheckResult =
+          await getToken(appCheck);
+
+        // Submit enquiry to Firebase Cloud Function
+        const response = await fetch(
+          CONTACT_FUNCTION_URL,
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type": "application/json",
+              "X-Firebase-AppCheck":
+                appCheckResult.token
+            },
+
+            body: JSON.stringify(enquiryData)
+          }
+        );
+
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+
+          if (response.status === 429) {
+            throw new Error(
+              "Too many enquiries have been sent. Please try again in 15 minutes."
+            );
+          }
+
+          throw new Error(
+            "Your enquiry could not be sent. Please try again."
+          );
+        }
+
+        enquiryStatus.textContent =
+          "Thank you! Your enquiry has been sent successfully. Team Wolfpack will be in touch.";
+
+        wolfpackEnquiryForm.reset();
+
+      } catch (error) {
+
+        console.error(
+          "Team Wolfpack contact submission failed:",
+          error
+        );
+
+        enquiryStatus.textContent =
+          error.message ||
+          "Unable to send your enquiry. Please try again.";
+
+      } finally {
+
+        enquirySubmitting = false;
+
+        sendEnquiryButton.disabled = false;
+
+        sendEnquiryButton.textContent =
+          "SEND ENQUIRY";
+
+      }
+
+    }
+  );
+
+}  
+
 const ADMIN_UIDS =
   new Set([
     "PRGa9TsCW0QDn1QtoUXyYjEi7YB3",
