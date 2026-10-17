@@ -574,6 +574,91 @@ body {
 
 }
 
+/* =====================================
+   TEAM WOLFPACK CINEMATIC WOLF ENTRANCE
+===================================== */
+
+.wolf-entrance {
+  position: fixed;
+  inset: 0;
+
+  z-index: 9999;
+
+  background: #000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.wolf-entrance.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.wolf-entrance-image {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  transform: scale(1);
+}
+
+.wolf-entrance.active .wolf-entrance-image {
+  animation: wolfCinematicZoom var(--wolf-animation-duration, 6s) ease-in-out forwards;
+}
+
+@keyframes wolfCinematicZoom {
+  0% {
+    transform: scale(1);
+    filter: brightness(0.15);
+  }
+
+  25% {
+    transform: scale(1.05);
+    filter: brightness(0.7);
+  }
+
+  65% {
+    transform: scale(1.12);
+    filter: brightness(1.15);
+  }
+
+  100% {
+    transform: scale(1.2);
+    filter: brightness(0);
+  }
+}
+
+.wolf-entrance-shade {
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.25),
+    transparent 45%,
+    rgba(0,0,0,0.35)
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wolf-entrance.active .wolf-entrance-image {
+    animation: none;
+    filter: brightness(1);
+  }
+}
+  
 </style>
 </head>
 
@@ -612,6 +697,26 @@ body {
 
 </main>
 
+<!-- =====================================
+     TEAM WOLFPACK CINEMATIC ENTRANCE
+===================================== -->
+
+<div
+  id="wolfEntrance"
+  class="wolf-entrance"
+  aria-hidden="true"
+>
+
+  <img
+    src="wolf-entrance.png"
+    alt=""
+    class="wolf-entrance-image"
+  >
+
+  <div class="wolf-entrance-shade"></div>
+
+</div>
+  
 <!-- TEAM WOLFPACK CINEMATIC WOLF HOWL -->
 
 <audio
@@ -697,10 +802,51 @@ enterButton.addEventListener("click", function(event) {
   }
 
   isEntering = true;
+
+ // Reference the cinematic wolf entrance.
+const wolfEntrance = document.getElementById("wolfEntrance");
+
 // Play cinematic wolf howl when ENTER is pressed.
+// Match the cinematic animation to the wolf howl duration.
+function syncWolfAnimation() {
+  if (
+    wolfEntrance &&
+    Number.isFinite(wolfHowl.duration) &&
+    wolfHowl.duration > 0
+  ) {
+    wolfEntrance.style.setProperty(
+      "--wolf-animation-duration",
+      wolfHowl.duration + "s"
+    );
+  }
+}
 
+// Synchronise animation once audio metadata is available.
+if (wolfHowl.readyState >= 1) {
+  syncWolfAnimation();
+} else {
+  wolfHowl.addEventListener(
+    "loadedmetadata",
+    function() {
+      syncWolfAnimation();
+
+      if (wolfEntrance) {
+        const wolfImage =
+          wolfEntrance.querySelector(".wolf-entrance-image");
+
+        if (wolfImage) {
+          wolfImage.style.animation = "none";
+          void wolfImage.offsetWidth;
+          wolfImage.style.animation = "";
+        }
+      }
+    },
+    { once: true }
+  );
+}
+  
 wolfHowl.volume = 0.65;
-
+ 
 wolfHowl.currentTime = 0;
 
 wolfHowl.play().catch(function(error) {
@@ -719,7 +865,11 @@ wolfHowl.play().catch(function(error) {
     window.location.assign(destination);
     return;
   }
-
+// Activate the cinematic wolf entrance.
+if (wolfEntrance) {
+  wolfEntrance.classList.add("active");
+  wolfEntrance.setAttribute("aria-hidden", "false");
+}
   // Wait for the cinematic transition and wolf howl
 // before opening the Team Wolfpack homepage.
 
