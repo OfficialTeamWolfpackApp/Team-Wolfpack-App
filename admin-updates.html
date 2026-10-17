@@ -1609,7 +1609,8 @@ import {
   getStorage,
   ref as storageRef,
   uploadBytes,
-  getDownloadURL
+  getDownloadURL,
+  deleteObject
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
 
 
@@ -2600,6 +2601,59 @@ async function uploadPostVideo() {
 
 }  
 
+/* =========================================
+   TEAM WOLFPACK SAFE VIDEO DELETION
+========================================= */
+
+async function deleteUnusedUpdateVideo(videoURL, deletedUpdateId){
+
+  if(!videoURL){
+    return;
+  }
+
+  // Never delete a video used by another update.
+  const usedElsewhere =
+    Object.entries(updates || {}).some(
+      ([id, item]) =>
+        id !== deletedUpdateId &&
+        item &&
+        item.video === videoURL
+    );
+
+  if(usedElsewhere){
+    console.log(
+      "Video retained: another update uses this file."
+    );
+    return;
+  }
+
+  // Only allow deletion from our own Firebase Storage folder.
+  const videoRef =
+    storageRef(storage, videoURL);
+
+  const allowedPath =
+    videoRef.fullPath.startsWith(
+      "live-updates/videos/"
+    );
+
+  if(
+    videoRef.bucket !== storage.app.options.storageBucket ||
+    !allowedPath
+  ){
+    throw new Error(
+      "Video deletion blocked: invalid Storage location."
+    );
+  }
+
+  // Delete the unused video.
+  await deleteObject(videoRef);
+
+  console.log(
+    "Unused Team Wolfpack video deleted."
+  );
+
+}
+  
 /* =========================================
    RENDER LIVE UPDATES
 ========================================= */
