@@ -978,6 +978,59 @@ body.menu-open{
 
 }
 
+
+/* TEAM WOLFPACK SOCIALS 2.0 — premium ice / fire */
+:root{--ice:#67dcff;--fire:#ff751c;--line:rgba(255,255,255,.13)}
+.content{max-width:1120px;padding:clamp(28px,5vw,62px) 18px 65px}
+.content-heading{text-align:center;margin-bottom:36px;padding-bottom:28px}
+.content-heading::after{height:2px}
+.content-label{font-size:10px;letter-spacing:3.5px}
+.content-heading h1{font-size:clamp(32px,5vw,58px);letter-spacing:-1px;margin-top:12px}
+.content-heading p{font-size:clamp(12px,1.6vw,15px);max-width:630px;margin:13px auto 0;color:#b7bdc3}
+.socials-intro{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:20px}
+.socials-pill{border:1px solid rgba(103,220,255,.22);border-radius:99px;padding:9px 14px;font-size:10px;font-weight:900;letter-spacing:1px;color:#d5eff8;background:rgba(8,21,28,.78)}
+.section-kicker{font-size:10px;letter-spacing:2.6px;font-weight:900;color:var(--ice)}
+.section-title{font-size:clamp(23px,3vw,32px);margin-top:8px;line-height:1.15}
+.section-caption{font-size:13px;color:#b0b7be;line-height:1.7;margin-top:10px}
+.featured-card{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:28px;padding:clamp(26px,5vw,48px);border-radius:26px;text-decoration:none;color:#fff;border:1px solid rgba(103,220,255,.33);background:radial-gradient(ellipse at 0% 0%,rgba(0,191,255,.23),transparent 55%),radial-gradient(ellipse at 100% 100%,rgba(255,101,0,.25),transparent 55%),linear-gradient(125deg,#091a24,#090b10 55%,#211006);box-shadow:0 24px 75px rgba(0,0,0,.45),inset 0 1px rgba(255,255,255,.08);overflow:hidden;transition:transform .25s,border-color .25s,box-shadow .25s}
+.featured-card::before{content:'';position:absolute;inset:0;border-top:3px solid var(--ice);border-bottom:3px solid var(--fire);pointer-events:none}
+.featured-card:hover,.featured-card:focus-visible{transform:translateY(-5px);border-color:var(--ice);box-shadow:0 28px 85px rgba(0,160,255,.18)}
+.featured-card .feature-eyebrow{color:var(--ice);font-size:10px;font-weight:900;letter-spacing:2.5px}
+.featured-card h2{font-size:clamp(28px,4vw,46px);line-height:1.06;margin:15px 0 12px;overflow-wrap:anywhere}
+.featured-card p{font-size:14px;color:#b9c1c8;line-height:1.65;max-width:510px}
+.feature-symbol{width:130px;height:130px;display:grid;place-items:center;border-radius:30px;border:1px solid rgba(103,220,255,.38);background:linear-gradient(135deg,rgba(0,191,255,.17),rgba(255,117,28,.2));font-size:90px;font-weight:900;color:#fff;text-shadow:-5px -4px 0 rgba(0,191,255,.6),5px 4px 0 rgba(255,117,28,.55);box-shadow:0 0 35px rgba(0,191,255,.14)}
+.feature-cta,.profile-link-cta{display:inline-flex;align-items:center;gap:13px;justify-content:center;padding:13px 18px;border-radius:11px;background:linear-gradient(100deg,var(--ice),#baf4ff);color:#00121c;font-size:11px;font-weight:900;letter-spacing:1px;margin-top:23px;box-shadow:0 7px 23px rgba(0,191,255,.23)}
+.profile-section{margin-top:50px}
+.profile-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:19px}
+.profile-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.profile-panel{position:relative;border-radius:24px;padding:26px;overflow:hidden;border:1px solid rgba(103,220,255,.25);background:linear-gradient(145deg,rgba(0,140,210,.16),rgba(7,10,14,.96) 58%,rgba(255,117,28,.07));box-shadow:0 18px 55px rgba(0,0,0,.3)}
+.profile-panel.fire-panel{border-color:rgba(255,117,28,.3);background:linear-gradient(145deg,rgba(255,117,28,.16),rgba(7,10,14,.96) 58%,rgba(0,191,255,.08))}
+.profile-panel::before{content:'';position:absolute;inset:0 0 auto;height:3px;background:linear-gradient(90deg,var(--ice),transparent)}
+.profile-panel.fire-panel::before{background:linear-gradient(90deg,var(--fire),transparent)}
+.profile-identity{display:flex;gap:14px;align-items:center;padding-bottom:19px;border-bottom:1px solid var(--line)}
+.profile-avatar{display:grid;place-items:center;width:61px;height:61px;border-radius:17px;flex:0 0 61px;background:rgba(0,191,255,.11);border:1px solid rgba(103,220,255,.32);font-size:29px}
+.fire-panel .profile-avatar{background:rgba(255,117,28,.1);border-color:rgba(255,117,28,.35)}
+.profile-name{font-size:clamp(21px,2.5vw,28px);font-weight:900}
+.profile-subtitle{font-size:11px;letter-spacing:1.5px;color:var(--ice);font-weight:900;margin-top:6px}
+.fire-panel .profile-subtitle{color:#ffa266}
+.profile-links{display:grid;gap:12px;margin-top:18px}
+.profile-link{display:flex;align-items:center;gap:13px;min-width:0;padding:16px;border-radius:15px;text-decoration:none;color:#fff;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.12);transition:background .2s,transform .2s,border-color .2s}
+.profile-link:hover,.profile-link:focus-visible{background:rgba(103,220,255,.10);border-color:rgba(103,220,255,.55);transform:translateX(3px)}
+.fire-panel .profile-link:hover,.fire-panel .profile-link:focus-visible{background:rgba(255,117,28,.1);border-color:rgba(255,117,28,.6)}
+.link-icon{width:45px;height:45px;flex:0 0 45px;display:grid;place-items:center;border-radius:12px;background:rgba(103,220,255,.11);color:var(--ice);font-size:23px;font-weight:900}
+.fire-panel .link-icon{background:rgba(255,117,28,.12);color:#ff9c56}
+.link-copy{min-width:0;flex:1}
+.link-platform{font-size:10px;color:#b4c3ce;font-weight:900;letter-spacing:1.3px}
+.link-handle{font-size:clamp(12px,1.6vw,15px);font-weight:900;margin-top:5px;overflow-wrap:anywhere}
+.link-arrow{color:var(--fire);font-size:24px;font-weight:900}
+.social-info{margin-top:50px;padding:clamp(26px,4vw,42px);border-radius:24px;border-color:rgba(103,220,255,.22);background:radial-gradient(ellipse at 10% 30%,rgba(0,191,255,.13),transparent 52%),radial-gradient(ellipse at 90% 70%,rgba(255,117,28,.13),transparent 50%),#090b0e}
+.social-info-label{font-size:10px;letter-spacing:3px}
+.social-info h2{font-size:clamp(24px,3.8vw,38px);margin-top:13px}
+.social-info p{font-size:13px;line-height:1.75;max-width:650px}
+.app-footer{margin-top:40px}
+@media(max-width:650px){.featured-card{grid-template-columns:1fr}.feature-symbol{width:76px;height:76px;font-size:53px;grid-row:1}.profile-grid{grid-template-columns:1fr}.profile-panel{padding:20px}.featured-card h2{font-size:28px}}
+@media(prefers-reduced-motion:reduce){.featured-card,.profile-link{transition:none}.featured-card:hover,.profile-link:hover{transform:none}}
+
 </style>
 
 </head>
@@ -1190,251 +1243,49 @@ ADMIN
 ========================================= -->
 
 <main class="content">
-
-<div class="content-heading">
-
-<div class="content-label">
-OFFICIAL SOCIALS
-</div>
-
-<h1>
-<span class="ice">STAY</span>
-<span class="fire">CONNECTED</span>
-</h1>
-
-<p>
-Follow Team Wolfpack, Mr Wolfie and Mrs Wolfie across our official social channels.
-</p>
-
-</div>
-
-
-<div class="social-grid">
-
-
-<!-- MR WOLFIE TIKTOK -->
-
-<a
-  class="social-card"
-  href="https://www.tiktok.com/@mrwolfie2410"
-  target="_blank"
-  rel="noopener noreferrer"
-  onclick="gtag('event','social_click',{
-    platform:'TikTok',
-    account:'Mr Wolfie',
-    source:'Follow The Pack Page'
-  });"
->
-
-<div class="platform-row">
-<div class="platform-icon">♪</div>
-<div class="platform">TIKTOK</div>
-</div>
-
-<div class="username">
-MRWOLFIE2410
-</div>
-
-<div class="description">
-Follow Mr Wolfie on TikTok
-</div>
-
-<div class="follow-label">
-VIEW PROFILE
-</div>
-
-<span class="arrow">›</span>
-
-</a>
-
-
-<!-- MRS WOLFIE TIKTOK -->
-
-<a
-  class="social-card"
-  href="https://www.tiktok.com/@mrswolfie2410"
-  target="_blank"
-  rel="noopener noreferrer"
-  onclick="gtag('event','social_click',{
-    platform:'TikTok',
-    account:'Mrs Wolfie',
-    source:'Follow The Pack Page'
-  });"
->
-
-<div class="platform-row">
-<div class="platform-icon">♪</div>
-<div class="platform">TIKTOK</div>
-</div>
-
-<div class="username">
-MRSWOLFIE2410
-</div>
-
-<div class="description">
-Follow Mrs Wolfie on TikTok
-</div>
-
-<div class="follow-label">
-VIEW PROFILE
-</div>
-
-<span class="arrow">›</span>
-
-</a>
-
-
-<!-- TEAM WOLFPACK INSTAGRAM -->
-
-<a
-  class="social-card"
-  href="https://www.instagram.com/teamwolfpack2410/"
-  target="_blank"
-  rel="noopener noreferrer"
-  onclick="gtag('event','social_click',{
-    platform:'Instagram',
-    account:'Team Wolfpack',
-    source:'Follow The Pack Page'
-  });"
->
-
-<div class="platform-row">
-<div class="platform-icon">◎</div>
-<div class="platform">INSTAGRAM</div>
-</div>
-
-<div class="username">
-TEAMWOLFPACK2410
-</div>
-
-<div class="description">
-Follow Official Team Wolfpack on Instagram
-</div>
-
-<div class="follow-label">
-VIEW PROFILE
-</div>
-
-<span class="arrow">›</span>
-
-</a>
-
-
-<!-- MR WOLFIE FACEBOOK -->
-
-<a
-  class="social-card"
-  href="https://www.facebook.com/Mrwolfie2410/"
-  target="_blank"
-  rel="noopener noreferrer"
-  onclick="gtag('event','social_click',{
-    platform:'Facebook',
-    account:'Mr Wolfie',
-    source:'Follow The Pack Page'
-  });"
->
-
-<div class="platform-row">
-<div class="platform-icon facebook">f</div>
-<div class="platform">FACEBOOK</div>
-</div>
-
-<div class="username">
-MR WOLFIE
-</div>
-
-<div class="description">
-Follow Mr Wolfie on Facebook
-</div>
-
-<div class="follow-label">
-VIEW PROFILE
-</div>
-
-<span class="arrow">›</span>
-
-</a>
-
-
-<!-- MRS WOLFIE FACEBOOK -->
-
-<a
-  class="social-card"
-  href="https://www.facebook.com/mrswolfie2410"
-  target="_blank"
-  rel="noopener noreferrer"
-  onclick="gtag('event','social_click',{
-    platform:'Facebook',
-    account:'Mrs Wolfie',
-    source:'Follow The Pack Page'
-  });"
->
-
-<div class="platform-row">
-<div class="platform-icon facebook">f</div>
-<div class="platform">FACEBOOK</div>
-</div>
-
-<div class="username">
-MRS WOLFIE
-</div>
-
-<div class="description">
-Follow Mrs Wolfie on Facebook
-</div>
-
-<div class="follow-label">
-VIEW PROFILE
-</div>
-
-<span class="arrow">›</span>
-
-</a>
-
-
-</div>
-
-
-<!-- =========================================
-     SOCIAL INFO
-========================================= -->
-
-<div class="social-info">
-
-<div class="social-info-label">
-FOLLOW THE JOURNEY
-</div>
-
-<h2>
-<span class="ice">ONE PACK.</span>
-<span class="fire">ONE PURPOSE.</span>
-</h2>
-
-<p>
-Keep up with Team Wolfpack for fight updates, behind-the-scenes
-content, announcements and life inside the pack.
-</p>
-
-</div>
-
-
-<!-- =========================================
-     FOOTER
-========================================= -->
-
-<footer class="app-footer">
-TEAM WOLFPACK • STRENGTH IN UNITY
-</footer>
-
-
-<!-- =========================================
-     COPYRIGHT
-========================================= -->
-
-<div class="copyright">
-<span>© 2026 TEAM WOLFPACK • ALL RIGHTS RESERVED</span>
-</div>
-
+  <div class="content-heading">
+    <div class="content-label">OFFICIAL TEAM WOLFPACK SOCIAL CHANNELS</div>
+    <h1><span class="ice">FOLLOW</span> THE <span class="fire">PACK</span></h1>
+    <p>Step inside the pack. Follow our fighters, catch the latest announcements and be part of the journey.</p>
+    <div class="socials-intro"><span class="socials-pill">🥊 FIGHT UPDATES</span><span class="socials-pill">🐺 BEHIND THE SCENES</span><span class="socials-pill">🔥 ONE PACK • ONE PURPOSE</span></div>
+  </div>
+
+  <section aria-label="Official Team Wolfpack Instagram">
+    <a class="featured-card" href="https://www.instagram.com/teamwolfpack2410/" target="_blank" rel="noopener noreferrer" onclick="gtag('event','social_click',{platform:'Instagram',account:'Team Wolfpack',source:'Follow The Pack Page'});">
+      <div>
+        <div class="feature-eyebrow">✦ THE OFFICIAL WOLFPACK ACCOUNT · INSTAGRAM</div>
+        <h2><span class="ice">TEAM</span> <span class="fire">WOLFPACK</span></h2>
+        <p>@TEAMWOLFPACK2410</p>
+        <p style="margin-top:10px">Fight announcements, training moments, exclusive content and everything happening inside the pack.</p>
+        <span class="feature-cta">VIEW OUR INSTAGRAM <span aria-hidden="true">↗</span></span>
+      </div>
+      <div class="feature-symbol" aria-hidden="true">◎</div>
+    </a>
+  </section>
+
+  <section class="profile-section" aria-labelledby="fighters-social-heading">
+    <div class="profile-heading"><div><div class="section-kicker">MEET THE PEOPLE BEHIND THE PACK</div><h2 id="fighters-social-heading" class="section-title"><span class="ice">FOLLOW THE</span> <span class="fire">WOLFIES</span></h2><p class="section-caption">Two profiles. One team. Follow each journey on TikTok and Facebook.</p></div></div>
+    <div class="profile-grid">
+      <article class="profile-panel">
+        <div class="profile-identity"><div class="profile-avatar" aria-hidden="true">🐺</div><div><h3 class="profile-name">MR WOLFIE</h3><div class="profile-subtitle">TEAM WOLFPACK · MANAGER</div></div></div>
+        <div class="profile-links">
+          <a class="profile-link" href="https://www.tiktok.com/@mrwolfie2410" target="_blank" rel="noopener noreferrer" onclick="gtag('event','social_click',{platform:'TikTok',account:'Mr Wolfie',source:'Follow The Pack Page'});"><span class="link-icon" aria-hidden="true">♪</span><span class="link-copy"><span class="link-platform">TIKTOK</span><br><span class="link-handle">@MRWOLFIE2410</span></span><span class="link-arrow" aria-hidden="true">↗</span></a>
+          <a class="profile-link" href="https://www.facebook.com/Mrwolfie2410/" target="_blank" rel="noopener noreferrer" onclick="gtag('event','social_click',{platform:'Facebook',account:'Mr Wolfie',source:'Follow The Pack Page'});"><span class="link-icon" aria-hidden="true">f</span><span class="link-copy"><span class="link-platform">FACEBOOK</span><br><span class="link-handle">MR WOLFIE</span></span><span class="link-arrow" aria-hidden="true">↗</span></a>
+        </div>
+      </article>
+      <article class="profile-panel fire-panel">
+        <div class="profile-identity"><div class="profile-avatar" aria-hidden="true">🥊</div><div><h3 class="profile-name">MRS WOLFIE</h3><div class="profile-subtitle">TEAM WOLFIE · FIGHTER</div></div></div>
+        <div class="profile-links">
+          <a class="profile-link" href="https://www.tiktok.com/@mrswolfie2410" target="_blank" rel="noopener noreferrer" onclick="gtag('event','social_click',{platform:'TikTok',account:'Mrs Wolfie',source:'Follow The Pack Page'});"><span class="link-icon" aria-hidden="true">♪</span><span class="link-copy"><span class="link-platform">TIKTOK</span><br><span class="link-handle">@MRSWOLFIE2410</span></span><span class="link-arrow" aria-hidden="true">↗</span></a>
+          <a class="profile-link" href="https://www.facebook.com/mrswolfie2410" target="_blank" rel="noopener noreferrer" onclick="gtag('event','social_click',{platform:'Facebook',account:'Mrs Wolfie',source:'Follow The Pack Page'});"><span class="link-icon" aria-hidden="true">f</span><span class="link-copy"><span class="link-platform">FACEBOOK</span><br><span class="link-handle">MRS WOLFIE</span></span><span class="link-arrow" aria-hidden="true">↗</span></a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="social-info" aria-label="Team Wolfpack motto"><div class="social-info-label">THE JOURNEY IS BETTER TOGETHER</div><h2><span class="ice">ONE PACK.</span> <span class="fire">ONE PURPOSE.</span></h2><p>From training days to fight nights, stay connected with the people, moments and stories that make Team Wolfpack.</p></section>
+  <footer class="app-footer">TEAM WOLFPACK • STRENGTH IN UNITY</footer>
+  <div class="copyright"><span>© 2026 TEAM WOLFPACK • ALL RIGHTS RESERVED</span></div>
 </main>
 
 
