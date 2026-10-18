@@ -6,7 +6,7 @@
 <header><div class="blue">TEAM WOLFPACK ADMIN CONTROL CENTRE</div><h1><span class="blue">MRS WOLFIE</span> <span class="pink">TEAM MEMBER PROFILES</span></h1><p>Manage Mrs Wolfie profiles independently of Team Wolfpack.</p></header>
 <main><a class="link" href="admin-dashboard.html">← BACK TO ADMIN DASHBOARD</a><div id="authStatus" class="status" role="status">Checking administrator access…</div>
 <div id="editor" hidden>
-<section class="panel"><h2>🐺 Select or create a team member</h2><label for="memberSelect">EXISTING MRS WOLFIE PROFILES</label><select id="memberSelect"><option value="">— Create a new profile —</option></select><p class="note">Only Mrs Wolfie records are shown here. This page never reads or writes Team Wolfpack's teamMembers records.</p></section>
+<section class="panel"><h2>🐺 Select or create a team member</h2><label for="memberSelect">EXISTING MRS WOLFIE PROFILES</label><select id="memberSelect"><option value="">— Create a new profile —</option></select><p class="note">All six existing Mrs Wolfie homepage members are available below. Unsaved starter profiles are labelled NEW; select one to load its details, then SAVE to create its independent Mrs Wolfie record. Saved profiles load their latest Firebase information. Team Wolfpack profile records are never edited.</p></section>
 <form id="profileForm" class="panel"><h2>🩷 Edit team member profile</h2>
 <label for="memberId">PROFILE ID (NEW PROFILES ONLY)</label><input id="memberId" required pattern="[a-z0-9-]+" placeholder="e.g. kelly-mcsporran" autocomplete="off"><p class="note">Use lowercase letters, numbers and hyphens. Profile ID cannot be changed after saving.</p>
 <label for="name">FULL NAME</label><input id="name" required maxlength="120" placeholder="Kelly McSporran">
@@ -20,7 +20,7 @@
 <label for="biography">BIOGRAPHY</label><textarea id="biography" placeholder="Team member biography..."></textarea>
 <label><input id="visible" type="checkbox" checked> Show in Mrs Wolfie Meet The Pack (once the public page is connected)</label>
 <div class="row" style="margin-top:20px"><button id="saveButton" type="submit">💾 SAVE MRS WOLFIE PROFILE</button><button id="newButton" type="button">＋ NEW PROFILE</button></div><div id="saveStatus" class="status" role="status" aria-live="polite">Select a member or create a new profile.</div>
-</form><section class="panel"><h2>ℹ️ Public app connection</h2><p>Profiles are saved under <strong>mrsWolfieTeamMembers</strong> in Firebase Realtime Database, separately from Team Wolfpack records. Mrs Wolfie’s public pages can read these profiles. Uploaded images are stored in Firebase Storage under <strong>mrs-wolfie/team-members/</strong>. After uploading an image, press <strong>SAVE MRS WOLFIE PROFILE</strong> to publish its new URL.</p><p class="note">Firebase Storage rules must separately permit image uploads for the two authorised administrators. A Storage permission-denied error means the Storage rules still need updating; Realtime Database rules alone do not enable uploads.</p></section></div></main>
+</form><section class="panel"><h2>ℹ️ Public app connection</h2><p>Profiles are saved under <strong>mrsWolfieTeamMembers</strong> in Firebase Realtime Database, separately from Team Wolfpack records. Mrs Wolfie’s public pages can read these profiles. Uploaded images are stored in Firebase Storage under <strong>mrs-wolfie/team-members/</strong>. After uploading an image, press <strong>SAVE MRS WOLFIE PROFILE</strong> to publish its new URL.</p><p class="note">Firebase Storage rules must allow uploads to mrs-wolfie/team-members/{profileId}/{fileName} for the two authorised administrators. A rule for mrs-wolfie-profiles/{fileName} does not cover this uploader. A Storage permission-denied error means the Storage rules still need updating; Realtime Database rules alone do not enable uploads.</p></section></div></main>
 <script type="module">
 import {initializeApp} from 'https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js';
 import {getAuth,onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js';
@@ -30,6 +30,17 @@ const firebaseConfig={apiKey:'AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY',authDomai
 const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getDatabase(app),storage=getStorage(app);
 const admins={'PRGa9TsCW0QDn1QtoUXyYjEi7YB3':'MR WOLFIE','SlpEQYl94DaH6j42QUyl8Kv2ujJ3':'MRS WOLFIE'};
 const root='mrsWolfieTeamMembers';let records={},authorised=false;
+// Existing Mrs Wolfie public-profile defaults. These appear in the dropdown
+// even before a corresponding independent Firebase record has been saved.
+const starterProfiles={
+ 'mr-wolfie':{name:'Chris “Mr Wolfie” James',nickname:'Mr Wolfie',role:'Co-Founder • Manager',team:'Team Wolfie',representing:'Team Wolfpack',photo:'https://raw.githubusercontent.com/OfficialTeamWolfpackApp/Team-Wolfpack-App/main/mr-wolfie.jpg',biography:'Co-Founder & Joint Owner of Team Wolfpack. Manager to Team Wolfie.'},
+ 'greig-sloan':{name:'Greig Sloan',role:'Corner Team',team:'Team Wolfie',representing:'Team Wolfpack',photo:'https://raw.githubusercontent.com/OfficialTeamWolfpackApp/Team-Wolfpack-App/main/greig-sloan.jpg'},
+ 'bry-kelly':{name:'Bry Kelly',role:'Corner Team • Boxer',team:'Team Wolfie',representing:'Team Wolfpack',photo:'https://raw.githubusercontent.com/OfficialTeamWolfpackApp/Team-Wolfpack-App/main/bry-kelly.jpg'},
+ 'billy-burton':{name:'Billy “Bossman” Burton',nickname:'Bossman',role:'Corner Team • Boxer',team:'Team Wolfie',representing:'Team Wolfpack',photo:'https://raw.githubusercontent.com/OfficialTeamWolfpackApp/Team-Wolfpack-App/main/billy-burton.jpg'},
+ 'kelly-mcsporran':{name:'Kelly McSporran',nickname:'Bossgal',role:'Corner Team',team:'Team Wolfie',representing:'Team Wolfpack',photo:'https://officialteamwolfpackapp.github.io/Mrs-Wolfie/images/Kelly.jpeg'},
+ 'richard-davies':{name:'Richard Davies',role:'Sponsor',team:'Team Wolfie',representing:'Team Wolfpack',photo:'https://raw.githubusercontent.com/OfficialTeamWolfpackApp/Team-Wolfpack-App/main/richard-davies.jpeg',biography:'Former Midlands Champion. CEO of King Clothing. Founder of The Kings Circle.'}
+};
+
 const el=id=>document.getElementById(id);const fields=['name','nickname','team','role','representing','photo','banner','biography'];
 function message(t){el('saveStatus').textContent=t}
 function preview(field,img){const value=el(field).value.trim();const target=el(img);target.hidden=!value; if(value)target.src=value;else target.removeAttribute('src')}
@@ -62,10 +73,19 @@ for(const kind of ['photo','banner']){
  el(kind+'File').addEventListener('change',()=>{el(kind+'Progress').textContent='Image selected. Click UPLOAD to transfer it.'});
 }
 function clear(){el('profileForm').reset();for(const kind of ['photo','banner'])el(kind+'Progress').textContent='';el('memberSelect').value='';el('memberId').readOnly=false;el('memberId').value='';el('team').value='Team Wolfie';el('representing').value='Team Wolfpack';el('visible').checked=true;preview('photo','photoPreview');preview('banner','bannerPreview');message('New profile ready. Enter a unique profile ID and save.')}
-function load(id){if(!id){clear();return}for(const kind of ['photo','banner']){el(kind+'File').value='';el(kind+'Progress').textContent=''}const p=records[id];if(!p){message('Profile not found.');return}el('memberId').value=id;el('memberId').readOnly=true;for(const f of fields)el(f).value=p[f]||'';el('visible').checked=p.visible!==false;preview('photo','photoPreview');preview('banner','bannerPreview');message('Editing '+(p.name||id)+'. Changes are not saved until you press SAVE.')}
-function populate(selected=''){const select=el('memberSelect');select.replaceChildren(new Option('— Create a new profile —',''));Object.entries(records).sort((a,b)=>(a[1].name||a[0]).localeCompare(b[1].name||b[0])).forEach(([id,p])=>select.add(new Option(p.name+(p.nickname?' “'+p.nickname+'”':'')+' — '+id,id)));select.value=selected}
+function load(id){if(!id){clear();return}for(const kind of ['photo','banner']){el(kind+'File').value='';el(kind+'Progress').textContent=''}const saved=Object.prototype.hasOwnProperty.call(records,id);const p=saved?records[id]:starterProfiles[id];if(!p){message('Profile not found.');return}el('memberId').value=id;el('memberId').readOnly=true;for(const f of fields)el(f).value=p[f]||'';el('visible').checked=p.visible!==false;preview('photo','photoPreview');preview('banner','bannerPreview');el('memberSelect').value=id;message((saved?'Editing saved profile: ':'Starter profile (not yet saved): ')+(p.name||id)+'. Make your changes, then press SAVE MRS WOLFIE PROFILE.')}
+function populate(selected=''){
+ const select=el('memberSelect');select.replaceChildren(new Option('— Create a new profile —',''));
+ const allIds=new Set([...Object.keys(starterProfiles),...Object.keys(records)]);
+ [...allIds].sort((a,b)=>(records[a]?.name||starterProfiles[a]?.name||a).localeCompare(records[b]?.name||starterProfiles[b]?.name||b)).forEach(id=>{
+  const p=records[id]||starterProfiles[id];
+  const suffix=Object.prototype.hasOwnProperty.call(records,id)?'':' [NEW — SAVE TO ACTIVATE]';
+  select.add(new Option((p.name||id)+(p.nickname?' “'+p.nickname+'”':'')+suffix,id));
+ });
+ select.value=selected;
+}
 el('memberSelect').addEventListener('change',e=>load(e.target.value));el('newButton').addEventListener('click',clear);
 async function refresh(selected=''){const snap=await get(ref(db,root));records=snap.val()||{};populate(selected);if(selected)load(selected)}
 el('profileForm').addEventListener('submit',async e=>{e.preventDefault();if(!authorised)return;const id=el('memberId').value.trim();if(!/^[a-z0-9-]{1,80}$/.test(id)){message('Use lowercase letters, numbers and hyphens for the profile ID.');return}const selected=el('memberSelect').value;if(!selected&&records[id]){message('That profile ID already exists. Select it from the list to edit.');return}const data={};for(const f of fields)data[f]=el(f).value.trim();data.visible=el('visible').checked;data.updatedAt=Date.now();el('saveButton').disabled=true;message('Saving profile…');try{await set(ref(db,root+'/'+id),data);await refresh(id);message('✓ Saved Mrs Wolfie profile: '+data.name+'\nTeam Wolfpack profiles were not changed.')}catch(err){message('Save failed: '+err.message+'\nCheck Firebase rules for '+root+'.')}finally{el('saveButton').disabled=false}});
-onAuthStateChanged(auth,async user=>{authorised=!!(user&&admins[user.uid]);el('editor').hidden=!authorised;if(!authorised){el('authStatus').textContent='ADMIN ACCESS REQUIRED — Sign in using an authorised Team Wolfpack administrator account.';return}el('authStatus').textContent='✓ '+admins[user.uid]+' — AUTHORISED MRS WOLFIE PROFILE ADMIN';try{await refresh();clear()}catch(err){message('Unable to load profiles: '+err.message+'\nCheck Firebase read rules for '+root+'.')}});
+onAuthStateChanged(auth,async user=>{authorised=!!(user&&admins[user.uid]);el('editor').hidden=!authorised;if(!authorised){el('authStatus').textContent='ADMIN ACCESS REQUIRED — Sign in using an authorised Team Wolfpack administrator account.';return}el('authStatus').textContent='✓ '+admins[user.uid]+' — AUTHORISED MRS WOLFIE PROFILE ADMIN';try{await refresh();clear();message('Choose one of the six existing members from the dropdown to edit their full profile, or create a new member.')}catch(err){message('Unable to load profiles: '+err.message+'\nCheck Firebase read rules for '+root+'.')}});
 </script></body></html>
