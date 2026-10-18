@@ -6787,18 +6787,26 @@ span:last-child{
   letter-spacing:1.5px;
 }
 
+/* =========================================
+   TEAM WOLFPACK LIKE & SHARE BUTTONS
+   BELOW NOTIFICATIONS
+========================================= */
+
 /* PREMIUM BUTTON LAYOUT */
 
-#wolfpackSupportCard .wolfpack-support-buttons{
+.wolfpack-support-buttons{
   display:flex;
   flex-wrap:wrap;
   justify-content:center;
   gap:14px;
+
+  margin:0 0 18px;
+  padding:4px 0;
 }
 
 /* BOTH BUTTONS */
 
-#wolfpackSupportCard .wolfpack-support-buttons button{
+.wolfpack-support-buttons button{
   min-height:50px;
   padding:14px 24px;
 
@@ -6808,6 +6816,8 @@ span:last-child{
   font-size:12px;
   font-weight:900;
   letter-spacing:.5px;
+
+  cursor:pointer;
 
   box-shadow:
     0 8px 20px rgba(0,0,0,.35);
@@ -6819,7 +6829,7 @@ span:last-child{
 
 /* ELECTRIC BLUE LIKE BUTTON */
 
-#wolfpackSupportCard #wolfpackLikeButton{
+#wolfpackLikeButton{
   border:1px solid #70e2ff;
 
   background:
@@ -6836,7 +6846,7 @@ span:last-child{
 
 /* FIERY ORANGE SHARE BUTTON */
 
-#wolfpackSupportCard #wolfpackShareButton{
+#wolfpackShareButton{
   border:1px solid #ffad70;
 
   background:
@@ -6855,21 +6865,36 @@ span:last-child{
 
 @media(hover:hover) and (pointer:fine){
 
-  #wolfpackSupportCard
-  .wolfpack-support-buttons button:not(:disabled):hover{
+  .wolfpack-support-buttons
+  button:not(:disabled):hover{
     transform:translateY(-3px);
   }
 
-  #wolfpackSupportCard
   #wolfpackLikeButton:not(:disabled):hover{
     box-shadow:
       0 12px 28px rgba(0,191,255,.40);
   }
 
-  #wolfpackSupportCard
   #wolfpackShareButton:not(:disabled):hover{
     box-shadow:
       0 12px 28px rgba(255,101,0,.40);
+  }
+
+}
+
+/* MOBILE LAYOUT */
+
+@media(max-width:600px){
+
+  .wolfpack-support-buttons{
+    gap:10px;
+  }
+
+  .wolfpack-support-buttons button{
+    flex:1 1 140px;
+    min-width:0;
+    padding:12px 10px;
+    font-size:10px;
   }
 
 }
