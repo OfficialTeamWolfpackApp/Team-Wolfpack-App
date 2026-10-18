@@ -519,39 +519,28 @@ body.menu-open{
 
 
 /* =========================================
-   PACK BANNER
+   MEET THE PACK — RESPONSIVE BANNER
 ========================================= */
 
-.pack-banner{
-  position:relative;
+.pack-banner {
+  position: relative;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  background: #020202;
 
-  width:100%;
-  height:clamp(300px,30vw,520px);
-
-  overflow:hidden;
-
-  background:#020202;
-
-  border-bottom:
-    1px solid rgba(255,255,255,.10);
+  border-bottom: 1px solid rgba(255,255,255,.10);
 
   box-shadow:
     0 12px 35px rgba(0,0,0,.38);
 }
 
-.pack-banner-image{
-  display:block;
-
-  width:100%;
-  height:100%;
-
-  margin:0 auto;
-
-  object-fit:cover;
-
-  /* keeps the people lower in frame
-     so more of their bodies are visible */
-  object-position:center 68%;
+.pack-banner-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
 }
 
 
@@ -1055,18 +1044,6 @@ a.member-card:active{
 ========================================= */
 
 @media(max-width:430px){
-
-.pack-banner{
-  height:230px;
-}
-
-.pack-banner-image{
-  width:100%;
-  height:100%;
-
-  object-fit:cover;
-  object-position:center 68%;
-}
 
   .content{
     padding-top:22px;
