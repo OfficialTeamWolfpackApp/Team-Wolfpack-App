@@ -2025,5 +2025,78 @@ if("serviceWorker" in navigator){
 
 </script>
 
+<!-- =========================================
+     RICHARD DAVIES — LIVE PROFILE BANNER
+========================================= -->
+
+<script type="module">
+
+import {
+  initializeApp,
+  getApps,
+  getApp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+  getDatabase,
+  ref,
+  get
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+  authDomain: "team-wolfpack-app.firebaseapp.com",
+  databaseURL: "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "team-wolfpack-app",
+  storageBucket: "team-wolfpack-app.firebasestorage.app",
+  messagingSenderId: "1070414578856",
+  appId: "1:1070414578856:web:df14e7d387e658eeae2e9d"
+};
+
+const app = getApps().length
+  ? getApp()
+  : initializeApp(firebaseConfig);
+
+const database = getDatabase(app);
+
+async function loadRichardBanner() {
+
+  const bannerImage =
+    document.getElementById("richardProfileBanner");
+
+  if (!bannerImage) return;
+
+  try {
+
+    const snapshot = await get(
+      ref(database, "teamMembers/richard-davies")
+    );
+
+    if (!snapshot.exists()) return;
+
+    const profile = snapshot.val();
+
+    if (
+      typeof profile.banner === "string" &&
+      profile.banner.trim()
+    ) {
+      bannerImage.src = profile.banner.trim();
+    }
+
+  } catch (error) {
+
+    console.error(
+      "Unable to load Richard Davies banner:",
+      error
+    );
+
+  }
+
+}
+
+loadRichardBanner();
+
+</script>
+  
 </body>
 </html>
