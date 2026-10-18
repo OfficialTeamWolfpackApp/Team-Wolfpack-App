@@ -898,6 +898,9 @@ body{
         KELLY "BOSSGAL" MCSPORRAN
       </option>
 
+<option value="richard-davies">
+  RICHARD DAVIES
+</option>
     </select>
 
   </div>
@@ -1746,11 +1749,16 @@ profileBanner.addEventListener("input", function(){
 const saveTeamMemberButton =
   document.getElementById("saveTeamMemberProfile");
 
+/* =========================================
+   APPROVED TEAM WOLFPACK MEMBERS
+========================================= */
+
 const allowedTeamMembers = [
   "mr-wolfie",
   "bry-kelly",
   "billy-burton",
-  "kelly-mcsporran"
+  "kelly-mcsporran",
+  "richard-davies"
 ];
 
 saveTeamMemberButton.addEventListener("click", async function(){
@@ -2191,17 +2199,23 @@ teamMemberSelect.addEventListener("change", async function(){
   });
 
   // Set the selected member's name.
-  const memberNames = {
+/* =========================================
+   TEAM WOLFPACK MEMBER NAMES
+========================================= */
 
-    "mr-wolfie": "Mr Wolfie",
+const memberNames = {
 
-    "bry-kelly": "Bry Kelly",
+  "mr-wolfie": "Mr Wolfie",
 
-    "billy-burton": "Billy \"Bossman\" Burton",
+  "bry-kelly": "Bry Kelly",
 
-    "kelly-mcsporran": "Kelly \"Bossgal\" McSporran"
+  "billy-burton": "Billy \"Bossman\" Burton",
 
-  };
+  "kelly-mcsporran": "Kelly \"Bossgal\" McSporran",
+
+  "richard-davies": "Richard Davies"
+
+};
 
   document.getElementById("memberName").value =
     memberNames[selectedMember] || "";
