@@ -8382,11 +8382,42 @@ QUICK ACCESS
       text-align: center;
     }
 
-    #wolfpackSupportMessage {
-      margin: 12px 0 0;
-      color: #00bfff;
-      font-size: 11px;
-    }
+ /* =========================================
+   TEAM WOLFPACK — LIKE & SHARE MESSAGE
+========================================= */
+
+#wolfpackSupportMessage {
+  max-width: 600px;
+  margin: 0 auto 24px;
+  padding: 0 12px;
+
+  color: #70e2ff;
+
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.6;
+  text-align: center;
+
+  text-shadow:
+    0 0 12px rgba(0,191,255,.25);
+}
+
+/* HIDE MESSAGE WHEN EMPTY */
+
+#wolfpackSupportMessage:empty {
+  display: none;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+  #wolfpackSupportMessage {
+    font-size: 11px;
+    padding: 0 16px;
+  }
+
+}
 
    /* =========================================
    TEAM WOLFPACK — MOBILE SUPPORT CARD
