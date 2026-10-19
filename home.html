@@ -7059,9 +7059,20 @@ span:last-child{
 
 /* MAIN NOTIFICATION PANEL */
 
+/* Compact Like / Share controls in the notification bar itself */
 .notification-panel{flex-wrap:wrap;}
-.notification-panel .wolfpack-support-buttons{flex:0 0 100%;width:100%;margin:4px 0 0;padding-top:14px;border-top:1px solid rgba(255,255,255,.12);}
-.notification-panel #wolfpackSupportMessage{flex:0 0 100%;width:100%;text-align:center;}
+.notification-panel .notification-info{flex:1 1 180px;min-width:0;}
+.notification-panel .wolfpack-support-buttons{display:flex;flex:0 1 auto;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:8px;width:auto;margin:0;padding:0;border:0;}
+.notification-panel .wolfpack-support-buttons button{min-height:38px;padding:9px 12px;font-size:10px;letter-spacing:0;white-space:nowrap;}
+.notification-panel #wolfpackSupportMessage{flex:0 0 100%;width:100%;text-align:center;margin:0;}
+.notification-panel #wolfpackSupportMessage:empty{display:none;}
+@media(max-width:600px){
+  .notification-panel{gap:9px;padding:14px 12px;}
+  .notification-panel .notification-info{flex:1 1 100%;text-align:center;}
+  .notification-panel #notificationButton{flex:1 1 auto;min-width:72px;}
+  .notification-panel .wolfpack-support-buttons{flex:2 1 auto;justify-content:center;gap:6px;}
+  .notification-panel .wolfpack-support-buttons button{min-height:38px;padding:8px 9px;font-size:9px;white-space:normal;}
+}
 
 
 .notification-panel{
