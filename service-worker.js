@@ -175,7 +175,7 @@ self.addEventListener("notificationclick", (event) => {
 ========================================================= */
 
 const CACHE_NAME =
-  "team-wolfpack-v31";
+  "team-wolfpack-v32";
 
 
 /* =========================================================
@@ -411,6 +411,13 @@ self.addEventListener(
 
     }
 
+
+    /* Notification Manager must always load its own page, never an
+       older cached welcome screen or an offline navigation fallback. */
+    if (requestURL.pathname.endsWith("/admin-notifications.html")) {
+      event.respondWith(fetch(event.request, {cache:"no-store"}));
+      return;
+    }
 
     /* =====================================================
        HTML PAGES
