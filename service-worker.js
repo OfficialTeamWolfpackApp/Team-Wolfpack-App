@@ -175,7 +175,7 @@ self.addEventListener("notificationclick", (event) => {
 ========================================================= */
 
 const CACHE_NAME =
-  "team-wolfpack-v30";
+  "team-wolfpack-v31";
 
 
 /* =========================================================
@@ -203,6 +203,7 @@ const APP_FILES = [
   "./about.html",
   "./updates.html",
   "./admin-dashboard.html",
+  "./admin-notifications.html",
   "./admin-fights.html",
   "./admin-updates.html",
   "./icon-192.png",
@@ -470,19 +471,10 @@ self.addEventListener(
 
             }
 
-            const home =
-              await caches.match(
-                "./index.html"
-              );
-
-            if (home) {
-
-              return home;
-
-            }
-
+            // Never display the welcome/index page in place of an
+            // unavailable admin page: it looks like a broken redirect.
             return new Response(
-              "Team Wolfpack is currently offline.",
+              "This Team Wolfpack page is unavailable offline. Please reconnect and try again.",
               {
                 status: 503,
 
