@@ -2718,11 +2718,11 @@ function getFighterImage(fight){
 
 function getOpponentImage(fight){
 
-  // The March 2027 opponent photo is stored as mai-serrio.jpeg.
+  // The March 2027 opponent photo is stored as mia-serrio.jpeg.
   // Prefer the verified repository asset over a stale database image URL.
   const opponentName = String(fight.opponentName || fight.opponent || "").toLowerCase();
   if (opponentName.includes("serrio")) {
-    return "mai-serrio.jpeg";
+    return "mia-serrio.jpeg";
   }
 
   if(fight.opponentImage){
