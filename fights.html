@@ -3042,8 +3042,10 @@ const ticketStatusLabel =
         <div class="fight-person right">
 
           <img
-            src="${opponentImage}"
+            src="${escapeHTML(opponentImage)}"
             alt="${escapeHTML(opponent)}"
+            loading="lazy"
+            onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='icon-512.png';}"
           >
 <div class="fight-photo-nameplate">
 
