@@ -2722,7 +2722,7 @@ function getOpponentImage(fight){
   // Prefer the verified repository asset over a stale database image URL.
   const opponentName = String(fight.opponentName || fight.opponent || "").toLowerCase();
   if (opponentName.includes("serrio")) {
-    return "mia-serrio.jpeg";
+    return "/Team-Wolfpack-App/mia-serrio.jpeg?v=20261023";
   }
 
   if(fight.opponentImage){
