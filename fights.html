@@ -2722,7 +2722,7 @@ function getOpponentImage(fight){
   // Prefer the verified repository asset over a stale database image URL.
   const opponentName = String(fight.opponentName || fight.opponent || "").toLowerCase();
   if (opponentName.includes("serrio")) {
-    return "/Team-Wolfpack-App/mia-serrio.jpeg?v=20261023";
+    return "./mia-serrio.jpeg?v=20261023b";
   }
 
   if(fight.opponentImage){
@@ -3049,10 +3049,10 @@ const ticketStatusLabel =
         <div class="fight-person right">
 
           <img
-            src="${escapeHTML(opponentImage)}"
+            src="${opponentImage}"
             alt="${escapeHTML(opponent)}"
-            loading="lazy"
-            onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='icon-512.png';}"
+            loading="eager"
+            onerror="if(!this.dataset.fallback){this.dataset.fallback='1';console.error('Opponent image failed:',this.currentSrc);this.src='./icon-512.png';}"
           >
 <div class="fight-photo-nameplate">
 
