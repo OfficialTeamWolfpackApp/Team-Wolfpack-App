@@ -7574,6 +7574,9 @@ MAIN
 <span class="menu-arrow">›</span>
 </a>
 
+<a class="menu-link" href="meet-our-pack.html"><span class="menu-icon">🐺</span><span>MEET OUR PACK</span><span class="menu-arrow">›</span></a>
+<a class="menu-link" href="supporter-account.html"><span class="menu-icon">👤</span><span>MY PROFILE / SIGN IN</span><span class="menu-arrow">›</span></a>
+
 <a class="menu-link" href="https://officialteamwolfpackapp.github.io/Mrs-Wolfie/index.html" target="_blank" rel="noopener noreferrer">
 <span class="menu-icon">♥</span>
 <span>MRS WOLFIE APP</span>
@@ -11151,5 +11154,14 @@ if("serviceWorker" in navigator){
 
 </script>
   
+<script type="module">
+// Automatically list verified members using their existing public supporter profile.
+import {initializeApp,getApps,getApp} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import {getAuth,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+import {getDatabase,ref,get,set,update,serverTimestamp} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+const memberApp=getApps().length?getApp():initializeApp({apiKey:"AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",authDomain:"team-wolfpack-app.firebaseapp.com",databaseURL:"https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",projectId:"team-wolfpack-app",appId:"1:1070414578856:web:df14e7d387e658eeae2e9d"});
+const memberAuth=getAuth(memberApp),memberDb=getDatabase(memberApp);
+onAuthStateChanged(memberAuth,async user=>{if(!user)return;try{await user.reload();await user.getIdToken(true);if(!user.emailVerified)return;const privateSnap=await get(ref(memberDb,"supporterProfiles/"+user.uid));const name=String(privateSnap.val()?.name||user.displayName||"").trim();if(name.length<2||name.length>40)return;const publicRef=ref(memberDb,"publicSupporterProfiles/"+user.uid);const existing=await get(publicRef);if(!existing.exists())await set(publicRef,{name,joinedAt:serverTimestamp()});else if(existing.val()?.name!==name)await update(publicRef,{name});}catch(e){console.warn("Member directory sync:",e)}});
+</script>
 </body>
 </html>
