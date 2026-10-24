@@ -1552,7 +1552,7 @@ function attachCommunity(card,update){
   const like=element("button","community-button","❤️ 0 Likes"),commentsBtn=element("button","community-button","💬 0 Comments");
   like.type=commentsBtn.type="button";
   actions.append(like,commentsBtn);box.append(actions);
-  const panel=element("div","community-comments");panel.hidden=true;box.append(panel);card.append(box);
+  const panel=element("div","community-comments");panel.hidden=true;const persistentStatus=element("p","community-note");persistentStatus.setAttribute("role","status");box.append(panel,persistentStatus);card.append(box);
   let likes={}, comments={};
   const likesPath=ref(database,"updateLikes/"+id),commentsPath=ref(database,"updateComments/"+id);
   function updateCounts(){
@@ -1585,8 +1585,8 @@ function attachCommunity(card,update){
       const name=element("input");name.placeholder="Your display name";name.maxLength=40;name.minLength=2;name.required=true;name.value=(currentUser.displayName||"").slice(0,40);
       const message=element("textarea");message.placeholder="Write a comment (max 500 characters)";message.maxLength=500;message.required=true;
       const submit=element("button","community-button","POST COMMENT");submit.type="submit";
-      const feedback=element("p","community-note");
-      form.append(name,message,submit,feedback);panel.append(form);
+      const feedback=persistentStatus;
+      form.append(name,message,submit);panel.append(form);
       form.onsubmit=async ev=>{
         ev.preventDefault();
         const n=name.value.trim(),m=message.value.trim();
