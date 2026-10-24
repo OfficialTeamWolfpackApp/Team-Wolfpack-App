@@ -10,23 +10,45 @@ main{max-width:520px;margin:0 auto;padding:34px 18px 60px}.logo{display:block;wi
 <form id="loginForm"><label for="loginEmail">EMAIL ADDRESS</label><input id="loginEmail" type="email" autocomplete="email" required maxlength="254"><label for="loginPassword">PASSWORD</label><input id="loginPassword" type="password" autocomplete="current-password" required><button class="primary" type="submit">SIGN IN</button><div class="row"><button id="resetPassword" type="button" class="secondary">FORGOT PASSWORD?</button></div></form>
 <form id="registerForm" class="hidden"><label for="displayName">YOUR NAME</label><input id="displayName" autocomplete="name" required minlength="2" maxlength="40"><label for="registerEmail">EMAIL ADDRESS</label><input id="registerEmail" type="email" autocomplete="email" required maxlength="254"><label for="registerPassword">PASSWORD (AT LEAST 8 CHARACTERS)</label><input id="registerPassword" type="password" autocomplete="new-password" required minlength="8"><button class="primary" type="submit">CREATE SUPPORTER ACCOUNT</button><p class="note">You will receive a verification email. Your email address is used for your account and will not be displayed publicly. Community features will be enabled in a later update.</p></form>
 </section>
-<section class="panel hidden" id="profilePanel"><h2>🐺 WELCOME TO THE PACK</h2><p id="profileName"></p><p id="profileEmail"></p><p id="verifyState"></p><div class="row"><button type="button" id="sendVerification">SEND VERIFICATION EMAIL</button><button type="button" id="refreshAccount">REFRESH STATUS</button></div><div class="row"><button type="button" class="secondary" id="signOut">SIGN OUT</button></div><p class="note">Supporter likes, comments and community management are coming next. Your account registration and email verification are available now.</p></section>
+<section class="panel hidden" id="profilePanel"><h2>🐺 WELCOME TO THE PACK</h2><p id="profileName"></p><p id="profileEmail"></p><p id="verifyState"></p><div class="row"><button type="button" id="sendVerification">SEND VERIFICATION EMAIL</button><button type="button" id="refreshAccount">REFRESH STATUS</button></div><div class="row"><button type="button" class="secondary" id="signOut">SIGN OUT</button></div><p class="note">Your verified account can like and comment on Team Wolfpack Live Updates.</p></section>
 <p id="status" role="status" aria-live="polite"></p><a class="back" href="home.html">← BACK TO TEAM WOLFPACK</a>
 </main><script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import {getDatabase,ref,get,set,serverTimestamp} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
 import {getAuth,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendEmailVerification,updateProfile,sendPasswordResetEmail,signOut,reload} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 const app=initializeApp({apiKey:"AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",authDomain:"team-wolfpack-app.firebaseapp.com",databaseURL:"https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",projectId:"team-wolfpack-app",storageBucket:"team-wolfpack-app.firebasestorage.app",messagingSenderId:"1070414578856",appId:"1:1070414578856:web:df14e7d387e658eeae2e9d"});
-const auth=getAuth(app),$=id=>document.getElementById(id),status=$("status");
+const auth=getAuth(app),db=getDatabase(app),$=id=>document.getElementById(id),status=$("status");
 function message(s){status.textContent=s}function mode(register){$("registerForm").classList.toggle("hidden",!register);$("loginForm").classList.toggle("hidden",register);message("")}
 $("showLogin").onclick=()=>mode(false);$("showRegister").onclick=()=>mode(true);
 function render(user){$("authPanel").classList.toggle("hidden",!!user);$("profilePanel").classList.toggle("hidden",!user);if(!user)return;$("profileName").textContent="Name: "+(user.displayName||"Supporter");$("profileEmail").textContent="Email: "+(user.email||"");$("verifyState").textContent=user.emailVerified?"✓ Email verified":"⚠ Please verify your email to access future community features";$("verifyState").className=user.emailVerified?"verified":"";$("sendVerification").classList.toggle("hidden",user.emailVerified)}
-onAuthStateChanged(auth,render);
+async function syncSupporterProfile(user){
+  if(!user||!user.emailVerified)return;
+  await user.getIdToken(true);
+  const profileRef=ref(db,"supporterProfiles/"+user.uid);
+  const existing=await get(profileRef);
+  if(existing.exists())return;
+  const name=(user.displayName||"Supporter").trim().slice(0,40);
+  await set(profileRef,{
+    uid:user.uid,
+    name:name.length>=2?name:"Supporter",
+    email:user.email,
+    emailVerified:true,
+    registeredAt:serverTimestamp(),
+    accountStatus:"active"
+  });
+}
+async function trySync(user){
+  if(!user||!user.emailVerified)return;
+  try{await syncSupporterProfile(user)}
+  catch(error){console.warn("Supporter profile sync:",error);message("Signed in, but supporter profile could not be saved: "+(error.code||error.message));}
+}
+onAuthStateChanged(auth,user=>{render(user);trySync(user);});
 function readable(e){const code=e?.code||"";if(code==="auth/email-already-in-use")return"This email already has an account. Please sign in.";if(code==="auth/invalid-email")return"Enter a valid email address.";if(code==="auth/weak-password")return"Please choose a stronger password.";if(code==="auth/too-many-requests")return"Too many attempts. Please try again later.";if(code==="auth/invalid-credential")return"Email or password not recognised.";return"Unable to complete the request. "+code}
 async function run(form,fn){const b=form.querySelector('button[type="submit"]');b.disabled=true;message("Please wait...");try{await fn()}catch(e){message(readable(e))}finally{b.disabled=false}}
 $("registerForm").onsubmit=e=>{e.preventDefault();run(e.currentTarget,async()=>{const name=$("displayName").value.trim();if(name.length<2||name.length>40)throw{code:"auth/invalid-name"};const result=await createUserWithEmailAndPassword(auth,$("registerEmail").value.trim(),$("registerPassword").value);await updateProfile(result.user,{displayName:name});await sendEmailVerification(result.user);render(result.user);message("Account created! Check your inbox and spam folder for the verification email.")})};
-$("loginForm").onsubmit=e=>{e.preventDefault();run(e.currentTarget,async()=>{await signInWithEmailAndPassword(auth,$("loginEmail").value.trim(),$("loginPassword").value);message("Signed in successfully.")})};
+$("loginForm").onsubmit=e=>{e.preventDefault();run(e.currentTarget,async()=>{const result=await signInWithEmailAndPassword(auth,$("loginEmail").value.trim(),$("loginPassword").value);await trySync(result.user);if(!status.textContent.includes("could not be saved"))message("Signed in successfully.")})};
 $("resetPassword").onclick=async()=>{const email=$("loginEmail").value.trim();if(!email){message("Enter your email address first.");return}try{await sendPasswordResetEmail(auth,email);message("If the address is registered, check your email for a reset link.")}catch(e){message(readable(e))}};
 $("sendVerification").onclick=async()=>{try{await sendEmailVerification(auth.currentUser);message("Verification email sent. Check your inbox and spam folder.")}catch(e){message(readable(e))}};
-$("refreshAccount").onclick=async()=>{try{await reload(auth.currentUser);render(auth.currentUser);message(auth.currentUser.emailVerified?"Your email is verified!":"Not verified yet. Please click the link in your email.")}catch(e){message(readable(e))}};
+$("refreshAccount").onclick=async()=>{try{await reload(auth.currentUser);render(auth.currentUser);await trySync(auth.currentUser);if(!status.textContent.includes("could not be saved"))message(auth.currentUser.emailVerified?"Your email is verified!":"Not verified yet. Please click the link in your email.")}catch(e){message(readable(e))}};
 $("signOut").onclick=async()=>{await signOut(auth);message("Signed out.")};
 </script></body></html>
