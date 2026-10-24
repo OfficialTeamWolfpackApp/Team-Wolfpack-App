@@ -1386,7 +1386,7 @@ document
 <style>
 .community-box{margin-top:18px;padding:14px;border:1px solid rgba(88,205,255,.27);border-radius:12px;background:rgba(0,13,22,.65)}
 .community-actions{display:flex;gap:10px;flex-wrap:wrap}.community-button{border:1px solid #46c8fa;background:#06283a;color:white;padding:10px 15px;border-radius:8px;font-weight:800;cursor:pointer}.community-button:disabled{opacity:.6;cursor:default}.community-button.liked{border-color:#ff893e;background:#4b1c12}
-.community-comments{margin-top:14px}.community-comment{padding:11px 0;border-top:1px solid #294455;overflow-wrap:anywhere}.community-comment strong{color:#7cddff}.community-comment small{display:block;color:#a7bac8;margin:4px 0}.community-comment p{white-space:pre-wrap;margin:8px 0}.community-form input,.community-form textarea{width:100%;padding:11px;margin:6px 0 10px;background:#091722;color:white;border:1px solid #466074;border-radius:8px;font:inherit}.community-form textarea{min-height:90px;resize:vertical}.community-note{color:#bdd0dc;font-size:13px;margin:10px 0}.community-delete{background:transparent;border:1px solid #fd8856;color:#ffb396;border-radius:6px;padding:5px 10px;cursor:pointer}
+.community-comment-head{display:flex;align-items:center;gap:10px}.community-avatar{width:42px;height:42px;flex:none;border-radius:50%;object-fit:cover;border:2px solid #39caff;box-shadow:0 0 0 1px #ff8529;background:#112735}.community-avatar-default{display:flex;align-items:center;justify-content:center;font-size:22px}.community-comment-info{min-width:0}.community-comments{margin-top:14px}.community-comment{padding:11px 0;border-top:1px solid #294455;overflow-wrap:anywhere}.community-comment strong{color:#7cddff}.community-comment small{display:block;color:#a7bac8;margin:4px 0}.community-comment p{white-space:pre-wrap;margin:8px 0}.community-form input,.community-form textarea{width:100%;padding:11px;margin:6px 0 10px;background:#091722;color:white;border:1px solid #466074;border-radius:8px;font:inherit}.community-form textarea{min-height:90px;resize:vertical}.community-note{color:#bdd0dc;font-size:13px;margin:10px 0}.community-delete{background:transparent;border:1px solid #fd8856;color:#ffb396;border-radius:6px;padding:5px 10px;cursor:pointer}
 </style>
 <!-- =========================================
      FIREBASE LIVE UPDATES
@@ -1422,6 +1422,8 @@ import {
 }
 from
 "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+
+import {getStorage,ref as storageRef,getDownloadURL} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
 
 
 const firebaseConfig = {
@@ -1532,6 +1534,19 @@ const updatesRef =
   );
 
 
+const avatarStorage=getStorage(app);
+const commentAvatarCache=new Map();
+async function supporterAvatarUrl(uid){
+  if(!uid || typeof uid!=="string" || !/^[a-zA-Z0-9]{10,128}$/.test(uid))return null;
+  if(!commentAvatarCache.has(uid)){
+    const promise=getDownloadURL(storageRef(avatarStorage,"supporter-avatars/"+uid+"/profile.webp")).catch(e=>{
+      if(e.code!=="storage/object-not-found")console.warn("Supporter avatar unavailable:",e.code);
+      return null;
+    });
+    commentAvatarCache.set(uid,promise);
+  }
+  return commentAvatarCache.get(uid);
+}
 let currentUser = null;
 const communityUnsubscribers = [];
 function clearCommunityListeners(){while(communityUnsubscribers.length){communityUnsubscribers.pop()();}}
@@ -1573,7 +1588,14 @@ function attachCommunity(card,update){
       const item=element("div","community-comment"),name=element("strong","",String(c.name||"Supporter").slice(0,40));
       const time=element("small","",c.createdAt?new Date(c.createdAt).toLocaleString("en-GB"):"");
       const msg=element("p","",String(c.message||""));
-      item.append(name,time,msg);
+      const head=element("div","community-comment-head");
+      const avatar=element("div","community-avatar community-avatar-default","🐺");
+      const info=element("div","community-comment-info");info.append(name,time);head.append(avatar,info);
+      item.append(head,msg);
+      if(c.uid){supporterAvatarUrl(c.uid).then(url=>{
+        if(!url||!item.isConnected)return;
+        const img=element("img","community-avatar");img.alt=String(c.name||"Supporter").slice(0,40)+" profile picture";img.loading="lazy";img.referrerPolicy="no-referrer";img.src=url;img.onerror=()=>img.replaceWith(element("div","community-avatar community-avatar-default","🐺"));avatar.replaceWith(img);
+      });}
       if(currentUser&&(isAdmin(currentUser)||currentUser.uid===c.uid)){
         const del=element("button","community-delete","DELETE");del.type="button";
         del.onclick=async()=>{if(!confirm("Delete this comment?"))return;try{await remove(ref(database,"updateComments/"+id+"/"+commentId))}catch(e){alert("Unable to delete comment. "+e.code)}};
