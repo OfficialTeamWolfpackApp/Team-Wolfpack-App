@@ -1139,8 +1139,10 @@ FIGHTER IMAGE
 <input
   id="fighterImage"
   type="text"
-  placeholder="e.g. zoey-james.jpg"
+  placeholder="GitHub filename or image URL (e.g. zoey-james.jpg)"
 >
+<input id="fighterImageUpload" type="file" accept="image/jpeg,image/png,image/webp" style="margin-top:10px;width:100%">
+<img id="fighterImagePreview" alt="Fighter photo preview" style="display:none;margin-top:10px;width:130px;height:160px;object-fit:cover;border:1px solid #36caff;border-radius:10px">
 
 </div>
 
@@ -1154,8 +1156,10 @@ OPPONENT IMAGE
 <input
   id="opponentImage"
   type="text"
-  placeholder="e.g. colleen-leyden.jpg"
+  placeholder="GitHub filename or image URL (e.g. mia-serrio.jpeg)"
 >
+<input id="opponentImageUpload" type="file" accept="image/jpeg,image/png,image/webp" style="margin-top:10px;width:100%">
+<img id="opponentImagePreview" alt="Opponent photo preview" style="display:none;margin-top:10px;width:130px;height:160px;object-fit:cover;border:1px solid #ff812c;border-radius:10px">
 
 </div>
 
@@ -1305,6 +1309,8 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
 
 
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
+
 const firebaseConfig = {
 
   apiKey:
@@ -1342,6 +1348,8 @@ const auth =
 
 const database =
   getDatabase(app);
+
+const storage = getStorage(app);
 
 
 const ADMINS = {
@@ -1504,6 +1512,57 @@ let currentUser = null;
 
 let fightsCache = {};
 
+const imageUploads = {
+  fighter: document.getElementById("fighterImageUpload"),
+  opponent: document.getElementById("opponentImageUpload")
+};
+const imagePreviews = {
+  fighter: document.getElementById("fighterImagePreview"),
+  opponent: document.getElementById("opponentImagePreview")
+};
+function previewFightImage(kind) {
+  const input = kind === "fighter" ? fighterImage : opponentImage;
+  const file = imageUploads[kind].files[0];
+  const preview = imagePreviews[kind];
+  if (preview.dataset.objectUrl) {
+    URL.revokeObjectURL(preview.dataset.objectUrl);
+    delete preview.dataset.objectUrl;
+  }
+  let url = input.value.trim();
+  if (file) {
+    url = URL.createObjectURL(file);
+    preview.dataset.objectUrl = url;
+  } else if (url && !/^(https?:\/\/|data:image\/)/i.test(url)) {
+    url = new URL(url.replace(/^\/+/, ""), window.location.href).href;
+  }
+  preview.style.display = url ? "block" : "none";
+  if (url) preview.src = url;
+}
+for (const kind of ["fighter", "opponent"]) {
+  imageUploads[kind].addEventListener("change", () => previewFightImage(kind));
+  (kind === "fighter" ? fighterImage : opponentImage).addEventListener("input", () => {
+    imageUploads[kind].value = "";
+    previewFightImage(kind);
+  });
+}
+async function uploadFightPhoto(kind) {
+  const file = imageUploads[kind].files[0];
+  if (!file) return null;
+  if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+    throw new Error("Only JPG, PNG and WebP photographs are supported.");
+  }
+  if (file.size > 8 * 1024 * 1024) {
+    throw new Error("Photographs must be 8 MB or smaller.");
+  }
+  const extension = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp" }[file.type];
+  const path = "fight-images/" + currentUser.uid + "-" + Date.now() + "-" +
+    Math.random().toString(36).slice(2, 10) + "-" + kind + "." + extension;
+  const destination = storageRef(storage, path);
+  await uploadBytes(destination, file, { contentType: file.type });
+  return getDownloadURL(destination);
+}
+
+
 
 /* =========================================
    SECURITY
@@ -1655,6 +1714,10 @@ function showMessage(
 function resetForm(){
 
   fightForm.reset();
+  for (const kind of ["fighter", "opponent"]) {
+    imageUploads[kind].value = "";
+    previewFightImage(kind);
+  }
 
   fightId.value = "";
 
@@ -1809,7 +1872,13 @@ notes:
     };
 
 
+    saveButton.disabled = true;
+    saveButton.textContent = "SAVING / UPLOADING...";
     try{
+      const fighterURL = await uploadFightPhoto("fighter");
+      const opponentURL = await uploadFightPhoto("opponent");
+      if (fighterURL) data.fighterImage = fighterURL;
+      if (opponentURL) data.opponentImage = opponentURL;
 
       if(fightId.value){
 
@@ -1868,10 +1937,13 @@ notes:
       );
 
       showMessage(
-        "FIGHT COULD NOT BE SAVED",
+        "FIGHT COULD NOT BE SAVED: " + (error.message || "Please try again."),
         "error"
       );
 
+    } finally {
+      saveButton.disabled = false;
+      saveButton.textContent = fightId.value ? "UPDATE FIGHT" : "SAVE FIGHT";
     }
 
   }
@@ -1947,6 +2019,11 @@ window.editFight =
 
     opponentImage.value =
       data.opponentImage || "";
+
+    for (const kind of ["fighter", "opponent"]) {
+      imageUploads[kind].value = "";
+      previewFightImage(kind);
+    }
 
 ticketUrl.value =
   data.ticketUrl || "";
