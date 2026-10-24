@@ -774,162 +774,61 @@ body {
 
 </div>
 
+<style>
+#introVideoOverlay{position:fixed;inset:0;z-index:99999;background:#000;display:none;align-items:center;justify-content:center}
+#introVideoOverlay.active{display:flex}
+#introVideo{width:100%;height:100%;object-fit:contain;background:#000}
+#skipIntro{position:absolute;top:max(18px,env(safe-area-inset-top));right:20px;z-index:2;background:rgba(0,0,0,.78);border:1px solid #4acaff;border-radius:9px;color:white;font:700 14px Arial,sans-serif;letter-spacing:1px;padding:13px 19px;cursor:pointer}
+#introStatus{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);color:#fff;background:rgba(0,0,0,.7);font:14px Arial,sans-serif;padding:10px 16px;border-radius:8px;text-align:center}
+</style>
+<div id="introVideoOverlay" aria-hidden="true">
+  <video id="introVideo" playsinline preload="none"></video>
+  <button id="skipIntro" type="button">SKIP INTRO →</button>
+  <div id="introStatus" role="status">Loading Team Wolfpack intro...</div>
+</div>
 <script>
-
-/* =====================================
-   TEAM WOLFPACK ENTER TRANSITION
-===================================== */
-
-const enterButton =
-  document.getElementById("enterWolfpack");
-
-const transition =
-  document.getElementById("wolfpackTransition");
-
-const wolfHowl =
-  document.getElementById("wolfHowl");  
-  
-let isEntering = false;
-
-enterButton.addEventListener("click", function(event) {
-
-  // Allow modified clicks to behave normally.
-  if (
-    event.ctrlKey ||
-    event.metaKey ||
-    event.shiftKey ||
-    event.altKey ||
-    event.button !== 0
-  ) {
-    return;
-  }
-
-  event.preventDefault();
-
-  if (isEntering) {
-    return;
-  }
-
-  isEntering = true;
-
- // Reference the cinematic wolf entrance.
-const wolfEntrance = document.getElementById("wolfEntrance");
-
-// Play cinematic wolf howl when ENTER is pressed.
-// Match the cinematic animation to the wolf howl duration.
-function syncWolfAnimation() {
-  if (
-    wolfEntrance &&
-    Number.isFinite(wolfHowl.duration) &&
-    wolfHowl.duration > 0
-  ) {
-    wolfEntrance.style.setProperty(
-      "--wolf-animation-duration",
-      wolfHowl.duration + "s"
-    );
-  }
-}
-
-// Synchronise animation once audio metadata is available.
-if (wolfHowl.readyState >= 1) {
-  syncWolfAnimation();
-} else {
-  wolfHowl.addEventListener(
-    "loadedmetadata",
-    function() {
-      syncWolfAnimation();
-
-      if (wolfEntrance) {
-        const wolfImage =
-          wolfEntrance.querySelector(".wolf-entrance-image");
-
-        if (wolfImage) {
-          wolfImage.style.animation = "none";
-          void wolfImage.offsetWidth;
-          wolfImage.style.animation = "";
-        }
-      }
-    },
-    { once: true }
-  );
-}
-  
-wolfHowl.volume = 0.65;
- 
-wolfHowl.currentTime = 0;
-
-wolfHowl.play().catch(function(error) {
-  console.warn("Wolf howl could not play:", error);
-
+const enterButton = document.getElementById("enterWolfpack");
+const introOverlay = document.getElementById("introVideoOverlay");
+const introVideo = document.getElementById("introVideo");
+const skipIntro = document.getElementById("skipIntro");
+const introStatus = document.getElementById("introStatus");
+const introSource = "https://firebasestorage.googleapis.com/v0/b/team-wolfpack-app.firebasestorage.app/o/opening-video%2FTeam%20Wolfpack%20Opening%20Video.mp4?alt=media&token=e66413ef-fad7-487d-978c-dfccc3244813";
+let entering = false;
+let introTimeout;
+function openWolfpackHome(){
+  clearTimeout(introTimeout);
   window.location.assign(enterButton.href);
+}
+skipIntro.addEventListener("click", openWolfpackHome);
+introVideo.addEventListener("ended", openWolfpackHome);
+introVideo.addEventListener("playing", () => { introStatus.style.display = "none"; });
+introVideo.addEventListener("error", () => {
+  introStatus.textContent = "Video unavailable. Opening Team Wolfpack...";
+  setTimeout(openWolfpackHome, 1200);
 });
-  const destination = enterButton.href;
-
-  // Respect the user's reduced-motion preference.
-  if (
-    window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches
-  ) {
-    window.location.assign(destination);
-    return;
+enterButton.addEventListener("click", async (event) => {
+  if(event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return;
+  event.preventDefault();
+  if(entering) return;
+  entering = true;
+  introOverlay.classList.add("active");
+  introOverlay.setAttribute("aria-hidden","false");
+  introVideo.src = introSource;
+  introVideo.volume = 1;
+  introVideo.muted = false;
+  introVideo.load();
+  introTimeout = setTimeout(() => {
+    if(introVideo.paused || introVideo.readyState < 2) openWolfpackHome();
+  }, 18000);
+  try {
+    await introVideo.play();
+  } catch (error) {
+    introStatus.textContent = "Tap play to watch, or skip the intro.";
+    introVideo.controls = true;
+    introVideo.muted = true;
+    try { await introVideo.play(); } catch(e) { /* Manual play and skip remain available */ }
   }
-// Activate the cinematic wolf entrance.
-if (wolfEntrance) {
-  wolfEntrance.classList.add("active");
-  wolfEntrance.setAttribute("aria-hidden", "false");
-}
-  // Wait for the cinematic transition and wolf howl
-// before opening the Team Wolfpack homepage.
-
-const minimumTransitionTime = 0;
-const maximumWaitTime = 10000;
-
-const transitionStart = Date.now();
-
-let hasNavigated = false;
-
-function openWolfpackHome() {
-  if (hasNavigated) return;
-
-  hasNavigated = true;
-
-  window.location.assign(destination);
-}
-
-function finishWolfpackEntrance() {
-  const elapsed = Date.now() - transitionStart;
-
-  const remaining = Math.max(
-    0,
-    minimumTransitionTime - elapsed
-  );
-
-  window.setTimeout(openWolfpackHome, remaining);
-}
-
-// Navigate once the howl finishes.
-wolfHowl.addEventListener(
-  "ended",
-  finishWolfpackEntrance,
-  { once: true }
-);
-
-// Safety fallback if the audio fails or never ends.
-window.setTimeout(
-  openWolfpackHome,
-  maximumWaitTime
-);
-
-// If the audio fails, continue after the animation.
-wolfHowl.addEventListener(
-  "error",
-  finishWolfpackEntrance,
-  { once: true }
-);
-
 });
-
 </script>
 
 </body>
