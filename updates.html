@@ -1417,7 +1417,8 @@ import {
   onValue,
   set,
   push,
-  remove
+  remove,
+  serverTimestamp
 }
 from
 "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
@@ -1597,7 +1598,7 @@ function attachCommunity(card,update){
         try{
           const user=await verifiedUser();
           if(!user){feedback.textContent="Please verify your email first. Open My Wolfpack Account to check your status.";return;}
-          await set(push(commentsPath),{uid:user.uid,name:n,message:m,createdAt:Date.now()});
+          await set(push(commentsPath),{uid:user.uid,name:n,message:m,createdAt:serverTimestamp()});
           localStorage.setItem("wolfpack-comment-"+id,String(Date.now()));
           message.value="";feedback.textContent="Comment posted!";
         }catch(e){feedback.textContent="Comment could not be posted: "+(e.code||"Please try again.");}
