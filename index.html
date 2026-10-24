@@ -797,7 +797,7 @@ let entering = false;
 let introTimeout;
 function openWolfpackHome(){
   clearTimeout(introTimeout);
-  window.location.assign(enterButton.href);
+  window.location.assign("welcome-to-pack.html");
 }
 skipIntro.addEventListener("click", openWolfpackHome);
 introVideo.addEventListener("ended", openWolfpackHome);
