@@ -1534,7 +1534,7 @@ const updatesRef =
   );
 
 
-const avatarStorage=getStorage(app);
+const avatarStorage=getStorage(firebaseApp);
 const commentAvatarCache=new Map();
 async function supporterAvatarUrl(uid){
   if(!uid || typeof uid!=="string" || !/^[a-zA-Z0-9]{10,128}$/.test(uid))return null;
