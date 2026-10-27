@@ -1942,9 +1942,7 @@ ADMIN ACCOUNT
 LIVE UPDATES
 </div>
 
-<div class="system-value online">
-ONLINE
-</div>
+<div id="liveUpdatesStatus" class="system-value">CHECKING...</div>
 
 </div>
 
@@ -1981,6 +1979,14 @@ import {
   getAuth,
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+import {
+  getDatabase,
+  ref,
+  query,
+  limitToLast,
+  onValue
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
 
 
 /* =========================
@@ -2042,6 +2048,8 @@ const auth =
     app
   );
 
+const db = getDatabase(app);
+
 
 /* =========================
    ELEMENTS
@@ -2068,6 +2076,9 @@ const firebaseStatus =
 const systemAdmin =
   document.getElementById("systemAdmin");
 
+const liveUpdatesStatus =
+  document.getElementById("liveUpdatesStatus");
+
 
 /* =========================
    STATE
@@ -2080,14 +2091,67 @@ let currentAdmin = null;
    START LISTENERS
 ========================= */
 
+let unsubscribeConnection = null;
+let unsubscribeUpdates = null;
+
+function setSystemValue(element, value, connected){
+  element.textContent = value;
+  element.classList.toggle("online", connected);
+  element.style.color = connected ? "#67dcff" : "#ffb347";
+}
+
 function stopDashboard(){
-  // Reserved for cleaning up future Firebase listeners.
+  if (unsubscribeConnection){
+    unsubscribeConnection();
+    unsubscribeConnection = null;
+  }
+  if (unsubscribeUpdates){
+    unsubscribeUpdates();
+    unsubscribeUpdates = null;
+  }
+  setSystemValue(firebaseStatus, "NOT CHECKED", false);
+  setSystemValue(liveUpdatesStatus, "NOT CHECKED", false);
 }
 
 function startDashboard(){
   stopDashboard();
+  setSystemValue(firebaseStatus, "CHECKING...", false);
+  setSystemValue(liveUpdatesStatus, "CHECKING...", false);
+
+  // Realtime Database's built-in connection state for this browser.
+  unsubscribeConnection = onValue(
+    ref(db, ".info/connected"),
+    (snapshot) => {
+      const connected = snapshot.val() === true;
+      setSystemValue(firebaseStatus,
+        connected ? "CONNECTED" : "DISCONNECTED", connected);
+      if (!connected){
+        setSystemValue(liveUpdatesStatus, "OFFLINE", false);
+      } else {
+        setSystemValue(liveUpdatesStatus, "CHECKING...", false);
+      }
+    },
+    (error) => {
+      console.error("Database connection monitor:", error);
+      setSystemValue(firebaseStatus, "CHECK FAILED", false);
+    }
+  );
+
+  // Checks read access to the latest Live Update; does not test posting.
+  unsubscribeUpdates = onValue(
+    query(ref(db, "updates"), limitToLast(1)),
+    () => {
+      if (firebaseStatus.textContent === "CONNECTED") {
+        setSystemValue(liveUpdatesStatus, "ACCESSIBLE", true);
+      }
+    },
+    (error) => {
+      console.error("Live Updates read check:", error);
+      setSystemValue(liveUpdatesStatus, "READ ERROR", false);
+    }
+  );
 }
-  
+
 /* =========================
    AUTH
 ========================= */
@@ -2131,9 +2195,6 @@ onAuthStateChanged(
         name;
 
 
-      firebaseStatus.textContent =
-        "CONNECTED";
-
 
       accessDenied.classList.remove(
         "show"
@@ -2163,7 +2224,8 @@ onAuthStateChanged(
 
 
     stopDashboard();
-
+    systemAdmin.textContent = "-";
+    adminName.textContent = "";
 
     status.textContent =
       "ADMIN ACCESS REQUIRED";
