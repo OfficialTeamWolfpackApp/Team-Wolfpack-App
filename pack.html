@@ -1145,23 +1145,25 @@ a.member-card:active{
 }
 
 
-/* REGISTERED PACK MEMBERS */
+/* REGISTERED PACK MEMBERS — matching official Meet the Team cards */
 .supporters-section{margin-top:38px;padding-top:25px;border-top:1px solid rgba(103,220,255,.22)}
 .supporters-heading{font-size:20px;font-weight:900;letter-spacing:.5px}
 .supporters-heading span{color:#ff751c}
 .supporters-intro{margin:9px 0 20px;color:#a4b9c5;font-size:12px;line-height:1.6}
-.supporters-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:15px}
-.supporter-card{display:block;text-decoration:none;color:#fff;border:1px solid rgba(103,220,255,.3);border-radius:16px;padding:20px;background:linear-gradient(125deg,rgba(0,170,235,.12),#071018 55%,rgba(255,90,0,.10));box-shadow:0 10px 28px rgba(0,0,0,.28)}
+.supporters-grid{display:grid;grid-template-columns:1fr;gap:15px}
+@media(min-width:720px){.supporters-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* Inherit member-card sizing, side glow, gradient, and mobile responsiveness. */
+.supporter-card.member-card{display:block;min-width:0}
 .supporter-card:focus-visible{outline:2px solid #67dcff;outline-offset:3px}
-.supporter-card-top{display:flex;gap:14px;align-items:center}
-.supporter-avatar{width:72px;height:72px;flex:none;border-radius:50%;border:3px solid #00bfff;outline:2px solid #ff751c;object-fit:cover;background:#11232d}
-.supporter-avatar-placeholder{display:flex;align-items:center;justify-content:center;font-size:32px}
-.supporter-name{font-weight:900;font-size:16px;overflow-wrap:anywhere}
-.supporter-label{color:#67dcff;font-size:9px;font-weight:900;letter-spacing:1px;margin-top:6px}
-.supporter-badges{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
-.supporter-badge{border:1px solid rgba(255,117,28,.4);border-radius:20px;padding:6px 9px;background:rgba(255,117,28,.08);font-size:10px;font-weight:800}
-.supporter-view{display:block;color:#ff8a40;font-size:10px;font-weight:900;letter-spacing:1px;margin-top:18px}
+.supporter-card .supporter-photo{object-position:center center}
+.supporter-card .supporter-photo-placeholder{display:flex;align-items:center;justify-content:center;font-size:52px;color:#67dcff;background:linear-gradient(145deg,#0b2634,#111);-webkit-mask-image:linear-gradient(to left,#000 68%,transparent 100%);mask-image:linear-gradient(to left,#000 68%,transparent 100%)}
+.supporter-card .member-name{overflow-wrap:anywhere}
+.supporter-card .supporter-badges{position:relative;z-index:3;display:flex;flex-wrap:wrap;gap:5px;margin-top:12px}
+.supporter-card .supporter-badge{display:inline-flex;align-items:center;gap:4px;padding:5px 7px;border:1px solid rgba(103,220,255,.34);border-radius:20px;background:rgba(0,140,200,.13);color:#eafaff;font-size:8px;font-weight:800;line-height:1.25;overflow-wrap:anywhere}
+.supporter-card .supporter-badge:nth-child(even){border-color:rgba(255,117,28,.4);background:rgba(255,90,0,.12)}
+.supporter-card .view{color:#67dcff}
 .supporters-message{padding:16px;border:1px solid rgba(103,220,255,.18);border-radius:12px;color:#aac6d4;font-size:12px;line-height:1.6}
+@media(max-width:430px){.supporter-card .supporter-badge{font-size:7px;padding:4px 6px}}
 
 
 /* OFFICIAL TEAM FEATURED BADGES */
@@ -1967,33 +1969,53 @@ function render(profiles,badges){
   members.sort((a,b)=>String(a[1].name||a[1].displayName).localeCompare(String(b[1].name||b[1].displayName)));
   if(!members.length){message("No public supporter profiles are available yet.");return;}
   for(const [uid,p] of members){
-    const card=document.createElement("a");card.className="supporter-card";
+    const displayName=String(p.name||p.displayName).slice(0,100);
+    const card=document.createElement("a");
+    card.className="member-card supporter-card";
     card.href="supporter-profile.html?uid="+encodeURIComponent(uid);
-    const top=document.createElement("div");top.className="supporter-card-top";
-    // Public profile photographs are stored in Firebase Storage, not necessarily
-    // in publicSupporterProfiles. Use the same path as supporter-profile.html.
+    card.setAttribute("aria-label","View "+displayName+" supporter profile");
+
     const avatar=document.createElement("div");
-    avatar.className="supporter-avatar supporter-avatar-placeholder";
+    avatar.className="member-photo supporter-photo supporter-photo-placeholder";
     avatar.textContent="🐺";
+    card.append(avatar);
     getDownloadURL(storageRef(storage,"supporter-avatars/"+uid+"/profile.webp"))
       .then(url=>{
         const img=document.createElement("img");
-        img.className="supporter-avatar";
-        img.alt=String(p.name||p.displayName)+" profile photograph";
+        img.className="member-photo supporter-photo";
+        img.alt=displayName+" profile photograph";
+        img.loading="lazy";
         img.onload=()=>{if(avatar.isConnected)avatar.replaceWith(img);};
         img.onerror=()=>console.warn("Profile photograph could not load for member:",uid);
         img.src=url;
       })
       .catch(error=>console.warn("Profile photograph unavailable for member:",uid,error.code||error.message));
-    const identity=document.createElement("div");
-    const name=document.createElement("div");name.className="supporter-name";name.textContent=String(p.name||p.displayName).slice(0,100);
-    const label=document.createElement("div");label.className="supporter-label";label.textContent="TEAM WOLFPACK SUPPORTER";
-    identity.append(name,label);top.append(avatar,identity);card.append(top);
-    const featured=featuredKeys(badges?.[uid]?.featured);
-    if(featured.length){const row=document.createElement("div");row.className="supporter-badges";
-      for(const key of featured){const badge=document.createElement("span");badge.className="supporter-badge";badge.textContent=badgeInfo[key].join(" ");row.append(badge);}card.append(row);
+
+    const status=document.createElement("div");status.className="member-status";
+    const dot=document.createElement("span");dot.className="status-dot";
+    status.append(dot,document.createTextNode("SUPPORTER"));
+    const team=document.createElement("div");team.className="member-team";
+    team.textContent="TEAM WOLFPACK";
+    const name=document.createElement("div");name.className="member-name";
+    name.textContent=displayName;
+    const role=document.createElement("div");role.className="member-role";
+    role.textContent="Registered Pack Member";
+    card.append(status,team,name,role);
+
+    const awarded=badges?.[uid]?.awarded||{};
+    const featured=[...new Set(featuredKeys(badges?.[uid]?.featured))].filter(key=>awarded[key]===true);
+    if(featured.length){
+      const row=document.createElement("div");row.className="supporter-badges";
+      for(const key of featured){
+        const badge=document.createElement("span");badge.className="supporter-badge";
+        badge.textContent=badgeInfo[key].join(" ");row.append(badge);
+      }
+      card.append(row);
     }
-    const view=document.createElement("span");view.className="supporter-view";view.textContent="VIEW PROFILE  ›";card.append(view);grid.append(card);
+    const view=document.createElement("div");view.className="view";
+    view.append(document.createTextNode("VIEW PROFILE "));
+    const arrow=document.createElement("span");arrow.className="profile-arrow";arrow.textContent="›";
+    view.append(arrow);card.append(view);grid.append(card);
   }
 }
 let currentProfiles=null,currentBadges=null;
