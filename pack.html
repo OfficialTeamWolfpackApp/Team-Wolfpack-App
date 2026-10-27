@@ -1984,7 +1984,8 @@ function render(profiles,badges){
         const img=document.createElement("img");
         img.className="member-photo supporter-photo";
         img.alt=displayName+" profile photograph";
-        img.loading="lazy";
+        img.loading="eager"; // Preload before inserting: lazy images outside the DOM never load.
+        img.decoding="async";
         img.onload=()=>{if(avatar.isConnected)avatar.replaceWith(img);};
         img.onerror=()=>console.warn("Profile photograph could not load for member:",uid);
         img.src=url;
