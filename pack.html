@@ -1910,6 +1910,7 @@ onAuthStateChanged(
 <script type="module">
 import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+import { getStorage, ref as storageRef, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
 const config = {
   apiKey:"AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
   authDomain:"team-wolfpack-app.firebaseapp.com",
@@ -1921,6 +1922,7 @@ const config = {
 };
 const app = getApps().length ? getApp() : initializeApp(config);
 const db = getDatabase(app);
+const storage = getStorage(app);
 const grid = document.getElementById("registeredPackGrid");
 const badgeInfo = {
   manager:["👑","MANAGER"], official_fighter:["🥊","OFFICIAL FIGHTER"],
@@ -1946,12 +1948,21 @@ function render(profiles,badges){
     const card=document.createElement("a");card.className="supporter-card";
     card.href="supporter-profile.html?uid="+encodeURIComponent(uid);
     const top=document.createElement("div");top.className="supporter-card-top";
-    const picture=p.photoURL||p.photoUrl||p.profilePicture||p.profileImage||p.avatarUrl||p.avatarURL;
-    let avatar;
-    if(typeof picture==="string" && /^(https:\/\/|[a-zA-Z0-9_./-]+\.(png|jpe?g|webp)(\?.*)?$)/i.test(picture)){
-      avatar=document.createElement("img");avatar.className="supporter-avatar";avatar.alt="";avatar.loading="lazy";avatar.src=picture;
-      avatar.onerror=()=>{const fallback=document.createElement("div");fallback.className="supporter-avatar supporter-avatar-placeholder";fallback.textContent="🐺";avatar.replaceWith(fallback);};
-    } else {avatar=document.createElement("div");avatar.className="supporter-avatar supporter-avatar-placeholder";avatar.textContent="🐺";}
+    // Public profile photographs are stored in Firebase Storage, not necessarily
+    // in publicSupporterProfiles. Use the same path as supporter-profile.html.
+    const avatar=document.createElement("div");
+    avatar.className="supporter-avatar supporter-avatar-placeholder";
+    avatar.textContent="🐺";
+    getDownloadURL(storageRef(storage,"supporter-avatars/"+uid+"/profile.webp"))
+      .then(url=>{
+        const img=document.createElement("img");
+        img.className="supporter-avatar";
+        img.alt=String(p.name||p.displayName)+" profile photograph";
+        img.onload=()=>{if(avatar.isConnected)avatar.replaceWith(img);};
+        img.onerror=()=>console.warn("Profile photograph could not load for member:",uid);
+        img.src=url;
+      })
+      .catch(error=>console.warn("Profile photograph unavailable for member:",uid,error.code||error.message));
     const identity=document.createElement("div");
     const name=document.createElement("div");name.className="supporter-name";name.textContent=String(p.name||p.displayName).slice(0,100);
     const label=document.createElement("div");label.className="supporter-label";label.textContent="TEAM WOLFPACK SUPPORTER";
