@@ -1352,6 +1352,17 @@ body.menu-open{
 }
 
 .photo-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;color:#67dcff;font-weight:900;letter-spacing:2px;font-size:18px;line-height:1.8;background:linear-gradient(115deg,#032538,#080808 55%,#381605)}
+/* OFFICIAL TEAM BADGES — BILLY BOSSMAN BURTON */
+.wolfie-badge-panel{padding:20px;border:1px solid rgba(103,220,255,.32);border-left:3px solid #67dcff;border-right:3px solid #ff751c;border-radius:16px;background:linear-gradient(110deg,rgba(0,30,42,.94),rgba(5,5,5,.96) 50%,rgba(48,15,0,.94));box-shadow:0 14px 32px rgba(0,0,0,.42)}
+.wolfie-badge-subheading{font-size:10px;font-weight:900;letter-spacing:1.5px;color:#b7cbd4;margin:18px 0 10px}
+.wolfie-badge-subheading:first-child{margin-top:0}
+.wolfie-badge-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px}
+.wolfie-badge-card{min-height:108px;padding:15px 10px;border-radius:12px;border:1px solid rgba(103,220,255,.32);background:linear-gradient(135deg,rgba(0,74,100,.3),rgba(15,18,24,.9));text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px}
+.wolfie-badge-card.featured{border-color:rgba(255,131,46,.7);background:linear-gradient(135deg,rgba(93,43,9,.42),rgba(15,18,24,.95));box-shadow:inset 0 0 20px rgba(255,117,28,.08)}
+.wolfie-badge-icon{font-size:30px;line-height:1.2}.wolfie-badge-name{font-size:10px;font-weight:900;letter-spacing:.5px;line-height:1.35}
+.wolfie-badge-empty{font-size:12px;color:#a9bdc8;line-height:1.5}
+
+
 </style>
 
 </head>
@@ -1591,6 +1602,21 @@ PACK INFORMATION
 <div class="info-row"><span class="label">ROLE</span><span class="value" id="publicMemberRole">Corner Team</span></div>
 <div class="info-row"><span class="label">REPRESENTING</span><span class="value" id="publicMemberRepresenting">Team Wolfpack</span></div>
 </div>
+</section>
+
+
+<!-- OFFICIAL TEAM BADGES — LIVE FIREBASE -->
+<section class="section" id="wolfieBadgesSection" aria-labelledby="wolfieBadgesTitle">
+  <div class="section-kicker">OFFICIAL TEAM RECOGNITION</div>
+  <h2 class="section-title" id="wolfieBadgesTitle"><span class="ice">BADGES &amp;</span> <span class="fire">ACHIEVEMENTS</span></h2>
+  <div class="wolfie-badge-panel">
+    <p id="wolfieBadgesStatus" class="wolfie-badge-empty" role="status" aria-live="polite">Loading official team badges…</p>
+    <div id="wolfieBadgesContent" hidden>
+      <div id="wolfieFeaturedBlock" hidden><h3 class="wolfie-badge-subheading">⭐ FEATURED BADGES</h3><div class="wolfie-badge-grid" id="wolfieFeaturedBadges"></div></div>
+      <div id="wolfieOfficialBlock" hidden><h3 class="wolfie-badge-subheading">🐺 OFFICIAL TEAM BADGES</h3><div class="wolfie-badge-grid" id="wolfieOfficialBadges"></div></div>
+      <div id="wolfieAchievementsBlock" hidden><h3 class="wolfie-badge-subheading">🏆 ACHIEVEMENT BADGES</h3><div class="wolfie-badge-grid" id="wolfieAchievementBadges"></div></div>
+    </div>
+  </div>
 </section>
 
 
@@ -1979,6 +2005,50 @@ onValue(
 
 );  
   
+/* KELLY BOSSGAL MCSPORRAN — PUBLIC OFFICIAL BADGES */
+const WOLFIE_BADGE_CATALOG = [
+  ['manager','👑','MANAGER','official'],['official_fighter','🥊','OFFICIAL FIGHTER','official'],
+  ['team_wolfie','🐺','TEAM WOLFIE','official'],['administrator','🛡️','ADMINISTRATOR','official'],
+  ['official_sponsor','🤝','OFFICIAL SPONSOR','official'],['corner_team','🥊','CORNER TEAM','official'],
+  ['pack_member','💙','PACK MEMBER','official'],['founding_member','🐺','FOUNDING MEMBER','achievement'],
+  ['loyal_supporter','❤️','LOYAL SUPPORTER','achievement'],['active_member','💬','ACTIVE MEMBER','achievement'],
+  ['super_supporter','🔥','SUPER SUPPORTER','achievement'],['wolfpack_legend','🏆','WOLFPACK LEGEND','achievement'],
+  ['fight_night_supporter','🎟️','FIGHT NIGHT SUPPORTER','achievement']
+];
+const WOLFIE_BADGES_BY_ID = Object.fromEntries(WOLFIE_BADGE_CATALOG.map(b => [b[0],b]));
+function wolfieRenderBadge(container,id,isFeatured){
+  const badge=WOLFIE_BADGES_BY_ID[id];if(!badge)return;
+  const card=document.createElement('div');card.className='wolfie-badge-card'+(isFeatured?' featured':'');
+  const icon=document.createElement('span');icon.className='wolfie-badge-icon';icon.textContent=badge[1];
+  const name=document.createElement('span');name.className='wolfie-badge-name';name.textContent=badge[2];
+  card.append(icon,name);container.append(card);
+}
+onValue(ref(database,'officialTeamBadges/kelly-mcsporran'),function(snapshot){
+  const data=snapshot.val()||{};
+  const awarded=new Set(Object.entries(data.awarded||{}).filter(([id,val])=>val===true && WOLFIE_BADGES_BY_ID[id]).map(([id])=>id));
+  const raw=data.featured||{};
+  const featured=(Array.isArray(raw)?raw:Object.keys(raw).sort((a,b)=>Number(a)-Number(b)).map(k=>raw[k])).filter((id,i,arr)=>awarded.has(id)&&arr.indexOf(id)===i).slice(0,4);
+  const status=document.getElementById('wolfieBadgesStatus');
+  const content=document.getElementById('wolfieBadgesContent');
+  const groups=[['wolfieFeaturedBlock','wolfieFeaturedBadges',featured,true],
+    ['wolfieOfficialBlock','wolfieOfficialBadges',WOLFIE_BADGE_CATALOG.filter(b=>b[3]==='official'&&awarded.has(b[0])).map(b=>b[0]),false],
+    ['wolfieAchievementsBlock','wolfieAchievementBadges',WOLFIE_BADGE_CATALOG.filter(b=>b[3]==='achievement'&&awarded.has(b[0])).map(b=>b[0]),false]];
+  for(const [blockId,gridId,ids,highlight] of groups){
+    const block=document.getElementById(blockId),grid=document.getElementById(gridId);
+    grid.replaceChildren();block.hidden=!ids.length;
+    ids.forEach(id=>wolfieRenderBadge(grid,id,highlight));
+  }
+  content.hidden=!awarded.size;
+  status.hidden=awarded.size>0;
+  status.textContent=awarded.size?'':'No badges awarded yet.';
+},function(error){
+  const status=document.getElementById('wolfieBadgesStatus');
+  status.hidden=false;status.textContent='Unable to load badges right now.';
+  document.getElementById('wolfieBadgesContent').hidden=true;
+  console.error('Unable to load Kelly Bossgal McSporran badges:',error);
+});
+
+
 const ADMIN_UIDS =
   new Set([
     "PRGa9TsCW0QDn1QtoUXyYjEi7YB3",
