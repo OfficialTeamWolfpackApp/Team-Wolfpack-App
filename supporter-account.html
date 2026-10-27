@@ -47,6 +47,18 @@ main{max-width:850px}.profile-hero{position:relative;overflow:hidden;text-align:
   .profile-hero .avatar{width:min(100%,245px);height:290px}
   .profile-hero .avatar-actions button{flex:1 1 150px}
 }
+
+/* STEP 195 — Premium Wolfpack navigation tabs (visual only). */
+.profile-nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:24px 0 18px}
+.profile-nav .profile-tab{position:relative;isolation:isolate;min-width:0;min-height:56px;display:flex;align-items:center;justify-content:center;padding:13px 9px;overflow:hidden;border:1px solid #2d5367;border-radius:12px;background:linear-gradient(145deg,#102737,#07131d);color:#c8e6f4;font-size:12px;font-weight:900;letter-spacing:.9px;line-height:1.3;box-shadow:inset 0 1px 0 #ffffff12,0 5px 14px #0005;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,background .18s ease,color .18s ease}
+.profile-nav .profile-tab::after{content:"";position:absolute;bottom:0;left:12%;right:12%;height:3px;border-radius:4px 4px 0 0;background:transparent;transition:background .18s ease}
+.profile-nav .profile-tab[aria-selected="true"]{border-color:#54d6ff;color:#fff;background:linear-gradient(115deg,#07587a 0%,#102331 50%,#783513 100%);box-shadow:0 0 0 1px #4ccfff33,0 7px 22px #00bfff24,inset 0 1px 0 #ffffff28}
+.profile-nav .profile-tab[aria-selected="true"]::after{background:linear-gradient(90deg,#00bfff 0%,#e6faff 50%,#ff751c 100%)}
+.profile-nav .profile-tab:focus-visible{outline:3px solid #a8edff;outline-offset:3px}
+.profile-nav .profile-tab:active{transform:scale(.97)}
+@media(hover:hover) and (pointer:fine){.profile-nav .profile-tab:hover{transform:translateY(-2px);border-color:#5bd5ff;box-shadow:0 8px 22px #0008,0 0 12px #00bfff1c}}
+@media(max-width:520px){.profile-nav{gap:7px;margin:18px 0 15px}.profile-nav .profile-tab{min-height:52px;padding:11px 4px;font-size:10px;letter-spacing:.2px;border-radius:10px}}
+@media(prefers-reduced-motion:reduce){.profile-nav .profile-tab,.profile-nav .profile-tab::after{transition:none}}
 </style></head><body><main>
 <a class="back-top" href="home.html" aria-label="Back to Team Wolfpack home"><span class="back-top-arrow" aria-hidden="true">←</span><span>BACK TO TEAM WOLFPACK</span></a>
 <img src="icon-192.png" class="logo" alt="Team Wolfpack logo"><h1>MY WOLFPACK <span>PROFILE</span></h1><p class="sub">ONE PACK • ONE PURPOSE</p>
