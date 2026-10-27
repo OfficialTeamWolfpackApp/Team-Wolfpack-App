@@ -1144,6 +1144,25 @@ a.member-card:active{
 
 }
 
+
+/* REGISTERED PACK MEMBERS */
+.supporters-section{margin-top:38px;padding-top:25px;border-top:1px solid rgba(103,220,255,.22)}
+.supporters-heading{font-size:20px;font-weight:900;letter-spacing:.5px}
+.supporters-heading span{color:#ff751c}
+.supporters-intro{margin:9px 0 20px;color:#a4b9c5;font-size:12px;line-height:1.6}
+.supporters-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:15px}
+.supporter-card{display:block;text-decoration:none;color:#fff;border:1px solid rgba(103,220,255,.3);border-radius:16px;padding:20px;background:linear-gradient(125deg,rgba(0,170,235,.12),#071018 55%,rgba(255,90,0,.10));box-shadow:0 10px 28px rgba(0,0,0,.28)}
+.supporter-card:focus-visible{outline:2px solid #67dcff;outline-offset:3px}
+.supporter-card-top{display:flex;gap:14px;align-items:center}
+.supporter-avatar{width:72px;height:72px;flex:none;border-radius:50%;border:3px solid #00bfff;outline:2px solid #ff751c;object-fit:cover;background:#11232d}
+.supporter-avatar-placeholder{display:flex;align-items:center;justify-content:center;font-size:32px}
+.supporter-name{font-weight:900;font-size:16px;overflow-wrap:anywhere}
+.supporter-label{color:#67dcff;font-size:9px;font-weight:900;letter-spacing:1px;margin-top:6px}
+.supporter-badges{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+.supporter-badge{border:1px solid rgba(255,117,28,.4);border-radius:20px;padding:6px 9px;background:rgba(255,117,28,.08);font-size:10px;font-weight:800}
+.supporter-view{display:block;color:#ff8a40;font-size:10px;font-weight:900;letter-spacing:1px;margin-top:18px}
+.supporters-message{padding:16px;border:1px solid rgba(103,220,255,.18);border-radius:12px;color:#aac6d4;font-size:12px;line-height:1.6}
+
 </style>
 
 </head>
@@ -1692,6 +1711,16 @@ VIEW SPONSOR PROFILE
 </div>
 
 
+
+<!-- REGISTERED SUPPORTERS — separate from the seven official team profiles -->
+<section class="supporters-section" aria-labelledby="registeredPackHeading">
+  <h2 class="supporters-heading" id="registeredPackHeading">🐺 OUR REGISTERED <span>PACK MEMBERS</span></h2>
+  <p class="supporters-intro">Meet supporters who have activated their public Team Wolfpack profiles.</p>
+  <div class="supporters-grid" id="registeredPackGrid" aria-live="polite">
+    <p class="supporters-message">Loading registered pack members…</p>
+  </div>
+</section>
+
 <!-- =========================================
      FOOTER
 ========================================= -->
@@ -1875,6 +1904,71 @@ onAuthStateChanged(
 
 </script>
 
+
+
+<!-- REGISTERED SUPPORTER DIRECTORY -->
+<script type="module">
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+const config = {
+  apiKey:"AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+  authDomain:"team-wolfpack-app.firebaseapp.com",
+  databaseURL:"https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId:"team-wolfpack-app",
+  storageBucket:"team-wolfpack-app.firebasestorage.app",
+  messagingSenderId:"1070414578856",
+  appId:"1:1070414578856:web:df14e7d387e658eeae2e9d"
+};
+const app = getApps().length ? getApp() : initializeApp(config);
+const db = getDatabase(app);
+const grid = document.getElementById("registeredPackGrid");
+const badgeInfo = {
+  manager:["👑","MANAGER"], official_fighter:["🥊","OFFICIAL FIGHTER"],
+  team_wolfie:["🐺","TEAM WOLFIE"], administrator:["🛡️","ADMINISTRATOR"],
+  official_sponsor:["🤝","OFFICIAL SPONSOR"], corner_team:["🥊","CORNER TEAM"],
+  pack_member:["💙","PACK MEMBER"], founding_member:["🐺","FOUNDING MEMBER"],
+  loyal_supporter:["❤️","LOYAL SUPPORTER"], active_member:["💬","ACTIVE MEMBER"],
+  super_supporter:["🔥","SUPER SUPPORTER"], wolfpack_legend:["🏆","WOLFPACK LEGEND"],
+  fight_night_supporter:["🎟️","FIGHT NIGHT SUPPORTER"]
+};
+function message(text){ const p=document.createElement("p");p.className="supporters-message";p.textContent=text;grid.replaceChildren(p); }
+function featuredKeys(data){
+  if(!data) return [];
+  const values=Array.isArray(data)?data:Object.values(data);
+  return values.filter(v=>typeof v==="string" && badgeInfo[v]).slice(0,4);
+}
+function render(profiles,badges){
+  grid.replaceChildren();
+  const members=Object.entries(profiles||{}).filter(([uid,p])=>p && typeof p==="object" && p.public!==false && p.active!==false && p.isPublic!==false && p.accountStatus!=="inactive" && (p.name||p.displayName));
+  members.sort((a,b)=>String(a[1].name||a[1].displayName).localeCompare(String(b[1].name||b[1].displayName)));
+  if(!members.length){message("No public supporter profiles are available yet.");return;}
+  for(const [uid,p] of members){
+    const card=document.createElement("a");card.className="supporter-card";
+    card.href="supporter-profile.html?uid="+encodeURIComponent(uid);
+    const top=document.createElement("div");top.className="supporter-card-top";
+    const picture=p.photoURL||p.photoUrl||p.profilePicture||p.profileImage||p.avatarUrl||p.avatarURL;
+    let avatar;
+    if(typeof picture==="string" && /^(https:\/\/|[a-zA-Z0-9_./-]+\.(png|jpe?g|webp)(\?.*)?$)/i.test(picture)){
+      avatar=document.createElement("img");avatar.className="supporter-avatar";avatar.alt="";avatar.loading="lazy";avatar.src=picture;
+      avatar.onerror=()=>{const fallback=document.createElement("div");fallback.className="supporter-avatar supporter-avatar-placeholder";fallback.textContent="🐺";avatar.replaceWith(fallback);};
+    } else {avatar=document.createElement("div");avatar.className="supporter-avatar supporter-avatar-placeholder";avatar.textContent="🐺";}
+    const identity=document.createElement("div");
+    const name=document.createElement("div");name.className="supporter-name";name.textContent=String(p.name||p.displayName).slice(0,100);
+    const label=document.createElement("div");label.className="supporter-label";label.textContent="TEAM WOLFPACK SUPPORTER";
+    identity.append(name,label);top.append(avatar,identity);card.append(top);
+    const featured=featuredKeys(badges?.[uid]?.featured);
+    if(featured.length){const row=document.createElement("div");row.className="supporter-badges";
+      for(const key of featured){const badge=document.createElement("span");badge.className="supporter-badge";badge.textContent=badgeInfo[key].join(" ");row.append(badge);}card.append(row);
+    }
+    const view=document.createElement("span");view.className="supporter-view";view.textContent="VIEW PROFILE  ›";card.append(view);grid.append(card);
+  }
+}
+let currentProfiles=null,currentBadges=null;
+let profileReady=false,badgeReady=false;
+function update(){if(profileReady && badgeReady)render(currentProfiles,currentBadges);}
+onValue(ref(db,"publicSupporterProfiles"),snap=>{currentProfiles=snap.val();profileReady=true;update();},err=>message("Unable to load public supporters. Check Firebase read permissions for publicSupporterProfiles."));
+onValue(ref(db,"memberBadges"),snap=>{currentBadges=snap.val();badgeReady=true;update();},err=>{currentBadges=null;badgeReady=true;update();console.warn("Public badges unavailable:",err.code);});
+</script>
 
 <!-- =========================================
      SERVICE WORKER
