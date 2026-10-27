@@ -11182,7 +11182,10 @@ onAuthStateChanged(memberAuth,async user=>{
  const card=document.getElementById("wolfMemberCard"),title=document.getElementById("wolfMemberTitle"),actions=document.getElementById("wolfMemberActions"),avatar=document.getElementById("wolfMemberAvatar"),caption=document.getElementById("wolfMemberCaption");
  avatar.textContent="🐺";avatar.replaceChildren(document.createTextNode("🐺"));
  if(!user){title.textContent="🐺 JOIN THE PACK";caption.textContent="Become part of the Team Wolfpack community";actions.innerHTML='<a href="supporter-account.html?entry=1">🔐 SIGN IN</a><a href="supporter-account.html?entry=1&mode=register">🐺 JOIN THE PACK</a>';card.hidden=false;return;}
- title.textContent="🐺 WELCOME BACK!";caption.textContent="ONE PACK • ONE PURPOSE";actions.innerHTML='<a href="supporter-profile.html?uid='+encodeURIComponent(user.uid)+'">👤 MY PROFILE</a><a href="meet-our-pack.html">👥 MEET OUR PACK</a>';card.hidden=false;
+title.textContent="🐺 WELCOME BACK!";
+caption.textContent="ONE PACK • ONE PURPOSE";
+actions.innerHTML='<a href="supporter-profile.html?uid='+encodeURIComponent(user.uid)+'" style="flex:1 1 100%;width:100%;">👤 MY PROFILE</a>';
+card.hidden=false;
  try{const p=await get(ref(memberDb,"supporterProfiles/"+user.uid));const name=String(p.val()?.name||user.displayName||"").trim();if(name)title.textContent="🐺 WELCOME BACK, "+name.toLocaleUpperCase()+"!";}catch(e){console.warn("Member greeting:",e)}
  try{const storage= getStorage(memberApp);const url=await getDownloadURL(storageRef(storage,"supporter-avatars/"+user.uid+"/profile.webp"));const img=document.createElement("img");img.src=url;img.alt="";img.style.cssText="width:100%;height:100%;border-radius:50%;object-fit:cover";avatar.replaceChildren(img);}catch(e){/* Default wolf avatar */}
  try{await user.reload();await user.getIdToken(true);if(!user.emailVerified)return;const privateSnap=await get(ref(memberDb,"supporterProfiles/"+user.uid));const name=String(privateSnap.val()?.name||user.displayName||"").trim();if(name.length<2||name.length>40)return;const publicRef=ref(memberDb,"publicSupporterProfiles/"+user.uid);const existing=await get(publicRef);if(!existing.exists())await set(publicRef,{name,joinedAt:serverTimestamp()});else if(existing.val()?.name!==name)await update(publicRef,{name});}catch(e){console.warn("Member directory sync:",e)}});
