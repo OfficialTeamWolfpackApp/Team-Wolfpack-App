@@ -1163,6 +1163,14 @@ a.member-card:active{
 .supporter-view{display:block;color:#ff8a40;font-size:10px;font-weight:900;letter-spacing:1px;margin-top:18px}
 .supporters-message{padding:16px;border:1px solid rgba(103,220,255,.18);border-radius:12px;color:#aac6d4;font-size:12px;line-height:1.6}
 
+
+/* OFFICIAL TEAM FEATURED BADGES */
+.official-featured-badges{position:relative;z-index:3;display:flex;flex-wrap:wrap;gap:5px;margin-top:12px;max-width:100%}
+.official-featured-badges:empty{display:none}
+.official-featured-badge{display:inline-flex;align-items:center;gap:4px;padding:5px 7px;border:1px solid rgba(103,220,255,.34);border-radius:20px;background:rgba(0,140,200,.13);color:#eafaff;font-size:8px;font-weight:800;line-height:1.25;letter-spacing:.15px;overflow-wrap:anywhere}
+.official-featured-badge:nth-child(even){border-color:rgba(255,117,28,.4);background:rgba(255,90,0,.12)}
+@media(max-width:430px){.official-featured-badge{font-size:7px;padding:4px 6px}}
+
 </style>
 
 </head>
@@ -1444,6 +1452,8 @@ Co-Founder &amp; Joint Owner of Team Wolfpack
 <br>
 Manager to Team Wolfie
 </div>
+<div class="official-featured-badges" data-badge-slug="mr-wolfie" aria-label="Featured badges"></div>
+
 
 <div class="view">
 VIEW PROFILE
@@ -1492,6 +1502,8 @@ Co-Founder &amp; Joint Owner of Team Wolfpack
 <br>
 Boxer • Team Wolfie
 </div>
+<div class="official-featured-badges" data-badge-slug="mrs-wolfie" aria-label="Featured badges"></div>
+
 
 <div class="view">
 VIEW FIGHTER PROFILE
@@ -1539,6 +1551,8 @@ GREIG SLOAN
 <div class="member-role">
 Boxer • Team Sloan
 </div>
+<div class="official-featured-badges" data-badge-slug="greig-sloan" aria-label="Featured badges"></div>
+
 
 <div class="view">
 VIEW FIGHTER PROFILE
@@ -1576,6 +1590,8 @@ BRY KELLY
 <div class="member-role">
 Corner Team • Boxer
 </div>
+<div class="official-featured-badges" data-badge-slug="bry-kelly" aria-label="Featured badges"></div>
+
 
 <div class="view">
   VIEW PROFILE
@@ -1613,6 +1629,8 @@ BILLY “BOSSMAN” BURTON
 <div class="member-role">
 Corner Team • Boxer
 </div>
+<div class="official-featured-badges" data-badge-slug="billy-burton" aria-label="Featured badges"></div>
+
 
 <div class="view">
   VIEW PROFILE
@@ -1650,6 +1668,8 @@ Corner Team • Boxer
   <div class="member-role">
     Corner Team • Team Wolfie
   </div>
+<div class="official-featured-badges" data-badge-slug="kelly-mcsporran" aria-label="Featured badges"></div>
+
 
  <div class="view">
   VIEW PROFILE
@@ -1700,6 +1720,8 @@ CEO of King Clothing
 <br>
 Founder of The Kings Circle
 </div>
+<div class="official-featured-badges" data-badge-slug="richard-davies" aria-label="Featured badges"></div>
+
 
 <div class="view">
 VIEW SPONSOR PROFILE
@@ -1979,6 +2001,55 @@ let profileReady=false,badgeReady=false;
 function update(){if(profileReady && badgeReady)render(currentProfiles,currentBadges);}
 onValue(ref(db,"publicSupporterProfiles"),snap=>{currentProfiles=snap.val();profileReady=true;update();},err=>message("Unable to load public supporters. Check Firebase read permissions for publicSupporterProfiles."));
 onValue(ref(db,"memberBadges"),snap=>{currentBadges=snap.val();badgeReady=true;update();},err=>{currentBadges=null;badgeReady=true;update();console.warn("Public badges unavailable:",err.code);});
+</script>
+
+
+<!-- LIVE FEATURED BADGES FOR SEVEN OFFICIAL TEAM MEMBERS -->
+<script type="module">
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+
+const officialBadgeConfig = {
+  apiKey: "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+  authDomain: "team-wolfpack-app.firebaseapp.com",
+  databaseURL: "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "team-wolfpack-app",
+  storageBucket: "team-wolfpack-app.firebasestorage.app",
+  messagingSenderId: "1070414578856",
+  appId: "1:1070414578856:web:df14e7d387e658eeae2e9d"
+};
+const officialBadgeApp = getApps().length ? getApp() : initializeApp(officialBadgeConfig);
+const officialBadgeDb = getDatabase(officialBadgeApp);
+const officialBadgeLabels = {
+  manager:["👑","MANAGER"], official_fighter:["🥊","OFFICIAL FIGHTER"],
+  team_wolfie:["🐺","TEAM WOLFIE"], administrator:["🛡️","ADMINISTRATOR"],
+  official_sponsor:["🤝","OFFICIAL SPONSOR"], corner_team:["🥊","CORNER TEAM"],
+  pack_member:["💙","PACK MEMBER"], founding_member:["🐺","FOUNDING MEMBER"],
+  loyal_supporter:["❤️","LOYAL SUPPORTER"], active_member:["💬","ACTIVE MEMBER"],
+  super_supporter:["🔥","SUPER SUPPORTER"], wolfpack_legend:["🏆","WOLFPACK LEGEND"],
+  fight_night_supporter:["🎟️","FIGHT NIGHT SUPPORTER"]
+};
+for (const container of document.querySelectorAll("[data-badge-slug]")) {
+  const slug = container.dataset.badgeSlug;
+  onValue(ref(officialBadgeDb, "officialTeamBadges/" + slug), snapshot => {
+    const data = snapshot.val() || {};
+    const featured = data.featured || {};
+    const awarded = data.awarded || {};
+    const keys = (Array.isArray(featured) ? featured : Object.keys(featured)
+      .sort((a,b) => Number(a)-Number(b)).map(k => featured[k]));
+    const unique = [...new Set(keys.filter(key => typeof key === "string" && officialBadgeLabels[key] && awarded[key] === true))].slice(0,4);
+    const items = unique.map(key => {
+      const badge = document.createElement("span");
+      badge.className = "official-featured-badge";
+      badge.textContent = officialBadgeLabels[key].join(" ");
+      return badge;
+    });
+    container.replaceChildren(...items);
+  }, error => {
+    container.replaceChildren();
+    console.warn("Featured badges unavailable for", slug, error.code || error.message);
+  });
+}
 </script>
 
 <!-- =========================================
