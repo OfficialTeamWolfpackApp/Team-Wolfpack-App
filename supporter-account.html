@@ -19,6 +19,34 @@ main{max-width:850px}.profile-hero{position:relative;overflow:hidden;text-align:
 .back-top:focus-visible{outline:3px solid #ff8529;outline-offset:3px}
 .back-top-arrow{font-size:20px;line-height:1;color:#80e2ff}
 @media(max-width:520px){.back-top{width:auto;max-width:100%;margin-bottom:22px;font-size:11px;padding:12px 14px}}
+
+/* STEP 193 — Fighter-style rectangular profile portrait (presentation only). */
+.profile-hero{padding:26px 20px 24px}
+.profile-hero .hero-kicker{line-height:1.6}
+.profile-hero .avatar-wrap{margin:20px auto 18px;max-width:390px}
+.profile-hero .avatar{
+  width:min(100%,290px);
+  height:340px;
+  margin:0 auto 20px;
+  border-radius:16px;
+  border:2px solid #38ceff;
+  outline:2px solid #ff8529;
+  outline-offset:3px;
+  object-fit:cover;
+  object-position:center 22%;
+  background:#091620;
+  box-shadow:-9px 0 24px #00bfff2b,9px 0 24px #ff762b2b,0 15px 32px #0009;
+}
+.profile-hero .avatar-default{font-size:88px}
+.profile-hero .avatar-actions{gap:10px;margin-top:8px}
+.profile-hero .avatar-actions button{min-height:44px}
+.profile-hero #profileName{font-size:clamp(23px,4vw,30px);margin:18px 0 12px}
+.profile-hero .member-badge{padding:9px 18px}
+@media(max-width:520px){
+  .profile-hero{padding:22px 13px}
+  .profile-hero .avatar{width:min(100%,245px);height:290px}
+  .profile-hero .avatar-actions button{flex:1 1 150px}
+}
 </style></head><body><main>
 <a class="back-top" href="home.html" aria-label="Back to Team Wolfpack home"><span class="back-top-arrow" aria-hidden="true">←</span><span>BACK TO TEAM WOLFPACK</span></a>
 <img src="icon-192.png" class="logo" alt="Team Wolfpack logo"><h1>MY WOLFPACK <span>PROFILE</span></h1><p class="sub">ONE PACK • ONE PURPOSE</p>
