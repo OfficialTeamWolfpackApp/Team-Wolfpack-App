@@ -112,14 +112,40 @@ const entryFlow=new URLSearchParams(location.search).has("entry");
 if(new URLSearchParams(location.search).get("mode")==="register")mode(true);
 
 // Explicitly linked official identities. Never infer official status from display names.
-const OFFICIAL_PROFILE_LINKS=Object.freeze({
-  "PRGa9TsCW0QDn1QtoUXyYjEi7YB3":{key:"mr-wolfie",page:"mr-wolfie.html",fallbackName:"Chris “Mr Wolfie” James",fallbackRole:"Co-Founder & Joint Owner • Manager to Team Wolfie",fallbackPhoto:"mr-wolfie.jpg",fallbackBanner:"mr-wolfie-banner.png"}
+const OFFICIAL_MEMBER_DETAILS=Object.freeze({
+  "mr-wolfie":{page:"mr-wolfie.html",fallbackName:"Chris “Mr Wolfie” James",fallbackRole:"Co-Founder & Joint Owner • Manager to Team Wolfie",fallbackPhoto:"mr-wolfie.jpg",fallbackBanner:"mr-wolfie-banner.png"},
+  "mrs-wolfie":{page:"mrs-wolfie.html",fallbackName:"Zoey “Mrs Wolfie” James",fallbackRole:"Co-Founder & Joint Owner • Boxer",fallbackPhoto:"zoey-james.jpg",fallbackBanner:""},
+  "greig-sloan":{page:"greig-sloan.html",fallbackName:"Greig Sloan",fallbackRole:"Boxer • Team Sloan",fallbackPhoto:"greig-sloan.jpg",fallbackBanner:""},
+  "bry-kelly":{page:"bry-kelly.html",fallbackName:"Bry Kelly",fallbackRole:"Corner Team • Boxer",fallbackPhoto:"bry-kelly.jpg",fallbackBanner:""},
+  "billy-burton":{page:"billy-burton.html",fallbackName:"Billy “Bossman” Burton",fallbackRole:"Corner Team • Boxer",fallbackPhoto:"billy-burton.jpg",fallbackBanner:""},
+  "kelly-mcsporran":{page:"kelly-mcsporran.html",fallbackName:"Kelly “Bossgal” McSporran",fallbackRole:"Corner Team • Team Wolfie",fallbackPhoto:"kelly-mcsporran.jpeg",fallbackBanner:""},
+  "richard-davies":{page:"richard-davies.html",fallbackName:"Richard Davies",fallbackRole:"Official Sponsor",fallbackPhoto:"richard-davies.jpeg",fallbackBanner:""}
 });
+// Mr Wolfie's existing connection remains available until the admin-managed mapping is configured.
+const OFFICIAL_PROFILE_LINKS={"PRGa9TsCW0QDn1QtoUXyYjEi7YB3":{key:"mr-wolfie",...OFFICIAL_MEMBER_DETAILS["mr-wolfie"]}};
+let accountLinksUnsub=null;
+function watchOfficialAccountLinks(user){
+  if(accountLinksUnsub){accountLinksUnsub();accountLinksUnsub=null}
+  if(!user)return;
+  accountLinksUnsub=onValue(ref(db,"officialTeamAccountLinks"),snapshot=>{
+    if(auth.currentUser?.uid!==user.uid)return;
+    for(const uid of Object.keys(OFFICIAL_PROFILE_LINKS))delete OFFICIAL_PROFILE_LINKS[uid];
+    // Preserve the original admin identity if no record exists yet.
+    const map=snapshot.val()||{};
+    if(!Object.hasOwn(map,"mr-wolfie"))OFFICIAL_PROFILE_LINKS["PRGa9TsCW0QDn1QtoUXyYjEi7YB3"]={key:"mr-wolfie",...OFFICIAL_MEMBER_DETAILS["mr-wolfie"]};
+    for(const [slug,uid] of Object.entries(map))if(OFFICIAL_MEMBER_DETAILS[slug]&&typeof uid==="string")OFFICIAL_PROFILE_LINKS[uid]={key:slug,...OFFICIAL_MEMBER_DETAILS[slug]};
+    watchOfficialProfile(user);loadAvatar(user);void loadProfileBadges(user);
+    const info=OFFICIAL_PROFILE_LINKS[user.uid],link=$("myPublicProfileLink");
+    link.href=info?.page||("supporter-profile.html?uid="+encodeURIComponent(user.uid));
+    $("activatePublicProfile").classList.toggle("hidden",!!info);
+    if(!info){$("profileName").textContent="Name: "+(currentSavedName||user.displayName||"Supporter");$("cardMemberName").textContent=currentSavedName||user.displayName||"PACK MEMBER";}
+  },error=>{console.warn("Official account links unavailable:",error.code||error.message);watchOfficialProfile(user)});
+}
 let officialUnsubscribe=null,officialLinkedUid=null,officialData=null;
 function safeTeamImage(value){return typeof value==="string"&&/^[a-zA-Z0-9/_-]+\.(?:jpe?g|png|webp|gif)$/i.test(value)?value:null}
 function showOfficialPhoto(){if(!officialLinkedUid||!auth.currentUser||auth.currentUser.uid!==officialLinkedUid)return;const info=OFFICIAL_PROFILE_LINKS[officialLinkedUid];const src=safeTeamImage(officialData?.photo)||info.fallbackPhoto;showAvatar(src);$("uploadAvatar").classList.add("hidden");$("removeAvatar").classList.add("hidden");}
 function stopOfficialProfile(){if(officialUnsubscribe){officialUnsubscribe();officialUnsubscribe=null}officialLinkedUid=null;officialData=null;$("officialIdentity").hidden=true;$("uploadAvatar").classList.remove("hidden");$("officialBanner").hidden=true;$("memberBadge").textContent="🐺 PACK MEMBER";$("cardMemberRole").textContent="OFFICIAL PACK MEMBER";$("profileName").textContent="";}
-function watchOfficialProfile(user){stopOfficialProfile();const info=user&&OFFICIAL_PROFILE_LINKS[user.uid];if(!info||!user.emailVerified)return;officialLinkedUid=user.uid;$("officialIdentity").hidden=false;$("officialFullProfile").href=info.page;const draw=(data={})=>{if(auth.currentUser?.uid!==user.uid||officialLinkedUid!==user.uid)return;officialData=data;const name=String(data.name||info.fallbackName),role=String(data.role||info.fallbackRole);$("officialName").textContent=name;$("officialTeam").textContent=String(data.team||"Team Wolfpack • Team Wolfie");$("officialRole").textContent=role;$("officialRepresenting").textContent=String(data.representing||"Team Wolfpack");$("officialBiography").textContent=String(data.biography||"");$("officialBiography").hidden=!data.biography;const banner=safeTeamImage(data.banner)||info.fallbackBanner;$("officialBanner").src=banner;$("officialBanner").hidden=false;$("profileName").textContent=name;$("cardMemberName").textContent=name;$("cardMemberRole").textContent=role;$("memberBadge").textContent="👑 OFFICIAL TEAM • MANAGER";showOfficialPhoto();};draw();officialUnsubscribe=onValue(ref(db,"teamMembers/"+info.key),snap=>draw(snap.val()||{}),err=>{console.warn("Official team profile:",err);message("Official profile data unavailable; showing saved details.")});}
+function watchOfficialProfile(user){stopOfficialProfile();const info=user&&OFFICIAL_PROFILE_LINKS[user.uid];if(!info||!user.emailVerified)return;officialLinkedUid=user.uid;$("officialIdentity").hidden=false;$("officialFullProfile").href=info.page;const draw=(data={})=>{if(auth.currentUser?.uid!==user.uid||officialLinkedUid!==user.uid)return;officialData=data;const name=String(data.name||info.fallbackName),role=String(data.role||info.fallbackRole);$("officialName").textContent=name;$("officialTeam").textContent=String(data.team||"Team Wolfpack • Team Wolfie");$("officialRole").textContent=role;$("officialRepresenting").textContent=String(data.representing||"Team Wolfpack");$("officialBiography").textContent=String(data.biography||"");$("officialBiography").hidden=!data.biography;const banner=safeTeamImage(data.banner)||info.fallbackBanner;if(banner)$("officialBanner").src=banner;else $("officialBanner").removeAttribute("src");$("officialBanner").hidden=!banner;$("profileName").textContent=name;$("cardMemberName").textContent=name;$("cardMemberRole").textContent=role;$("memberBadge").textContent=info.key==="mr-wolfie"?"👑 OFFICIAL TEAM • MANAGER":"🐺 OFFICIAL TEAM MEMBER";showOfficialPhoto();};draw();officialUnsubscribe=onValue(ref(db,"teamMembers/"+info.key),snap=>draw(snap.val()||{}),err=>{console.warn("Official team profile:",err);message("Official profile data unavailable; showing saved details.")});}
 
 let avatarVersion=0;
 function showAvatar(url){$("avatarImage").classList.toggle("hidden",!url);$("avatarDefault").classList.toggle("hidden",!!url);$("removeAvatar").classList.toggle("hidden",!url);$("cardAvatarImage").classList.toggle("hidden",!url);$("cardAvatarDefault").classList.toggle("hidden",!!url);if(url){$("avatarImage").src=url;$("cardAvatarImage").src=url}else{$("avatarImage").removeAttribute("src");$("cardAvatarImage").removeAttribute("src")}}
@@ -171,7 +197,7 @@ async function loadProfileBadges(user){
  if(!user||!user.emailVerified)return;
  try{
   const paths=["memberBadges/"+user.uid];
-  if(["PRGa9TsCW0QDn1QtoUXyYjEi7YB3","SlpEQYl94DaH6j42QUyl8Kv2ujJ3"].includes(user.uid))paths.unshift("officialTeamBadges/"+(OFFICIAL_PROFILE_LINKS[user.uid]?.key||user.uid));
+  if(OFFICIAL_PROFILE_LINKS[user.uid])paths.unshift("officialTeamBadges/"+OFFICIAL_PROFILE_LINKS[user.uid].key);
   const results=await Promise.allSettled(paths.map(path=>get(ref(db,path))));
   if(request!==profileBadgeRequest||auth.currentUser?.uid!==user.uid)return;
   let data=null,readSucceeded=false;
@@ -188,7 +214,7 @@ async function loadProfileBadges(user){
   else{const empty=document.createElement("p");empty.className="live-badge-empty";empty.textContent="No featured badges selected yet.";featuredBox.appendChild(empty)}
  }catch(e){if(request===profileBadgeRequest){notice.textContent="Badges are temporarily unavailable.";console.warn("Profile badges:",e)}}
 }
-onAuthStateChanged(auth,user=>{const link=$("myPublicProfileLink");link.classList.toggle("hidden",!user);if(user)link.href=OFFICIAL_PROFILE_LINKS[user.uid]?.page||("supporter-profile.html?uid="+encodeURIComponent(user.uid));else link.removeAttribute("href");render(user);watchOfficialProfile(user);loadAvatar(user);watchProfile(user);startActivity(user);void loadProfileBadges(user);trySync(user);$("activatePublicProfile").classList.toggle("hidden",!!(user&&OFFICIAL_PROFILE_LINKS[user.uid]));});
+onAuthStateChanged(auth,user=>{const link=$("myPublicProfileLink");link.classList.toggle("hidden",!user);if(user)link.href=OFFICIAL_PROFILE_LINKS[user.uid]?.page||("supporter-profile.html?uid="+encodeURIComponent(user.uid));else link.removeAttribute("href");render(user);watchOfficialProfile(user);loadAvatar(user);watchProfile(user);watchOfficialAccountLinks(user);startActivity(user);void loadProfileBadges(user);trySync(user);$("activatePublicProfile").classList.toggle("hidden",!!(user&&OFFICIAL_PROFILE_LINKS[user.uid]));});
 function readable(e){const code=e?.code||"";if(code==="auth/email-already-in-use")return"This email already has an account. Please sign in.";if(code==="auth/invalid-email")return"Enter a valid email address.";if(code==="auth/weak-password")return"Please choose a stronger password.";if(code==="auth/too-many-requests")return"Too many attempts. Please try again later.";if(code==="auth/invalid-credential")return"Email or password not recognised.";return"Unable to complete the request. "+code}
 async function run(form,fn){const b=form.querySelector('button[type="submit"]');b.disabled=true;message("Please wait...");try{await fn()}catch(e){message(readable(e))}finally{b.disabled=false}}
 $("registerForm").onsubmit=e=>{e.preventDefault();run(e.currentTarget,async()=>{const name=$("displayName").value.trim();if(name.length<2||name.length>40){message("Display name must be between 2 and 40 characters.");return}if($("registerPassword").value!==$("confirmRegisterPassword").value){message("Passwords do not match. Please check both fields.");return}const result=await createUserWithEmailAndPassword(auth,$("registerEmail").value.trim(),$("registerPassword").value);await updateProfile(result.user,{displayName:name});await sendEmailVerification(result.user);render(result.user);message("Account created! Check your inbox and spam folder for the verification email.")})};
