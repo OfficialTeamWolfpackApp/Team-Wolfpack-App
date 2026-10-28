@@ -11211,10 +11211,12 @@ onAuthStateChanged(memberAuth,async user=>{
  card.hidden=false;
  // Always use the admin-managed UID mapping; names alone cannot grant official status.
  let official=null;
+ let officialLookupComplete=false;
  try{
    const links=await get(ref(memberDb,"officialTeamAccountLinks"));
    if(!stillHere())return;
    const map=links.val()||{};
+   officialLookupComplete=true;
    let slug=Object.keys(officialWelcomeMembers).find(k=>map[k]===user.uid);
    // Backwards compatibility for Mr Wolfie's original official profile.
    if(!slug&&user.uid==="PRGa9TsCW0QDn1QtoUXyYjEi7YB3"&&!Object.prototype.hasOwnProperty.call(map,"mr-wolfie"))slug="mr-wolfie";
@@ -11233,6 +11235,11 @@ onAuthStateChanged(memberAuth,async user=>{
    try{const p=await get(ref(memberDb,"supporterProfiles/"+user.uid));if(!stillHere())return;const name=String(p.val()?.name||user.displayName||"").trim();if(name)title.textContent="🐺 WELCOME BACK, "+name.toLocaleUpperCase()+"!";}catch(e){console.warn("Member greeting:",e)}
    try{const storage=getStorage(memberApp);const url=await getDownloadURL(storageRef(storage,"supporter-avatars/"+user.uid+"/profile.webp"));if(stillHere())setWelcomePhoto(avatar,url);}catch(e){/* Default wolf avatar */}
  }
+ // Official team accounts must never be added to the public supporter directory.
+ // Fail closed if the authoritative link lookup is unavailable.
+ if(!officialLookupComplete||official)return;
+ // Defence in depth for the two known administrator accounts.
+ if(user.uid==="PRGa9TsCW0QDn1QtoUXyYjEi7YB3"||user.uid==="SlpEQYl94DaH6j42QUyl8Kv2ujJ3")return;
  try{await user.reload();await user.getIdToken(true);if(!stillHere()||!user.emailVerified)return;const privateSnap=await get(ref(memberDb,"supporterProfiles/"+user.uid));const name=String(privateSnap.val()?.name||user.displayName||"").trim();if(name.length<2||name.length>40)return;const publicRef=ref(memberDb,"publicSupporterProfiles/"+user.uid);const existing=await get(publicRef);if(!stillHere())return;if(!existing.exists())await set(publicRef,{name,joinedAt:serverTimestamp()});else if(existing.val()?.name!==name)await update(publicRef,{name});}catch(e){console.warn("Member directory sync:",e)}
 });
 </script>
