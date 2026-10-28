@@ -11177,17 +11177,64 @@ import {getDatabase,ref,get,set,update,serverTimestamp} from "https://www.gstati
 import {getStorage,ref as storageRef,getDownloadURL} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
 const memberApp=getApps().length?getApp():initializeApp({apiKey:"AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",authDomain:"team-wolfpack-app.firebaseapp.com",databaseURL:"https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",projectId:"team-wolfpack-app",appId:"1:1070414578856:web:df14e7d387e658eeae2e9d"});
 const memberAuth=getAuth(memberApp),memberDb=getDatabase(memberApp);
+const officialWelcomeMembers={
+ "mr-wolfie":{name:"Mr Wolfie",role:"CO-FOUNDER & JOINT OWNER • TEAM WOLFIE MANAGER",photo:"mr-wolfie.jpg"},
+ "mrs-wolfie":{name:"Mrs Wolfie",role:"CO-FOUNDER & JOINT OWNER • OFFICIAL TEAM WOLFIE FIGHTER",photo:"zoey-james.jpg"},
+ "greig-sloan":{name:"Greig Sloan",role:"OFFICIAL FIGHTER • TEAM SLOAN",photo:"greig-sloan.jpg"},
+ "bry-kelly":{name:"Bry Kelly",role:"OFFICIAL CORNER TEAM MEMBER",photo:"bry-kelly.jpg"},
+ "billy-burton":{name:"Billy Bossman Burton",role:"OFFICIAL CORNER TEAM MEMBER",photo:"billy-burton.jpg"},
+ "kelly-mcsporran":{name:"Kelly McSporran",role:"OFFICIAL CORNER TEAM MEMBER",photo:"kelly-mcsporran.jpeg"},
+ "richard-davies":{name:"Richard Davies",role:"OFFICIAL TEAM WOLFPACK SPONSOR",photo:"richard-davies.jpeg"}
+};
+function safeWelcomePhoto(value){
+ if(typeof value!=="string")return "";
+ const v=value.trim();
+ if(/^[a-zA-Z0-9/_-]+\.(?:png|jpe?g|webp|gif)$/i.test(v))return v;
+ if(/^https:\/\//i.test(v)){try{const u=new URL(v);if(u.hostname==="firebasestorage.googleapis.com"||u.hostname.endsWith(".firebasestorage.app"))return v;}catch(e){}}
+ return "";
+}
+function setWelcomePhoto(avatar,url){
+ if(!url)return;
+ const img=document.createElement("img");img.alt="";img.loading="lazy";img.referrerPolicy="no-referrer";
+ img.style.cssText="width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:center top";
+ img.onerror=()=>avatar.replaceChildren(document.createTextNode("🐺"));
+ img.src=url;avatar.replaceChildren(img);
+}
 onAuthStateChanged(memberAuth,async user=>{
  const card=document.getElementById("wolfMemberCard"),title=document.getElementById("wolfMemberTitle"),actions=document.getElementById("wolfMemberActions"),avatar=document.getElementById("wolfMemberAvatar"),caption=document.getElementById("wolfMemberCaption");
- avatar.textContent="🐺";avatar.replaceChildren(document.createTextNode("🐺"));
+ const stillHere=()=>memberAuth.currentUser?.uid===user?.uid;
+ avatar.replaceChildren(document.createTextNode("🐺"));
  if(!user){title.textContent="🐺 JOIN THE PACK";caption.textContent="Become part of the Team Wolfpack community";actions.innerHTML='<a href="supporter-account.html?entry=1">🔐 SIGN IN</a><a href="supporter-account.html?entry=1&mode=register">🐺 JOIN THE PACK</a>';card.hidden=false;return;}
-title.textContent="🐺 WELCOME BACK!";
-caption.textContent="ONE PACK • ONE PURPOSE";
-actions.innerHTML='<a href="supporter-account.html" style="flex:1 1 100%;width:100%;">👤 MY PROFILE</a>';
-card.hidden=false;
- try{const p=await get(ref(memberDb,"supporterProfiles/"+user.uid));const name=String(p.val()?.name||user.displayName||"").trim();if(name)title.textContent="🐺 WELCOME BACK, "+name.toLocaleUpperCase()+"!";}catch(e){console.warn("Member greeting:",e)}
- try{const storage= getStorage(memberApp);const url=await getDownloadURL(storageRef(storage,"supporter-avatars/"+user.uid+"/profile.webp"));const img=document.createElement("img");img.src=url;img.alt="";img.style.cssText="width:100%;height:100%;border-radius:50%;object-fit:cover";avatar.replaceChildren(img);}catch(e){/* Default wolf avatar */}
- try{await user.reload();await user.getIdToken(true);if(!user.emailVerified)return;const privateSnap=await get(ref(memberDb,"supporterProfiles/"+user.uid));const name=String(privateSnap.val()?.name||user.displayName||"").trim();if(name.length<2||name.length>40)return;const publicRef=ref(memberDb,"publicSupporterProfiles/"+user.uid);const existing=await get(publicRef);if(!existing.exists())await set(publicRef,{name,joinedAt:serverTimestamp()});else if(existing.val()?.name!==name)await update(publicRef,{name});}catch(e){console.warn("Member directory sync:",e)}});
+ title.textContent="🐺 WELCOME BACK!";
+ caption.textContent="🐺 PACK MEMBER • ONE PACK • ONE PURPOSE";
+ actions.innerHTML='<a href="supporter-account.html" style="flex:1 1 100%;width:100%;">👤 MY PROFILE</a>';
+ card.hidden=false;
+ // Always use the admin-managed UID mapping; names alone cannot grant official status.
+ let official=null;
+ try{
+   const links=await get(ref(memberDb,"officialTeamAccountLinks"));
+   if(!stillHere())return;
+   const map=links.val()||{};
+   let slug=Object.keys(officialWelcomeMembers).find(k=>map[k]===user.uid);
+   // Backwards compatibility for Mr Wolfie's original official profile.
+   if(!slug&&user.uid==="PRGa9TsCW0QDn1QtoUXyYjEi7YB3"&&!Object.prototype.hasOwnProperty.call(map,"mr-wolfie"))slug="mr-wolfie";
+   if(slug){
+     official=officialWelcomeMembers[slug];
+     let record={};
+     try{const snap=await get(ref(memberDb,"teamMembers/"+slug));record=snap.val()||{};}catch(e){console.warn("Official welcome details:",e)}
+     if(!stillHere())return;
+     const label=official.name;
+     title.textContent="🐺 WELCOME BACK, "+label.toLocaleUpperCase()+"!";
+     caption.textContent="⭐ OFFICIAL TEAM MEMBER • "+String(record.role||official.role).toLocaleUpperCase();
+     setWelcomePhoto(avatar,safeWelcomePhoto(record.photo)||safeWelcomePhoto(official.photo));
+   }
+ }catch(e){console.warn("Official welcome lookup:",e)}
+ if(!official){
+   try{const p=await get(ref(memberDb,"supporterProfiles/"+user.uid));if(!stillHere())return;const name=String(p.val()?.name||user.displayName||"").trim();if(name)title.textContent="🐺 WELCOME BACK, "+name.toLocaleUpperCase()+"!";}catch(e){console.warn("Member greeting:",e)}
+   try{const storage=getStorage(memberApp);const url=await getDownloadURL(storageRef(storage,"supporter-avatars/"+user.uid+"/profile.webp"));if(stillHere())setWelcomePhoto(avatar,url);}catch(e){/* Default wolf avatar */}
+ }
+ try{await user.reload();await user.getIdToken(true);if(!stillHere()||!user.emailVerified)return;const privateSnap=await get(ref(memberDb,"supporterProfiles/"+user.uid));const name=String(privateSnap.val()?.name||user.displayName||"").trim();if(name.length<2||name.length>40)return;const publicRef=ref(memberDb,"publicSupporterProfiles/"+user.uid);const existing=await get(publicRef);if(!stillHere())return;if(!existing.exists())await set(publicRef,{name,joinedAt:serverTimestamp()});else if(existing.val()?.name!==name)await update(publicRef,{name});}catch(e){console.warn("Member directory sync:",e)}
+});
 </script>
 </body>
 </html>
