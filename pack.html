@@ -1155,7 +1155,7 @@ a.member-card:active{
 /* Inherit member-card sizing, side glow, gradient, and mobile responsiveness. */
 .supporter-card.member-card{display:block;min-width:0}
 .supporter-card:focus-visible{outline:2px solid #67dcff;outline-offset:3px}
-.supporter-card .supporter-photo{object-position:center center}
+.supporter-card .supporter-photo{object-position:center top} /* Match official member photographs */
 .supporter-card .supporter-photo-placeholder{display:flex;align-items:center;justify-content:center;font-size:52px;color:#67dcff;background:linear-gradient(145deg,#0b2634,#111);-webkit-mask-image:linear-gradient(to left,#000 68%,transparent 100%);mask-image:linear-gradient(to left,#000 68%,transparent 100%)}
 .supporter-card .member-name{overflow-wrap:anywhere}
 .supporter-card .supporter-badges{position:relative;z-index:3;display:flex;flex-wrap:wrap;gap:5px;margin-top:12px}
@@ -2002,6 +2002,20 @@ function render(profiles,badges){
     const role=document.createElement("div");role.className="member-role";
     role.textContent="Registered Pack Member";
     card.append(status,team,name,role);
+
+    // Display the date only when Firebase provides a valid joinedAt timestamp.
+    const joinedAt=Number(p.joinedAt);
+    if(Number.isFinite(joinedAt) && joinedAt>0){
+      const joinedDate=new Date(joinedAt);
+      if(!Number.isNaN(joinedDate.getTime())){
+        const joined=document.createElement("div");
+        joined.className="member-role supporter-joined";
+        joined.textContent="Joined "+joinedDate.toLocaleDateString("en-GB",{
+          day:"numeric",month:"short",year:"numeric"
+        });
+        card.append(joined);
+      }
+    }
 
     const awarded=badges?.[uid]?.awarded||{};
     const featured=[...new Set(featuredKeys(badges?.[uid]?.featured))].filter(key=>awarded[key]===true);
