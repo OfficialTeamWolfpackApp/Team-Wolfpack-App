@@ -9,7 +9,7 @@
 </style>
 </head>
 <body><main><img class="logo" src="icon-192.png" alt="Team Wolfpack"><h1>🐺 MEET OUR <span>PACK</span></h1><section class="card"><div id="avatarDefault" class="avatar fallback">🐺</div><img id="avatarImage" class="avatar hidden" alt="Supporter profile picture"><h2 id="name">Loading supporter…</h2><p class="badge">🐺 TEAM WOLFPACK SUPPORTER</p><p class="joined" id="joined"></p><div class="stats"><div class="stat"><strong id="likes">—</strong>LIKES</div><div class="stat"><strong id="comments">—</strong>COMMENTS</div></div>
-<section class="badges-section hidden" id="memberBadgesSection" aria-label="Member badges"><h3>⭐ Featured badges</h3><p class="badges-hint">Selected by Team Wolfpack management</p><div class="badge-list" id="featuredBadges"></div><h3 style="margin-top:20px">🏆 Awarded badges</h3><div class="badge-list" id="awardedBadges"></div><p class="badge-message hidden" id="badgeStatus" role="status"></p></section>
+<section class="badges-section hidden" id="memberBadgesSection" aria-label="Member badges"><h3>⭐ Featured badges</h3><p class="badges-hint">Selected by this supporter from badges awarded by Team Wolfpack management</p><div class="badge-list" id="featuredBadges"></div><h3 style="margin-top:20px">🏆 Awarded badges</h3><div class="badge-list" id="awardedBadges"></div><p class="badge-message hidden" id="badgeStatus" role="status"></p></section>
 <p id="status" role="status"></p><p class="note">Public supporter profiles show only a display name, profile picture, membership date, activity totals and team-awarded badges. Email addresses are never displayed.</p></section><a class="back" href="updates.html">← BACK TO LIVE UPDATES</a></main>
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
@@ -31,12 +31,13 @@ loyal_supporter:{label:"LOYAL SUPPORTER",icon:"❤️",type:"achievement"},
 active_member:{label:"ACTIVE MEMBER",icon:"💬",type:"achievement"},
 super_supporter:{label:"SUPER SUPPORTER",icon:"🔥",type:"achievement"},
 wolfpack_legend:{label:"WOLFPACK LEGEND",icon:"🏆",type:"achievement"},
-fight_night_supporter:{label:"FIGHT NIGHT SUPPORTER",icon:"🎟️",type:"achievement"}
+fight_night_supporter:{label:"FIGHT NIGHT SUPPORTER",icon:"🎟️",type:"achievement"},
+first_steps:{label:"FIRST STEPS",icon:"🐾",type:"achievement"},pack_identity:{label:"PACK IDENTITY",icon:"📸",type:"achievement"},first_voice:{label:"FIRST VOICE",icon:"💬",type:"achievement"},pack_supporter:{label:"PACK SUPPORTER",icon:"❤️",type:"achievement"},fight_night:{label:"FIGHT NIGHT",icon:"🎟️",type:"achievement"},founding_supporter:{label:"FOUNDING SUPPORTER",icon:"🐺",type:"achievement"},vip_supporter:{label:"VIP SUPPORTER",icon:"⭐",type:"achievement"},strength_in_unity:{label:"STRENGTH IN UNITY",icon:"🔥",type:"achievement"},hall_of_fame:{label:"HALL OF FAME",icon:"🏆",type:"achievement"},one_pack_one_purpose:{label:"ONE PACK ONE PURPOSE",icon:"💙",type:"achievement"}
 };
 function makeBadge(id,featured=false){const info=badgeCatalog[id];if(!info)return null;const el=document.createElement("span");el.className="award"+(info.type==="achievement"?" achievement":"")+(featured?" featured":"");el.textContent=info.icon+" "+info.label;return el}
 async function loadBadges(){
 try{
-const snap=await get(ref(db,"memberBadges/"+uid));
+const [snap,featuredSnap]=await Promise.all([get(ref(db,"memberBadges/"+uid)),get(ref(db,"memberFeaturedBadges/"+uid))]);
 if(!snap.exists())return;
 const data=snap.val()||{};
 const awarded=data.awarded&&typeof data.awarded==="object"?data.awarded:{};
@@ -45,7 +46,7 @@ if(!awardedIds.length)return;
 const section=$("memberBadgesSection");section.classList.remove("hidden");
 const awardedBox=$("awardedBadges"),featuredBox=$("featuredBadges");
 for(const id of awardedIds){const el=makeBadge(id);if(el)awardedBox.appendChild(el)}
-const featured=data.featured&&typeof data.featured==="object"?data.featured:{};
+const featured=featuredSnap.val()&&typeof featuredSnap.val()==="object"?featuredSnap.val():{};
 const featuredIds=Object.keys(featured).filter(key=>/^[0-3]$/.test(key)).sort((a,b)=>Number(a)-Number(b)).map(key=>featured[key]).filter((id,index,arr)=>typeof id==="string"&&awarded[id]===true&&Object.hasOwn(badgeCatalog,id)&&arr.indexOf(id)===index).slice(0,4);
 if(featuredIds.length){for(const id of featuredIds){const el=makeBadge(id,true);if(el)featuredBox.appendChild(el)}}
 else{const empty=document.createElement("p");empty.className="badge-empty";empty.textContent="No featured badges selected yet.";featuredBox.appendChild(empty)}
