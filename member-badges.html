@@ -208,57 +208,21 @@ footer {
     }
 
 }
-  </style>
+ .reward-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:18px 0}.stat{padding:18px;border-radius:14px;background:#0a2431;border:1px solid #32657a}.stat small{display:block;color:#9bb9c7;font-size:11px;letter-spacing:1px}.stat strong{display:block;margin-top:10px;font-size:clamp(17px,3vw,26px);color:#8be6ff}.progress-track{height:14px;border-radius:20px;background:#26353e;overflow:hidden;border:1px solid #4b6877}.progress-fill{width:0;height:100%;background:linear-gradient(90deg,#00bfff,#ff7a00)}
+ </style>
  </head>
  <body>
   <main>
    <a class="back" href="supporter-account.html">
     ← BACK TO MY PROFILE
    </a>
-   <div class="hero">
-    <div class="eyebrow">
-     🐺 OFFICIAL MEMBER COLLECTION
-    </div>
-    <h1 class="title">
-     🏅 MY
-     <span>
-      BADGES
-     </span>
-    </h1>
-    <p class="lead">
-     Your official Team Wolfpack badges, special recognition and achievements.
-    </p>
-   </div>
-   <div class="notice">
-    🚧 COLLECTION PREVIEW — This page does not yet load an individual member's awarded badges. The examples below are a catalogue preview, not proof of awards.
-   </div>
-   <section class="section">
+   <div class="hero"><div class="eyebrow">🐺 TEAM WOLFPACK REWARDS</div><h1 class="title">🏆 MY <span>REWARDS</span></h1><p class="lead">Earn points, rise through the Pack ranks and collect special achievements. Official team badges remain administrator-controlled.</p></div>
+   <div class="notice">🚧 DESIGN PREVIEW — Points, ranks and awards shown here are examples only. No member points or badge records have been changed. Live Firebase integration will follow after security checks.</div>
+   <section class="section"><h2>⭐ My Wolfpack Rewards</h2><p class="muted">Your personal points and rank will appear here once securely connected to your account.</p><div class="reward-stats"><div class="stat"><small>TOTAL POINTS</small><strong>—</strong></div><div class="stat"><small>CURRENT RANK</small><strong>Awaiting connection</strong></div><div class="stat"><small>BADGES EARNED</small><strong>—</strong></div></div><div class="progress-track" aria-label="Rank progress unavailable"><div class="progress-fill"></div></div><p class="mini">Next rank progress will appear after points are enabled.</p></section>
+   <section class="section"><h2>⭐ My Featured Badges</h2><p class="muted">Your four selected awarded badges will appear here after profile integration. Existing selections will be preserved.</p><div class="grid"><article class="badge"><span class="icon">⭐</span><strong>FEATURED BADGES</strong><small>Awaiting secure profile integration</small><span class="tag">COMING SOON</span></article></div></section>
+      <section class="section">
     <h2>
-     ⭐ My featured badges
-    </h2>
-    <p class="muted">
-     Up to four of your awarded badges will appear here once your profile is securely connected.
-    </p>
-    <div class="grid">
-     <article class="badge">
-      <span class="icon">
-       ⭐
-      </span>
-      <strong>
-       YOUR FEATURED BADGES
-      </strong>
-      <small>
-       Awaiting secure profile integration.
-      </small>
-      <span class="tag">
-       COMING SOON
-      </span>
-     </article>
-    </div>
-   </section>
-   <section class="section">
-    <h2>
-     👑 Official badge catalogue
+     🛡️ Official Team Badges
     </h2>
     <p class="muted">
      These badges identify verified positions and affiliations. They are not unlockable achievements.
@@ -275,7 +239,7 @@ footer {
        Official team management
       </small>
       <span class="tag">
-       CATALOGUE PREVIEW
+       OFFICIAL • ADMIN AWARDED
       </span>
      </article>
      <article class="badge">
@@ -364,100 +328,24 @@ footer {
      </article>
     </div>
    </section>
-   <section class="section">
-    <h2>
-     🏅 Achievements to unlock
-    </h2>
-    <p class="muted">
-     Unearned achievements are shown greyed out and locked. Actual earned/locked status will be determined from verified account records when integrated.
-    </p>
-    <div class="grid">
-     <article class="badge gold locked">
-      <span class="icon">
-       🔒 🐺
-      </span>
-      <strong>
-       FOUNDING MEMBER
-      </strong>
-      <small>
-       Recognised founding member
-      </small>
-      <span class="tag">
-       LOCKED • NOT YET EARNED
-      </span>
-     </article>
-     <article class="badge gold locked">
-      <span class="icon">
-       🔒 ❤️
-      </span>
-      <strong>
-       LOYAL SUPPORTER
-      </strong>
-      <small>
-       Awarded for continued support
-      </small>
-      <span class="tag">
-       LOCKED • NOT YET EARNED
-      </span>
-     </article>
-     <article class="badge gold locked">
-      <span class="icon">
-       🔒 💬
-      </span>
-      <strong>
-       ACTIVE MEMBER
-      </strong>
-      <small>
-       Awarded for community participation
-      </small>
-      <span class="tag">
-       LOCKED • NOT YET EARNED
-      </span>
-     </article>
-     <article class="badge gold locked">
-      <span class="icon">
-       🔒 🔥
-      </span>
-      <strong>
-       SUPER SUPPORTER
-      </strong>
-      <small>
-       Exceptional team support
-      </small>
-      <span class="tag">
-       LOCKED • NOT YET EARNED
-      </span>
-     </article>
-     <article class="badge gold locked">
-      <span class="icon">
-       🔒 🏆
-      </span>
-      <strong>
-       WOLFPACK LEGEND
-      </strong>
-      <small>
-       Special recognition by management
-      </small>
-      <span class="tag">
-       LOCKED • NOT YET EARNED
-      </span>
-     </article>
-     <article class="badge gold locked">
-      <span class="icon">
-       🔒 🎟️
-      </span>
-      <strong>
-       FIGHT NIGHT SUPPORTER
-      </strong>
-      <small>
-       Recognition for event support
-      </small>
-      <span class="tag">
-       LOCKED • NOT YET EARNED
-      </span>
-     </article>
-    </div>
-   </section>
+
+   <section class="section"><h2>🐺 Loyalty &amp; Points Ranks</h2><p class="muted">Rank milestones unlock as your verified points increase. These are catalogue previews, not awards.</p><div class="grid"><article class="badge locked"><span class="icon">🐾</span><strong>PACK STARTER</strong><small>0 points required</small><span class="tag">PREVIEW • NOT YET CONNECTED</span></article>
+<article class="badge locked"><span class="icon">🐺</span><strong>PACK MEMBER</strong><small>150 points required</small><span class="tag">PREVIEW • NOT YET CONNECTED</span></article>
+<article class="badge locked"><span class="icon">🛡️</span><strong>LOYAL WOLF</strong><small>500 points required</small><span class="tag">PREVIEW • NOT YET CONNECTED</span></article>
+<article class="badge locked"><span class="icon">⚔️</span><strong>WOLFPACK WARRIOR</strong><small>1,000 points required</small><span class="tag">PREVIEW • NOT YET CONNECTED</span></article>
+<article class="badge locked"><span class="icon">👑</span><strong>PACK LEGEND</strong><small>2,500 points required</small><span class="tag">PREVIEW • NOT YET CONNECTED</span></article>
+<article class="badge locked"><span class="icon">💎</span><strong>WOLFPACK ELITE</strong><small>5,000 points required</small><span class="tag">PREVIEW • NOT YET CONNECTED</span></article>
+<article class="badge locked"><span class="icon">🔥</span><strong>WOLFPACK IMMORTAL</strong><small>10,000 points required</small><span class="tag">PREVIEW • NOT YET CONNECTED</span></article></div></section>
+   <section class="section"><h2>🔥 Community Achievements</h2><p class="muted">Special achievements can be awarded by administrators while automatic activity tracking is not enabled.</p><div class="grid"><article class="badge locked"><span class="icon">🐾</span><strong>FIRST STEPS</strong><small>Complete registration</small><span class="tag">PREVIEW • NOT YET CONNECTED</span></article>
+<article class="badge locked"><span class="icon">📸</span><strong>PACK IDENTITY</strong><small>Complete your profile</small><span class="tag">PREVIEW • NOT YET CONNECTED</span></article>
+<article class="badge locked"><span class="icon">💬</span><strong>FIRST VOICE</strong><small>First qualifying community comment</small><span class="tag">PREVIEW • NOT YET CONNECTED</span></article>
+<article class="badge locked"><span class="icon">❤️</span><strong>PACK SUPPORTER</strong><small>Recognised community support</small><span class="tag">PREVIEW • NOT YET CONNECTED</span></article>
+<article class="badge locked"><span class="icon">🎟️</span><strong>FIGHT NIGHT</strong><small>Verified event support</small><span class="tag">PREVIEW • NOT YET CONNECTED</span></article>
+<article class="badge locked"><span class="icon">🐺</span><strong>FOUNDING SUPPORTER</strong><small>Recognition for early supporters</small><span class="tag">PREVIEW • NOT YET CONNECTED</span></article></div></section>
+   <section class="section"><h2>👑 Exclusive Recognition</h2><p class="muted">Special awards granted only by Team Wolfpack administrators. Points do not grant these badges.</p><div class="grid"><article class="badge locked"><span class="icon">⭐</span><strong>VIP SUPPORTER</strong><small>Exceptional support</small><span class="tag">PREVIEW • NOT YET CONNECTED</span></article>
+<article class="badge locked"><span class="icon">🔥</span><strong>STRENGTH IN UNITY</strong><small>Outstanding contribution</small><span class="tag">PREVIEW • NOT YET CONNECTED</span></article>
+<article class="badge locked"><span class="icon">🏆</span><strong>HALL OF FAME</strong><small>Exceptional long-term contribution</small><span class="tag">PREVIEW • NOT YET CONNECTED</span></article>
+<article class="badge locked"><span class="icon">💙</span><strong>ONE PACK ONE PURPOSE</strong><small>Special recognition from management</small><span class="tag">PREVIEW • NOT YET CONNECTED</span></article></div></section>
    <footer>
     🐺 TEAM WOLFPACK • ONE PACK • ONE PURPOSE
    </footer>
