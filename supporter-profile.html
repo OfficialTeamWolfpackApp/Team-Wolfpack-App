@@ -31,11 +31,20 @@ main{padding:22px 12px 50px}
 .stat{padding:16px 8px}
 .stat strong{font-size:28px}
 }
+
+/* STEP 1778K: supporter profile biography and social links */
+.public-details{margin:26px 0 0;text-align:left;padding:20px;border:1px solid #315f79;border-radius:16px;background:#091c29}
+.public-details h3{margin:0 0 12px;color:#a1eaff;font-size:17px}
+.public-location{color:#ffd3aa;font-size:14px;margin:0 0 16px;overflow-wrap:anywhere}
+.public-bio{color:#d6e7f0;line-height:1.65;font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere;margin:0}
+.public-socials{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}
+.public-socials a{display:inline-block;padding:10px 13px;border:1px solid #41c9ff;border-radius:10px;background:#0b2a3a;color:#c9f1ff;text-decoration:none;font-weight:700;font-size:12px;overflow-wrap:anywhere}
+.public-socials a:focus-visible{outline:3px solid #ff8529;outline-offset:2px}
 </style>
 </head>
-<body><main><img class="logo" src="icon-192.png" alt="Team Wolfpack"><h1>🐺 MEET OUR <span>PACK</span></h1><section class="card"><div id="avatarDefault" class="avatar fallback">🐺</div><img id="avatarImage" class="avatar hidden" alt="Supporter profile picture"><h2 id="name">Loading supporter…</h2><p class="badge">🐺 TEAM WOLFPACK SUPPORTER</p><p class="joined" id="joined"></p><div class="stats"><div class="stat"><strong id="likes">—</strong>LIKES</div><div class="stat"><strong id="comments">—</strong>COMMENTS</div></div>
+<body><main><img class="logo" src="icon-192.png" alt="Team Wolfpack"><h1>🐺 MEET OUR <span>PACK</span></h1><section class="card"><div id="avatarDefault" class="avatar fallback">🐺</div><img id="avatarImage" class="avatar hidden" alt="Supporter profile picture"><h2 id="name">Loading supporter…</h2><p class="badge">🐺 TEAM WOLFPACK SUPPORTER</p><p class="joined" id="joined"></p><section class="public-details hidden" id="publicDetails" aria-label="About this supporter"><h3>🐺 ABOUT ME</h3><p class="public-location hidden" id="publicLocation"></p><p class="public-bio hidden" id="publicBio"></p><div class="public-socials" id="publicSocials"></div></section><div class="stats"><div class="stat"><strong id="likes">—</strong>LIKES</div><div class="stat"><strong id="comments">—</strong>COMMENTS</div></div>
 <section class="badges-section hidden" id="memberBadgesSection" aria-label="Member badges"><h3>⭐ Featured badges</h3><p class="badges-hint">Selected by this supporter from badges awarded by Team Wolfpack management</p><div class="badge-list" id="featuredBadges"></div><h3 style="margin-top:20px">🏆 Awarded badges</h3><div class="badge-list" id="awardedBadges"></div><p class="badge-message hidden" id="badgeStatus" role="status"></p></section>
-<p id="status" role="status"></p><p class="note">Public supporter profiles show only a display name, profile picture, membership date, activity totals and team-awarded badges. Email addresses are never displayed.</p></section><a class="back" href="updates.html">← BACK TO LIVE UPDATES</a></main>
+<p id="status" role="status"></p><p class="note">Supporters control their public name, town or city, biography and social links. Email addresses are never displayed.</p></section><a class="back" href="updates.html">← BACK TO LIVE UPDATES</a></main>
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 import {getDatabase,ref,get} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
@@ -77,9 +86,31 @@ if(featuredIds.length){for(const id of featuredIds){const el=makeBadge(id,true);
 else{const empty=document.createElement("p");empty.className="badge-empty";empty.textContent="No featured badges selected yet.";featuredBox.appendChild(empty)}
 }catch(error){console.warn("Badge information unavailable",error);/* Keep public profile functional if badge reads fail. */}
 }
+/* STEP 1778K — public profile details, rendered safely without HTML injection */
+function showPublicDetails(profile){
+  const location=typeof profile.location==="string"?profile.location.trim().slice(0,80):"";
+  const bio=typeof profile.bio==="string"?profile.bio.trim().slice(0,600):"";
+  const locationEl=$("publicLocation"),bioEl=$("publicBio"),links=$("publicSocials");
+  locationEl.textContent=location?"📍 "+location:"";locationEl.classList.toggle("hidden",!location);
+  bioEl.textContent=bio;bioEl.classList.toggle("hidden",!bio);
+  const services={facebook:["Facebook",["facebook.com","fb.com"]],instagram:["Instagram",["instagram.com"]],tiktok:["TikTok",["tiktok.com"]],youtube:["YouTube",["youtube.com","youtu.be"]],website:["Website",null]};
+  links.replaceChildren();
+  for(const [key,[label,hosts]] of Object.entries(services)){
+    const value=profile[key];
+    if(typeof value!=="string"||value.length>300)continue;
+    try{
+      const url=new URL(value);
+      if(url.protocol!=="https:"||url.username||url.password||url.port)continue;
+      const hostname=url.hostname.toLowerCase();
+      if(hosts&&!hosts.some(domain=>hostname===domain||hostname.endsWith("."+domain)))continue;
+      const a=document.createElement("a");a.href=url.href;a.target="_blank";a.rel="noopener noreferrer nofollow ugc";a.textContent=label;links.append(a);
+    }catch{}
+  }
+  $("publicDetails").classList.toggle("hidden",!location&&!bio&&!links.childElementCount);
+}
 async function load(){if(!uid||!/^[a-zA-Z0-9]{10,128}$/.test(uid)){$("name").textContent="Profile not found";return}
 try{const snap=await get(ref(db,"publicSupporterProfiles/"+uid));if(!snap.exists()){$("name").textContent="Profile not available";$("status").textContent="This supporter has not activated their public profile yet.";return}
-const p=snap.val();$("name").textContent=String(p.name||"Supporter").slice(0,40);if(Number.isFinite(p.joinedAt))$("joined").textContent="Public profile created "+new Date(p.joinedAt).toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"});
+const p=snap.val();showPublicDetails(p);$("name").textContent=String(p.name||"Supporter").slice(0,40);if(Number.isFinite(p.joinedAt))$("joined").textContent="Public profile created "+new Date(p.joinedAt).toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"});
 getDownloadURL(storageRef(storage,"supporter-avatars/"+uid+"/profile.webp")).then(url=>{$("avatarImage").src=url;$("avatarImage").classList.remove("hidden");$("avatarDefault").classList.add("hidden")}).catch(()=>{});
 // Badge retrieval is independent of activity totals; an unavailable badge read cannot break the profile.
 void loadBadges();
