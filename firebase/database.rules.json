@@ -1,0 +1,415 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "updates": {
+      ".indexOn": [
+        "timestamp"
+      ],
+      ".read": true,
+      ".write": "auth != null && (auth.uid === 'PRGa9TsCW0QDn1QtoUXyYjEi7YB3' || auth.uid === 'SlpEQYl94DaH6j42QUyl8Kv2ujJ3')"
+    },
+    "fights": {
+      ".read": true,
+      ".write": "auth != null && (auth.uid === 'PRGa9TsCW0QDn1QtoUXyYjEi7YB3' || auth.uid === 'SlpEQYl94DaH6j42QUyl8Kv2ujJ3')"
+    },
+    "fighterStatuses": {
+      ".read": true,
+      ".write": "auth != null && (auth.uid === 'PRGa9TsCW0QDn1QtoUXyYjEi7YB3' || auth.uid === 'SlpEQYl94DaH6j42QUyl8Kv2ujJ3')"
+    },
+    "profiles": {
+      ".read": true,
+      ".write": "auth != null && (auth.uid === 'PRGa9TsCW0QDn1QtoUXyYjEi7YB3' || auth.uid === 'SlpEQYl94DaH6j42QUyl8Kv2ujJ3')",
+      "$profileId": {
+        ".validate": "newData.hasChildren(['name', 'team', 'role', 'representing'])",
+        "name": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+        },
+        "team": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+        },
+        "role": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+        },
+        "representing": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+        },
+        "biography": {
+          ".validate": "newData.isString() && newData.val().length <= 10000"
+        },
+        "photo": {
+          ".validate": "newData.isString() && newData.val().length <= 500"
+        },
+        "banner": {
+          ".validate": "newData.isString() && newData.val().length <= 500"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "teamMembers": {
+      ".read": true,
+      ".write": "auth != null && (auth.uid === 'PRGa9TsCW0QDn1QtoUXyYjEi7YB3' || auth.uid === 'SlpEQYl94DaH6j42QUyl8Kv2ujJ3')",
+      "$memberId": {
+        ".validate": "newData.hasChildren(['name', 'team', 'role', 'representing', 'biography'])",
+        "name": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+        },
+        "team": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+        },
+        "role": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+        },
+        "representing": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+        },
+        "biography": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 10000"
+        },
+        "photo": {
+          ".validate": "newData.isString() && newData.val().length <= 500"
+        },
+        "banner": {
+          ".validate": "newData.isString() && newData.val().length <= 500"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "mrsWolfieTeamMembers": {
+      ".read": true,
+      ".write": "auth != null && (auth.uid === 'PRGa9TsCW0QDn1QtoUXyYjEi7YB3' || auth.uid === 'SlpEQYl94DaH6j42QUyl8Kv2ujJ3')",
+      "$memberId": {
+        ".validate": "newData.hasChildren(['name', 'team', 'role', 'representing', 'visible'])",
+        "name": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+        },
+        "nickname": {
+          ".validate": "newData.isString() && newData.val().length <= 100"
+        },
+        "team": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+        },
+        "role": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+        },
+        "representing": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+        },
+        "photo": {
+          ".validate": "newData.isString() && newData.val().length <= 500"
+        },
+        "banner": {
+          ".validate": "newData.isString() && newData.val().length <= 500"
+        },
+        "biography": {
+          ".validate": "newData.isString() && newData.val().length <= 10000"
+        },
+        "visible": {
+          ".validate": "newData.isBoolean()"
+        },
+        "updatedAt": {
+          ".validate": "newData.isNumber()"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "sponsors": {
+      ".read": true,
+      ".write": "auth != null && (auth.uid === 'PRGa9TsCW0QDn1QtoUXyYjEi7YB3' || auth.uid === 'SlpEQYl94DaH6j42QUyl8Kv2ujJ3')",
+      "$sponsorId": {
+        ".validate": "newData.hasChildren(['name', 'team', 'category', 'logo'])",
+        "name": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+        },
+        "team": {
+          ".validate": "newData.isString() && (newData.val() === 'wolfie' || newData.val() === 'sloan' || newData.val() === 'wolfpack')"
+        },
+        "category": {
+          ".validate": "newData.isString() && (newData.val() === 'main' || newData.val() === 'supporter')"
+        },
+        "logo": {
+          ".validate": "newData.isString() && newData.val().length <= 500"
+        },
+        "description": {
+          ".validate": "newData.isString() && newData.val().length <= 5000"
+        },
+        "website": {
+          ".validate": "newData.isString() && newData.val().length <= 500"
+        },
+        "facebook": {
+          ".validate": "newData.isString() && newData.val().length <= 500"
+        },
+        "instagram": {
+          ".validate": "newData.isString() && newData.val().length <= 500"
+        },
+        "tiktok": {
+          ".validate": "newData.isString() && newData.val().length <= 500"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "presence": {
+      ".read": "auth != null",
+      "$uid": {
+        ".write": "auth != null && auth.uid === $uid",
+        ".validate": "newData.val() === null || (newData.hasChildren(['uid','name','online','lastSeen']) && newData.child('uid').val() === auth.uid && newData.child('name').isString() && newData.child('name').val().length >= 1 && newData.child('name').val().length <= 30 && newData.child('online').isBoolean() && newData.child('lastSeen').isNumber())"
+      }
+    },
+    "wolfpackLikes": {
+      ".read": true,
+      "$uid": {
+        ".write": "auth != null && auth.uid === $uid && !data.exists() && newData.val() === true",
+        ".validate": "newData.isBoolean() && newData.val() === true"
+      }
+    },
+    "updateLikes": {
+      ".read": "auth != null && (auth.uid === 'PRGa9TsCW0QDn1QtoUXyYjEi7YB3' || auth.uid === 'SlpEQYl94DaH6j42QUyl8Kv2ujJ3')",
+      "$updateId": {
+        ".read": true,
+        "$visitorId": {
+          ".write": "auth != null && auth.token.email_verified === true && auth.uid === $visitorId && root.child('updates').child($updateId).exists() && !data.exists() && newData.val() === true",
+          ".validate": "newData.isBoolean() && newData.val() === true"
+        }
+      }
+    },
+    "supporterProfiles": {
+      ".read": "auth != null && (auth.uid === 'PRGa9TsCW0QDn1QtoUXyYjEi7YB3' || auth.uid === 'SlpEQYl94DaH6j42QUyl8Kv2ujJ3')",
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && ((auth.uid === $uid && !data.exists() && newData.exists() && newData.child('uid').val() === auth.uid && newData.child('email').val() === auth.token.email && newData.child('emailVerified').val() === auth.token.email_verified && newData.child('accountStatus').val() === 'active') || (data.exists() && newData.exists() && newData.child('name').val() !== data.child('name').val() && newData.child('uid').val() === data.child('uid').val() && newData.child('email').val() === data.child('email').val() && newData.child('emailVerified').val() === data.child('emailVerified').val() && newData.child('registeredAt').val() === data.child('registeredAt').val() && newData.child('accountStatus').val() === data.child('accountStatus').val() && ((auth.uid === $uid && auth.token.email_verified === true) || auth.uid === 'PRGa9TsCW0QDn1QtoUXyYjEi7YB3' || auth.uid === 'SlpEQYl94DaH6j42QUyl8Kv2ujJ3')))",
+        ".validate": "newData.hasChildren(['uid', 'name', 'email', 'emailVerified', 'registeredAt', 'accountStatus'])",
+        "uid": {
+          ".validate": "newData.isString() && (newData.val() === auth.uid || (data.exists() && newData.val() === data.val() && (auth.uid === 'PRGa9TsCW0QDn1QtoUXyYjEi7YB3' || auth.uid === 'SlpEQYl94DaH6j42QUyl8Kv2ujJ3')))"
+        },
+        "name": {
+          ".validate": "newData.isString() && newData.val().length >= 2 && newData.val().length <= 40"
+        },
+        "email": {
+          ".validate": "newData.isString() && newData.val() === auth.token.email"
+        },
+        "emailVerified": {
+          ".validate": "newData.isBoolean() && newData.val() === auth.token.email_verified"
+        },
+        "registeredAt": {
+          ".validate": "newData.isNumber() && ((newData.val() <= now && newData.val() >= now - 60000) || (data.exists() && newData.val() === data.val()))"
+        },
+        "accountStatus": {
+          ".validate": "newData.isString() && newData.val() === 'active'"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "publicSupporterProfiles": {
+      ".read": true,
+      "$uid": {
+        ".write": "auth != null && auth.uid === $uid && auth.token.email_verified === true && newData.exists() && newData.child('name').isString() && newData.child('name').val().length >= 2 && newData.child('name').val().length <= 40 && newData.child('joinedAt').isNumber() && (( !data.exists() && newData.child('joinedAt').val() === now) || (data.exists() && newData.child('joinedAt').val() === data.child('joinedAt').val()))",
+        ".validate": "newData.hasChildren(['name', 'joinedAt'])",
+        "name": {
+          ".validate": "newData.isString() && newData.val().length >= 2 && newData.val().length <= 40"
+        },
+        "joinedAt": {
+          ".validate": "newData.isNumber()"
+        },
+        "$other": {
+          ".validate": false
+        },
+        "location": {
+          ".validate": "newData.isString() && newData.val().length <= 80"
+        },
+        "bio": {
+          ".validate": "newData.isString() && newData.val().length <= 600"
+        },
+        "facebook": {
+          ".validate": "newData.isString() && newData.val().length <= 300 && newData.val().matches(/^https:\\/\\/([a-zA-Z0-9-]+\\.)*(facebook|fb)\\.com\\/[^\\s]*$/)"
+        },
+        "instagram": {
+          ".validate": "newData.isString() && newData.val().length <= 300 && newData.val().matches(/^https:\\/\\/([a-zA-Z0-9-]+\\.)*instagram\\.com\\/[^\\s]*$/)"
+        },
+        "tiktok": {
+          ".validate": "newData.isString() && newData.val().length <= 300 && newData.val().matches(/^https:\\/\\/([a-zA-Z0-9-]+\\.)*tiktok\\.com\\/[^\\s]*$/)"
+        },
+        "youtube": {
+          ".validate": "newData.isString() && newData.val().length <= 300 && newData.val().matches(/^https:\\/\\/([a-zA-Z0-9-]+\\.)*(youtube\\.com|youtu\\.be)\\/[^\\s]*$/)"
+        },
+        "website": {
+          ".validate": "newData.isString() && newData.val().length <= 300 && newData.val().matches(/^https:\\/\\/[^\\s\\/@]+(?:\\/[^\\s]*)?$/)"
+        }
+      }
+    },
+    "updateComments": {
+      ".read": "auth != null && (auth.uid === 'PRGa9TsCW0QDn1QtoUXyYjEi7YB3' || auth.uid === 'SlpEQYl94DaH6j42QUyl8Kv2ujJ3')",
+      "$updateId": {
+        ".read": true,
+        "$commentId": {
+          ".write": "auth != null && (auth.uid === 'PRGa9TsCW0QDn1QtoUXyYjEi7YB3' || auth.uid === 'SlpEQYl94DaH6j42QUyl8Kv2ujJ3' || (auth.token.email_verified === true && root.child('updates').child($updateId).exists() && ((!data.exists() && newData.exists() && newData.child('uid').val() === auth.uid) || (data.exists() && !newData.exists() && data.child('uid').val() === auth.uid))))",
+          ".validate": "newData.hasChildren(['uid', 'name', 'message', 'createdAt'])",
+          "uid": {
+            ".validate": "newData.isString() && newData.val() === auth.uid"
+          },
+          "name": {
+            ".validate": "newData.isString() && newData.val().length >= 2 && newData.val().length <= 40"
+          },
+          "message": {
+            ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 500"
+          },
+          "createdAt": {
+            ".validate": "newData.isNumber() && newData.val() <= now && newData.val() >= now - 60000"
+          },
+          "$other": {
+            ".validate": false
+          }
+        }
+      }
+    },
+    "contactSubmissionLimits": {
+      ".read": false,
+      ".write": false,
+      ".indexOn": [
+        "expiresAt"
+      ]
+    },
+    "contactEnquiries": {
+      ".read": "auth != null && (auth.uid === 'PRGa9TsCW0QDn1QtoUXyYjEi7YB3' || auth.uid === 'SlpEQYl94DaH6j42QUyl8Kv2ujJ3')",
+      ".write": "auth != null && (auth.uid === 'PRGa9TsCW0QDn1QtoUXyYjEi7YB3' || auth.uid === 'SlpEQYl94DaH6j42QUyl8Kv2ujJ3')",
+      ".indexOn": [
+        "createdAt",
+        "status"
+      ],
+      "$enquiryId": {
+        ".validate": "newData.hasChildren(['name', 'email', 'category', 'subject', 'message', 'createdAt', 'status'])",
+        "name": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+        },
+        "email": {
+          ".validate": "newData.isString() && newData.val().length > 3 && newData.val().length <= 254"
+        },
+        "phone": {
+          ".validate": "newData.isString() && newData.val().length <= 30"
+        },
+        "category": {
+          ".validate": "newData.isString() && (newData.val() === 'general' || newData.val() === 'sponsorship' || newData.val() === 'fight' || newData.val() === 'join' || newData.val() === 'tickets' || newData.val() === 'media')"
+        },
+        "subject": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 150"
+        },
+        "message": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 3000"
+        },
+        "createdAt": {
+          ".validate": "newData.isNumber()"
+        },
+        "status": {
+          ".validate": "newData.isString() && (newData.val() === 'new' || newData.val() === 'in_progress' || newData.val() === 'completed')"
+        },
+        "isRead": {
+          ".validate": "newData.isBoolean()"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "memberBadges": {
+      ".read": true,
+      "$uid": {
+        ".write": "auth != null && (auth.uid === 'PRGa9TsCW0QDn1QtoUXyYjEi7YB3' || auth.uid === 'SlpEQYl94DaH6j42QUyl8Kv2ujJ3') && root.child('supporterProfiles').child($uid).exists() && newData.exists()",
+        ".validate": "(newData.child('awarded').exists() || newData.child('empty').val() === true) && (!newData.child('empty').exists() || !newData.child('awarded').exists()) && (!newData.child('empty').exists() || !newData.child('featured').exists()) && (!newData.child('featured').child('0').exists() || newData.child('awarded').child(newData.child('featured').child('0').val()).val() === true) && (!newData.child('featured').child('1').exists() || newData.child('awarded').child(newData.child('featured').child('1').val()).val() === true) && (!newData.child('featured').child('2').exists() || newData.child('awarded').child(newData.child('featured').child('2').val()).val() === true) && (!newData.child('featured').child('3').exists() || newData.child('awarded').child(newData.child('featured').child('3').val()).val() === true)",
+        "awarded": {
+          "$badgeId": {
+            ".validate": "newData.val() === true && ($badgeId === 'manager' || $badgeId === 'official_fighter' || $badgeId === 'team_wolfie' || $badgeId === 'administrator' || $badgeId === 'official_sponsor' || $badgeId === 'corner_team' || $badgeId === 'pack_member' || $badgeId === 'founding_member' || $badgeId === 'loyal_supporter' || $badgeId === 'active_member' || $badgeId === 'super_supporter' || $badgeId === 'wolfpack_legend' || $badgeId === 'fight_night_supporter' || $badgeId === 'first_steps' || $badgeId === 'pack_identity' || $badgeId === 'first_voice' || $badgeId === 'pack_supporter' || $badgeId === 'fight_night' || $badgeId === 'founding_supporter' || $badgeId === 'vip_supporter' || $badgeId === 'strength_in_unity' || $badgeId === 'hall_of_fame' || $badgeId === 'one_pack_one_purpose')"
+          }
+        },
+        "autoHistory": {
+          "$badgeId": {
+            ".validate": "newData.val() === true && ($badgeId === 'first_steps' || $badgeId === 'pack_identity' || $badgeId === 'first_voice')"
+          }
+        },
+        "featured": {
+          "$slot": {
+            ".validate": "($slot === '0' || $slot === '1' || $slot === '2' || $slot === '3') && newData.isString()"
+          }
+        },
+        "$other": {
+          ".validate": false
+        },
+        "empty": {
+          ".validate": "newData.val() === true"
+        }
+      }
+    },
+    "memberFeaturedBadges": {
+      ".read": false,
+      "$uid": {
+        ".read": true,
+        ".write": "auth != null && auth.uid === $uid && root.child('supporterProfiles').child($uid).exists()",
+        ".validate": "newData.hasChildren() && (!newData.child('0').exists() || !newData.child('1').exists() || newData.child('0').val() !== newData.child('1').val()) && (!newData.child('0').exists() || !newData.child('2').exists() || newData.child('0').val() !== newData.child('2').val()) && (!newData.child('0').exists() || !newData.child('3').exists() || newData.child('0').val() !== newData.child('3').val()) && (!newData.child('1').exists() || !newData.child('2').exists() || newData.child('1').val() !== newData.child('2').val()) && (!newData.child('1').exists() || !newData.child('3').exists() || newData.child('1').val() !== newData.child('3').val()) && (!newData.child('2').exists() || !newData.child('3').exists() || newData.child('2').val() !== newData.child('3').val())",
+        "$slot": {
+          ".validate": "($slot === '0' || $slot === '1' || $slot === '2' || $slot === '3') && newData.isString() && root.child('memberBadges').child($uid).child('awarded').child(newData.val()).val() === true"
+        }
+      }
+    },
+    "officialTeamBadges": {
+      ".read": true,
+      "$uid": {
+        ".write": "auth != null && (auth.uid === 'PRGa9TsCW0QDn1QtoUXyYjEi7YB3' || auth.uid === 'SlpEQYl94DaH6j42QUyl8Kv2ujJ3') && ($uid === 'mr-wolfie' || $uid === 'mrs-wolfie' || $uid === 'greig-sloan' || $uid === 'bry-kelly' || $uid === 'billy-burton' || $uid === 'kelly-mcsporran' || $uid === 'richard-davies') && newData.exists()",
+        ".validate": "(newData.child('awarded').exists() || newData.child('empty').val() === true) && (!newData.child('empty').exists() || !newData.child('awarded').exists()) && (!newData.child('empty').exists() || !newData.child('featured').exists()) && (!newData.child('featured').child('0').exists() || newData.child('awarded').child(newData.child('featured').child('0').val()).val() === true) && (!newData.child('featured').child('1').exists() || newData.child('awarded').child(newData.child('featured').child('1').val()).val() === true) && (!newData.child('featured').child('2').exists() || newData.child('awarded').child(newData.child('featured').child('2').val()).val() === true) && (!newData.child('featured').child('3').exists() || newData.child('awarded').child(newData.child('featured').child('3').val()).val() === true)",
+        "awarded": {
+          "$badgeId": {
+            ".validate": "newData.val() === true && ($badgeId === 'manager' || $badgeId === 'official_fighter' || $badgeId === 'team_wolfie' || $badgeId === 'administrator' || $badgeId === 'official_sponsor' || $badgeId === 'corner_team' || $badgeId === 'pack_member' || $badgeId === 'founding_member' || $badgeId === 'loyal_supporter' || $badgeId === 'active_member' || $badgeId === 'super_supporter' || $badgeId === 'wolfpack_legend' || $badgeId === 'fight_night_supporter')"
+          }
+        },
+        "featured": {
+          "$slot": {
+            ".validate": "($slot === '0' || $slot === '1' || $slot === '2' || $slot === '3') && newData.isString()"
+          }
+        },
+        "$other": {
+          ".validate": false
+        },
+        "empty": {
+          ".validate": "newData.val() === true"
+        }
+      }
+    },
+    "officialTeamAccountLinks": {
+      ".read": "auth != null && auth.token.email_verified === true",
+      ".write": "auth != null && (auth.uid === 'PRGa9TsCW0QDn1QtoUXyYjEi7YB3' || auth.uid === 'SlpEQYl94DaH6j42QUyl8Kv2ujJ3')",
+      "$slug": {
+        ".validate": "($slug === 'mr-wolfie' || $slug === 'mrs-wolfie' || $slug === 'greig-sloan' || $slug === 'bry-kelly' || $slug === 'billy-burton' || $slug === 'kelly-mcsporran' || $slug === 'richard-davies') && newData.isString() && newData.val().matches(/^[A-Za-z0-9_-]{10,128}$/)"
+      }
+    },
+    "wolfpackPoints": {
+      ".read": "auth != null && (auth.uid === 'PRGa9TsCW0QDn1QtoUXyYjEi7YB3' || auth.uid === 'SlpEQYl94DaH6j42QUyl8Kv2ujJ3')",
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && (auth.uid === 'PRGa9TsCW0QDn1QtoUXyYjEi7YB3' || auth.uid === 'SlpEQYl94DaH6j42QUyl8Kv2ujJ3') && root.child('supporterProfiles').child($uid).exists() && newData.exists()",
+        ".validate": "newData.hasChildren(['total','lastAwardReason','updatedBy','updatedAt'])",
+        "total": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000000 && newData.val() % 1 === 0"
+        },
+        "lastAwardReason": {
+          ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 160"
+        },
+        "updatedBy": {
+          ".validate": "newData.isString() && newData.val() === auth.uid"
+        },
+        "updatedAt": {
+          ".validate": "newData.isNumber() && newData.val() <= now && newData.val() >= now - 60000"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    }
+  }
+}

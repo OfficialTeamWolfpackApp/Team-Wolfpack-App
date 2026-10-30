@@ -1,0 +1,49 @@
+name: Supporter Firebase Rules Emulator Tests
+
+on:
+  pull_request:
+    paths:
+      - 'firebase/**'
+      - 'tests/supporter-rules.test.cjs'
+      - '.github/workflows/supporter-firebase-rules.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  database-rules:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out pull request
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Set up Java for Realtime Database emulator
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Install test dependencies
+        run: npm install --no-save --package-lock=false @firebase/rules-unit-testing firebase
+
+      - name: Generate emulator-only configuration
+        run: |
+          node -e 'require("fs").writeFileSync("firebase/emulator.ci.json", JSON.stringify({database:{rules:"firebase/database.rules.json"},emulators:{database:{port:9000},ui:{enabled:false}}},null,2))'
+
+      - name: Run Firebase Realtime Database emulator authorization tests
+        env:
+          CI: 'true'
+          FIREBASE_DATABASE_EMULATOR_HOST: 127.0.0.1:9000
+        run: |
+          npx --yes firebase-tools emulators:exec \
+            --project demo-team-wolfpack \
+            --only database \
+            --config firebase/emulator.ci.json \
+            "node --test tests/supporter-rules.test.cjs"
