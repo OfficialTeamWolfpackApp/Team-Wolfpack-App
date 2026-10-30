@@ -6,11 +6,22 @@
 *{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:Arial,sans-serif;color:#f5faff;background:radial-gradient(ellipse at top left,#00374e,transparent 55%),radial-gradient(ellipse at bottom right,#512000,transparent 55%),#05090e}main{max-width:560px;margin:auto;padding:32px 18px 70px;text-align:center}.logo{width:72px;height:72px;object-fit:contain}h1{font-size:26px;letter-spacing:1px}h1 span{color:#ff8b31}.card{border:1px solid #24647b;background:#07131edb;border-radius:20px;padding:26px 20px;box-shadow:0 18px 45px #0008}.avatar{width:130px;height:130px;margin:8px auto 16px;border-radius:50%;border:4px solid #39caff;box-shadow:0 0 0 3px #ff8529,0 0 22px #ff85294a;object-fit:cover;background:#122c39}.fallback{display:flex;align-items:center;justify-content:center;font-size:62px}.hidden{display:none!important}#name{font-size:26px;margin:12px 0 7px;overflow-wrap:anywhere}.badge{color:#82dcff;font-weight:bold;font-size:13px;letter-spacing:1px}.joined{color:#b8cad5;font-size:13px;margin:20px 0}.stats{display:flex;gap:12px;margin-top:23px}.stat{flex:1;border:1px solid #315269;border-radius:12px;background:#0c1d29;padding:15px 8px;color:#bbcfdb;font-size:12px}.stat strong{display:block;color:#8bdfff;font-size:28px;margin-bottom:5px}.note{font-size:12px;color:#a7bac9;line-height:1.6}.back{display:inline-block;margin-top:25px;color:#91e1ff;text-decoration:none;font-weight:bold}#status{color:#ffc397;font-size:13px;line-height:1.5}
 /* Public badge display: read-only, uses existing Team Wolfpack palette. */
 .badges-section{margin-top:22px;text-align:left;border-top:1px solid #244658;padding-top:20px}.badges-section h3{margin:0 0 8px;font-size:17px;color:#f7fbff}.badges-hint{font-size:12px;line-height:1.5;color:#a7bac9;margin:0 0 13px}.badge-list{display:flex;flex-wrap:wrap;gap:9px}.award{display:inline-flex;align-items:center;gap:7px;padding:10px 12px;border-radius:11px;border:1px solid #32718a;background:linear-gradient(120deg,#0d2939,#101923);font-size:12px;font-weight:700;color:#e5f9ff}.award.achievement{border-color:#92682d;background:linear-gradient(120deg,#32240f,#15181b);color:#ffe3ad}.award.featured{border-color:#ff8b31;box-shadow:0 0 0 1px #ff8b3140}.badge-empty{font-size:12px;color:#a7bac9;margin:0}.badge-message{font-size:12px;color:#ffc397;margin:8px 0 0}
+
+/* Optional public supporter details — read-only */
+.public-details{margin-top:22px;padding-top:19px;border-top:1px solid #244658;text-align:left}
+.public-details[hidden],.public-field[hidden],.social-section[hidden]{display:none!important}
+.public-details h3,.social-section h3{font-size:17px;color:#8fe3ff;margin:0 0 13px}
+.public-field{margin:12px 0}.public-label{display:block;color:#ffb47a;font-size:11px;font-weight:800;letter-spacing:1px;margin-bottom:6px}
+.public-value{color:#e5f3fc;font-size:14px;line-height:1.65;overflow-wrap:anywhere;white-space:pre-wrap}
+.social-section{margin-top:20px;text-align:left}.social-links{display:flex;gap:9px;flex-wrap:wrap}
+.social-links a{display:inline-block;padding:11px 13px;border:1px solid #39caff;border-radius:10px;color:#f5faff;background:linear-gradient(110deg,#0c3549,#24202a);text-decoration:none;font-size:12px;font-weight:800}
+.social-links a:hover,.social-links a:focus-visible{border-color:#ff8529}
 </style>
 </head>
 <body><main><img class="logo" src="icon-192.png" alt="Team Wolfpack"><h1>🐺 MEET OUR <span>PACK</span></h1><section class="card"><div id="avatarDefault" class="avatar fallback">🐺</div><img id="avatarImage" class="avatar hidden" alt="Supporter profile picture"><h2 id="name">Loading supporter…</h2><p class="badge">🐺 TEAM WOLFPACK SUPPORTER</p><p class="joined" id="joined"></p><div class="stats"><div class="stat"><strong id="likes">—</strong>LIKES</div><div class="stat"><strong id="comments">—</strong>COMMENTS</div></div>
-<section class="badges-section hidden" id="memberBadgesSection" aria-label="Member badges"><h3>⭐ Featured badges</h3><p class="badges-hint">Selected by this supporter from badges awarded by Team Wolfpack management</p><div class="badge-list" id="featuredBadges"></div><h3 style="margin-top:20px">🏆 Awarded badges</h3><div class="badge-list" id="awardedBadges"></div><p class="badge-message hidden" id="badgeStatus" role="status"></p></section>
-<p id="status" role="status"></p><p class="note">Public supporter profiles show only a display name, profile picture, membership date, activity totals and team-awarded badges. Email addresses are never displayed.</p></section><a class="back" href="updates.html">← BACK TO LIVE UPDATES</a></main>
+<section class="public-details" id="publicDetails" hidden aria-label="Supporter details"><h3>🐺 ABOUT THIS SUPPORTER</h3><div class="public-field" id="locationField" hidden><span class="public-label">📍 LOCATION</span><div class="public-value" id="publicLocation"></div></div><div class="public-field" id="bioField" hidden><span class="public-label">ABOUT ME</span><div class="public-value" id="publicBio"></div></div></section><section class="social-section" id="socialSection" hidden aria-label="Supporter social media"><h3>🌐 CONNECT WITH ME</h3><div class="social-links" id="socialLinks"></div></section>
+<section class="badges-section hidden" id="memberBadgesSection" aria-label="Member badges"><h3>⭐ Featured badges</h3><p class="badges-hint">Selected by Team Wolfpack management</p><div class="badge-list" id="featuredBadges"></div><h3 style="margin-top:20px">🏆 Awarded badges</h3><div class="badge-list" id="awardedBadges"></div><p class="badge-message hidden" id="badgeStatus" role="status"></p></section>
+<p id="status" role="status"></p><p class="note">Public profiles show only information the supporter chooses to share, along with membership details, activity totals and team-awarded badges. Email addresses are never displayed.</p></section><a class="back" href="updates.html">← BACK TO LIVE UPDATES</a></main>
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 import {getDatabase,ref,get} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
@@ -31,13 +42,12 @@ loyal_supporter:{label:"LOYAL SUPPORTER",icon:"❤️",type:"achievement"},
 active_member:{label:"ACTIVE MEMBER",icon:"💬",type:"achievement"},
 super_supporter:{label:"SUPER SUPPORTER",icon:"🔥",type:"achievement"},
 wolfpack_legend:{label:"WOLFPACK LEGEND",icon:"🏆",type:"achievement"},
-fight_night_supporter:{label:"FIGHT NIGHT SUPPORTER",icon:"🎟️",type:"achievement"},
-first_steps:{label:"FIRST STEPS",icon:"🐾",type:"achievement"},pack_identity:{label:"PACK IDENTITY",icon:"📸",type:"achievement"},first_voice:{label:"FIRST VOICE",icon:"💬",type:"achievement"},pack_supporter:{label:"PACK SUPPORTER",icon:"❤️",type:"achievement"},fight_night:{label:"FIGHT NIGHT",icon:"🎟️",type:"achievement"},founding_supporter:{label:"FOUNDING SUPPORTER",icon:"🐺",type:"achievement"},vip_supporter:{label:"VIP SUPPORTER",icon:"⭐",type:"achievement"},strength_in_unity:{label:"STRENGTH IN UNITY",icon:"🔥",type:"achievement"},hall_of_fame:{label:"HALL OF FAME",icon:"🏆",type:"achievement"},one_pack_one_purpose:{label:"ONE PACK ONE PURPOSE",icon:"💙",type:"achievement"}
+fight_night_supporter:{label:"FIGHT NIGHT SUPPORTER",icon:"🎟️",type:"achievement"}
 };
 function makeBadge(id,featured=false){const info=badgeCatalog[id];if(!info)return null;const el=document.createElement("span");el.className="award"+(info.type==="achievement"?" achievement":"")+(featured?" featured":"");el.textContent=info.icon+" "+info.label;return el}
 async function loadBadges(){
 try{
-const [snap,featuredSnap]=await Promise.all([get(ref(db,"memberBadges/"+uid)),get(ref(db,"memberFeaturedBadges/"+uid))]);
+const snap=await get(ref(db,"memberBadges/"+uid));
 if(!snap.exists())return;
 const data=snap.val()||{};
 const awarded=data.awarded&&typeof data.awarded==="object"?data.awarded:{};
@@ -46,15 +56,42 @@ if(!awardedIds.length)return;
 const section=$("memberBadgesSection");section.classList.remove("hidden");
 const awardedBox=$("awardedBadges"),featuredBox=$("featuredBadges");
 for(const id of awardedIds){const el=makeBadge(id);if(el)awardedBox.appendChild(el)}
-const featured=featuredSnap.val()&&typeof featuredSnap.val()==="object"?featuredSnap.val():{};
+const featured=data.featured&&typeof data.featured==="object"?data.featured:{};
 const featuredIds=Object.keys(featured).filter(key=>/^[0-3]$/.test(key)).sort((a,b)=>Number(a)-Number(b)).map(key=>featured[key]).filter((id,index,arr)=>typeof id==="string"&&awarded[id]===true&&Object.hasOwn(badgeCatalog,id)&&arr.indexOf(id)===index).slice(0,4);
 if(featuredIds.length){for(const id of featuredIds){const el=makeBadge(id,true);if(el)featuredBox.appendChild(el)}}
 else{const empty=document.createElement("p");empty.className="badge-empty";empty.textContent="No featured badges selected yet.";featuredBox.appendChild(empty)}
 }catch(error){console.warn("Badge information unavailable",error);/* Keep public profile functional if badge reads fail. */}
 }
+
+function displayPublicDetails(p){
+  const locationText=typeof p.location==="string"?p.location.trim().slice(0,80):"";
+  const bioText=typeof p.bio==="string"?p.bio.trim().slice(0,600):"";
+  $("locationField").hidden=!locationText;
+  $("bioField").hidden=!bioText;
+  $("publicLocation").textContent=locationText;
+  $("publicBio").textContent=bioText;
+  $("publicDetails").hidden=!locationText&&!bioText;
+  const box=$("socialLinks");box.replaceChildren();
+  const networks=[
+    ["facebook","Facebook",["facebook.com","www.facebook.com","m.facebook.com","fb.com","www.fb.com"]],
+    ["instagram","Instagram",["instagram.com","www.instagram.com"]],
+    ["tiktok","TikTok",["tiktok.com","www.tiktok.com","vm.tiktok.com"]],
+    ["youtube","YouTube",["youtube.com","www.youtube.com","m.youtube.com","youtu.be"]]
+  ];
+  for(const [field,label,hosts] of networks){
+    const raw=p[field];if(typeof raw!=="string"||raw.length>300)continue;
+    try{
+      const url=new URL(raw);
+      if(url.protocol!=="https:"||url.username||url.password||!hosts.includes(url.hostname.toLowerCase()))continue;
+      const link=document.createElement("a");link.href=url.href;link.textContent=label+" ↗";
+      link.target="_blank";link.rel="noopener noreferrer nofollow";box.appendChild(link);
+    }catch(_){}
+  }
+  $("socialSection").hidden=!box.childElementCount;
+}
 async function load(){if(!uid||!/^[a-zA-Z0-9]{10,128}$/.test(uid)){$("name").textContent="Profile not found";return}
 try{const snap=await get(ref(db,"publicSupporterProfiles/"+uid));if(!snap.exists()){$("name").textContent="Profile not available";$("status").textContent="This supporter has not activated their public profile yet.";return}
-const p=snap.val();$("name").textContent=String(p.name||"Supporter").slice(0,40);if(Number.isFinite(p.joinedAt))$("joined").textContent="Public profile created "+new Date(p.joinedAt).toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"});
+const p=snap.val();displayPublicDetails(p);$("name").textContent=String(p.name||"Supporter").slice(0,40);if(Number.isFinite(p.joinedAt))$("joined").textContent="Public profile created "+new Date(p.joinedAt).toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"});
 getDownloadURL(storageRef(storage,"supporter-avatars/"+uid+"/profile.webp")).then(url=>{$("avatarImage").src=url;$("avatarImage").classList.remove("hidden");$("avatarDefault").classList.add("hidden")}).catch(()=>{});
 // Badge retrieval is independent of activity totals; an unavailable badge read cannot break the profile.
 void loadBadges();
