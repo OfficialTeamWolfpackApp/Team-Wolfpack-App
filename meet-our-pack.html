@@ -182,6 +182,45 @@
       font-weight: bold;
     }
 
+    /* STEP 1778J — SUPPORTER DIRECTORY POLISH */
+    .member {
+      position: relative;
+      overflow: hidden;
+      outline-offset: 4px;
+    }
+    .member::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #00bfff, #eafaff 50%, #ff751c);
+    }
+    .member:focus-visible {
+      outline: 3px solid #9fe3ff;
+    }
+    .member .name {
+      line-height: 1.3;
+      min-height: 2.6em;
+    }
+    .member .counts {
+      flex-wrap: wrap;
+      line-height: 1.5;
+      padding-top: 5px;
+    }
+    .member .view-profile {
+      display: block;
+      margin-top: 15px;
+      color: #ffab66;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .5px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .member { transition: none; }
+    }
+
     .back {
       display: inline-block;
       color: #8ce1ff;
@@ -255,7 +294,7 @@
     <section
       id="grid"
       class="grid"
-      aria-label="Team Wolfpack members"
+      aria-label="Registered Team Wolfpack supporters"
     ></section>
 
     <a class="back" href="home.html">
@@ -542,6 +581,13 @@
           );
 
           card.append(stats);
+
+          const viewProfile = el(
+            "span",
+            "view-profile",
+            "VIEW SUPPORTER PROFILE →"
+          );
+          card.append(viewProfile);
 
 
           /* ADD CARD TO PAGE */
