@@ -137,11 +137,24 @@ const OFFICIAL_PROFILE_LINKS={"PRGa9TsCW0QDn1QtoUXyYjEi7YB3":{key:"mr-wolfie",..
 // Query each permitted slug separately. Rules never expose the complete link directory.
 let officialLookupVersion=0;
 async function findOfficialIdentity(user){
-  if(!user)return null;
+ if(!user)return null;
 
-  // Obtain the latest official membership information from Firebase Auth.
-  const tokenResult=await user.getIdTokenResult(true);
+// Confirm that the correct account is still signed in.
+if(auth.currentUser?.uid!==user.uid){
+  throw new Error("Account changed during official identity check.");
+}
 
+// Unverified accounts cannot activate an official membership.
+if(!user.emailVerified){
+  return null;
+}
+
+// Synchronise membership against the admin-managed Firebase records.
+// If synchronisation fails, do not classify the account as a supporter.
+await syncOfficialMembership(user);
+
+// Read the refreshed Firebase authentication claims.
+const tokenResult=await user.getIdTokenResult(true);
   // Stop if the signed-in account changed during the request.
   if(auth.currentUser?.uid!==user.uid){
     throw new Error("Account changed during official identity check.");
@@ -219,11 +232,24 @@ try{
 }
   if(version!==officialLookupVersion||auth.currentUser?.uid!==user.uid)return;
   if(slug)OFFICIAL_PROFILE_LINKS[user.uid]={key:slug,...OFFICIAL_MEMBER_DETAILS[slug]};
-  watchOfficialProfile(user);void loadAvatar(user);void loadProfileBadges(user);
+  watchOfficialProfile(user);
+void loadAvatar(user);
+void loadProfileBadges(user);
   const info=OFFICIAL_PROFILE_LINKS[user.uid],link=$("myPublicProfileLink");
-  link.href=info?.page||("supporter-profile.html?uid="+encodeURIComponent(user.uid));
-  $("activatePublicProfile").classList.toggle("hidden",!!info);
-  if(!info){$("profileName").textContent="Name: "+(currentSavedName||user.displayName||"Supporter");$("cardMemberName").textContent=currentSavedName||user.displayName||"PACK MEMBER";}
+ if(!user.emailVerified){
+  link.classList.add("hidden");
+  link.removeAttribute("href");
+  $("activatePublicProfile").classList.add("hidden");
+}else if(info){
+  link.href=info.page;
+  link.classList.remove("hidden");
+  $("activatePublicProfile").classList.add("hidden");
+}else{
+  link.href="supporter-profile.html?uid="+encodeURIComponent(user.uid);
+  link.classList.remove("hidden");
+  $("activatePublicProfile").classList.remove("hidden");
+}
+    if(!info){$("profileName").textContent="Name: "+(currentSavedName||user.displayName||"Supporter");$("cardMemberName").textContent=currentSavedName||user.displayName||"PACK MEMBER";}
 }
 
 let officialUnsubscribe=null,officialLinkedUid=null,officialData=null;
