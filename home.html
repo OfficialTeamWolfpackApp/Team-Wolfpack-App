@@ -11207,6 +11207,69 @@ function setWelcomePhoto(avatar,url){
  img.onerror=()=>avatar.replaceChildren(document.createTextNode("🐺"));
  img.src=url;avatar.replaceChildren(img);
 }
+/* =========================
+   OFFICIAL MEMBERSHIP SYNC
+========================= */
+
+const HOME_OFFICIAL_SYNC_URL =
+  "https://europe-west1-team-wolfpack-app.cloudfunctions.net/syncOfficialMemberClaim";
+
+async function syncHomeOfficialMembership(user){
+
+  if(!user?.emailVerified){
+    throw new Error("Verified email required.");
+  }
+
+  if(memberAuth.currentUser?.uid!==user.uid){
+    throw new Error("Account changed during membership check.");
+  }
+
+  const token=await user.getIdToken();
+
+  const response=await fetch(HOME_OFFICIAL_SYNC_URL,{
+    method:"POST",
+    headers:{
+      "Authorization":"Bearer "+token,
+      "Content-Type":"application/json"
+    },
+    body:JSON.stringify({})
+  });
+
+  if(!response.ok){
+    throw new Error(
+      "Membership synchronisation failed: HTTP "+response.status
+    );
+  }
+
+  const result=await response.json();
+
+  if(
+    result.success!==true ||
+    typeof result.officialMember!=="boolean"
+  ){
+    throw new Error("Invalid membership response.");
+  }
+
+  if(memberAuth.currentUser?.uid!==user.uid){
+    throw new Error("Account changed during membership check.");
+  }
+
+  const tokenResult=await user.getIdTokenResult(true);
+
+  if(memberAuth.currentUser?.uid!==user.uid){
+    throw new Error("Account changed during membership check.");
+  }
+
+  if(
+    (tokenResult.claims.officialMember===true)!==result.officialMember ||
+    (tokenResult.claims.officialMemberSlug||null)!==
+      (result.officialMemberSlug||null)
+  ){
+    throw new Error("Membership claims do not match Firebase records.");
+  }
+
+  return tokenResult;
+}  
 onAuthStateChanged(memberAuth,async user=>{
  const card=document.getElementById("wolfMemberCard"),title=document.getElementById("wolfMemberTitle"),actions=document.getElementById("wolfMemberActions"),avatar=document.getElementById("wolfMemberAvatar"),caption=document.getElementById("wolfMemberCaption");
  const stillHere=()=>memberAuth.currentUser?.uid===user?.uid;
@@ -11220,8 +11283,17 @@ let official=null;
 let officialLookupComplete=false;
 
 try{
-  // Refresh the token to obtain the latest official member claims.
-  const tokenResult=await user.getIdTokenResult(true);
+ try{
+  // Only verified accounts can be checked for official membership.
+  // Unverified accounts must never enter the public supporter directory.
+  if(!user.emailVerified){
+    return;
+  }
+
+  // Synchronise official membership with Firebase before classification.
+  const tokenResult=await syncHomeOfficialMembership(user);
+
+  // Stop if the signed-in account changed during synchronisation.
   if(!stillHere())return;
 
   const claims=tokenResult.claims;
