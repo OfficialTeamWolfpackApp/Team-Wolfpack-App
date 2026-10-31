@@ -107,7 +107,7 @@ main{max-width:850px}.profile-hero{position:relative;overflow:hidden;text-align:
 <label for="newProfileInstagram">INSTAGRAM LINK</label><input id="newProfileInstagram" type="url" maxlength="300" placeholder="https://...">
 <label for="newProfileTiktok">TIKTOK LINK</label><input id="newProfileTiktok" type="url" maxlength="300" placeholder="https://...">
 <label for="newProfileYoutube">YOUTUBE LINK</label><input id="newProfileYoutube" type="url" maxlength="300" placeholder="https://..."></div>
-<div class="row"><button type="submit" id="saveMyProfile">💾 SAVE PROFILE</button><button type="button" id="cancelMyProfile" class="secondary">CANCEL</button></div><p class="note">This edits your sign-in account display name, not your official Meet the Pack name or role. Your email and permissions stay the same.</p></form><div class="row"><a id="myPublicProfileLink" class="dash-link hidden" href="#" style="flex:1;text-align:center;margin-top:0;border-color:#41c9ff">🐺 MY WOLFPACK PROFILE →</a></div><div class="row"><button type="button" id="activatePublicProfile" class="secondary">🐺 ACTIVATE PUBLIC PROFILE</button></div><p id="publicProfileStatus" class="note" role="status" aria-live="polite"></p><p id="verifyState"></p></div><div class="profile-pane" data-profile-pane="settings" hidden><h3>⚙️ ACCOUNT SETTINGS</h3><p class="settings-intro">Manage your private account information. Your email address is not displayed on your public profile.</p><p id="profileEmail"></p><div class="row"><button type="button" id="sendVerification">SEND VERIFICATION EMAIL</button><button type="button" id="refreshAccount">REFRESH STATUS</button></div><section class="dash" id="securityPanel"><h3>🛡️ ACCOUNT MANAGEMENT & SECURITY</h3><p class="note">Your email verification status is shown above. Sensitive account changes require a recent sign-in.</p><button type="button" class="secondary" id="changePasswordBtn">🔑 CHANGE PASSWORD</button><form id="changePasswordForm" class="hidden"><label for="securityPassword">CURRENT PASSWORD</label><input id="securityPassword" type="password" autocomplete="current-password" required><label for="securityNewPassword">NEW PASSWORD (MINIMUM 8 CHARACTERS)</label><input id="securityNewPassword" type="password" autocomplete="new-password" minlength="8" required><label for="securityConfirmPassword">CONFIRM NEW PASSWORD</label><input id="securityConfirmPassword" type="password" autocomplete="new-password" minlength="8" required><div class="row"><button type="submit">SAVE NEW PASSWORD</button><button type="button" class="secondary" id="cancelPasswordChange">CANCEL</button></div></form><div class="row"><button type="button" class="secondary" id="changeEmailBtn">📧 CHANGE EMAIL ADDRESS</button></div><form id="changeEmailForm" class="hidden"><label for="securityEmailPassword">CURRENT PASSWORD</label><input id="securityEmailPassword" type="password" autocomplete="current-password" required><label for="securityNewEmail">NEW EMAIL ADDRESS</label><input id="securityNewEmail" type="email" autocomplete="email" maxlength="254" required><div class="row"><button type="submit">SEND CHANGE VERIFICATION</button><button type="button" class="secondary" id="cancelEmailChange">CANCEL</button></div><p class="note">Your email will only change after you approve the verification link sent to the new address.</p></form></section><div class="row"><button type="button" class="secondary" id="signOut">🚪 SIGN OUT</button></div><p class="note">Your verified account can like and comment on Team Wolfpack Live Updates.</p></div><div class="profile-pane" data-profile-pane="activity" hidden><section id="myDashboard" class="dash hidden"><h3>📊 MY ACTIVITY</h3><div class="dash-stats"><div class="dash-stat"><strong id="myLikes">0</strong>MY LIKES</div><div class="dash-stat"><strong id="myComments">0</strong>MY COMMENTS</div></div><h3 style="margin-top:20px">❤️ ANNOUNCEMENTS I'VE LIKED</h3><ul id="myLikedList" class="activity-list"></ul><h3 style="margin-top:20px">💬 MY COMMENT HISTORY</h3><ul id="myCommentList" class="activity-list"></ul><a class="dash-link" href="updates.html">VIEW LIVE UPDATES →</a><p class="dash-note">Your activity is visible only while signed in. It reflects likes and comments saved with your account's user ID.</p></section></div></section>
+<div class="row"><button type="submit" id="saveMyProfile">💾 SAVE PROFILE</button><button type="button" id="cancelMyProfile" class="secondary">CANCEL</button></div><p class="note">Personal details can be updated here. Official team roles, banners and badges remain management-controlled.</p></form><div class="row"><a id="myPublicProfileLink" class="dash-link hidden" href="#" style="flex:1;text-align:center;margin-top:0;border-color:#41c9ff">🐺 MY WOLFPACK PROFILE →</a></div><div class="row"><button type="button" id="activatePublicProfile" class="secondary">🐺 ACTIVATE PUBLIC PROFILE</button></div><p id="publicProfileStatus" class="note" role="status" aria-live="polite"></p><p id="verifyState"></p></div><div class="profile-pane" data-profile-pane="settings" hidden><h3>⚙️ ACCOUNT SETTINGS</h3><p class="settings-intro">Manage your private account information. Your email address is not displayed on your public profile.</p><p id="profileEmail"></p><div class="row"><button type="button" id="sendVerification">SEND VERIFICATION EMAIL</button><button type="button" id="refreshAccount">REFRESH STATUS</button></div><section class="dash" id="securityPanel"><h3>🛡️ ACCOUNT MANAGEMENT & SECURITY</h3><p class="note">Your email verification status is shown above. Sensitive account changes require a recent sign-in.</p><button type="button" class="secondary" id="changePasswordBtn">🔑 CHANGE PASSWORD</button><form id="changePasswordForm" class="hidden"><label for="securityPassword">CURRENT PASSWORD</label><input id="securityPassword" type="password" autocomplete="current-password" required><label for="securityNewPassword">NEW PASSWORD (MINIMUM 8 CHARACTERS)</label><input id="securityNewPassword" type="password" autocomplete="new-password" minlength="8" required><label for="securityConfirmPassword">CONFIRM NEW PASSWORD</label><input id="securityConfirmPassword" type="password" autocomplete="new-password" minlength="8" required><div class="row"><button type="submit">SAVE NEW PASSWORD</button><button type="button" class="secondary" id="cancelPasswordChange">CANCEL</button></div></form><div class="row"><button type="button" class="secondary" id="changeEmailBtn">📧 CHANGE EMAIL ADDRESS</button></div><form id="changeEmailForm" class="hidden"><label for="securityEmailPassword">CURRENT PASSWORD</label><input id="securityEmailPassword" type="password" autocomplete="current-password" required><label for="securityNewEmail">NEW EMAIL ADDRESS</label><input id="securityNewEmail" type="email" autocomplete="email" maxlength="254" required><div class="row"><button type="submit">SEND CHANGE VERIFICATION</button><button type="button" class="secondary" id="cancelEmailChange">CANCEL</button></div><p class="note">Your email will only change after you approve the verification link sent to the new address.</p></form></section><div class="row"><button type="button" class="secondary" id="signOut">🚪 SIGN OUT</button></div><p class="note">Your verified account can like and comment on Team Wolfpack Live Updates.</p></div><div class="profile-pane" data-profile-pane="activity" hidden><section id="myDashboard" class="dash hidden"><h3>📊 MY ACTIVITY</h3><div class="dash-stats"><div class="dash-stat"><strong id="myLikes">0</strong>MY LIKES</div><div class="dash-stat"><strong id="myComments">0</strong>MY COMMENTS</div></div><h3 style="margin-top:20px">❤️ ANNOUNCEMENTS I'VE LIKED</h3><ul id="myLikedList" class="activity-list"></ul><h3 style="margin-top:20px">💬 MY COMMENT HISTORY</h3><ul id="myCommentList" class="activity-list"></ul><a class="dash-link" href="updates.html">VIEW LIVE UPDATES →</a><p class="dash-note">Your activity is visible only while signed in. It reflects likes and comments saved with your account's user ID.</p></section></div></section>
 <p id="status" role="status" aria-live="polite"></p>
 </main><script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
@@ -134,48 +134,105 @@ const OFFICIAL_MEMBER_DETAILS=Object.freeze({
 });
 // Mr Wolfie's existing connection remains available until the admin-managed mapping is configured.
 const OFFICIAL_PROFILE_LINKS={"PRGa9TsCW0QDn1QtoUXyYjEi7YB3":{key:"mr-wolfie",...OFFICIAL_MEMBER_DETAILS["mr-wolfie"]}};
-let accountLinksUnsub=null;
-function watchOfficialAccountLinks(user){
-  if(accountLinksUnsub){accountLinksUnsub();accountLinksUnsub=null}
-  if(!user)return;
-  accountLinksUnsub=onValue(ref(db,"officialTeamAccountLinks"),snapshot=>{
-    if(auth.currentUser?.uid!==user.uid)return;
-    for(const uid of Object.keys(OFFICIAL_PROFILE_LINKS))delete OFFICIAL_PROFILE_LINKS[uid];
-    // Preserve the original admin identity if no record exists yet.
-    const map=snapshot.val()||{};
-    if(!Object.hasOwn(map,"mr-wolfie"))OFFICIAL_PROFILE_LINKS["PRGa9TsCW0QDn1QtoUXyYjEi7YB3"]={key:"mr-wolfie",...OFFICIAL_MEMBER_DETAILS["mr-wolfie"]};
-    for(const [slug,uid] of Object.entries(map))if(OFFICIAL_MEMBER_DETAILS[slug]&&typeof uid==="string")OFFICIAL_PROFILE_LINKS[uid]={key:slug,...OFFICIAL_MEMBER_DETAILS[slug]};
-    watchOfficialProfile(user);loadAvatar(user);void loadProfileBadges(user);
-    const info=OFFICIAL_PROFILE_LINKS[user.uid],link=$("myPublicProfileLink");
-    link.href=info?.page||("supporter-profile.html?uid="+encodeURIComponent(user.uid));
-    $("activatePublicProfile").classList.toggle("hidden",!!info);
-    if(!info){$("profileName").textContent="Name: "+(currentSavedName||user.displayName||"Supporter");$("cardMemberName").textContent=currentSavedName||user.displayName||"PACK MEMBER";}
-  },error=>{console.warn("Official account links unavailable:",error.code||error.message);watchOfficialProfile(user)});
+// Query each permitted slug separately. Rules never expose the complete link directory.
+let officialLookupVersion=0;
+async function findOfficialIdentity(user){
+  if(!user)return null;
+  const checks=await Promise.allSettled(Object.keys(OFFICIAL_MEMBER_DETAILS).map(async slug=>{
+    const snap=await get(ref(db,"officialTeamAccountLinks/"+slug));
+    return snap.val()===user.uid?slug:null;
+  }));
+  return checks.find(x=>x.status==="fulfilled"&&x.value)?.value||null;
 }
+async function watchOfficialAccountLinks(user){
+  const version=++officialLookupVersion;
+  for(const uid of Object.keys(OFFICIAL_PROFILE_LINKS))delete OFFICIAL_PROFILE_LINKS[uid];
+  if(!user)return;
+  // Existing manager fallback is for presentation only, not database write authorisation.
+  if(user.uid==="PRGa9TsCW0QDn1QtoUXyYjEi7YB3")
+    OFFICIAL_PROFILE_LINKS[user.uid]={key:"mr-wolfie",...OFFICIAL_MEMBER_DETAILS["mr-wolfie"]};
+  const slug=await findOfficialIdentity(user);
+  if(version!==officialLookupVersion||auth.currentUser?.uid!==user.uid)return;
+  if(slug)OFFICIAL_PROFILE_LINKS[user.uid]={key:slug,...OFFICIAL_MEMBER_DETAILS[slug]};
+  watchOfficialProfile(user);void loadAvatar(user);void loadProfileBadges(user);
+  const info=OFFICIAL_PROFILE_LINKS[user.uid],link=$("myPublicProfileLink");
+  link.href=info?.page||("supporter-profile.html?uid="+encodeURIComponent(user.uid));
+  $("activatePublicProfile").classList.toggle("hidden",!!info);
+  if(!info){$("profileName").textContent="Name: "+(currentSavedName||user.displayName||"Supporter");$("cardMemberName").textContent=currentSavedName||user.displayName||"PACK MEMBER";}
+}
+
 let officialUnsubscribe=null,officialLinkedUid=null,officialData=null;
 function safeTeamImage(value){return typeof value==="string"&&/^[a-zA-Z0-9/_-]+\.(?:jpe?g|png|webp|gif)$/i.test(value)?value:null}
-function showOfficialPhoto(){if(!officialLinkedUid||!auth.currentUser||auth.currentUser.uid!==officialLinkedUid)return;const info=OFFICIAL_PROFILE_LINKS[officialLinkedUid];const src=safeTeamImage(officialData?.photo)||info.fallbackPhoto;showAvatar(src);$("uploadAvatar").classList.add("hidden");$("removeAvatar").classList.add("hidden");}
+function showOfficialPhoto(){
+  if(!officialLinkedUid||auth.currentUser?.uid!==officialLinkedUid)return;
+  const info=OFFICIAL_PROFILE_LINKS[officialLinkedUid];
+  showAvatar(safeTeamImage(officialData?.photo)||info.fallbackPhoto);
+  $("uploadAvatar").classList.remove("hidden");
+  $("removeAvatar").classList.add("hidden");
+}
 function stopOfficialProfile(){if(officialUnsubscribe){officialUnsubscribe();officialUnsubscribe=null}officialLinkedUid=null;officialData=null;$("officialIdentity").hidden=true;$("uploadAvatar").classList.remove("hidden");$("officialBanner").hidden=true;$("memberBadge").textContent="🐺 PACK MEMBER";$("cardMemberRole").textContent="OFFICIAL PACK MEMBER";$("profileName").textContent="";}
-function watchOfficialProfile(user){stopOfficialProfile();const info=user&&OFFICIAL_PROFILE_LINKS[user.uid];if(!info||!user.emailVerified)return;officialLinkedUid=user.uid;$("officialIdentity").hidden=false;$("officialFullProfile").href=info.page;const draw=(data={})=>{if(auth.currentUser?.uid!==user.uid||officialLinkedUid!==user.uid)return;officialData=data;const name=String(data.name||info.fallbackName),role=String(data.role||info.fallbackRole);$("officialName").textContent=name;$("officialTeam").textContent=String(data.team||"Team Wolfpack • Team Wolfie");$("officialRole").textContent=role;$("officialRepresenting").textContent=String(data.representing||"Team Wolfpack");$("officialBiography").textContent=String(data.biography||"");$("officialBiography").hidden=!data.biography;const banner=safeTeamImage(data.banner)||info.fallbackBanner;if(banner)$("officialBanner").src=banner;else $("officialBanner").removeAttribute("src");$("officialBanner").hidden=!banner;$("profileName").textContent=name;$("cardMemberName").textContent=name;$("cardMemberRole").textContent=role;$("memberBadge").textContent=info.key==="mr-wolfie"?"👑 OFFICIAL TEAM • MANAGER":"🐺 OFFICIAL TEAM MEMBER";showOfficialPhoto();};draw();officialUnsubscribe=onValue(ref(db,"teamMembers/"+info.key),snap=>draw(snap.val()||{}),err=>{console.warn("Official team profile:",err);message("Official profile data unavailable; showing saved details.")});}
+function watchOfficialProfile(user){stopOfficialProfile();const info=user&&OFFICIAL_PROFILE_LINKS[user.uid];if(!info||!user.emailVerified)return;officialLinkedUid=user.uid;$("officialIdentity").hidden=false;$("officialFullProfile").href=info.page;const draw=(data={})=>{if(auth.currentUser?.uid!==user.uid||officialLinkedUid!==user.uid)return;officialData=data;const name=String(data.name||info.fallbackName),role=String(data.role||info.fallbackRole);$("officialName").textContent=name;$("officialTeam").textContent=String(data.team||"Team Wolfpack • Team Wolfie");$("officialRole").textContent=role;$("officialRepresenting").textContent=String(data.representing||"Team Wolfpack");$("officialBiography").textContent=String(data.biography||"");$("officialBiography").hidden=!data.biography;const banner=safeTeamImage(data.banner)||info.fallbackBanner;if(banner)$("officialBanner").src=banner;else $("officialBanner").removeAttribute("src");$("officialBanner").hidden=!banner;$("profileName").textContent=name;$("cardMemberName").textContent=name;$("cardMemberRole").textContent=role;$("memberBadge").textContent=info.key==="mr-wolfie"?"👑 OFFICIAL TEAM • MANAGER":"🐺 OFFICIAL TEAM MEMBER";void loadAvatar(user);};draw();officialUnsubscribe=onValue(ref(db,"teamMembers/"+info.key),snap=>draw(snap.val()||{}),err=>{console.warn("Official team profile:",err);message("Official profile data unavailable; showing saved details.")});}
 
 let avatarVersion=0;
 function showAvatar(url){$("avatarImage").classList.toggle("hidden",!url);$("avatarDefault").classList.toggle("hidden",!!url);$("removeAvatar").classList.toggle("hidden",!url);$("cardAvatarImage").classList.toggle("hidden",!url);$("cardAvatarDefault").classList.toggle("hidden",!!url);if(url){$("avatarImage").src=url;$("cardAvatarImage").src=url}else{$("avatarImage").removeAttribute("src");$("cardAvatarImage").removeAttribute("src")}}
-async function loadAvatar(user){const version=++avatarVersion;if(user&&OFFICIAL_PROFILE_LINKS[user.uid]&&user.emailVerified){showOfficialPhoto();return}showAvatar("");if(!user)return;try{const url=await getDownloadURL(storageRef(storage,"supporter-avatars/"+user.uid+"/profile.webp"));if(version===avatarVersion&&auth.currentUser?.uid===user.uid)showAvatar(url)}catch(e){if(e.code!=="storage/object-not-found")console.warn("Profile photo:",e)}}
-$("uploadAvatar").onclick=()=>{if(OFFICIAL_PROFILE_LINKS[auth.currentUser?.uid]){message("Your official photograph is managed in Meet the Pack.");return}if(!auth.currentUser?.emailVerified){message("Please verify your email before uploading a photo.");return}$("avatarFile").click()};
-$("avatarFile").onchange=async e=>{const file=e.target.files?.[0];e.target.value="";if(!file)return;const user=auth.currentUser;if(OFFICIAL_PROFILE_LINKS[user?.uid]){message("Your official photograph is managed in Meet the Pack.");return}if(!user||!user.emailVerified){message("Please sign in with a verified account.");return}if(!["image/jpeg","image/png","image/webp"].includes(file.type)||file.size>2*1024*1024){message("Choose a JPG, PNG or WebP image under 2 MB.");return}const button=$("uploadAvatar");button.disabled=true;message("Preparing your profile picture…");try{const bitmap=await createImageBitmap(file);const canvas=document.createElement("canvas");const scale=Math.min(1,512/Math.max(bitmap.width,bitmap.height));canvas.width=Math.round(bitmap.width*scale);canvas.height=Math.round(bitmap.height*scale);canvas.getContext("2d").drawImage(bitmap,0,0,canvas.width,canvas.height);bitmap.close();const blob=await new Promise(resolve=>canvas.toBlob(resolve,"image/webp",0.85));if(!blob||blob.size>2*1024*1024)throw Error("Image processing failed. Please choose another photo.");if(auth.currentUser?.uid!==user.uid)throw Error("Account changed. Please try again.");const photo=storageRef(storage,"supporter-avatars/"+user.uid+"/profile.webp");await uploadBytes(photo,blob,{contentType:"image/webp"});await loadAvatar(user);message("Profile picture saved successfully!")}catch(err){message("Unable to upload picture: "+(err.code||err.message))}finally{button.disabled=false}};
-$("removeAvatar").onclick=async()=>{const user=auth.currentUser;if(!user?.emailVerified)return;if(!confirm("Remove your profile picture?"))return;const button=$("removeAvatar");button.disabled=true;try{await deleteObject(storageRef(storage,"supporter-avatars/"+user.uid+"/profile.webp"));await loadAvatar(user);message("Profile picture removed.")}catch(err){message("Unable to remove picture: "+(err.code||err.message))}finally{button.disabled=false}};
+async function loadAvatar(user){
+  const version=++avatarVersion;
+  showAvatar("");if(!user)return;
+  const official=!!OFFICIAL_PROFILE_LINKS[user.uid]&&user.emailVerified;
+  const path=(official?"official-member-avatars/":"supporter-avatars/")+user.uid+"/profile.webp";
+  try{
+    const url=await getDownloadURL(storageRef(storage,path));
+    if(version===avatarVersion&&auth.currentUser?.uid===user.uid){showAvatar(url);$("removeAvatar").classList.remove("hidden");}
+  }catch(e){
+    if(official&&version===avatarVersion)showOfficialPhoto();
+    if(e.code!=="storage/object-not-found")console.warn("Profile photo:",e);
+  }
+}
+$("uploadAvatar").onclick=()=>{
+  if(!auth.currentUser?.emailVerified){message("Please verify your email before uploading a photo.");return}
+  $("avatarFile").click();
+};
+$("avatarFile").onchange=async e=>{
+  const file=e.target.files?.[0];e.target.value="";if(!file)return;
+  const user=auth.currentUser;
+  if(!user?.emailVerified){message("Please sign in with a verified account.");return}
+  if(!["image/jpeg","image/png","image/webp"].includes(file.type)||file.size>2*1024*1024){message("Choose a JPG, PNG or WebP image under 2 MB.");return}
+  const button=$("uploadAvatar");button.disabled=true;message("Preparing your profile picture…");
+  try{
+    const official=await isOfficialTeamAccount(user);
+    if(auth.currentUser?.uid!==user.uid)throw Error("Account changed.");
+    if(official){const token=await user.getIdTokenResult(true);if(token.claims.officialMember!==true)throw Error("Your official member authorisation is not active yet. Contact an administrator to synchronise your account.");}
+    const bitmap=await createImageBitmap(file),canvas=document.createElement("canvas");
+    const scale=Math.min(1,512/Math.max(bitmap.width,bitmap.height));
+    canvas.width=Math.round(bitmap.width*scale);canvas.height=Math.round(bitmap.height*scale);
+    canvas.getContext("2d").drawImage(bitmap,0,0,canvas.width,canvas.height);bitmap.close();
+    const blob=await new Promise(resolve=>canvas.toBlob(resolve,"image/webp",0.85));
+    if(!blob||blob.size>2*1024*1024)throw Error("Image processing failed.");
+    const path=(official?"official-member-avatars/":"supporter-avatars/")+user.uid+"/profile.webp";
+    await uploadBytes(storageRef(storage,path),blob,{contentType:"image/webp"});
+    await loadAvatar(user);message("Profile picture saved successfully!");
+  }catch(err){message("Unable to upload picture: "+(err.code||err.message))}
+  finally{button.disabled=false}
+};
+$("removeAvatar").onclick=async()=>{
+  const user=auth.currentUser;if(!user?.emailVerified||!confirm("Remove your profile picture?"))return;
+  const button=$("removeAvatar");button.disabled=true;
+  try{
+    const official=await isOfficialTeamAccount(user);
+    const path=(official?"official-member-avatars/":"supporter-avatars/")+user.uid+"/profile.webp";
+    await deleteObject(storageRef(storage,path));await loadAvatar(user);message("Profile picture removed.");
+  }catch(err){message("Unable to remove picture: "+(err.code||err.message))}
+  finally{button.disabled=false}
+};
 
 // Official team accounts must never be automatically enrolled in the public supporter directory.
 // Check the authoritative admin-managed links before any write, including during sign-in
 // (the live link listener may not have finished loading yet).
 async function isOfficialTeamAccount(user){
   if(!user)return false;
-  if(OFFICIAL_PROFILE_LINKS[user.uid])return true;
-  const snapshot=await get(ref(db,"officialTeamAccountLinks"));
-  const links=snapshot.val()||{};
-  return Object.entries(links).some(([slug,uid])=>
-    Object.hasOwn(OFFICIAL_MEMBER_DETAILS,slug)&&uid===user.uid);
+  return !!(await findOfficialIdentity(user));
 }
+
 const publicProfileSync=new Map();async function syncPublicProfile(user,name){
   if(!user?.emailVerified||!name||name.length<2)return;
   if(await isOfficialTeamAccount(user))return;
@@ -194,14 +251,14 @@ $("editMyProfile").onclick=async()=>{
  try{
    const official=await isOfficialTeamAccount(user);
    if(auth.currentUser?.uid!==user.uid)return;
-   publicFields.classList.toggle("hidden",official);
+   publicFields.classList.remove("hidden");
    if(!official){
      const snap=await get(ref(db,"publicSupporterProfiles/"+user.uid));
      if(auth.currentUser?.uid!==user.uid)return;
      const data=snap.val()||{};
      for(const [key,id] of Object.entries(PUBLIC_EDIT_FIELDS))$(id).value=typeof data[key]==="string"?data[key]:"";
    }
-   message(official?"Official team profile details are managed separately. You can edit your account display name here.":"");
+   message(official?"You can edit your personal details. Official team roles, banners and badges remain management-controlled.":"");
  }catch(error){publicFields.classList.add("hidden");message("Unable to load public profile fields: "+(error.code||error.message))}
  $("newProfileName").focus();
 };
