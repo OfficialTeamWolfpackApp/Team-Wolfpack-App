@@ -11302,10 +11302,26 @@ try{
     ? claims.officialMemberSlug
     : null;
 
-  // Only recognise official profiles from our approved list.
-  officialLookupComplete=true;
+// Reject invalid or inconsistent official membership claims.
+if(claims.officialMember===true){
 
-  if(slug&&Object.prototype.hasOwnProperty.call(officialWelcomeMembers,slug)){
+  if(
+    !slug ||
+    !Object.prototype.hasOwnProperty.call(officialWelcomeMembers,slug)
+  ){
+    throw new Error("Invalid official team membership.");
+  }
+
+}else if(claims.officialMemberSlug!=null){
+
+  throw new Error("Inconsistent official membership claims.");
+
+}
+
+// Membership classification is now complete.
+officialLookupComplete=true;
+
+if(slug&&Object.prototype.hasOwnProperty.call(officialWelcomeMembers,slug)){
     official=officialWelcomeMembers[slug];
 
     let record={};
