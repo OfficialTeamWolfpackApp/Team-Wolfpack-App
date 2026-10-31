@@ -138,20 +138,85 @@ const OFFICIAL_PROFILE_LINKS={"PRGa9TsCW0QDn1QtoUXyYjEi7YB3":{key:"mr-wolfie",..
 let officialLookupVersion=0;
 async function findOfficialIdentity(user){
   if(!user)return null;
-  const checks=await Promise.allSettled(Object.keys(OFFICIAL_MEMBER_DETAILS).map(async slug=>{
-    const snap=await get(ref(db,"officialTeamAccountLinks/"+slug));
-    return snap.val()===user.uid?slug:null;
-  }));
-  return checks.find(x=>x.status==="fulfilled"&&x.value)?.value||null;
+
+  // Obtain the latest official membership information from Firebase Auth.
+  const tokenResult=await user.getIdTokenResult(true);
+
+  // Stop if the signed-in account changed during the request.
+  if(auth.currentUser?.uid!==user.uid){
+    throw new Error("Account changed during official identity check.");
+  }
+
+  const claims=tokenResult.claims;
+
+  // Reject incomplete or inconsistent official membership claims.
+  const isOfficial=claims.officialMember===true;
+  const slug=claims.officialMemberSlug;
+
+  if(isOfficial){
+    if(
+      typeof slug!=="string" ||
+      !Object.prototype.hasOwnProperty.call(OFFICIAL_MEMBER_DETAILS,slug)
+    ){
+      throw new Error("Invalid official team member identity.");
+    }
+
+    return slug;
+  }
+
+  if(slug!=null){
+    throw new Error("Inconsistent official membership claims.");
+  }
+
+  return null;
 }
 async function watchOfficialAccountLinks(user){
   const version=++officialLookupVersion;
-  for(const uid of Object.keys(OFFICIAL_PROFILE_LINKS))delete OFFICIAL_PROFILE_LINKS[uid];
-  if(!user)return;
-  // Existing manager fallback is for presentation only, not database write authorisation.
-  if(user.uid==="PRGa9TsCW0QDn1QtoUXyYjEi7YB3")
-    OFFICIAL_PROFILE_LINKS[user.uid]={key:"mr-wolfie",...OFFICIAL_MEMBER_DETAILS["mr-wolfie"]};
-  const slug=await findOfficialIdentity(user);
+
+  // Clear all official profile mappings from the previous account.
+  for(const uid of Object.keys(OFFICIAL_PROFILE_LINKS)){
+    delete OFFICIAL_PROFILE_LINKS[uid];
+  }
+
+  // Stop any official profile listener belonging to the previous account.
+  stopOfficialProfile();
+
+  // Hide profile navigation until the current account is verified.
+  const link=$("myPublicProfileLink");
+  link.classList.add("hidden");
+  link.removeAttribute("href");
+
+  $("activatePublicProfile").classList.add("hidden");
+
+  if(!user){
+    return;
+  }
+
+ let slug;
+
+try{
+  slug=await findOfficialIdentity(user);
+}catch(error){
+  console.error("Official team identity verification failed:",error);
+
+  if(version!==officialLookupVersion||auth.currentUser?.uid!==user.uid){
+    return;
+  }
+
+  // Do not continue as a supporter when identity verification fails.
+  stopOfficialProfile();
+
+  $("officialIdentity").hidden=true;
+  $("activatePublicProfile").classList.add("hidden");
+  $("myPublicProfileLink").classList.add("hidden");
+
+  message(
+    "We couldn't verify your Team Wolfpack membership. "+
+    "Please refresh the page or try signing in again."
+  );
+
+  return;
+}
   if(version!==officialLookupVersion||auth.currentUser?.uid!==user.uid)return;
   if(slug)OFFICIAL_PROFILE_LINKS[user.uid]={key:slug,...OFFICIAL_MEMBER_DETAILS[slug]};
   watchOfficialProfile(user);void loadAvatar(user);void loadProfileBadges(user);
@@ -165,10 +230,26 @@ let officialUnsubscribe=null,officialLinkedUid=null,officialData=null;
 function safeTeamImage(value){return typeof value==="string"&&/^[a-zA-Z0-9/_-]+\.(?:jpe?g|png|webp|gif)$/i.test(value)?value:null}
 function showOfficialPhoto(){
   if(!officialLinkedUid||auth.currentUser?.uid!==officialLinkedUid)return;
-  const info=OFFICIAL_PROFILE_LINKS[officialLinkedUid];
-  showAvatar(safeTeamImage(officialData?.photo)||info.fallbackPhoto);
-  $("uploadAvatar").classList.remove("hidden");
-  $("removeAvatar").classList.add("hidden");
+  const info=OFFICIAL_PROFILE_LINKS[user.uid];
+  const link=$("myPublicProfileLink");
+  const activateButton=$("activatePublicProfile");
+
+  // Only show profile navigation after successful identity verification.
+  if(!user.emailVerified){
+    link.classList.add("hidden");
+    link.removeAttribute("href");
+    activateButton.classList.add("hidden");
+  }else if(info){
+    // Official members open their assigned Meet the Pack profile.
+    link.href=info.page;
+    link.classList.remove("hidden");
+    activateButton.classList.add("hidden");
+  }else{
+    // Verified supporters open their public supporter profile.
+    link.href="supporter-profile.html?uid="+encodeURIComponent(user.uid);
+    link.classList.remove("hidden");
+    activateButton.classList.remove("hidden");
+  }
 }
 function stopOfficialProfile(){if(officialUnsubscribe){officialUnsubscribe();officialUnsubscribe=null}officialLinkedUid=null;officialData=null;$("officialIdentity").hidden=true;$("uploadAvatar").classList.remove("hidden");$("officialBanner").hidden=true;$("memberBadge").textContent="🐺 PACK MEMBER";$("cardMemberRole").textContent="OFFICIAL PACK MEMBER";$("profileName").textContent="";}
 function watchOfficialProfile(user){stopOfficialProfile();const info=user&&OFFICIAL_PROFILE_LINKS[user.uid];if(!info||!user.emailVerified)return;officialLinkedUid=user.uid;$("officialIdentity").hidden=false;$("officialFullProfile").href=info.page;const draw=(data={})=>{if(auth.currentUser?.uid!==user.uid||officialLinkedUid!==user.uid)return;officialData=data;const name=String(data.name||info.fallbackName),role=String(data.role||info.fallbackRole);$("officialName").textContent=name;$("officialTeam").textContent=String(data.team||"Team Wolfpack • Team Wolfie");$("officialRole").textContent=role;$("officialRepresenting").textContent=String(data.representing||"Team Wolfpack");$("officialBiography").textContent=String(data.biography||"");$("officialBiography").hidden=!data.biography;const banner=safeTeamImage(data.banner)||info.fallbackBanner;if(banner)$("officialBanner").src=banner;else $("officialBanner").removeAttribute("src");$("officialBanner").hidden=!banner;$("profileName").textContent=name;$("cardMemberName").textContent=name;$("cardMemberRole").textContent=role;$("memberBadge").textContent=info.key==="mr-wolfie"?"👑 OFFICIAL TEAM • MANAGER":"🐺 OFFICIAL TEAM MEMBER";void loadAvatar(user);};draw();officialUnsubscribe=onValue(ref(db,"teamMembers/"+info.key),snap=>draw(snap.val()||{}),err=>{console.warn("Official team profile:",err);message("Official profile data unavailable; showing saved details.")});}
@@ -229,15 +310,93 @@ $("removeAvatar").onclick=async()=>{
 // Check the authoritative admin-managed links before any write, including during sign-in
 // (the live link listener may not have finished loading yet).
 async function isOfficialTeamAccount(user){
-  if(!user)return false;
-  return !!(await findOfficialIdentity(user));
+  if(!user){
+    throw new Error("A signed-in account is required.");
+  }
+
+  if(auth.currentUser?.uid!==user.uid){
+    throw new Error("Account changed during membership verification.");
+  }
+
+  // This throws if Firebase cannot verify official membership.
+  // Never treat a failed check as confirmation of supporter status.
+  const slug=await findOfficialIdentity(user);
+
+  if(auth.currentUser?.uid!==user.uid){
+    throw new Error("Account changed during membership verification.");
+  }
+
+  return slug!==null;
 }
 
-const publicProfileSync=new Map();async function syncPublicProfile(user,name){
-  if(!user?.emailVerified||!name||name.length<2)return;
-  if(await isOfficialTeamAccount(user))return;
-  if(auth.currentUser?.uid!==user.uid)return;
-  const key=user.uid+":"+name;if(publicProfileSync.has(key))return publicProfileSync.get(key);const task=(async()=>{const p=ref(db,"publicSupporterProfiles/"+user.uid);const existing=await get(p);if(existing.exists()){if(existing.val()?.name!==name)await update(p,{name})}else await set(p,{name,joinedAt:serverTimestamp()})})();publicProfileSync.set(key,task);try{await task}catch(e){publicProfileSync.delete(key);throw e}}
+const publicProfileSync=new Map();
+
+async function syncPublicProfile(user,name){
+  if(!user?.emailVerified)return;
+
+  const cleanName=String(name||"").trim();
+
+  if(cleanName.length<2||cleanName.length>40)return;
+
+  // Confirm the account has not changed.
+  if(auth.currentUser?.uid!==user.uid){
+    throw new Error("Account changed during public profile synchronisation.");
+  }
+
+  // Verify official membership before accessing the public directory.
+  // A failed identity check throws an error and prevents the write.
+  const official=await isOfficialTeamAccount(user);
+
+  if(official){
+    return;
+  }
+
+  // Recheck the account after the asynchronous identity lookup.
+  if(auth.currentUser?.uid!==user.uid){
+    throw new Error("Account changed during public profile synchronisation.");
+  }
+
+  const key=user.uid+":"+cleanName;
+
+  if(publicProfileSync.has(key)){
+    return publicProfileSync.get(key);
+  }
+
+  const task=(async()=>{
+    const profileRef=ref(db,"publicSupporterProfiles/"+user.uid);
+
+    const existing=await get(profileRef);
+
+    if(auth.currentUser?.uid!==user.uid){
+      throw new Error("Account changed during public profile synchronisation.");
+    }
+
+    // Recheck membership immediately before writing.
+    if(await isOfficialTeamAccount(user)){
+      return;
+    }
+
+    if(existing.exists()){
+      if(existing.val()?.name!==cleanName){
+        await update(profileRef,{name:cleanName});
+      }
+    }else{
+      await set(profileRef,{
+        name:cleanName,
+        joinedAt:serverTimestamp()
+      });
+    }
+  })();
+
+  publicProfileSync.set(key,task);
+
+  try{
+    await task;
+  }catch(error){
+    publicProfileSync.delete(key);
+    throw error;
+  }
+}
 $("activatePublicProfile").onclick=async()=>{const user=auth.currentUser,btn=$("activatePublicProfile"),output=$("publicProfileStatus");if(!user){output.textContent="Please sign in first.";return}btn.disabled=true;output.textContent="Checking your account and activating your public profile…";try{await reload(user);await user.getIdToken(true);if(!auth.currentUser?.emailVerified)throw Error("Please verify your email first.");if(await isOfficialTeamAccount(user))throw Error("Official team members use their Meet the Pack profile, not a public supporter listing.");const profile=await get(ref(db,"supporterProfiles/"+user.uid));const name=String(profile.val()?.name||user.displayName||"").trim();if(name.length<2)throw Error("Please save a display name first.");await syncPublicProfile(user,name);output.textContent="✓ Public profile activated!";const link=document.createElement("a");link.href="supporter-profile.html?uid="+encodeURIComponent(user.uid);link.textContent=" OPEN MY PUBLIC PROFILE →";output.append(link)}catch(e){output.textContent="Unable to activate public profile: "+(e.code||e.message||String(e));console.warn("Public profile activation:",e)}finally{btn.disabled=false}};
 let currentSavedName="";let profileUnsub=null;function watchProfile(user){if(profileUnsub){profileUnsub();profileUnsub=null}if(!user)return;profileUnsub=onValue(ref(db,"supporterProfiles/"+user.uid),snapshot=>{if(auth.currentUser?.uid!==user.uid)return;const savedName=String(snapshot.val()?.name||"").trim();if(savedName&&user.emailVerified)syncPublicProfile(user,savedName).catch(e=>console.warn("Public profile sync:",e));currentSavedName=savedName||user.displayName||"Supporter";if(!OFFICIAL_PROFILE_LINKS[user.uid])$("profileName").textContent="Name: "+(savedName||user.displayName||"Supporter")},error=>console.warn("Profile name load:",error))}let activityUnsubs=[];function stopActivity(){for(const fn of activityUnsubs)fn();activityUnsubs=[];$("myDashboard").classList.add("hidden")}function node(tag,text){const n=document.createElement(tag);n.textContent=text;return n}function startActivity(user){stopActivity();if(!user||!user.emailVerified)return;$("myDashboard").classList.remove("hidden");let updates={},likes={},comments={};const perUpdate=[];function draw(){const liked=[],commented=[];for(const [id,users] of Object.entries(likes)){if(users&&users[user.uid]===true)liked.push({id,title:updates[id]?.title||"Removed announcement"})}for(const [id,items] of Object.entries(comments)){for(const c of Object.values(items||{})){if(c&&c.uid===user.uid)commented.push({id,title:updates[id]?.title||"Removed announcement",message:String(c.message||""),createdAt:c.createdAt})}}commented.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));$("myLikes").textContent=liked.length;$("myComments").textContent=commented.length;const a=$("myLikedList"),b=$("myCommentList");a.replaceChildren();b.replaceChildren();if(!liked.length)a.append(node("li","No liked announcements yet."));for(const x of liked)a.append(node("li",x.title));if(!commented.length)b.append(node("li","No comments posted yet."));for(const x of commented){const li=node("li",x.title);li.append(node("small",x.message));if(Number.isFinite(x.createdAt))li.append(node("small",new Date(x.createdAt).toLocaleString("en-GB")));b.append(li)}}function watch(path,cb){return onValue(ref(db,path),snap=>{cb(snap.val()||{});draw()},error=>{message("Unable to load activity: "+(error.code||error.message))})}activityUnsubs.push(watch("updates",v=>{updates=v;for(const fn of perUpdate)fn();perUpdate.length=0;likes={};comments={};for(const id of Object.keys(updates)){perUpdate.push(watch("updateLikes/"+id,x=>likes[id]=x));perUpdate.push(watch("updateComments/"+id,x=>comments[id]=x))}draw()}));activityUnsubs.push(()=>{for(const fn of perUpdate)fn()})}function render(user){$("verificationPanel").classList.toggle("hidden",!user||user.emailVerified);$("verificationEmail").textContent=user?.email||"";if(!user){currentSavedName="";$("editMyProfileForm").classList.add("hidden");$("editMyProfile").classList.remove("hidden")} $("authPanel").classList.toggle("hidden",!!user);$("profilePanel").classList.toggle("hidden",!user||!user.emailVerified);if(!user)return;if(!OFFICIAL_PROFILE_LINKS[user.uid])$("profileName").textContent="Name: "+(user.displayName||"Supporter");$("profileEmail").textContent="Email: "+(user.email||"");$("verifyState").textContent=user.emailVerified?"✓ Email verified":"⚠ Please verify your email to access future community features";$("verifyState").className=user.emailVerified?"verified":"";$("sendVerification").classList.toggle("hidden",user.emailVerified)}
 const PUBLIC_EDIT_FIELDS={location:"newProfileLocation",bio:"newProfileBio",facebook:"newProfileFacebook",instagram:"newProfileInstagram",tiktok:"newProfileTiktok",youtube:"newProfileYoutube"};
@@ -310,9 +469,67 @@ async function syncSupporterProfile(user){
   });
 }
 async function trySync(user){
-  if(!user||!user.emailVerified)return false;
-  try{await user.getIdToken(true);await syncSupporterProfile(user);const snap=await get(ref(db,"supporterProfiles/"+user.uid));const name=String(snap.val()?.name||user.displayName||"").trim();if(name.length>=2)await syncPublicProfile(user,name);return true}
-  catch(error){console.warn("Supporter profile sync:",error);message("Account verified, but your member profile could not be activated: "+(error.code||error.message));return false}
+  if(!user||!user.emailVerified){
+    return false;
+  }
+
+  try{
+    // Refresh Firebase Authentication credentials.
+    await user.getIdToken(true);
+
+    if(auth.currentUser?.uid!==user.uid){
+      return false;
+    }
+
+    // Verify official membership before any profile synchronisation.
+    const official=await isOfficialTeamAccount(user);
+
+    if(auth.currentUser?.uid!==user.uid){
+      return false;
+    }
+
+    // Preserve the private account profile for all verified users.
+    await syncSupporterProfile(user);
+
+    if(auth.currentUser?.uid!==user.uid){
+      return false;
+    }
+
+    // Official members must not enter the public supporter directory.
+    if(official){
+      return true;
+    }
+
+    const snap=await get(
+      ref(db,"supporterProfiles/"+user.uid)
+    );
+
+    if(auth.currentUser?.uid!==user.uid){
+      return false;
+    }
+
+    const name=String(
+      snap.val()?.name||user.displayName||""
+    ).trim();
+
+    if(name.length>=2){
+      await syncPublicProfile(user,name);
+    }
+
+    return true;
+
+  }catch(error){
+    console.warn("Supporter profile sync:",error);
+
+    if(auth.currentUser?.uid===user.uid){
+      message(
+        "Your account profile could not be synchronised: "+
+        (error.code||error.message||String(error))
+      );
+    }
+
+    return false;
+  }
 }
 // Use the existing badge records. Official admin profiles may have officialTeamBadges;
 // supporter profiles use memberBadges. No badge permissions or awards are changed.
@@ -357,7 +574,47 @@ async function loadProfileBadges(user){
   else{const empty=document.createElement("p");empty.className="live-badge-empty";empty.textContent="No featured badges selected yet.";featuredBox.appendChild(empty)}
  }catch(e){if(request===profileBadgeRequest){notice.textContent="Badges are temporarily unavailable.";console.warn("Profile badges:",e)}}
 }
-onAuthStateChanged(auth,user=>{const link=$("myPublicProfileLink");link.classList.toggle("hidden",!user);if(user)link.href=OFFICIAL_PROFILE_LINKS[user.uid]?.page||("supporter-profile.html?uid="+encodeURIComponent(user.uid));else link.removeAttribute("href");render(user);watchOfficialProfile(user);loadAvatar(user);watchProfile(user);watchOfficialAccountLinks(user);startActivity(user);void loadProfileBadges(user);trySync(user);$("activatePublicProfile").classList.toggle("hidden",!!(user&&OFFICIAL_PROFILE_LINKS[user.uid]));});
+onAuthStateChanged(auth,user=>{
+  const link=$("myPublicProfileLink");
+  const activateButton=$("activatePublicProfile");
+
+  // Hide public profile actions until membership verification completes.
+  link.classList.add("hidden");
+  link.removeAttribute("href");
+
+  activateButton.classList.add("hidden");
+
+  // Preserve existing authentication and profile functionality.
+  render(user);
+  watchOfficialProfile(user);
+  void loadAvatar(user);
+  watchProfile(user);
+  startActivity(user);
+  void loadProfileBadges(user);
+
+  if(!user){
+    void watchOfficialAccountLinks(null);
+    return;
+  }
+
+  // Verify official membership before showing profile navigation.
+  void watchOfficialAccountLinks(user).catch(error=>{
+    console.error("Official account recognition failed:",error);
+
+    if(auth.currentUser?.uid===user.uid){
+      link.classList.add("hidden");
+      activateButton.classList.add("hidden");
+
+      message(
+        "Unable to verify your Team Wolfpack membership. "+
+        "Please refresh the page or sign in again."
+      );
+    }
+  });
+
+  // Profile synchronisation performs its own membership verification.
+  void trySync(user);
+});
 function readable(e){const code=e?.code||"";if(code==="auth/email-already-in-use")return"This email already has an account. Please sign in.";if(code==="auth/invalid-email")return"Enter a valid email address.";if(code==="auth/weak-password")return"Please choose a stronger password.";if(code==="auth/too-many-requests")return"Too many attempts. Please try again later.";if(code==="auth/invalid-credential")return"Email or password not recognised.";return"Unable to complete the request. "+code}
 async function run(form,fn){const b=form.querySelector('button[type="submit"]');b.disabled=true;message("Please wait...");try{await fn()}catch(e){message(readable(e))}finally{b.disabled=false}}
 $("registerForm").onsubmit=e=>{e.preventDefault();run(e.currentTarget,async()=>{const name=$("displayName").value.trim();if(name.length<2||name.length>40){message("Display name must be between 2 and 40 characters.");return}if($("registerPassword").value!==$("confirmRegisterPassword").value){message("Passwords do not match. Please check both fields.");return}const result=await createUserWithEmailAndPassword(auth,$("registerEmail").value.trim(),$("registerPassword").value);await updateProfile(result.user,{displayName:name});await sendEmailVerification(result.user);render(result.user);message("Account created! Check your inbox and spam folder for the verification email.")})};
