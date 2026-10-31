@@ -330,7 +330,7 @@ try{
   watchOfficialProfile(user);
 void loadAvatar(user);
 void loadProfileBadges(user);
-  const info=OFFICIAL_PROFILE_LINKS[user.uid],link=$("myPublicProfileLink");
+  const info=OFFICIAL_PROFILE_LINKS[user.uid];
  if(!user.emailVerified){
   link.classList.add("hidden");
   link.removeAttribute("href");
