@@ -136,6 +136,101 @@ const OFFICIAL_MEMBER_DETAILS=Object.freeze({
 const OFFICIAL_PROFILE_LINKS={"PRGa9TsCW0QDn1QtoUXyYjEi7YB3":{key:"mr-wolfie",...OFFICIAL_MEMBER_DETAILS["mr-wolfie"]}};
 // Query each permitted slug separately. Rules never expose the complete link directory.
 let officialLookupVersion=0;
+/* =========================
+   OFFICIAL MEMBERSHIP SYNC
+========================= */
+
+const OFFICIAL_CLAIM_SYNC_URL =
+  "https://europe-west1-team-wolfpack-app.cloudfunctions.net/syncOfficialMemberClaim";
+
+const officialClaimSyncs = new Map();
+
+async function syncOfficialMembership(user){
+
+  if(!user?.emailVerified){
+    throw new Error("A verified account is required.");
+  }
+
+  if(auth.currentUser?.uid!==user.uid){
+    throw new Error("Account changed during membership synchronisation.");
+  }
+
+  // Prevent simultaneous requests for the same account.
+  if(officialClaimSyncs.has(user.uid)){
+    return officialClaimSyncs.get(user.uid);
+  }
+
+  const task=(async()=>{
+
+    const token=await user.getIdToken();
+
+    if(auth.currentUser?.uid!==user.uid){
+      throw new Error("Account changed during membership synchronisation.");
+    }
+
+    const response=await fetch(OFFICIAL_CLAIM_SYNC_URL,{
+      method:"POST",
+      headers:{
+        "Authorization":"Bearer "+token,
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({})
+    });
+
+    if(!response.ok){
+      throw new Error(
+        "Official membership synchronisation failed: HTTP "+
+        response.status
+      );
+    }
+
+    const result=await response.json();
+
+    if(
+      result.success!==true ||
+      typeof result.officialMember!=="boolean"
+    ){
+      throw new Error(
+        "Invalid official membership synchronisation response."
+      );
+    }
+
+    if(auth.currentUser?.uid!==user.uid){
+      throw new Error("Account changed during membership synchronisation.");
+    }
+
+    // Refresh Firebase authentication claims.
+    const tokenResult=await user.getIdTokenResult(true);
+
+    if(auth.currentUser?.uid!==user.uid){
+      throw new Error("Account changed during membership synchronisation.");
+    }
+
+    const claims=tokenResult.claims;
+
+    // Confirm the refreshed claims match the server response.
+    if(
+      (claims.officialMember===true)!==result.officialMember ||
+      (claims.officialMemberSlug||null)!==
+        (result.officialMemberSlug||null)
+    ){
+      throw new Error(
+        "Official membership claims are not synchronised."
+      );
+    }
+
+    return result;
+
+  })();
+
+  officialClaimSyncs.set(user.uid,task);
+
+  try{
+    return await task;
+  }finally{
+    officialClaimSyncs.delete(user.uid);
+  }
+}  
 async function findOfficialIdentity(user){
  if(!user)return null;
 
