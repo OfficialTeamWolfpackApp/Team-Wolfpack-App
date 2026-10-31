@@ -229,27 +229,27 @@ try{
 let officialUnsubscribe=null,officialLinkedUid=null,officialData=null;
 function safeTeamImage(value){return typeof value==="string"&&/^[a-zA-Z0-9/_-]+\.(?:jpe?g|png|webp|gif)$/i.test(value)?value:null}
 function showOfficialPhoto(){
-  if(!officialLinkedUid||auth.currentUser?.uid!==officialLinkedUid)return;
-  const info=OFFICIAL_PROFILE_LINKS[user.uid];
-  const link=$("myPublicProfileLink");
-  const activateButton=$("activatePublicProfile");
-
-  // Only show profile navigation after successful identity verification.
-  if(!user.emailVerified){
-    link.classList.add("hidden");
-    link.removeAttribute("href");
-    activateButton.classList.add("hidden");
-  }else if(info){
-    // Official members open their assigned Meet the Pack profile.
-    link.href=info.page;
-    link.classList.remove("hidden");
-    activateButton.classList.add("hidden");
-  }else{
-    // Verified supporters open their public supporter profile.
-    link.href="supporter-profile.html?uid="+encodeURIComponent(user.uid);
-    link.classList.remove("hidden");
-    activateButton.classList.remove("hidden");
+  if(
+    !officialLinkedUid ||
+    auth.currentUser?.uid!==officialLinkedUid
+  ){
+    return;
   }
+
+  const info=OFFICIAL_PROFILE_LINKS[officialLinkedUid];
+
+  if(!info){
+    return;
+  }
+
+  showAvatar(
+    safeTeamImage(officialData?.photo) ||
+    info.fallbackPhoto
+  );
+
+  $("uploadAvatar").classList.remove("hidden");
+  $("removeAvatar").classList.add("hidden");
+}
 }
 function stopOfficialProfile(){if(officialUnsubscribe){officialUnsubscribe();officialUnsubscribe=null}officialLinkedUid=null;officialData=null;$("officialIdentity").hidden=true;$("uploadAvatar").classList.remove("hidden");$("officialBanner").hidden=true;$("memberBadge").textContent="🐺 PACK MEMBER";$("cardMemberRole").textContent="OFFICIAL PACK MEMBER";$("profileName").textContent="";}
 function watchOfficialProfile(user){stopOfficialProfile();const info=user&&OFFICIAL_PROFILE_LINKS[user.uid];if(!info||!user.emailVerified)return;officialLinkedUid=user.uid;$("officialIdentity").hidden=false;$("officialFullProfile").href=info.page;const draw=(data={})=>{if(auth.currentUser?.uid!==user.uid||officialLinkedUid!==user.uid)return;officialData=data;const name=String(data.name||info.fallbackName),role=String(data.role||info.fallbackRole);$("officialName").textContent=name;$("officialTeam").textContent=String(data.team||"Team Wolfpack • Team Wolfie");$("officialRole").textContent=role;$("officialRepresenting").textContent=String(data.representing||"Team Wolfpack");$("officialBiography").textContent=String(data.biography||"");$("officialBiography").hidden=!data.biography;const banner=safeTeamImage(data.banner)||info.fallbackBanner;if(banner)$("officialBanner").src=banner;else $("officialBanner").removeAttribute("src");$("officialBanner").hidden=!banner;$("profileName").textContent=name;$("cardMemberName").textContent=name;$("cardMemberRole").textContent=role;$("memberBadge").textContent=info.key==="mr-wolfie"?"👑 OFFICIAL TEAM • MANAGER":"🐺 OFFICIAL TEAM MEMBER";void loadAvatar(user);};draw();officialUnsubscribe=onValue(ref(db,"teamMembers/"+info.key),snap=>draw(snap.val()||{}),err=>{console.warn("Official team profile:",err);message("Official profile data unavailable; showing saved details.")});}
