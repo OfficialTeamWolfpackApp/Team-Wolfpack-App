@@ -11220,24 +11220,49 @@ onAuthStateChanged(memberAuth,async user=>{
  let official=null;
  let officialLookupComplete=false;
  try{
-   const links=await get(ref(memberDb,"officialTeamAccountLinks"));
-   if(!stillHere())return;
-   const map=links.val()||{};
-   officialLookupComplete=true;
-   let slug=Object.keys(officialWelcomeMembers).find(k=>map[k]===user.uid);
-   // Backwards compatibility for Mr Wolfie's original official profile.
-   if(!slug&&user.uid==="PRGa9TsCW0QDn1QtoUXyYjEi7YB3"&&!Object.prototype.hasOwnProperty.call(map,"mr-wolfie"))slug="mr-wolfie";
-   if(slug){
-     official=officialWelcomeMembers[slug];
-     let record={};
-     try{const snap=await get(ref(memberDb,"teamMembers/"+slug));record=snap.val()||{};}catch(e){console.warn("Official welcome details:",e)}
-     if(!stillHere())return;
-     const label=official.name;
-     title.textContent="🐺 WELCOME BACK, "+label.toLocaleUpperCase()+"!";
-     caption.textContent="⭐ OFFICIAL TEAM MEMBER • "+String(record.role||official.role).toLocaleUpperCase();
-     setWelcomePhoto(avatar,safeWelcomePhoto(record.photo)||safeWelcomePhoto(official.photo));
-   }
- }catch(e){console.warn("Official welcome lookup:",e)}
+  let official=null;
+let officialLookupComplete=false;
+
+try{
+  // Refresh the token to obtain the latest official member claims.
+  const tokenResult=await user.getIdTokenResult(true);
+  if(!stillHere())return;
+
+  const claims=tokenResult.claims;
+  const slug=claims.officialMember===true
+    && typeof claims.officialMemberSlug==="string"
+    ? claims.officialMemberSlug
+    : null;
+
+  // Only recognise official profiles from our approved list.
+  officialLookupComplete=true;
+
+  if(slug&&Object.prototype.hasOwnProperty.call(officialWelcomeMembers,slug)){
+    official=officialWelcomeMembers[slug];
+
+    let record={};
+
+    try{
+      const snap=await get(ref(memberDb,"teamMembers/"+slug));
+      record=snap.val()||{};
+    }catch(e){
+      console.warn("Official welcome details:",e);
+    }
+
+    if(!stillHere())return;
+
+    title.textContent="🐺 WELCOME BACK, "+official.name.toLocaleUpperCase()+"!";
+    caption.textContent="⭐ OFFICIAL TEAM MEMBER • "+
+      String(record.role||official.role).toLocaleUpperCase();
+
+    setWelcomePhoto(
+      avatar,
+      safeWelcomePhoto(record.photo)||safeWelcomePhoto(official.photo)
+    );
+  }
+}catch(e){
+  console.warn("Official welcome claim lookup:",e);
+}
  if(!official){
    try{const p=await get(ref(memberDb,"supporterProfiles/"+user.uid));if(!stillHere())return;const name=String(p.val()?.name||user.displayName||"").trim();if(name)title.textContent="🐺 WELCOME BACK, "+name.toLocaleUpperCase()+"!";}catch(e){console.warn("Member greeting:",e)}
    try{const storage=getStorage(memberApp);const url=await getDownloadURL(storageRef(storage,"supporter-avatars/"+user.uid+"/profile.webp"));if(stillHere())setWelcomePhoto(avatar,url);}catch(e){/* Default wolf avatar */}
