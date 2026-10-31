@@ -24,17 +24,21 @@
 .member-info h3{margin:0 0 13px;font-size:17px;color:#8fe3ff}.member-info .info-row{display:flex;justify-content:space-between;gap:16px;margin:11px 0;font-size:13px;flex-wrap:wrap}.member-info .info-row strong{color:#ffb47a}.member-info .info-row span{color:#e7f5fd}
 .stats{margin-top:15px}.stats-title{text-align:left;color:#8fe3ff;font-size:17px;margin:22px 0 0}.badges-section{margin-top:25px}.public-details,.social-section{margin-top:24px}
 @media(max-width:480px){.card{padding:23px 15px}.avatar{width:min(100%,245px);height:290px}.member-info{padding:15px}}
+/* Public supporter identity banner */
+.supporter-banner{margin:0 auto 22px;padding:13px 12px;border:1px solid #39caff;border-radius:11px;background:linear-gradient(100deg,#063e58,#0b1722 52%,#632b0f);color:#f3fbff;font-size:13px;font-weight:900;letter-spacing:1.2px;text-align:center;box-shadow:0 0 16px #00bfff1c}
+.back{padding:13px 22px;border:1px solid #39caff;border-radius:11px;background:linear-gradient(100deg,#07384e,#152230 60%,#54280f);box-shadow:0 7px 20px #0007}
+.back:hover,.back:focus-visible{border-color:#ff8529}
 </style>
 </head>
 <body><main><img class="logo" src="icon-192.png" alt="Team Wolfpack"><h1>🐺 MEET OUR <span>PACK</span></h1>
 <section class="card">
-<header class="profile-header"><div id="avatarDefault" class="avatar fallback" aria-label="Default supporter avatar">🐺</div><img id="avatarImage" class="avatar hidden" alt="Supporter profile picture"><h2 id="name">Loading supporter…</h2><p class="badge">🐺 TEAM WOLFPACK SUPPORTER</p></header>
+<header class="profile-header"><div class="supporter-banner">🐺 TEAM WOLFPACK SUPPORTER</div><div id="avatarDefault" class="avatar fallback" aria-label="Default supporter avatar">🐺</div><img id="avatarImage" class="avatar hidden" alt="Supporter profile picture"><h2 id="name">Loading supporter…</h2><p class="badge">🐺 TEAM WOLFPACK SUPPORTER</p></header>
 <section class="public-details" id="publicDetails" hidden aria-label="Supporter details"><h3>🐺 ABOUT THIS SUPPORTER</h3><div class="public-field" id="locationField" hidden><span class="public-label">📍 LOCATION</span><div class="public-value" id="publicLocation"></div></div><div class="public-field" id="bioField" hidden><span class="public-label">ABOUT ME</span><div class="public-value" id="publicBio"></div></div></section>
 <section class="social-section" id="socialSection" hidden aria-label="Supporter social media"><h3>🌐 CONNECT WITH ME</h3><div class="social-links" id="socialLinks"></div></section>
 <section class="member-info" aria-label="Digital membership information"><h3>🐺 TEAM WOLFPACK MEMBERSHIP</h3><div class="info-row"><strong>MEMBERSHIP</strong><span>TEAM WOLFPACK SUPPORTER</span></div><div class="info-row"><strong>PUBLIC PROFILE</strong><span id="joined">Loading…</span></div><div class="info-row"><strong>MOTTO</strong><span>ONE PACK • ONE PURPOSE</span></div></section>
 <h3 class="stats-title">📊 SUPPORTER ACTIVITY</h3><div class="stats"><div class="stat"><strong id="likes">—</strong>LIKES</div><div class="stat"><strong id="comments">—</strong>COMMENTS</div></div>
 <section class="badges-section hidden" id="memberBadgesSection" aria-label="Member badges"><h3>⭐ Featured badges</h3><p class="badges-hint">Selected by this supporter from badges awarded by Team Wolfpack management</p><div class="badge-list" id="featuredBadges"></div><h3 style="margin-top:20px">🏆 Awarded badges</h3><div class="badge-list" id="awardedBadges"></div><p class="badge-message hidden" id="badgeStatus" role="status"></p></section>
-<p id="status" role="status"></p><p class="note">Public profiles show information the supporter chooses to share, along with membership details, activity totals and team-awarded badges. Email addresses are never displayed.</p></section><a class="back" href="updates.html">← BACK TO LIVE UPDATES</a></main>
+<p id="status" role="status"></p><p class="note">Public profiles show information the supporter chooses to share, along with membership details, activity totals and team-awarded badges. Email addresses are never displayed.</p></section><a class="back" href="pack.html">← BACK TO PACK</a></main>
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 import {getDatabase,ref,get} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
