@@ -1,0 +1,66 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Team Wolfpack | Edit My Official Profile — Staging</title><style>
+:root{color-scheme:dark;--blue:#00bfff;--orange:#ff6a00;--ink:#080d14;--line:#27465d;--muted:#b5c7d4}*{box-sizing:border-box}body{margin:0;font:16px/1.5 system-ui,Segoe UI,Arial,sans-serif;color:#eef9ff;background:radial-gradient(circle at 0 0,#063961 0,transparent 37%),radial-gradient(circle at 100% 0,#552200 0,transparent 36%),#080d14}a{color:#90e8ff}.shell{max-width:1120px;margin:auto;padding:24px}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}.brand{font-size:1.2rem;font-weight:900;letter-spacing:.1em}.brand span{color:var(--blue)}.brand em{color:var(--orange);font-style:normal}.badge{padding:7px 12px;border:1px solid #ffb56d;border-radius:99px;color:#ffce9f;font-size:.8rem}.hero{text-align:center;padding:35px 12px 25px}h1{font-size:clamp(1.9rem,5vw,3rem);margin:0;text-transform:uppercase;letter-spacing:.06em}h1 span{color:var(--blue)}h1 em{color:var(--orange);font-style:normal}.sub{color:var(--muted);margin:10px auto;max-width:680px}.notice{background:#182b37;border-left:4px solid var(--orange);padding:15px 18px;border-radius:8px;margin:0 0 24px}.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:22px}.panel{background:linear-gradient(145deg,#102233,#0b141e);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 10px 30px #0006}.panel h2{font-size:1.05rem;text-transform:uppercase;letter-spacing:.07em;margin:0;padding:17px 20px;border-bottom:1px solid var(--line);color:#8fe4ff}.inner{padding:20px}.banner{width:100%;height:155px;object-fit:cover;border:1px solid #47728d;border-radius:12px;background:linear-gradient(110deg,#003c7a,#0a1a28 50%,#a43a00)}.avatar{width:116px;height:116px;border-radius:50%;object-fit:cover;border:3px solid var(--blue);background:linear-gradient(135deg,#005ba1,#e76300)}.row{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:15px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}label{display:block;font-size:.8rem;font-weight:700;letter-spacing:.03em;color:#bde6fa;margin-bottom:5px}input,textarea{width:100%;padding:11px 12px;border-radius:8px;border:1px solid #3b637c;background:#08121b;color:white;font:inherit}textarea{min-height:110px;resize:vertical}.wide{grid-column:1/-1}.muted{font-size:.82rem;color:var(--muted)}.locked{opacity:.65}input:disabled{color:#b8c5d0}.section{margin-top:22px}.section:first-child{margin-top:0}.section h3{margin:0 0 12px;font-size:1rem;color:#ffb47b}.buttons{display:flex;gap:12px;flex-wrap:wrap;margin:25px 0}button,.button{cursor:pointer;border:1px solid #2b9fc4;background:#0c3551;color:#fff;border-radius:9px;padding:11px 17px;font-weight:800;text-decoration:none}button.primary{background:linear-gradient(90deg,#006eb2,#f66a00);border:0}button:disabled{opacity:.55;cursor:not-allowed}.preview-text{white-space:pre-wrap;overflow-wrap:anywhere}.footer{text-align:center;color:#8ccfe7;padding:28px 0;font-weight:800;letter-spacing:.12em}@media(max-width:800px){.grid{grid-template-columns:1fr}.shell{padding:14px}.fields{grid-template-columns:1fr}.wide{grid-column:auto}}
+</style></head><body><main class="shell"><div class="top"><div class="brand"><span>❄ TEAM</span> <em>WOLFPACK 🔥</em></div><div class="badge">STAGING • READ-ONLY FIREBASE</div></div><header class="hero"><h1><span>Edit My Official</span> <em>Profile</em></h1><p class="sub">Option A — a dedicated editor for verified official Team Wolfpack members.</p></header><div class="notice"><strong>Read-only staging.</strong> This page checks your existing Firebase sign-in and loads your own official profile. Editing and image previews stay in this browser; nothing is uploaded or saved. Open this page from the official app domain for authentication to work.</div><p id="authStatus" class="notice" role="status" aria-live="polite">Checking Firebase sign-in…</p><div class="grid"><div><section class="panel"><h2>🖼️ Profile Images</h2><div class="inner"><label for="bannerFile">Banner image</label><div id="bannerPreview" class="banner" role="img" aria-label="Banner preview"></div><p><input id="bannerFile" type="file" accept="image/jpeg,image/png,image/webp"></p><div class="row"><div id="avatarPreview" class="avatar" role="img" aria-label="Profile photo preview"></div><div style="flex:1"><label for="photoFile">Profile photograph</label><input id="photoFile" type="file" accept="image/jpeg,image/png,image/webp"></div></div><p class="muted">Selected images are previewed in your browser only. No upload occurs.</p></div></section><section class="panel section"><h2>✏️ Personal Details</h2><div class="inner fields"><div class="wide"><label for="name">Display name</label><input id="name" maxlength="100" value="Mr Wolfie"></div><div class="wide"><label for="bio">Biography</label><textarea id="bio" maxlength="10000">Co-founder of Team Wolfpack. One Pack • One Purpose.</textarea></div><div><label for="team">Official team (admin controlled)</label><input id="team" value="Team Wolfpack" disabled></div><div><label for="role">Official role (admin controlled)</label><input id="role" value="Manager" disabled></div><div class="wide"><label for="representing">Representing (admin controlled)</label><input id="representing" value="Team Wolfpack" disabled></div></div></section><section class="panel section"><h2>🥊 Boxing Information</h2><div class="inner fields"><div><label for="weight">Weight class (if applicable)</label><input id="weight" maxlength="80" placeholder="e.g. Super Middleweight"></div><div><label for="experience">Experience / position</label><input id="experience" maxlength="100" placeholder="e.g. Fighter, coach, corner team"></div><div class="wide"><label for="achievements">Achievements and background</label><textarea id="achievements" maxlength="3000" placeholder="Add relevant boxing experience, achievements or involvement"></textarea></div></div></section><section class="panel section"><h2>🔗 Social Media</h2><div class="inner fields"><div><label for="instagram">Instagram</label><input id="instagram" type="url" placeholder="https://instagram.com/..."></div><div><label for="facebook">Facebook</label><input id="facebook" type="url" placeholder="https://facebook.com/..."></div><div><label for="tiktok">TikTok</label><input id="tiktok" type="url" placeholder="https://tiktok.com/@..."></div><div><label for="youtube">YouTube</label><input id="youtube" type="url" placeholder="https://youtube.com/..."></div></div></section><div class="buttons"><button class="primary" disabled title="Available after security rules and saving are implemented">💾 SAVE CHANGES — COMING AFTER TESTING</button><button id="reset" type="button">↶ RESET PREVIEW</button></div></div><aside><section class="panel"><h2>👁️ Live Design Preview</h2><div class="inner"><div id="sideBanner" class="banner"></div><div class="row"><div id="sideAvatar" class="avatar"></div><div><strong id="previewName">Mr Wolfie</strong><div class="muted">OFFICIAL MEMBER</div><div class="muted">Team Wolfpack • Manager</div></div></div><h3>About</h3><p class="preview-text" id="previewBio">Co-founder of Team Wolfpack. One Pack • One Purpose.</p><p class="muted">This preview reflects edits locally; it does not update the public profile.</p></div></section><section class="panel section"><h2>🔒 Protected by design</h2><div class="inner"><p>When connected securely, only the signed-in, verified official member will be able to edit their own approved fields.</p><p class="muted">Team assignment, role, account linking, badges and permissions remain administrator-controlled.</p></div></section></aside></div><footer class="footer">💙 ONE PACK • ONE PURPOSE 🧡</footer></main><script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import {getAuth,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+import {getDatabase,ref,get} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+const $=id=>document.getElementById(id);let initial={name:$('name').value,bio:$('bio').value};$('name').addEventListener('input',()=>{$('previewName').textContent=$('name').value||'Your name'});$('bio').addEventListener('input',()=>{$('previewBio').textContent=$('bio').value||'Your biography will appear here.'});const urls=[];function previewFile(input,targets){const file=input.files?.[0];if(!file)return;if(!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>8*1024*1024){alert('Choose a JPG, PNG or WebP under 8 MB.');input.value='';return;}const u=URL.createObjectURL(file);urls.push(u);for(const target of targets){target.style.backgroundImage=`url("${u}")`;target.style.backgroundSize='cover';target.style.backgroundPosition='center';}}$('bannerFile').addEventListener('change',()=>previewFile($('bannerFile'),[$('bannerPreview'),$('sideBanner')]));$('photoFile').addEventListener('change',()=>previewFile($('photoFile'),[$('avatarPreview'),$('sideAvatar')]));$('reset').addEventListener('click',()=>{for(const id of ['name','bio'])$(id).value=initial[id];$('previewName').textContent=initial.name;$('previewBio').textContent=initial.bio;for(const id of ['weight','experience','achievements','instagram','facebook','tiktok','youtube','bannerFile','photoFile'])$(id).value='';for(const id of ['bannerPreview','sideBanner','avatarPreview','sideAvatar'])$(id).style.backgroundImage='';urls.forEach(u=>URL.revokeObjectURL(u));urls.length=0;});
+
+// Firebase Authentication and database access are READ-ONLY in this staging version.
+const firebaseConfig={
+ apiKey:"AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+ authDomain:"team-wolfpack-app.firebaseapp.com",
+ databaseURL:"https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+ projectId:"team-wolfpack-app",
+ storageBucket:"team-wolfpack-app.firebasestorage.app",
+ messagingSenderId:"1070414578856",
+ appId:"1:1070414578856:web:df14e7d387e658eeae2e9d"
+};
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app), db=getDatabase(app);
+const memberPaths=Object.freeze({
+ "mr-wolfie":"teamMembers/mr-wolfie",
+ "mrs-wolfie":"profiles/mrs-wolfie",
+ "greig-sloan":"profiles/greig-sloan",
+ "bry-kelly":"teamMembers/bry-kelly",
+ "billy-burton":"teamMembers/billy-burton",
+ "kelly-mcsporran":"teamMembers/kelly-mcsporran",
+ "richard-davies":"teamMembers/richard-davies"
+});
+let loadVersion=0;
+function showStatus(msg){$('authStatus').textContent=msg;}
+function displayProfile(p){
+ for(const [field,key] of [['name','name'],['bio','biography'],['team','team'],['role','role'],['representing','representing']]){
+   $(field).value=typeof p[key]==='string'?p[key]:'';
+ }
+ initial={name:$('name').value,bio:$('bio').value};
+ $('previewName').textContent=initial.name||'Your name';
+ $('previewBio').textContent=initial.bio||'Your biography will appear here.';
+ // Never insert untrusted image URLs. The existing public pages use relative app image paths.
+ // Image loading from Firebase Storage will be implemented after storage rules are approved.
+ for(const id of ['bannerPreview','sideBanner','avatarPreview','sideAvatar'])$(id).style.backgroundImage='';
+}
+onAuthStateChanged(auth,async user=>{
+ const version=++loadVersion;
+ if(!user){showStatus('Not signed in. Sign in using My Account on the Team Wolfpack app, then open this page from the same app domain. No data has been changed.');return;}
+ if(!user.emailVerified){showStatus('Your email is not verified. Verify it in My Account before opening your official profile.');return;}
+ try{
+  // Do not call the claim-sync Cloud Function here: it may modify authentication claims.
+  const token=await user.getIdTokenResult();
+  if(version!==loadVersion||auth.currentUser?.uid!==user.uid)return;
+  const slug=token.claims.officialMemberSlug;
+  if(token.claims.officialMember!==true || typeof slug!=='string' || !Object.hasOwn(memberPaths,slug)){
+   showStatus('No verified official-member profile is available in your current sign-in token. Open My Account first to synchronise membership, then return here.');return;
+  }
+  const snapshot=await get(ref(db,memberPaths[slug]));
+  if(version!==loadVersion||auth.currentUser?.uid!==user.uid)return;
+  if(!snapshot.exists()){showStatus('Official membership recognised ('+slug+'), but no saved public profile exists at '+memberPaths[slug]+'. Nothing was changed.');return;}
+  displayProfile(snapshot.val());
+  showStatus('✓ Signed in as '+(user.email||'verified member')+' • Official profile: '+slug+' • Existing details loaded READ-ONLY. Save is disabled.');
+ }catch(err){
+  if(version!==loadVersion)return;
+  console.error('Read-only official profile load failed',err);
+  showStatus('Could not load your official profile: '+(err.code||err.message||'unknown error')+'. No data was changed.');
+ }
+});
+</script></body></html>
