@@ -1321,7 +1321,6 @@ body.menu-open{
   margin-left:0;
   margin-right:0;
 }
-  }
 
 }
 
@@ -1393,6 +1392,27 @@ body.menu-open{
   }
 
 }
+
+
+/* SPONSORSHIP HUB — PHASE 1 (PUBLIC INFORMATION ONLY) */
+.sponsorship-hub{margin:0 0 32px;padding:22px 18px;border:1px solid rgba(103,220,255,.25);border-radius:17px;background:linear-gradient(115deg,rgba(0,160,220,.12),rgba(7,7,7,.96) 50%,rgba(255,90,0,.12))}
+.hub-eyebrow{font-size:8px;font-weight:900;letter-spacing:2px;color:#67dcff}
+.sponsorship-hub h2{margin:8px 0;font-size:23px;line-height:1.2}
+.sponsorship-hub>p,.package-note{font-size:11px;line-height:1.7;color:#bcbcbc}
+.hub-nav{display:flex;flex-wrap:wrap;gap:9px;margin-top:17px}
+.hub-nav a,.package-enquire{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:10px 13px;border-radius:10px;border:1px solid rgba(103,220,255,.3);background:rgba(0,150,210,.09);color:#fff;text-decoration:none;font-size:10px;font-weight:900}
+.hub-nav a:focus-visible,.package-enquire:focus-visible{outline:2px solid #67dcff;outline-offset:3px}
+.hub-section{margin:28px 0 34px;scroll-margin-top:90px}
+.hub-section h2{font-size:21px;margin-bottom:10px}
+.hub-section>p{color:#bbb;font-size:11px;line-height:1.7;margin-bottom:15px}
+.package-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:12px}
+.package-card{padding:19px;border:1px solid rgba(255,255,255,.14);border-radius:15px;background:linear-gradient(125deg,rgba(0,140,190,.12),#090909 56%,rgba(255,90,0,.12));display:flex;flex-direction:column;gap:10px}
+.package-card h3{font-size:17px}.package-card p{font-size:10px;line-height:1.65;color:#bcbcbc;flex:1}
+.package-tag{font-size:8px;font-weight:900;letter-spacing:1px;color:#ff9b55}
+.package-enquire{margin-top:6px}
+.hub-info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px}
+.hub-info-card{padding:18px;border:1px solid rgba(255,255,255,.13);border-radius:14px;background:rgba(255,255,255,.03)}
+.hub-info-card h3{font-size:14px;margin-bottom:8px}.hub-info-card p{font-size:10px;line-height:1.7;color:#bbb}
 
 </style>
 
@@ -1662,6 +1682,44 @@ to the team and fighter they proudly support.
 
 </div>
 
+
+
+<!-- SPONSORSHIP HUB — PHASE 1: NO ACCOUNT / PAYMENT FUNCTIONS -->
+<section class="sponsorship-hub" aria-labelledby="sponsorshipHubTitle">
+  <div class="hub-eyebrow">ONE PACK • ONE PURPOSE</div>
+  <h2 id="sponsorshipHubTitle">SPONSORSHIP HUB</h2>
+  <p>Explore ways to support Team Wolfpack, our fighters and our community. Existing sponsors remain featured below.</p>
+  <nav class="hub-nav" aria-label="Sponsorship sections">
+    <a href="#sponsorshipPackages">PACKAGES</a>
+    <a href="#sponsorshipTypes">WAYS TO SUPPORT</a>
+    <a href="#existingSponsors">OUR SPONSORS</a>
+    <a href="contact.html#sponsorship">ENQUIRE</a>
+  </nav>
+</section>
+<section class="hub-section" id="sponsorshipPackages" aria-labelledby="packagesTitle">
+  <div class="hub-eyebrow">SPONSORSHIP OPPORTUNITIES</div>
+  <h2 id="packagesTitle">ANNUAL SPONSORSHIP PACKAGES</h2>
+  <p>Explore our proposed package levels. Prices, benefits and availability are subject to confirmation with Team Wolfpack; no online purchase is available at this stage.</p>
+  <div class="package-grid">
+    <article class="package-card"><div class="package-tag">LEVEL 01</div><h3>🥉 BRONZE</h3><p>Entry-level recognition for businesses who want to support the pack. Final benefits to be agreed.</p><a class="package-enquire" href="contact.html#sponsorship">ENQUIRE ABOUT BRONZE ›</a></article>
+    <article class="package-card"><div class="package-tag">LEVEL 02</div><h3>🥈 SILVER</h3><p>Enhanced sponsor visibility and promotional opportunities. Final benefits to be agreed.</p><a class="package-enquire" href="contact.html#sponsorship">ENQUIRE ABOUT SILVER ›</a></article>
+    <article class="package-card"><div class="package-tag">LEVEL 03</div><h3>🥇 GOLD</h3><p>Featured sponsorship opportunities across Team Wolfpack channels. Final benefits to be agreed.</p><a class="package-enquire" href="contact.html#sponsorship">ENQUIRE ABOUT GOLD ›</a></article>
+    <article class="package-card"><div class="package-tag">LEVEL 04</div><h3>💎 PLATINUM</h3><p>Premium partnership opportunities tailored to the sponsor and team. Final benefits to be agreed.</p><a class="package-enquire" href="contact.html#sponsorship">ENQUIRE ABOUT PLATINUM ›</a></article>
+  </div>
+</section>
+<section class="hub-section" id="sponsorshipTypes" aria-labelledby="sponsorshipTypesTitle">
+  <div class="hub-eyebrow">FIND YOUR PLACE IN THE PACK</div>
+  <h2 id="sponsorshipTypesTitle">WAYS TO SUPPORT</h2>
+  <div class="hub-info-grid">
+    <article class="hub-info-card"><h3>🏢 BUSINESS SPONSORSHIP</h3><p>Support Team Wolfpack as a business and enquire about brand recognition and a dedicated sponsor profile.</p></article>
+    <article class="hub-info-card"><h3>❤️ PERSONAL SUPPORTERS</h3><p>Support the team as an individual. Personal supporter accounts remain separate from business sponsorships.</p></article>
+    <article class="hub-info-card"><h3>🥊 FIGHTER SPONSORSHIP</h3><p>Discuss sponsorship for Mrs Wolfie, Greig Sloan or other eligible fighters, subject to team approval.</p></article>
+    <article class="hub-info-card"><h3>🤝 CUSTOM PARTNERSHIPS</h3><p>Discuss event, equipment, services or other tailored contributions directly with the team.</p></article>
+  </div>
+</section>
+<!-- EXISTING SPONSOR GRIDS CONTINUE UNCHANGED BELOW -->
+
+<div id="existingSponsors"></div>
 
 <!-- =========================================
      TEAM WOLFIE
