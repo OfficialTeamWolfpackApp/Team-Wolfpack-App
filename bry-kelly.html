@@ -1376,6 +1376,10 @@ body.menu-open{
 .wolfie-badge-icon{font-size:30px;line-height:1.2}.wolfie-badge-name{font-size:10px;font-weight:900;letter-spacing:.5px;line-height:1.35}
 .wolfie-badge-empty{font-size:12px;color:#a9bdc8;line-height:1.5}
 
+/* Public personal details — separately maintained by the verified official member. */
+.personal-details-card{padding:20px;border:1px solid rgba(103,220,255,.3);border-left:3px solid #67dcff;border-right:3px solid #ff751c;border-radius:15px;background:linear-gradient(110deg,rgba(0,30,42,.94),rgba(5,5,5,.96) 50%,rgba(48,15,0,.94));overflow-wrap:anywhere}
+.personal-detail-row{margin:0 0 16px}.personal-detail-row:last-child{margin-bottom:0}.personal-detail-label{display:block;color:#ff9d59;font-size:10px;font-weight:900;letter-spacing:1px;margin-bottom:6px}.personal-detail-value{color:#eafaff;font-size:14px;line-height:1.65;white-space:pre-wrap}.personal-social-links{display:flex;flex-wrap:wrap;gap:9px}.personal-social-links a{display:inline-block;padding:10px 13px;border:1px solid #67dcff;border-radius:9px;color:#eafaff;text-decoration:none;font-size:12px;font-weight:800}.personal-social-links a:hover{border-color:#ff751c}
+
 </style>
 
 </head>
@@ -1633,6 +1637,17 @@ PACK INFORMATION
 </div>
 </section>
 
+
+<!-- Verified official member's self-managed public information -->
+<section class="section" id="wolfiePersonalSection" hidden aria-labelledby="wolfiePersonalTitle">
+  <div class="section-kicker">FROM BRY KELLY</div>
+  <h2 class="section-title" id="wolfiePersonalTitle"><span class="ice">PERSONAL</span> <span class="fire">PROFILE</span></h2>
+  <div class="personal-details-card">
+    <div class="personal-detail-row" id="wolfiePersonalLocationRow" hidden><span class="personal-detail-label">📍 LOCATION</span><div class="personal-detail-value" id="wolfiePersonalLocation"></div></div>
+    <div class="personal-detail-row" id="wolfiePersonalBioRow" hidden><span class="personal-detail-label">📝 ABOUT ME</span><div class="personal-detail-value" id="wolfiePersonalBio"></div></div>
+    <div class="personal-detail-row" id="wolfiePersonalSocialRow" hidden><span class="personal-detail-label">🌐 FIND ME ONLINE</span><div class="personal-social-links" id="wolfiePersonalSocialLinks"></div></div>
+  </div>
+</section>
 
 <!-- OFFICIAL TEAM BADGES — LIVE FIREBASE -->
 <section class="section" id="wolfieBadgesSection" aria-labelledby="wolfieBadgesTitle">
@@ -2142,6 +2157,63 @@ if("serviceWorker" in navigator){
 
 }
 
+</script>
+
+
+<!-- Official member's self-managed public profile: bry-kelly -->
+<script type="module">
+import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+const app = getApps().length ? getApp() : initializeApp({
+  apiKey: "AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",
+  authDomain: "team-wolfpack-app.firebaseapp.com",
+  databaseURL: "https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "team-wolfpack-app",
+  storageBucket: "team-wolfpack-app.firebasestorage.app",
+  messagingSenderId: "1070414578856",
+  appId: "1:1070414578856:web:df14e7d387e658eeae2e9d"
+});
+const db = getDatabase(app);
+const section = document.getElementById('wolfiePersonalSection');
+let stopProfile = null;
+const hide = () => { section.hidden = true; };
+onValue(ref(db, 'officialTeamAccountLinks/bry-kelly'), linkSnapshot => {
+  if (stopProfile) { stopProfile(); stopProfile = null; }
+  hide();
+  const uid = linkSnapshot.val();
+  if (typeof uid !== 'string' || !/^[A-Za-z0-9]{10,128}$/.test(uid)) return;
+  stopProfile = onValue(ref(db, 'officialMemberPersonalProfiles/' + uid), snapshot => {
+    const data = snapshot.val() || {};
+    let hasContent = false;
+    for (const [field,rowId,valueId] of [
+      ['location','wolfiePersonalLocationRow','wolfiePersonalLocation'],
+      ['bio','wolfiePersonalBioRow','wolfiePersonalBio']
+    ]) {
+      const value = typeof data[field] === 'string' ? data[field].trim() : '';
+      document.getElementById(rowId).hidden = !value;
+      document.getElementById(valueId).textContent = value;
+      if (value) hasContent = true;
+    }
+    const links = document.getElementById('wolfiePersonalSocialLinks');
+    links.replaceChildren();
+    for (const [field,label] of [['facebook','Facebook'],['instagram','Instagram'],['tiktok','TikTok'],['youtube','YouTube']]) {
+      const value = data[field];
+      if (typeof value !== 'string') continue;
+      try {
+        const url = new URL(value);
+        if (url.protocol !== 'https:') continue;
+        const link = document.createElement('a');
+        link.href = url.href;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = label + ' ↗';
+        links.append(link);
+      } catch (_error) {}
+    }
+    document.getElementById('wolfiePersonalSocialRow').hidden = !links.childElementCount;
+    section.hidden = !(hasContent || links.childElementCount);
+  }, error => { hide(); console.error('Personal profile read failed (bry-kelly):', error); });
+}, error => { hide(); console.error('Official member link read failed (bry-kelly):', error); });
 </script>
 
 </body>
