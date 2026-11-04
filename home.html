@@ -7827,14 +7827,14 @@ ADMIN
 <div class="home-championship-info">
 
   <div class="home-title-label">
-    ★ TITLE FIGHT
+    ★ FIGHT TYPE
   </div>
 
   <div
     id="nextFightTitle"
     class="home-title-name"
   >
-    LADIES SUPER MIDDLEWEIGHT NOVICE TITLE
+    FIGHT DETAILS TBA
   </div>
 
 </div>
@@ -9496,7 +9496,14 @@ function renderNextFight(f){
   const venue = String(f.venue || f.location || "VENUE TBA").toUpperCase();
   const image = fighterImage(f);
   const opponentPhoto = opponentImage(f);
-  
+
+  // Keep the homepage fight type in sync with Admin Fight Management.
+  const nextFightTitle = document.getElementById("nextFightTitle");
+  if(nextFightTitle){
+    nextFightTitle.textContent =
+      String(f.fightType || "").trim().toUpperCase() || "FIGHT DETAILS TBA";
+  }
+
   if(nextFightImage && image){
     nextFightImage.src = image;
     nextFightImage.alt = name;
