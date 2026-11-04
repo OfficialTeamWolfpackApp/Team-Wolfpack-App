@@ -395,22 +395,14 @@ body{
   color:#67dcff;
 }
 
-/* TEAM SLOAN */
 
-.sloan-stat{
-  border-color:rgba(255,117,28,.35);
-}
-
-.sloan-stat .sponsor-stat-number{
-  color:#ff751c;
-}
 
 /* DESKTOP */
 
 @media(min-width:720px){
 
   .sponsor-overview-grid{
-    grid-template-columns:repeat(4,minmax(0,1fr));
+    grid-template-columns:repeat(3,minmax(0,1fr));
   }
 
 }
@@ -513,15 +505,7 @@ body{
   color:#67dcff;
 }
 
-/* TEAM SLOAN */
 
-.saved-sponsor-card[data-team="sloan"]{
-  border-color:rgba(255,90,0,.4);
-}
-
-.saved-sponsor-card[data-team="sloan"] > strong{
-  color:#ff751c;
-}
 
 /* TEAM WOLFPACK */
 
@@ -617,12 +601,7 @@ body{
   border-color:rgba(0,191,255,.25);
 }
 
-/* TEAM SLOAN */
 
-.saved-sponsor-card[data-team="sloan"]
-.sponsor-logo-preview{
-  border-color:rgba(255,90,0,.25);
-}
 
 /* =========================================
    LIVE SPONSOR EDITOR LOGO PREVIEW
@@ -736,7 +715,7 @@ body{
 
 .sponsor-team-filters{
   display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
+  grid-template-columns:repeat(2,minmax(0,1fr));
   gap:12px;
   margin-top:20px;
 }
@@ -775,11 +754,7 @@ body{
   color:#67dcff;
 }
 
-.sponsor-team-filter[data-team="sloan"].active{
-  background:rgba(255,90,0,.15);
-  border-color:#ff5a00;
-  color:#ff751c;
-}
+
 
 @media(max-width:600px){
 
@@ -1005,7 +980,7 @@ body{
   /* TEAM FILTERS */
 
   .sponsor-team-filters{
-    grid-template-columns:repeat(3,minmax(0,1fr));
+    grid-template-columns:repeat(2,minmax(0,1fr));
     gap:6px;
   }
 
@@ -1336,27 +1311,6 @@ body{
 
     </div>
 
-    <!-- TEAM SLOAN -->
-
-    <div class="sponsor-stat-card sloan-stat">
-
-      <div class="sponsor-stat-icon">
-        🔥
-      </div>
-
-      <div
-        id="totalSloanSponsors"
-        class="sponsor-stat-number"
-      >
-        —
-      </div>
-
-      <div class="sponsor-stat-label">
-        TEAM SLOAN
-      </div>
-
-    </div>
-
   </div>
 
 </section>
@@ -1393,15 +1347,6 @@ body{
       aria-pressed="false"
     >
       🧊 TEAM WOLFIE
-    </button>
-
-    <button
-      type="button"
-      class="sponsor-team-filter"
-      data-team="sloan"
-      aria-pressed="false"
-    >
-      🔥 TEAM SLOAN
     </button>
 
   </div>
@@ -1512,8 +1457,7 @@ body{
     </h2>
 
     <p class="section-description">
-      Manage official sponsors for Team Wolfie,
-      Team Sloan and Team Wolfpack.
+      Manage official sponsors for Team Wolfie and Team Wolfpack.
     </p>
 
   <button
@@ -1568,10 +1512,6 @@ body{
 
       <option value="wolfie">
         TEAM WOLFIE
-      </option>
-
-      <option value="sloan">
-        TEAM SLOAN
       </option>
 
       <option value="wolfpack">
@@ -2351,7 +2291,6 @@ card.dataset.sponsorId = sponsorId;
 
   const teamNames = {
     wolfie: "TEAM WOLFIE",
-    sloan: "TEAM SLOAN",
     wolfpack: "TEAM WOLFPACK"
   };
 
@@ -2441,7 +2380,7 @@ editButton.addEventListener("click", function(){
     sponsor.name || "";
 
  document.getElementById("sponsorTeam").value =
-  sponsor.team || "wolfie";
+  sponsor.team === "wolfpack" ? "wolfpack" : "wolfie";
 
 document.getElementById("sponsorLogo").value =
   sponsor.logo || "";
@@ -2613,13 +2552,12 @@ onValue(
 let supporterCount = 0;
 
 let wolfieCount = 0;
-let sloanCount = 0;
 
     snapshot.forEach(function(childSnapshot){
 
       const sponsor = childSnapshot.val();
 
-      if(!sponsor || typeof sponsor !== "object"){
+      if(!sponsor || typeof sponsor !== "object" || sponsor.team === "sloan"){
         return;
       }
 
@@ -2634,12 +2572,7 @@ if(
   wolfieCount++;
 }
 
-if(
-  sponsor.team === "sloan" &&
-  ["main", "supporter"].includes(sponsor.category)
-){
-  sloanCount++;
-}
+
       
       if(sponsor.category === "main"){
 
@@ -2684,8 +2617,7 @@ document.getElementById("totalSupporters").textContent =
 document.getElementById("totalWolfieSponsors").textContent =
   wolfieCount;
 
-document.getElementById("totalSloanSponsors").textContent =
-  sloanCount;
+
 
 /* REAPPLY FILTER AFTER FIREBASE UPDATES */
 
