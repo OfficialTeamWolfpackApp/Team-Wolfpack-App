@@ -1664,6 +1664,14 @@ body{
   <section class="admin-section" id="sponsorAccountLinking" aria-labelledby="sponsorAccountLinkingTitle">
     <h2 class="section-title" id="sponsorAccountLinkingTitle">🔐 SPONSOR ACCOUNT LINKING</h2>
     <p class="section-description">Sponsor account linking is being prepared. Existing sponsors and supporters remain unchanged. Verified account ownership and Firebase database permissions must be confirmed before this feature is enabled.</p>
+    <div style="display:grid;gap:12px;max-width:600px;margin:16px 0;">
+      <label for="linkSponsorSelection">EXISTING SPONSOR OR SUPPORTER</label>
+      <select id="linkSponsorSelection" style="padding:12px;border-radius:8px;background:#111b23;color:#fff;border:1px solid #32718d;">
+        <option value="">Select an existing sponsor or supporter</option>
+      </select>
+      <label for="linkSponsorUid">VERIFIED FIREBASE ACCOUNT UID (COMING SOON)</label>
+      <input id="linkSponsorUid" type="text" disabled autocomplete="off" placeholder="Account lookup will be enabled after security verification" style="padding:12px;border-radius:8px;background:#111b23;color:#fff;border:1px solid #32718d;">
+    </div>
     <button class="admin-button" type="button" disabled aria-disabled="true" title="Awaiting Firebase security rules verification" style="opacity:.55;cursor:not-allowed;">🔒 LINK SPONSOR ACCOUNT — NOT YET ENABLED</button>
     <p class="section-description" role="status">No accounts can be linked from this section yet.</p>
   </section>
@@ -2558,6 +2566,11 @@ onValue(
     mainSponsorsList.replaceChildren();
     supportersList.replaceChildren();
 
+    // Read-only sponsor selector. Account linking writes remain disabled.
+    const linkSponsorSelection = document.getElementById("linkSponsorSelection");
+    const selectedSponsorId = linkSponsorSelection.value;
+    linkSponsorSelection.replaceChildren(new Option("Select an existing sponsor or supporter", ""));
+
    let mainCount = 0;
 let supporterCount = 0;
 
@@ -2569,6 +2582,13 @@ let wolfieCount = 0;
 
       if(!sponsor || typeof sponsor !== "object" || sponsor.team === "sloan"){
         return;
+      }
+
+      if(["main", "supporter"].includes(sponsor.category)){
+        const label = (sponsor.name || "Unnamed sponsor") + " — " +
+          (sponsor.category === "main" ? "Main Sponsor" : "Supporter") +
+          " / " + (sponsor.team === "wolfie" ? "Team Wolfie" : "Team Wolfpack");
+        linkSponsorSelection.add(new Option(label, childSnapshot.key));
       }
 
 /* =========================================
@@ -2603,6 +2623,8 @@ if(
       }
 
     });
+
+    linkSponsorSelection.value = selectedSponsorId;
 
     if(mainCount === 0){
       mainSponsorsList.textContent =
