@@ -1734,6 +1734,7 @@ import {
   ref,
   push,
   set,
+  update,
   get,
   remove,
   onValue
@@ -2189,8 +2190,9 @@ saveSponsorButton.addEventListener("click", async function(){
 
 if(editingSponsorId){
 
-  // Update the existing sponsor.
-  await set(
+  // Update only the editable sponsor fields. Preserve any additional
+  // metadata on the record (including future account-linking fields).
+  await update(
     ref(database, "sponsors/" + editingSponsorId),
     sponsor
   );
