@@ -1673,7 +1673,7 @@ body{
       <input id="linkSponsorUid" type="text" disabled autocomplete="off" placeholder="Account lookup will be enabled after security verification" style="padding:12px;border-radius:8px;background:#111b23;color:#fff;border:1px solid #32718d;">
     </div>
     <button class="admin-button" type="button" disabled aria-disabled="true" title="Awaiting Firebase security rules verification" style="opacity:.55;cursor:not-allowed;">🔒 LINK SPONSOR ACCOUNT — NOT YET ENABLED</button>
-    <p class="section-description" role="status">No accounts can be linked from this section yet.</p>
+    <p class="section-description" id="sponsorLinkStatus" role="status" aria-live="polite">Choose a sponsor to inspect its existing account-link status. Linking remains disabled.</p>
   </section>
 
   <section class="admin-section" id="supporters">
@@ -2290,6 +2290,34 @@ document.getElementById(savedSponsorSection).scrollIntoView({
    DISPLAY SAVED SPONSORS
 ========================================= */
 
+// Read-only account-link inspection; no sponsor account writes are enabled.
+const linkSponsorSelection = document.getElementById("linkSponsorSelection");
+const sponsorLinkStatus = document.getElementById("sponsorLinkStatus");
+let sponsorAccountLinks = {};
+let sponsorLinksAvailable = false;
+function renderSponsorLinkStatus(){
+  const sponsorId = linkSponsorSelection.value;
+  if(!sponsorId){
+    sponsorLinkStatus.textContent = "Choose a sponsor to inspect its existing account-link status. Linking remains disabled.";
+  }else if(!sponsorLinksAvailable){
+    sponsorLinkStatus.textContent = "Account-link records could not be verified. Linking remains disabled.";
+  }else{
+    sponsorLinkStatus.textContent = Object.prototype.hasOwnProperty.call(sponsorAccountLinks, sponsorId)
+      ? "Existing account link found for this sponsor. Changes are disabled."
+      : "No account link found for this sponsor. Linking remains disabled.";
+  }
+}
+linkSponsorSelection.addEventListener("change", renderSponsorLinkStatus);
+onValue(ref(database, "sponsorAccountLinks"), snapshot => {
+  sponsorAccountLinks = snapshot.val() || {};
+  sponsorLinksAvailable = true;
+  renderSponsorLinkStatus();
+}, () => {
+  sponsorAccountLinks = {};
+  sponsorLinksAvailable = false;
+  renderSponsorLinkStatus();
+});
+
 const mainSponsorsList =
   document.getElementById("mainSponsorsList");
 
@@ -2567,7 +2595,6 @@ onValue(
     supportersList.replaceChildren();
 
     // Read-only sponsor selector. Account linking writes remain disabled.
-    const linkSponsorSelection = document.getElementById("linkSponsorSelection");
     const selectedSponsorId = linkSponsorSelection.value;
     linkSponsorSelection.replaceChildren(new Option("Select an existing sponsor or supporter", ""));
 
@@ -2625,6 +2652,7 @@ if(
     });
 
     linkSponsorSelection.value = selectedSponsorId;
+    renderSponsorLinkStatus();
 
     if(mainCount === 0){
       mainSponsorsList.textContent =
