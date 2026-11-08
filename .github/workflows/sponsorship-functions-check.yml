@@ -59,6 +59,8 @@ jobs:
           node --check sponsor-remediation.review.test.js
           node --check sponsor-remediation-retry.review.js
           node --check sponsor-remediation-retry.review.test.js
+          node --check sponsor-emulator-guard.review.js
+          node --check sponsor-emulator-guard.review.test.js
           node --check ../sponsorship-application.js
           node --check ../admin-sponsorship-enquiries.js
 
