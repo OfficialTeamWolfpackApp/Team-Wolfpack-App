@@ -1,0 +1,19 @@
+{
+  "emulators": {
+    "database": {
+      "host": "127.0.0.1",
+      "port": 19130
+    },
+    "auth": {
+      "host": "127.0.0.1",
+      "port": 19131
+    },
+    "ui": {
+      "enabled": false
+    },
+    "singleProjectMode": true
+  },
+  "database": {
+    "rules": "functions/sponsorship-emulator.review.rules.json"
+  }
+}
