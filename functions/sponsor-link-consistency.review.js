@@ -27,6 +27,18 @@ function inspectSponsorLink(stateInput, sponsorId, uid, legacyInput = {}) {
     return {ok: false, code: "DUPLICATE_LINK_CONFLICT"};
   }
 
+  // Reject any unrelated malformed forward/reverse pair before allowing a write.
+  for (const [id, linkedUid] of Object.entries(forward)) {
+    if (typeof linkedUid !== "string" || reverse[linkedUid] !== id) {
+      return {ok: false, code: "GLOBAL_INDEX_MISMATCH"};
+    }
+  }
+  for (const [linkedUid, id] of Object.entries(reverse)) {
+    if (typeof id !== "string" || forward[id] !== linkedUid) {
+      return {ok: false, code: "GLOBAL_INDEX_MISMATCH"};
+    }
+  }
+
   const linkedUid = forward[sponsorId];
   const linkedSponsor = reverse[uid];
   if (linkedUid && linkedUid !== uid) {
