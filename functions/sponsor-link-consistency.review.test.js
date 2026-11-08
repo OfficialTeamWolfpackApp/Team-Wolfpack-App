@@ -26,8 +26,14 @@ test("inconsistent status fails closed", () => {
   assert.equal(inspect({linksBySponsor: {[S]: U}, linksByUid: {[U]: S},
     accountStatus: {[U]: {sponsorId: "sponsor-2", active: true}}}).code, "STATUS_LINK_MISMATCH");
 });
-test("orphan status fails closed", () => {
-  assert.equal(inspect({accountStatus: {[U]: {sponsorId: S, active: false}}}).code, "ORPHAN_ACCOUNT_STATUS");
+test("inactive status left after unlink permits same-sponsor relink review", () => {
+  assert.equal(inspect({accountStatus: {[U]: {sponsorId: S, active: false}}}).code, "UNLINKED_WITH_INACTIVE_HISTORY");
+});
+test("active orphan status fails closed", () => {
+  assert.equal(inspect({accountStatus: {[U]: {sponsorId: S, active: true}}}).code, "ORPHAN_ACCOUNT_STATUS");
+});
+test("inactive history for a different sponsor fails closed", () => {
+  assert.equal(inspect({accountStatus: {[U]: {sponsorId: "sponsor-2", active: false}}}).code, "ORPHAN_ACCOUNT_STATUS");
 });
 test("duplicate UID in forward index fails closed", () => {
   assert.equal(inspect({linksBySponsor: {[S]: U, "sponsor-2": U}}).code, "DUPLICATE_LINK_CONFLICT");
