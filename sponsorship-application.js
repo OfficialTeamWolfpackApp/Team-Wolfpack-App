@@ -41,7 +41,7 @@ function poundsToPence(value) {
   const trimmed = value.trim();
   if (!trimmed) return 0;
   // Decimal strings are converted without floating-point rounding.
-  if (!/^(?:0|[1-9]\\d{0,5})(?:\\.\\d{1,2})?$/.test(trimmed)) {
+  if (!/^(?:0|[1-9]\d{0,5})(?:\.\d{1,2})?$/.test(trimmed)) {
     throw new Error("Enter a valid annual contribution with no more than two decimal places.");
   }
   const [pounds, pennies = ""] = trimmed.split(".");
@@ -136,6 +136,6 @@ form.addEventListener("submit", async event => {
     setStatus(error.message || "Unable to submit your application. Please try again.");
   } finally {
     submitting = false;
-    submitButton.disabled = false;
+    submitButton.disabled = !(SPONSORSHIP_SUBMISSIONS_ENABLED && /^https:\/\//.test(SPONSORSHIP_FUNCTION_URL));
   }
 });
