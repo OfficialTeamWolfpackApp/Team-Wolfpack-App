@@ -26,7 +26,7 @@ async function main() {
     return response;
   }
   // Emulator readiness is a hard gate before test writes.
-  const health = await fetch(base + "/.json?ns=" + encodeURIComponent(namespace));
+  const health = await fetch(url);
   assert.equal(health.ok, true, "RTDB emulator readiness failed");
   try {
     assert.equal((await req("PUT", initial)).status, 200);
