@@ -1,6 +1,6 @@
 # Step 17 — Sponsor verification candidate (NOT DEPLOYABLE)
 
-The proposed implementation is in `functions/review/sponsor-account-verification.candidate.js`. It is a **review copy**, not an active Functions module and is not exported by `functions/index.js`.
+The proposed implementation was generated as a downloadable local review artifact (`sponsor-account-verification-candidate.js`). It has **not** been committed as an active Functions module and is not exported by `functions/index.js`.
 
 ## Candidate behavior
 
