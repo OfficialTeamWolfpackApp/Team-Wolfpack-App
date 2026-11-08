@@ -12,7 +12,7 @@ async function main() {
   const projectId = "demo-team-wolfpack-sponsorship-isolated";
   const app = admin.initializeApp({
     projectId,
-    databaseURL: "http://127.0.0.1:19130?ns=" + projectId + "-default-rtdb",
+    databaseURL: "https://" + projectId + "-default-rtdb.firebaseio.com",
   }, "sponsor-admin-emulator-review");
   const ref = app.database().ref("sponsorAccountManagement/admin_" +
     process.pid + "_" + Date.now());
