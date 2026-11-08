@@ -1,0 +1,16 @@
+{
+  "name": "team-wolfpack-functions",
+  "private": true,
+  "description": "Team Wolfpack Firebase Cloud Functions",
+  "main": "index.js",
+  "engines": {
+    "node": "22"
+  },
+  "scripts": {
+    "check": "node --check index.js && node --check submit-sponsorship-application.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^13.6.0",
+    "firebase-functions": "^6.4.0"
+  }
+}
