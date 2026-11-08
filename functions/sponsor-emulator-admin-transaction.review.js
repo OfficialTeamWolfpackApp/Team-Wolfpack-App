@@ -26,6 +26,9 @@ async function main() {
       lastOutcome = reviewed.outcome;
       return reviewed.nextValue;
     }, undefined, false);
+    const status = (await ref.once("value")).val()?.accountStatus?.u1;
+    console.log("ADMIN TRANSACTION DIAGNOSTIC", JSON.stringify({operation, eventId,
+      committed: result.committed, outcome: lastOutcome, active: status?.active}));
     return {committed: result.committed, outcome: lastOutcome};
   }
   try {
