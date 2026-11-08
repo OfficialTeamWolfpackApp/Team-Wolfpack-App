@@ -61,6 +61,13 @@ function inspectSponsorLink(stateInput, sponsorId, uid, legacyInput = {}) {
   }
 
   if (statuses[uid]) {
+    const status = statuses[uid];
+    // Management deliberately retains an inactive status after unlink.
+    // A matching inactive tombstone may be relinked; an active or
+    // mismatched orphan status must fail closed.
+    if (status && status.sponsorId === sponsorId && status.active === false) {
+      return {ok: true, code: "UNLINKED_WITH_INACTIVE_HISTORY"};
+    }
     return {ok: false, code: "ORPHAN_ACCOUNT_STATUS"};
   }
   return {ok: true, code: "UNLINKED"};
