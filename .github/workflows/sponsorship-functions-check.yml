@@ -1,0 +1,37 @@
+name: Sponsorship Functions - Safety Checks
+
+on:
+  push:
+    branches:
+      - development/sponsorship-integration
+    paths:
+      - "functions/**"
+      - ".github/workflows/sponsorship-functions-check.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "functions/**"
+      - ".github/workflows/sponsorship-functions-check.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  syntax:
+    name: Check sponsorship function syntax
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Check JavaScript syntax
+        working-directory: functions
+        run: |
+          node --check index.js
+          node --check submit-sponsorship-application.js
