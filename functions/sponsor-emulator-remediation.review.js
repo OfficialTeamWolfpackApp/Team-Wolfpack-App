@@ -49,7 +49,7 @@ async function main() {
     assert.equal(stale.verdict.code, "FRESH_SNAPSHOT_REQUIRED");
     const wrongIdentity = await transact(true, "wrong-link-1", {uid: "u2"});
     assert.equal(wrongIdentity.result.committed, false);
-    assert.equal(wrongIdentity.verdict.code, "LINK_NOT_FOUND");
+    assert.equal(wrongIdentity.verdict.code, "DUPLICATE_LINK_CONFLICT");
     const noReason = await transact(true, "no-reason-1", {
       eligibilityResult: {ok: true, action: "CONTINUE"},
     });
