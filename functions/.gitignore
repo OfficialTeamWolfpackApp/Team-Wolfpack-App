@@ -1,0 +1,22 @@
+# Dependencies and generated files
+node_modules/
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+ui-debug.log
+*.log
+
+# Local emulator data and credentials
+emulator-data/
+emulator-data-*/
+*-emulator-data/
+service-account*.json
+*serviceAccountKey*.json
+*-adminsdk-*.json
+.env
+.env.*
+!.env.example
+
+# Local-only backups
+*.backup-*
+*.bak
