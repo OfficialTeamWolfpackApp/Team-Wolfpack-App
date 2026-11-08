@@ -41,3 +41,14 @@ test("legacy forward index requires review", () => {
 test("legacy reverse index requires review", () => {
   assert.equal(inspect({}, {sponsorAccountByUid: {[U]: S}}).code, "LEGACY_LINK_REVIEW_REQUIRED");
 });
+
+test("unrelated corrupt forward index blocks a new link", () => {
+  assert.equal(inspect({linksBySponsor: {"sponsor-3": "user-3"}}).code, "GLOBAL_INDEX_MISMATCH");
+});
+test("unrelated corrupt reverse index blocks a new link", () => {
+  assert.equal(inspect({linksByUid: {"user-3": "sponsor-3"}}).code, "GLOBAL_INDEX_MISMATCH");
+});
+test("unrelated consistent indexes allow a new link", () => {
+  assert.equal(inspect({linksBySponsor: {"sponsor-3": "user-3"},
+    linksByUid: {"user-3": "sponsor-3"}}).code, "UNLINKED");
+});
