@@ -31,10 +31,10 @@ async function main() {
       ref.on("value", () => {if (!initialized) {initialized = true; resolve();}},
         reject);
     });
-    async function transact(authorized, eventId) {
+    async function transact(authorized, eventId, overrides = {}) {
       let verdict;
       const result = await ref.transaction(current => {
-        verdict = proposeSponsorRemediation({...input, eventId, authorized,
+        verdict = proposeSponsorRemediation({...input, ...overrides, eventId, authorized,
           state: current});
         return verdict.ok && !verdict.noop ? verdict.nextState : undefined;
       }, undefined, false);
@@ -43,6 +43,18 @@ async function main() {
     const denied = await transact(false, "denied-1");
     assert.equal(denied.result.committed, false);
     assert.equal(denied.verdict.code, "AUTHORIZATION_REQUIRED");
+    assert.deepEqual((await ref.once("value")).val(), original);
+    const stale = await transact(true, "stale-1", {freshSnapshot: false});
+    assert.equal(stale.result.committed, false);
+    assert.equal(stale.verdict.code, "FRESH_SNAPSHOT_REQUIRED");
+    const wrongIdentity = await transact(true, "wrong-link-1", {uid: "u2"});
+    assert.equal(wrongIdentity.result.committed, false);
+    assert.equal(wrongIdentity.verdict.code, "LINK_NOT_FOUND");
+    const noReason = await transact(true, "no-reason-1", {
+      eligibilityResult: {ok: true, action: "CONTINUE"},
+    });
+    assert.equal(noReason.result.committed, false);
+    assert.equal(noReason.verdict.code, "REMEDIATION_NOT_REQUIRED");
     assert.deepEqual((await ref.once("value")).val(), original);
     const applied = await transact(true, "remediation-1");
     assert.equal(applied.result.committed, true);
@@ -59,6 +71,8 @@ async function main() {
     assert.equal(duplicate.verdict.code, "ALREADY_INACTIVE");
     assert.equal((await ref.once("value")).val().auditEvents["remediation-2"],
       undefined);
+    assert.equal(Object.keys((await ref.once("value")).val().auditEvents).length, 2);
+    console.log("ISOLATED FIREBASE ADMIN SDK REMEDIATION NEGATIVE CASES PASSED");
     console.log("ISOLATED FIREBASE ADMIN SDK REMEDIATION TRANSACTION PASSED");
   } finally {
     ref.off("value");
