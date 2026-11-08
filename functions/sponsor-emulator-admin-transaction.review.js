@@ -20,6 +20,7 @@ async function main() {
   async function perform(operation, eventId, active) {
     let lastOutcome;
     const result = await ref.transaction(current => {
+      console.log("ADMIN CALLBACK STATE", JSON.stringify({operation, eventId, current}));
       const reviewed = reviewTransactionCallback(current, {
         ...input, operation, eventId, active, timestamp: 100,
       });
