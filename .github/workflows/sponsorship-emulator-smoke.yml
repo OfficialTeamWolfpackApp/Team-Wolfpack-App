@@ -37,6 +37,7 @@ jobs:
         run: |
           node --test sponsor-emulator-guard.review.test.js sponsor-emulator-config.review.test.js sponsor-emulator-startup.review.test.js
           node --check sponsor-emulator-smoke.review.js
+          test -f functions/sponsorship-emulator.review.rules.json
       - name: Run test-only database emulator smoke
         run: |
           npx --yes firebase-tools@15.30.2 emulators:exec \
