@@ -40,7 +40,7 @@ jobs:
           node --check sponsor-link-consistency.review.js
           node --check sponsor-link-consistency.review.test.js
           node --check sponsor-operation-policy.review.js
-          node --check sponsor-operation-policy.review.test.js sponsor-link-transition.review.test.js
+          node --check sponsor-operation-policy.review.test.js
           node --check sponsor-link-transition.review.js
           node --check sponsor-link-transition.review.test.js
           node --check ../sponsorship-application.js
@@ -48,4 +48,4 @@ jobs:
 
       - name: Run isolated mock security tests (no Firebase credentials)
         working-directory: functions
-        run: node --test submit-sponsorship-application.test.js sponsorship-integration-safety.test.js sponsor-link-consistency.review.test.js sponsor-operation-policy.review.test.js
+        run: node --test submit-sponsorship-application.test.js sponsorship-integration-safety.test.js sponsor-link-consistency.review.test.js sponsor-operation-policy.review.test.js sponsor-link-transition.review.test.js
