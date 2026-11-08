@@ -20,11 +20,11 @@ async function main() {
   // Keep an active value subscription so the SDK transaction callback has a
   // synchronized snapshot; a one-shot read alone did not maintain this cache.
   const onValue = () => {};
-  async function perform(operation, eventId, active) {
+  async function perform(operation, eventId, active, overrides = {}) {
     let lastOutcome;
     const result = await ref.transaction(current => {
       const reviewed = reviewTransactionCallback(current, {
-        ...input, operation, eventId, active, timestamp: 100,
+        ...input, ...overrides, operation, eventId, active, timestamp: 100,
       });
       lastOutcome = reviewed.outcome;
       return reviewed.nextValue;
@@ -50,6 +50,21 @@ async function main() {
     assert.equal(state.accountStatus.u1.active, false);
     assert.deepEqual(Object.keys(state.auditEvents).sort(),
       ["activated", "deactivated", "linked", "unlinked"]);
+    // A second sponsor can link, but the same sponsor cannot be reassigned
+    // to another UID by a later transaction.
+    assert.equal((await perform("link", "second-linked", undefined,
+      {sponsorId: "s2", uid: "u2"})).committed, true);
+    const conflict = await perform("link", "conflicting-link", undefined,
+      {sponsorId: "s2", uid: "u3"});
+    assert.equal(conflict.committed, false);
+    assert.equal(conflict.outcome, "SPONSOR_ALREADY_LINKED");
+    const afterConflict = (await ref.once("value")).val();
+    assert.equal(afterConflict.linksBySponsor.s2, "u2");
+    assert.equal(afterConflict.linksByUid.u2, "s2");
+    assert.equal(afterConflict.linksByUid.u3, undefined);
+    assert.equal(afterConflict.auditEvents["conflicting-link"], undefined);
+    assert.equal(Object.keys(afterConflict.auditEvents).length, 5);
+    console.log("ISOLATED FIREBASE ADMIN SDK CONFLICT TEST PASSED");
     console.log("ISOLATED FIREBASE ADMIN SDK TRANSACTIONS PASSED");
   } finally {
     ref.off("value");
