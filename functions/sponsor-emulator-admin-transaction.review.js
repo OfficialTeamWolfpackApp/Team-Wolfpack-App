@@ -18,9 +18,12 @@ async function main() {
     process.pid + "_" + Date.now());
   const input = {sponsorId: "s1", uid: "u1", administratorUid: "test-admin"};
   async function perform(operation, eventId, active) {
+    // Prime SDK local cache: a transaction callback can initially receive null
+    // even when server data exists, and a fail-closed callback then aborts.
+    // This is a test-harness measure, NOT an authorization or production fix.
+    await ref.once("value");
     let lastOutcome;
     const result = await ref.transaction(current => {
-      console.log("ADMIN CALLBACK STATE", JSON.stringify({operation, eventId, current}));
       const reviewed = reviewTransactionCallback(current, {
         ...input, operation, eventId, active, timestamp: 100,
       });
