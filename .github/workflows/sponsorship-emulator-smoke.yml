@@ -10,6 +10,7 @@ on:
       - 'functions/sponsor-emulator-transitions.review.js'
       - 'functions/sponsor-emulator-admin-transaction.review.js'
       - 'functions/sponsor-emulator-legacy.review.js'
+      - 'functions/sponsor-emulator-auth.review.js'
       - 'functions/sponsorship-emulator.review.json'
       - 'functions/sponsorship-emulator.review.rules.json'
       - '.github/workflows/sponsorship-emulator-smoke.yml'
@@ -43,6 +44,7 @@ jobs:
           node --check sponsor-emulator-transitions.review.js
           node --check sponsor-emulator-admin-transaction.review.js
           node --check sponsor-emulator-legacy.review.js
+          node --check sponsor-emulator-auth.review.js
           test -f sponsorship-emulator.review.rules.json
       - name: Install test-only Firebase Admin SDK dependencies
         run: npm install --prefix functions --ignore-scripts --no-audit --no-fund
@@ -52,4 +54,4 @@ jobs:
             --project demo-team-wolfpack-sponsorship-isolated \
             --config functions/sponsorship-emulator.review.json \
             --only database,auth \
-            "node functions/sponsor-emulator-smoke.review.js && node functions/sponsor-emulator-transitions.review.js && node functions/sponsor-emulator-admin-transaction.review.js && node functions/sponsor-emulator-legacy.review.js"
+            "node functions/sponsor-emulator-smoke.review.js && node functions/sponsor-emulator-transitions.review.js && node functions/sponsor-emulator-admin-transaction.review.js && node functions/sponsor-emulator-legacy.review.js && node functions/sponsor-emulator-auth.review.js"
