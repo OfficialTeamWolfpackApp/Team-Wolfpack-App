@@ -40,7 +40,9 @@ jobs:
           node --check sponsor-link-consistency.review.js
           node --check sponsor-link-consistency.review.test.js
           node --check sponsor-operation-policy.review.js
-          node --check sponsor-operation-policy.review.test.js
+          node --check sponsor-operation-policy.review.test.js sponsor-link-transition.review.test.js
+          node --check sponsor-link-transition.review.js
+          node --check sponsor-link-transition.review.test.js
           node --check ../sponsorship-application.js
           node --check ../admin-sponsorship-enquiries.js
 
