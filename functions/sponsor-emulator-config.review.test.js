@@ -26,5 +26,5 @@ test("test path is explicitly writable only in emulator rules", () => {
   assert.equal(rules.rules.sponsorAccountManagement[".read"], true);
 });
 test("config references the dedicated rules file", () => {
-  assert.equal(config.database.rules, "functions/sponsorship-emulator.review.rules.json");
+  assert.equal(config.database.rules, "sponsorship-emulator.review.rules.json");
 });
