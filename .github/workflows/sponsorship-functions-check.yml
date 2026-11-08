@@ -35,3 +35,8 @@ jobs:
         run: |
           node --check index.js
           node --check submit-sponsorship-application.js
+          node --check submit-sponsorship-application.test.js
+
+      - name: Run isolated mock security tests (no Firebase credentials)
+        working-directory: functions
+        run: node --test submit-sponsorship-application.test.js
