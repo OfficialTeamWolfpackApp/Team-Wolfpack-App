@@ -53,9 +53,11 @@ jobs:
           node --check sponsor-legacy-inventory.review.test.js
           node --check sponsor-auth-eligibility.review.js
           node --check sponsor-auth-eligibility.review.test.js
+          node --check sponsor-post-commit-eligibility.review.js
+          node --check sponsor-post-commit-eligibility.review.test.js
           node --check ../sponsorship-application.js
           node --check ../admin-sponsorship-enquiries.js
 
       - name: Run isolated mock security tests (no Firebase credentials)
         working-directory: functions
-        run: node --test submit-sponsorship-application.test.js sponsorship-integration-safety.test.js sponsor-link-consistency.review.test.js sponsor-operation-policy.review.test.js sponsor-link-transition.review.test.js sponsor-transaction-model.review.test.js sponsor-transaction-adapter.review.test.js sponsor-transaction-result.review.test.js sponsor-legacy-inventory.review.test.js sponsor-auth-eligibility.review.test.js
+        run: node --test submit-sponsorship-application.test.js sponsorship-integration-safety.test.js sponsor-link-consistency.review.test.js sponsor-operation-policy.review.test.js sponsor-link-transition.review.test.js sponsor-transaction-model.review.test.js sponsor-transaction-adapter.review.test.js sponsor-transaction-result.review.test.js sponsor-legacy-inventory.review.test.js sponsor-auth-eligibility.review.test.js sponsor-post-commit-eligibility.review.test.js
