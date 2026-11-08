@@ -7,6 +7,7 @@ on:
       - development/sponsorship-integration
     paths:
       - 'functions/sponsor-emulator-smoke.review.js'
+      - 'functions/sponsor-emulator-transitions.review.js'
       - 'functions/sponsorship-emulator.review.json'
       - 'functions/sponsorship-emulator.review.rules.json'
       - '.github/workflows/sponsorship-emulator-smoke.yml'
@@ -37,6 +38,7 @@ jobs:
         run: |
           node --test sponsor-emulator-guard.review.test.js sponsor-emulator-config.review.test.js sponsor-emulator-startup.review.test.js
           node --check sponsor-emulator-smoke.review.js
+          node --check sponsor-emulator-transitions.review.js
           test -f sponsorship-emulator.review.rules.json
       - name: Run test-only database emulator smoke
         run: |
@@ -44,4 +46,4 @@ jobs:
             --project demo-team-wolfpack-sponsorship-isolated \
             --config functions/sponsorship-emulator.review.json \
             --only database,auth \
-            "node functions/sponsor-emulator-smoke.review.js"
+            "node functions/sponsor-emulator-smoke.review.js && node functions/sponsor-emulator-transitions.review.js"
