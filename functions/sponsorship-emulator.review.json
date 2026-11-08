@@ -14,6 +14,6 @@
     "singleProjectMode": true
   },
   "database": {
-    "rules": "functions/sponsorship-emulator.review.rules.json"
+    "rules": "sponsorship-emulator.review.rules.json"
   }
 }
