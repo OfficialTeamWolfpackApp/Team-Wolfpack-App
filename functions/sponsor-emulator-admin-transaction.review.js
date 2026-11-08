@@ -57,7 +57,7 @@ async function main() {
     const conflict = await perform("link", "conflicting-link", undefined,
       {sponsorId: "s2", uid: "u3"});
     assert.equal(conflict.committed, false);
-    assert.equal(conflict.outcome, "SPONSOR_ALREADY_LINKED");
+    assert.equal(conflict.outcome, "DUPLICATE_LINK_CONFLICT");
     const afterConflict = (await ref.once("value")).val();
     assert.equal(afterConflict.linksBySponsor.s2, "u2");
     assert.equal(afterConflict.linksByUid.u2, "s2");
