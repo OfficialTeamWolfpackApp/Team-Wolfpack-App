@@ -1,7 +1,15 @@
-name: Sponsorship Isolated Emulator Smoke (Manual)
+name: Sponsorship Isolated Emulator Smoke
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - development/sponsorship-integration
+    paths:
+      - 'functions/sponsor-emulator-smoke.review.js'
+      - 'functions/sponsorship-emulator.review.json'
+      - 'functions/sponsorship-emulator.review.rules.json'
+      - '.github/workflows/sponsorship-emulator-smoke.yml'
 
 permissions:
   contents: read
