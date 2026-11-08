@@ -17,11 +17,10 @@ async function main() {
   const ref = app.database().ref("sponsorAccountManagement/admin_" +
     process.pid + "_" + Date.now());
   const input = {sponsorId: "s1", uid: "u1", administratorUid: "test-admin"};
+  // Keep an active value subscription so the SDK transaction callback has a
+  // synchronized snapshot; a one-shot read alone did not maintain this cache.
+  const onValue = () => {};
   async function perform(operation, eventId, active) {
-    // Prime SDK local cache: a transaction callback can initially receive null
-    // even when server data exists, and a fail-closed callback then aborts.
-    // This is a test-harness measure, NOT an authorization or production fix.
-    await ref.once("value");
     let lastOutcome;
     const result = await ref.transaction(current => {
       const reviewed = reviewTransactionCallback(current, {
@@ -36,6 +35,9 @@ async function main() {
     return {committed: result.committed, outcome: lastOutcome};
   }
   try {
+    await new Promise((resolve, reject) => ref.on("value", () => {
+      onValue(); resolve();
+    }, reject));
     assert.equal((await perform("link", "linked")).committed, true);
     assert.equal((await perform("link", "duplicate")).committed, false);
     assert.equal((await perform("setStatus", "activated", true)).committed, true);
@@ -50,6 +52,7 @@ async function main() {
       ["activated", "deactivated", "linked", "unlinked"]);
     console.log("ISOLATED FIREBASE ADMIN SDK TRANSACTIONS PASSED");
   } finally {
+    ref.off("value");
     await ref.remove();
     await app.delete();
   }
