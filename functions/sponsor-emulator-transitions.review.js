@@ -59,6 +59,36 @@ async function main() {
     assert.equal(state.accountStatus.u1.active, false);
     assert.equal(state.auditEvents["unlink-event"].action, "UNLINKED");
     assert.equal(Object.keys(state.auditEvents).length, 4);
+    // Two administrators race on the same sponsor. A stale conditional write
+    // must not overwrite the winner or manufacture an audit event.
+    const firstRead = await request("GET", undefined, {"X-Firebase-ETag": "true"});
+    assert.equal(firstRead.status, 200);
+    const staleTag = firstRead.headers.get("etag");
+    assert.ok(staleTag, "missing initial concurrency ETag");
+    const beforeRace = await firstRead.json();
+    const winning = applySponsorTransition({state: beforeRace, operation: "link",
+      sponsorId: "s2", uid: "u2", eventId: "winner-event",
+      administratorUid: "admin-a", timestamp: 200});
+    const losing = applySponsorTransition({state: beforeRace, operation: "link",
+      sponsorId: "s2", uid: "u3", eventId: "loser-event",
+      administratorUid: "admin-b", timestamp: 201});
+    assert.equal(winning.verdict.ok, true);
+    assert.equal(losing.verdict.ok, true);
+    assert.equal((await request("PUT", winning.nextState, {"if-match": staleTag})).status, 200);
+    assert.equal((await request("PUT", losing.nextState, {"if-match": staleTag})).status, 412);
+    const afterRace = await (await request("GET")).json();
+    assert.equal(afterRace.linksBySponsor.s2, "u2");
+    assert.equal(afterRace.linksByUid.u2, "s2");
+    assert.equal(afterRace.linksByUid.u3, undefined);
+    assert.equal(afterRace.auditEvents["winner-event"].action, "LINKED");
+    assert.equal(afterRace.auditEvents["loser-event"], undefined);
+    const retried = applySponsorTransition({state: afterRace, operation: "link",
+      sponsorId: "s2", uid: "u3", eventId: "loser-event",
+      administratorUid: "admin-b", timestamp: 202});
+    assert.equal(retried.verdict.ok, false, "conflicting retry must fail closed");
+    assert.equal(retried.nextState, null);
+    assert.equal(Object.keys(afterRace.auditEvents).length, 5);
+    console.log("ISOLATED SPONSOR LINK CONFLICT TEST PASSED");
     console.log("ISOLATED SPONSOR TRANSITION EMULATOR TEST PASSED");
   } finally {
     const removed = await request("DELETE");
