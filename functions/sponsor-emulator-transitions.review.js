@@ -54,8 +54,8 @@ async function main() {
     assert.equal(state.auditEvents["deactivate-event"].action, "DEACTIVATED");
     await transition("unlink", "unlink-event");
     state = await (await request("GET")).json();
-    assert.equal(state.linksBySponsor.s1, undefined);
-    assert.equal(state.linksByUid.u1, undefined);
+    assert.equal(state.linksBySponsor?.s1, undefined);
+    assert.equal(state.linksByUid?.u1, undefined);
     assert.equal(state.accountStatus.u1.active, false);
     assert.equal(state.auditEvents["unlink-event"].action, "UNLINKED");
     assert.equal(Object.keys(state.auditEvents).length, 4);
