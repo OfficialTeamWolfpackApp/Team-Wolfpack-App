@@ -8,6 +8,7 @@
 const {onCall,HttpsError}=require("firebase-functions/v2/https");
 const {getDatabase}=require("firebase-admin/database");
 const {membershipState,dueReminders}=require("./membership-renewal");
+const {consentAllows}=require("./reminder-delivery-policy");
 const ADMIN_UIDS=new Set([
   "PRGa9TsCW0QDn1QtoUXyYjEi7YB3",
   "SlpEQYl94DaH6j42QUyl8Kv2ujJ3"
@@ -41,9 +42,14 @@ const queueMembershipRenewalReminders=onCall({
   const now=Date.now();
   const snapshot=await db.ref("membershipEntitlements").get();
   const entitlements=snapshot.val()||{};
+  const preferencesSnapshot=await db.ref("membershipReminderPreferences").get();
+  const preferencesByUid=preferencesSnapshot.val()||{};
   let queued=0,alreadyQueued=0,skipped=0;
   for(const [uid,entitlement] of Object.entries(entitlements)){
     if(!UID.test(uid)){skipped++;continue;}
+    const preferences=preferencesByUid[uid];
+    const channels=["email","push"].filter(channel=>consentAllows(preferences,channel));
+    if(!channels.length){skipped++;continue;}
     let daysList;
     try{daysList=dueReminders(entitlement,now);}
     catch(_){skipped++;continue;}
@@ -51,6 +57,8 @@ const queueMembershipRenewalReminders=onCall({
       let reminder;
       try{reminder=buildReminder(entitlement,uid,days,now);}
       catch(_){skipped++;continue;}
+      reminder.consentUpdatedAt=preferences.updatedAt;
+      reminder.allowedChannels=channels;
       const key=reminderKey(entitlement.expiresAt,days);
       const outbox=db.ref("membershipReminderOutbox/"+uid+"/"+key);
       const result=await outbox.transaction(current=>{
