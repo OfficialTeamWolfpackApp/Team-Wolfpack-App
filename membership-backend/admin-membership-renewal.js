@@ -13,6 +13,7 @@ const {onCall,HttpsError}=require("firebase-functions/v2/https");
 const {getDatabase}=require("firebase-admin/database");
 const {buildRenewal}=require("./membership-renewal");
 const {PACKAGES}=require("./membership-policy");
+const {randomUUID}=require("node:crypto");
 
 const ADMIN_UIDS=new Set([
   "PRGa9TsCW0QDn1QtoUXyYjEi7YB3",
@@ -64,7 +65,7 @@ const requestMembershipRenewal=onCall(options,async request=>{
       pricePence:PACKAGES[existing.type][tier],currency:"GBP",
       paymentReference:reference,status:"awaiting_payment",
       paymentStatus:"unverified",requestedBy:request.auth.uid,
-      requestedAt:now};
+      requestedAt:now,renewalId:randomUUID()};
   },undefined,false);
   if(!result.committed)throw new HttpsError("already-exists","A renewal is already pending.");
   return {success:true,status:"awaiting_payment"};
@@ -94,8 +95,82 @@ const verifyMembershipRenewalPayment=onCall(options,async request=>{
 });
 
 /**
- * Activation is intentionally not exposed yet. A safe production activation
- * requires an idempotent history write and entitlement update with recovery
- * for partial failures. Never approve by editing the database from a client.
+ * Idempotent activation. The canonical renewal ledger and entitlement are
+ * committed in ONE transaction on the per-user account node. A legacy
+ * projection to membershipEntitlements is separate and safely retryable.
+ * A production migration must reconcile any older entitlement records.
  */
-module.exports={requestMembershipRenewal,verifyMembershipRenewalPayment};
+const activateMembershipRenewal=onCall(options,async request=>{
+  requireAdmin(request);
+  const uid=request.data?.applicantUid;
+  if(typeof uid!=="string"||!uidPattern.test(uid)){
+    throw new HttpsError("invalid-argument","Invalid account.");
+  }
+  const db=getDatabase();
+  const requestRef=db.ref("membershipRenewalRequests/"+uid);
+  const pending=(await requestRef.get()).val();
+  if(!pending || !pending.renewalId || pending.applicantUid!==uid ||
+     !["payment_verified","active"].includes(pending.status) ||
+     pending.paymentStatus!=="verified"){
+    throw new HttpsError("failed-precondition","No verified renewal is ready.");
+  }
+  const ledgerRef=db.ref("membershipAccounts/"+uid);
+  const legacy=(await db.ref("membershipEntitlements/"+uid).get()).val();
+  const now=Date.now();
+  const result=await ledgerRef.transaction(current=>{
+    const account=current||{};
+    const history=account.history||{};
+    if(history[pending.renewalId])return;
+    // Fail closed if another renewal was already activated in this account
+    // since this request was created.
+    const previous=account.entitlement||legacy;
+    if(previous && previous.approvedAt>pending.requestedAt)return;
+    const approval={...pending,status:"active",approvedAt:now,approvedBy:request.auth.uid};
+    let entitlement;
+    try{entitlement=buildRenewal(previous,approval);}
+    catch(_){return;}
+    entitlement.renewalId=pending.renewalId;
+    return {...account,entitlement,history:{
+      ...history,[pending.renewalId]:{
+        renewalId:pending.renewalId,type:entitlement.type,tier:entitlement.tier,
+        pricePence:entitlement.pricePence,currency:"GBP",
+        startsAt:entitlement.startsAt,expiresAt:entitlement.expiresAt,
+        approvedAt:now,approvedBy:request.auth.uid,
+        paymentVerifiedAt:pending.paymentVerifiedAt,
+        paymentVerifiedBy:pending.paymentVerifiedBy
+      }
+    }};
+  },undefined,false);
+  const account=result.snapshot.val()||{};
+  if(!account.history?.[pending.renewalId]){
+    throw new HttpsError("failed-precondition","Renewal activation was not committed.");
+  }
+  // The account ledger is authoritative. Projection is deliberately retried
+  // on subsequent calls if a prior projection failed.
+  const entitlement=account.entitlement;
+  if(entitlement?.renewalId!==pending.renewalId){
+    throw new HttpsError("failed-precondition","A newer membership is already active.");
+  }
+  const projectionRef=db.ref("membershipEntitlements/"+uid);
+  const projection=await projectionRef.transaction(current=>{
+    if(current?.renewalId===pending.renewalId)return;
+    if(current?.approvedAt>entitlement.approvedAt)return;
+    return entitlement;
+  },undefined,false);
+  if(!projection.committed &&
+     projection.snapshot.val()?.renewalId!==pending.renewalId){
+    throw new HttpsError("internal","Renewal saved but public projection needs reconciliation.");
+  }
+  await requestRef.transaction(current=>{
+    if(!current || current.renewalId!==pending.renewalId ||
+       !["payment_verified","active"].includes(current.status))return;
+    return {...current,status:"active",activatedAt:entitlement.approvedAt,
+      activatedBy:entitlement.approvedBy};
+  },undefined,false);
+  return {success:true,status:"active",expiresAt:entitlement.expiresAt,
+    renewalId:pending.renewalId};
+});
+module.exports={
+  requestMembershipRenewal,verifyMembershipRenewalPayment,
+  activateMembershipRenewal
+};
