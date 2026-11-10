@@ -15,7 +15,7 @@ const checks=[
  ["Auth binds loopback",config.emulators?.auth?.host==="127.0.0.1"],
  ["Auth port 19109",config.emulators?.auth?.port===19109],
  ["Emulator UI disabled",config.emulators?.ui?.enabled===false],
- ["Full merged rules selected",config.database?.rules==="membership-backend/emulator/database-rules.full-merged.json"],
+ ["Full merged rules selected",config.database?.rules==="database-rules.full-merged.json"],
  ["Original rules snapshot exists",fs.existsSync(path.join(dir,"database-rules.original.snapshot.json"))],
  ["Merged rules fixture exists",fs.existsSync(path.join(dir,"database-rules.full-merged.json"))],
  ["Rules test dependency installed",fs.existsSync(path.join(dir,"node_modules/@firebase/rules-unit-testing/package.json"))],
