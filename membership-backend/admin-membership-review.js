@@ -9,7 +9,7 @@
  */
 const {onCall,HttpsError}=require("firebase-functions/v2/https");
 const {getDatabase}=require("firebase-admin/database");
-const {PACKAGES,calculateExpiry}=require("./membership-policy");
+const {transition}=require("./membership-review-transition");
 const {projectEntitlement}=require("./membership-entitlements");
 
 const ADMIN_UIDS=new Set([
@@ -33,36 +33,6 @@ function validateUid(uid){
 function validateAction(action){
   if(!ACTIONS.has(action))throw new HttpsError("invalid-argument","Invalid review action.");
   return action;
-}
-function transition(record,action,adminUid,now){
-  if(!record || typeof record!=="object")throw new Error("Application not found");
-  if(!["personal","business"].includes(record.type) ||
-    !Object.prototype.hasOwnProperty.call(PACKAGES[record.type],record.tier) ||
-    record.pricePence!==PACKAGES[record.type][record.tier]){
-    throw new Error("Application package data failed validation");
-  }
-  const current=record.status;
-  // Retry projection if a prior activation succeeded but projection failed.
-  if(action==="activate" && current==="active")return record;
-  if(action==="mark_awaiting_payment" && current==="new"){
-    return {...record,status:"awaiting_payment",reviewedBy:adminUid,reviewedAt:now};
-  }
-  if(action==="verify_payment" && current==="awaiting_payment" &&
-     record.pricePence>0 && record.paymentStatus==="unverified"){
-    return {...record,status:"payment_verified",paymentStatus:"verified",
-      paymentVerifiedBy:adminUid,paymentVerifiedAt:now};
-  }
-  if(action==="decline" && ["new","awaiting_payment"].includes(current)){
-    return {...record,status:"declined",reviewedBy:adminUid,reviewedAt:now};
-  }
-  if(action==="activate" && (
-    (current==="payment_verified" && record.paymentStatus==="verified") ||
-    (current==="new" && record.type==="personal" && record.tier==="free" && record.pricePence===0)
-  )){
-    return {...record,status:"active",approvedBy:adminUid,approvedAt:now,
-      expiresAt:calculateExpiry(now)};
-  }
-  throw new Error("Action is not allowed from this application state");
 }
 
 const reviewMembershipApplication=onCall(callableOptions,async request=>{
@@ -112,4 +82,4 @@ const listMembershipApplications=onCall(callableOptions,async request=>{
   }));
   return {applications:entries.reverse()};
 });
-module.exports={reviewMembershipApplication,listMembershipApplications,transition};
+module.exports={reviewMembershipApplication,listMembershipApplications};
