@@ -1,7 +1,7 @@
 "use strict";
 const test=require("node:test");
 const assert=require("node:assert/strict");
-const {entitlementFromApplication,isActive}=require("./membership-entitlements");
+const {entitlementFromApplication,isActive,projectEntitlement}=require("./membership-entitlements");
 const {calculateExpiry}=require("./membership-policy");
 
 const now=Date.UTC(2026,10,10);
@@ -32,4 +32,44 @@ test("free membership may activate without payment verification",()=>{
   const free={...valid,tier:"free",pricePence:0,paymentStatus:"unverified",
     paymentVerifiedBy:null,paymentVerifiedAt:null};
   assert.equal(entitlementFromApplication(free,free.applicantUid).tier,"free");
+});
+
+function mockDatabase(existing){
+  const state={value:existing};
+  return {
+    state,
+    ref(){
+      return {async transaction(update){
+        const next=update(state.value);
+        if(next===undefined)return {committed:false,snapshot:{val:()=>state.value}};
+        state.value=next;
+        return {committed:true,snapshot:{val:()=>state.value}};
+      }};
+    }
+  };
+}
+test("repeated activation projection is idempotent",async()=>{
+  const db=mockDatabase(null);
+  const first=await projectEntitlement(db,valid.applicantUid,valid);
+  const second=await projectEntitlement(db,valid.applicantUid,valid);
+  assert.equal(first.committed,true);
+  assert.equal(second.committed,false);
+  assert.deepEqual(db.state.value,first.entitlement);
+});
+test("stale activation cannot replace newer entitlement",async()=>{
+  const newer={...entitlementFromApplication(valid,valid.applicantUid),
+    approvedAt:now+86400000,expiresAt:calculateExpiry(now+86400000),
+    source:"membershipRenewalRequests"};
+  const db=mockDatabase(newer);
+  const result=await projectEntitlement(db,valid.applicantUid,valid);
+  assert.equal(result.committed,false);
+  assert.deepEqual(db.state.value,newer);
+});
+test("same-date approval cannot overwrite renewal or other entitlement data",async()=>{
+  const existing={...entitlementFromApplication(valid,valid.applicantUid),
+    expiresAt:calculateExpiry(now+86400000),source:"membershipRenewalRequests"};
+  const db=mockDatabase(existing);
+  const result=await projectEntitlement(db,valid.applicantUid,valid);
+  assert.equal(result.committed,false);
+  assert.deepEqual(db.state.value,existing);
 });
