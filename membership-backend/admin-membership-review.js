@@ -10,6 +10,7 @@
 const {onCall,HttpsError}=require("firebase-functions/v2/https");
 const {getDatabase}=require("firebase-admin/database");
 const {PACKAGES,calculateExpiry}=require("./membership-policy");
+const {projectEntitlement}=require("./membership-entitlements");
 
 const ADMIN_UIDS=new Set([
   "PRGa9TsCW0QDn1QtoUXyYjEi7YB3",
@@ -41,6 +42,8 @@ function transition(record,action,adminUid,now){
     throw new Error("Application package data failed validation");
   }
   const current=record.status;
+  // Retry projection if a prior activation succeeded but projection failed.
+  if(action==="activate" && current==="active")return record;
   if(action==="mark_awaiting_payment" && current==="new"){
     return {...record,status:"awaiting_payment",reviewedBy:adminUid,reviewedAt:now};
   }
@@ -82,10 +85,16 @@ const reviewMembershipApplication=onCall(callableOptions,async request=>{
   if(!outcome.committed){
     throw new HttpsError("failed-precondition","Application not found or action is not permitted.");
   }
-  // An active application record is NOT by itself a public entitlement.
-  // Entitlement projection, renewal and badge display require separate
-  // backend integration and must not trust client-side status.
-  return {success:true,status:outcome.snapshot.val().status};
+  const approved=outcome.snapshot.val();
+  if(action==="activate"){
+    try{
+      await projectEntitlement(getDatabase(),uid,approved);
+    }catch(error){
+      console.error("Membership entitlement projection failed",error);
+      throw new HttpsError("internal","Approval was recorded but entitlement sync failed. Retry activation; do not collect payment again.");
+    }
+  }
+  return {success:true,status:approved.status};
 });
 
 const listMembershipApplications=onCall(callableOptions,async request=>{
