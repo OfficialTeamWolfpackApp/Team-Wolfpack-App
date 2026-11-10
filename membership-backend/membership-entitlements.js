@@ -45,9 +45,12 @@ async function projectEntitlement(database,uid,record){
   const entitlement=entitlementFromApplication(record,uid);
   const target=database.ref("membershipEntitlements/"+uid);
   const result=await target.transaction(current=>{
-    // Do not overwrite a newer approval with a stale retry.
-    if(current && Number.isSafeInteger(current.approvedAt) &&
-       current.approvedAt>entitlement.approvedAt)return;
+    // Existing entitlements are immutable for the same or a newer approval.
+    // In particular, a retry must never reset expiry or replace renewal data.
+    if(current){
+      if(!Number.isSafeInteger(current.approvedAt))return;
+      if(current.approvedAt>=entitlement.approvedAt)return;
+    }
     return entitlement;
   },undefined,false);
   return {committed:result.committed,entitlement:result.snapshot.val()};
