@@ -1,0 +1,27 @@
+name: Membership emulator configuration checks
+on:
+  push:
+    branches: [feature/sponsorship-supporter-memberships]
+    paths:
+      - 'membership-backend/emulator/**'
+      - '.github/workflows/membership-emulator-config-checks.yml'
+  pull_request:
+    paths:
+      - 'membership-backend/emulator/**'
+      - '.github/workflows/membership-emulator-config-checks.yml'
+permissions:
+  contents: read
+jobs:
+  static-emulator-checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Validate test runner syntax and isolated emulator configuration
+        working-directory: membership-backend/emulator
+        run: npm run check
+      - name: Verify fixture preparation script syntax
+        run: node --check membership-backend/emulator/prepare-full-rules.js
