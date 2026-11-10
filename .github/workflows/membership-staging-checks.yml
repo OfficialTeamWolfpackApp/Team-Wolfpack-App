@@ -27,7 +27,7 @@ jobs:
       - name: Validate proposed rules JSON
         run: node -e 'const r=require("./membership-backend/database-rules-fragment.json").rules; const keys=["membershipApplicationIntake","membershipEntitlements","membershipAccounts","membershipRenewalRequests","membershipReminderPreferences","membershipReminderOutbox"]; for(const k of keys){if(!r[k] || r[k][".read"]!==false || r[k][".write"]!==false)throw Error("Unprotected path: "+k)}'
       - name: Run pure membership policy tests
-        run: node --test membership-backend/membership-renewal.test.js membership-backend/reminder-delivery-policy.test.js
+        run: node --test membership-backend/membership-renewal.test.js membership-backend/reminder-delivery-policy.test.js membership-backend/membership-entitlements.test.js
       - name: Verify callable export registry names (without loading Firebase)
         run: |
           node - <<'NODE'
