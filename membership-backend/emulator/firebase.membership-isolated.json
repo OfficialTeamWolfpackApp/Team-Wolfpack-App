@@ -1,6 +1,6 @@
 {
   "database": {
-    "rules": "membership-backend/emulator/database-rules.full-merged.json"
+    "rules": "database-rules.full-merged.json"
   },
   "emulators": {
     "auth": {
