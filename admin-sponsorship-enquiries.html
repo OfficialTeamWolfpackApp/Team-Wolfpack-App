@@ -4,9 +4,12 @@
 import {initializeApp} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 import {getAuth,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 import {getFunctions,httpsCallable} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-functions.js";
+import {initializeAppCheck,ReCaptchaEnterpriseProvider} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app-check.js";
 const config={apiKey:"AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",authDomain:"team-wolfpack-app.firebaseapp.com",databaseURL:"https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",projectId:"team-wolfpack-app",storageBucket:"team-wolfpack-app.firebasestorage.app",messagingSenderId:"1070414578856",appId:"1:1070414578856:web:df14e7d387e658eeae2e9d"};
 const adminUids=new Set(["PRGa9TsCW0QDn1QtoUXyYjEi7YB3","SlpEQYl94DaH6j42QUyl8Kv2ujJ3"]);
-const app=initializeApp(config),auth=getAuth(app),functions=getFunctions(app,"europe-west1");
+const app=initializeApp(config);
+const appCheck=initializeAppCheck(app,{provider:new ReCaptchaEnterpriseProvider("6LfYlcItAAAAAGQtEJFKYH6fyERwXiAfVeBqJhOR"),isTokenAutoRefreshEnabled:true});
+const auth=getAuth(app),functions=getFunctions(app,"europe-west1");
 const list= httpsCallable(functions,"listMembershipApplications");
 const review=httpsCallable(functions,"reviewMembershipApplication");
 const listRenewals=httpsCallable(functions,"listMembershipRenewalAlerts");
