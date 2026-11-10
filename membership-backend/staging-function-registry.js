@@ -5,13 +5,13 @@
 // the REAL Firebase functions/ directory, then merge these exports into index.js.
 // This is NOT automatically loaded by Firebase and does not deploy anything.
 const modules = [
-  "./membership-backend/submit-membership-application",
-  "./membership-backend/admin-membership-review",
-  "./membership-backend/public-membership",
-  "./membership-backend/admin-membership-renewal",
-  "./membership-backend/admin-renewal-alerts",
-  "./membership-backend/membership-reminder-outbox",
-  "./membership-backend/reminder-preferences"
+  "./submit-membership-application",
+  "./admin-membership-review",
+  "./public-membership",
+  "./admin-membership-renewal",
+  "./admin-renewal-alerts",
+  "./membership-reminder-outbox",
+  "./reminder-preferences"
 ];
 const allowed = new Set([
   "submitMembershipApplication", "reviewMembershipApplication",
