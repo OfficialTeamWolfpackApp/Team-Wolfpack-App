@@ -1,5 +1,6 @@
 name: Membership emulator configuration checks
 on:
+  workflow_dispatch:
   push:
     branches: [feature/sponsorship-supporter-memberships]
     paths:
