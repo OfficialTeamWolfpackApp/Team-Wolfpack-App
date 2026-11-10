@@ -21,6 +21,11 @@ if(cfg.emulators?.database?.host!=="127.0.0.1"||cfg.emulators?.database?.port!==
 if(process.env.GCLOUD_PROJECT && process.env.GCLOUD_PROJECT!==project)
  throw new Error("Refusing non-demo project.");
 const env={...process.env,GCLOUD_PROJECT:project,FIREBASE_DATABASE_EMULATOR_HOST:"127.0.0.1:19012"};
+if(process.env.FIREBASE_CONFIG||process.env.FIREBASE_AUTH_EMULATOR_HOST||process.env.FIREBASE_EMULATOR_HUB){
+ throw new Error("Refusing inherited Firebase runtime configuration. Use a clean isolated shell.");
+}
+if(!fs.existsSync(path.join(dir,"node_modules","@firebase","rules-unit-testing","package.json")))
+ throw new Error("Missing isolated rules test dependency. Install in membership-backend/emulator.");
 const args=["emulators:exec","--project",project,"--config","membership-backend/emulator/firebase.membership-isolated.json","--only","auth,database","node --test membership-backend/emulator/full-rules-preservation.test.js membership-backend/emulator/private-database-rules.emulator.test.js"];
 async function portFree(port){return new Promise(resolve=>{
  const server=net.createServer();
@@ -28,7 +33,7 @@ async function portFree(port){return new Promise(resolve=>{
  server.listen({host:"127.0.0.1",port,exclusive:true},()=>server.close(()=>resolve(true)));
 });}
 (async()=>{
- for(const port of [19109,19012]){
+ for(const port of [19109,19012,15001]){
   if(!await portFree(port))throw new Error("Refusing to start: emulator port "+port+" is occupied. Existing sessions were not touched.");
  }
  const run=spawnSync("firebase",args,{cwd:root,env,stdio:"inherit",shell:process.platform==="win32"});
