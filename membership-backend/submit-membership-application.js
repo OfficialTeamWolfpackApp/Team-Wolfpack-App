@@ -50,8 +50,9 @@ const submitMembershipApplication=onCall(
     let result;
     try{
       result=await applicationRef.transaction(current=>{
-        if(current && typeof current.submittedAt==="number" &&
-          now-current.submittedAt<MIN_RESUBMIT_MS)return;
+        if(current && (["awaiting_payment","payment_verified","active"].includes(current.status) ||
+          (typeof current.submittedAt==="number" &&
+          now-current.submittedAt<MIN_RESUBMIT_MS)))return;
         // Status and price are determined on the server. This is NOT approval.
         return {
           ...application,
@@ -68,7 +69,7 @@ const submitMembershipApplication=onCall(
       throw new HttpsError("internal","Unable to submit application.");
     }
     if(!result.committed){
-      throw new HttpsError("resource-exhausted","Please wait 24 hours before submitting another application.");
+      throw new HttpsError("resource-exhausted","An application is already pending or active, or you must wait 24 hours before reapplying.");
     }
     return {success:true,status:"new"};
   }
