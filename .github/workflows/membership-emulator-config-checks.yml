@@ -22,6 +22,16 @@ jobs:
           node-version: '24'
       - name: Validate test runner syntax and isolated emulator configuration
         working-directory: membership-backend/emulator
-        run: npm run check
+        shell: bash
+        run: |
+          set -o pipefail
+          npm run check 2>&1 | tee emulator-config-check.log
+      - name: Upload emulator configuration check log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: membership-emulator-config-check-log
+          path: membership-backend/emulator/emulator-config-check.log
+          if-no-files-found: warn
       - name: Verify fixture preparation script syntax
         run: node --check membership-backend/emulator/prepare-full-rules.js
