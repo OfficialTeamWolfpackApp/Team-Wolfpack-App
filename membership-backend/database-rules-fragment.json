@@ -1,0 +1,13 @@
+{
+  "rules": {
+    "membershipApplicationIntake": {
+      ".read": false,
+      ".write": false,
+      ".indexOn": ["submittedAt"]
+    },
+    "membershipEntitlements": {
+      ".read": false,
+      ".write": false
+    }
+  }
+}
