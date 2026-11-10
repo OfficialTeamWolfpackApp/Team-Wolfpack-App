@@ -1,0 +1,47 @@
+name: Membership isolated emulator smoke tests
+on:
+  push:
+    branches: [feature/sponsorship-supporter-memberships]
+    paths:
+      - 'membership-backend/emulator/**'
+      - 'membership-backend/database-rules-fragment.json'
+      - '.github/workflows/membership-isolated-emulator-smoke.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  synthetic-rules-emulator-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CI: 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install isolated test dependencies
+        working-directory: membership-backend/emulator
+        run: npm install --no-audit --no-fund
+      - name: Install Firebase CLI for local emulators only
+        run: npm install --global firebase-tools@15
+      - name: Run static tests
+        working-directory: membership-backend/emulator
+        run: npm run check
+      - name: Prepare synthetic-only database rules
+        run: node membership-backend/emulator/prepare-synthetic-rules.js
+      - name: Verify isolated emulator prerequisites
+        working-directory: membership-backend/emulator
+        run: npm run preflight
+      - name: Execute isolated Auth and Database emulator smoke tests
+        working-directory: membership-backend/emulator
+        run: npm run test:isolated
+      - name: Remove synthetic fixtures
+        if: always()
+        run: |
+          rm -f membership-backend/emulator/database-rules.original.snapshot.json
+          rm -f membership-backend/emulator/database-rules.full-merged.json
