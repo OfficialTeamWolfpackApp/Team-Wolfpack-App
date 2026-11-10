@@ -37,7 +37,7 @@ jobs:
           const files = fs.readdirSync(dir).filter(name => name.endsWith('.js'));
           for (const file of files) {
             const source = fs.readFileSync(path.join(dir, file), 'utf8');
-            for (const match of source.matchAll(/require\\([\"'](\\.[^\"']+)[\"']\\)/g)) {
+            for (const match of source.matchAll(/require\(["'](\.[^"']+)["']\)/g)) {
               const imported = path.resolve(dir, path.dirname(file), match[1]);
               if (!fs.existsSync(imported + '.js') && !fs.existsSync(imported + '.json') && !fs.existsSync(imported)) {
                 throw Error(file + ': missing local dependency ' + match[1]);
