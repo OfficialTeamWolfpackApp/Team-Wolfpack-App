@@ -1,0 +1,46 @@
+name: Membership staging checks (no deploy)
+
+on:
+  push:
+    branches:
+      - feature/sponsorship-supporter-memberships
+    paths:
+      - 'membership-backend/**'
+      - '.github/workflows/membership-staging-checks.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  static-and-policy-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Validate JavaScript syntax
+        run: |
+          find membership-backend -type f -name '*.js' -print0 | xargs -0 -n1 node --check
+      - name: Validate proposed rules JSON
+        run: node -e 'const r=require("./membership-backend/database-rules-fragment.json").rules; const keys=["membershipApplicationIntake","membershipEntitlements","membershipAccounts","membershipRenewalRequests","membershipReminderPreferences","membershipReminderOutbox"]; for(const k of keys){if(!r[k] || r[k][".read"]!==false || r[k][".write"]!==false)throw Error("Unprotected path: "+k)}'
+      - name: Run pure membership policy tests
+        run: node --test membership-backend/membership-renewal.test.js membership-backend/reminder-delivery-policy.test.js
+      - name: Verify callable export registry names (without loading Firebase)
+        run: |
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const registry = fs.readFileSync('membership-backend/staging-function-registry.js','utf8');
+          const names = [
+            'submitMembershipApplication','reviewMembershipApplication',
+            'listMembershipApplications','getPublicMembership',
+            'requestMembershipRenewal','verifyMembershipRenewalPayment',
+            'activateMembershipRenewal','listMembershipRenewalAlerts',
+            'queueMembershipRenewalReminders',
+            'getMembershipReminderPreferences','saveMembershipReminderPreferences'
+          ];
+          for (const name of names) if (!registry.includes('"' + name + '"')) throw Error('Missing callable '+name);
+          console.log('All 11 callable names declared');
+          NODE
