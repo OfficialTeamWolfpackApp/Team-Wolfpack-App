@@ -39,7 +39,17 @@ jobs:
         run: npm run preflight
       - name: Execute isolated Auth and Database emulator smoke tests
         working-directory: membership-backend/emulator
-        run: npm run test:isolated
+        shell: bash
+        run: |
+          set -o pipefail
+          npm run test:isolated 2>&1 | tee isolated-emulator-smoke.log
+      - name: Upload emulator smoke-test diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: membership-isolated-emulator-smoke-log
+          path: membership-backend/emulator/isolated-emulator-smoke.log
+          if-no-files-found: warn
       - name: Remove synthetic fixtures
         if: always()
         run: |
