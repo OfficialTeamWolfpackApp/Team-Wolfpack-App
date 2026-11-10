@@ -112,4 +112,4 @@ const listMembershipApplications=onCall(callableOptions,async request=>{
   }));
   return {applications:entries.reverse()};
 });
-module.exports={reviewMembershipApplication,listMembershipApplications};
+module.exports={reviewMembershipApplication,listMembershipApplications,transition};
