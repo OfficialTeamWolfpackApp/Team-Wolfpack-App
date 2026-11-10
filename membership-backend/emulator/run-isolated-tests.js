@@ -14,7 +14,7 @@ const snapshot=path.join(dir,"database-rules.original.snapshot.json");
 if(!fs.existsSync(fixture)||!fs.existsSync(snapshot))
  throw new Error("Full merged and original rules fixtures required. Run prepare-full-rules.js first.");
 const cfg=JSON.parse(fs.readFileSync(config,"utf8"));
-if(cfg.database?.rules!=="membership-backend/emulator/database-rules.full-merged.json")
+if(cfg.database?.rules!=="database-rules.full-merged.json")
  throw new Error("Emulator must use the complete merged rules fixture.");
 if(cfg.emulators?.database?.host!=="127.0.0.1"||cfg.emulators?.database?.port!==19012)
  throw new Error("Unexpected database emulator host or port.");
