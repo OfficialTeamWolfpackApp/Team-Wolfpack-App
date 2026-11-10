@@ -18,10 +18,14 @@ if(cfg.database?.rules!=="membership-backend/emulator/database-rules.full-merged
  throw new Error("Emulator must use the complete merged rules fixture.");
 if(cfg.emulators?.database?.host!=="127.0.0.1"||cfg.emulators?.database?.port!==19012)
  throw new Error("Unexpected database emulator host or port.");
+if(cfg.emulators?.auth?.host!=="127.0.0.1"||cfg.emulators?.auth?.port!==19109)
+ throw new Error("Unexpected Auth emulator host or port.");
+if(cfg.emulators?.ui?.enabled!==false)
+ throw new Error("Emulator UI must remain disabled.");
 if(process.env.GCLOUD_PROJECT && process.env.GCLOUD_PROJECT!==project)
  throw new Error("Refusing non-demo project.");
 const env={...process.env,GCLOUD_PROJECT:project,FIREBASE_DATABASE_EMULATOR_HOST:"127.0.0.1:19012"};
-if(process.env.FIREBASE_CONFIG||process.env.FIREBASE_AUTH_EMULATOR_HOST||process.env.FIREBASE_EMULATOR_HUB){
+if(process.env.FIREBASE_CONFIG||process.env.FIREBASE_AUTH_EMULATOR_HOST||process.env.FIREBASE_DATABASE_EMULATOR_HOST||process.env.FIREBASE_EMULATOR_HUB){
  throw new Error("Refusing inherited Firebase runtime configuration. Use a clean isolated shell.");
 }
 if(!fs.existsSync(path.join(dir,"node_modules","@firebase","rules-unit-testing","package.json")))
