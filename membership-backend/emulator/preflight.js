@@ -12,12 +12,15 @@ const checks=[
  ["Isolated project ID is demo-only",project.startsWith("demo-")],
  ["Database binds loopback",config.emulators?.database?.host==="127.0.0.1"],
  ["Database port 19012",config.emulators?.database?.port===19012],
+ ["Auth binds loopback",config.emulators?.auth?.host==="127.0.0.1"],
+ ["Auth port 19109",config.emulators?.auth?.port===19109],
+ ["Emulator UI disabled",config.emulators?.ui?.enabled===false],
  ["Full merged rules selected",config.database?.rules==="membership-backend/emulator/database-rules.full-merged.json"],
  ["Original rules snapshot exists",fs.existsSync(path.join(dir,"database-rules.original.snapshot.json"))],
  ["Merged rules fixture exists",fs.existsSync(path.join(dir,"database-rules.full-merged.json"))],
  ["Rules test dependency installed",fs.existsSync(path.join(dir,"node_modules/@firebase/rules-unit-testing/package.json"))],
  ["No conflicting project environment",!process.env.GCLOUD_PROJECT||process.env.GCLOUD_PROJECT===project],
- ["No inherited Firebase runtime configuration",!process.env.FIREBASE_CONFIG&&!process.env.FIREBASE_AUTH_EMULATOR_HOST&&!process.env.FIREBASE_EMULATOR_HUB]
+ ["No inherited Firebase runtime configuration",!process.env.FIREBASE_CONFIG&&!process.env.FIREBASE_AUTH_EMULATOR_HOST&&!process.env.FIREBASE_DATABASE_EMULATOR_HOST&&!process.env.FIREBASE_EMULATOR_HUB]
 ];
 const java=spawnSync("java",["-version"],{cwd:root,encoding:"utf8"});
 checks.push(["Java runtime installed",java.status===0]);
