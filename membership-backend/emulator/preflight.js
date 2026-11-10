@@ -17,6 +17,8 @@ const checks=[
  ["Rules test dependency installed",fs.existsSync(path.join(dir,"node_modules/@firebase/rules-unit-testing/package.json"))],
  ["No conflicting project environment",!process.env.GCLOUD_PROJECT||process.env.GCLOUD_PROJECT===project]
 ];
+const java=spawnSync("java",["-version"],{cwd:root,encoding:"utf8"});
+checks.push(["Java runtime installed",java.status===0]);
 const cli=spawnSync("firebase",["--version"],{cwd:root,encoding:"utf8",shell:process.platform==="win32"});
 checks.push(["Firebase CLI installed",cli.status===0]);
 for(const [name,ok] of checks)console.log((ok?"PASS":"BLOCKED")+" "+name);
