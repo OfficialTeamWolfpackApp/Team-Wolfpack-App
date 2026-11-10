@@ -13,6 +13,8 @@ team-wolfpack-functions/
       membership-policy.js
       membership-entitlements.js
       membership-renewal.js
+      membership-review-transition.js
+      renewal-verification.js
       reminder-delivery-policy.js
       submit-membership-application.js
       admin-membership-review.js
@@ -22,6 +24,7 @@ team-wolfpack-functions/
       membership-reminder-outbox.js
       reminder-preferences.js
       staging-function-registry.js
+      *.test.js                         (test-only; not Cloud Function exports)
 ```
 
 The source of the listed membership modules is the GitHub development branch under `membership-backend/`. The real project uses `functions/` as its source directory; preserve the subdirectory when copying modules. Relative imports such as `require("./membership-policy")` must remain valid.
@@ -55,7 +58,7 @@ The six proposed membership paths are `membershipApplicationIntake`, `membership
 
 1. Confirm the staged index exports exactly the intended 11 membership callables and no duplicates.
 2. Run static JavaScript syntax checks for every new module and index.js.
-3. Run membership policy and reminder-delivery-policy unit tests.
+3. Run all `membership-backend/*.test.js` tests, including approval transitions, renewal verification, entitlement projection and registry smoke tests.
 4. Use a dedicated `demo-` Firebase project and isolated emulator ports, **never** the live project.
 5. Emulator-test anonymous, unverified, verified supporter, official member and admin callers; verify App Check and ownership restrictions.
 6. Verify payment status cannot be forged, activation requires manual admin verification, and renewal retry is idempotent.
@@ -63,6 +66,13 @@ The six proposed membership paths are `membershipApplicationIntake`, `membership
 8. Confirm the website initializes Firebase App Check before invoking `enforceAppCheck:true` callables.
 9. Check no reminder dispatcher sends emails or pushes; consent defaults off.
 10. No deployment or merge to `main` until all gates pass.
+
+## Current integration checks (STEP 39)
+
+- `staging-function-registry.test.js` mocks only the Firebase endpoint modules and checks that the registry exposes exactly 11 expected callables while retaining existing exports.
+- It also checks that a duplicate export name is rejected and an invalid export target fails.
+- These are unit-level checks only. They do not demonstrate Firebase Admin initialization, callable runtime loading, App Check, or emulator database rules.
+- CI execution results have not yet been confirmed; do not interpret committed tests as passing tests.
 
 ## Known limitations
 
