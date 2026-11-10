@@ -7,7 +7,7 @@ const dir=__dirname;
 const config=JSON.parse(fs.readFileSync(path.join(dir,"firebase.membership-isolated.json"),"utf8"));
 const expected="demo-team-wolfpack-membership-isolated";
 test("isolated Firebase configuration uses full rules and safe loopback ports",()=>{
- assert.equal(config.database?.rules,"membership-backend/emulator/database-rules.full-merged.json");
+ assert.equal(config.database?.rules,"database-rules.full-merged.json");
  assert.deepEqual(config.emulators?.auth,{host:"127.0.0.1",port:19109});
  assert.deepEqual(config.emulators?.database,{host:"127.0.0.1",port:19012});
  assert.deepEqual(config.emulators?.functions,{host:"127.0.0.1",port:15001});
