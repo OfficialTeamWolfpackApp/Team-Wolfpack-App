@@ -111,10 +111,23 @@ const activateMembershipRenewal=onCall(options,async request=>{
   const db=getDatabase();
   const requestRef=db.ref("membershipRenewalRequests/"+uid);
   const pending=(await requestRef.get()).val();
-  if(!pending || !pending.renewalId || pending.applicantUid!==uid ||
+  if(!pending || typeof pending.renewalId!=="string" ||
+     !/^[0-9a-f-]{36}$/i.test(pending.renewalId) ||
+     pending.applicantUid!==uid ||
      !["payment_verified","active"].includes(pending.status) ||
-     pending.paymentStatus!=="verified"){
-    throw new HttpsError("failed-precondition","No verified renewal is ready.");
+     pending.paymentStatus!=="verified" ||
+     typeof pending.paymentVerifiedBy!=="string" ||
+     !ADMIN_UIDS.has(pending.paymentVerifiedBy) ||
+     !Number.isSafeInteger(pending.paymentVerifiedAt) ||
+     pending.paymentVerifiedAt<=0 ||
+     !Number.isSafeInteger(pending.requestedAt) ||
+     pending.requestedAt<=0 ||
+     pending.paymentVerifiedAt<pending.requestedAt ||
+     !Object.hasOwn(PACKAGES,pending.type) ||
+     !Object.hasOwn(PACKAGES[pending.type],pending.tier) ||
+     PACKAGES[pending.type][pending.tier]===0 ||
+     pending.pricePence!==PACKAGES[pending.type][pending.tier]){
+    throw new HttpsError("failed-precondition","No valid verified renewal is ready.");
   }
   const ledgerRef=db.ref("membershipAccounts/"+uid);
   const legacy=(await db.ref("membershipEntitlements/"+uid).get()).val();
@@ -156,7 +169,10 @@ const activateMembershipRenewal=onCall(options,async request=>{
   const projectionRef=db.ref("membershipEntitlements/"+uid);
   const projection=await projectionRef.transaction(current=>{
     if(current?.renewalId===pending.renewalId)return;
-    if(current?.approvedAt>entitlement.approvedAt)return;
+    // Equal timestamps are not sufficient to prove the same approval.
+    // Never overwrite a newer or ambiguous projection.
+    if(current && (!Number.isSafeInteger(current.approvedAt) ||
+       current.approvedAt>=entitlement.approvedAt))return;
     return entitlement;
   },undefined,false);
   if(!projection.committed &&
