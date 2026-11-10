@@ -1,7 +1,7 @@
 "use strict";
 const test=require("node:test");
 const assert=require("node:assert/strict");
-const {validVerifiedRenewal}=require("./admin-membership-renewal");
+const {validVerifiedRenewal}=require("./renewal-verification");
 const {buildRenewal}=require("./membership-renewal");
 const {calculateExpiry}=require("./membership-policy");
 
