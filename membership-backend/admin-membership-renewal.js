@@ -14,6 +14,7 @@ const {getDatabase}=require("firebase-admin/database");
 const {buildRenewal}=require("./membership-renewal");
 const {PACKAGES}=require("./membership-policy");
 const {randomUUID}=require("node:crypto");
+const {validVerifiedRenewal}=require("./renewal-verification");
 
 const ADMIN_UIDS=new Set([
   "PRGa9TsCW0QDn1QtoUXyYjEi7YB3",
@@ -96,26 +97,6 @@ const verifyMembershipRenewalPayment=onCall(options,async request=>{
   return {success:true,status:"payment_verified"};
 });
 
-function validVerifiedRenewal(pending,uid){
-  if(!pending || typeof pending.renewalId!=="string" ||
-     !/^[0-9a-f-]{36}$/i.test(pending.renewalId) ||
-     pending.applicantUid!==uid ||
-     !["payment_verified","active"].includes(pending.status) ||
-     pending.paymentStatus!=="verified" ||
-     typeof pending.paymentVerifiedBy!=="string" ||
-     !ADMIN_UIDS.has(pending.paymentVerifiedBy) ||
-     !Number.isSafeInteger(pending.paymentVerifiedAt) ||
-     pending.paymentVerifiedAt<=0 ||
-     !Number.isSafeInteger(pending.requestedAt) ||
-     pending.requestedAt<=0 ||
-     pending.paymentVerifiedAt<pending.requestedAt ||
-     !Object.hasOwn(PACKAGES,pending.type) ||
-     !Object.hasOwn(PACKAGES[pending.type],pending.tier) ||
-     PACKAGES[pending.type][pending.tier]===0 ||
-     pending.pricePence!==PACKAGES[pending.type][pending.tier]){
-    return false;
-  }}
-
 /**
  * Idempotent activation. The canonical renewal ledger and entitlement are
  * committed in ONE transaction on the per-user account node. A legacy
@@ -195,5 +176,5 @@ const activateMembershipRenewal=onCall(options,async request=>{
 });
 module.exports={
   requestMembershipRenewal,verifyMembershipRenewalPayment,
-  activateMembershipRenewal,validVerifiedRenewal
+  activateMembershipRenewal
 };
