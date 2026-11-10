@@ -41,6 +41,7 @@ test("runner refuses inherited production Firebase runtime configuration",()=>{
  for(const [key,value] of [
   ["FIREBASE_CONFIG",'{"projectId":"team-wolfpack-app"}'],
   ["FIREBASE_AUTH_EMULATOR_HOST","127.0.0.1:9099"],
+  ["FIREBASE_DATABASE_EMULATOR_HOST","team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app:443"],
   ["FIREBASE_EMULATOR_HUB","127.0.0.1:4400"]
  ]){
   const run=executeRunner({fixtures:true,envOverrides:{[key]:value}});
