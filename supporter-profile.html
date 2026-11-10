@@ -31,7 +31,9 @@ import {initializeApp} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-
 import {getDatabase,ref,get} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
 import {getStorage,ref as storageRef,getDownloadURL} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
 import {getFunctions,httpsCallable} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-functions.js";
+import {initializeAppCheck,ReCaptchaEnterpriseProvider} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app-check.js";
 const app=initializeApp({apiKey:"AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",authDomain:"team-wolfpack-app.firebaseapp.com",databaseURL:"https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",projectId:"team-wolfpack-app",storageBucket:"team-wolfpack-app.firebasestorage.app",messagingSenderId:"1070414578856",appId:"1:1070414578856:web:df14e7d387e658eeae2e9d"});
+const appCheck=initializeAppCheck(app,{provider:new ReCaptchaEnterpriseProvider("6LfYlcItAAAAAGQtEJFKYH6fyERwXiAfVeBqJhOR"),isTokenAutoRefreshEnabled:true});
 const db=getDatabase(app),storage=getStorage(app),$=id=>document.getElementById(id);
 const uid=new URLSearchParams(location.search).get("uid");
 const getPublicMembership=httpsCallable(getFunctions(app,"europe-west1"),"getPublicMembership");
