@@ -59,13 +59,15 @@ const requestMembershipRenewal=onCall(options,async request=>{
   }
   const now=Date.now();
   const renewalRef=db.ref("membershipRenewalRequests/"+uid);
+  // Transaction callbacks may run more than once; identity must be stable.
+  const renewalId=randomUUID();
   const result=await renewalRef.transaction(current=>{
     if(current && ["awaiting_payment","payment_verified"].includes(current.status))return;
     return {applicantUid:uid,type:existing.type,tier,
       pricePence:PACKAGES[existing.type][tier],currency:"GBP",
       paymentReference:reference,status:"awaiting_payment",
       paymentStatus:"unverified",requestedBy:request.auth.uid,
-      requestedAt:now,renewalId:randomUUID()};
+      requestedAt:now,renewalId};
   },undefined,false);
   if(!result.committed)throw new HttpsError("already-exists","A renewal is already pending.");
   return {success:true,status:"awaiting_payment"};
