@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "description": "Isolated local Firebase emulator test dependencies only; not a production Functions package",
   "scripts": {
-    "check": "node --check run-isolated-tests.js && node --check private-database-rules.emulator.test.js && node --check full-rules-preservation.test.js && node --check preflight.js",
+    "check": "node --check run-isolated-tests.js && node --check private-database-rules.emulator.test.js && node --check full-rules-preservation.test.js && node --check preflight.js && node --test emulator-config.test.js",
     "test:isolated": "node run-isolated-tests.js",
     "preflight": "node preflight.js"
   },
