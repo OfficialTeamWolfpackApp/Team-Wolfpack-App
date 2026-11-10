@@ -27,7 +27,25 @@ jobs:
       - name: Validate proposed rules JSON
         run: node -e 'const r=require("./membership-backend/database-rules-fragment.json").rules; const keys=["membershipApplicationIntake","membershipEntitlements","membershipAccounts","membershipRenewalRequests","membershipReminderPreferences","membershipReminderOutbox"]; for(const k of keys){if(!r[k] || r[k][".read"]!==false || r[k][".write"]!==false)throw Error("Unprotected path: "+k)}'
       - name: Run pure membership policy tests
-        run: node --test membership-backend/membership-renewal.test.js membership-backend/reminder-delivery-policy.test.js membership-backend/membership-entitlements.test.js membership-backend/admin-membership-renewal.test.js
+        run: node --test membership-backend/*.test.js
+      - name: Verify local module imports resolve
+        run: |
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const path = require('node:path');
+          const dir = 'membership-backend';
+          const files = fs.readdirSync(dir).filter(name => name.endsWith('.js'));
+          for (const file of files) {
+            const source = fs.readFileSync(path.join(dir, file), 'utf8');
+            for (const match of source.matchAll(/require\\([\"'](\\.[^\"']+)[\"']\\)/g)) {
+              const imported = path.resolve(dir, path.dirname(file), match[1]);
+              if (!fs.existsSync(imported + '.js') && !fs.existsSync(imported + '.json') && !fs.existsSync(imported)) {
+                throw Error(file + ': missing local dependency ' + match[1]);
+              }
+            }
+          }
+          console.log('Local imports resolved for ' + files.length + ' modules');
+          NODE
       - name: Verify callable export registry names (without loading Firebase)
         run: |
           node - <<'NODE'
