@@ -16,7 +16,8 @@ const checks=[
  ["Original rules snapshot exists",fs.existsSync(path.join(dir,"database-rules.original.snapshot.json"))],
  ["Merged rules fixture exists",fs.existsSync(path.join(dir,"database-rules.full-merged.json"))],
  ["Rules test dependency installed",fs.existsSync(path.join(dir,"node_modules/@firebase/rules-unit-testing/package.json"))],
- ["No conflicting project environment",!process.env.GCLOUD_PROJECT||process.env.GCLOUD_PROJECT===project]
+ ["No conflicting project environment",!process.env.GCLOUD_PROJECT||process.env.GCLOUD_PROJECT===project],
+ ["No inherited Firebase runtime configuration",!process.env.FIREBASE_CONFIG&&!process.env.FIREBASE_AUTH_EMULATOR_HOST&&!process.env.FIREBASE_EMULATOR_HUB]
 ];
 const java=spawnSync("java",["-version"],{cwd:root,encoding:"utf8"});
 checks.push(["Java runtime installed",java.status===0]);
@@ -30,7 +31,7 @@ async function portFree(host,port){
  });
 }
 (async()=>{
- for(const [name,port] of [["Auth emulator port 19109",19109],["Database emulator port 19012",19012]]){
+ for(const [name,port] of [["Auth emulator port 19109",19109],["Database emulator port 19012",19012],["Functions emulator port 15001",15001]]){
   checks.push([name+" available",await portFree("127.0.0.1",port)]);
  }
  for(const [name,ok] of checks)console.log((ok?"PASS":"BLOCKED")+" "+name);
