@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Renewal Reminder Preferences | Team Wolfpack</title>
+<style>body{margin:0;background:#080d14;color:#edfaff;font:16px Arial,sans-serif}main{max-width:560px;margin:40px auto;padding:24px}h1{color:#72dfff}.panel{padding:24px;border:1px solid #22627c;border-radius:16px;background:#111d29}label{display:block;margin:20px 0}input{margin-right:12px;accent-color:#00bfff}button{background:#004e70;color:white;border:1px solid #00bfff;border-radius:8px;padding:12px 20px;cursor:pointer}button:disabled{opacity:.5}a{color:#7de3ff}#status{min-height:2em;line-height:1.5}</style></head>
+<body><main><a href="supporter-account.html">← Back to My Profile</a><h1>Renewal Reminder Preferences</h1><p>Choose whether Team Wolfpack may contact you about your membership renewal. No reminders are sent by this page.</p>
+<div class="panel"><form id="preferences">
+<label><input type="checkbox" id="enabled">I agree to receive membership renewal reminders.</label>
+<label><input type="checkbox" id="email">Email reminders</label>
+<label><input type="checkbox" id="push">Push notifications (when supported)</label>
+<button type="submit" id="save" disabled>Save preferences</button></form><p id="status" role="status" aria-live="polite">Checking your account…</p></div></main>
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import {getAuth,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+import {getFunctions,httpsCallable} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-functions.js";
+const app=initializeApp({apiKey:"AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",authDomain:"team-wolfpack-app.firebaseapp.com",databaseURL:"https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",projectId:"team-wolfpack-app",storageBucket:"team-wolfpack-app.firebasestorage.app",messagingSenderId:"1070414578856",appId:"1:1070414578856:web:df14e7d387e658eeae2e9d"});
+const auth=getAuth(app),functions=getFunctions(app,"europe-west1");
+const read=httpsCallable(functions,"getMembershipReminderPreferences"),write=httpsCallable(functions,"saveMembershipReminderPreferences");
+const $=id=>document.getElementById(id);let ready=false;
+function setStatus(value){$("status").textContent=value;}
+function refreshControls(){const enabled=$("enabled").checked;$("email").disabled=!ready||!enabled;$("push").disabled=!ready||!enabled;$("save").disabled=!ready;}
+$("enabled").addEventListener("change",refreshControls);
+onAuthStateChanged(auth,async user=>{
+  ready=false;refreshControls();
+  if(!user?.emailVerified){setStatus("Sign in with a verified Team Wolfpack account to manage reminders.");return;}
+  try{
+    const data=(await read({})).data||{};
+    $("enabled").checked=data.membershipRenewalReminders===true;
+    $("email").checked=data.email===true;$("push").checked=data.push===true;
+    ready=true;refreshControls();
+    setStatus("Preferences loaded. Delivery is not yet enabled.");
+  }catch(error){setStatus("Unable to load preferences. The secure backend may not be deployed. Nothing has been changed.");}
+});
+$("preferences").addEventListener("submit",async event=>{
+  event.preventDefault();if(!ready)return;
+  ready=false;refreshControls();setStatus("Saving preferences…");
+  try{
+    await write({membershipRenewalReminders:$("enabled").checked,
+      email:$("enabled").checked&&$("email").checked,
+      push:$("enabled").checked&&$("push").checked});
+    setStatus("Preferences saved. Reminder delivery is not yet enabled.");
+  }catch(error){setStatus("Could not save preferences. Please try again later.");}
+  finally{ready=true;refreshControls();}
+});
+</script></body></html>
