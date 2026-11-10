@@ -15,7 +15,9 @@ test("private membership nodes deny client reads and writes for every role",asyn
  if(process.env.GCLOUD_PROJECT!==PROJECT || process.env.FIREBASE_DATABASE_EMULATOR_HOST!==HOST+":"+PORT){
   throw new Error("Isolated demo project and database emulator environment are mandatory");
  }
- const rules=fs.readFileSync(path.join(__dirname,"database-rules.emulator.json"),"utf8");
+ const fixture=path.join(__dirname,"database-rules.full-merged.json");
+ if(!fs.existsSync(fixture))throw new Error("Missing full merged rules fixture. Run prepare-full-rules.js with reviewed original rules before testing.");
+ const rules=fs.readFileSync(fixture,"utf8");
  const env=await initializeTestEnvironment({projectId:PROJECT,
    database:{host:HOST,port:PORT,rules}});
  try{
