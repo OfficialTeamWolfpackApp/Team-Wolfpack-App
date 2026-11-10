@@ -45,6 +45,23 @@ const submitMembershipApplication=onCall(
     if(!/^[A-Za-z0-9_-]{1,128}$/.test(uid)){
       throw new HttpsError("permission-denied","Invalid account identifier.");
     }
+    // Check the authoritative official-account links as well as token claims.
+    // A stale ID token must not let an official team member apply as a supporter.
+    const officialSlugs=[
+      "mr-wolfie","mrs-wolfie","greig-sloan","bry-kelly",
+      "billy-burton","kelly-mcsporran","richard-davies"
+    ];
+    let linkedOfficial=false;
+    try{
+      const links=await getDatabase().ref("officialTeamAccountLinks").get();
+      linkedOfficial=officialSlugs.some(slug=>links.child(slug).val()===uid);
+    }catch(error){
+      console.error("Official membership lookup failed",error);
+      throw new HttpsError("unavailable","Unable to verify account eligibility.");
+    }
+    if(linkedOfficial){
+      throw new HttpsError("permission-denied","Official team accounts cannot apply as supporters.");
+    }
     const now=Date.now();
     const applicationRef=getDatabase().ref("membershipApplicationIntake/"+uid);
     let result;
