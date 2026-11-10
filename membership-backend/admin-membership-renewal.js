@@ -96,21 +96,7 @@ const verifyMembershipRenewalPayment=onCall(options,async request=>{
   return {success:true,status:"payment_verified"};
 });
 
-/**
- * Idempotent activation. The canonical renewal ledger and entitlement are
- * committed in ONE transaction on the per-user account node. A legacy
- * projection to membershipEntitlements is separate and safely retryable.
- * A production migration must reconcile any older entitlement records.
- */
-const activateMembershipRenewal=onCall(options,async request=>{
-  requireAdmin(request);
-  const uid=request.data?.applicantUid;
-  if(typeof uid!=="string"||!uidPattern.test(uid)){
-    throw new HttpsError("invalid-argument","Invalid account.");
-  }
-  const db=getDatabase();
-  const requestRef=db.ref("membershipRenewalRequests/"+uid);
-  const pending=(await requestRef.get()).val();
+function validVerifiedRenewal(pending,uid){
   if(!pending || typeof pending.renewalId!=="string" ||
      !/^[0-9a-f-]{36}$/i.test(pending.renewalId) ||
      pending.applicantUid!==uid ||
@@ -127,6 +113,25 @@ const activateMembershipRenewal=onCall(options,async request=>{
      !Object.hasOwn(PACKAGES[pending.type],pending.tier) ||
      PACKAGES[pending.type][pending.tier]===0 ||
      pending.pricePence!==PACKAGES[pending.type][pending.tier]){
+    return false;
+  }}
+
+/**
+ * Idempotent activation. The canonical renewal ledger and entitlement are
+ * committed in ONE transaction on the per-user account node. A legacy
+ * projection to membershipEntitlements is separate and safely retryable.
+ * A production migration must reconcile any older entitlement records.
+ */
+const activateMembershipRenewal=onCall(options,async request=>{
+  requireAdmin(request);
+  const uid=request.data?.applicantUid;
+  if(typeof uid!=="string"||!uidPattern.test(uid)){
+    throw new HttpsError("invalid-argument","Invalid account.");
+  }
+  const db=getDatabase();
+  const requestRef=db.ref("membershipRenewalRequests/"+uid);
+  const pending=(await requestRef.get()).val();
+  if(!validVerifiedRenewal(pending,uid)){
     throw new HttpsError("failed-precondition","No valid verified renewal is ready.");
   }
   const ledgerRef=db.ref("membershipAccounts/"+uid);
@@ -190,5 +195,5 @@ const activateMembershipRenewal=onCall(options,async request=>{
 });
 module.exports={
   requestMembershipRenewal,verifyMembershipRenewalPayment,
-  activateMembershipRenewal
+  activateMembershipRenewal,validVerifiedRenewal
 };
