@@ -1,0 +1,26 @@
+"use strict";
+// STEP 47: fail-closed isolated emulator test runner.
+// Execute from repository root after preparing the reviewed full rules fixture.
+const {spawnSync}=require("node:child_process");
+const fs=require("node:fs");
+const path=require("node:path");
+const root=path.resolve(__dirname,"../..");
+const dir=__dirname;
+const project="demo-team-wolfpack-membership-isolated";
+const config=path.join(dir,"firebase.membership-isolated.json");
+const fixture=path.join(dir,"database-rules.full-merged.json");
+const snapshot=path.join(dir,"database-rules.original.snapshot.json");
+if(!fs.existsSync(fixture)||!fs.existsSync(snapshot))
+ throw new Error("Full merged and original rules fixtures required. Run prepare-full-rules.js first.");
+const cfg=JSON.parse(fs.readFileSync(config,"utf8"));
+if(cfg.database?.rules!=="membership-backend/emulator/database-rules.full-merged.json")
+ throw new Error("Emulator must use the complete merged rules fixture.");
+if(cfg.emulators?.database?.host!=="127.0.0.1"||cfg.emulators?.database?.port!==19012)
+ throw new Error("Unexpected database emulator host or port.");
+if(process.env.GCLOUD_PROJECT && process.env.GCLOUD_PROJECT!==project)
+ throw new Error("Refusing non-demo project.");
+const env={...process.env,GCLOUD_PROJECT:project,FIREBASE_DATABASE_EMULATOR_HOST:"127.0.0.1:19012"};
+const args=["emulators:exec","--project",project,"--config","membership-backend/emulator/firebase.membership-isolated.json","--only","auth,database","node --test membership-backend/emulator/full-rules-preservation.test.js membership-backend/emulator/private-database-rules.emulator.test.js"];
+const run=spawnSync("firebase",args,{cwd:root,env,stdio:"inherit",shell:process.platform==="win32"});
+if(run.error)throw run.error;
+process.exit(run.status===null?1:run.status);
