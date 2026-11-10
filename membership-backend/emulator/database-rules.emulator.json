@@ -1,0 +1,33 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "membershipApplicationIntake": {
+      ".read": false,
+      ".write": false,
+      ".indexOn": [
+        "submittedAt"
+      ]
+    },
+    "membershipEntitlements": {
+      ".read": false,
+      ".write": false
+    },
+    "membershipAccounts": {
+      ".read": false,
+      ".write": false
+    },
+    "membershipRenewalRequests": {
+      ".read": false,
+      ".write": false
+    },
+    "membershipReminderPreferences": {
+      ".read": false,
+      ".write": false
+    },
+    "membershipReminderOutbox": {
+      ".read": false,
+      ".write": false
+    }
+  }
+}
