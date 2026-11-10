@@ -27,7 +27,26 @@ const saveMembershipReminderPreferences=onCall(options,async request=>{
   const next={membershipRenewalReminders:enabled,
     email:enabled&&data.email,push:enabled&&data.push,
     updatedAt:Date.now()};
-  await getDatabase().ref("membershipReminderPreferences/"+uid).set(next);
-  return {success:true,...next,deliveryEnabled:false};
+  const db=getDatabase();
+  // Store preferences before touching the queue so a future dispatcher that
+  // rechecks consent will fail closed immediately after an opt-out.
+  await db.ref("membershipReminderPreferences/"+uid).set(next);
+  let cancelled=0;
+  const queued=await db.ref("membershipReminderOutbox/"+uid).get();
+  for(const [key,item] of Object.entries(queued.val()||{})){
+    if(!/^[0-9]+_(30|14|7)$/.test(key)||item?.status!=="queued")continue;
+    const permitted=next.membershipRenewalReminders &&
+      ((next.email&&item.allowedChannels?.includes("email"))||
+       (next.push&&item.allowedChannels?.includes("push")));
+    if(permitted)continue;
+    const result=await db.ref("membershipReminderOutbox/"+uid+"/"+key)
+      .transaction(current=>{
+        if(!current||current.status!=="queued")return;
+        return {...current,status:"cancelled",cancelledAt:Date.now(),
+          cancellationReason:"preferences_changed"};
+      },undefined,false);
+    if(result.committed)cancelled++;
+  }
+  return {success:true,...next,cancelled,deliveryEnabled:false};
 });
 module.exports={getMembershipReminderPreferences,saveMembershipReminderPreferences};
