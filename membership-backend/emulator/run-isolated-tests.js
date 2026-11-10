@@ -2,6 +2,7 @@
 // STEP 47: fail-closed isolated emulator test runner.
 // Execute from repository root after preparing the reviewed full rules fixture.
 const {spawnSync}=require("node:child_process");
+const net=require("node:net");
 const fs=require("node:fs");
 const path=require("node:path");
 const root=path.resolve(__dirname,"../..");
@@ -21,6 +22,16 @@ if(process.env.GCLOUD_PROJECT && process.env.GCLOUD_PROJECT!==project)
  throw new Error("Refusing non-demo project.");
 const env={...process.env,GCLOUD_PROJECT:project,FIREBASE_DATABASE_EMULATOR_HOST:"127.0.0.1:19012"};
 const args=["emulators:exec","--project",project,"--config","membership-backend/emulator/firebase.membership-isolated.json","--only","auth,database","node --test membership-backend/emulator/full-rules-preservation.test.js membership-backend/emulator/private-database-rules.emulator.test.js"];
-const run=spawnSync("firebase",args,{cwd:root,env,stdio:"inherit",shell:process.platform==="win32"});
-if(run.error)throw run.error;
-process.exit(run.status===null?1:run.status);
+async function portFree(port){return new Promise(resolve=>{
+ const server=net.createServer();
+ server.once("error",()=>resolve(false));
+ server.listen({host:"127.0.0.1",port,exclusive:true},()=>server.close(()=>resolve(true)));
+});}
+(async()=>{
+ for(const port of [19109,19012]){
+  if(!await portFree(port))throw new Error("Refusing to start: emulator port "+port+" is occupied. Existing sessions were not touched.");
+ }
+ const run=spawnSync("firebase",args,{cwd:root,env,stdio:"inherit",shell:process.platform==="win32"});
+ if(run.error)throw run.error;
+ process.exitCode=run.status===null?1:run.status;
+})().catch(error=>{console.error(error);process.exitCode=1;});
