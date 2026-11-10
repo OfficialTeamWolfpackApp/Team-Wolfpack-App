@@ -831,4 +831,4 @@ function selectProfileTab(name){
 document.querySelectorAll('[data-profile-tab]').forEach(b=>b.addEventListener('click',()=>selectProfileTab(b.dataset.profileTab)));
 const memberNameObserver=new MutationObserver(()=>{const raw=$('profileName').textContent.replace(/^Name:\s*/, '').trim();$('cardMemberName').textContent=raw||'PACK MEMBER'});
 memberNameObserver.observe($('profileName'),{childList:true,characterData:true,subtree:true});
-</script></body></html>
+</script><div style="max-width:520px;margin:0 auto 30px;padding:0 18px"><a href="membership-reminder-preferences.html">Manage membership renewal reminder preferences →</a></div></body></html>
