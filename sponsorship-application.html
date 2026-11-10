@@ -4,8 +4,11 @@
 import {initializeApp} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 import {getAuth,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 import {getFunctions,httpsCallable} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-functions.js";
+import {initializeAppCheck,ReCaptchaEnterpriseProvider} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app-check.js";
 const config={apiKey:"AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",authDomain:"team-wolfpack-app.firebaseapp.com",databaseURL:"https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",projectId:"team-wolfpack-app",storageBucket:"team-wolfpack-app.firebasestorage.app",messagingSenderId:"1070414578856",appId:"1:1070414578856:web:df14e7d387e658eeae2e9d"};
-const app=initializeApp(config),auth=getAuth(app),functions=getFunctions(app,"europe-west1");
+const app=initializeApp(config);
+const appCheck=initializeAppCheck(app,{provider:new ReCaptchaEnterpriseProvider("6LfYlcItAAAAAGQtEJFKYH6fyERwXiAfVeBqJhOR"),isTokenAutoRefreshEnabled:true});
+const auth=getAuth(app),functions=getFunctions(app,"europe-west1");
 const submit=httpsCallable(functions,"submitMembershipApplication");
 const form=document.getElementById("applicationForm"),type=document.getElementById("type"),pack=document.getElementById("package");
 const businessLabel=document.getElementById("businessLabel"),status=document.getElementById("formStatus"),button=document.getElementById("submitBtn");
