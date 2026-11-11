@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#060c12">
+<title>Sponsorship Application | Team Wolfpack</title>
+<style>
+:root{color-scheme:dark;--ice:#67dcff;--fire:#ff751c}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 0 15%,#073047 0,transparent 35%),radial-gradient(circle at 100% 70%,#3b1907 0,transparent 35%),#06090d;color:#f4f8fa;font:15px/1.6 Arial,sans-serif}header,main,footer{max-width:850px;margin:auto;padding:20px}header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #ffffff25}a{color:var(--ice)}.brand{font-weight:900;letter-spacing:2px}.tag{color:var(--ice);font-size:11px;letter-spacing:2px;font-weight:bold}h1{font-size:clamp(27px,5vw,43px);line-height:1.2;margin:8px 0}h2{font-size:18px;margin:0 0 15px}.lead{color:#c6d3da;max-width:670px}.panel{background:linear-gradient(125deg,#112532ed,#111215f0 55%,#2a170ded);border:1px solid #ffffff29;border-radius:18px;padding:clamp(18px,4vw,30px);box-shadow:0 15px 40px #0007;margin:22px 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.full{grid-column:1/-1}label{display:block;font-size:12px;font-weight:bold;margin-bottom:6px}input,select,textarea{width:100%;border:1px solid #7893a255;border-radius:9px;background:#050b11;color:white;padding:13px;font:inherit;min-height:46px}textarea{min-height:115px;resize:vertical}input:focus,select:focus,textarea:focus{outline:2px solid var(--ice);outline-offset:2px}.hint{color:#9caeb7;font-size:12px;margin:5px 0 0}.notice{padding:12px;border-left:3px solid var(--ice);background:#081e2b;border-radius:7px;color:#c5dce8;font-size:13px}.hidden{display:none!important}.actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:20px}button{background:linear-gradient(90deg,#047cba,#b64b12);border:1px solid #84d9fa;color:#fff;border-radius:10px;padding:14px 23px;font-weight:900;cursor:pointer;min-height:48px}button:disabled{opacity:.5;cursor:not-allowed}#status{font-size:13px;min-height:20px}#status.error{color:#ffb1a1}#status.success{color:#8ef7ba}footer{font-size:12px;color:#9caeb7;text-align:center}@media(max-width:600px){.grid{grid-template-columns:1fr}.full{grid-column:auto}header{gap:10px;flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<header><div class="brand">🐺 TEAM WOLFPACK</div><a href="sponsors.html">← Sponsors &amp; Partners</a></header>
+<main><div class="tag">ONE PACK • ONE PURPOSE</div><h1>SPONSORSHIP <span style="color:var(--ice)">APPLICATION</span></h1><p class="lead">Tell us about yourself or your business and how you would like to support Team Wolfpack. An application is an enquiry, not a payment or a confirmed sponsorship agreement.</p>
+<section class="panel"><h2>Apply to support the pack</h2><form id="applicationForm" novalidate>
+<div class="grid">
+<div><label for="type">Applicant type *</label><select id="type" required><option value="business">Business / organisation</option><option value="personal">Personal supporter</option></select></div>
+<div><label for="packageChoice">Sponsorship interest *</label><select id="packageChoice" required><option value="">Choose an option</option><option value="bronze">Bronze</option><option value="silver">Silver</option><option value="gold">Gold</option><option value="platinum">Platinum</option><option value="custom">Custom partnership</option></select><p class="hint">Package levels are enquiries only; benefits are subject to agreement.</p></div>
+<div><label for="fullName">Your full name *</label><input id="fullName" autocomplete="name" maxlength="100" minlength="2" required></div>
+<div id="businessWrap"><label for="businessName">Business / organisation name *</label><input id="businessName" maxlength="120" autocomplete="organization" required></div>
+<div><label for="email">Email address *</label><input id="email" type="email" maxlength="254" autocomplete="email" required></div>
+<div><label for="location">Town / location *</label><input id="location" maxlength="100" required></div>
+<div><label for="website">Website (optional)</label><input id="website" type="url" maxlength="300" placeholder="https://example.com"><p class="hint">Use a secure https:// address.</p></div>
+<div><label for="amount">Proposed annual contribution (£) *</label><input id="amount" type="number" min="0" max="100000" step="0.01" value="0" required><p class="hint">Indicative only. No payment is taken here.</p></div>
+<div class="full"><label for="bio">About you / your business *</label><textarea id="bio" maxlength="1500" minlength="1" required placeholder="Tell us about your business or your interest in supporting Team Wolfpack."></textarea></div>
+<div class="full"><label for="message">Additional information (optional)</label><textarea id="message" maxlength="1500" placeholder="Which fighter or team would you like to support? Any other details?"></textarea></div>
+<div class="hidden" aria-hidden="true"><label for="websiteTrap">Leave blank</label><input id="websiteTrap" tabindex="-1" autocomplete="off"></div>
+</div>
+<p class="notice">We use the details you submit to review and respond to your sponsorship enquiry. Please do not include payment card details or sensitive personal information.</p>
+<div class="actions"><button id="submitButton" type="submit" disabled>SUBMIT APPLICATION ›</button><span id="status" role="status" aria-live="polite">Preparing secure submission…</span></div>
+</form></section></main><footer>© 2026 TEAM WOLFPACK • STRENGTH IN UNITY</footer>
+<script type="module">
+import {initializeApp} from 'https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js';
+import {initializeAppCheck,ReCaptchaEnterpriseProvider,getToken} from 'https://www.gstatic.com/firebasejs/12.2.1/firebase-app-check.js';
+const FIREBASE_CONFIG={apiKey:'AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY',authDomain:'team-wolfpack-app.firebaseapp.com',projectId:'team-wolfpack-app',appId:'1:1070414578856:web:df14e7d387e658eeae2e9d'};
+// Public reCAPTCHA Enterprise site key from Firebase App Check; verify against console before release.
+const APP_CHECK_SITE_KEY='6LfYlcltAAAAAGQtEJFKYH6fyERwXiAfVeBqJhOR';
+// Confirm the deployed function URL before publishing.
+const SUBMISSION_URL='https://europe-west1-team-wolfpack-app.cloudfunctions.net/submitSponsorshipApplication';
+const form=document.getElementById('applicationForm'),status=document.getElementById('status'),button=document.getElementById('submitButton');
+const type=document.getElementById('type'),businessWrap=document.getElementById('businessWrap'),businessName=document.getElementById('businessName'),packageChoice=document.getElementById('packageChoice');
+const value=id=>document.getElementById(id).value.trim();
+const setStatus=(message,kind='')=>{status.textContent=message;status.className=kind};
+function syncType(){const isBusiness=type.value==='business';businessWrap.classList.toggle('hidden',!isBusiness);businessName.required=isBusiness;}
+type.addEventListener('change',syncType);syncType();
+const requested=new URLSearchParams(location.search).get('package');if(['bronze','silver','gold','platinum'].includes(requested))packageChoice.value=requested;
+let appCheck=null;
+try{
+ if(APP_CHECK_SITE_KEY.startsWith('REPLACE_WITH_'))throw new Error('App Check site key is not configured');
+ const app=initializeApp(FIREBASE_CONFIG);
+ appCheck=initializeAppCheck(app,{provider:new ReCaptchaEnterpriseProvider(APP_CHECK_SITE_KEY),isTokenAutoRefreshEnabled:true});
+ button.disabled=false;setStatus('Secure form ready.');
+}catch(error){console.error('Sponsorship form setup:',error);setStatus('Secure submissions are not configured yet. Please use the Contact page meanwhile.','error');}
+form.addEventListener('submit',async event=>{
+ event.preventDefault();if(!appCheck||!form.reportValidity())return;
+ if(value('websiteTrap')){setStatus('Unable to submit.','error');return;}
+ const pounds=Number(value('amount'));
+ if(!Number.isFinite(pounds)||pounds<0||pounds>100000||Math.abs(Math.round(pounds*100)-pounds*100)>1e-7){setStatus('Enter a valid amount in pounds and pence.','error');return;}
+ const interest=packageChoice.value;
+ if(!interest){setStatus('Select a sponsorship interest.','error');return;}
+ const payload={type:type.value,fullName:value('fullName'),businessName:type.value==='business'?value('businessName'):'',location:value('location'),email:value('email'),website:value('website'),bio:value('bio'),packageId:type.value==='business'?'business':'pack',proposedAmountPence:Math.round(pounds*100),message:`Sponsorship interest: ${interest.toUpperCase()}\n${value('message')}`.trim(),websiteTrap:''};
+ if(payload.message.length>1500){setStatus('Additional information is too long.','error');return;}
+ button.disabled=true;setStatus('Submitting securely…');
+ try{
+  const {token}=await getToken(appCheck,false);
+  const response=await fetch(SUBMISSION_URL,{method:'POST',headers:{'Content-Type':'application/json','X-Firebase-AppCheck':token},body:JSON.stringify(payload),cache:'no-store'});
+  const result=await response.json().catch(()=>({}));
+  if(!response.ok||result.success!==true){const messages={RATE_LIMITED:'Too many applications. Please try again later.',INVALID_FIELDS:'Please check your details.',APP_CHECK_REQUIRED:'Security verification failed.',INVALID_APP_CHECK:'Security verification failed.',ORIGIN_NOT_ALLOWED:'This page is not authorised to submit.'};throw new Error(messages[result.error]||'Submission failed. Please try again later.');}
+  form.reset();syncType();setStatus('Application received. Thank you for supporting Team Wolfpack!','success');button.textContent='APPLICATION SENT ✓';
+ }catch(error){console.error('Sponsorship submission:',error);setStatus(error.message||'Unable to submit.','error');button.disabled=false;}
+});
+</script>
+</body></html>
