@@ -56,7 +56,7 @@ form.addEventListener('submit',async event=>{
  if(!Number.isFinite(pounds)||pounds<0||pounds>100000||Math.abs(Math.round(pounds*100)-pounds*100)>1e-7){setStatus('Enter a valid amount in pounds and pence.','error');return;}
  const interest=packageChoice.value;
  if(!interest){setStatus('Select a sponsorship interest.','error');return;}
- const payload={type:type.value,fullName:value('fullName'),businessName:type.value==='business'?value('businessName'):'',location:value('location'),email:value('email'),website:value('website'),bio:value('bio'),packageId:type.value==='business'?'business':'pack',proposedAmountPence:Math.round(pounds*100),message:`Sponsorship interest: ${interest.toUpperCase()}\n${value('message')}`.trim(),websiteTrap:''};
+ const payload={type:type.value,fullName:value('fullName'),businessName:type.value==='business'?value('businessName'):'',location:value('location'),email:value('email'),website:value('website'),bio:value('bio'),packageId:type.value==='business'?'business':'pack',sponsorshipInterest:interest,proposedAmountPence:Math.round(pounds*100),message:`Sponsorship interest: ${interest.toUpperCase()}\n${value('message')}`.trim(),websiteTrap:''};
  if(payload.message.length>1500){setStatus('Additional information is too long.','error');return;}
  button.disabled=true;setStatus('Submitting securely…');
  try{
