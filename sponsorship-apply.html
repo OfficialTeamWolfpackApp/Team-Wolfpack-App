@@ -13,13 +13,13 @@
 <section class="panel"><h2>Apply to support the pack</h2><form id="applicationForm" novalidate>
 <div class="grid">
 <div><label for="type">Applicant type *</label><select id="type" required><option value="business">Business / organisation</option><option value="personal">Personal supporter</option></select></div>
-<div><label for="packageChoice">Sponsorship interest *</label><select id="packageChoice" required><option value="">Choose an option</option><option value="bronze">Bronze</option><option value="silver">Silver</option><option value="gold">Gold</option><option value="platinum">Platinum</option><option value="custom">Custom partnership</option></select><p class="hint">Package levels are enquiries only; benefits are subject to agreement.</p></div>
+<div><label for="packageChoice">Sponsorship interest *</label><select id="packageChoice" required><option value="">Choose an option</option></select><p class="hint">Package levels are enquiries only; benefits are subject to agreement.</p></div>
 <div><label for="fullName">Your full name *</label><input id="fullName" autocomplete="name" maxlength="100" minlength="2" required></div>
 <div id="businessWrap"><label for="businessName">Business / organisation name *</label><input id="businessName" maxlength="120" autocomplete="organization" required></div>
 <div><label for="email">Email address *</label><input id="email" type="email" maxlength="254" autocomplete="email" required></div>
 <div><label for="location">Town / location *</label><input id="location" maxlength="100" required></div>
 <div><label for="website">Website (optional)</label><input id="website" type="url" maxlength="300" placeholder="https://example.com"><p class="hint">Use a secure https:// address.</p></div>
-<div><label for="amount">Proposed annual contribution (£) *</label><input id="amount" type="number" min="0" max="100000" step="0.01" value="0" required><p class="hint">Indicative only. No payment is taken here.</p></div>
+<div><label for="amount">Proposed annual contribution (£) *</label><input id="amount" type="number" min="0" max="100000" step="0.01" value="0" required><p class="hint">Fixed package amounts are set automatically. Custom amounts are indicative only. No payment is taken here.</p></div>
 <div class="full"><label for="bio">About you / your business *</label><textarea id="bio" maxlength="1500" minlength="1" required placeholder="Tell us about your business or your interest in supporting Team Wolfpack."></textarea></div>
 <div class="full"><label for="message">Additional information (optional)</label><textarea id="message" maxlength="1500" placeholder="Which fighter or team would you like to support? Any other details?"></textarea></div>
 <div class="hidden" aria-hidden="true"><label for="websiteTrap">Leave blank</label><input id="websiteTrap" tabindex="-1" autocomplete="off"></div>
@@ -35,28 +35,32 @@ const FIREBASE_CONFIG={apiKey:'AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY',authDoma
 const APP_CHECK_SITE_KEY='6LfYlcltAAAAAGQtEJFKYH6fyERwXiAfVeBqJhOR';
 // Confirm the deployed function URL before publishing.
 const SUBMISSION_URL='https://europe-west1-team-wolfpack-app.cloudfunctions.net/submitSponsorshipApplication';
+// Release gate: do not accept live submissions until production function, App Check and rules are verified.
+const LIVE_SUBMISSIONS_ENABLED=false;
+const PACKAGE_OPTIONS={business:[['bronze','Bronze — £50/year',50],['silver','Silver — £100/year',100],['gold','Gold — £200/year',200],['platinum','Platinum — £350/year',350],['custom','Custom business sponsorship',null]],personal:[['free','Free supporter — £0/year',0],['pack','Pack supporter — £10/year',10],['loyal','Loyal supporter — £25/year',25],['champion','Champion supporter — £50/year',50],['custom-supporter','Custom supporter contribution',null]]};
 const form=document.getElementById('applicationForm'),status=document.getElementById('status'),button=document.getElementById('submitButton');
-const type=document.getElementById('type'),businessWrap=document.getElementById('businessWrap'),businessName=document.getElementById('businessName'),packageChoice=document.getElementById('packageChoice');
+const type=document.getElementById('type'),businessWrap=document.getElementById('businessWrap'),businessName=document.getElementById('businessName'),packageChoice=document.getElementById('packageChoice'),amount=document.getElementById('amount');
 const value=id=>document.getElementById(id).value.trim();
 const setStatus=(message,kind='')=>{status.textContent=message;status.className=kind};
-function syncType(){const isBusiness=type.value==='business';businessWrap.classList.toggle('hidden',!isBusiness);businessName.required=isBusiness;}
-type.addEventListener('change',syncType);syncType();
-const requested=new URLSearchParams(location.search).get('package');if(['bronze','silver','gold','platinum'].includes(requested))packageChoice.value=requested;
+function syncAmount(){const selected=PACKAGE_OPTIONS[type.value].find(([id])=>id===packageChoice.value);const fixed=selected?.[2];amount.readOnly=typeof fixed==='number';if(amount.readOnly)amount.value=String(fixed);else amount.value='';}
+function syncType(){const isBusiness=type.value==='business';businessWrap.classList.toggle('hidden',!isBusiness);businessName.required=isBusiness;packageChoice.replaceChildren(new Option('Choose an option',''));for(const [id,label] of PACKAGE_OPTIONS[type.value])packageChoice.add(new Option(label,id));syncAmount();}
+type.addEventListener('change',syncType);packageChoice.addEventListener('change',syncAmount);syncType();
+const requested=new URLSearchParams(location.search).get('package');if(PACKAGE_OPTIONS[type.value].some(([id])=>id===requested)){packageChoice.value=requested;syncAmount();}
 let appCheck=null;
 try{
  if(APP_CHECK_SITE_KEY.startsWith('REPLACE_WITH_'))throw new Error('App Check site key is not configured');
  const app=initializeApp(FIREBASE_CONFIG);
  appCheck=initializeAppCheck(app,{provider:new ReCaptchaEnterpriseProvider(APP_CHECK_SITE_KEY),isTokenAutoRefreshEnabled:true});
- button.disabled=false;setStatus('Secure form ready.');
+ button.disabled=!LIVE_SUBMISSIONS_ENABLED;setStatus(LIVE_SUBMISSIONS_ENABLED?'Secure form ready.':'Applications are temporarily unavailable while production security checks are completed. Please use the Contact page meanwhile.');
 }catch(error){console.error('Sponsorship form setup:',error);setStatus('Secure submissions are not configured yet. Please use the Contact page meanwhile.','error');}
 form.addEventListener('submit',async event=>{
- event.preventDefault();if(!appCheck||!form.reportValidity())return;
+ event.preventDefault();if(!LIVE_SUBMISSIONS_ENABLED||!appCheck||!form.reportValidity())return;
  if(value('websiteTrap')){setStatus('Unable to submit.','error');return;}
  const pounds=Number(value('amount'));
  if(!Number.isFinite(pounds)||pounds<0||pounds>100000||Math.abs(Math.round(pounds*100)-pounds*100)>1e-7){setStatus('Enter a valid amount in pounds and pence.','error');return;}
  const interest=packageChoice.value;
  if(!interest){setStatus('Select a sponsorship interest.','error');return;}
- const payload={type:type.value,fullName:value('fullName'),businessName:type.value==='business'?value('businessName'):'',location:value('location'),email:value('email'),website:value('website'),bio:value('bio'),packageId:type.value==='business'?'business':'pack',sponsorshipInterest:interest,proposedAmountPence:Math.round(pounds*100),message:`Sponsorship interest: ${interest.toUpperCase()}\n${value('message')}`.trim(),websiteTrap:''};
+ const payload={type:type.value,fullName:value('fullName'),businessName:type.value==='business'?value('businessName'):'',location:value('location'),email:value('email'),website:value('website'),bio:value('bio'),packageId:type.value==='business'?'business':interest,sponsorshipInterest:interest,proposedAmountPence:Math.round(pounds*100),message:`Sponsorship interest: ${interest.toUpperCase()}\n${value('message')}`.trim(),websiteTrap:''};
  if(payload.message.length>1500){setStatus('Additional information is too long.','error');return;}
  button.disabled=true;setStatus('Submitting securely…');
  try{
