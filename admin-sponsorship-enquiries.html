@@ -39,7 +39,7 @@ function render(data){
   const heading=document.createElement("strong");heading.textContent="ADDITIONAL MESSAGE";
   const manage=document.createElement("div");manage.className="manage-row";
   const label=document.createElement("label");label.textContent="APPLICATION STATUS ";const select=document.createElement("select");select.setAttribute("aria-label","Status for "+safeText(item.fullName));
-  for(const status of allowedStatuses){const opt=document.createElement("option");opt.value=status;opt.textContent=status.replaceAll("_"," ").replace(/\\b\\w/g,ch=>ch.toUpperCase());select.append(opt);}
+  for(const status of allowedStatuses){const opt=document.createElement("option");opt.value=status;opt.textContent=status.replaceAll("_"," ").replace(/\b\w/g,ch=>ch.toUpperCase());select.append(opt);}
   select.value=allowedStatuses.includes(item.status)?item.status:"new";label.append(select);
   const save=document.createElement("button");save.type="button";save.textContent="SAVE STATUS";save.disabled=true;
   const note=document.createElement("span");note.className="save-note";note.setAttribute("role","status");
