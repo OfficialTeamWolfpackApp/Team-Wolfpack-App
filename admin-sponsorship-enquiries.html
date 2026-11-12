@@ -4,7 +4,7 @@
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 import {getAuth,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-import {getDatabase,ref,onValue,update} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+import {getDatabase,ref,onValue,set} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
 const app=initializeApp({apiKey:"AIzaSyC06RDrqpXodbYBJqyeGvRkmtxQGapaaPY",authDomain:"team-wolfpack-app.firebaseapp.com",databaseURL:"https://team-wolfpack-app-default-rtdb.europe-west1.firebasedatabase.app",projectId:"team-wolfpack-app",appId:"1:1070414578856:web:df14e7d387e658eeae2e9d"});
 const auth=getAuth(app),db=getDatabase(app);
 const admins=new Set(["PRGa9TsCW0QDn1QtoUXyYjEi7YB3","SlpEQYl94DaH6j42QUyl8Kv2ujJ3"]);
@@ -49,7 +49,7 @@ function render(data){
    if(!user||!admins.has(user.uid)){note.textContent="Administrator sign-in required.";return;}
    const chosen=select.value;if(!allowedStatuses.includes(chosen))return;
    save.disabled=true;select.disabled=true;note.textContent="Saving…";
-   try{await update(ref(db,"sponsorshipApplications/"+id),{status:chosen});note.textContent="Saved successfully.";}
+   try{await set(ref(db,"sponsorshipApplications/"+id+"/status"),chosen);note.textContent="Saved successfully.";}
    catch(error){note.textContent="Could not save: "+(error.code==="PERMISSION_DENIED"?"permission denied.":"please retry.");save.disabled=false;}
    finally{select.disabled=false;}
   });
