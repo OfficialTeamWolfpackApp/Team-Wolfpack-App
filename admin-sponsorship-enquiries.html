@@ -60,6 +60,10 @@ function render(data){
   deleteButton.style.background="#641b1b";
   deleteButton.style.borderColor="#d64545";
   deleteButton.style.color="#ffffff";
+  const deleteNote=document.createElement("span");
+  deleteNote.className="save-note";
+  deleteNote.setAttribute("role","status");
+  deleteNote.style.cssText="display:block;flex-basis:100%;width:100%;padding:9px 11px;border:1px solid #386075;border-radius:8px;background:#081820;color:#e5f9ff;font-weight:600;";
   deleteButton.addEventListener("click",async()=>{
    const user=auth.currentUser;
    if(!user||!admins.has(user.uid)){
@@ -81,20 +85,25 @@ function render(data){
    deleteButton.disabled=true;
    save.disabled=true;
    select.disabled=true;
-   note.textContent="Deleting application…";
+   deleteNote.textContent="Deleting application…";
    try{
     await remove(ref(db,"sponsorshipApplications/"+id));
-    note.textContent="Application deleted.";
+    latestData={...latestData};
+    delete latestData[id];
+    render(latestData);
    }catch(error){
     console.error("Application deletion failed:",error);
-    note.textContent=error.code==="PERMISSION_DENIED"
-     ?"Deletion denied by Firebase security rules."
-     :"Deletion failed. Please retry.";
+    const detail=error?.code||error?.message||"Unknown Firebase error";
+    deleteNote.textContent=error?.code==="PERMISSION_DENIED"
+     ?"Deletion denied by Firebase security rules. Your application has not been deleted."
+     :"Deletion failed: "+detail;
     deleteButton.disabled=false;
     save.disabled=select.value===(item.status||"new");
+    select.disabled=false;
+    window.alert("TEAM WOLFPACK — APPLICATION NOT DELETED\\n\\n"+deleteNote.textContent);
    }
   });
-  manage.append(deleteButton);
+  manage.append(deleteButton,deleteNote);
   const toggle=document.createElement("button");toggle.type="button";toggle.className="details-toggle";toggle.textContent="VIEW FULL APPLICATION";toggle.setAttribute("aria-expanded","false");
   const details=document.createElement("section");details.className="application-details";details.hidden=true;
   const detailsTitle=document.createElement("h3");detailsTitle.textContent="FULL APPLICATION DETAILS";
