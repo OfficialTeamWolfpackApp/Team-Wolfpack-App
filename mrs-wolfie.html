@@ -3090,6 +3090,12 @@ onSnapshot(
         </div>
       `;
 
+    // Do not leave stale results or a misleading record on a failed read.
+    pastContainer.innerHTML = "";
+    winsCount.textContent = "—";
+    lossesCount.textContent = "—";
+    drawsCount.textContent = "—";
+
   }
 );
 
