@@ -1506,6 +1506,34 @@ body.menu-open{
 /* TRANSPARENT LOGO ARTWORK — DARK METALLIC PRESENTATION */
 .team-section.wolfie-section .sponsor-logo-box{background:radial-gradient(ellipse at 35% 28%,rgba(0,191,255,.14),transparent 58%),radial-gradient(ellipse at 82% 78%,rgba(255,112,30,.12),transparent 60%),linear-gradient(145deg,#0d1821,#07090e 65%,#1b1010);border:1px solid rgba(103,220,255,.3)}
 .team-section.wolfie-section .sponsor-logo-box img{mix-blend-mode:normal;filter:drop-shadow(0 5px 12px rgba(0,0,0,.3));padding:clamp(8px,1.5vw,18px)}
+
+/* INTERACTIVE IMAGE-LED SPONSORSHIP NAVIGATION */
+.interactive-support{margin:30px 0 38px;padding:clamp(17px,3vw,30px);border:1px solid #67dcff55;border-radius:19px;background:radial-gradient(ellipse at 0 10%,#00bfff20,transparent 50%),radial-gradient(ellipse at 100% 100%,#ff751c20,transparent 50%),#070c12;box-shadow:0 20px 48px #0008}
+.interactive-support h2{font-size:clamp(23px,3vw,36px);margin:8px 0 10px;letter-spacing:.5px}
+.interactive-support h2 span{color:#ff8b39}
+.interactive-support-lead{font-size:12px;color:#c4d4df;line-height:1.8;max-width:800px;margin:0 0 22px}
+.interactive-support-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.interactive-support-tile{min-width:0;display:flex;flex-direction:column;overflow:hidden;border:1px solid #67dcff66;border-top:3px solid #00bfff;border-radius:15px;background:linear-gradient(145deg,#0c202e,#080b11 55%,#21120c);box-shadow:0 12px 28px #0007;transition:transform .2s ease,border-color .2s ease}
+.interactive-support-tile:nth-child(2){border-top-color:#ff751c}
+.interactive-support-tile:nth-child(3){border-top-color:#ffb248}
+.interactive-support-tile:hover{transform:translateY(-4px);border-color:#ff9b52}
+.interactive-support-image{height:clamp(190px,25vw,310px);display:block;overflow:hidden;background:radial-gradient(circle at 30% 30%,#053a56,#080b12 65%,#3b190a);border-bottom:1px solid #67dcff44}
+.interactive-support-image img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .3s ease}
+.interactive-support-image:hover img{transform:scale(1.045)}
+.interactive-support-art{display:grid;place-items:center}
+.interactive-support-art img{width:min(58%,190px);height:auto;object-fit:contain;filter:drop-shadow(0 0 24px #00bfff77)}
+.interactive-support-body{display:flex;flex:1;flex-direction:column;gap:10px;padding:18px}
+.interactive-support-label{font-size:9px;font-weight:900;letter-spacing:1.6px;color:#67dcff}
+.interactive-support-tile:nth-child(2) .interactive-support-label{color:#ffae6b}
+.interactive-support-body h3{font-size:clamp(16px,1.8vw,21px);line-height:1.2;margin:0;color:#fff}
+.interactive-support-body p{font-size:11px;line-height:1.7;color:#c3d0d8;margin:0 0 10px;flex:1}
+.interactive-support-button{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 13px;min-height:44px;border:1px solid #67dcff88;border-radius:9px;background:linear-gradient(105deg,#005b88,#71300f);color:#fff;text-decoration:none;font-size:10px;font-weight:900;letter-spacing:.3px}
+.interactive-support-button:hover{filter:brightness(1.25)}
+.interactive-support-button:focus-visible,.interactive-support-image:focus-visible{outline:3px solid #67dcff;outline-offset:2px}
+.interactive-support-note{font-size:10px;line-height:1.7;color:#b9c6ce;margin:16px 0 0}
+@media(max-width:800px){.interactive-support-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.interactive-support-tile--contact{grid-column:1/-1}.interactive-support-tile--contact .interactive-support-image{height:190px}}
+@media(max-width:530px){.interactive-support-grid{grid-template-columns:1fr}.interactive-support-tile--contact{grid-column:auto}.interactive-support-image{height:250px}.interactive-support{padding:15px}}
+@media(prefers-reduced-motion:reduce){.interactive-support-tile,.interactive-support-image img{transition:none}}
 </style>
 
 </head>
@@ -1812,6 +1840,26 @@ to the team and fighter they proudly support.
     </nav>
     <p class="hub-premium-notice"><span aria-hidden="true">ⓘ</span> Online applications and payments are not yet available. Please contact Team Wolfpack with enquiries.</p>
   </div>
+</section>
+<section class="interactive-support" aria-labelledby="interactiveSupportTitle">
+  <div class="hub-eyebrow">EXPLORE • DISCOVER • CONNECT</div>
+  <h2 id="interactiveSupportTitle">SUPPORT THE <span>WOLFPACK</span></h2>
+  <p class="interactive-support-lead">Choose how you'd like to get involved. Select a card or use its button to explore the official package artwork, meet our partners or contact the team.</p>
+  <div class="interactive-support-grid">
+    <article class="interactive-support-tile">
+      <a class="interactive-support-image" href="sponsorship-application.html" aria-label="View the business sponsorship packages poster"><img src="sponsorship-packages.png" alt="Team Wolfpack business sponsorship packages: Bronze, Silver, Gold, Platinum and Custom" loading="lazy"></a>
+      <div class="interactive-support-body"><span class="interactive-support-label">FOR BUSINESSES</span><h3>SPONSORSHIP PACKAGES</h3><p>Bronze • Silver • Gold • Platinum • Custom</p><a class="interactive-support-button" href="sponsorship-application.html">VIEW SPONSORSHIP POSTER <span aria-hidden="true">↗</span></a></div>
+    </article>
+    <article class="interactive-support-tile">
+      <a class="interactive-support-image" href="sponsorship-application.html" aria-label="View the personal supporter packages poster"><img src="supporter-packages.png" alt="Team Wolfpack personal supporter packages: Free Pack Member, Pack Supporter, Loyal Supporter, Wolfpack Champion and Custom Supporter" loading="lazy"></a>
+      <div class="interactive-support-body"><span class="interactive-support-label">FOR INDIVIDUALS</span><h3>SUPPORTER PACKAGES</h3><p>Free Pack Member • Pack • Loyal • Champion • Custom</p><a class="interactive-support-button" href="sponsorship-application.html">VIEW SUPPORTER POSTER <span aria-hidden="true">↗</span></a></div>
+    </article>
+    <article class="interactive-support-tile interactive-support-tile--contact">
+      <a class="interactive-support-image interactive-support-art" href="contact.html" aria-label="Contact Team Wolfpack about sponsorship"><img src="icon-192.png" alt="Team Wolfpack emblem" loading="lazy"></a>
+      <div class="interactive-support-body"><span class="interactive-support-label">START A CONVERSATION</span><h3>BESPOKE ENQUIRIES</h3><p>Discuss fighter support, event opportunities or a tailored partnership.</p><a class="interactive-support-button" href="contact.html">CONTACT THE TEAM <span aria-hidden="true">↗</span></a></div>
+    </article>
+  </div>
+  <p class="interactive-support-note">Package artwork is for information. Online applications and payments are not currently enabled; all sponsorship arrangements are subject to agreement.</p>
 </section>
 <section class="hub-section" id="sponsorshipPackages" aria-labelledby="packagesTitle">
   <div class="hub-eyebrow">BACK THE PACK • BUSINESS PARTNERSHIPS</div>
