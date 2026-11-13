@@ -1097,6 +1097,55 @@ body{
 
 }
 
+
+/* ADMIN DASHBOARD 2026 — RESPONSIVE CONTROL CENTRE */
+:root{--admin-ice:#67dcff;--admin-fire:#ff751c;--admin-surface:#09121a}
+body{background:radial-gradient(ellipse at 7% 8%,#06344b 0,transparent 36%),radial-gradient(ellipse at 95% 25%,#351606 0,transparent 40%),#04090e;color:#f2f8fc}
+.header{max-width:1240px;margin:0 auto;padding:30px 24px 18px}
+.logo{width:76px;height:76px;filter:drop-shadow(0 0 18px #23c8ff44)}
+.brand{letter-spacing:3px;font-size:11px}
+.title{font-size:clamp(29px,4.2vw,52px);letter-spacing:1px;margin-top:12px}
+.subtitle{font-size:clamp(12px,1.1vw,15px);color:#b4c8d2;max-width:680px;margin:10px auto 0}
+.line{max-width:840px;margin-top:20px}
+.admin-dashboard-banner{max-width:1050px;margin-top:22px;border-radius:20px;border:1px solid #67dcff55;box-shadow:0 16px 60px #0009,0 0 36px #00bfff12}
+.content{max-width:1240px;padding:12px 24px 90px}
+.status{font-size:12px;margin-bottom:18px}
+.admin-bar{padding:19px 23px;border-radius:16px;border:1px solid #ff8c3d66;background:linear-gradient(100deg,#082534,#101016 52%,#2d1408);box-shadow:0 12px 32px #0007;margin-bottom:24px}
+.admin-name{font-size:14px}.admin-label{font-size:11px;letter-spacing:1.5px}
+.section-title{font-size:clamp(16px,2vw,22px);margin:26px 0 14px;letter-spacing:1.4px}
+.admin-jump-nav{display:flex;flex-wrap:wrap;gap:9px;padding:15px;margin-bottom:22px;border-radius:16px;border:1px solid #67dcff36;background:linear-gradient(105deg,#071b27,#101015 58%,#241209)}
+.admin-jump-nav a{display:inline-flex;align-items:center;justify-content:center;min-height:39px;padding:9px 14px;color:#e8f7ff;text-decoration:none;border:1px solid #67dcff50;border-radius:9px;background:#0b1d28;font-size:12px;font-weight:800;transition:background .15s,border-color .15s}
+.admin-jump-nav a:hover{background:#12384b;border-color:var(--admin-ice)}
+.control-section{scroll-margin-top:18px;margin-top:20px;padding:24px;border-radius:19px;border:1px solid #67dcff2b;background:linear-gradient(125deg,#0b1d27 0%,#090d13 55%,#20130d 100%);box-shadow:0 10px 34px #0006;position:relative;overflow:hidden}
+.control-section::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:linear-gradient(var(--admin-ice),var(--admin-fire));opacity:.85}
+.control-section.notifications{background:linear-gradient(115deg,#10222b,#100e10 60%,#27160d)}
+.control-section.system{background:linear-gradient(115deg,#0b1922,#0c0d11)}
+.control-section-header{margin-bottom:19px}
+.control-section-title{font-size:clamp(14px,1.4vw,18px);letter-spacing:.5px;line-height:1.4}
+.control-section-icon{width:43px;height:43px;border-radius:12px;font-size:21px;background:#67dcff14}
+.control-section-subtitle{font-size:12px;color:#a8bdc9;line-height:1.55;margin-top:6px}
+.control-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.control-card{min-width:0;min-height:144px;padding:24px 18px 19px;border:1px solid #67dcff29;border-radius:13px;background:linear-gradient(135deg,#0b1b26,#0a0d12 72%,#20140f);box-shadow:inset 0 1px #ffffff0b;justify-content:flex-start}
+.control-card::after{content:"↗";position:absolute;right:17px;bottom:13px;color:#67dcff99;font-size:18px}
+.control-card:hover{transform:translateY(-3px);border-color:#67dcff9c;background:linear-gradient(135deg,#0e2c3d,#0d121a 65%,#2b180e);box-shadow:0 8px 26px #0008}
+.control-card-name{padding-right:70px;font-size:clamp(12px,1vw,14px);line-height:1.4;overflow-wrap:anywhere}
+.control-card-description{font-size:11px;line-height:1.65;color:#a5b5c0;margin-top:10px;padding-right:8px}
+.control-card-badge{font-size:9px;max-width:50%;overflow-wrap:anywhere;line-height:1.25;padding:5px 9px;top:13px;right:13px}
+.control-section.mrs-wolfie{border-color:#ff4faf55;background:linear-gradient(110deg,#102330,#100f18 55%,#2c1124)}
+.control-section.mrs-wolfie::before{background:linear-gradient(#00bfff,#ff4faf)}
+.control-section.mrs-wolfie .control-card{background:linear-gradient(115deg,#09212c,#12101a 60%,#281322)}
+.nav-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.nav-button{font-size:12px;min-height:52px;border-color:#67dcff88}
+.action-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.action-card{min-height:135px}
+.action-name{font-size:13px}.action-description{font-size:11px;color:#b1c0ca}
+.system-panel{border-radius:15px;padding:20px;background:#091722}
+.system-label,.system-value{font-size:11px}
+a:focus-visible{outline:3px solid var(--admin-ice);outline-offset:3px}
+@media(max-width:950px){.control-grid,.action-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.content{padding-inline:20px}}
+@media(max-width:620px){.header{padding:24px 15px 10px}.content{padding:12px 14px 65px}.admin-dashboard-banner{border-radius:12px}.control-section{padding:17px;margin-top:15px}.control-grid,.action-grid{grid-template-columns:1fr}.control-card{min-height:112px;padding:18px 16px}.control-card-name{font-size:13px}.control-card-description{font-size:11px}.admin-jump-nav{gap:7px;padding:12px}.admin-jump-nav a{font-size:11px;flex:1 1 auto}.admin-bar{padding:15px}.admin-label{font-size:9px}.nav-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){.control-card,.admin-jump-nav a{transition:none}.control-card:hover{transform:none}}
+
 </style>
 
 </head>
@@ -1241,11 +1290,13 @@ CONTROL CENTRE
 
 </div>
 
+<nav class="admin-jump-nav" aria-label="Admin dashboard sections"><a href="#admin-notifications">Updates</a><a href="#admin-wolfpack-app">App</a><a href="#admin-tickets">Tickets</a><a href="#admin-profiles">Profiles</a><a href="#admin-badges">Badges</a><a href="#admin-community">Community</a><a href="#admin-sponsors">Sponsors</a><a href="#admin-enquiries">Enquiries</a><a href="#admin-mrs-wolfie">Mrs Wolfie</a></nav>
+
 <!-- =========================================
      NOTIFICATIONS & UPDATES
 ========================================= -->
 
-<section class="control-section notifications">
+<section id="admin-notifications" class="control-section notifications">
 
   <div class="control-section-header">
 
@@ -1345,7 +1396,7 @@ CONTROL CENTRE
      TEAM WOLFPACK APP
 ========================================= -->
 
-<section class="control-section wolfpack">
+<section id="admin-wolfpack-app" class="control-section wolfpack">
 
   <div class="control-section-header">
 
@@ -1446,7 +1497,7 @@ CONTROL CENTRE
      TICKET MANAGEMENT
 ========================================= -->
 
-<section class="control-section wolfpack">
+<section id="admin-tickets" class="control-section wolfpack">
 
   <div class="control-section-header">
 
@@ -1503,7 +1554,7 @@ CONTROL CENTRE
      PROFILE MANAGEMENT
 ========================================= -->
 
-<section class="control-section wolfpack">
+<section id="admin-profiles" class="control-section wolfpack">
 
   <div class="control-section-header">
 
@@ -1588,7 +1639,7 @@ CONTROL CENTRE
      BADGE MANAGEMENT
 ========================================= -->
 
-<section
+<section id="admin-badges"
   class="control-section wolfpack"
   aria-labelledby="badgeManagementHeading"
 >
@@ -1650,7 +1701,7 @@ CONTROL CENTRE
      SUPPORTERS & COMMUNITY MANAGEMENT
 ========================================= -->
 
-<section class="control-section wolfpack">
+<section id="admin-community" class="control-section wolfpack">
   <div class="control-section-header">
     <div>
       <div class="control-section-title">
@@ -1690,7 +1741,7 @@ CONTROL CENTRE
      SPONSOR MANAGEMENT
 ========================================= -->
 
-<section class="control-section wolfpack">
+<section id="admin-sponsors" class="control-section wolfpack">
 
   <div class="control-section-header">
 
@@ -1778,7 +1829,7 @@ CONTROL CENTRE
      CONTACT ENQUIRIES MANAGEMENT
 ========================================= -->
 
-<section class="control-section wolfpack">
+<section id="admin-enquiries" class="control-section wolfpack">
 
   <div class="control-section-header">
 
@@ -1837,7 +1888,7 @@ CONTROL CENTRE
      MRS WOLFIE APP
 ========================================= -->
 
-<section class="control-section mrs-wolfie">
+<section id="admin-mrs-wolfie" class="control-section mrs-wolfie">
 
   <div class="control-section-header">
 
