@@ -2828,15 +2828,15 @@ function renderCompleted(fight){
     "--";
 
 
-  if(result === "WIN"){
+  if(result === "WIN" || result === "W"){
     resultLetter = "W";
   }
 
-  if(result === "LOSS"){
+  if(result === "LOSS" || result === "L"){
     resultLetter = "L";
   }
 
-  if(result === "DRAW"){
+  if(result === "DRAW" || result === "D"){
     resultLetter = "D";
   }
 
@@ -3036,17 +3036,17 @@ onSnapshot(
           .toUpperCase();
 
 
-        if(result === "WIN"){
+        if(result === "WIN" || result === "W"){
           wins++;
         }
 
 
-        if(result === "LOSS"){
+        if(result === "LOSS" || result === "L"){
           losses++;
         }
 
 
-        if(result === "DRAW"){
+        if(result === "DRAW" || result === "D"){
           draws++;
         }
 
