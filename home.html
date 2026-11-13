@@ -2710,6 +2710,15 @@ background:
 }
   
 /* =========================================
+   POSTPONED FIGHTS — HOMEPAGE
+========================================= */
+.home-postponed-section[hidden]{display:none!important}
+.home-postponed-section{margin:20px 0 10px}
+.home-postponed-section .next-item{border-color:rgba(255,150,45,.5);background:linear-gradient(105deg,rgba(0,155,215,.1),rgba(12,12,16,.96) 42%,rgba(255,90,0,.13))}
+.home-postponed-section .next-fight-label{color:#ffae55}
+.home-postponed-section .postponed-note{font-size:9px;color:#ffbc79;font-weight:800;letter-spacing:.6px;margin-top:7px}
+
+/* =========================================
    QUICK ACCESS
 ========================================= */
 
@@ -8126,6 +8135,15 @@ SUPER MIDDLEWEIGHT TITLE
 </div>
 
 
+<!-- POSTPONED FIGHTS — LIVE FIGHT DATABASE -->
+<section id="homePostponedSection" class="home-postponed-section" hidden aria-labelledby="homePostponedHeading">
+  <div class="section-heading">
+    <div id="homePostponedHeading" class="section-title">POSTPONED FIGHTS</div>
+    <a class="section-link" href="fights.html">VIEW ALL FIGHTS →</a>
+  </div>
+  <div id="homePostponedList" class="next-list"></div>
+</section>
+
 <!-- QUICK ACCESS -->
 
 <section class="quick-access-card">
@@ -9688,6 +9706,33 @@ if(homeTicketButton){
   }
 }
 
+function renderHomePostponedFights(fights){
+  const section = document.getElementById("homePostponedSection");
+  const list = document.getElementById("homePostponedList");
+  if(!section || !list) return;
+  section.hidden = fights.length === 0;
+  if(!fights.length){ list.replaceChildren(); return; }
+  const safe = value => String(value == null ? "" : value).replace(/[&<>"']/g, char => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  })[char]);
+  list.innerHTML = fights.map(function(f){
+    const parts = dateBoxParts(f);
+    const name = fighterName(f);
+    const opponent = f.opponent || f.opponentName || "TBA";
+    const venue = f.venue || f.location || "VENUE TBA";
+    const event = f.event || f.eventName || f.title || f.promotion || "FIGHT POSTPONED";
+    return '<a class="next-item" href="fights.html">' +
+      '<div class="date-box"><div class="date-number">'+safe(parts.day || "—")+'</div>'+
+      '<div class="date-month">'+safe(parts.month || "")+'</div></div>'+
+      '<div class="next-info"><div class="next-fight-label">POSTPONED</div>'+
+      '<div class="next-name">'+safe(name)+' <span class="versus">VS</span> '+safe(opponent)+'</div>'+
+      '<div class="next-meta">'+safe(venue)+'</div>'+
+      '<div class="next-event">'+safe(event)+'</div>'+
+      '<div class="postponed-note">AWAITING CONFIRMED NEW DATE</div></div>'+
+      '<div class="next-arrow">!</div></a>';
+  }).join("");
+}
+
 function renderNextUp(fights){
   if(!nextUpList){
     return;
@@ -10070,26 +10115,25 @@ onValue(
   fightsRef,
   function(snapshot){
     const fights = [];
+    const postponedFights = [];
 
     snapshot.forEach(function(childSnapshot){
       const f = childSnapshot.val();
 
-      if(
-        f &&
-        String(f.status || "")
-          .trim()
-          .toLowerCase() === "upcoming"
-      ){
-        fights.push({
-          id:childSnapshot.key,
-          ...f
-        });
-      }
+      if(!f) return;
+      const status = String(f.status || "").trim().toLowerCase();
+      const entry = {id:childSnapshot.key,...f};
+      if(status === "upcoming") fights.push(entry);
+      if(status === "postponed") postponedFights.push(entry);
     });
 
     fights.sort(function(a,b){
       return fightTime(a) - fightTime(b);
     });
+    postponedFights.sort(function(a,b){
+      return fightTime(b) - fightTime(a);
+    });
+    renderHomePostponedFights(postponedFights);
 
   latestFights = fights;
 fightsLoaded = true;
