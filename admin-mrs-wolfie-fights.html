@@ -1385,6 +1385,8 @@ async function sendFightNotification(
       );
 
 
+    const notificationId = crypto.randomUUID();
+
     const response =
       await fetch(
         FIGHT_NOTIFICATION_URL,
@@ -1402,6 +1404,7 @@ async function sendFightNotification(
           body:
             JSON.stringify({
               fightId: fightId,
+              notificationId: notificationId,
               notificationType:
                 notificationType
             })
@@ -1462,6 +1465,13 @@ async function sendFightNotification(
       "Some supporters may already have received this notification. " +
       "DO NOT SEND IT AGAIN until delivery has been checked.";
 
+
+    if (
+      error.message === "NOTIFICATION_ALREADY_REQUESTED" ||
+      error.message === "NOTIFICATION_ID_CONFLICT"
+    ) {
+      message = "THIS NOTIFICATION REQUEST HAS ALREADY BEEN RECORDED. DO NOT RESEND IT.";
+    }
 
     if (
       error.message ===
