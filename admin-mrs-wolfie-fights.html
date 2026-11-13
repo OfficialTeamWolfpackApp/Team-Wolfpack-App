@@ -371,6 +371,7 @@
       background: rgba(255,80,80,.07);
     }
 
+    .field-help{font-size:10px;color:#888;line-height:1.4}.image-preview{width:130px;height:160px;object-fit:cover;border:1px solid rgba(103,220,255,.4);border-radius:10px;margin-top:8px}.image-preview[hidden]{display:none}
     .fight-list {
       display: grid;
       gap: 11px;
@@ -743,6 +744,9 @@ input:focus,select:focus,textarea:focus { border-color:var(--mw-ice); box-shadow
 
         <div class="form-grid">
 
+          <div class="field"><label for="fighter">FIGHTER</label><select id="fighter" disabled><option value="mrs-wolfie">MRS WOLFIE</option></select></div>
+          <div class="field"><label for="team">TEAM</label><select id="team" disabled><option value="TEAM WOLFIE">TEAM WOLFIE</option></select></div>
+
           <div class="field">
             <label for="promotion">PROMOTION</label>
 
@@ -802,6 +806,8 @@ input:focus,select:focus,textarea:focus { border-color:var(--mw-ice); box-shadow
           </div>
 
 
+          <div class="field"><label for="displayDate">DISPLAY DATE — OPTIONAL</label><input id="displayDate" type="text" placeholder="e.g. 20/21 NOVEMBER 2026"><span class="field-help">Use when the event has more than one possible date.</span></div>
+
           <div class="field">
             <label for="endDate">
               END DATE — OPTIONAL
@@ -813,6 +819,11 @@ input:focus,select:focus,textarea:focus { border-color:var(--mw-ice); box-shadow
             >
           </div>
 
+
+          <div class="field"><label for="resultMethod">RESULT / METHOD — OPTIONAL</label><input id="resultMethod" type="text" placeholder="e.g. Points, TKO, Decision"></div>
+          <div class="field"><label for="fightTitle">FIGHT TYPE / TITLE — OPTIONAL</label><input id="fightTitle" type="text" placeholder="e.g. Ladies Super Middleweight Novice Title"></div>
+          <div class="field"><label for="fighterImage">FIGHTER IMAGE URL — OPTIONAL</label><input id="fighterImage" type="url" placeholder="https://.../mrs-wolfie.jpg"><img id="fighterImagePreview" class="image-preview" alt="Fighter preview" hidden></div>
+          <div class="field"><label for="opponentImage">OPPONENT IMAGE URL — OPTIONAL</label><input id="opponentImage" type="url" placeholder="https://.../opponent.jpg"><img id="opponentImagePreview" class="image-preview" alt="Opponent preview" hidden></div>
 
           <div class="field full">
             <label for="venue">VENUE</label>
@@ -1105,6 +1116,27 @@ const fightStatus =
 const fightResult =
   document.getElementById("fightResult");
 
+const displayDate = document.getElementById("displayDate");
+const resultMethod = document.getElementById("resultMethod");
+const fightTitle = document.getElementById("fightTitle");
+const fighterImage = document.getElementById("fighterImage");
+const opponentImage = document.getElementById("opponentImage");
+const fighterImagePreview = document.getElementById("fighterImagePreview");
+const opponentImagePreview = document.getElementById("opponentImagePreview");
+
+function updateImagePreview(input, preview) {
+  const value = input.value.trim();
+  let valid = false;
+  try { const url = new URL(value); valid = url.protocol === "https:"; } catch (_) {}
+  preview.hidden = !valid;
+  if (valid) preview.src = value;
+  else preview.removeAttribute("src");
+}
+[[fighterImage,fighterImagePreview],[opponentImage,opponentImagePreview]].forEach(([input,preview]) => {
+  input.addEventListener("input", () => updateImagePreview(input,preview));
+  preview.addEventListener("error", () => { preview.hidden = true; });
+});
+
 const notes =
   document.getElementById("notes");
 
@@ -1199,6 +1231,13 @@ function resetForm() {
   fightForm.reset();
 
   ticketUrl.value = "";
+  displayDate.value = "";
+  resultMethod.value = "";
+  fightTitle.value = "";
+  fighterImage.value = "";
+  opponentImage.value = "";
+  updateImagePreview(fighterImage,fighterImagePreview);
+  updateImagePreview(opponentImage,opponentImagePreview);
 
   fightType.value =
     "FIGHT NIGHT";
@@ -1671,7 +1710,7 @@ function renderFights() {
 
             <div class="fight-meta">
 
-              ${formatDate(fight.date)}
+              ${escapeHtml(fight.displayDate || formatDate(fight.date))}
 
               ${
                 fight.dateEnd
@@ -1685,7 +1724,8 @@ function renderFights() {
 
               <br>
 
-              ${escapeHtml(fight.type || "FIGHT NIGHT")}
+              ${escapeHtml(fight.fightTitle || fight.type || "FIGHT NIGHT")}
+              ${fight.result && fight.method ? "<br>METHOD: " + escapeHtml(fight.method) : ""}
 
             </div>
 
@@ -1880,6 +1920,13 @@ async function editFight(id) {
 
   ticketUrl.value =
   fight.ticketUrl || "";
+  displayDate.value = fight.displayDate || "";
+  resultMethod.value = fight.method || "";
+  fightTitle.value = fight.fightTitle || "";
+  fighterImage.value = fight.fighterImage || "";
+  opponentImage.value = fight.opponentImage || "";
+  updateImagePreview(fighterImage,fighterImagePreview);
+  updateImagePreview(opponentImage,opponentImagePreview);
 
   fightStatus.value =
     fight.status || "UPCOMING";
@@ -2211,6 +2258,12 @@ fightForm.addEventListener(
 
       dateEnd:
         endDate.value,
+
+      displayDate: displayDate.value.trim(),
+      method: resultMethod.value.trim(),
+      fightTitle: fightTitle.value.trim(),
+      fighterImage: fighterImage.value.trim(),
+      opponentImage: opponentImage.value.trim(),
 
       venue:
         venue.value
