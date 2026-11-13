@@ -822,8 +822,8 @@ input:focus,select:focus,textarea:focus { border-color:var(--mw-ice); box-shadow
 
           <div class="field"><label for="resultMethod">RESULT / METHOD — OPTIONAL</label><input id="resultMethod" type="text" placeholder="e.g. Points, TKO, Decision"></div>
           <div class="field"><label for="fightTitle">FIGHT TYPE / TITLE — OPTIONAL</label><input id="fightTitle" type="text" placeholder="e.g. Ladies Super Middleweight Novice Title"></div>
-          <div class="field"><label for="fighterImage">FIGHTER IMAGE URL — OPTIONAL</label><input id="fighterImage" type="url" placeholder="https://.../mrs-wolfie.jpg"><img id="fighterImagePreview" class="image-preview" alt="Fighter preview" hidden></div>
-          <div class="field"><label for="opponentImage">OPPONENT IMAGE URL — OPTIONAL</label><input id="opponentImage" type="url" placeholder="https://.../opponent.jpg"><img id="opponentImagePreview" class="image-preview" alt="Opponent preview" hidden></div>
+          <div class="field"><label for="fighterImageUpload">FIGHTER IMAGE — OPTIONAL</label><input id="fighterImageUpload" type="file" accept="image/jpeg,image/png,image/webp"><span class="field-help">Choose a JPG, PNG or WebP photo (maximum 8 MB).</span><img id="fighterImagePreview" class="image-preview" alt="Fighter preview" hidden></div>
+          <div class="field"><label for="opponentImageUpload">OPPONENT IMAGE — OPTIONAL</label><input id="opponentImageUpload" type="file" accept="image/jpeg,image/png,image/webp"><span class="field-help">Choose a JPG, PNG or WebP photo (maximum 8 MB).</span><img id="opponentImagePreview" class="image-preview" alt="Opponent preview" hidden></div>
 
           <div class="field full">
             <label for="venue">VENUE</label>
@@ -1009,6 +1009,8 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
+
 const firebaseConfig = {
 
   apiKey:
@@ -1062,6 +1064,7 @@ const auth =
 
 const db =
   getFirestore(app);
+const storage = getStorage(app);
 
 
 const fightsCollection =
@@ -1119,23 +1122,66 @@ const fightResult =
 const displayDate = document.getElementById("displayDate");
 const resultMethod = document.getElementById("resultMethod");
 const fightTitle = document.getElementById("fightTitle");
-const fighterImage = document.getElementById("fighterImage");
-const opponentImage = document.getElementById("opponentImage");
+const fighterImageUpload = document.getElementById("fighterImageUpload");
+const opponentImageUpload = document.getElementById("opponentImageUpload");
 const fighterImagePreview = document.getElementById("fighterImagePreview");
 const opponentImagePreview = document.getElementById("opponentImagePreview");
-
-function updateImagePreview(input, preview) {
-  const value = input.value.trim();
-  let valid = false;
-  try { const url = new URL(value); valid = url.protocol === "https:"; } catch (_) {}
-  preview.hidden = !valid;
-  if (valid) preview.src = value;
-  else preview.removeAttribute("src");
+const selectedImages = [
+  [fighterImageUpload, fighterImagePreview],
+  [opponentImageUpload, opponentImagePreview]
+];
+function validatePhoto(file) {
+  if (!file) return;
+  if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+    throw new Error("PLEASE SELECT A JPG, PNG OR WEBP IMAGE.");
+  }
+  if (file.size > 8 * 1024 * 1024) {
+    throw new Error("IMAGE MUST BE 8 MB OR SMALLER.");
+  }
 }
-[[fighterImage,fighterImagePreview],[opponentImage,opponentImagePreview]].forEach(([input,preview]) => {
-  input.addEventListener("input", () => updateImagePreview(input,preview));
+function setImagePreview(preview, url) {
+  if (preview.dataset.objectUrl) {
+    URL.revokeObjectURL(preview.dataset.objectUrl);
+    delete preview.dataset.objectUrl;
+  }
+  if (url) {
+    preview.src = url;
+    preview.hidden = false;
+  } else {
+    preview.hidden = true;
+    preview.removeAttribute("src");
+  }
+}
+selectedImages.forEach(([input, preview]) => {
+  input.addEventListener("change", () => {
+    const file = input.files[0];
+    try {
+      validatePhoto(file);
+      const url = file ? URL.createObjectURL(file) : "";
+      setImagePreview(preview, url);
+      if (file) preview.dataset.objectUrl = url;
+      clearMessage();
+    } catch (error) {
+      input.value = "";
+      setImagePreview(preview, "");
+      showMessage(error.message, "error");
+    }
+  });
   preview.addEventListener("error", () => { preview.hidden = true; });
 });
+async function uploadFightPhoto(file, kind) {
+  if (!file) return null;
+  validatePhoto(file);
+  if (!currentUser || !ADMINS[currentUser.uid]) {
+    throw new Error("ADMIN ACCESS REQUIRED FOR IMAGE UPLOAD.");
+  }
+  const extension = {"image/jpeg":"jpg","image/png":"png","image/webp":"webp"}[file.type];
+  const path = "fight-images/" + currentUser.uid + "-" + Date.now() +
+    "-" + Math.random().toString(36).slice(2,10) + "-mrs-wolfie-" + kind + "." + extension;
+  const destination = storageRef(storage, path);
+  await uploadBytes(destination, file, {contentType:file.type});
+  return getDownloadURL(destination);
+}
 
 const notes =
   document.getElementById("notes");
@@ -1234,10 +1280,10 @@ function resetForm() {
   displayDate.value = "";
   resultMethod.value = "";
   fightTitle.value = "";
-  fighterImage.value = "";
-  opponentImage.value = "";
-  updateImagePreview(fighterImage,fighterImagePreview);
-  updateImagePreview(opponentImage,opponentImagePreview);
+  fighterImageUpload.value = "";
+  opponentImageUpload.value = "";
+  setImagePreview(fighterImagePreview, "");
+  setImagePreview(opponentImagePreview, "");
 
   fightType.value =
     "FIGHT NIGHT";
@@ -1923,10 +1969,10 @@ async function editFight(id) {
   displayDate.value = fight.displayDate || "";
   resultMethod.value = fight.method || "";
   fightTitle.value = fight.fightTitle || "";
-  fighterImage.value = fight.fighterImage || "";
-  opponentImage.value = fight.opponentImage || "";
-  updateImagePreview(fighterImage,fighterImagePreview);
-  updateImagePreview(opponentImage,opponentImagePreview);
+  fighterImageUpload.value = "";
+  opponentImageUpload.value = "";
+  setImagePreview(fighterImagePreview, fight.fighterImage || "");
+  setImagePreview(opponentImagePreview, fight.opponentImage || "");
 
   fightStatus.value =
     fight.status || "UPCOMING";
@@ -2262,8 +2308,8 @@ fightForm.addEventListener(
       displayDate: displayDate.value.trim(),
       method: resultMethod.value.trim(),
       fightTitle: fightTitle.value.trim(),
-      fighterImage: fighterImage.value.trim(),
-      opponentImage: opponentImage.value.trim(),
+      fighterImage: editingId ? (getFight(editingId)?.fighterImage || "") : "",
+      opponentImage: editingId ? (getFight(editingId)?.opponentImage || "") : "",
 
       venue:
         venue.value
@@ -2315,10 +2361,24 @@ fightForm.addEventListener(
     }
 
 
-    saveButton.disabled = true;
+    const fighterFile = fighterImageUpload.files[0];
+    const opponentFile = opponentImageUpload.files[0];
+    try {
+      validatePhoto(fighterFile);
+      validatePhoto(opponentFile);
+    } catch (error) {
+      showMessage(error.message, "error");
+      return;
+    }
 
+    saveButton.disabled = true;
+    saveButton.textContent = "SAVING / UPLOADING...";
 
     try {
+      const fighterURL = await uploadFightPhoto(fighterFile, "fighter");
+      const opponentURL = await uploadFightPhoto(opponentFile, "opponent");
+      if (fighterURL) publicData.fighterImage = fighterURL;
+      if (opponentURL) publicData.opponentImage = opponentURL;
 
       /* EDIT EXISTING */
 
@@ -2416,6 +2476,7 @@ fightForm.addEventListener(
 
 
     saveButton.disabled = false;
+    saveButton.textContent = editingId ? "SAVE CHANGES" : "ADD FIGHT";
   }
 );
 
