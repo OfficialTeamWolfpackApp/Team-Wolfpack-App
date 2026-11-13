@@ -587,6 +587,66 @@
         flex-direction: column;
       }
     }
+
+/* Mrs Wolfie fight manager — unified Team Wolfpack admin layout.
+   Presentation-only: existing form IDs, database and notification handlers remain unchanged. */
+:root { --mw-ice:#67dcff; --mw-pink:#ff8fd3; }
+body { background:radial-gradient(circle at 0% 15%,rgba(0,190,255,.16),transparent 32%),radial-gradient(circle at 100% 70%,rgba(255,92,175,.13),transparent 35%),linear-gradient(115deg,#02090d 0%,#050505 50%,#130810 100%); }
+.header { max-width:1100px; margin:0 auto; padding:30px 18px 22px; }
+.logo { width:86px; height:86px; }
+.brand { font-size:10px; letter-spacing:2.5px; }
+.title { margin-top:12px; font-size:clamp(26px,3vw,36px); letter-spacing:.4px; }
+.subtitle { font-size:12px; }
+.line { max-width:100%; margin-top:22px; }
+.content { max-width:1100px; padding:10px 18px calc(65px + env(safe-area-inset-bottom)); }
+.status { padding:14px; margin-bottom:18px; border-radius:10px; border:1px solid rgba(103,220,255,.15); background:rgba(0,0,0,.45); }
+.status.admin { color:#43f27b; border-color:rgba(67,242,123,.24); background:rgba(0,80,35,.12); }
+.admin-bar { padding:18px 20px; margin-bottom:22px; border:1px solid rgba(255,255,255,.12); border-radius:14px; background:linear-gradient(90deg,rgba(0,160,220,.12),rgba(255,143,211,.10)); }
+.admin-name { font-size:14px; }
+.admin-label { color:#43f27b; font-size:11px; letter-spacing:1.2px; }
+.notification-info { margin-bottom:22px; padding:15px 18px; border-radius:12px; background:rgba(103,220,255,.035); font-size:11px; }
+.panel { padding:clamp(18px,2.5vw,30px); border-radius:18px; border:1px solid rgba(255,255,255,.12); background:rgba(5,5,5,.89); box-shadow:0 14px 35px rgba(0,0,0,.32); }
+.editor-title { margin:0 0 10px; font-size:clamp(23px,2.5vw,30px); font-weight:900; }
+.editor-subtitle { margin:0 0 25px; color:#999; font-size:12px; line-height:1.65; }
+.form-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px 18px; }
+.field { min-width:0; display:flex; flex-direction:column; gap:8px; }
+.field.full { grid-column:1/-1; }
+label { margin:0; font-size:10px; letter-spacing:1px; color:#bbb; }
+input,select,textarea { min-height:48px; padding:13px 15px; font-size:13px; border-radius:10px; background:#090909; border-color:rgba(255,255,255,.17); }
+textarea { min-height:110px; }
+input:focus,select:focus,textarea:focus { border-color:var(--mw-ice); box-shadow:0 0 0 3px rgba(103,220,255,.09); }
+.private-note-box { padding:17px; border-radius:12px; }
+.private-note-help { font-size:10px; }
+.form-actions { margin-top:24px; gap:12px; }
+.button { min-height:46px; padding:12px 20px; font-size:11px; border:1px solid rgba(103,220,255,.35); background:linear-gradient(90deg,rgba(0,160,220,.17),rgba(255,143,211,.15)); color:#fff; }
+.button.primary { background:linear-gradient(90deg,#67dcff,#ff8fd3); color:#080808; }
+.button.dark { background:#111; color:#fff; }
+.section-title { margin:28px 0 15px; font-size:17px; letter-spacing:.5px; }
+.fight-list { gap:15px; }
+.fight-card { padding:22px; border-radius:16px; background:linear-gradient(110deg,rgba(103,220,255,.07),rgba(7,7,7,.96) 48%,rgba(255,143,211,.08)); }
+.fight-event { font-size:11px; }
+.fight-opponent { font-size:clamp(18px,2.2vw,23px); }
+.fight-meta { font-size:11px; }
+.fight-status { font-size:10px; }
+.card-actions,.notification-actions { gap:9px; }
+.small-button { min-height:41px; padding:10px 14px; font-size:10px; }
+.nav-grid { gap:12px; margin-top:24px; }
+.nav-button { min-height:48px; font-size:11px; }
+@media(max-width:640px) {
+ .header { padding:20px 14px; }
+ .content { padding:8px 12px 45px; }
+ .admin-bar { padding:14px; }
+ .admin-name { font-size:12px; }
+ .admin-label { font-size:9px; }
+ .panel { padding:18px 15px; }
+ .form-grid { grid-template-columns:1fr; gap:17px; }
+ .field.full { grid-column:auto; }
+ .fight-card { padding:16px; }
+ .fight-top { flex-direction:column; }
+ .nav-grid { grid-template-columns:1fr; }
+ .button,.small-button { touch-action:manipulation; }
+}
+
   </style>
 </head>
 
@@ -661,9 +721,7 @@
         <span class="admin-badge">ADMIN</span>
       </div>
 
-      <div class="admin-label">
-        FIGHT MANAGER
-      </div>
+      <div class="admin-label">● LIVE CONTROL</div>
 
     </div>
 
@@ -677,13 +735,9 @@
     </div>
 
 
-    <div class="section-title">
-      <span class="ice">ADD / EDIT</span>
-      <span class="pink">FIGHT</span>
-    </div>
-
-
-    <div class="panel">
+    <div class="panel fight-editor">
+      <h2 class="editor-title"><span class="ice">ADD / EDIT</span> <span class="pink">FIGHT</span></h2>
+      <p class="editor-subtitle">Manage Mrs Wolfie’s fight schedule, opponents and results from one place. Changes to saved fights are reflected in the Mrs Wolfie app.</p>
 
       <form id="fightForm">
 
