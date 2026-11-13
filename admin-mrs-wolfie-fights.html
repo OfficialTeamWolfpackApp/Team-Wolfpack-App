@@ -1562,12 +1562,14 @@ function renderFights() {
         "fight-card";
 
 
-      const statusClass =
-        fight.status === "COMPLETED"
-          ? " completed"
-          : fight.status === "CANCELLED"
-            ? " cancelled"
-            : "";
+     const statusClass =
+  fight.status === "COMPLETED"
+    ? " completed"
+    : fight.status === "CANCELLED"
+      ? " cancelled"
+      : fight.status === "POSTPONED"
+        ? " postponed"
+        : "";
 
 
       const resultText =
