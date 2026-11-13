@@ -5,11 +5,53 @@
 <title>Sponsorship Application | Team Wolfpack</title>
 <style>
 :root{color-scheme:dark;--ice:#67dcff;--fire:#ff751c}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 0 15%,#073047 0,transparent 35%),radial-gradient(circle at 100% 70%,#3b1907 0,transparent 35%),#06090d;color:#f4f8fa;font:15px/1.6 Arial,sans-serif}header,main,footer{max-width:850px;margin:auto;padding:20px}header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #ffffff25}a{color:var(--ice)}.brand{font-weight:900;letter-spacing:2px}.tag{color:var(--ice);font-size:11px;letter-spacing:2px;font-weight:bold}h1{font-size:clamp(27px,5vw,43px);line-height:1.2;margin:8px 0}h2{font-size:18px;margin:0 0 15px}.lead{color:#c6d3da;max-width:670px}.panel{background:linear-gradient(125deg,#112532ed,#111215f0 55%,#2a170ded);border:1px solid #ffffff29;border-radius:18px;padding:clamp(18px,4vw,30px);box-shadow:0 15px 40px #0007;margin:22px 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.full{grid-column:1/-1}label{display:block;font-size:12px;font-weight:bold;margin-bottom:6px}input,select,textarea{width:100%;border:1px solid #7893a255;border-radius:9px;background:#050b11;color:white;padding:13px;font:inherit;min-height:46px}textarea{min-height:115px;resize:vertical}input:focus,select:focus,textarea:focus{outline:2px solid var(--ice);outline-offset:2px}.hint{color:#9caeb7;font-size:12px;margin:5px 0 0}.notice{padding:12px;border-left:3px solid var(--ice);background:#081e2b;border-radius:7px;color:#c5dce8;font-size:13px}.hidden{display:none!important}.actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:20px}button{background:linear-gradient(90deg,#047cba,#b64b12);border:1px solid #84d9fa;color:#fff;border-radius:10px;padding:14px 23px;font-weight:900;cursor:pointer;min-height:48px}button:disabled{opacity:.5;cursor:not-allowed}#status{font-size:13px;min-height:20px}#status.error{color:#ffb1a1}#status.success{color:#8ef7ba}.selection-summary{margin:18px 0 0;padding:15px 17px;border:1px solid #67dcff55;border-radius:11px;background:#0a1d28}.selection-summary strong{display:block;color:var(--ice);font-size:16px}.selection-summary p{margin:4px 0 0;color:#c5d5df;font-size:13px}.form-navigation{margin:10px 0 0;font-size:13px}.form-navigation a{margin-right:14px}footer{font-size:12px;color:#9caeb7;text-align:center}@media(max-width:600px){.grid{grid-template-columns:1fr}.full{grid-column:auto}header{gap:10px;flex-wrap:wrap}}
+
+/* CINEMATIC ICE & FIRE SPONSORSHIP ENQUIRY DESIGN */
+body{background:radial-gradient(ellipse at 0 16%,rgba(0,153,255,.24),transparent 42%),radial-gradient(ellipse at 100% 62%,rgba(255,93,0,.2),transparent 43%),linear-gradient(115deg,#030a13,#080b12 54%,#160a07);background-attachment:fixed}
+header,main,footer{max-width:1220px}
+header{padding:20px 28px;border-bottom:1px solid #67dcff3b}
+.brand{font-size:16px;color:#f5fbff}
+main{padding:20px 24px 38px}
+.hero-enquiry{position:relative;overflow:hidden;isolation:isolate;text-align:center;padding:clamp(32px,5vw,70px) 20px 32px;border:1px solid #67dcff55;border-bottom:3px solid #ff751c;border-radius:20px;background:radial-gradient(ellipse at 8% 42%,#00bfff38,transparent 44%),radial-gradient(ellipse at 92% 40%,#ff751c38,transparent 44%),linear-gradient(110deg,#061b2c,#080b12 50%,#251107);box-shadow:0 22px 55px #0009}
+.hero-enquiry:before,.hero-enquiry:after{content:"";position:absolute;z-index:-1;top:6%;width:36%;height:85%;border-radius:50%;filter:blur(45px);opacity:.24;pointer-events:none}
+.hero-enquiry:before{left:-14%;background:#00bfff}.hero-enquiry:after{right:-14%;background:#ff751c}
+.hero-crest{font-size:38px;filter:drop-shadow(0 0 13px #00bfff88);margin-bottom:8px}
+.hero-enquiry .tag{font-size:12px;letter-spacing:3px}
+.hero-enquiry h1{font-size:clamp(32px,5.4vw,68px);line-height:1.08;max-width:950px;margin:14px auto 20px;text-shadow:0 5px 23px #000}
+.hero-enquiry h1 span{color:#ff9b54}
+.hero-enquiry .lead{max-width:770px;margin:0 auto;color:#dce8f1;font-size:clamp(14px,1.6vw,17px)}
+.hero-features{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;max-width:940px;margin:28px auto 0}
+.hero-feature{padding:12px 8px;border:1px solid #67dcff35;border-radius:10px;background:#07121dc7;font-size:11px;font-weight:900;letter-spacing:.6px}
+.hero-feature b{display:block;font-size:22px;margin-bottom:5px}
+.package-showcase{margin:24px 0 18px;padding:22px;border:1px solid #67dcff55;border-radius:17px;background:linear-gradient(110deg,#081a27ed,#0b0e14ed 50%,#24120aed);text-align:center}
+.package-showcase h2{font-size:clamp(19px,3vw,28px);margin:0 0 8px}
+.package-showcase h2 span{color:#ff9348}
+.package-showcase p{color:#bdced8;font-size:13px;margin:0 0 15px}
+.package-badges{display:flex;flex-wrap:wrap;justify-content:center;gap:9px}
+.package-badges span{padding:10px 15px;border:1px solid #67dcff66;border-radius:9px;background:linear-gradient(135deg,#0a283c,#21120c);font-weight:900;font-size:11px;letter-spacing:.4px}
+.package-badges span:nth-child(even){border-color:#ff934866}
+.package-showcase a{display:inline-block;margin-top:15px;font-size:12px;font-weight:800}
+.panel{max-width:1100px;margin:24px auto;border:1px solid #67dcff77;border-right-color:#ff934877;border-radius:20px;padding:clamp(20px,4vw,42px);background:linear-gradient(125deg,#0b1d2cf5,#080b11f7 56%,#23120af2);box-shadow:0 0 35px #00bfff16,0 0 38px #ff751c10,0 25px 60px #0009}
+.panel h2{font-size:clamp(21px,3vw,29px);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.panel>.hint{margin-bottom:20px}
+.grid{gap:19px 24px}
+label{font-size:12px;letter-spacing:.2px;color:#e8f5fd}
+input,select,textarea{background:#030910;border:1px solid #75b7d36b;border-radius:9px;min-height:49px}
+input:hover,select:hover,textarea:hover{border-color:#67dcffbb}
+.selection-summary{background:linear-gradient(100deg,#072437,#21150d);border-color:#67dcff77;padding:18px 20px}
+.notice{background:linear-gradient(90deg,#08273a,#24170e);border:1px solid #67dcff55;border-left:4px solid #67dcff;padding:17px 19px;line-height:1.7}
+.actions{margin-top:24px}
+button{font-size:13px;letter-spacing:.4px;padding:15px 27px}
+.form-navigation{padding-top:12px}
+footer{padding:22px 20px 35px}
+@media(max-width:720px){.hero-features{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-feature:last-child{grid-column:1/-1}main{padding:14px 10px 24px}.hero-enquiry{padding:30px 14px}.package-showcase{padding:18px 12px}.panel{padding:20px 14px}}
+@media(max-width:390px){.hero-features{grid-template-columns:1fr}.hero-feature:last-child{grid-column:auto}}
+
 </style>
 </head>
 <body>
 <header><div class="brand">🐺 TEAM WOLFPACK</div><a href="sponsors.html">← Sponsors &amp; Partners</a></header>
-<main><div class="tag">ONE PACK • ONE PURPOSE</div><h1>SPONSORSHIP <span style="color:var(--ice)">APPLICATION</span></h1><p class="lead">Tell us about yourself or your business and how you would like to support Team Wolfpack. An application is an enquiry, not a payment or a confirmed sponsorship agreement.</p>
+<main><section class="hero-enquiry" aria-labelledby="enquiryHeading"><div class="hero-crest" aria-hidden="true">🐺</div><div class="tag">TEAM WOLFPACK • ONE PACK • ONE PURPOSE</div><h1 id="enquiryHeading">SPONSORSHIP &amp; SUPPORTER <span>ENQUIRY FORM</span></h1><p class="lead">Tell us about yourself or your business and how you would like to support Team Wolfpack. An enquiry is not a payment or a confirmed sponsorship agreement.</p><div class="hero-features" aria-label="Why support Team Wolfpack"><div class="hero-feature"><b aria-hidden="true">📣</b>BRAND EXPOSURE</div><div class="hero-feature"><b aria-hidden="true">🐺</b>TEAM SUPPORT</div><div class="hero-feature"><b aria-hidden="true">🥊</b>FIGHTER DEVELOPMENT</div><div class="hero-feature"><b aria-hidden="true">🤝</b>COMMUNITY IMPACT</div><div class="hero-feature"><b aria-hidden="true">💎</b>FLEXIBLE PACKAGES</div></div></section><section class="package-showcase" aria-labelledby="packageHeading"><h2 id="packageHeading">OUR SUPPORTER &amp; SPONSORSHIP <span>PACKAGES</span></h2><p>Explore the package options and annual contributions shown on our official posters.</p><div class="package-badges"><span>FREE</span><span>PACK</span><span>LOYAL</span><span>CHAMPION</span><span>BRONZE</span><span>SILVER</span><span>GOLD</span><span>PLATINUM</span><span>CUSTOM</span></div><a href="sponsorship-application.html">VIEW ALL PACKAGE DETAILS ↗</a></section>
 <section class="panel"><h2>Apply to support the pack</h2><p class="hint">Fields marked * are required. Select a package to see the annual contribution before completing your details.</p><form id="applicationForm" novalidate>
 <div class="grid">
 <div><label for="type">Applicant type *</label><select id="type" required><option value="business">Business / organisation</option><option value="personal">Personal supporter</option></select></div>
