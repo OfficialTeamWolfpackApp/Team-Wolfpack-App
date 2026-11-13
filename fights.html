@@ -2134,6 +2134,7 @@ body.menu-open{
   display:none !important;
 }  
   
+.postponed-fights-section{margin:30px auto;max-width:1100px;padding:20px;border:1px solid rgba(255,176,0,.35);border-radius:16px;background:linear-gradient(120deg,rgba(0,190,255,.06),rgba(255,176,0,.07))}.postponed-fights-section[hidden]{display:none!important}.postponed-fights-section h2{font-size:20px;letter-spacing:2px;color:#ffb000}.postponed-fights-subtitle{font-size:12px;color:#b8c3cc;margin:8px 0 18px}.postponed-fight-card{padding:18px;margin:12px 0;border:1px solid rgba(255,176,0,.26);border-radius:12px;background:rgba(4,9,14,.85)}.postponed-fight-status{display:inline-block;color:#ffb000;border:1px solid rgba(255,176,0,.5);border-radius:20px;padding:5px 9px;font-size:11px;font-weight:bold;letter-spacing:1px}.postponed-fight-match{font-weight:900;font-size:18px;margin:12px 0}.postponed-fight-meta{font-size:13px;color:#b9c5ce;line-height:1.8}.postponed-fight-note{margin-top:10px;font-size:12px;color:#ffcf80}
 </style>
 
 </head>
@@ -2405,6 +2406,11 @@ LOADING UPCOMING FIGHTS...
 
 </div>
 
+<section id="postponedFightsSection" class="postponed-fights-section" aria-labelledby="postponedFightsHeading" hidden>
+  <h2 id="postponedFightsHeading">POSTPONED FIGHTS</h2>
+  <p class="postponed-fights-subtitle">Awaiting a confirmed new date</p>
+  <div id="postponedFightsList"></div>
+</section>
 
 <!-- =========================================
      FOOTER
@@ -3181,6 +3187,34 @@ function renderFighterSection(
 
 
 /* =========================================
+   POSTPONED FIGHTS (SAME RTDB SOURCE)
+========================================= */
+function renderPostponedFights(fights) {
+  const section = document.getElementById("postponedFightsSection");
+  const list = document.getElementById("postponedFightsList");
+  if (!section || !list) return;
+  section.hidden = !fights.length;
+  list.innerHTML = fights.map(function(fight) {
+    const fighter = escapeHTML(fight.fighterName || "TEAM WOLFPACK FIGHTER");
+    const opponent = escapeHTML(fight.opponent || "TBA");
+    const promotion = escapeHTML(fight.promotion || "");
+    const eventName = escapeHTML(fight.eventName || "");
+    const venue = escapeHTML(fight.venue || "VENUE TBA");
+    const previousDate = formatDate(fight);
+    return '<article class="postponed-fight-card">' +
+      '<span class="postponed-fight-status">POSTPONED</span>' +
+      '<div class="postponed-fight-match">' + fighter + ' VS ' + opponent + '</div>' +
+      '<div class="postponed-fight-meta">' +
+      (promotion ? '<div>' + promotion + '</div>' : '') +
+      (eventName ? '<div>' + eventName + '</div>' : '') +
+      (previousDate ? '<div>ORIGINAL DATE: ' + previousDate + '</div>' : '') +
+      '<div>' + venue + '</div></div>' +
+      '<div class="postponed-fight-note">AWAITING CONFIRMED NEW DATE</div>' +
+      '</article>';
+  }).join("");
+}
+
+/* =========================================
    LIVE FIGHT DATABASE
 ========================================= */
 
@@ -3193,32 +3227,28 @@ onValue(
   function(snapshot){
 
     const fights = [];
+    const postponedFights = [];
 
-
-    snapshot.forEach(
+    snapshot.forEach
       function(childSnapshot){
 
         const fight =
           childSnapshot.val();
 
-        if(
-          fight &&
-          fight.status ===
-          "upcoming"
-        ){
-
-          fights.push({
-            id:
-              childSnapshot.key,
-
-            ...fight
-          });
-
-        }
+        if (!fight) return;
+        const status = String(fight.status || "").trim().toLowerCase();
+        const entry = {id: childSnapshot.key, ...fight};
+        if (status === "upcoming") fights.push(entry);
+        if (status === "postponed") postponedFights.push(entry);
 
       }
     );
 
+
+    postponedFights.sort(function(a,b) {
+      return Number(b.dateTimestamp || 0) - Number(a.dateTimestamp || 0);
+    });
+    renderPostponedFights(postponedFights);
 
     fights.sort(
       function(a,b){
@@ -3334,6 +3364,9 @@ onValue(
       error
     );
 
+
+    document.getElementById("postponedFightsSection").hidden = true;
+    document.getElementById("postponedFightsList").innerHTML = "";
 
     liveFightsStatus.className =
       "live-status error";
