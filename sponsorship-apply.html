@@ -24,7 +24,7 @@
 <div class="full"><label for="message">Additional information (optional)</label><textarea id="message" maxlength="1500" placeholder="Which fighter or team would you like to support? Any other details?"></textarea></div>
 <div class="hidden" aria-hidden="true"><label for="websiteTrap">Leave blank</label><input id="websiteTrap" tabindex="-1" autocomplete="off"></div>
 </div>
-<p class="notice">We use the details you submit to review and respond to your sponsorship enquiry. Please do not include payment card details or sensitive personal information.</p>
+<p class="notice">We use the details you submit to review and respond to your sponsorship enquiry. Please do not include payment card details or sensitive personal information. <strong>Online applications are not yet open.</strong> For now, please <a href="contact.html">contact Team Wolfpack</a> about sponsorship.</p>
 <div class="actions"><button id="submitButton" type="submit" disabled>SUBMIT APPLICATION ›</button><span id="status" role="status" aria-live="polite">Preparing secure submission…</span></div>
 </form></section></main><footer>© 2026 TEAM WOLFPACK • STRENGTH IN UNITY</footer>
 <script type="module">
@@ -45,7 +45,7 @@ const setStatus=(message,kind='')=>{status.textContent=message;status.className=
 function syncAmount(){const selected=PACKAGE_OPTIONS[type.value].find(([id])=>id===packageChoice.value);const fixed=selected?.[2];amount.readOnly=typeof fixed==='number';if(amount.readOnly)amount.value=String(fixed);else amount.value='';}
 function syncType(){const isBusiness=type.value==='business';businessWrap.classList.toggle('hidden',!isBusiness);businessName.required=isBusiness;packageChoice.replaceChildren(new Option('Choose an option',''));for(const [id,label] of PACKAGE_OPTIONS[type.value])packageChoice.add(new Option(label,id));syncAmount();}
 type.addEventListener('change',syncType);packageChoice.addEventListener('change',syncAmount);syncType();
-const requested=new URLSearchParams(location.search).get('package');if(PACKAGE_OPTIONS[type.value].some(([id])=>id===requested)){packageChoice.value=requested;syncAmount();}
+const requested=new URLSearchParams(location.search).get('package');if(requested){const matchingType=Object.keys(PACKAGE_OPTIONS).find(kind=>PACKAGE_OPTIONS[kind].some(([id])=>id===requested));if(matchingType){type.value=matchingType;syncType();packageChoice.value=requested;syncAmount();}}
 let appCheck=null;
 try{
  if(APP_CHECK_SITE_KEY.startsWith('REPLACE_WITH_'))throw new Error('App Check site key is not configured');
