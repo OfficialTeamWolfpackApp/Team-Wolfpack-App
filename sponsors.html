@@ -1414,6 +1414,27 @@ body.menu-open{
 .hub-info-card{padding:18px;border:1px solid rgba(255,255,255,.13);border-radius:14px;background:rgba(255,255,255,.03)}
 .hub-info-card h3{font-size:14px;margin-bottom:8px}.hub-info-card p{font-size:10px;line-height:1.7;color:#bbb}
 
+
+/* MATCHED BUSINESS AND PERSONAL PACKAGE CARDS */
+.package-grid--five{grid-template-columns:repeat(5,minmax(0,1fr));align-items:stretch}
+.package-grid--five .package-card{min-width:0;position:relative;overflow:hidden;padding:19px 14px;border:1px solid rgba(103,220,255,.28);border-top:3px solid #55d7ff;box-shadow:0 10px 30px rgba(0,0,0,.23);transition:transform .18s ease,border-color .18s ease}
+.package-grid--five .package-card:nth-child(even){border-top-color:#ff761d}
+.package-grid--five .package-card:last-child{border-top-color:#ffb26d;background:linear-gradient(130deg,rgba(255,118,29,.2),#0b1015 65%,rgba(0,191,255,.1))}
+.package-grid--five .package-card:hover{transform:translateY(-3px);border-color:rgba(103,220,255,.65)}
+.package-grid--five .package-card h3{font-size:clamp(14px,1.4vw,19px);line-height:1.3;min-height:42px}
+.package-grid--five .package-card p{font-size:11px;line-height:1.65}
+.package-grid--five .package-tag{font-size:9px;letter-spacing:1.2px}
+.package-grid--five .package-enquire{margin-top:auto;text-align:center;font-size:10px;padding:10px 8px}
+.package-price{font-size:clamp(23px,2.5vw,34px);font-weight:900;color:#e6faff;line-height:1.2;white-space:nowrap}
+.package-price span{font-size:9px;font-weight:800;letter-spacing:.4px;color:#ffad76}
+.package-accent{color:#ff924d}.package-group-heading{margin:34px 0 17px;padding-top:24px;border-top:1px solid rgba(103,220,255,.2)}
+.package-group-heading p{color:#bcbcbc;font-size:12px;line-height:1.7;margin-top:7px}
+.package-disclaimer{margin-top:20px;padding:14px;border-radius:10px;border:1px solid rgba(255,150,80,.28);background:rgba(255,118,29,.06)}
+@media(max-width:1100px){.package-grid--five{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:680px){.package-grid--five{grid-template-columns:repeat(2,minmax(0,1fr))}.package-grid--five .package-card{padding:16px 12px}}
+@media(max-width:390px){.package-grid--five{grid-template-columns:1fr}.package-grid--five .package-card h3{min-height:0}}
+@media(prefers-reduced-motion:reduce){.package-grid--five .package-card{transition:none}}
+
 </style>
 
 </head>
@@ -1710,29 +1731,29 @@ to the team and fighter they proudly support.
   </nav>
 </section>
 <section class="hub-section" id="sponsorshipPackages" aria-labelledby="packagesTitle">
-  <div class="hub-eyebrow">SPONSORSHIP OPPORTUNITIES</div>
-  <h2 id="packagesTitle">ANNUAL SPONSORSHIP PACKAGES</h2>
-  <p>Explore our proposed package levels. Prices, benefits and availability are subject to confirmation with Team Wolfpack; no online purchase is available at this stage.</p>
-  <p class="package-note"><a href="sponsorship-application.html">Compare every package and its annual price ›</a> Online applications and payments are not yet available; please use our <a href="contact.html">Contact page</a> for enquiries.</p>
-  <div class="package-grid">
-    <article class="package-card"><div class="package-tag">LEVEL 01</div><h3>🥉 BRONZE</h3><p>Entry-level recognition for businesses who want to support the pack. Final benefits to be agreed.</p><a class="package-enquire" href="sponsorship-apply.html?package=bronze">ENQUIRE ABOUT BRONZE ›</a></article>
-    <article class="package-card"><div class="package-tag">LEVEL 02</div><h3>🥈 SILVER</h3><p>Enhanced sponsor visibility and promotional opportunities. Final benefits to be agreed.</p><a class="package-enquire" href="sponsorship-apply.html?package=silver">ENQUIRE ABOUT SILVER ›</a></article>
-    <article class="package-card"><div class="package-tag">LEVEL 03</div><h3>🥇 GOLD</h3><p>Featured sponsorship opportunities across Team Wolfpack channels. Final benefits to be agreed.</p><a class="package-enquire" href="sponsorship-apply.html?package=gold">ENQUIRE ABOUT GOLD ›</a></article>
-    <article class="package-card"><div class="package-tag">LEVEL 04</div><h3>💎 PLATINUM</h3><p>Premium partnership opportunities tailored to the sponsor and team. Final benefits to be agreed.</p><a class="package-enquire" href="sponsorship-apply.html?package=platinum">ENQUIRE ABOUT PLATINUM ›</a></article>
+  <div class="hub-eyebrow">BACK THE PACK • BUSINESS PARTNERSHIPS</div>
+  <h2 id="packagesTitle">BUSINESS <span class="package-accent">SPONSORSHIP</span></h2>
+  <p>Five annual business sponsorship options, from Bronze to a tailored Custom Business partnership. Benefits and availability are subject to confirmation.</p>
+  <div class="package-grid package-grid--five">
+    <article class="package-card package-card--bronze"><div class="package-tag">BUSINESS • 01</div><h3>🥉 BRONZE</h3><div class="package-price">£50<span> / YEAR</span></div><p>Entry-level business recognition supporting Team Wolfpack. Final benefits to be agreed.</p><a class="package-enquire" href="sponsorship-apply.html?package=bronze">VIEW BRONZE OPTION →</a></article>
+    <article class="package-card package-card--silver"><div class="package-tag">BUSINESS • 02</div><h3>🥈 SILVER</h3><div class="package-price">£100<span> / YEAR</span></div><p>Enhanced sponsor visibility and promotional opportunities. Final benefits to be agreed.</p><a class="package-enquire" href="sponsorship-apply.html?package=silver">VIEW SILVER OPTION →</a></article>
+    <article class="package-card package-card--gold"><div class="package-tag">BUSINESS • 03</div><h3>🥇 GOLD</h3><div class="package-price">£200<span> / YEAR</span></div><p>Featured sponsorship opportunities across Team Wolfpack channels. Final benefits to be agreed.</p><a class="package-enquire" href="sponsorship-apply.html?package=gold">VIEW GOLD OPTION →</a></article>
+    <article class="package-card package-card--platinum"><div class="package-tag">BUSINESS • 04</div><h3>💎 PLATINUM</h3><div class="package-price">£350<span> / YEAR</span></div><p>Premium partnership opportunities tailored to the sponsor and team. Final benefits to be agreed.</p><a class="package-enquire" href="sponsorship-apply.html?package=platinum">VIEW PLATINUM OPTION →</a></article>
+    <article class="package-card package-card--custom"><div class="package-tag">BUSINESS • 05</div><h3>✦ CUSTOM BUSINESS</h3><div class="package-price">CUSTOM<span> BY AGREEMENT</span></div><p>Discuss a tailored business sponsorship and agree an annual contribution directly with the team.</p><a class="package-enquire" href="sponsorship-apply.html?package=custom">VIEW CUSTOM OPTION →</a></article>
   </div>
-  <div class="hub-info-card" style="margin-top:15px">
-    <h3>🐺 PERSONAL SUPPORTER PACKAGES</h3>
-    <p>Free (£0/year), Pack (£10/year), Loyal (£25/year), Champion (£50/year), or a Custom annual contribution. Business sponsors can also request a Custom package.</p>
-    <nav class="hub-nav" aria-label="Personal supporter package links">
-      <a href="sponsorship-apply.html?package=free">FREE</a>
-      <a href="sponsorship-apply.html?package=pack">PACK</a>
-      <a href="sponsorship-apply.html?package=loyal">LOYAL</a>
-      <a href="sponsorship-apply.html?package=champion">CHAMPION</a>
-      <a href="sponsorship-apply.html?package=custom-supporter">CUSTOM SUPPORTER</a>
-      <a href="sponsorship-apply.html?package=custom">CUSTOM BUSINESS</a>
-    </nav>
-    <p class="package-note">These links open a preselected enquiry form; online submissions are currently disabled. <a href="contact.html">Contact the team</a> for enquiries.</p>
+  <div class="package-group-heading">
+    <div class="hub-eyebrow">ONE PACK • ONE PURPOSE</div>
+    <h2>PERSONAL <span class="package-accent">SUPPORTER PACKAGES</span></h2>
+    <p>Support Team Wolfpack as an individual, from our Free option to a Custom annual contribution.</p>
   </div>
+  <div class="package-grid package-grid--five">
+    <article class="package-card package-card--free"><div class="package-tag">SUPPORTER • 01</div><h3>🐺 FREE</h3><div class="package-price">£0<span> / YEAR</span></div><p>Explore supporting the pack at no cost. Package features are subject to confirmation.</p><a class="package-enquire" href="sponsorship-apply.html?package=free">VIEW FREE OPTION →</a></article>
+    <article class="package-card package-card--pack"><div class="package-tag">SUPPORTER • 02</div><h3>❄ PACK</h3><div class="package-price">£10<span> / YEAR</span></div><p>An accessible annual supporter contribution to Team Wolfpack. Final benefits to be agreed.</p><a class="package-enquire" href="sponsorship-apply.html?package=pack">VIEW PACK OPTION →</a></article>
+    <article class="package-card package-card--loyal"><div class="package-tag">SUPPORTER • 03</div><h3>🔥 LOYAL</h3><div class="package-price">£25<span> / YEAR</span></div><p>Show your continued support for Team Wolfpack and its fighters. Final benefits to be agreed.</p><a class="package-enquire" href="sponsorship-apply.html?package=loyal">VIEW LOYAL OPTION →</a></article>
+    <article class="package-card package-card--champion"><div class="package-tag">SUPPORTER • 04</div><h3>🏆 CHAMPION</h3><div class="package-price">£50<span> / YEAR</span></div><p>A higher annual contribution for dedicated Wolfpack supporters. Final benefits to be agreed.</p><a class="package-enquire" href="sponsorship-apply.html?package=champion">VIEW CHAMPION OPTION →</a></article>
+    <article class="package-card package-card--custom-supporter"><div class="package-tag">SUPPORTER • 05</div><h3>✦ CUSTOM SUPPORTER</h3><div class="package-price">CUSTOM<span> BY AGREEMENT</span></div><p>Choose a personal annual contribution to discuss with Team Wolfpack.</p><a class="package-enquire" href="sponsorship-apply.html?package=custom-supporter">VIEW CUSTOM OPTION →</a></article>
+  </div>
+  <p class="package-note package-disclaimer">Package buttons open the relevant preselected enquiry form for information only. Online submissions and payments are not yet enabled. For enquiries, <a href="contact.html">contact Team Wolfpack</a>, or <a href="sponsorship-application.html">compare all packages</a>.</p>
 </section>
 <section class="hub-section" id="sponsorshipTypes" aria-labelledby="sponsorshipTypesTitle">
   <div class="hub-eyebrow">FIND YOUR PLACE IN THE PACK</div>
