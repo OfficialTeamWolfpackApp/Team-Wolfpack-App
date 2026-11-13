@@ -17,14 +17,14 @@ body{margin:0;background:radial-gradient(ellipse at 0% 16%,rgba(0,191,255,.16),t
 .header-links{display:flex;gap:12px;flex-wrap:wrap}
 .header-links a{color:#d9f4ff;text-decoration:none;font-size:11px;font-weight:800}
 .header-links a:hover{text-decoration:underline}
-main{width:min(100%,1000px);margin:0 auto;padding:20px 14px 36px}
-.poster{margin:0 auto 25px;padding:clamp(5px,1.5vw,12px);border:1px solid rgba(103,220,255,.25);border-radius:15px;background:linear-gradient(120deg,rgba(0,135,200,.13),rgba(7,10,16,.95) 50%,rgba(255,110,0,.12));box-shadow:0 12px 40px rgba(0,0,0,.45)}
-.poster:nth-child(2){border-color:rgba(255,117,55,.32)}
+main{width:min(100%,1420px);margin:0 auto;padding:20px 12px 28px}
+.poster{position:relative;isolation:isolate;width:100%;margin:0 auto 14px;padding:0;border:0;border-radius:10px;background:transparent;box-shadow:0 14px 36px rgba(0,0,0,.4)}
+.poster::before{content:"";position:absolute;z-index:-1;inset:8% -2%;border-radius:30px;background:linear-gradient(130deg,rgba(0,191,255,.3),transparent 52%,rgba(255,105,0,.28));filter:blur(32px);pointer-events:none}
 .poster img{display:block;width:100%;height:auto;border-radius:8px}
 .poster a{display:block;cursor:zoom-in}
 .poster a:focus-visible,.header-links a:focus-visible,.brand:focus-visible{outline:3px solid #67dcff;outline-offset:4px}
 footer{text-align:center;color:#8ca4b1;font-size:11px;letter-spacing:1px;padding:0 15px 28px}
-@media(max-width:600px){.header-inner{padding:13px 15px}.brand{font-size:13px}main{padding:12px 6px 20px}.poster{padding:4px;margin-bottom:14px;border-radius:9px}.poster img{border-radius:5px}}
+@media(max-width:600px){.header-inner{padding:13px 15px}.brand{font-size:13px}main{padding:9px 3px 16px}.poster{padding:0;margin-bottom:9px;border-radius:5px}.poster img{border-radius:4px}.poster::before{inset:10% 0;filter:blur(15px)}}
 </style>
 </head>
 <body>
