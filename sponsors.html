@@ -1435,6 +1435,34 @@ body.menu-open{
 @media(max-width:390px){.package-grid--five{grid-template-columns:1fr}.package-grid--five .package-card h3{min-height:0}}
 @media(prefers-reduced-motion:reduce){.package-grid--five .package-card{transition:none}}
 
+
+/* SPONSORSHIP HUB — PREMIUM ICE & FIRE HERO */
+.sponsorship-hub--premium{position:relative;isolation:isolate;overflow:hidden;padding:clamp(22px,4vw,38px);border:1px solid rgba(103,220,255,.42);border-top:3px solid #67dcff;border-bottom:3px solid #ff741c;border-radius:21px;background:linear-gradient(115deg,#071d2b 0%,#080c13 48%,#211006 100%);box-shadow:0 18px 55px rgba(0,0,0,.4),inset 0 1px rgba(255,255,255,.08)}
+.hub-premium-inner{position:relative;z-index:1}
+.hub-glow{position:absolute;width:270px;height:270px;border-radius:50%;filter:blur(55px);opacity:.22;pointer-events:none}
+.hub-glow--ice{top:-140px;left:-80px;background:#00bfff}
+.hub-glow--fire{bottom:-155px;right:-80px;background:#ff6500}
+.hub-premium-brand{display:flex;align-items:center;gap:10px;margin-bottom:20px;color:#d6edf9;font-size:10px;font-weight:900;letter-spacing:1.4px}
+.hub-premium-mark{display:grid;place-items:center;width:38px;height:38px;border:1px solid rgba(103,220,255,.4);border-radius:11px;background:rgba(0,191,255,.1);font-size:20px}
+.hub-premium-divider{color:#ff852e;padding:0 5px}
+.sponsorship-hub--premium .hub-eyebrow{font-size:10px;letter-spacing:2.5px}
+.sponsorship-hub--premium h2{font-size:clamp(29px,5.4vw,53px);font-weight:900;letter-spacing:.5px;margin:8px 0 12px;line-height:1.08;text-shadow:0 4px 18px rgba(0,0,0,.55)}
+.sponsorship-hub--premium h2 span{color:#ff924d}
+.sponsorship-hub--premium .hub-premium-lead{font-size:clamp(15px,2.2vw,20px);font-weight:800;color:#f1f8ff;line-height:1.5;margin:0 0 10px}
+.sponsorship-hub--premium .hub-premium-description{max-width:740px;color:#bacbd7;font-size:13px;line-height:1.8;margin:0}
+.hub-premium-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;max-width:670px;margin:24px 0 20px}
+.hub-premium-stats>div{display:flex;flex-direction:column;gap:6px;padding:15px;border:1px solid rgba(103,220,255,.2);border-radius:12px;background:rgba(2,10,17,.65)}
+.hub-premium-stats strong{font-size:clamp(20px,3vw,30px);color:#fff;line-height:1}
+.hub-premium-stats span{font-size:9px;letter-spacing:1px;font-weight:900;color:#91c8e4}
+.hub-premium-actions{gap:10px;margin-top:0}
+.hub-premium-actions a{min-height:46px;padding:12px 14px;border-color:rgba(103,220,255,.35);background:rgba(4,24,37,.78);transition:background .18s ease,transform .18s ease}
+.hub-premium-actions a:hover{background:rgba(0,140,190,.23);transform:translateY(-2px)}
+.hub-premium-actions a.hub-action-primary{background:linear-gradient(100deg,#006b9c,#a8400d);border-color:#7adfff;box-shadow:0 5px 20px rgba(0,150,220,.2)}
+.hub-premium-actions a span{margin-left:6px;font-size:15px}
+.sponsorship-hub--premium .hub-premium-notice{margin-top:20px;padding:11px 13px;border:1px solid rgba(255,146,77,.24);border-radius:10px;background:rgba(255,117,28,.06);font-size:11px;line-height:1.6;color:#d4c2b6}
+@media(max-width:600px){.sponsorship-hub--premium{padding:22px 16px}.hub-premium-brand{font-size:9px;letter-spacing:.7px}.hub-premium-stats{gap:7px}.hub-premium-stats>div{padding:12px 8px}.hub-premium-stats span{font-size:8px}.hub-premium-actions a{width:100%;justify-content:space-between}.hub-premium-description{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.hub-premium-actions a{transition:none}}
+
 </style>
 
 </head>
@@ -1717,18 +1745,30 @@ to the team and fighter they proudly support.
 
 
 
-<!-- SPONSORSHIP HUB — PHASE 1: NO ACCOUNT / PAYMENT FUNCTIONS -->
-<section class="sponsorship-hub" aria-labelledby="sponsorshipHubTitle">
-  <div class="hub-eyebrow">ONE PACK • ONE PURPOSE</div>
-  <h2 id="sponsorshipHubTitle">SPONSORSHIP HUB</h2>
-  <p>Explore ways to support Team Wolfpack, our fighters and our community. <a href="sponsorship-application.html">View all 10 annual supporter and business sponsorship packages, including Free and Custom options</a>. Existing sponsors remain featured below.</p>
-  <nav class="hub-nav" aria-label="Sponsorship sections">
-    <a href="sponsorship-application.html">ALL PACKAGES &amp; PRICES</a>
-    <a href="#sponsorshipPackages">PACKAGES</a>
-    <a href="#sponsorshipTypes">WAYS TO SUPPORT</a>
-    <a href="#existingSponsors">OUR SPONSORS</a>
-    <a href="sponsorship-apply.html">ENQUIRE</a>
-  </nav>
+<!-- SPONSORSHIP HUB — PUBLIC INFORMATION ONLY -->
+<section class="sponsorship-hub sponsorship-hub--premium" aria-labelledby="sponsorshipHubTitle">
+  <div class="hub-glow hub-glow--ice" aria-hidden="true"></div>
+  <div class="hub-glow hub-glow--fire" aria-hidden="true"></div>
+  <div class="hub-premium-inner">
+    <div class="hub-premium-brand"><span class="hub-premium-mark" aria-hidden="true">🐺</span><span>TEAM WOLFPACK <span class="hub-premium-divider">/</span> PARTNERSHIPS</span></div>
+    <div class="hub-eyebrow">ONE PACK • ONE PURPOSE</div>
+    <h2 id="sponsorshipHubTitle">SPONSORSHIP <span>HUB</span></h2>
+    <p class="hub-premium-lead">Stand with the pack. Support our fighters. Help build what comes next.</p>
+    <p class="hub-premium-description">Explore 10 annual sponsorship and supporter options, from Free personal support to tailored business partnerships. Discover how to get involved and meet the businesses already backing Team Wolfpack.</p>
+    <div class="hub-premium-stats" aria-label="Sponsorship package overview">
+      <div><strong>05</strong><span>BUSINESS OPTIONS</span></div>
+      <div><strong>05</strong><span>SUPPORTER OPTIONS</span></div>
+      <div><strong>FREE</strong><span>ENTRY OPTION</span></div>
+    </div>
+    <nav class="hub-nav hub-premium-actions" aria-label="Sponsorship sections">
+      <a class="hub-action-primary" href="sponsorship-application.html">VIEW ALL PACKAGES &amp; PRICES <span aria-hidden="true">↗</span></a>
+      <a href="#sponsorshipPackages">EXPLORE PACKAGES <span aria-hidden="true">↓</span></a>
+      <a href="#sponsorshipTypes">WAYS TO SUPPORT <span aria-hidden="true">↓</span></a>
+      <a href="#existingSponsors">OUR SPONSORS <span aria-hidden="true">↓</span></a>
+      <a href="contact.html">CONTACT THE TEAM <span aria-hidden="true">↗</span></a>
+    </nav>
+    <p class="hub-premium-notice"><span aria-hidden="true">ⓘ</span> Online applications and payments are not yet available. Please contact Team Wolfpack with enquiries.</p>
+  </div>
 </section>
 <section class="hub-section" id="sponsorshipPackages" aria-labelledby="packagesTitle">
   <div class="hub-eyebrow">BACK THE PACK • BUSINESS PARTNERSHIPS</div>
