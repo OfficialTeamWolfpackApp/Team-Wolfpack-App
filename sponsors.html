@@ -1534,6 +1534,27 @@ body.menu-open{
 @media(max-width:800px){.interactive-support-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.interactive-support-tile--contact{grid-column:1/-1}.interactive-support-tile--contact .interactive-support-image{height:190px}}
 @media(max-width:530px){.interactive-support-grid{grid-template-columns:1fr}.interactive-support-tile--contact{grid-column:auto}.interactive-support-image{height:250px}.interactive-support{padding:15px}}
 @media(prefers-reduced-motion:reduce){.interactive-support-tile,.interactive-support-image img{transition:none}}
+
+/* PACKAGE CARDS — REFINED PREMIUM ICE & FIRE */
+.package-grid--five{gap:18px}
+.package-grid--five .package-card{isolation:isolate;gap:15px;padding:24px 19px 20px;border-radius:18px;border:1px solid rgba(92,209,255,.38);border-top:4px solid #50d9ff;background:radial-gradient(ellipse at 5% 0%,rgba(0,191,255,.16),transparent 63%),linear-gradient(150deg,#0b1c29 0%,#080d13 62%,#211208 100%);box-shadow:0 15px 32px rgba(0,0,0,.4),inset 0 1px rgba(255,255,255,.06)}
+.package-grid--five .package-card:nth-child(even){background:radial-gradient(ellipse at 100% 0%,rgba(255,110,27,.15),transparent 65%),linear-gradient(150deg,#12191d,#090d12 58%,#211208)}
+.package-grid--five .package-card:last-child{background:radial-gradient(ellipse at 90% 0%,rgba(255,160,65,.19),transparent 70%),linear-gradient(145deg,#211409,#0b1015 70%,#08202b)}
+.package-grid--five .package-card:before{content:"";position:absolute;inset:0 0 auto;height:70px;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.045),transparent)}
+.package-grid--five .package-card h3{font-size:clamp(17px,1.7vw,23px);line-height:1.25;min-height:58px;overflow-wrap:anywhere;letter-spacing:-.3px}
+.package-grid--five .package-tag{font-size:10px;letter-spacing:1.5px;color:#ffb16f}
+.package-grid--five .package-price{font-size:clamp(27px,2.9vw,43px);line-height:1.08;letter-spacing:-.6px;white-space:normal;overflow-wrap:anywhere;text-shadow:0 0 20px rgba(103,220,255,.15)}
+.package-grid--five .package-price span{font-size:10px;white-space:nowrap}
+.package-grid--five .package-card p{font-size:12px;line-height:1.8;color:#c9d5df}
+.package-grid--five .package-enquire{display:flex;align-items:center;justify-content:center;min-height:52px;padding:12px 10px;border:1px solid rgba(103,220,255,.55);border-radius:10px;background:linear-gradient(100deg,rgba(0,100,150,.38),rgba(255,102,22,.2));color:#fff;font-size:11px;font-weight:900;line-height:1.45;text-decoration:none;transition:filter .2s ease,transform .2s ease}
+.package-grid--five .package-enquire:hover{filter:brightness(1.25);transform:translateY(-2px)}
+.package-grid--five .package-enquire:focus-visible{outline:3px solid #67dcff;outline-offset:3px}
+.package-group-heading h2{font-size:clamp(23px,3vw,32px);letter-spacing:.3px}
+.package-group-heading p{font-size:13px;line-height:1.75}
+@media(max-width:1200px){.package-grid--five{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:780px){.package-grid--five{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.package-grid--five .package-card{padding:18px 14px}.package-grid--five .package-card h3{min-height:0}}
+@media(max-width:480px){.package-grid--five{grid-template-columns:1fr}.package-grid--five .package-card{padding:22px 19px}.package-grid--five .package-card h3{font-size:22px}.package-grid--five .package-price{font-size:38px}}
+@media(prefers-reduced-motion:reduce){.package-grid--five .package-enquire{transition:none}}
 </style>
 
 </head>
