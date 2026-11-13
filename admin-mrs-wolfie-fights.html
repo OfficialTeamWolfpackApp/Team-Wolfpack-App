@@ -1455,8 +1455,12 @@ async function sendFightNotification(
     );
 
 
+    // A network error or 5xx response does not prove that no devices
+    // received the notification. The backend may have sent some batches.
     let message =
-      "THE FIGHT NOTIFICATION COULD NOT BE SENT.";
+      "NOTIFICATION DELIVERY COULD NOT BE CONFIRMED.\\n\\n" +
+      "Some supporters may already have received this notification. " +
+      "DO NOT SEND IT AGAIN until delivery has been checked.";
 
 
     if (
@@ -1506,7 +1510,7 @@ async function sendFightNotification(
 
     alert(
       message +
-      "\n\nNo fight information was changed."
+      "\n\nThe fight record was not changed by this notification request."
     );
 
   } finally {
