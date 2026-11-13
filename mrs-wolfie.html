@@ -2209,6 +2209,12 @@ import {
   onValue
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
 
+import {
+  getFirestore,
+  collection,
+  onSnapshot
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
 
 const firebaseConfig = {
 
@@ -2247,6 +2253,8 @@ const auth =
 
 const database =
   getDatabase(firebaseApp);
+
+const firestore = getFirestore(firebaseApp);
 
 
 /* Public personal profile is keyed by the verified official member's UID.
@@ -2890,83 +2898,31 @@ function renderCompleted(fight){
    LIVE FIGHT DATABASE
 ========================================= */
 
-onValue(
-  ref(
-    database,
-    "fights"
-  ),
-
-  function(snapshot){
-
+onSnapshot(
+  collection(firestore, "mrsWolfieFights"),
+  function(snapshot) {
     const upcoming = [];
     const completed = [];
 
+    snapshot.forEach(function(fightDocument) {
+      const fight = fightDocument.data();
+      if (!fight) return;
 
-    snapshot.forEach(
-      function(childSnapshot){
+      const status = String(fight.status || "").trim().toUpperCase();
+      // The admin fight manager owns this collection; no fighterId filter needed.
+      const mappedFight = {
+        ...fight,
+        id: fightDocument.id,
+        eventName: fight.eventName || fight.event || "",
+        fightType: fight.fightType || fight.type || ""
+      };
 
-        const fight =
-          childSnapshot.val();
-
-        if(!fight){
-          return;
-        }
-
-        const fighterId =
-          String(
-            fight.fighterId || ""
-          )
-          .trim()
-          .toLowerCase();
-
-        const status =
-          String(
-            fight.status || ""
-          )
-          .trim()
-          .toLowerCase();
-
-        if(
-          fighterId !==
-          "mrs-wolfie"
-        ){
-          return;
-        }
-
-        if(
-          status ===
-          "upcoming"
-        ){
-
-          upcoming.push({
-            id:
-              childSnapshot.key,
-
-            ...fight
-          });
-
-        }
-
-        if(
-          status ===
-          "completed" &&
-          String(
-            fight.result || ""
-          ).trim()
-        ){
-
-          completed.push({
-            id:
-              childSnapshot.key,
-
-            ...fight
-          });
-
-        }
-
+      if (status === "UPCOMING") {
+        upcoming.push(mappedFight);
+      } else if (status === "COMPLETED" && String(fight.result || "").trim()) {
+        completed.push(mappedFight);
       }
-    );
-
+    });
 
     /* =====================================
        SORT UPCOMING
