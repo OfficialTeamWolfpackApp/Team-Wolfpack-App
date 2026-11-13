@@ -1502,6 +1502,10 @@ body.menu-open{
 @media(max-width:600px){.team-section.wolfie-section .sponsor-card{padding:12px}.team-section.wolfie-section .sponsor-logo-box{height:clamp(175px,54vw,260px)}}
 @media(prefers-reduced-motion:reduce){.team-section.wolfie-section .sponsor-logo-box img{transition:none}}
 
+
+/* TRANSPARENT LOGO ARTWORK — DARK METALLIC PRESENTATION */
+.team-section.wolfie-section .sponsor-logo-box{background:radial-gradient(ellipse at 35% 28%,rgba(0,191,255,.14),transparent 58%),radial-gradient(ellipse at 82% 78%,rgba(255,112,30,.12),transparent 60%),linear-gradient(145deg,#0d1821,#07090e 65%,#1b1010);border:1px solid rgba(103,220,255,.3)}
+.team-section.wolfie-section .sponsor-logo-box img{mix-blend-mode:normal;filter:drop-shadow(0 5px 12px rgba(0,0,0,.3));padding:clamp(8px,1.5vw,18px)}
 </style>
 
 </head>
@@ -1921,7 +1925,7 @@ TEAM WOLFIE SPONSORS
 <div class="sponsor-logo-box">
 
 <img
-  src="luke-morgan-electrical.jpg"
+  src="luke-morgan-electrical-transparent.png"
   alt="Luke Morgan Electrical"
 >
 
@@ -1963,7 +1967,7 @@ VISIT FACEBOOK ›
 <div class="sponsor-logo-box">
 
 <img
- src="king-clothing.jpeg"
+ src="king-clothing-transparent.png"
   alt="King Clothing"
 >
 
@@ -2307,14 +2311,29 @@ function createPublicSponsorCard(sponsor){
   const card = document.createElement("div");
   card.className = "sponsor-card wolfie";
 
+  // Prefer approved local transparent artwork for known Team Wolfie partners.
+  // Other Firebase sponsor records continue using their configured logo.
+  const wolfieLogoFiles = {
+    "king clothing": "king-clothing-transparent.png",
+    "luke morgan electrical": "luke-morgan-electrical-transparent.png",
+    "greig sloan - team sloan": "greig-sloan-transparent.png",
+    "greig sloan": "greig-sloan-transparent.png",
+    "the king's circle": "kings-circle-transparent.png",
+    "the kings circle": "kings-circle-transparent.png"
+  };
+  const sponsorNameKey = String(sponsor.name || "").trim().toLowerCase();
+  const logoFile = sponsor.team === "wolfie"
+    ? (wolfieLogoFiles[sponsorNameKey] || sponsor.logo)
+    : sponsor.logo;
+
   // Sponsor logo
-  if(sponsor.logo){
+  if(logoFile){
 
     const logoBox = document.createElement("div");
     logoBox.className = "sponsor-logo-box";
 
     const logo = document.createElement("img");
-    logo.src = sponsor.logo;
+    logo.src = logoFile;
     logo.alt = sponsor.name || "Sponsor logo";
     logo.loading = "lazy";
 
