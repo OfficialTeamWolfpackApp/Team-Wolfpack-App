@@ -2782,7 +2782,7 @@ function renderUpcoming(fight){
 
       <div class="upcoming-badge">
         <span class="upcoming-dot"></span>
-        UPCOMING
+        ${String(fight.status || "").toUpperCase() === "POSTPONED" ? "POSTPONED" : "UPCOMING"}
       </div>
 
       <div class="event-name">
@@ -2917,7 +2917,7 @@ onSnapshot(
         fightType: fight.fightType || fight.type || ""
       };
 
-      if (status === "UPCOMING") {
+      if (status === "UPCOMING" || status === "POSTPONED") {
         upcoming.push(mappedFight);
       } else if (status === "COMPLETED" && String(fight.result || "").trim()) {
         completed.push(mappedFight);
@@ -2930,12 +2930,10 @@ onSnapshot(
 
     upcoming.sort(
       function(a,b){
-
-        return (
-          fightTime(a) -
-          fightTime(b)
-        );
-
+        const aPostponed = String(a.status || "").toUpperCase() === "POSTPONED";
+        const bPostponed = String(b.status || "").toUpperCase() === "POSTPONED";
+        if (aPostponed !== bPostponed) return aPostponed ? 1 : -1;
+        return fightTime(a) - fightTime(b);
       }
     );
 
