@@ -1488,6 +1488,20 @@ body.menu-open{
 @media(max-width:560px){.support-ways{padding:17px 12px}.support-ways-grid{grid-template-columns:1fr}.support-way-card{padding:18px 15px}}
 @media(prefers-reduced-motion:reduce){.support-way-card{transition:none}}
 
+
+/* TEAM WOLFIE SPONSOR & SUPPORTER CARDS — REFINED LOGO PRESENTATION */
+.team-section.wolfie-section .sponsor-card{display:flex;flex-direction:column;min-width:0;padding:17px;border:1px solid rgba(103,220,255,.33);border-radius:18px;background:linear-gradient(145deg,#0b1d26 0%,#090d12 52%,#1b100b 100%);box-shadow:0 16px 38px rgba(0,0,0,.38),inset 0 1px rgba(255,255,255,.05)}
+.team-section.wolfie-section .sponsor-logo-box{position:relative;isolation:isolate;width:100%;height:clamp(190px,23vw,290px);margin:0 0 19px;border:1px solid rgba(103,220,255,.17);border-radius:13px;overflow:hidden;background:linear-gradient(135deg,#d6e2e9,#edf0f1 55%,#d8dfe5);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1),0 8px 24px rgba(0,0,0,.22)}
+.team-section.wolfie-section .sponsor-logo-box img{display:block;width:100%;height:100%;object-fit:contain;object-position:center;padding:clamp(7px,1.3vw,15px);mix-blend-mode:multiply;filter:contrast(1.08);transition:transform .2s ease}
+.team-section.wolfie-section .sponsor-card:hover .sponsor-logo-box img{transform:scale(1.035)}
+.team-section.wolfie-section .sponsor-name{font-size:clamp(18px,1.9vw,23px);letter-spacing:.25px;line-height:1.25}
+.team-section.wolfie-section .sponsor-type{margin-top:9px;font-size:9px;letter-spacing:1.25px}
+.team-section.wolfie-section .sponsor-info{font-size:12px;line-height:1.75;color:#c2cbd3}
+.team-section.wolfie-section .social-button{min-height:43px;margin-top:12px;border-color:rgba(103,220,255,.32);background:linear-gradient(100deg,rgba(0,70,105,.28),rgba(107,46,14,.2))}
+.team-section.wolfie-section .social-button:hover{border-color:#67dcff;background:linear-gradient(100deg,rgba(0,95,140,.45),rgba(136,59,18,.3))}
+@media(max-width:600px){.team-section.wolfie-section .sponsor-card{padding:12px}.team-section.wolfie-section .sponsor-logo-box{height:clamp(175px,54vw,260px)}}
+@media(prefers-reduced-motion:reduce){.team-section.wolfie-section .sponsor-logo-box img{transition:none}}
+
 </style>
 
 </head>
