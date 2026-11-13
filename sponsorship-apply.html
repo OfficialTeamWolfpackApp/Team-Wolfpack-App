@@ -47,11 +47,51 @@ footer{padding:22px 20px 35px}
 @media(max-width:720px){.hero-features{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-feature:last-child{grid-column:1/-1}main{padding:14px 10px 24px}.hero-enquiry{padding:30px 14px}.package-showcase{padding:18px 12px}.panel{padding:20px 14px}}
 @media(max-width:390px){.hero-features{grid-template-columns:1fr}.hero-feature:last-child{grid-column:auto}}
 
+
+/* SHARED-STYLE TEAM WOLFPACK NAVIGATION */
+body{padding-top:62px}
+.tw-topbar{position:fixed;z-index:1000;top:0;left:0;right:0;min-height:58px;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:9px clamp(15px,3vw,30px);background:#030a0fee;border-bottom:1px solid #67dcff55;box-shadow:0 5px 20px #0009;backdrop-filter:blur(12px)}
+.tw-topbar .tw-menu-toggle{width:42px;height:40px;padding:0;display:grid;place-items:center;border:1px solid #67dcff77;border-radius:9px;background:#071b28;color:#67dcff;font-size:22px}
+.tw-topbar-brand{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:900;letter-spacing:1.5px;color:white}
+.tw-topbar-brand img{width:30px;height:30px;border-radius:6px}
+.tw-topbar .tw-back{font-size:12px;font-weight:800;text-decoration:none}
+.tw-menu-scrim{position:fixed;inset:0;z-index:1001;background:#000a;opacity:0;visibility:hidden;transition:opacity .2s}
+.tw-menu-scrim.show{opacity:1;visibility:visible}
+.tw-side-menu{position:fixed;z-index:1002;inset:0 auto 0 0;width:min(345px,90vw);padding:23px 17px;overflow-y:auto;background:linear-gradient(145deg,#071b28,#080b10 65%,#25130b);border-right:1px solid #67dcff66;box-shadow:12px 0 36px #000a;transform:translateX(-105%);transition:transform .2s}
+.tw-side-menu.show{transform:translateX(0)}
+.tw-menu-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:21px}
+.tw-menu-heading strong{font-size:15px;letter-spacing:1px}
+.tw-menu-close{padding:4px 11px;font-size:25px;background:#101e29;border-radius:8px}
+.tw-menu-label{font-size:10px;letter-spacing:2px;color:#67dcff;font-weight:900;margin:21px 9px 9px}
+.tw-side-menu nav{display:grid;gap:7px}
+.tw-side-menu nav a{display:flex;align-items:center;justify-content:space-between;padding:13px;border:1px solid #67dcff2f;border-radius:10px;background:#ffffff08;color:#eaf8ff;text-decoration:none;font-size:12px;font-weight:800;letter-spacing:.35px}
+.tw-side-menu nav a[aria-current="page"]{border-color:#ff8b44;color:#ffb37e;background:#ff751c18}
+.tw-side-menu nav a:hover{background:#67dcff1c}
+body.tw-menu-open{overflow:hidden}
+.tw-menu-toggle:focus-visible,.tw-menu-close:focus-visible,.tw-side-menu a:focus-visible{outline:3px solid #67dcff;outline-offset:3px}
+/* REORGANIZED PACKAGE BUTTONS */
+.package-poster-links{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:18px}
+.package-poster-links a{display:inline-flex;justify-content:center;align-items:center;min-height:48px;padding:12px 19px;border-radius:10px;border:1px solid #67dcff99;background:linear-gradient(100deg,#073e59,#2c1c16);color:white;text-decoration:none;font-size:12px;font-weight:900;letter-spacing:.35px}
+.package-poster-links a:nth-child(2){border-color:#ff9a5b;background:linear-gradient(100deg,#342011,#07354a)}
+.package-poster-links a:hover,.form-navigation a:hover{filter:brightness(1.2)}
+/* CLEAN FORM ACTIONS — SUBMISSIONS REMAIN DISABLED */
+.form-action-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;align-items:stretch;margin-top:22px}
+.form-action-row button{width:100%;min-width:0;min-height:54px;white-space:normal}
+.form-action-row #submitButton:disabled{opacity:.6;filter:grayscale(.25)}
+.form-action-row .reset-button{background:linear-gradient(110deg,#0b293c,#0b141b);border-color:#67dcff99}
+.form-action-status{margin-top:13px;color:#c5d5df;font-size:12px;line-height:1.6}
+.form-navigation{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px;padding-top:16px;border-top:1px solid #67dcff33}
+.form-navigation a{flex:1;min-width:190px;min-height:46px;display:flex;align-items:center;justify-content:center;padding:11px 14px;border:1px solid #67dcff66;border-radius:10px;background:#0b2634;color:#d9f5ff;text-align:center;text-decoration:none;font-size:12px;font-weight:900;margin:0}
+.form-navigation a:last-child{border-color:#ff9a5b88;background:#2b1a12}
+@media(max-width:560px){.tw-topbar .tw-back{display:none}.form-action-row{grid-template-columns:1fr}.package-poster-links a{width:100%}.form-navigation a{min-width:100%}}
+@media(prefers-reduced-motion:reduce){.tw-side-menu,.tw-menu-scrim{transition:none}}
 </style>
 </head>
 <body>
-<header><div class="brand">🐺 TEAM WOLFPACK</div><a href="sponsors.html">← Sponsors &amp; Partners</a></header>
-<main><section class="hero-enquiry" aria-labelledby="enquiryHeading"><div class="hero-crest" aria-hidden="true">🐺</div><div class="tag">TEAM WOLFPACK • ONE PACK • ONE PURPOSE</div><h1 id="enquiryHeading">SPONSORSHIP &amp; SUPPORTER <span>ENQUIRY FORM</span></h1><p class="lead">Tell us about yourself or your business and how you would like to support Team Wolfpack. An enquiry is not a payment or a confirmed sponsorship agreement.</p><div class="hero-features" aria-label="Why support Team Wolfpack"><div class="hero-feature"><b aria-hidden="true">📣</b>BRAND EXPOSURE</div><div class="hero-feature"><b aria-hidden="true">🐺</b>TEAM SUPPORT</div><div class="hero-feature"><b aria-hidden="true">🥊</b>FIGHTER DEVELOPMENT</div><div class="hero-feature"><b aria-hidden="true">🤝</b>COMMUNITY IMPACT</div><div class="hero-feature"><b aria-hidden="true">💎</b>FLEXIBLE PACKAGES</div></div></section><section class="package-showcase" aria-labelledby="packageHeading"><h2 id="packageHeading">OUR SUPPORTER &amp; SPONSORSHIP <span>PACKAGES</span></h2><p>Explore the package options and annual contributions shown on our official posters.</p><div class="package-badges"><span>FREE</span><span>PACK</span><span>LOYAL</span><span>CHAMPION</span><span>BRONZE</span><span>SILVER</span><span>GOLD</span><span>PLATINUM</span><span>CUSTOM</span></div><a href="sponsorship-application.html">VIEW ALL PACKAGE DETAILS ↗</a></section>
+<div class="tw-topbar"><button class="tw-menu-toggle" id="twMenuOpen" type="button" aria-label="Open navigation menu" aria-controls="twSideMenu" aria-expanded="false">☰</button><div class="tw-topbar-brand"><img src="icon-192.png" alt=""> TEAM WOLFPACK</div><a class="tw-back" href="sponsors.html">← Sponsors &amp; Partners</a></div>
+<div class="tw-menu-scrim" id="twMenuScrim"></div><aside class="tw-side-menu" id="twSideMenu" aria-label="Team Wolfpack navigation" aria-hidden="true"><div class="tw-menu-heading"><strong>🐺 TEAM WOLFPACK</strong><button class="tw-menu-close" id="twMenuClose" type="button" aria-label="Close navigation menu">×</button></div><div class="tw-menu-label">MAIN</div><nav><a href="home.html">⌂ HOME <span>›</span></a><a href="fights.html">♜ FIGHTS <span>›</span></a><a href="updates.html">● LIVE UPDATES <span>›</span></a><a href="live.html">🔴 WOLFPACK LIVE <span>›</span></a><a href="pack.html">◆ MEET THE PACK <span>›</span></a></nav><div class="tw-menu-label">EXPLORE</div><nav><a href="sponsors.html">★ SPONSORS &amp; PARTNERS <span>›</span></a><a href="sponsorship-apply.html" aria-current="page">✎ SPONSORSHIP ENQUIRY FORM <span>›</span></a><a href="gallery.html">▣ GALLERY <span>›</span></a><a href="merch.html">◈ MERCHANDISE <span>›</span></a><a href="contact.html">✉ CONTACT <span>›</span></a><a href="socials.html">◎ SOCIALS <span>›</span></a><a href="about.html">ⓘ ABOUT <span>›</span></a></nav></aside>
+
+<main><section class="hero-enquiry" aria-labelledby="enquiryHeading"><div class="hero-crest" aria-hidden="true">🐺</div><div class="tag">TEAM WOLFPACK • ONE PACK • ONE PURPOSE</div><h1 id="enquiryHeading">SPONSORSHIP &amp; SUPPORTER <span>ENQUIRY FORM</span></h1><p class="lead">Tell us about yourself or your business and how you would like to support Team Wolfpack. An enquiry is not a payment or a confirmed sponsorship agreement.</p><div class="hero-features" aria-label="Why support Team Wolfpack"><div class="hero-feature"><b aria-hidden="true">📣</b>BRAND EXPOSURE</div><div class="hero-feature"><b aria-hidden="true">🐺</b>TEAM SUPPORT</div><div class="hero-feature"><b aria-hidden="true">🥊</b>FIGHTER DEVELOPMENT</div><div class="hero-feature"><b aria-hidden="true">🤝</b>COMMUNITY IMPACT</div><div class="hero-feature"><b aria-hidden="true">💎</b>FLEXIBLE PACKAGES</div></div></section><section class="package-showcase" aria-labelledby="packageHeading"><h2 id="packageHeading">OUR SUPPORTER &amp; SPONSORSHIP <span>PACKAGES</span></h2><p>Explore the package options and annual contributions shown on our official posters.</p><div class="package-badges"><span>FREE</span><span>PACK</span><span>LOYAL</span><span>CHAMPION</span><span>BRONZE</span><span>SILVER</span><span>GOLD</span><span>PLATINUM</span><span>CUSTOM</span></div><div class="package-poster-links"><a href="supporter-packages.html">VIEW SUPPORTER POSTER ↗</a><a href="sponsorship-packages.html">VIEW BUSINESS SPONSORSHIP POSTER ↗</a></div></section>
 <section class="panel"><h2>Apply to support the pack</h2><p class="hint">Fields marked * are required. Select a package to see the annual contribution before completing your details.</p><form id="applicationForm" novalidate>
 <div class="grid">
 <div><label for="type">Applicant type *</label><select id="type" required><option value="business">Business / organisation</option><option value="personal">Personal supporter</option></select></div>
@@ -68,8 +108,17 @@ footer{padding:22px 20px 35px}
 <div class="hidden" aria-hidden="true"><label for="websiteTrap">Leave blank</label><input id="websiteTrap" tabindex="-1" autocomplete="off"></div>
 </div>
 <p class="notice">We use the details you submit to review and respond to your sponsorship enquiry. Please do not include payment card details or sensitive personal information. <strong>Online applications are not yet open.</strong> For now, please <a href="contact.html">contact Team Wolfpack</a> about sponsorship.</p>
-<div class="actions"><button id="submitButton" type="submit" disabled>SUBMIT APPLICATION ›</button><span id="status" role="status" aria-live="polite">Preparing secure submission…</span></div>
-</form><p class="form-navigation"><a href="sponsorship-application.html">← Compare all packages</a><a href="contact.html">Contact the team</a></p></section></main><footer>© 2026 TEAM WOLFPACK • STRENGTH IN UNITY</footer>
+<div class="form-action-row"><button id="submitButton" type="submit" disabled>SUBMIT APPLICATION ›</button><button class="reset-button" type="reset">CLEAR FORM ↺</button></div><div class="form-action-status"><span id="status" role="status" aria-live="polite">Preparing secure submission…</span></div>
+</form><p class="form-navigation"><a href="sponsors.html">← BACK TO SPONSORS &amp; PARTNERS</a><a href="contact.html">✉ CONTACT THE TEAM ↗</a></p></section></main><footer>© 2026 TEAM WOLFPACK • STRENGTH IN UNITY</footer>
+<script>
+(function(){
+ const open=document.getElementById('twMenuOpen'),close=document.getElementById('twMenuClose'),menu=document.getElementById('twSideMenu'),scrim=document.getElementById('twMenuScrim');
+ let previousFocus=null;
+ function setMenu(shown){menu.classList.toggle('show',shown);scrim.classList.toggle('show',shown);document.body.classList.toggle('tw-menu-open',shown);open.setAttribute('aria-expanded',String(shown));menu.setAttribute('aria-hidden',String(!shown));if(shown){previousFocus=document.activeElement;close.focus()}else if(previousFocus){previousFocus.focus()}}
+ open.addEventListener('click',()=>setMenu(true));close.addEventListener('click',()=>setMenu(false));scrim.addEventListener('click',()=>setMenu(false));document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.classList.contains('show'))setMenu(false)});
+ menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+})();
+</script>
 <script type="module">
 import {initializeApp} from 'https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js';
 import {initializeAppCheck,ReCaptchaEnterpriseProvider,getToken} from 'https://www.gstatic.com/firebasejs/12.2.1/firebase-app-check.js';
