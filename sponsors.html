@@ -1470,22 +1470,22 @@ body.menu-open{
 .support-ways-intro h2{font-size:clamp(27px,3.7vw,40px);line-height:1.14;margin:9px 0 12px;letter-spacing:.2px}
 .support-ways-intro h2 span,.support-way-card h3 span{color:#ff934b}
 .support-ways-intro p{color:#bdced8;font-size:12px;line-height:1.85;margin:0}
-.support-ways-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
-.support-way-card{display:flex;flex-direction:column;gap:13px;min-width:0;padding:20px 17px;border:1px solid rgba(103,220,255,.27);border-top:3px solid #67dcff;border-radius:15px;background:linear-gradient(145deg,rgba(0,89,133,.23),#0a1017 55%,rgba(255,100,0,.1));box-shadow:0 12px 30px rgba(0,0,0,.24);transition:transform .2s ease,border-color .2s ease}
+.support-ways-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;max-width:1050px;margin-inline:auto}
+.support-way-card{display:flex;flex-direction:column;gap:17px;min-width:0;padding:clamp(20px,3vw,30px);border:1px solid rgba(103,220,255,.27);border-top:3px solid #67dcff;border-radius:15px;background:linear-gradient(145deg,rgba(0,89,133,.23),#0a1017 55%,rgba(255,100,0,.1));box-shadow:0 12px 30px rgba(0,0,0,.24);transition:transform .2s ease,border-color .2s ease}
 .support-way-card:nth-child(even){border-top-color:#ff842e}
 .support-way-card:hover{transform:translateY(-3px);border-color:rgba(103,220,255,.6)}
 .support-way-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .support-way-icon{display:grid;place-items:center;width:49px;height:49px;border:1px solid rgba(103,220,255,.27);border-radius:12px;background:rgba(0,125,185,.1);font-size:25px}
 .support-way-number{font-size:9px;letter-spacing:.7px;font-weight:900;color:#9abfd4;text-align:right}
-.support-way-card h3{font-size:clamp(15px,1.4vw,19px);line-height:1.3;margin:0;min-height:48px}
-.support-way-card p{color:#becbd5;font-size:11px;line-height:1.8;flex:1;margin:0}
+.support-way-card h3{font-size:clamp(20px,2vw,27px);line-height:1.25;margin:0;min-height:0}
+.support-way-card p{color:#becbd5;font-size:13px;line-height:1.8;flex:1;margin:0}
 .support-way-card a{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:44px;padding:10px 11px;border:1px solid rgba(103,220,255,.4);border-radius:9px;background:linear-gradient(100deg,rgba(0,94,140,.68),rgba(117,48,13,.55));color:#fff;text-decoration:none;font-size:10px;font-weight:900;line-height:1.4}
 .support-way-card a:hover{filter:brightness(1.2)}
 .support-way-card a span{font-size:16px}
 .support-way-card a:focus-visible{outline:2px solid #67dcff;outline-offset:3px}
 .support-ways-footnote{font-size:11px;color:#c3b7ae;line-height:1.7;margin:17px 0 0}
 @media(max-width:1080px){.support-ways-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.support-way-card h3{min-height:0}}
-@media(max-width:560px){.support-ways{padding:17px 12px}.support-ways-grid{grid-template-columns:1fr}.support-way-card{padding:18px 15px}}
+@media(max-width:680px){.support-ways{padding:17px 12px}.support-ways-grid{grid-template-columns:1fr}.support-way-card{padding:18px 15px}}
 @media(prefers-reduced-motion:reduce){.support-way-card{transition:none}}
 
 
@@ -1888,37 +1888,25 @@ to the team and fighter they proudly support.
 </section>
 <section class="hub-section support-ways" id="sponsorshipTypes" aria-labelledby="sponsorshipTypesTitle">
   <div class="support-ways-intro">
-    <div class="hub-eyebrow">FIND YOUR PLACE IN THE PACK</div>
+    <div class="hub-eyebrow">BEYOND THE PACKAGES</div>
     <h2 id="sponsorshipTypesTitle">WAYS TO <span>SUPPORT</span></h2>
-    <p>Whether you're a business, an individual or looking to support a fighter, there are different ways to stand alongside Team Wolfpack. Explore the options below and contact us to discuss what's right for you.</p>
+    <p>Already explored our sponsorship and supporter posters? These additional opportunities can be discussed directly with Team Wolfpack.</p>
   </div>
   <div class="support-ways-grid">
     <article class="support-way-card">
-      <div class="support-way-top"><span class="support-way-icon" aria-hidden="true">🏢</span><span class="support-way-number">01 / PARTNER</span></div>
-      <h3>BUSINESS <span>SPONSORSHIP</span></h3>
-      <p>Back Team Wolfpack as a business and discuss opportunities for sponsor recognition, promotion and a dedicated sponsor profile.</p>
-      <a href="sponsorship-application.html">EXPLORE BUSINESS PACKAGES <span aria-hidden="true">↗</span></a>
-    </article>
-    <article class="support-way-card">
-      <div class="support-way-top"><span class="support-way-icon" aria-hidden="true">🐺</span><span class="support-way-number">02 / JOIN THE PACK</span></div>
-      <h3>PERSONAL <span>SUPPORTERS</span></h3>
-      <p>Be part of the Wolfpack community with personal supporter options, including Free and Custom annual support.</p>
-      <a href="sponsorship-application.html">EXPLORE SUPPORTER PACKAGES <span aria-hidden="true">↗</span></a>
-    </article>
-    <article class="support-way-card">
-      <div class="support-way-top"><span class="support-way-icon" aria-hidden="true">🥊</span><span class="support-way-number">03 / BACK A FIGHTER</span></div>
+      <div class="support-way-top"><span class="support-way-icon" aria-hidden="true">🥊</span><span class="support-way-number">01 / BACK A FIGHTER</span></div>
       <h3>FIGHTER <span>SPONSORSHIP</span></h3>
-      <p>Discuss supporting Mrs Wolfie, Greig Sloan or another eligible fighter. Any arrangement is subject to team approval.</p>
-      <a href="contact.html">DISCUSS FIGHTER SUPPORT <span aria-hidden="true">↗</span></a>
+      <p>Interested in supporting an individual Team Wolfpack fighter? Get in touch to discuss potential opportunities and arrangements.</p>
+      <a href="contact.html">ENQUIRE ABOUT FIGHTER SPONSORSHIP <span aria-hidden="true">↗</span></a>
     </article>
     <article class="support-way-card">
-      <div class="support-way-top"><span class="support-way-icon" aria-hidden="true">🤝</span><span class="support-way-number">04 / BESPOKE</span></div>
+      <div class="support-way-top"><span class="support-way-icon" aria-hidden="true">🤝</span><span class="support-way-number">02 / BESPOKE</span></div>
       <h3>CUSTOM <span>PARTNERSHIPS</span></h3>
-      <p>Explore tailored support for events, equipment, services or other contributions, with arrangements agreed directly with the team.</p>
+      <p>Explore tailored support for events, equipment, services or promotions, with any partnership agreed directly with the team.</p>
       <a href="contact.html">DISCUSS A PARTNERSHIP <span aria-hidden="true">↗</span></a>
     </article>
   </div>
-  <p class="support-ways-footnote">All sponsorship benefits, recognition and arrangements are subject to agreement. Online applications and payments are not currently enabled.</p>
+  <p class="support-ways-footnote">All sponsorship arrangements are subject to agreement. Online applications and payments are not currently enabled.</p>
 </section>
 <!-- EXISTING SPONSOR GRIDS CONTINUE UNCHANGED BELOW -->
 
