@@ -971,6 +971,14 @@ Use the confirmed first fight date. Additional date wording can be entered below
 
 </div>
 
+<div class="field full">
+<label class="date-tba-option" for="dateTba">
+  <input id="dateTba" type="checkbox" style="width:auto;min-height:auto;margin:0;accent-color:#67dcff">
+  DATE TBA — FIGHT AGREED / CONFIRMED
+</label>
+<div class="help">Select this when the fight is agreed but the promotion has not confirmed the date. The app will display DATE TBA until you edit the fight with a confirmed date.</div>
+</div>
+
 
 <div class="field">
 
@@ -1432,6 +1440,25 @@ const fightDate =
     "fightDate"
   );
 
+const dateTba =
+  document.getElementById("dateTba");
+
+function syncFightDateTba(){
+  const isTba = dateTba.checked;
+  fightDate.required = !isTba;
+  fightDate.disabled = isTba;
+  displayDate.readOnly = isTba;
+
+  if(isTba){
+    fightDate.value = "";
+    displayDate.value = "TBA";
+  }else if(displayDate.value.trim().toUpperCase() === "TBA"){
+    displayDate.value = "";
+  }
+}
+
+dateTba.addEventListener("change", syncFightDateTba);
+
 const displayDate =
   document.getElementById(
     "displayDate"
@@ -1714,6 +1741,7 @@ function showMessage(
 function resetForm(){
 
   fightForm.reset();
+  syncFightDateTba();
   for (const kind of ["fighter", "opponent"]) {
     imageUploads[kind].value = "";
     previewFightImage(kind);
@@ -1784,13 +1812,14 @@ fightForm.addEventListener(
     }
 
 
-    const dateTimestamp =
-      new Date(
-        fightDate.value + "T12:00:00"
-      ).getTime();
+    const isDateTba = dateTba.checked;
+    const dateTimestamp = isDateTba
+      ? null
+      : new Date(fightDate.value + "T12:00:00").getTime();
 
 
     if(
+      !isDateTba &&
       !Number.isFinite(dateTimestamp)
     ){
 
@@ -1821,13 +1850,19 @@ fightForm.addEventListener(
         opponent.value.trim(),
 
       fightDate:
-        fightDate.value,
+        isDateTba ? "" : fightDate.value,
 
       displayDate:
-        displayDate.value.trim(),
+        isDateTba ? "TBA" : displayDate.value.trim(),
 
       dateTimestamp:
         dateTimestamp,
+
+      dateTba:
+        isDateTba,
+
+      fightAgreed:
+        isDateTba,
 
       status:
         status.value,
@@ -1990,8 +2025,12 @@ window.editFight =
     fightDate.value =
       data.fightDate || "";
 
+    dateTba.checked =
+      Boolean(data.dateTba || (!data.fightDate && String(data.displayDate || "").toUpperCase() === "TBA"));
+    syncFightDateTba();
+
     displayDate.value =
-      data.displayDate || "";
+      data.displayDate || (dateTba.checked ? "TBA" : "");
 
     status.value =
       data.status || "upcoming";
@@ -2241,7 +2280,7 @@ function renderFights(){
                   ${escapeHTML(
                     data.displayDate ||
                     data.fightDate ||
-                    ""
+                    (data.dateTba ? "DATE TBA" : "")
                   )}
                 </span>
 
