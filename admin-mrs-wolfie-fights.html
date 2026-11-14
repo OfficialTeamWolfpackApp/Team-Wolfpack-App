@@ -803,6 +803,11 @@ input:focus,select:focus,textarea:focus { border-color:var(--mw-ice); box-shadow
               type="date"
               required
             >
+            <label class="date-tba-option" for="dateTba" style="display:flex;align-items:center;gap:9px;margin-top:10px;letter-spacing:.5px">
+              <input id="dateTba" type="checkbox" style="width:auto;min-height:auto;margin:0;accent-color:#67dcff">
+              DATE TBA — FIGHT AGREED / CONFIRMED
+            </label>
+            <span class="field-help">Select when the fight is agreed but the date has not yet been confirmed. The app will display DATE TBA until you edit the fight with its confirmed date.</span>
           </div>
 
 
@@ -1104,6 +1109,26 @@ const fightType =
 const fightDate =
   document.getElementById("fightDate");
 
+const dateTba =
+  document.getElementById("dateTba");
+
+function syncFightDateTba(){
+  const isTba = dateTba.checked;
+  fightDate.required = !isTba;
+  fightDate.disabled = isTba;
+  endDate.disabled = isTba;
+
+  if(isTba){
+    fightDate.value = "";
+    endDate.value = "";
+    displayDate.value = "TBA";
+  }else if(displayDate.value.trim().toUpperCase() === "TBA"){
+    displayDate.value = "";
+  }
+}
+
+dateTba.addEventListener("change", syncFightDateTba);
+
 const endDate =
   document.getElementById("endDate");
 
@@ -1275,6 +1300,7 @@ function resetForm() {
   loadingPrivateNote = false;
 
   fightForm.reset();
+  syncFightDateTba();
 
   ticketUrl.value = "";
   displayDate.value = "";
@@ -1958,6 +1984,10 @@ async function editFight(id) {
   fightDate.value =
     fight.date || "";
 
+  dateTba.checked =
+    Boolean(fight.dateTba || (!fight.date && String(fight.displayDate || "").toUpperCase() === "TBA"));
+  syncFightDateTba();
+
   endDate.value =
     fight.dateEnd || "";
 
@@ -2300,12 +2330,14 @@ fightForm.addEventListener(
         fightType.value,
 
       date:
-        fightDate.value,
+        dateTba.checked ? "" : fightDate.value,
 
       dateEnd:
-        endDate.value,
+        dateTba.checked ? "" : endDate.value,
 
-      displayDate: displayDate.value.trim(),
+      displayDate: dateTba.checked ? "TBA" : displayDate.value.trim(),
+      dateTba: dateTba.checked,
+      fightAgreed: dateTba.checked,
       method: resultMethod.value.trim(),
       fightTitle: fightTitle.value.trim(),
       fighterImage: editingId ? (getFight(editingId)?.fighterImage || "") : "",
