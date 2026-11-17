@@ -10115,6 +10115,37 @@ function getFightFighterId(f) {
   return id;
 }
 
+/* STAGE_5Y: Keep legacy RTDB upcoming fights until they are managed in Firestore.
+ * For matching opponent + scheduled date, prefer the Firestore version.
+ * Do not collapse separate TBA fights that have no confirmed date. */
+function wolfpackFightKey(f) {
+  const opponent = String(f.opponent || f.opponentName || "").trim().toLowerCase().replace(/\s+/g, " ");
+  const rawDate = String(f.fightDate || f.date || "").trim();
+  if (!opponent || !rawDate || /^(tba|date tba)$/i.test(rawDate)) return null;
+  return getFightFighterId(f) + "|" + opponent + "|" + rawDate.slice(0, 10);
+}
+function mergeWolfpackUpcomingFights(realtime, firestore) {
+  const firestoreKeys = new Set(firestore.map(wolfpackFightKey).filter(Boolean));
+  return realtime.filter(f => {
+    const key = wolfpackFightKey(f);
+    return !key || !firestoreKeys.has(key);
+  }).concat(firestore);
+}
+function mergeWolfpackPostponedFights(realtime, firestore) {
+  const firestoreKeys = new Set(firestore.map(function(f) {
+    return getFightFighterId(f) + "|" +
+      String(f.opponent || f.opponentName || "")
+        .trim().toLowerCase().replace(/\s+/g, " ");
+  }));
+
+  return realtime.filter(function(f) {
+    const key = getFightFighterId(f) + "|" +
+      String(f.opponent || f.opponentName || "")
+        .trim().toLowerCase().replace(/\s+/g, " ");
+
+    return !firestoreKeys.has(key);
+  }).concat(firestore);
+}
 /* WOLFPACK_HOME_COMBINED_COORDINATOR_V1 */
 
 function updateHomepageFights() {
@@ -10133,7 +10164,7 @@ function updateHomepageFights() {
    */
 
   const wolfpackUpcoming = latestFights.filter(function(f) {
-    return getFightFighterId(f) !== "mrs-wolfie";
+    return String(f.status || "").trim().toUpperCase() === "UPCOMING";
   });
 
   const wolfpackPostponed =
@@ -10152,10 +10183,10 @@ function updateHomepageFights() {
     });
 
   const combinedUpcoming =
-    wolfpackUpcoming.concat(mrsWolfieUpcoming);
+    mergeWolfpackUpcomingFights(wolfpackUpcoming, mrsWolfieUpcoming);
 
   const combinedPostponed =
-    wolfpackPostponed.concat(mrsWolfiePostponed);
+    mergeWolfpackPostponedFights(wolfpackPostponed, mrsWolfiePostponed);
 
   /*
    * Preserve existing fighter status controls.
@@ -10173,7 +10204,9 @@ function updateHomepageFights() {
         return true;
       }
 
-      return fighterStatus.status === "confirmed";
+      // An explicitly scheduled fight must not disappear because of a promotional fighter status.
+      if (getFightFighterId(f) === "mrs-wolfie") return true;
+      return String(fighterStatus.status || "").trim().toLowerCase() === "confirmed";
     });
 
   visibleUpcoming.sort(function(a, b) {
