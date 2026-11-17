@@ -10131,6 +10131,21 @@ function mergeWolfpackUpcomingFights(realtime, firestore) {
     return !key || !firestoreKeys.has(key);
   }).concat(firestore);
 }
+function mergeWolfpackPostponedFights(realtime, firestore) {
+  const firestoreKeys = new Set(firestore.map(function(f) {
+    return getFightFighterId(f) + "|" +
+      String(f.opponent || f.opponentName || "")
+        .trim().toLowerCase().replace(/\s+/g, " ");
+  }));
+
+  return realtime.filter(function(f) {
+    const key = getFightFighterId(f) + "|" +
+      String(f.opponent || f.opponentName || "")
+        .trim().toLowerCase().replace(/\s+/g, " ");
+
+    return !firestoreKeys.has(key);
+  }).concat(firestore);
+}
 /* WOLFPACK_HOME_COMBINED_COORDINATOR_V1 */
 
 function updateHomepageFights() {
@@ -10149,7 +10164,7 @@ function updateHomepageFights() {
    */
 
   const wolfpackUpcoming = latestFights.filter(function(f) {
-    return true; // Keep existing RTDB fights, including Mrs Wolfie.
+    return String(f.status || "").trim().toUpperCase() === "UPCOMING";
   });
 
   const wolfpackPostponed =
@@ -10171,7 +10186,7 @@ function updateHomepageFights() {
     mergeWolfpackUpcomingFights(wolfpackUpcoming, mrsWolfieUpcoming);
 
   const combinedPostponed =
-    wolfpackPostponed.concat(mrsWolfiePostponed);
+    mergeWolfpackPostponedFights(wolfpackPostponed, mrsWolfiePostponed);
 
   /*
    * Preserve existing fighter status controls.
