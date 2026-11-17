@@ -8751,6 +8751,12 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
   
 import {
+  getFirestore,
+  collection,
+  onSnapshot
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+import {
   getMessaging,
   getToken,
   onMessage,
@@ -8794,6 +8800,8 @@ const auth =
 
 const database =
   getDatabase(firebaseApp);
+
+const sharedFightFirestore = getFirestore(firebaseApp);
 
   /* =========================================
    TEAM WOLFPACK — LIKE SYSTEM
@@ -9478,20 +9486,31 @@ function fighterImage(f){
   );
 }
 
+/* WOLFPACK_HOME_TBA_OPPONENT_IMAGE_V1 */
+
 function opponentImage(f){
 
-  const opponent =
-    String(
-      f.opponent ||
-      f.opponentName ||
-      ""
-    )
-    .trim()
-    .toLowerCase();
+  const opponent = String(
+    f.opponent ||
+    f.opponentName ||
+    ""
+  ).trim().toLowerCase();
+
+  /*
+   * TBA always overrides previously saved
+   * opponent photographs.
+   */
 
   if(
-    opponent === "colleen leyden"
+    !opponent ||
+    opponent === "tba" ||
+    opponent === "to be announced" ||
+    opponent === "unknown"
   ){
+    return "images/female-fighter-tba.png";
+  }
+
+  if(opponent === "colleen leyden"){
     return "colleen-leyden.jpg";
   }
 
@@ -9504,7 +9523,6 @@ function opponentImage(f){
     ""
   );
 }
-
 function renderNextFight(f){
 
   const nextFightCard =
@@ -9586,19 +9604,30 @@ if(rightSide){
 }
   
   if(nextFightPromotion){
-    nextFightPromotion.childNodes[0].nodeValue = promotion + "\n";
+    nextFightPromotion.textContent = promotion + "\n";
   }
 
   if(nextFightEvent){
     nextFightEvent.textContent = eventName;
   }
 
-  if(nextFightDetails){
-    nextFightDetails.innerHTML = `
-      <div class="fight-detail">${fightDisplayDate(f)}</div>
-      <div class="fight-detail">${venue}</div>
-    `;
-  }
+  /* WOLFPACK_SAFE_FIGHT_DETAILS_V1 */
+
+if(nextFightDetails){
+
+  const dateDetail = document.createElement("div");
+  dateDetail.className = "fight-detail";
+  dateDetail.textContent = fightDisplayDate(f);
+
+  const venueDetail = document.createElement("div");
+  venueDetail.className = "fight-detail";
+  venueDetail.textContent = venue;
+
+  nextFightDetails.replaceChildren(
+    dateDetail,
+    venueDetail
+  );
+}
 
   if(nextFightFighter){
     nextFightFighter.textContent = name;
@@ -9722,8 +9751,8 @@ function renderHomePostponedFights(fights){
     const venue = f.venue || f.location || "VENUE TBA";
     const event = f.event || f.eventName || f.title || f.promotion || "FIGHT POSTPONED";
     return '<a class="next-item" href="fights.html">' +
-      '<div class="date-box"><div class="date-number">'+safe(parts.day || "—")+'</div>'+
-      '<div class="date-month">'+safe(parts.month || "")+'</div></div>'+
+      '<div class="date-box"><div class="date-number">'+safe(parts.top || "—")+'</div>'+
+      '<div class="date-month">'+safe(parts.bottom || "")+'</div></div>'+
       '<div class="next-info"><div class="next-fight-label">POSTPONED</div>'+
       '<div class="next-name">'+safe(name)+' <span class="versus">VS</span> '+safe(opponent)+'</div>'+
       '<div class="next-meta">'+safe(venue)+'</div>'+
@@ -10048,6 +10077,9 @@ onValue(
 ========================================= */
 
 let latestFights = [];
+let latestPostponedFights = [];
+let latestSharedFights = [];
+let sharedFightsLoaded = false;
 let latestFighterStatuses = {};
 let fightsLoaded = false;
 let fighterStatusesLoaded = false;
@@ -10083,32 +10115,79 @@ function getFightFighterId(f) {
   return id;
 }
 
+/* WOLFPACK_HOME_COMBINED_COORDINATOR_V1 */
+
 function updateHomepageFights() {
 
-  if (!fightsLoaded || !fighterStatusesLoaded) {
+  if (
+    !fightsLoaded ||
+    !fighterStatusesLoaded ||
+    !sharedFightsLoaded
+  ) {
     return;
   }
 
-  const visibleFights = latestFights.filter(function(f) {
+  /*
+   * Mrs Wolfie's Firestore records are authoritative.
+   * Older Mrs Wolfie RTDB records are excluded.
+   */
 
-    const fighterId = getFightFighterId(f);
-
-    const fighterStatus =
-      latestFighterStatuses[fighterId];
-
-    if (!fighterStatus) {
-      return true;
-    }
-
-    return fighterStatus.status === "confirmed";
-
+  const wolfpackUpcoming = latestFights.filter(function(f) {
+    return getFightFighterId(f) !== "mrs-wolfie";
   });
 
-  renderNextFight(visibleFights[0] || null);
-  renderNextUp(visibleFights);
+  const wolfpackPostponed =
+    latestPostponedFights.filter(function(f) {
+      return getFightFighterId(f) !== "mrs-wolfie";
+    });
 
+  const mrsWolfieUpcoming =
+    latestSharedFights.filter(function(f) {
+      return String(f.status).toUpperCase() === "UPCOMING";
+    });
+
+  const mrsWolfiePostponed =
+    latestSharedFights.filter(function(f) {
+      return String(f.status).toUpperCase() === "POSTPONED";
+    });
+
+  const combinedUpcoming =
+    wolfpackUpcoming.concat(mrsWolfieUpcoming);
+
+  const combinedPostponed =
+    wolfpackPostponed.concat(mrsWolfiePostponed);
+
+  /*
+   * Preserve existing fighter status controls.
+   */
+
+  const visibleUpcoming =
+    combinedUpcoming.filter(function(f) {
+
+      const fighterId = getFightFighterId(f);
+
+      const fighterStatus =
+        latestFighterStatuses[fighterId];
+
+      if (!fighterStatus) {
+        return true;
+      }
+
+      return fighterStatus.status === "confirmed";
+    });
+
+  visibleUpcoming.sort(function(a, b) {
+    return fightTime(a) - fightTime(b);
+  });
+
+  combinedPostponed.sort(function(a, b) {
+    return fightTime(b) - fightTime(a);
+  });
+
+  renderNextFight(visibleUpcoming[0] || null);
+  renderNextUp(visibleUpcoming);
+  renderHomePostponedFights(combinedPostponed);
 }
-  
 const fightsRef = ref(database,"fights");
 
 onValue(
@@ -10133,7 +10212,7 @@ onValue(
     postponedFights.sort(function(a,b){
       return fightTime(b) - fightTime(a);
     });
-    renderHomePostponedFights(postponedFights);
+    latestPostponedFights = postponedFights;
 
   latestFights = fights;
 fightsLoaded = true;
@@ -10143,9 +10222,7 @@ updateHomepageFights();
 const nextFightCard =
   document.getElementById("nextFightCard");
 
-if(nextFightCard && fights.length){
-  nextFightCard.style.visibility = "visible";
-}
+/* STEP 557: Legacy RTDB visibility override removed. */
     
   },
   function(error){
@@ -10153,6 +10230,137 @@ if(nextFightCard && fights.length){
   }
 );
 
+
+/* =========================================
+   WOLFPACK_HOME_MRS_WOLFIE_LISTENER_V1
+========================================= */
+
+function normalizeHomeMrsWolfieFight(id, fight) {
+
+  if (!fight || typeof fight !== "object") {
+    return null;
+  }
+
+  const status = String(
+    fight.status || "UPCOMING"
+  ).trim().toUpperCase();
+
+  if (
+    status !== "UPCOMING" &&
+    status !== "POSTPONED"
+  ) {
+    return null;
+  }
+
+  const opponent = String(
+    fight.opponent || "TBA"
+  ).trim() || "TBA";
+
+  const rawDate = String(
+    fight.date || fight.fightDate || ""
+  ).trim();
+
+  const dateIsTBA =
+    !rawDate ||
+    rawDate.toUpperCase() === "TBA";
+
+  const parsedDate = dateIsTBA
+    ? NaN
+    : Date.parse(rawDate);
+
+  return {
+    ...fight,
+
+    id: "firestore-mrs-wolfie-" + id,
+    source: "mrsWolfieFights",
+
+    fighterId: "mrs-wolfie",
+    fighterName: "MRS WOLFIE",
+    team: "TEAM WOLFIE",
+
+    status: status,
+    opponent: opponent,
+
+    fightDate: dateIsTBA ? "" : rawDate,
+    date: dateIsTBA ? "" : rawDate,
+
+    displayDate: String(
+      fight.displayDate ||
+      (dateIsTBA ? "DATE TBA" : "")
+    ).trim(),
+
+    eventName: String(
+      fight.eventName ||
+      fight.event ||
+      fight.promotion ||
+      "FIGHT NIGHT"
+    ).trim(),
+
+    fightType: String(
+      fight.fightTitle ||
+      fight.fightType ||
+      fight.type ||
+      ""
+    ).trim(),
+
+    fighterImage: String(
+      fight.fighterImage || ""
+    ).trim(),
+
+    opponentImage: String(
+      fight.opponentImage || ""
+    ).trim(),
+
+    dateTimestamp: Number.isFinite(parsedDate)
+      ? parsedDate
+      : Number.MAX_SAFE_INTEGER
+  };
+}
+
+onSnapshot(
+  collection(sharedFightFirestore, "mrsWolfieFights"),
+
+  function(snapshot) {
+
+    const fights = [];
+
+    snapshot.forEach(function(document) {
+
+      const fight = normalizeHomeMrsWolfieFight(
+        document.id,
+        document.data()
+      );
+
+      if (fight) {
+        fights.push(fight);
+      }
+
+    });
+
+    latestSharedFights = fights;
+    sharedFightsLoaded = true;
+
+    updateHomepageFights();
+
+    console.info(
+      "Mrs Wolfie homepage fight records:",
+      fights.length
+    );
+  },
+
+  function(error) {
+
+    console.error(
+      "Mrs Wolfie homepage Firestore error:",
+      error
+    );
+
+    latestSharedFights = [];
+    sharedFightsLoaded = true;
+
+    updateHomepageFights();
+  }
+);
 
 /* =========================================
    HOME LIVE UPDATES
@@ -11351,7 +11559,6 @@ let official=null;
 let officialLookupComplete=false;
 
 try{
- try{
   // Only verified accounts can be checked for official membership.
   // Unverified accounts must never enter the public supporter directory.
   if(!user.emailVerified){

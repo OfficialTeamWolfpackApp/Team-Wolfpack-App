@@ -458,7 +458,7 @@
   border: 1px solid rgba(255, 92, 175, 0.55);
   box-shadow: 0 0 12px rgba(255, 92, 175, 0.15);
 }
-    
+
     .fight-result {
       display: inline-block;
       margin-top: 10px;
@@ -827,8 +827,8 @@ input:focus,select:focus,textarea:focus { border-color:var(--mw-ice); box-shadow
 
           <div class="field"><label for="resultMethod">RESULT / METHOD — OPTIONAL</label><input id="resultMethod" type="text" placeholder="e.g. Points, TKO, Decision"></div>
           <div class="field"><label for="fightTitle">FIGHT TYPE / TITLE — OPTIONAL</label><input id="fightTitle" type="text" placeholder="e.g. Ladies Super Middleweight Novice Title"></div>
-          <div class="field"><label for="fighterImageUpload">FIGHTER IMAGE — OPTIONAL</label><input id="fighterImageUpload" type="file" accept="image/jpeg,image/png,image/webp"><span class="field-help">Choose a JPG, PNG or WebP photo (maximum 8 MB).</span><img id="fighterImagePreview" class="image-preview" alt="Fighter preview" hidden></div>
-          <div class="field"><label for="opponentImageUpload">OPPONENT IMAGE — OPTIONAL</label><input id="opponentImageUpload" type="file" accept="image/jpeg,image/png,image/webp"><span class="field-help">Choose a JPG, PNG or WebP photo (maximum 8 MB).</span><img id="opponentImagePreview" class="image-preview" alt="Opponent preview" hidden></div>
+          <div class="field"><label for="fighterImageUpload">FIGHTER IMAGE — OPTIONAL</label><input id="fighterImageUpload" type="file" accept="image/jpeg,image/png,image/webp"><label class="field-help" style="display:block;margin-top:8px"><input id="removeFighterImage" type="checkbox"> Remove current fighter image</label><span class="field-help">Choose a JPG, PNG or WebP photo (maximum 8 MB).</span><img id="fighterImagePreview" class="image-preview" alt="Fighter preview" hidden></div>
+          <div class="field"><label for="opponentImageUpload">OPPONENT IMAGE — OPTIONAL</label><input id="opponentImageUpload" type="file" accept="image/jpeg,image/png,image/webp"><label class="field-help" style="display:block;margin-top:8px"><input id="removeOpponentImage" type="checkbox"> Remove current opponent image</label><span class="field-help">Choose a JPG, PNG or WebP photo (maximum 8 MB).</span><img id="opponentImagePreview" class="image-preview" alt="Opponent preview" hidden></div>
 
           <div class="field full">
             <label for="venue">VENUE</label>
@@ -840,7 +840,7 @@ input:focus,select:focus,textarea:focus { border-color:var(--mw-ice); box-shadow
               required
             >
           </div>
-          
+
 <!-- TICKET BOOKING LINK -->
 <div class="field full">
 
@@ -935,6 +935,13 @@ input:focus,select:focus,textarea:focus { border-color:var(--mw-ice); box-shadow
           >
             CANCEL EDIT
           </button>
+<button
+  type="button"
+  id="retryPrivateNoteButton"
+  hidden
+>
+  RETRY PRIVATE NOTE
+</button>
 
         </div>
 
@@ -1005,6 +1012,7 @@ import {
   addDoc,
   updateDoc,
   deleteDoc,
+  writeBatch,
   doc,
   getDoc,
   setDoc,
@@ -1014,7 +1022,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 
-import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
 
 const firebaseConfig = {
 
@@ -1136,8 +1144,8 @@ const venue =
   document.getElementById("venue");
 
  const ticketUrl =
-  document.getElementById("ticketUrl"); 
-  
+  document.getElementById("ticketUrl");
+
 const fightStatus =
   document.getElementById("fightStatus");
 
@@ -1149,6 +1157,31 @@ const resultMethod = document.getElementById("resultMethod");
 const fightTitle = document.getElementById("fightTitle");
 const fighterImageUpload = document.getElementById("fighterImageUpload");
 const opponentImageUpload = document.getElementById("opponentImageUpload");
+const removeFighterImage = document.getElementById("removeFighterImage");
+const removeOpponentImage = document.getElementById("removeOpponentImage");
+
+/* TEAM_WOLFPACK_STAGE_3U */
+
+function configureImageRemovalControls(fight = null) {
+
+    const controls = [
+        [removeFighterImage, Boolean(fight?.fighterImage)],
+        [removeOpponentImage, Boolean(fight?.opponentImage)]
+    ];
+
+    for (const [checkbox, hasImage] of controls) {
+
+        checkbox.checked = false;
+
+        checkbox.disabled = !hasImage;
+
+        checkbox.parentElement.style.display = hasImage ? "block" : "none";
+    }
+}
+
+configureImageRemovalControls();
+
+
 const fighterImagePreview = document.getElementById("fighterImagePreview");
 const opponentImagePreview = document.getElementById("opponentImagePreview");
 const selectedImages = [
@@ -1194,18 +1227,37 @@ selectedImages.forEach(([input, preview]) => {
   });
   preview.addEventListener("error", () => { preview.hidden = true; });
 });
-async function uploadFightPhoto(file, kind) {
+async function uploadFightPhoto(file, kind, uploadedReferences) {
   if (!file) return null;
+
   validatePhoto(file);
+
   if (!currentUser || !ADMINS[currentUser.uid]) {
     throw new Error("ADMIN ACCESS REQUIRED FOR IMAGE UPLOAD.");
   }
-  const extension = {"image/jpeg":"jpg","image/png":"png","image/webp":"webp"}[file.type];
+
+  const extension = {
+    "image/jpeg": "jpg",
+    "image/png": "png",
+    "image/webp": "webp"
+  }[file.type];
+
   const path = "fight-images/" + currentUser.uid + "-" + Date.now() +
-    "-" + Math.random().toString(36).slice(2,10) + "-mrs-wolfie-" + kind + "." + extension;
+    "-" + Math.random().toString(36).slice(2,10) +
+    "-mrs-wolfie-" + kind + "." + extension;
+
   const destination = storageRef(storage, path);
-  await uploadBytes(destination, file, {contentType:file.type});
-  return getDownloadURL(destination);
+
+  await uploadBytes(destination, file, {
+    contentType: file.type
+  });
+
+  uploadedReferences.push(destination);
+
+  return {
+    reference: destination,
+    url: await getDownloadURL(destination)
+  };
 }
 
 const notes =
@@ -1217,6 +1269,9 @@ const saveButton =
 const cancelEditButton =
   document.getElementById("cancelEditButton");
 
+const retryPrivateNoteButton =
+  document.getElementById("retryPrivateNoteButton");
+
 const formMessage =
   document.getElementById("formMessage");
 
@@ -1226,6 +1281,10 @@ const fightList =
 
 let currentUser = null;
 let editingId = null;
+let pendingSavedFightImages = null;
+let pendingPrivateNoteFightId = null;
+let fightSaveInProgress = false;
+let savedPublicFormSnapshot = null;
 let fights = [];
 let unsubscribeFights = null;
 let loadingPrivateNote = false;
@@ -1294,9 +1353,138 @@ function escapeHtml(value) {
 }
 
 
+function preserveSavedFightImages(publicData, fighterUpload, opponentUpload) {
+  if (fighterUpload) {
+    fighterImageUpload.value = "";
+    setImagePreview(fighterImagePreview, publicData.fighterImage || "");
+  }
+
+  if (opponentUpload) {
+    opponentImageUpload.value = "";
+    setImagePreview(opponentImagePreview, publicData.opponentImage || "");
+  }
+}
+let savedFightControlStates = null;
+
+function lockFightFormControls() {
+  if (savedFightControlStates !== null) {
+    return;
+  }
+
+  savedFightControlStates = [];
+
+  for (const element of Array.from(fightForm.elements)) {
+    if (!element) continue;
+
+    const type = String(element.type || "").toLowerCase();
+
+    if (
+      type === "submit" ||
+      type === "button" ||
+      type === "reset"
+    ) {
+      continue;
+    }
+
+    savedFightControlStates.push({
+      element: element,
+      disabled: element.disabled
+    });
+
+    element.disabled = true;
+  }
+}
+
+function unlockFightFormControls() {
+  if (savedFightControlStates === null) {
+    return;
+  }
+
+  const states = savedFightControlStates;
+
+  savedFightControlStates = null;
+
+  for (const state of states) {
+    state.element.disabled = state.disabled;
+  }
+
+  // Restore date controls according to the CURRENT TBA selection,
+  // not the disabled state captured before an asynchronous save.
+  syncFightDateTba();
+}
+function capturePublicFightForm() {
+  const values = [];
+
+  for (const element of Array.from(fightForm.elements)) {
+    if (!element || !element.id) {
+      continue;
+    }
+
+    if (element.id === "notes") {
+      continue;
+    }
+
+    const type = String(element.type || "").toLowerCase();
+
+    if (
+      type === "submit" ||
+      type === "button" ||
+      type === "reset"
+    ) {
+      continue;
+    }
+
+    if (type === "file") {
+      const files = Array.from(element.files || []);
+
+      values.push([
+        element.id,
+        "file",
+        files.map(function(file) {
+          return [
+            file.name,
+            file.size,
+            file.lastModified,
+            file.type
+          ];
+        })
+      ]);
+
+      continue;
+    }
+
+    if (type === "checkbox" || type === "radio") {
+      values.push([
+        element.id,
+        type,
+        Boolean(element.checked)
+      ]);
+
+      continue;
+    }
+
+    values.push([
+      element.id,
+      type,
+      String(element.value || "")
+    ]);
+  }
+
+  values.sort(function(a, b) {
+    return JSON.stringify(a).localeCompare(JSON.stringify(b));
+  });
+
+  return JSON.stringify(values);
+}
+
 function resetForm() {
+  configureImageRemovalControls();
 
   editingId = null;
+  pendingSavedFightImages = null;
+  pendingPrivateNoteFightId = null;
+  savedPublicFormSnapshot = null;
+  retryPrivateNoteButton.hidden = true;
   loadingPrivateNote = false;
 
   fightForm.reset();
@@ -1958,6 +2146,13 @@ function renderFights() {
 ========================================================= */
 
 async function editFight(id) {
+  if (fightSaveInProgress) {
+    showMessage(
+      "PLEASE WAIT UNTIL THE CURRENT FIGHT SAVE OR PRIVATE NOTE RETRY FINISHES BEFORE EDITING ANOTHER FIGHT.",
+      "error"
+    );
+    return;
+  }
 
   const fight =
     getFight(id);
@@ -1968,6 +2163,10 @@ async function editFight(id) {
 
 
   editingId = id;
+  pendingSavedFightImages = null;
+  pendingPrivateNoteFightId = null;
+  savedPublicFormSnapshot = null;
+  retryPrivateNoteButton.hidden = true;
 
   promotion.value =
     fight.promotion || "";
@@ -2003,6 +2202,7 @@ async function editFight(id) {
   opponentImageUpload.value = "";
   setImagePreview(fighterImagePreview, fight.fighterImage || "");
   setImagePreview(opponentImagePreview, fight.opponentImage || "");
+  configureImageRemovalControls(fight);
 
   fightStatus.value =
     fight.status || "UPCOMING";
@@ -2094,6 +2294,31 @@ async function setResult(id, result) {
 ========================================================= */
 
 async function cancelFight(id) {
+  const fight = getFight(id);
+
+  if (!fight) {
+    showMessage(
+      "FIGHT NOT FOUND. REFRESH AND TRY AGAIN.",
+      "error"
+    );
+    return;
+  }
+
+  if (String(fight.status || "").toUpperCase() === "COMPLETED") {
+    showMessage(
+      "A COMPLETED FIGHT CANNOT BE CANCELLED USING THE QUICK ACTION.",
+      "error"
+    );
+    return;
+  }
+
+  if (saveButton.disabled) {
+    showMessage(
+      "WAIT FOR THE CURRENT FIGHT SAVE TO FINISH.",
+      "error"
+    );
+    return;
+  }
 
   if (
     !confirm(
@@ -2140,49 +2365,77 @@ async function cancelFight(id) {
 ========================================================= */
 
 async function deleteFight(id) {
-
-  if (
-    !confirm(
-      "Permanently delete this fight and its private Admin Note?"
-    )
-  ) {
+  if (saveButton.disabled) {
+    showMessage(
+      "WAIT FOR THE CURRENT FIGHT SAVE TO FINISH.",
+      "error"
+    );
     return;
   }
 
+  const fight = getFight(id);
+
+  if (!fight) {
+    showMessage(
+      "FIGHT NOT FOUND. REFRESH AND TRY AGAIN.",
+      "error"
+    );
+    return;
+  }
+
+  const status = String(fight.status || "UPCOMING").toUpperCase();
+
+  const description = [
+    fight.event,
+    fight.opponent,
+    fight.date || "DATE TBA"
+  ].filter(Boolean).join(" - ");
+
+  const warning = ["COMPLETED", "POSTPONED", "CANCELLED"].includes(status)
+    ? "WARNING: This is a historical " + status +
+      " fight. Deleting it removes its public history.\n\n"
+    : "";
+
+  if (!confirm(
+    warning +
+    "Permanently delete " + description +
+    "?\n\nThe fight and its private Admin Note will be deleted together." +
+    "\nUploaded photographs will remain in Firebase Storage."
+  )) {
+    return;
+  }
 
   try {
+    const batch = writeBatch(db);
 
-    await deleteDoc(
-      doc(
-        db,
-        "mrsWolfieFightAdminNotes",
-        id
-      )
+    batch.delete(
+      doc(db, "mrsWolfieFightAdminNotes", id)
     );
 
-
-    await deleteDoc(
-      doc(
-        db,
-        "mrsWolfieFights",
-        id
-      )
+    batch.delete(
+      doc(db, "mrsWolfieFights", id)
     );
 
+    await batch.commit();
 
     if (editingId === id) {
       resetForm();
     }
 
+    showMessage(
+      "FIGHT AND PRIVATE ADMIN NOTE DELETED.",
+      "success"
+    );
   } catch (error) {
+    console.error("Delete fight:", error);
 
-    console.error(error);
-
-    alert(
-      "The fight could not be completely deleted."
+    showMessage(
+      "FIGHT DELETION FAILED. NO PARTIAL DELETION WAS COMMITTED.",
+      "error"
     );
   }
 }
+
 
 
 /* =========================================================
@@ -2284,6 +2537,14 @@ fightForm.addEventListener(
 
     e.preventDefault();
 
+    if (fightSaveInProgress) {
+      showMessage(
+        "A FIGHT SAVE OR PRIVATE NOTE RETRY IS ALREADY RUNNING.",
+        "error"
+      );
+      return;
+    }
+
     clearMessage();
 
 
@@ -2324,7 +2585,7 @@ fightForm.addEventListener(
       opponent:
         opponent.value
           .trim()
-          .toUpperCase(),
+          .toUpperCase() || "TBA",
 
       type:
         fightType.value,
@@ -2337,20 +2598,28 @@ fightForm.addEventListener(
 
       displayDate: dateTba.checked ? "TBA" : displayDate.value.trim(),
       dateTba: dateTba.checked,
-      fightAgreed: dateTba.checked,
+      fightAgreed: editingId ? (typeof getFight(editingId)?.fightAgreed === "boolean" ? getFight(editingId).fightAgreed : true) : true,
       method: resultMethod.value.trim(),
       fightTitle: fightTitle.value.trim(),
-      fighterImage: editingId ? (getFight(editingId)?.fighterImage || "") : "",
-      opponentImage: editingId ? (getFight(editingId)?.opponentImage || "") : "",
+      fighterImage: editingId
+        ? (pendingSavedFightImages && pendingSavedFightImages.id === editingId
+            ? pendingSavedFightImages.fighterImage
+            : (getFight(editingId)?.fighterImage || ""))
+        : "",
+      opponentImage: editingId
+        ? (pendingSavedFightImages && pendingSavedFightImages.id === editingId
+            ? pendingSavedFightImages.opponentImage
+            : (getFight(editingId)?.opponentImage || ""))
+        : "",
 
       venue:
         venue.value
           .trim()
           .toUpperCase(),
-      
+
      ticketUrl:
   ticketUrl.value.trim(),
-      
+
       status:
         fightStatus.value,
 
@@ -2383,18 +2652,83 @@ fightForm.addEventListener(
     }
 
 
-    if (
-      publicData.result &&
-      publicData.status !== "COMPLETED"
-    ) {
-
-      publicData.status =
-        "COMPLETED";
+    if (publicData.result && publicData.status !== "COMPLETED") {
+      showMessage(
+        "WIN, LOSS or DRAW can only be saved when STATUS is COMPLETED.",
+        "error"
+      );
+      return;
     }
 
 
-    const fighterFile = fighterImageUpload.files[0];
+        // Validate fight date range before uploading images.
+    if (publicData.dateEnd && !publicData.date) {
+      showMessage(
+        "SET A FIGHT DATE BEFORE ADDING AN END DATE.",
+        "error"
+      );
+      return;
+    }
+
+    if (
+      publicData.date &&
+      publicData.dateEnd &&
+      publicData.dateEnd < publicData.date
+    ) {
+      showMessage(
+        "THE END DATE CANNOT BE EARLIER THAN THE FIGHT DATE.",
+        "error"
+      );
+      return;
+    }
+const fighterFile = fighterImageUpload.files[0];
     const opponentFile = opponentImageUpload.files[0];
+
+        // Prevent contradictory image removal and replacement.
+    if (removeFighterImage.checked && fighterFile) {
+      showMessage(
+        "REMOVE THE FIGHTER IMAGE OR UPLOAD A REPLACEMENT, NOT BOTH.",
+        "error"
+      );
+      return;
+    }
+
+    if (removeOpponentImage.checked && opponentFile) {
+      showMessage(
+        "REMOVE THE OPPONENT IMAGE OR UPLOAD A REPLACEMENT, NOT BOTH.",
+        "error"
+      );
+      return;
+    }
+
+    if (removeFighterImage.checked) {
+      publicData.fighterImage = "";
+    }
+
+    if (removeOpponentImage.checked) {
+      publicData.opponentImage = "";
+    }
+const previousFight = editingId ? getFight(editingId) : null;
+    const previousOpponent = String(previousFight?.opponent || "TBA")
+      .trim().toUpperCase();
+
+    const opponentChanged = Boolean(previousFight) &&
+      previousOpponent !== publicData.opponent;
+
+    // Never retain a previous opponent's photograph for a new opponent.
+    if (publicData.opponent === "TBA") {
+      if (opponentFile) {
+        showMessage(
+          "REMOVE THE OPPONENT IMAGE BEFORE SAVING AN OPPONENT AS TBA.",
+          "error"
+        );
+        return;
+      }
+
+      publicData.opponentImage = "";
+    } else if (opponentChanged && !opponentFile) {
+      publicData.opponentImage = "";
+    }
     try {
       validatePhoto(fighterFile);
       validatePhoto(opponentFile);
@@ -2403,22 +2737,40 @@ fightForm.addEventListener(
       return;
     }
 
+    fightSaveInProgress = true;
+    const saveOperationFightId = editingId;
+    lockFightFormControls();
     saveButton.disabled = true;
+    retryPrivateNoteButton.disabled = true;
     saveButton.textContent = "SAVING / UPLOADING...";
 
+    let publicFightSaved = false;
+    let publicWriteAttempted = false;
+
+    const newlyUploadedImages = [];
+
     try {
-      const fighterURL = await uploadFightPhoto(fighterFile, "fighter");
-      const opponentURL = await uploadFightPhoto(opponentFile, "opponent");
-      if (fighterURL) publicData.fighterImage = fighterURL;
-      if (opponentURL) publicData.opponentImage = opponentURL;
+      const fighterUpload = await uploadFightPhoto(fighterFile, "fighter", newlyUploadedImages);
+
+      if (fighterUpload) {
+        publicData.fighterImage = fighterUpload.url;
+      }
+
+      const opponentUpload = await uploadFightPhoto(opponentFile, "opponent", newlyUploadedImages);
+
+      if (opponentUpload) {
+        publicData.opponentImage = opponentUpload.url;
+      }
 
       /* EDIT EXISTING */
 
-      if (editingId) {
+      if (saveOperationFightId) {
 
         const fightId =
-          editingId;
+          saveOperationFightId;
 
+
+        publicWriteAttempted = true;
 
         await updateDoc(
           doc(
@@ -2437,6 +2789,16 @@ fightForm.addEventListener(
           }
         );
 
+
+        publicFightSaved = true;
+
+        pendingSavedFightImages = {
+          id: fightId,
+          fighterImage: publicData.fighterImage,
+          opponentImage: publicData.opponentImage
+        };
+
+        preserveSavedFightImages(publicData, fighterUpload, opponentUpload);
 
         await savePrivateNote(
           fightId,
@@ -2465,6 +2827,8 @@ fightForm.addEventListener(
           currentUser.uid;
 
 
+        publicWriteAttempted = true;
+
         const newFight =
           await addDoc(
             fightsCollection,
@@ -2472,7 +2836,20 @@ fightForm.addEventListener(
           );
 
 
-        if (privateNote) {
+
+        // Retry a failed private note against the existing fight.
+        publicFightSaved = true;
+        editingId = newFight.id;
+
+        pendingSavedFightImages = {
+          id: newFight.id,
+          fighterImage: publicData.fighterImage,
+          opponentImage: publicData.opponentImage
+        };
+
+        preserveSavedFightImages(publicData, fighterUpload, opponentUpload);
+
+if (privateNote) {
 
           await savePrivateNote(
             newFight.id,
@@ -2494,19 +2871,59 @@ fightForm.addEventListener(
 
     } catch (error) {
 
-      console.error(
-        "Save fight:",
-        error
-      );
+      console.error("Save fight:", error);
 
+      if (!publicWriteAttempted && newlyUploadedImages.length > 0) {
 
-      showMessage(
-        "FIGHT OR PRIVATE NOTE COULD NOT BE SAVED. CHECK FIRESTORE PERMISSIONS.",
-        "error"
-      );
+        const cleanupResults = await Promise.allSettled(
+          newlyUploadedImages.map(function(reference) {
+            return deleteObject(reference);
+          })
+        );
+
+        const cleanupFailed = cleanupResults.some(function(result) {
+          return result.status === "rejected";
+        });
+
+        showMessage(
+          cleanupFailed
+            ? "FIGHT SAVE FAILED. SOME NEW IMAGES COULD NOT BE REMOVED."
+            : "FIGHT SAVE FAILED. NEWLY UPLOADED IMAGES REMOVED.",
+          "error"
+        );
+
+      } else if (publicFightSaved) {
+
+        pendingPrivateNoteFightId =
+          saveOperationFightId || editingId;
+        savedPublicFormSnapshot = capturePublicFightForm();
+        retryPrivateNoteButton.hidden = false;
+
+        showMessage(
+          "FIGHT DETAILS SAVED, BUT PRIVATE ADMIN NOTE FAILED. USE RETRY PRIVATE NOTE TO RETRY WITHOUT UPDATING THE PUBLIC FIGHT.",
+          "error"
+        );
+
+      } else if (publicWriteAttempted) {
+
+        showMessage(
+          "FIGHT SAVE RESULT IS UNCERTAIN. CHECK THE FIGHT LIST BEFORE RETRYING. UPLOADED IMAGES WERE RETAINED.",
+          "error"
+        );
+
+      } else {
+
+        showMessage(
+          "FIGHT COULD NOT BE SAVED. CHECK IMAGE UPLOAD OR FIRESTORE PERMISSIONS.",
+          "error"
+        );
+      }
     }
 
 
+    fightSaveInProgress = false;
+    unlockFightFormControls();
+    retryPrivateNoteButton.disabled = false;
     saveButton.disabled = false;
     saveButton.textContent = editingId ? "SAVE CHANGES" : "ADD FIGHT";
   }
@@ -2514,12 +2931,95 @@ fightForm.addEventListener(
 
 
 /* =========================================================
+   RETRY PRIVATE ADMIN NOTE ONLY
+========================================================= */
+
+retryPrivateNoteButton.addEventListener(
+  "click",
+  async function() {
+
+    if (
+      !currentUser ||
+      !pendingPrivateNoteFightId ||
+      editingId !== pendingPrivateNoteFightId ||
+      loadingPrivateNote ||
+      fightSaveInProgress ||
+      saveButton.disabled
+    ) {
+      showMessage(
+        "PRIVATE NOTE RETRY IS NOT AVAILABLE.",
+        "error"
+      );
+      return;
+    }
+
+    const fightId = pendingPrivateNoteFightId;
+    const privateNote = notes.value.trim();
+
+    if (
+      savedPublicFormSnapshot !== null &&
+      capturePublicFightForm() !== savedPublicFormSnapshot
+    ) {
+      const discardChanges = window.confirm(
+        "YOU HAVE UNSAVED FIGHT DETAILS. RETRYING THE PRIVATE NOTE WILL DISCARD THOSE CHANGES. CONTINUE?"
+      );
+
+      if (!discardChanges) {
+        return;
+      }
+    }
+
+    fightSaveInProgress = true;
+    lockFightFormControls();
+    retryPrivateNoteButton.disabled = true;
+    saveButton.disabled = true;
+    retryPrivateNoteButton.textContent = "RETRYING PRIVATE NOTE...";
+
+    try {
+
+      await savePrivateNote(fightId, privateNote);
+
+      resetForm();
+
+      showMessage(
+        "PRIVATE ADMIN NOTE SAVED. PUBLIC FIGHT DETAILS WERE NOT CHANGED.",
+        "success"
+      );
+
+    } catch (error) {
+
+      console.error("Retry private admin note:", error);
+
+      showMessage(
+        "PRIVATE ADMIN NOTE RETRY FAILED. PUBLIC FIGHT DETAILS WERE NOT CHANGED.",
+        "error"
+      );
+
+    } finally {
+
+      fightSaveInProgress = false;
+      unlockFightFormControls();
+      retryPrivateNoteButton.disabled = false;
+      retryPrivateNoteButton.textContent = "RETRY PRIVATE NOTE";
+      saveButton.disabled = false;
+    }
+  }
+);
+/* =========================================================
    CANCEL EDIT
 ========================================================= */
 
 cancelEditButton.addEventListener(
   "click",
   function() {
+
+    if (fightSaveInProgress) {
+      showMessage(
+        "PLEASE WAIT UNTIL THE CURRENT FIGHT SAVE OR PRIVATE NOTE RETRY FINISHES BEFORE CANCELLING.",
+        "error"
+      );
+      return;
+    }
 
     resetForm();
   }
