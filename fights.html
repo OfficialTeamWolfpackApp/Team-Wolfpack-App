@@ -3393,6 +3393,22 @@ function normalizeMrsWolfieFight(id, fight) {
       : Number.MAX_SAFE_INTEGER
   };
 }
+/* STAGE_5Y: Firestore takes precedence for the same fight.
+ * Only deduplicate when opponent AND confirmed date match; preserve unknown-date fights. */
+function wolfpackSharedFightKey(f) {
+  const fighter = String(f.fighterId || f.fighterName || "").trim().toLowerCase();
+  const opponent = String(f.opponent || f.opponentName || "").trim().toLowerCase().replace(/\s+/g, " ");
+  const date = String(f.fightDate || f.date || "").trim();
+  if (!fighter || !opponent || !date || /^(tba|date tba)$/i.test(date)) return null;
+  return fighter + "|" + opponent + "|" + date.slice(0, 10);
+}
+function mergeWolfpackFightEntries(realtime, firestore) {
+  const firestoreKeys = new Set(firestore.map(wolfpackSharedFightKey).filter(Boolean));
+  return realtime.filter(f => {
+    const key = wolfpackSharedFightKey(f);
+    return !key || !firestoreKeys.has(key);
+  }).concat(firestore);
+}
 /* WOLFPACK_MRS_WOLFIE_FIRESTORE_ONLY_V1 */
 
 function getCombinedFightData() {
@@ -3408,7 +3424,7 @@ function getCombinedFightData() {
   const realtimeEntries =
     realtimeFights.filter(function(fight) {
 
-      return !isMrsWolfieFight(fight);
+      return true; // Retain existing RTDB fights until migrated.
 
     });
 
@@ -3417,9 +3433,7 @@ function getCombinedFightData() {
       ? firestoreFights
       : [];
 
-  return realtimeEntries.concat(
-    firestoreEntries
-  );
+  return mergeWolfpackFightEntries(realtimeEntries, firestoreEntries);
 }
 
 function getSharedFightStatus() {
@@ -3453,7 +3467,12 @@ function renderSharedFights() {
       .toUpperCase() === "UPCOMING";
   });
 
+  const firestorePostponedOpponents = new Set(firestoreFights
+    .filter(f => String(f.status || "").trim().toUpperCase() === "POSTPONED")
+    .map(f => String(f.opponent || "").trim().toLowerCase()));
   const postponed = shared.filter(function(fight) {
+    if (fight.source !== "mrsWolfieFights" && isMrsWolfieFight(fight) &&
+        firestorePostponedOpponents.has(String(fight.opponent || "").trim().toLowerCase())) return false;
     return String(fight.status || "")
       .trim()
       .toUpperCase() === "POSTPONED";
