@@ -7464,6 +7464,17 @@ span:last-child{
 .wolf-member-actions{display:flex;flex-wrap:wrap;gap:10px}
 .wolf-member-actions a{display:inline-block;flex:1 1 150px;text-align:center;text-decoration:none;color:white;font-size:13px;font-weight:800;padding:12px 10px;border-radius:10px;border:1px solid #43c8ff;background:rgba(0,160,245,.17)}
 .wolf-member-actions a:last-child{border-color:#ff8c43;background:rgba(255,110,0,.13)}
+
+/* Shared Mrs Wolfie postponed-fight display */
+.wolfie-postponed-section{margin:24px 0}
+.wolfie-postponed-section[hidden]{display:none!important}
+.wolfie-postponed-title{color:#ff9b59;font-size:14px;font-weight:900;letter-spacing:1.4px;margin-bottom:12px}
+.wolfie-postponed-list{display:grid;gap:12px}
+.wolfie-postponed-card{padding:17px;border:1px solid rgba(255,112,28,.42);border-left:3px solid #45d8ff;border-right:3px solid #ff701c;border-radius:14px;background:linear-gradient(100deg,rgba(0,150,210,.12),#090909 48%,rgba(255,90,0,.13));box-shadow:0 8px 22px rgba(0,0,0,.3)}
+.wolfie-postponed-badge{color:#ff9b59;font-size:10px;font-weight:900;letter-spacing:1.2px}
+.wolfie-postponed-name{font-size:16px;font-weight:900;margin:8px 0;color:white}
+.wolfie-postponed-meta{font-size:11px;color:#d0d0d0;line-height:1.6;white-space:pre-line}
+
 </style>
 
 </head>
@@ -8120,6 +8131,12 @@ SUPER MIDDLEWEIGHT TITLE
 </div>
 
 
+<!-- MRS WOLFIE POSTPONED FIGHTS: between Next Up and Quick Access -->
+<section id="wolfiePostponedSection" class="wolfie-postponed-section" hidden aria-label="Mrs Wolfie postponed fights">
+  <h2 class="wolfie-postponed-title">POSTPONED FIGHTS</h2>
+  <div id="wolfiePostponedList" class="wolfie-postponed-list" aria-live="polite"></div>
+</section>
+
 <!-- QUICK ACCESS -->
 
 <section class="quick-access-card">
@@ -8706,6 +8723,14 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 import {
+  getFirestore,
+  collection,
+  query as firestoreQuery,
+  where,
+  onSnapshot
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+import {
   getDatabase,
   ref,
   onValue,
@@ -8759,6 +8784,74 @@ const auth =
 
 const database =
   getDatabase(firebaseApp);
+
+/* Read-only shared Firestore listener. Private drafts and notes are never queried. */
+const wolfiePostponedSection = document.getElementById("wolfiePostponedSection");
+const wolfiePostponedList = document.getElementById("wolfiePostponedList");
+const wolfieFirestore = getFirestore(firebaseApp);
+
+function renderWolfiePostponedFights(fights) {
+  if (!wolfiePostponedSection || !wolfiePostponedList) return;
+  wolfiePostponedList.replaceChildren();
+  wolfiePostponedSection.hidden = !fights.length;
+  for (const fight of fights) {
+    const card = document.createElement("article");
+    card.className = "wolfie-postponed-card";
+    const badge = document.createElement("div");
+    badge.className = "wolfie-postponed-badge";
+    badge.textContent = "POSTPONED";
+    const name = document.createElement("div");
+    name.className = "wolfie-postponed-name";
+    name.textContent = "MRS WOLFIE VS " + String(fight.opponent || "TBA");
+    const meta = document.createElement("div");
+    meta.className = "wolfie-postponed-meta";
+    const displayDate = String(fight.displayDate || fight.date || "DATE TBA");
+    meta.textContent = [displayDate, fight.event || fight.title || "EVENT TBA", fight.venue || "VENUE TBA"].join(" • ");
+    card.append(badge, name, meta);
+    wolfiePostponedList.append(card);
+  }
+}
+
+// Shared public collection only. Never query private drafts or admin notes.
+let latestWolfiePublicFights = [];
+let wolfiePublicLoaded = false;
+function isPublicWolfieFight(fight) {
+  const status = String(fight.status || "").trim().toUpperCase();
+  return !["DRAFT", "PRIVATE", "UNPUBLISHED"].includes(status) &&
+    fight.published === true && fight.isPublished !== false &&
+    String(fight.visibility || "").toLowerCase() !== "private";
+}
+onSnapshot(
+  firestoreQuery(collection(wolfieFirestore, "mrsWolfieFights"), where("published", "==", true)),
+  (snapshot) => {
+    const publicFights = [];
+    snapshot.forEach((documentSnapshot) => {
+      const fight = documentSnapshot.data();
+      if (isPublicWolfieFight(fight)) {
+        publicFights.push({ ...fight, id: documentSnapshot.id,
+          fighterId: "mrs-wolfie", fighterName: "MRS WOLFIE",
+          fighterTeam: "TEAM WOLFIE" });
+      }
+    });
+    latestWolfiePublicFights = publicFights;
+    wolfiePublicLoaded = true;
+    const postponed = publicFights.filter(f =>
+      String(f.status || "").trim().toUpperCase() === "POSTPONED"
+    );
+    postponed.sort((x, y) => String(y.date || "").localeCompare(String(x.date || "")));
+    renderWolfiePostponedFights(postponed);
+    updateHomepageFights();
+  },
+  (error) => {
+    console.error("Mrs Wolfie public fights unavailable:", error);
+    // Preserve RTDB fallback; do not incorrectly hide existing upcoming fights.
+    latestWolfiePublicFights = [];
+    wolfiePublicLoaded = false;
+    renderWolfiePostponedFights([]);
+    updateHomepageFights();
+  }
+);
+
 
   /* =========================================
    TEAM WOLFPACK — LIKE SYSTEM
@@ -9460,6 +9553,10 @@ function opponentImage(f){
     return "colleen-leyden.jpg";
   }
 
+  if (!opponent || opponent === "tba" || opponent === "to be announced") {
+    return "images/female-fighter-tba.png";
+  }
+
   return (
     f.opponentImage ||
     (f.images && (
@@ -10027,7 +10124,22 @@ function updateHomepageFights() {
     return;
   }
 
-  const visibleFights = latestFights.filter(function(f) {
+  // Firestore is authoritative for Mrs Wolfie once its public snapshot loads.
+  // Suppress legacy RTDB Mrs Wolfie entries to prevent stale postponed fights
+  // or duplicates appearing as upcoming on the homepage.
+  const mergedFights = latestFights.filter(function(f) {
+    return !(wolfiePublicLoaded && getFightFighterId(f) === "mrs-wolfie");
+  });
+  if (wolfiePublicLoaded) {
+    for (const fight of latestWolfiePublicFights) {
+      if (String(fight.status || "").trim().toUpperCase() === "UPCOMING") {
+        mergedFights.push(fight);
+      }
+    }
+  }
+  mergedFights.sort((a, b) => fightTime(a) - fightTime(b));
+
+  const visibleFights = mergedFights.filter(function(f) {
 
     const fighterId = getFightFighterId(f);
 
@@ -11289,7 +11401,6 @@ onAuthStateChanged(memberAuth,async user=>{
 let official=null;
 let officialLookupComplete=false;
 
-try{
  try{
   // Only verified accounts can be checked for official membership.
   // Unverified accounts must never enter the public supporter directory.
