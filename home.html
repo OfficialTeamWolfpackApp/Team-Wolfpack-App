@@ -10165,6 +10165,9 @@ function updateHomepageFights() {
    */
 
   const wolfpackUpcoming = latestFights.filter(function(f) {
+    // Mrs Wolfie's announced fights are managed exclusively in Firestore.
+    // Never resurrect stale RTDB fights when their opponent or date changes.
+    if (getFightFighterId(f) === "mrs-wolfie") return false;
     return String(f.status || "").trim().toUpperCase() === "UPCOMING";
   });
 
