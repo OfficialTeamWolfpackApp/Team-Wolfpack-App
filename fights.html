@@ -2540,6 +2540,8 @@ import {
 import {
   getFirestore,
   collection,
+  query,
+  where,
   onSnapshot as onFirestoreSnapshot
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
@@ -3296,7 +3298,9 @@ function isMrsWolfieFight(fight) {
 
   return (
     fighterId === "mrs-wolfie" ||
-    fighterName === "mrs wolfie"
+    fighterId === "zoey-james" ||
+    fighterName === "mrs wolfie" ||
+    fighterName === "zoey james"
   );
 }
 
@@ -3424,7 +3428,10 @@ function getCombinedFightData() {
   const realtimeEntries =
     realtimeFights.filter(function(fight) {
 
-      return true; // Retain existing RTDB fights until migrated.
+      // Mrs Wolfie's published Firestore fights are authoritative.
+      // Exclude every legacy Mrs Wolfie RTDB entry, including fights
+      // whose opponent or date has since changed.
+      return !isMrsWolfieFight(fight);
 
     });
 
@@ -3587,7 +3594,7 @@ onValue(
    ========================================= */
 
 onFirestoreSnapshot(
-  collection(firestore, "mrsWolfieFights"),
+  query(collection(firestore, "mrsWolfieFights"), where("published", "==", true)),
 
   function(snapshot) {
 
