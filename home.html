@@ -10091,10 +10091,11 @@ function getFightFighterId(f) {
     .trim()
     .toLowerCase();
 
-  if (
-    id === "mrs-wolfie" ||
-    id === "greig-sloan"
-  ) {
+  if (id === "mrs-wolfie" || id === "zoey-james") {
+    return "mrs-wolfie";
+  }
+
+  if (id === "greig-sloan") {
     return id;
   }
 
