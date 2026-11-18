@@ -1695,6 +1695,10 @@ async function sendFightNotification(
       "FIGHT RESULT";
   }
 
+  if (notificationType === "FIGHT_POSTPONED") {
+    notificationName = "FIGHT POSTPONEMENT";
+  }
+
   if (notificationType === "FIGHT_CANCELLED") {
     notificationName =
       "FIGHT CANCELLATION";
@@ -1810,6 +1814,19 @@ async function sendFightNotification(
 
     let message =
       "THE FIGHT NOTIFICATION COULD NOT BE SENT.";
+
+    if (error.message === "NOTIFICATION_ALREADY_RESERVED") {
+      message = "THIS NOTIFICATION IS ALREADY RESERVED FOR THIS FIGHT REVISION. CHECK DISPATCH HISTORY; DO NOT RESEND.";
+    }
+    if (error.message === "FIGHT_NOT_POSTPONED") {
+      message = "A POSTPONEMENT NOTIFICATION REQUIRES A POSTPONED FIGHT.";
+    }
+    if (error.message === "FIGHT_POSTPONED") {
+      message = "AN UPDATE NOTIFICATION CANNOT BE SENT FOR A POSTPONED FIGHT.";
+    }
+    if (error.message === "DISPATCH_OUTCOME_UNKNOWN") {
+      message = "DELIVERY OUTCOME IS UNKNOWN. CHECK THE DISPATCH RECORD BEFORE RETRYING.";
+    }
 
 
     if (
@@ -1940,7 +1957,8 @@ function renderFights() {
 
 
       const canSendUpdate =
-        fight.status !== "CANCELLED";
+        fight.status !== "CANCELLED" &&
+        fight.status !== "POSTPONED";
 
 
       const canSendResult =
@@ -1952,6 +1970,9 @@ function renderFights() {
 
       const canSendCancellation =
         fight.status === "CANCELLED";
+
+      const canSendPostponement =
+        fight.status === "POSTPONED";
 
 
       card.innerHTML = `
@@ -2128,6 +2149,15 @@ function renderFights() {
                   SEND CANCELLATION
                 </button>
               `
+              : ""
+          }
+
+          ${
+            canSendPostponement
+              ? `<button class="small-button notify" type="button"
+                  data-action="notify-postponed" data-id="${fight.id}">
+                  SEND POSTPONEMENT
+                </button>`
               : ""
           }
 
@@ -2523,7 +2553,11 @@ fightList.addEventListener(
         button
       );
     }
-  }
+
+
+    if (action === "notify-postponed") {
+      sendFightNotification(id, "FIGHT_POSTPONED", button);
+    }  }
 );
 
 
