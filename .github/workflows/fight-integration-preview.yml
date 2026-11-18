@@ -20,8 +20,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          test -f home.html || { echo 'Missing home.html'; exit 1; }
           mkdir -p "$RUNNER_TEMP/preview-site"
-          rsync -a --exclude='.git/' --exclude='.github/' --exclude='node_modules/' --exclude='.env*' --exclude='*serviceAccount*' --exclude='*private-key*' ./ "$RUNNER_TEMP/preview-site/"
+          rsync -a --exclude='CNAME' --exclude='.git/' --exclude='.github/' --exclude='node_modules/' --exclude='.env*' --exclude='*serviceAccount*' --exclude='*private-key*' ./ "$RUNNER_TEMP/preview-site/"
           cd "$RUNNER_TEMP/preview-site"
           zip -qr "$GITHUB_WORKSPACE/preview-site.zip" .
       - uses: actions/upload-artifact@v4
