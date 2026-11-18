@@ -2540,6 +2540,8 @@ import {
 import {
   getFirestore,
   collection,
+  query,
+  where,
   onSnapshot as onFirestoreSnapshot
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
@@ -3592,7 +3594,7 @@ onValue(
    ========================================= */
 
 onFirestoreSnapshot(
-  collection(firestore, "mrsWolfieFights"),
+  query(collection(firestore, "mrsWolfieFights"), where("published", "==", true)),
 
   function(snapshot) {
 
