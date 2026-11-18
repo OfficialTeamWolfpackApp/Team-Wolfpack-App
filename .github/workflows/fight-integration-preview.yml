@@ -1,0 +1,31 @@
+name: Build isolated fight integration preview
+on:
+  push:
+    branches:
+      - preview/mrs-wolfie-fight-integration
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  preview-artifact:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check JavaScript syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -f fight-data.js ]; then node --check fight-data.js; fi
+      - name: Package static preview (no Pages deployment)
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/preview-site"
+          rsync -a --exclude='.git/' --exclude='.github/' --exclude='node_modules/' --exclude='.env*' --exclude='*serviceAccount*' --exclude='*private-key*' ./ "$RUNNER_TEMP/preview-site/"
+          cd "$RUNNER_TEMP/preview-site"
+          zip -qr "$GITHUB_WORKSPACE/preview-site.zip" .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fight-integration-preview
+          path: preview-site.zip
+          retention-days: 7
