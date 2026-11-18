@@ -8754,7 +8754,7 @@ import {
   getFirestore,
   collection,
   onSnapshot,
-  query, where
+  query as firestoreQuery, where
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 import {
@@ -10351,7 +10351,7 @@ function normalizeHomeMrsWolfieFight(id, fight) {
   };
 }
 
-onSnapshot(query(collection(sharedFightFirestore, "mrsWolfieFights"), where("published", "==", true)),
+onSnapshot(firestoreQuery(collection(sharedFightFirestore, "mrsWolfieFights"), where("published", "==", true)),
 
   function(snapshot) {
 
