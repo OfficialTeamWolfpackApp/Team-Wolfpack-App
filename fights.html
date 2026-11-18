@@ -3424,7 +3424,10 @@ function getCombinedFightData() {
   const realtimeEntries =
     realtimeFights.filter(function(fight) {
 
-      return true; // Retain existing RTDB fights until migrated.
+      // Mrs Wolfie's published Firestore fights are authoritative.
+      // Exclude every legacy Mrs Wolfie RTDB entry, including fights
+      // whose opponent or date has since changed.
+      return !isMrsWolfieFight(fight);
 
     });
 
