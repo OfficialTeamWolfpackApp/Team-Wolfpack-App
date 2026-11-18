@@ -649,6 +649,7 @@ input:focus,select:focus,textarea:focus { border-color:var(--mw-ice); box-shadow
 }
 
   </style>
+  <link rel="stylesheet" href="admin-mrs-wolfie-fights-refresh.css">
 </head>
 
 <body>
@@ -827,8 +828,27 @@ input:focus,select:focus,textarea:focus { border-color:var(--mw-ice); box-shadow
 
           <div class="field"><label for="resultMethod">RESULT / METHOD — OPTIONAL</label><input id="resultMethod" type="text" placeholder="e.g. Points, TKO, Decision"></div>
           <div class="field"><label for="fightTitle">FIGHT TYPE / TITLE — OPTIONAL</label><input id="fightTitle" type="text" placeholder="e.g. Ladies Super Middleweight Novice Title"></div>
-          <div class="field"><label for="fighterImageUpload">FIGHTER IMAGE — OPTIONAL</label><input id="fighterImageUpload" type="file" accept="image/jpeg,image/png,image/webp"><label class="field-help" style="display:block;margin-top:8px"><input id="removeFighterImage" type="checkbox"> Remove current fighter image</label><span class="field-help">Choose a JPG, PNG or WebP photo (maximum 8 MB).</span><img id="fighterImagePreview" class="image-preview" alt="Fighter preview" hidden></div>
-          <div class="field"><label for="opponentImageUpload">OPPONENT IMAGE — OPTIONAL</label><input id="opponentImageUpload" type="file" accept="image/jpeg,image/png,image/webp"><label class="field-help" style="display:block;margin-top:8px"><input id="removeOpponentImage" type="checkbox"> Remove current opponent image</label><span class="field-help">Choose a JPG, PNG or WebP photo (maximum 8 MB).</span><img id="opponentImagePreview" class="image-preview" alt="Opponent preview" hidden></div>
+          <section class="mw-media field full" aria-labelledby="mwMediaHeading">
+            <div class="mw-media-header">
+              <div><h3 id="mwMediaHeading">Fight photographs</h3><p>Manage the images displayed with this fight.</p></div>
+              <span class="mw-media-format">JPG · PNG · WebP · Maximum 8 MB each</span>
+            </div>
+            <div class="mw-media-grid">
+              <div class="mw-media-card field">
+                <label for="fighterImageUpload">MRS WOLFIE / FIGHTER IMAGE</label>
+                <input id="fighterImageUpload" type="file" accept="image/jpeg,image/png,image/webp">
+                <img id="fighterImagePreview" class="image-preview" alt="Fighter preview" hidden>
+                <label class="mw-image-remove field-help"><input id="removeFighterImage" type="checkbox"> Remove current fighter image</label>
+              </div>
+              <div class="mw-media-card field">
+                <label for="opponentImageUpload">OPPONENT IMAGE</label>
+                <input id="opponentImageUpload" type="file" accept="image/jpeg,image/png,image/webp">
+                <img id="opponentImagePreview" class="image-preview" alt="Opponent preview" hidden>
+                <label class="mw-image-remove field-help"><input id="removeOpponentImage" type="checkbox"> Remove current opponent image</label>
+              </div>
+            </div>
+            <p class="mw-media-footnote">Image changes apply to this fight. Previously uploaded photographs may still be used by other fights.</p>
+          </section>
 
           <div class="field full">
             <label for="venue">VENUE</label>
