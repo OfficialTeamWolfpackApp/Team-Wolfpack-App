@@ -7475,6 +7475,7 @@ span:last-child{
 .wolf-member-actions a:last-child{border-color:#ff8c43;background:rgba(255,110,0,.13)}
 </style>
 
+<link rel="stylesheet" href="wolfpack-home-countdown.css">
 </head>
 
 <body>
@@ -7940,6 +7941,19 @@ ADMIN
 
 </section>
 
+<!-- Live countdown follows the same selected fight as the Next Fight card. -->
+<section id="wolfpackCountdown" class="wolfpack-countdown" aria-label="Countdown to the next fight" hidden>
+  <div class="wolfpack-countdown-eyebrow">ONE PACK · ONE PURPOSE</div>
+  <h2>COUNTDOWN TO FIGHT NIGHT</h2>
+  <p id="wolfpackCountdownFight" class="wolfpack-countdown-fight"></p>
+  <div class="wolfpack-countdown-units" role="timer" aria-label="Time until next fight">
+    <div><strong id="wolfpackCountdownDays">00</strong><span>DAYS</span></div>
+    <div><strong id="wolfpackCountdownHours">00</strong><span>HOURS</span></div>
+    <div><strong id="wolfpackCountdownMinutes">00</strong><span>MINUTES</span></div>
+    <div><strong id="wolfpackCountdownSeconds">00</strong><span>SECONDS</span></div>
+  </div>
+  <p id="wolfpackCountdownNote" class="wolfpack-countdown-note"></p>
+</section>
 <!-- END THREE-CARD CHAMPIONSHIP NEXT FIGHT -->
 
 <!-- =========================================
@@ -9525,6 +9539,7 @@ function opponentImage(f){
   );
 }
 function renderNextFight(f){
+  if(window.wolfpackSetCountdownFight) window.wolfpackSetCountdownFight(f);
 
   const nextFightCard =
     document.getElementById("nextFightCard");
@@ -11671,5 +11686,6 @@ if(slug&&Object.prototype.hasOwnProperty.call(officialWelcomeMembers,slug)){
  try{await user.reload();await user.getIdToken(true);if(!stillHere()||!user.emailVerified)return;const privateSnap=await get(ref(memberDb,"supporterProfiles/"+user.uid));const name=String(privateSnap.val()?.name||user.displayName||"").trim();if(name.length<2||name.length>40)return;const publicRef=ref(memberDb,"publicSupporterProfiles/"+user.uid);const existing=await get(publicRef);if(!stillHere())return;if(!existing.exists())await set(publicRef,{name,joinedAt:serverTimestamp()});else if(existing.val()?.name!==name)await update(publicRef,{name});}catch(e){console.warn("Member directory sync:",e)}
 });
 </script>
+<script src="wolfpack-home-countdown.js" defer></script>
 </body>
 </html>
